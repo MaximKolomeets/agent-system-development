@@ -5,5 +5,5 @@
 3. После проверки перенести `developer` в `main`.
 4. Создать локальные worktree.
 5. Подготовить PR-1d: local worktree setup verification.
-6. Подготовить PR-6a для переноса утвержденной структуры в `CORP_KNOWLEDGE_PLATFORM`.
-7. Для `CORP_KNOWLEDGE_PLATFORM` отдельно решить вопрос private rulesets: ручной workflow, Pro, Team или Organization.
+6. Позже подготовить prompt переноса/адаптации структуры в целевой приватный репозиторий.
+7. Для private downstream repository отдельно решить вопрос private rulesets: ручной workflow, Pro, Team или Organization.

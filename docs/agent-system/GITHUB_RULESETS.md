@@ -47,4 +47,4 @@
 
 - Rulesets доступны для public repositories на GitHub Free.
 - Для private repositories могут потребоваться GitHub Pro/Team/Enterprise.
-- Поэтому `CORP_KNOWLEDGE_PLATFORM`, если останется private, может потребовать ручной процессный контроль или платный тариф/organization.
+- Поэтому private implementation repository может потребовать ручной процессный контроль или платный тариф/organization.

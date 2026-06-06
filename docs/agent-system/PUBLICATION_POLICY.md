@@ -29,11 +29,11 @@
 - дампы баз;
 - рабочие директории `data/`, `runtime/`, `dist/`, `backups/`, `exports/`;
 - приватные логи;
-- материалы `CORP_KNOWLEDGE_PLATFORM`, если они содержат внутреннюю архитектуру или данные.
+- материалы private downstream repository, если они содержат внутреннюю архитектуру или данные.
 
-## Private corporate repositories
+## Private implementation repositories
 
-`CORP_KNOWLEDGE_PLATFORM` должен оставаться private.
+Private downstream repository должен рассматриваться как отдельный private implementation repository.
 
 Для private repository на GitHub Free часть rulesets/branch protection может быть ограничена.
 
@@ -43,6 +43,18 @@
 2. GitHub Pro.
 3. GitHub Team/Organization.
 4. Отдельный public шаблон без корпоративных данных.
+
+## No external project names
+
+- Не упоминать конкретные внешние проекты.
+- Не упоминать клиентские проекты.
+- Не упоминать приватные downstream repositories по имени.
+- Не упоминать внутренние кодовые имена.
+- Для примеров использовать только нейтральные обозначения:
+  - `target implementation repository`;
+  - `private downstream repository`;
+  - `private implementation repository`;
+  - `example project`.
 
 ## Before making any repository public
 

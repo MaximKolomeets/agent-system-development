@@ -8,7 +8,7 @@
 - Проверить, что нет `.venv/`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.
 - Проверить, что нет credentials/tokens/passwords.
 - Проверить, что PR не добавляет реальные секреты.
-- Проверить, что PR не добавляет внутренние данные `CORP_KNOWLEDGE_PLATFORM`.
+- Проверить, что PR не добавляет внутренние данные target implementation repository.
 - Проверить, что изменения подходят для public repository.
 - Проверить, что base branch выбран правильно:
   - work branch -> developer;

@@ -5,5 +5,5 @@
 - Create local worktrees.
 - Add CI forbidden files check.
 - Add pre-push hook.
-- Prepare CORP_KNOWLEDGE_PLATFORM PR-6a transfer prompt.
+- Prepare private downstream repository transfer/adaptation prompt.
 - Подготовить checklists для агентов.

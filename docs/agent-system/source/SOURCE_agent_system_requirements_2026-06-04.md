@@ -14,4 +14,4 @@
   - `qa-reviewer-01`;
   - `security-reviewer-01`;
   - `docs-maintainer-01`.
-- Перенос утвержденной структуры в CORP_KNOWLEDGE_PLATFORM позже отдельной задачей.
+- Перенос утвержденной структуры в private downstream repository позже отдельной задачей.

@@ -13,4 +13,4 @@
 - Зафиксирован перевод `agent-system-development` в public.
 - Зафиксирован Active status rulesets `Protect main` и `Protect developer` по ручной проверке пользователя в GitHub UI.
 - Добавлен `PUBLICATION_POLICY.md`.
-- Добавлено разграничение public methodology repo и private corporate repo.
+- Добавлено разграничение public methodology repo и private implementation repository.

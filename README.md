@@ -22,4 +22,4 @@
 
 В репозитории запрещены реальные credentials, tokens, passwords, `.env`, клиентские данные и рабочие данные.
 
-`CORP_KNOWLEDGE_PLATFORM` не должен автоматически становиться public и должен рассматриваться как private/corporate repository.
+Статус public repository не должен автоматически переноситься на target implementation repository или private downstream repository. Такие репозитории должны рассматриваться отдельно.
