@@ -1,9 +1,9 @@
 # BACKLOG
 
-- Настроить branch protection/rulesets.
-- Подготовить GitHub token policy.
-- Подготовить локальные worktree.
-- Подготовить PR-6a prompt для CORP_KNOWLEDGE_PLATFORM.
+- Выполнено: bootstrap agent-system repository.
+- Configure GitHub rulesets.
+- Create local worktrees.
+- Add CI forbidden files check.
+- Add pre-push hook.
+- Prepare CORP_KNOWLEDGE_PLATFORM PR-6a transfer prompt.
 - Подготовить checklists для агентов.
-- Подготовить CI forbidden files check.
-- Подготовить pre-push hook.

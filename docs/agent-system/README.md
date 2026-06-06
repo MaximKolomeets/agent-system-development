@@ -10,6 +10,10 @@
 - workflow;
 - текущее состояние;
 - принятые решения;
+- PR workflow;
+- local worktree guide;
+- GitHub rulesets recommendations;
+- manual review checklist;
 - шаблоны задач, отчетов и review;
 - отчеты и рабочие заметки агентов.
 
