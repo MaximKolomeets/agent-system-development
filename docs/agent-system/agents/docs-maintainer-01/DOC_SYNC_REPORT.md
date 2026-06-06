@@ -7,3 +7,10 @@
 - Обновлен workflow после merge bootstrap в `main`.
 - Добавлены документы `WORKTREE_GUIDE.md`, `GITHUB_RULESETS.md`, `MANUAL_REVIEW_CHECKLIST.md`, `PR_WORKFLOW.md`.
 - Обновлены `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, `BRANCH_POLICY`, `WORKFLOW`, `BACKLOG` и Source index.
+
+## 2026-06-06 - PR-1c public repository and active rulesets status
+
+- Зафиксирован перевод `agent-system-development` в public.
+- Зафиксирован Active status rulesets `Protect main` и `Protect developer` по ручной проверке пользователя в GitHub UI.
+- Добавлен `PUBLICATION_POLICY.md`.
+- Добавлено разграничение public methodology repo и private corporate repo.
