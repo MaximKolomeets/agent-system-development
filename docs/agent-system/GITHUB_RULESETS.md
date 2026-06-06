@@ -1,5 +1,13 @@
 # GITHUB_RULESETS
 
+## Current status
+
+- Repository visibility: public.
+- `Protect main`: Active, по ручной проверке пользователя в GitHub UI.
+- `Protect developer`: Active, по ручной проверке пользователя в GitHub UI.
+- Rulesets защищают `main` и `developer` от прямого небезопасного workflow.
+- Изменения должны идти через `work/<role>/*` -> `developer` -> `main`.
+
 ## main
 
 Рекомендуемые ручные правила GitHub branch protection/rulesets:
@@ -34,3 +42,9 @@
 - Фактическая настройка rulesets выполняется вручную в GitHub UI.
 - Granular token restrictions зависят от типа репозитория/организации.
 - Если GitHub не позволяет ограничить token по namespace веток, контроль фиксируется процессом и review.
+
+## GitHub Free limitation
+
+- Rulesets доступны для public repositories на GitHub Free.
+- Для private repositories могут потребоваться GitHub Pro/Team/Enterprise.
+- Поэтому private implementation repository может потребовать ручной процессный контроль или платный тариф/organization.
