@@ -11,3 +11,9 @@
 9. После проверки PR merge в `developer`.
 10. После накопления стабильных изменений `developer` merge в `main`.
 11. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
+
+## Base branch warning
+
+- Для рабочих веток base branch должен быть `developer`.
+- Для переноса стабильного состояния base branch должен быть `main`, compare branch `developer`.
+- Перед merge всегда проверять base/compare, чтобы не повторить ошибку merge рабочей ветки напрямую в `main`.
