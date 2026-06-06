@@ -28,10 +28,17 @@ https://github.com/MaximKolomeets/agent-system-development
 6. docs/agent-system/BRANCH_POLICY.md
 7. docs/agent-system/ROLE_MODEL.md
 8. docs/agent-system/WORKFLOW.md
+9. docs/agent-system/PR_WORKFLOW.md
 
 ## Текущий этап
 
-Bootstrap agent-system repository в ветке `developer`.
+Bootstrap перенесен в `main`. Выполняется стабилизация workflow через PR-1b.
+
+## Состояние веток
+
+- `main` - стабильная ветка.
+- `developer` - интеграционная ветка.
+- Следующие изменения выполняются только через `work/<role>/*`.
 
 ## Важно
 

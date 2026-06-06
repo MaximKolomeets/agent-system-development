@@ -6,12 +6,21 @@
 
 Репозиторий: `MaximKolomeets/agent-system-development`
 
-Текущий этап: bootstrap agent-system repository.
+Текущий этап: PR-1b stabilize repository workflow.
+
+Bootstrap успешно перенесен в `main` через PR #1.
+
+`main` теперь содержит стартовый каркас `agent-system-development`.
 
 Ветки:
 
 - `main` - стабильная ветка;
-- `developer` - первая интеграционная ветка.
+- `developer` - интеграционная ветка;
+- `work/<role>/*` - рабочие ветки следующих задач.
+
+После bootstrap прямые изменения в `developer` запрещены без отдельного разрешения пользователя.
+
+Все следующие задачи должны идти через `work/<role>/*`.
 
 Правила именования:
 
@@ -19,4 +28,6 @@
 - Codex сейчас может использоваться только как engine-исполнитель по прямому заданию пользователя;
 - роли агентов не зависят от конкретного vendor/tool.
 
-Следующий шаг: проверить bootstrap, затем решить, переносить ли `developer` в `main`.
+Текущая задача: PR-1b stabilize repository workflow.
+
+Следующий шаг после PR-1b: настроить GitHub branch protection/rulesets вручную в UI GitHub.
