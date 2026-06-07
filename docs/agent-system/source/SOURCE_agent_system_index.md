@@ -41,10 +41,13 @@ https://github.com/MaximKolomeets/agent-system-development
 13. docs/agent-system/CI_POLICY.md
 14. docs/agent-system/PROJECT_LIFECYCLE.md
 15. docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+16. docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
+17. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+18. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: new project onboarding guide / PR-2b.
+Current stage: PR-2d target repository adoption readiness.
 
 ## Состояние веток
 
@@ -54,7 +57,7 @@ Current stage: new project onboarding guide / PR-2b.
 
 ## Следующий шаг
 
-Practical bootstrap example without concrete external project names.
+First target repository dry run.
 
 ## Важно
 
