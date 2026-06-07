@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2f target repository feedback loop.
+Текущий этап: PR-2g adoption modes and transfer manifest.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2f-target-feedback-loop
+work/docs-maintainer-01/pr-2g-adoption-modes-transfer-manifest
 ```
 
 Ветки:
@@ -59,6 +59,8 @@ PR-2d подготовил target repository adoption readiness pack.
 
 PR-2e завершен и добавил engine entrypoint, repository self-discovery contract и short prompt adoption mode.
 
-Текущая задача PR-2f добавляет methodology feedback loop.
+PR-2f завершен и добавил methodology feedback loop.
 
-Следующая цель после PR-2f: повторить first target repository dry run коротким prompt.
+Текущая задача PR-2g добавляет adoption modes, transfer manifest, downstream checklist и minimal first PR rule.
+
+Следующая цель после PR-2g: повторить target repository dry run в `audit-only` режиме и первым результатом создать только `ADOPTION_AUDIT.md`.

@@ -14,6 +14,9 @@
 - local worktree guide;
 - GitHub rulesets recommendations;
 - manual review checklist;
+- adoption modes;
+- transfer manifest;
+- downstream adaptation checklist;
 - шаблоны задач, отчетов и review;
 - отчеты и рабочие заметки агентов.
 

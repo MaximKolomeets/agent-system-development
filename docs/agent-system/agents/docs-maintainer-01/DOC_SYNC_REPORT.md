@@ -65,3 +65,11 @@
 
 - Добавлен `METHODOLOGY_FEEDBACK_LOOP.md`.
 - Обновлены `README.md`, `AGENTS.md`, `ENGINE_ENTRYPOINT.md`, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `TARGET_REPOSITORY_ADOPTION_GUIDE.md`, `SHORT_TARGET_ADOPTION_PROMPT.md`, `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-07 - PR-2g adoption modes and transfer manifest
+
+- Добавлен `ADOPTION_GUIDE.md` с режимами `audit-only`, `docs-only adoption` и `runtime adoption`.
+- Добавлен machine-readable `ADOPTION_TRANSFER_MANIFEST.yml`.
+- Добавлен `DOWNSTREAM_ADAPTATION_CHECKLIST.md`.
+- Добавлены downstream checklist, developer vs develop note, CI branch filters note, PowerShell/UTF-8 note и правило не копировать `CURRENT_STATE.md` verbatim.
+- Обновлены `README.md`, `ENGINE_ENTRYPOINT.md`, `TARGET_REPOSITORY_ADOPTION_GUIDE.md`, `SHORT_TARGET_ADOPTION_PROMPT.md`, `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.

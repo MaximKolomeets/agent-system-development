@@ -14,5 +14,6 @@
 - PR-2c CI Node.js 24 compatibility завершен.
 - PR-2d target repository adoption readiness завершен.
 - PR-2e engine entrypoint and repository self-discovery contract завершен.
-- Текущая задача: PR-2f target repository feedback loop.
-- Следующий шаг: repeat target repository dry run with short prompt.
+- PR-2f target repository feedback loop завершен.
+- Текущая задача: PR-2g adoption modes and transfer manifest.
+- Следующий шаг: repeat target repository dry run in `audit-only` mode with minimal first PR creating only `ADOPTION_AUDIT.md`.
