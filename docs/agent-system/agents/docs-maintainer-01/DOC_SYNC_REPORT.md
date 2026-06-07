@@ -53,3 +53,10 @@
 - Добавлен `STAGE_2_COMPLETION_CHECKLIST.md`.
 - Добавлен `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 - Обновлены `README.md`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-07 - PR-2e engine entrypoint and repository self-discovery contract
+
+- Добавлен `ENGINE_ENTRYPOINT.md`.
+- Добавлен `ENGINE_SELF_DISCOVERY_CONTRACT.md`.
+- Добавлен `SHORT_TARGET_ADOPTION_PROMPT.md`.
+- Обновлены `README.md`, `AGENTS.md`, `TARGET_REPOSITORY_ADOPTION_GUIDE.md`, `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.

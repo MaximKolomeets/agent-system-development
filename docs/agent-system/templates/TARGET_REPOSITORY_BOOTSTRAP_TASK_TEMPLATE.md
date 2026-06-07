@@ -28,6 +28,16 @@
 
 `engine=<manual or selected engine>`
 
+## Mandatory preflight
+
+Перед bootstrap `engine` обязан выполнить контракт:
+
+```text
+docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+```
+
+Self-discovery и adoption audit выполняются до любых изменений файлов.
+
 ## Goal
 
 Описать цель bootstrap.

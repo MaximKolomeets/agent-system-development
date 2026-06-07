@@ -12,5 +12,6 @@
 - PR-2a lifecycle/templates завершен.
 - PR-2b onboarding guide завершен.
 - PR-2c CI Node.js 24 compatibility завершен.
-- Текущая задача: PR-2d target repository adoption readiness.
-- Следующий шаг: first target repository dry run.
+- PR-2d target repository adoption readiness завершен.
+- Текущая задача: PR-2e engine entrypoint and repository self-discovery contract.
+- Следующий шаг: проверить PR-2e и повторить first target repository dry run коротким prompt.
