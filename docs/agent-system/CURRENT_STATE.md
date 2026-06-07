@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2a reusable new project bootstrap doctrine.
+Текущий этап: PR-2b new project onboarding guide.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2a-new-project-bootstrap-doctrine
+work/docs-maintainer-01/pr-2b-new-project-onboarding-guide
 ```
 
 Ветки:
@@ -49,6 +49,8 @@ work/docs-maintainer-01/pr-2a-new-project-bootstrap-doctrine
 
 PR-1e добавил GitHub Actions guardrail для forbidden tracked files.
 
-Текущая задача PR-2a добавляет lifecycle и шаблоны запуска нового проекта.
+PR-2a завершен и добавил lifecycle/templates запуска нового проекта.
 
-Следующая цель после PR-2a: практический bootstrap example без конкретных внешних проектов или onboarding guide для первого нового проекта.
+Текущая задача PR-2b добавляет practical onboarding guide для запуска нового проекта.
+
+Следующая цель после PR-2b: practical bootstrap example без конкретных внешних проектов.

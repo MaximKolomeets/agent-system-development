@@ -9,5 +9,6 @@
 - `main`/`developer` protected by process and rulesets.
 - Worktree workflow зафиксирован.
 - CI forbidden files check добавлен через PR-1e.
-- Текущая задача: PR-2a reusable new project bootstrap doctrine.
-- Следующий шаг: practical bootstrap example или onboarding guide для первого нового проекта.
+- PR-2a добавил lifecycle/templates запуска нового проекта.
+- Текущая задача: PR-2b new project onboarding guide.
+- Следующий шаг: practical bootstrap example без конкретных внешних проектов.

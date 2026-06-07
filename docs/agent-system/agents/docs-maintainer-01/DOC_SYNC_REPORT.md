@@ -32,3 +32,9 @@
 - Добавлен `PROJECT_LIFECYCLE.md`.
 - Добавлены шаблоны нового проекта в `docs/agent-system/templates/`.
 - Обновлены `README.md`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-07 - PR-2b new project onboarding guide
+
+- Добавлен `NEW_PROJECT_ONBOARDING_GUIDE.md`.
+- README обновлен ссылкой на onboarding guide.
+- Обновлены `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.

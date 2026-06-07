@@ -40,10 +40,11 @@ https://github.com/MaximKolomeets/agent-system-development
 12. docs/agent-system/WORKTREE_GUIDE.md
 13. docs/agent-system/CI_POLICY.md
 14. docs/agent-system/PROJECT_LIFECYCLE.md
+15. docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
 
 ## Текущий этап
 
-Current stage: reusable new project bootstrap doctrine / PR-2a.
+Current stage: new project onboarding guide / PR-2b.
 
 ## Состояние веток
 
@@ -53,7 +54,7 @@ Current stage: reusable new project bootstrap doctrine / PR-2a.
 
 ## Следующий шаг
 
-Practical bootstrap example or onboarding guide for the first new project.
+Practical bootstrap example without concrete external project names.
 
 ## Важно
 
