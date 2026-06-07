@@ -21,6 +21,12 @@
 Результат:
 только `docs/agent-system/ADOPTION_AUDIT.md`.
 
+Task template:
+
+```text
+docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+```
+
 Запрещено:
 
 - менять код;
@@ -46,6 +52,12 @@ Acceptance criteria:
 
 Результат:
 адаптированный `docs/agent-system/` в target repository.
+
+Task template:
+
+```text
+docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+```
 
 Разрешено:
 

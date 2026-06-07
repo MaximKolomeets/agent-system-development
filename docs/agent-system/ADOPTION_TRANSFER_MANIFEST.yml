@@ -24,6 +24,8 @@ categories:
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
+      - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+      - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
     notes:
       - Перед переносом все равно проверить local AGENTS.md target repository.
 

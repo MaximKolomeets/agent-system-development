@@ -15,5 +15,6 @@
 - PR-2d target repository adoption readiness завершен.
 - PR-2e engine entrypoint and repository self-discovery contract завершен.
 - PR-2f target repository feedback loop завершен.
-- Текущая задача: PR-2g adoption modes and transfer manifest.
-- Следующий шаг: repeat target repository dry run in `audit-only` mode with minimal first PR creating only `ADOPTION_AUDIT.md`.
+- PR-2g adoption modes and transfer manifest завершен.
+- Текущая задача: PR-2h docs-only adoption task templates.
+- Следующий шаг: launch docs-only adoption PR in target repository.

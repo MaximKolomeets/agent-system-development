@@ -52,6 +52,10 @@ Checklist готовности этапа находится в `docs/agent-syst
 
 Шаблон bootstrap-задачи для target repository находится в `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 
+Шаблон audit-only adoption task находится в `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`.
+
+Шаблон docs-only adoption task находится в `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
+
 Шаблоны для запуска нового проекта лежат в `docs/agent-system/templates/`.
 
 Конкретные downstream/private projects не называются в public repository. Для примеров используются только нейтральные формулировки.
