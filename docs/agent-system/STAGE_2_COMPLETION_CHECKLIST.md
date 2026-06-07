@@ -9,6 +9,9 @@
 - [ ] `PROJECT_LIFECYCLE.md` exists.
 - [ ] `NEW_PROJECT_ONBOARDING_GUIDE.md` exists.
 - [ ] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists.
+- [ ] `ADOPTION_GUIDE.md` exists.
+- [ ] `ADOPTION_TRANSFER_MANIFEST.yml` exists.
+- [ ] `DOWNSTREAM_ADAPTATION_CHECKLIST.md` exists.
 - [ ] `ENGINE_ENTRYPOINT.md` exists.
 - [ ] `ENGINE_SELF_DISCOVERY_CONTRACT.md` exists.
 - [ ] `METHODOLOGY_FEEDBACK_LOOP.md` exists.
@@ -25,6 +28,12 @@
 - [ ] handoff template exists.
 - [ ] target repository bootstrap task template exists.
 - [ ] short prompt adoption mode documented.
+- [ ] audit-only, docs-only adoption and runtime adoption modes documented.
+- [ ] minimal first PR creates only `ADOPTION_AUDIT.md`.
+- [ ] downstream checklist includes repository name, branch model, worktree paths, current state and visibility.
+- [ ] developer vs develop and CI branch filters are documented.
+- [ ] PowerShell/UTF-8 note for Russian Markdown is documented.
+- [ ] `CURRENT_STATE.md` verbatim copy is forbidden.
 - [ ] target repository final report includes Methodology feedback.
 - [ ] feedback does not expose private data.
 
@@ -63,13 +72,14 @@
 - На момент PR-2c workflow был updated to Node.js 24 compatible checkout action.
 - Если GitHub Actions снова покажет runtime warning, это должно идти отдельным PR.
 - Practical target repository dry run еще не выполнен.
+- First target repository dry run feedback показал, что нужны adoption modes, transfer manifest и более строгий minimal first PR.
 
 ## Completion criteria
 
 Этап считается готовым, если:
 
-- PR-2f merged в `developer`;
-- PR-2f released в `main`;
+- PR-2g merged в `developer`;
+- PR-2g released в `main`;
 - `developer` синхронизирован с `main`;
 - stage checklist заполнен;
-- следующий шаг - первый target repository dry run.
+- следующий шаг - повторный target repository dry run в `audit-only` режиме.

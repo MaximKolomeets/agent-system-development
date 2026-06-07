@@ -18,6 +18,9 @@
 
 - `docs/agent-system/ENGINE_ENTRYPOINT.md`;
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- `docs/agent-system/ADOPTION_GUIDE.md`;
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
+- `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
 - `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 
@@ -27,6 +30,12 @@
 
 Первым результатом в target repository должен быть adoption audit.
 
+Без отдельного решения пользователя используется режим `audit-only`, а first PR создает только:
+
+```text
+docs/agent-system/ADOPTION_AUDIT.md
+```
+
 Adoption audit должен показать:
 
 - текущий repository и ветку;
@@ -35,6 +44,7 @@ Adoption audit должен показать:
 - forbidden tracked paths result;
 - sensitive grep result без matching lines;
 - какие документы template repository применимы;
+- какие файлы adoption transfer manifest относит к `template_state_do_not_copy_verbatim` или `requires_target_adaptation`;
 - какие изменения можно предложить первым bootstrap PR.
 
 Первым результатом не должен быть полный перенос всех файлов template repository.
