@@ -4,7 +4,25 @@
 
 Этот guide нужен для переноса методологии `agent-system-development` в отдельный target implementation repository.
 
-GitHub является source of truth: в target repository должны фиксироваться файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Public methodology repository не должен содержать приватные данные target repository. Target repository может быть public или private, и его visibility выбирается отдельно. Пользователь принимает финальные решения. Engine запускается пользователем вручную.
+GitHub является source of truth: в target repository должны фиксироваться файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Public methodology repository не должен содержать приватные данные target repository. Target repository может быть public или private, и его visibility выбирается отдельно. Пользователь принимает финальные решения. `engine` запускается пользователем вручную.
+
+## Short prompt adoption mode
+
+Пользователь может начать adoption коротким prompt со ссылкой на template repository:
+
+```text
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development
+```
+
+В этом режиме `engine` обязан сам найти в template repository:
+
+- `docs/agent-system/ENGINE_ENTRYPOINT.md`;
+- `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
+
+До любых изменений `engine` выполняет repository self-discovery в текущем target repository, читает локальные инструкции и применяет safety gate. Первый результат должен быть adoption audit, а не полный перенос всех файлов template repository.
+
+Если текущий repository не соответствует задаче, есть риск секретов, working tree не чистый без разрешения пользователя или локальные инструкции запрещают действие, `engine` пишет `STOP` и не меняет файлы.
 
 ## 1. Подготовить target repository profile
 
@@ -163,12 +181,12 @@ Sensitive grep работает в filename-only режиме и должен п
 
 - ChatGPT формирует задачу.
 - Пользователь запускает engine вручную.
-- Engine работает только в рабочей ветке.
-- Engine не читает `.env`.
-- Engine не меняет `main`/`developer` напрямую.
-- Engine пишет отчет.
+- `engine` работает только в рабочей ветке.
+- `engine` не читает `.env`.
+- `engine` не меняет `main`/`developer` напрямую.
+- `engine` пишет отчет.
 
-Engine не должен расширять scope задачи без отдельного решения пользователя.
+`engine` не должен расширять scope задачи без отдельного решения пользователя.
 
 ## 9. Проверить отчет engine
 

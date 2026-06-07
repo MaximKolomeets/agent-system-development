@@ -42,12 +42,15 @@ https://github.com/MaximKolomeets/agent-system-development
 14. docs/agent-system/PROJECT_LIFECYCLE.md
 15. docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
 16. docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
-17. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-18. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+17. docs/agent-system/ENGINE_ENTRYPOINT.md
+18. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+19. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+20. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+21. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
 
 ## Текущий этап
 
-Current stage: PR-2d target repository adoption readiness.
+Current stage: PR-2e engine entrypoint and repository self-discovery contract.
 
 ## Состояние веток
 
@@ -57,7 +60,7 @@ Current stage: PR-2d target repository adoption readiness.
 
 ## Следующий шаг
 
-First target repository dry run.
+Повторить first target repository dry run коротким prompt.
 
 ## Важно
 

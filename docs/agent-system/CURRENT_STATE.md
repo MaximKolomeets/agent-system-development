@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2d target repository adoption readiness.
+Текущий этап: PR-2e engine entrypoint and repository self-discovery contract.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2d-target-repository-adoption-readiness
+work/docs-maintainer-01/pr-2e-engine-entrypoint-self-discovery
 ```
 
 Ветки:
@@ -55,6 +55,8 @@ PR-2b завершен и добавил practical onboarding guide для за�
 
 PR-2c завершен и обновил GitHub Actions checkout action для совместимости с Node.js 24.
 
-Текущая задача PR-2d готовит target repository adoption readiness pack.
+PR-2d подготовил target repository adoption readiness pack.
 
-Следующая цель после PR-2d: первый target repository dry run.
+Текущая задача PR-2e добавляет engine entrypoint, repository self-discovery contract и short prompt adoption mode.
+
+Следующая цель после PR-2e: проверить short prompt adoption mode и повторить first target repository dry run коротким prompt.

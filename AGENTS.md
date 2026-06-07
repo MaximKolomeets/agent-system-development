@@ -24,5 +24,6 @@
 - После задачи агент обязан обновить свой отчет.
 - После архитектурного решения обновляется `docs/agent-system/DECISION_LOG.md`.
 - После изменения состояния проекта обновляется `docs/agent-system/CURRENT_STATE.md`.
+- Любой engine, применяющий этот repository как template repository для другого проекта, должен начинать с `docs/agent-system/ENGINE_ENTRYPOINT.md` и `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.
 - Названия агентов не должны содержать Codex, Claude, Gemini, Copilot и другие vendor/tool names.
 - Конкретный инструмент указывается отдельно как engine.
