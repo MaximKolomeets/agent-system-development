@@ -37,10 +37,11 @@ https://github.com/MaximKolomeets/agent-system-development
 9. docs/agent-system/PR_WORKFLOW.md
 10. docs/agent-system/GITHUB_RULESETS.md
 11. docs/agent-system/PUBLICATION_POLICY.md
+12. docs/agent-system/WORKTREE_GUIDE.md
 
 ## Текущий этап
 
-Repository visibility и Active rulesets status зафиксированы через PR-1c.
+Current stage: local worktree setup verification / PR-1d.
 
 ## Состояние веток
 
@@ -50,7 +51,7 @@ Repository visibility и Active rulesets status зафиксированы че�
 
 ## Следующий шаг
 
-Local worktree setup.
+CI forbidden files check.
 
 ## Важно
 

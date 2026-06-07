@@ -8,18 +8,28 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-1c public repository and active rulesets status.
+Текущий этап: PR-1d local worktree setup verification.
 
-Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2.
-
-`agent-system-development` переведен в public, потому что содержит методологию, workflow, шаблоны, роли агентов и правила разработки без секретов и клиентских данных.
-
-`main` и `developer` синхронизированы.
+Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
 Rulesets:
 
 - `Protect main` - Active, по ручной проверке пользователя в GitHub UI;
 - `Protect developer` - Active, по ручной проверке пользователя в GitHub UI.
+
+`main` и `developer` синхронизированы на момент старта PR-1d.
+
+Создан worktree для docs-maintainer:
+
+```text
+C:\Neural\worktrees\agent-system-development\docs-maintainer-01
+```
+
+Текущая рабочая ветка:
+
+```text
+work/docs-maintainer-01/pr-1d-worktree-setup
+```
 
 Ветки:
 
@@ -37,6 +47,4 @@ Rulesets:
 - Codex сейчас может использоваться только как engine-исполнитель по прямому заданию пользователя;
 - роли агентов не зависят от конкретного vendor/tool.
 
-Текущая задача: PR-1c public repository and active rulesets status.
-
-Следующий шаг: создать локальные worktree для ролей агентов.
+Следующая цель: проверить PR-1d и затем использовать worktree как стандартный способ запуска задач.
