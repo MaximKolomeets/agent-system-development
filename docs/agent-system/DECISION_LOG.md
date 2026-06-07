@@ -174,3 +174,18 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - forbidden files workflow использует checkout action с Node.js 24 runtime;
 - Node.js 20 deprecation warning для `actions/checkout@v4` должен исчезнуть;
 - при будущих runtime warnings нужно проверять upstream action metadata перед обновлением workflow.
+
+## 2026-06-07 - Target repository adoption readiness
+
+Решение:
+Добавить target repository adoption guide, stage completion checklist и target repository bootstrap task template.
+
+Причина:
+После lifecycle, onboarding guide и CI runtime compatibility нужен финальный пакет, который позволяет безопасно применить методологию к отдельному target implementation repository без переноса приватных данных в public methodology repository.
+
+Последствия:
+
+- target repository adoption guide становится bridge-документом между public methodology repository и target implementation repository;
+- stage completion checklist фиксирует готовность этапа;
+- target bootstrap task template становится основой первого dry run;
+- после PR-2d можно начинать первый target repository dry run.

@@ -32,6 +32,12 @@ Lifecycle описан в `docs/agent-system/PROJECT_LIFECYCLE.md`.
 
 Практический onboarding guide находится в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`.
 
+Guide для применения методологии к target repository находится в `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`.
+
+Checklist готовности этапа находится в `docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md`.
+
+Шаблон bootstrap-задачи для target repository находится в `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
+
 Шаблоны для запуска нового проекта лежат в `docs/agent-system/templates/`.
 
 Конкретные downstream/private projects не называются в public repository. Для примеров используются только нейтральные формулировки.

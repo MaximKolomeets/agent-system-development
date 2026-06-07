@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2c CI Node.js 24 compatibility.
+Текущий этап: PR-2d target repository adoption readiness.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2c-ci-node24-compatibility
+work/docs-maintainer-01/pr-2d-target-repository-adoption-readiness
 ```
 
 Ветки:
@@ -53,6 +53,8 @@ PR-2a завершен и добавил lifecycle/templates запуска но
 
 PR-2b завершен и добавил practical onboarding guide для запуска нового проекта.
 
-Текущая задача PR-2c обновляет GitHub Actions checkout action для совместимости с Node.js 24.
+PR-2c завершен и обновил GitHub Actions checkout action для совместимости с Node.js 24.
 
-Следующая цель после PR-2c: practical bootstrap example без конкретных внешних проектов.
+Текущая задача PR-2d готовит target repository adoption readiness pack.
+
+Следующая цель после PR-2d: первый target repository dry run.

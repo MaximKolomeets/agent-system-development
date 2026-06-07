@@ -1,0 +1,220 @@
+# TARGET_REPOSITORY_ADOPTION_GUIDE
+
+## Назначение
+
+Этот guide нужен для переноса методологии `agent-system-development` в отдельный target implementation repository.
+
+GitHub является source of truth: в target repository должны фиксироваться файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Public methodology repository не должен содержать приватные данные target repository. Target repository может быть public или private, и его visibility выбирается отдельно. Пользователь принимает финальные решения. Engine запускается пользователем вручную.
+
+## 1. Подготовить target repository profile
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md
+```
+
+Заполнить поля:
+
+- project name;
+- visibility;
+- goal;
+- non-goals;
+- repository name;
+- roles;
+- branch policy;
+- forbidden data;
+- first milestone;
+- first PR;
+- acceptance criteria.
+
+Profile должен быть нейтральным и не должен переносить приватные данные target repository обратно в public methodology repository.
+
+## 2. Проверить visibility и публикационные ограничения
+
+- Если target repository public, все материалы считаются публичными.
+- Если target repository private, секреты все равно не должны попадать в Git.
+- Public methodology repository и target implementation repository имеют разные уровни доступа.
+- Нельзя переносить приватные данные target repository обратно в public methodology repository.
+
+Visibility target repository не наследуется автоматически от public methodology repository. Решение о visibility принимает пользователь.
+
+## 3. Создать базовую структуру target repository
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md
+```
+
+Нейтральная структура:
+
+```text
+README.md
+AGENTS.md
+.gitignore
+docs/agent-system/
+docs/agent-system/CURRENT_STATE.md
+docs/agent-system/NEXT_STEPS.md
+docs/agent-system/DECISION_LOG.md
+docs/agent-system/BRANCH_POLICY.md
+docs/agent-system/WORKFLOW.md
+docs/agent-system/PR_WORKFLOW.md
+docs/agent-system/ROLE_MODEL.md
+docs/agent-system/PUBLICATION_POLICY.md
+docs/agent-system/templates/
+docs/agent-system/agents/
+```
+
+Структура может адаптироваться под target repository, но bootstrap должен оставаться маленьким и проверяемым.
+
+## 4. Адаптировать документы
+
+Можно переносить как основу:
+
+- `AGENTS.md`;
+- README sections about workflow;
+- branch policy;
+- workflow;
+- PR workflow;
+- role model;
+- publication policy;
+- templates.
+
+Нужно адаптировать:
+
+- project name;
+- repository name;
+- visibility;
+- roles;
+- first milestone;
+- first PR;
+- CI needs;
+- forbidden data list;
+- handoff text.
+
+При адаптации не переносить реальные credentials, tokens, passwords, API keys, `.env`, клиентские данные, персональные данные или внутренние кодовые имена.
+
+## 5. Создать ветки и worktree
+
+Рекомендуемая схема веток:
+
+- `main`;
+- `developer`;
+- `work/<role>/*`.
+
+Нейтральный пример локальных путей:
+
+```text
+C:\Neural\repos\<target-repository-name>
+C:\Neural\worktrees\<target-repository-name>\<role-name>
+```
+
+Каждая рабочая задача выполняется в отдельной ветке `work/<role>/<task>` от актуальной `developer`.
+
+## 6. Подготовить первый bootstrap PR
+
+Первый PR должен быть маленьким и проверяемым.
+
+Пример первого PR:
+
+- добавить `README.md`;
+- добавить `AGENTS.md`;
+- добавить `.gitignore`;
+- добавить `docs/agent-system` минимальный набор;
+- добавить templates;
+- не добавлять рабочие данные.
+
+Bootstrap PR не должен смешиваться с implementation PR.
+
+## 7. Проверить forbidden files
+
+Запрещенные пути:
+
+- `.env`
+- `.env.*`, кроме безопасного `.env.example`
+- `.venv/`
+- `data/`
+- `runtime/`
+- `dist/`
+- `backups/`
+- `exports/`
+- `*.log`
+- `*.tmp`
+- `*.bak`
+
+Команды проверки:
+
+```bash
+git status --short
+```
+
+```bash
+git ls-files
+```
+
+```bash
+git grep -n -i "token\|password\|secret\|api_key\|apikey\|credential\|пароль\|токен"
+```
+
+`git grep` может находить документационные правила, но не должен находить реальные значения секретов. Если найдено подозрение на реальный секрет, не печатать его дальше и остановиться для решения пользователя.
+
+## 8. Запустить engine
+
+- ChatGPT формирует задачу.
+- Пользователь запускает engine вручную.
+- Engine работает только в рабочей ветке.
+- Engine не читает `.env`.
+- Engine не меняет `main`/`developer` напрямую.
+- Engine пишет отчет.
+
+Engine не должен расширять scope задачи без отдельного решения пользователя.
+
+## 9. Проверить отчет engine
+
+Отчет должен содержать:
+
+- рабочая ветка;
+- что создано;
+- что изменено;
+- changed files;
+- проверки;
+- что не проверялось;
+- риски;
+- next step;
+- commit SHA;
+- PR link/number.
+
+Если отчет не содержит проверок, рисков или changed files, его нужно уточнить перед review/merge.
+
+## 10. Провести review и merge
+
+Стандартный поток:
+
+```text
+work/<role>/<task> -> developer -> main
+```
+
+PR из рабочей ветки идет в `developer`. После проверки стабильное состояние переносится из `developer` в `main`.
+
+Если ruleset запрещает direct push, sync developer после release выполняется через PR.
+
+## 11. Подготовить handoff
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md
+```
+
+Handoff нужен для нового чата или новой рабочей сессии. Он фиксирует repository, visibility, current branches, active PR, completed PRs, important docs, current goal, next PR, risks и exact prompt for continuation.
+
+## 12. Что нельзя делать
+
+- Не переносить приватные данные в public methodology repository.
+- Не переносить `.env`.
+- Не коммитить runtime/work data.
+- Не давать engine прямой push в `main`/`developer`.
+- Не смешивать bootstrap с implementation.
+- Не использовать vendor/tool names в названиях ролей.
+- Не считать public/private visibility одинаковыми для разных repositories.

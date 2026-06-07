@@ -46,3 +46,10 @@
 - Подтверждено, что `actions/checkout@v5` declares `using: node24`.
 - Workflow обновлен на `actions/checkout@v5`.
 - Обновлены `CI_POLICY.md`, `CURRENT_STATE`, `NEXT_STEPS` и `DECISION_LOG`.
+
+## 2026-06-07 - PR-2d target repository adoption readiness
+
+- Добавлен `TARGET_REPOSITORY_ADOPTION_GUIDE.md`.
+- Добавлен `STAGE_2_COMPLETION_CHECKLIST.md`.
+- Добавлен `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
+- Обновлены `README.md`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.
