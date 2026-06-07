@@ -1,6 +1,6 @@
 # SOURCE_agent_system_index
 
-Дата фиксации: 2026-06-06
+Дата фиксации: 2026-06-07
 Проект: Создание агентской системы
 Основной источник правды: GitHub
 Repository visibility: public
@@ -39,10 +39,11 @@ https://github.com/MaximKolomeets/agent-system-development
 11. docs/agent-system/PUBLICATION_POLICY.md
 12. docs/agent-system/WORKTREE_GUIDE.md
 13. docs/agent-system/CI_POLICY.md
+14. docs/agent-system/PROJECT_LIFECYCLE.md
 
 ## Текущий этап
 
-Current stage: CI forbidden files check / PR-1e.
+Current stage: reusable new project bootstrap doctrine / PR-2a.
 
 ## Состояние веток
 
@@ -52,7 +53,7 @@ Current stage: CI forbidden files check / PR-1e.
 
 ## Следующий шаг
 
-Pre-push hook documentation / PR-1f.
+Practical bootstrap example or onboarding guide for the first new project.
 
 ## Важно
 

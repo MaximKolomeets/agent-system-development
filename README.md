@@ -23,3 +23,13 @@
 В репозитории запрещены реальные credentials, tokens, passwords, `.env`, клиентские данные и рабочие данные.
 
 Статус public repository не должен автоматически переноситься на target implementation repository или private downstream repository. Такие репозитории должны рассматриваться отдельно.
+
+## Reusable new project bootstrap
+
+Проект содержит универсальную методологию запуска новых проектов через GitHub, роли, worktree, отчеты агентов и ручной запуск engine-исполнителей.
+
+Lifecycle описан в `docs/agent-system/PROJECT_LIFECYCLE.md`.
+
+Шаблоны для запуска нового проекта лежат в `docs/agent-system/templates/`.
+
+Конкретные downstream/private projects не называются в public repository. Для примеров используются только нейтральные формулировки.
