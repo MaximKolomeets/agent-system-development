@@ -2,11 +2,12 @@
 
 Кратко отражать текущее состояние проекта для быстрого чтения в новом чате.
 
-## 2026-06-06
+## 2026-06-07
 
 - Repo public.
 - Rulesets active по UI: `Protect main`, `Protect developer`.
 - `main`/`developer` protected by process and rulesets.
 - Worktree workflow зафиксирован.
-- Текущая задача: PR-1e CI forbidden files check.
-- Следующий шаг: PR-1f pre-push hook documentation.
+- CI forbidden files check добавлен через PR-1e.
+- Текущая задача: PR-2a reusable new project bootstrap doctrine.
+- Следующий шаг: practical bootstrap example или onboarding guide для первого нового проекта.

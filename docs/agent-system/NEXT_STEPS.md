@@ -1,9 +1,8 @@
 # NEXT_STEPS
 
-1. Проверить PR-1e.
-2. Смержить PR-1e в `developer`.
+1. Проверить PR-2a.
+2. Смержить PR-2a в `developer`.
 3. После проверки перенести `developer` в `main`.
 4. При необходимости синхронизировать `developer` с `main`.
-5. Подготовить PR-1f: pre-push hook documentation.
-6. Подготовить PR-1g: ruleset required status checks decision.
-7. Позже подготовить нейтральный transfer/adaptation prompt для private downstream repository.
+5. Следующим PR подготовить practical bootstrap example без конкретных внешних проектов.
+6. Альтернативно следующим PR подготовить onboarding guide для первого нового проекта.
