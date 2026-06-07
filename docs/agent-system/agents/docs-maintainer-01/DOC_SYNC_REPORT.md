@@ -20,3 +20,9 @@
 - Зафиксирована локальная worktree-схема.
 - Docs-maintainer worktree создан.
 - Обновлены `WORKTREE_GUIDE`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, `PR_WORKFLOW` и Source index.
+
+## 2026-06-06 - PR-1e CI forbidden files check
+
+- Добавлен CI forbidden files check.
+- Добавлен `CI_POLICY.md`.
+- Обновлены `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, `PR_WORKFLOW`, `MANUAL_REVIEW_CHECKLIST`, `GITHUB_RULESETS` и Source index.

@@ -38,10 +38,11 @@ https://github.com/MaximKolomeets/agent-system-development
 10. docs/agent-system/GITHUB_RULESETS.md
 11. docs/agent-system/PUBLICATION_POLICY.md
 12. docs/agent-system/WORKTREE_GUIDE.md
+13. docs/agent-system/CI_POLICY.md
 
 ## Текущий этап
 
-Current stage: local worktree setup verification / PR-1d.
+Current stage: CI forbidden files check / PR-1e.
 
 ## Состояние веток
 
@@ -51,7 +52,7 @@ Current stage: local worktree setup verification / PR-1d.
 
 ## Следующий шаг
 
-CI forbidden files check.
+Pre-push hook documentation / PR-1f.
 
 ## Важно
 
