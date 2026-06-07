@@ -1,0 +1,58 @@
+name: Forbidden files check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - developer
+      - "work/**"
+
+jobs:
+  forbidden-files:
+    name: Forbidden tracked files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check tracked paths
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          violations=0
+
+          while IFS= read -r -d '' path; do
+            forbidden=0
+
+            case "$path" in
+              .env)
+                forbidden=1
+                ;;
+              .env.*)
+                if [[ "$path" != ".env.example" ]]; then
+                  forbidden=1
+                fi
+                ;;
+              .venv|.venv/*|data|data/*|runtime|runtime/*|dist|dist/*|backups|backups/*|exports|exports/*)
+                forbidden=1
+                ;;
+              *.log|*.tmp|*.bak)
+                forbidden=1
+                ;;
+            esac
+
+            if [[ "$forbidden" -eq 1 ]]; then
+              printf '%s\n' "$path"
+              violations=1
+            fi
+          done < <(git ls-files -z)
+
+          if [[ "$violations" -ne 0 ]]; then
+            echo "Forbidden tracked files were found."
+            exit 1
+          fi
+
+          echo "Forbidden tracked files were not found."
