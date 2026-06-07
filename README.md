@@ -30,6 +30,8 @@
 
 Lifecycle описан в `docs/agent-system/PROJECT_LIFECYCLE.md`.
 
+Практический onboarding guide находится в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`.
+
 Шаблоны для запуска нового проекта лежат в `docs/agent-system/templates/`.
 
 Конкретные downstream/private projects не называются в public repository. Для примеров используются только нейтральные формулировки.

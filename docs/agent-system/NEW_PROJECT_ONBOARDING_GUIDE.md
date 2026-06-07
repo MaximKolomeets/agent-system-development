@@ -1,0 +1,204 @@
+# NEW_PROJECT_ONBOARDING_GUIDE
+
+## Назначение
+
+Этот документ помогает пользователю запустить новый проект через lifecycle и templates из `agent-system-development`.
+
+GitHub является source of truth: в репозитории фиксируются файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Чат помогает формулировать задачи и проверять отчеты, но не заменяет GitHub. Пользователь принимает финальные решения по scope, visibility, merge, release и изменению правил. Engine-исполнители запускаются пользователем вручную.
+
+## 1. Описать идею проекта
+
+Пользователь кратко описывает:
+
+- цель;
+- ожидаемый результат;
+- ограничения;
+- public/private visibility;
+- запрещенные данные;
+- первый полезный milestone.
+
+На этом шаге важно отделить желаемый результат от non-goals и заранее указать, какие данные нельзя хранить в repository.
+
+## 2. Заполнить project profile
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md
+```
+
+Project profile должен быть нейтральным и не должен содержать:
+
+- реальные credentials;
+- tokens;
+- passwords;
+- API keys;
+- `.env`;
+- клиентские данные;
+- персональные данные;
+- внутренние кодовые имена;
+- конкретные внешние проекты.
+
+Project profile нужен, чтобы перед bootstrap было понятно, что создается, какие роли нужны, какие ограничения действуют и какой первый PR считается успешным.
+
+## 3. Подготовить новый GitHub repository
+
+Создать пустой repository и осознанно выбрать visibility:
+
+- `public` - все содержимое считается публичным;
+- `private` - доступ ограничен, но секреты и приватные данные все равно не должны попадать в Git без явного решения пользователя.
+
+Для public repository нельзя переносить приватные данные, клиентские данные, персональные данные, рабочие файлы или внутренние кодовые имена.
+
+## 4. Создать базовую структуру repository
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md
+```
+
+Минимальная структура:
+
+```text
+README.md
+AGENTS.md
+.gitignore
+docs/agent-system/
+docs/agent-system/templates/
+docs/agent-system/agents/
+```
+
+На bootstrap-этапе структура должна быть маленькой и проверяемой. Дополнительные папки и CI лучше добавлять отдельными PR, если они не нужны сразу.
+
+## 5. Создать ветки
+
+Рекомендуемая схема:
+
+- `main` - stable branch;
+- `developer` - integration branch;
+- `work/<role>/*` - рабочие ветки задач.
+
+После bootstrap прямые изменения в `main` и `developer` запрещаются процессом или rulesets/branch protection. Рабочие изменения идут через PR из `work/<role>/*` в `developer`, затем стабильное состояние переносится из `developer` в `main`.
+
+## 6. Настроить worktree
+
+Нейтральный пример локальной структуры:
+
+```text
+C:\Neural\repos\<repository-name>
+C:\Neural\worktrees\<repository-name>\<role-name>
+```
+
+Каждая роль работает в своем worktree. Перед запуском engine-исполнителя пользователь проверяет текущую ветку и статус:
+
+```powershell
+git branch --show-current
+git status --short
+```
+
+## 7. Определить роли и engines
+
+Роли называются по ответственности. Названия ролей не должны содержать vendor/tool names. Конкретный исполнитель указывается отдельно как `engine`.
+
+Примеры ролей:
+
+- `docs-maintainer-01`;
+- `dev-implementer-01`;
+- `qa-reviewer-01`;
+- `security-reviewer-01`;
+- `solution-architect-01`.
+
+Пример нейтральной записи:
+
+```text
+docs-maintainer-01: engine=<manual or selected engine>
+```
+
+## 8. Запланировать первые PR
+
+Рекомендуемый порядок:
+
+1. bootstrap PR;
+2. documentation PR;
+3. guardrail/CI PR;
+4. first implementation PR;
+5. review/stabilization PR, если нужен.
+
+Каждый PR должен быть маленьким и проверяемым. Одна задача = одна ветка = один PR.
+
+## 9. Запустить engine-исполнителя вручную
+
+Обычный порядок:
+
+1. ChatGPT формирует задачу.
+2. Пользователь запускает engine вручную.
+3. Engine работает только в своей рабочей ветке.
+4. Engine обновляет отчет.
+5. Engine не меняет `main` или `developer` напрямую.
+
+Если задача требует новой ветки, она создается от актуальной `developer`.
+
+## 10. Проверить отчет engine
+
+Отчет должен содержать:
+
+- рабочая ветка;
+- что сделано;
+- какие файлы изменены;
+- какие проверки выполнены;
+- какие проверки не выполнены и почему;
+- риски;
+- next step;
+- PR number/link.
+
+Если отчет не содержит проверок, changed files или рисков, его нужно уточнить перед merge.
+
+## 11. Провести review и merge
+
+PR идет в `developer`. Перед merge проверяются:
+
+- diff;
+- scope;
+- CI guardrails;
+- forbidden files;
+- отсутствие приватных данных;
+- обновление state/report docs.
+
+После проверки `developer` переносится в `main`. После release нужно синхронизировать `developer` с `main` через PR, если ruleset запрещает direct push.
+
+## 12. Подготовить handoff
+
+Использовать шаблон:
+
+```text
+docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md
+```
+
+Handoff нужен для продолжения в новом чате или новой рабочей сессии. Он должен фиксировать repository, visibility, current branches, active PR, completed PRs, important docs, current goal, next PR, risks и exact prompt for continuation.
+
+## 13. Минимальный чеклист запуска
+
+Полный чеклист:
+
+```text
+docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md
+```
+
+Краткий checklist:
+
+- [ ] Repository created.
+- [ ] Visibility chosen.
+- [ ] `.gitignore` created.
+- [ ] Forbidden paths protected.
+- [ ] `main`/`developer` policy chosen.
+- [ ] Work branch namespace chosen.
+- [ ] `docs/agent-system/` created.
+- [ ] First state files created.
+- [ ] First templates created.
+- [ ] Rulesets/branch protection checked.
+- [ ] First PR planned.
+- [ ] CI guardrails planned.
+- [ ] Source/index policy defined.
+
+Если любой пункт не выполнен, его нужно либо закрыть до первого PR, либо явно зафиксировать как ограничение и риск.
