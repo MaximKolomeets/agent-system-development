@@ -76,11 +76,13 @@
 - `git diff --check`
 - `git ls-files`
 - forbidden tracked paths check
-- sensitive grep:
+- sensitive grep filename-only:
 
 ```bash
-git grep -n -i "token\|password\|secret\|api_key\|apikey\|credential\|пароль\|токен"
+git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" --
 ```
+
+Sensitive grep must print only filenames. Do not print matching lines in terminal output, engine logs, or final reports.
 
 ## Final report format
 
