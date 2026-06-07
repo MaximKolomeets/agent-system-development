@@ -38,6 +38,8 @@ Entrypoint для `engine` и короткого prompt находится в `d
 
 Контракт repository self-discovery находится в `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.
 
+Feedback loop из target repository dry run в methodology repository описан в `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`.
+
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
 
 Checklist готовности этапа находится в `docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md`.

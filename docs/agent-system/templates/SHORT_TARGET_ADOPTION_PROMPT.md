@@ -9,7 +9,7 @@
 ## Безопасный короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
 ```
 
 ## Как должен действовать engine
