@@ -35,6 +35,13 @@ The repository must not track these paths:
 - CI must not print secrets.
 - Secret scanning and more advanced checks can be added as separate future tasks.
 
+## GitHub Actions runtime compatibility
+
+- The forbidden files workflow uses `actions/checkout@v5`.
+- `actions/checkout@v5` was selected because its action metadata declares `using: node24`.
+- If GitHub Actions reports runtime deprecation warnings again, verify the upstream action metadata before changing the workflow.
+- Do not downgrade to an action runtime that produces deprecation warnings unless the user explicitly accepts the temporary risk.
+
 ## Local pre-check
 
 Run these commands before commit or push:
