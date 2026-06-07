@@ -27,6 +27,8 @@
 - [ ] docs-maintainer reports exist.
 - [ ] handoff template exists.
 - [ ] target repository bootstrap task template exists.
+- [ ] `ADOPTION_AUDIT_TASK_TEMPLATE.md` exists.
+- [ ] `DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` exists.
 - [ ] short prompt adoption mode documented.
 - [ ] audit-only, docs-only adoption and runtime adoption modes documented.
 - [ ] minimal first PR creates only `ADOPTION_AUDIT.md`.

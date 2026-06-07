@@ -73,3 +73,9 @@
 - Добавлен `DOWNSTREAM_ADAPTATION_CHECKLIST.md`.
 - Добавлены downstream checklist, developer vs develop note, CI branch filters note, PowerShell/UTF-8 note и правило не копировать `CURRENT_STATE.md` verbatim.
 - Обновлены `README.md`, `ENGINE_ENTRYPOINT.md`, `TARGET_REPOSITORY_ADOPTION_GUIDE.md`, `SHORT_TARGET_ADOPTION_PROMPT.md`, `TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-07 - PR-2h docs-only adoption task templates
+
+- Добавлен `ADOPTION_AUDIT_TASK_TEMPLATE.md`.
+- Добавлен `DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
+- Обновлены `README.md`, `ADOPTION_GUIDE.md`, `SHORT_TARGET_ADOPTION_PROMPT.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.

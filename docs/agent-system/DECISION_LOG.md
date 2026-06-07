@@ -237,3 +237,18 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - runtime adoption отделяется от документационного bootstrap и требует отдельного архитектурного решения;
 - `ADOPTION_TRANSFER_MANIFEST.yml` становится машинной подсказкой для безопасного переноса документов;
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md` становится review checklist для target adaptation.
+
+## 2026-06-07 - Adoption task templates
+
+Решение:
+Добавить reusable task templates для audit-only и docs-only adoption.
+
+Причина:
+После adoption modes и transfer manifest нужен короткий путь от adoption mode к конкретной задаче engine без длинного ручного prompt.
+
+Последствия:
+
+- audit-only и docs-only adoption получают отдельные task templates;
+- engine может выбирать template по adoption mode;
+- target repository adoption становится более повторяемым;
+- docs-only adoption не смешивается с runtime adoption.

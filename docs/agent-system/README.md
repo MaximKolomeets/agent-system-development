@@ -21,3 +21,8 @@
 - отчеты и рабочие заметки агентов.
 
 GitHub остается основным источником правды. Source-файлы в `source/` служат индексом и кратким слепком состояния.
+
+## Templates
+
+- `templates/ADOPTION_AUDIT_TASK_TEMPLATE.md` - задача первого safe dry run в режиме `audit-only`.
+- `templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` - задача docs-only adoption после adoption audit.
