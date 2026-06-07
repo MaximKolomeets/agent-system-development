@@ -9,6 +9,8 @@
 - `main`/`developer` protected by process and rulesets.
 - Worktree workflow зафиксирован.
 - CI forbidden files check добавлен через PR-1e.
-- PR-2a добавил lifecycle/templates запуска нового проекта.
-- Текущая задача: PR-2b new project onboarding guide.
-- Следующий шаг: practical bootstrap example без конкретных внешних проектов.
+- PR-2a lifecycle/templates завершен.
+- PR-2b onboarding guide завершен.
+- PR-2c CI Node.js 24 compatibility завершен.
+- Текущая задача: PR-2d target repository adoption readiness.
+- Следующий шаг: first target repository dry run.
