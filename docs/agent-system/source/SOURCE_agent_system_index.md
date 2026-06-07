@@ -51,10 +51,12 @@ https://github.com/MaximKolomeets/agent-system-development
 23. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
 24. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
 25. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+26. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+27. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: PR-2g adoption modes and transfer manifest.
+Current stage: PR-2h docs-only adoption task templates.
 
 ## Состояние веток
 
@@ -64,7 +66,7 @@ Current stage: PR-2g adoption modes and transfer manifest.
 
 ## Следующий шаг
 
-Повторить target repository dry run в `audit-only` режиме и проверить, что minimal first PR создает только `ADOPTION_AUDIT.md`.
+Запустить docs-only adoption PR в target repository.
 
 ## Важно
 

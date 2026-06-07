@@ -22,9 +22,16 @@
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
+- `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;
+- `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`;
 - `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 
 После этого `engine` выполняет repository self-discovery в текущем target repository и читает локальные инструкции.
+
+После выбора adoption mode `engine` должен выбрать соответствующий task template:
+
+- `audit-only` uses `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;
+- `docs-only adoption` uses `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
 
 ## Первый результат
 

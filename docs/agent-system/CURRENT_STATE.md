@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2g adoption modes and transfer manifest.
+Текущий этап: PR-2h docs-only adoption task templates.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2g-adoption-modes-transfer-manifest
+work/docs-maintainer-01/pr-2h-docs-only-adoption-task-template
 ```
 
 Ветки:
@@ -61,6 +61,8 @@ PR-2e завершен и добавил engine entrypoint, repository self-disc
 
 PR-2f завершен и добавил methodology feedback loop.
 
-Текущая задача PR-2g добавляет adoption modes, transfer manifest, downstream checklist и minimal first PR rule.
+PR-2g завершен и добавил adoption modes, transfer manifest, downstream checklist и minimal first PR rule.
 
-Следующая цель после PR-2g: повторить target repository dry run в `audit-only` режиме и первым результатом создать только `ADOPTION_AUDIT.md`.
+Текущая задача PR-2h добавляет reusable task templates для `audit-only` и `docs-only adoption`.
+
+Следующая цель после PR-2h: запустить docs-only adoption PR в target repository.
