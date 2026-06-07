@@ -189,3 +189,19 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - stage completion checklist фиксирует готовность этапа;
 - target bootstrap task template становится основой первого dry run;
 - после PR-2d можно начинать первый target repository dry run.
+
+## 2026-06-07 - Engine entrypoint and repository self-discovery contract
+
+Решение:
+Встроить repository self-discovery и short prompt adoption mode в methodology repository.
+
+Причина:
+Пользователь не должен каждый раз вставлять длинный universal prompt. `engine` должен сам читать template repository и локальные инструкции target repository.
+
+Последствия:
+
+- agent-system-development становится полноценным template repository;
+- короткий prompt становится достаточным для старта;
+- `engine` обязан начинать с self-discovery;
+- первый target repository action должен быть adoption audit;
+- риск работы в неправильном repository снижается.

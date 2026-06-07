@@ -9,6 +9,9 @@
 - [ ] `PROJECT_LIFECYCLE.md` exists.
 - [ ] `NEW_PROJECT_ONBOARDING_GUIDE.md` exists.
 - [ ] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists.
+- [ ] `ENGINE_ENTRYPOINT.md` exists.
+- [ ] `ENGINE_SELF_DISCOVERY_CONTRACT.md` exists.
+- [ ] `SHORT_TARGET_ADOPTION_PROMPT.md` exists.
 - [ ] reusable templates exist.
 - [ ] branch policy exists.
 - [ ] workflow exists.
@@ -20,6 +23,7 @@
 - [ ] docs-maintainer reports exist.
 - [ ] handoff template exists.
 - [ ] target repository bootstrap task template exists.
+- [ ] short prompt adoption mode documented.
 
 ## Process readiness
 
@@ -61,8 +65,8 @@
 
 Этап считается готовым, если:
 
-- PR-2d merged в `developer`;
-- PR-2d released в `main`;
+- PR-2e merged в `developer`;
+- PR-2e released в `main`;
 - `developer` синхронизирован с `main`;
 - stage checklist заполнен;
 - следующий шаг - первый target repository dry run.
