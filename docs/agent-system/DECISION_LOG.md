@@ -160,3 +160,17 @@ Worktree позволяет держать стабильную/интеграц
 - onboarding guide становится входной точкой после README;
 - templates остаются reusable artifacts;
 - handoff/checklist/project profile используются как части одного процесса.
+
+## 2026-06-07 - GitHub Actions Node.js 24 compatibility
+
+Решение:
+Обновить `actions/checkout` в forbidden files workflow с `v4` на `v5`.
+
+Причина:
+GitHub Actions показывает warning о deprecated Node.js 20 actions. Проверка upstream metadata `actions/checkout@v5` подтвердила `using: node24`.
+
+Последствия:
+
+- forbidden files workflow использует checkout action с Node.js 24 runtime;
+- Node.js 20 deprecation warning для `actions/checkout@v4` должен исчезнуть;
+- при будущих runtime warnings нужно проверять upstream action metadata перед обновлением workflow.
