@@ -38,3 +38,11 @@
 - Добавлен `NEW_PROJECT_ONBOARDING_GUIDE.md`.
 - README обновлен ссылкой на onboarding guide.
 - Обновлены `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-07 - PR-2c CI Node.js 24 compatibility
+
+- Проверен workflow `.github/workflows/forbidden-files.yml`.
+- Найдено использование `actions/checkout@v4`.
+- Подтверждено, что `actions/checkout@v5` declares `using: node24`.
+- Workflow обновлен на `actions/checkout@v5`.
+- Обновлены `CI_POLICY.md`, `CURRENT_STATE`, `NEXT_STEPS` и `DECISION_LOG`.
