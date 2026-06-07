@@ -97,6 +97,20 @@ Template repository является методологической основ
 
 Adoption audit не должен переносить private data в public methodology repository.
 
+## Methodology feedback
+
+После adoption audit или target repository dry run `engine` должен предложить, что улучшить в template repository для следующей интеграции.
+
+Feedback должен быть нейтральным и не должен раскрывать private data target repository. Он может включать:
+
+- missing template docs;
+- manual steps to automate;
+- safety gaps;
+- conflicts with local instructions;
+- suggested methodology PRs.
+
+Methodology feedback не должен автоматически менять methodology repository. Любое улучшение `agent-system-development` выполняется отдельной задачей, отдельной веткой и отдельным PR.
+
 ## Запреты
 
 - Не начинать изменения до repository self-discovery.
