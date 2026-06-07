@@ -107,6 +107,10 @@ Matching lines нельзя печатать:
 - template documents found;
 - forbidden tracked paths result;
 - sensitive grep result без matching lines;
+- methodology feedback candidates;
+- missing template docs;
+- automation opportunities;
+- safety gaps;
 - stop conditions, если есть;
 - recommended next step.
 

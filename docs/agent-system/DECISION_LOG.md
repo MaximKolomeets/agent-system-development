@@ -205,3 +205,18 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - `engine` обязан начинать с self-discovery;
 - первый target repository action должен быть adoption audit;
 - риск работы в неправильном repository снижается.
+
+## 2026-06-07 - Target repository methodology feedback loop
+
+Решение:
+Добавить feedback loop из target repository dry run обратно в methodology repository.
+
+Причина:
+При реальном применении methodology repository могут обнаруживаться отсутствующие шаблоны, неудобные ручные шаги, safety gaps и возможности автоматизации. Эти наблюдения должны превращаться в отдельные безопасные PR в `agent-system-development`.
+
+Последствия:
+
+- final report target repository должен содержать `Methodology feedback`;
+- feedback не должен раскрывать private data;
+- улучшения methodology repository выполняются отдельными PR;
+- target repository dry run становится источником безопасного улучшения методологии.

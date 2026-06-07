@@ -11,6 +11,7 @@
 - [ ] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists.
 - [ ] `ENGINE_ENTRYPOINT.md` exists.
 - [ ] `ENGINE_SELF_DISCOVERY_CONTRACT.md` exists.
+- [ ] `METHODOLOGY_FEEDBACK_LOOP.md` exists.
 - [ ] `SHORT_TARGET_ADOPTION_PROMPT.md` exists.
 - [ ] reusable templates exist.
 - [ ] branch policy exists.
@@ -24,6 +25,8 @@
 - [ ] handoff template exists.
 - [ ] target repository bootstrap task template exists.
 - [ ] short prompt adoption mode documented.
+- [ ] target repository final report includes Methodology feedback.
+- [ ] feedback does not expose private data.
 
 ## Process readiness
 
@@ -65,8 +68,8 @@
 
 Этап считается готовым, если:
 
-- PR-2e merged в `developer`;
-- PR-2e released в `main`;
+- PR-2f merged в `developer`;
+- PR-2f released в `main`;
 - `developer` синхронизирован с `main`;
 - stage checklist заполнен;
 - следующий шаг - первый target repository dry run.

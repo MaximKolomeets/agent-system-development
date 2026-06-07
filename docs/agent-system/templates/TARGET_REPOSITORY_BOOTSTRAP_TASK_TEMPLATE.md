@@ -24,7 +24,7 @@
 
 `<role-name>`
 
-## Engine
+## engine
 
 `engine=<manual or selected engine>`
 
@@ -96,7 +96,7 @@ Sensitive grep must print only filenames. Do not print matching lines in termina
 
 ## Final report format
 
-Engine должен вернуть:
+`engine` должен вернуть:
 
 - working branch;
 - created files;
@@ -104,6 +104,10 @@ Engine должен вернуть:
 - checks executed;
 - checks not executed and why;
 - risks;
+- methodology feedback;
+- suggested methodology improvements;
+- automation opportunities;
+- safety gaps;
 - next step;
 - commit SHA;
 - push status;

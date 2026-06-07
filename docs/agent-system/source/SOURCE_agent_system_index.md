@@ -44,13 +44,14 @@ https://github.com/MaximKolomeets/agent-system-development
 16. docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
 17. docs/agent-system/ENGINE_ENTRYPOINT.md
 18. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
-19. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-20. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-21. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+19. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+20. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+21. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+22. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
 
 ## Текущий этап
 
-Current stage: PR-2e engine entrypoint and repository self-discovery contract.
+Current stage: PR-2f target repository feedback loop.
 
 ## Состояние веток
 
@@ -60,7 +61,7 @@ Current stage: PR-2e engine entrypoint and repository self-discovery contract.
 
 ## Следующий шаг
 
-Повторить first target repository dry run коротким prompt.
+Повторить first target repository dry run коротким prompt и проверить Methodology feedback.
 
 ## Важно
 
