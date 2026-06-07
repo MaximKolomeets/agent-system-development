@@ -220,3 +220,20 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - feedback не должен раскрывать private data;
 - улучшения methodology repository выполняются отдельными PR;
 - target repository dry run становится источником безопасного улучшения методологии.
+
+## 2026-06-07 - Adoption modes and transfer manifest
+
+Решение:
+Разделить применение methodology repository к target repository на режимы `audit-only`, `docs-only adoption` и `runtime adoption`, а также добавить machine-readable manifest переносимых файлов.
+
+Причина:
+Первый target repository dry run показал, что короткий adoption prompt должен безопасно приводить к минимальному audit, а не к неявному копированию template repository state. Нужны явные правила для файлов, которые можно переносить как generic, которые требуют target adaptation и которые отражают состояние methodology repository.
+
+Последствия:
+
+- первый безопасный результат adoption - только `docs/agent-system/ADOPTION_AUDIT.md`;
+- `CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` нельзя копировать verbatim;
+- branch model, worktree paths, current state, visibility и CI branch filters адаптируются под target repository;
+- runtime adoption отделяется от документационного bootstrap и требует отдельного архитектурного решения;
+- `ADOPTION_TRANSFER_MANIFEST.yml` становится машинной подсказкой для безопасного переноса документов;
+- `DOWNSTREAM_ADAPTATION_CHECKLIST.md` становится review checklist для target adaptation.

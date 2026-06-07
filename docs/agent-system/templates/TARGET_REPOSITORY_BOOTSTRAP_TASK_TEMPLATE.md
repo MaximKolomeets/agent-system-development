@@ -36,11 +36,25 @@
 docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
 ```
 
-Self-discovery и adoption audit выполняются до любых изменений файлов.
+Self-discovery, adoption mode selection и adoption audit выполняются до любых изменений файлов.
+
+Использовать:
+
+```text
+docs/agent-system/ADOPTION_GUIDE.md
+docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
+docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
+```
 
 ## Goal
 
 Описать цель bootstrap.
+
+## Adoption mode
+
+`audit-only`, `docs-only adoption` или `runtime adoption`.
+
+По умолчанию для первого dry run использовать `audit-only`.
 
 ## Allowed files
 
@@ -68,6 +82,12 @@ Self-discovery и adoption audit выполняются до любых изме
 
 ## Required documents
 
+Для `audit-only`:
+
+- `docs/agent-system/ADOPTION_AUDIT.md`
+
+Для `docs-only adoption`, после отдельного решения пользователя:
+
 - `README.md`
 - `AGENTS.md`
 - `docs/agent-system/CURRENT_STATE.md`
@@ -78,6 +98,8 @@ Self-discovery и adoption audit выполняются до любых изме
 - `docs/agent-system/PR_WORKFLOW.md`
 - `docs/agent-system/ROLE_MODEL.md`
 - `docs/agent-system/PUBLICATION_POLICY.md`
+
+`CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` не копировать из template repository verbatim. Они должны быть переписаны под target repository.
 
 ## Checks
 
@@ -104,6 +126,8 @@ Sensitive grep must print only filenames. Do not print matching lines in termina
 - checks executed;
 - checks not executed and why;
 - risks;
+- adoption mode;
+- transfer manifest notes;
 - methodology feedback;
 - suggested methodology improvements;
 - automation opportunities;

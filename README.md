@@ -34,6 +34,12 @@ Lifecycle описан в `docs/agent-system/PROJECT_LIFECYCLE.md`.
 
 Guide для применения методологии к target repository находится в `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`.
 
+Режимы применения methodology repository описаны в `docs/agent-system/ADOPTION_GUIDE.md`.
+
+Машиночитаемый manifest переносимых файлов находится в `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`.
+
+Checklist downstream-адаптации находится в `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`.
+
 Entrypoint для `engine` и короткого prompt находится в `docs/agent-system/ENGINE_ENTRYPOINT.md`.
 
 Контракт repository self-discovery находится в `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.

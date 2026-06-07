@@ -42,16 +42,19 @@ https://github.com/MaximKolomeets/agent-system-development
 14. docs/agent-system/PROJECT_LIFECYCLE.md
 15. docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
 16. docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
-17. docs/agent-system/ENGINE_ENTRYPOINT.md
-18. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
-19. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
-20. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-21. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-22. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+17. docs/agent-system/ADOPTION_GUIDE.md
+18. docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
+19. docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
+20. docs/agent-system/ENGINE_ENTRYPOINT.md
+21. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+22. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+23. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+24. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+25. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
 
 ## Текущий этап
 
-Current stage: PR-2f target repository feedback loop.
+Current stage: PR-2g adoption modes and transfer manifest.
 
 ## Состояние веток
 
@@ -61,7 +64,7 @@ Current stage: PR-2f target repository feedback loop.
 
 ## Следующий шаг
 
-Повторить first target repository dry run коротким prompt и проверить Methodology feedback.
+Повторить target repository dry run в `audit-only` режиме и проверить, что minimal first PR создает только `ADOPTION_AUDIT.md`.
 
 ## Важно
 

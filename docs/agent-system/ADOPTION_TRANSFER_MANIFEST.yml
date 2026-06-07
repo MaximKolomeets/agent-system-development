@@ -1,0 +1,126 @@
+version: 1
+
+purpose: >
+  Машиночитаемый manifest для безопасного применения methodology repository
+  к target repository. Manifest помогает отличать generic documents от файлов,
+  которые требуют target adaptation или отражают template repository state.
+
+visibility:
+  methodology_repository: public
+  target_repository: определяется отдельно для каждого target repository
+  rule: >
+    Private data target repository нельзя переносить в public methodology
+    repository. Visibility target repository не наследуется автоматически.
+
+categories:
+  generic:
+    description: >
+      Reusable methodology content, которое можно использовать как основу.
+    files:
+      - docs/agent-system/ADOPTION_GUIDE.md
+      - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
+      - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
+      - docs/agent-system/ENGINE_ENTRYPOINT.md
+      - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+      - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/PROJECT_LIFECYCLE.md
+    notes:
+      - Перед переносом все равно проверить local AGENTS.md target repository.
+
+  requires_target_adaptation:
+    description: >
+      Файлы можно использовать только после переписывания под target repository.
+    files:
+      - AGENTS.md
+      - README.md
+      - docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
+      - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+      - docs/agent-system/BRANCH_POLICY.md
+      - docs/agent-system/WORKFLOW.md
+      - docs/agent-system/PR_WORKFLOW.md
+      - docs/agent-system/ROLE_MODEL.md
+      - docs/agent-system/PUBLICATION_POLICY.md
+      - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
+      - docs/agent-system/CI_POLICY.md
+      - docs/agent-system/WORKTREE_GUIDE.md
+      - docs/agent-system/templates/**
+    adaptation_required:
+      - repository name
+      - repository visibility
+      - branch model
+      - developer vs develop
+      - worktree paths
+      - role names
+      - forbidden data rules
+      - CI branch filters
+
+  template_state_do_not_copy_verbatim:
+    description: >
+      Файлы отражают состояние methodology repository и не должны копироваться
+      в target repository дословно.
+    files:
+      - docs/agent-system/CURRENT_STATE.md
+      - docs/agent-system/NEXT_STEPS.md
+      - docs/agent-system/DECISION_LOG.md
+      - docs/agent-system/source/**
+      - docs/agent-system/agents/**
+    rewrite_required:
+      - current state переписать по фактам target repository
+      - next steps переписать по текущему плану target repository
+      - decision log заполнять только решениями target repository
+      - agent reports создавать заново для target repository
+
+rules:
+  - id: no_verbatim_state_copy
+    text: >
+      Не копировать CURRENT_STATE.md, NEXT_STEPS.md и DECISION_LOG.md
+      из methodology repository verbatim.
+  - id: local_instructions_first
+    text: Local AGENTS.md и локальные инструкции target repository имеют приоритет.
+  - id: no_private_data
+    text: >
+      Не переносить credentials, tokens, passwords, API keys, .env,
+      private data, client data или internal code names.
+  - id: no_runtime_in_docs_bootstrap
+    text: >
+      Не смешивать docs-only adoption с runtime code, Docker, services,
+      workers, orchestrator или API.
+  - id: separate_runtime_decision
+    text: Runtime adoption требует отдельного архитектурного решения.
+  - id: source_mirror_not_changed_by_default
+    text: Source mirror не меняется в audit-only и docs-only adoption без отдельного scope.
+
+branch_adaptation:
+  template_default: developer
+  target_repository_may_use:
+    - developer
+    - develop
+    - main-only flow
+    - custom branch model
+  required_checks:
+    - проверить фактические ветки target repository
+    - адаптировать BRANCH_POLICY.md
+    - адаптировать WORKFLOW.md
+    - адаптировать PR_WORKFLOW.md
+    - адаптировать task templates
+    - проверить GitHub Actions branch filters
+    - не переименовывать ветки без отдельного решения пользователя
+
+minimal_first_pr:
+  adoption_mode: audit-only
+  allowed_outputs:
+    - docs/agent-system/ADOPTION_AUDIT.md
+  forbidden_changes:
+    - runtime code
+    - Docker
+    - CI
+    - Source mirror
+    - architecture docs
+    - bulk template copy
+    - AGENTS.md/README.md without separate user decision
+  acceptance_criteria:
+    - repository self-discovery выполнен
+    - local instructions прочитаны
+    - working tree clean или используется отдельный clean worktree
+    - создан только adoption audit
+    - final report содержит Methodology feedback

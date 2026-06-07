@@ -18,19 +18,21 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint и `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
-4. выполнить safety gate;
-5. подготовить adoption audit;
-6. только после этого планировать bootstrap PR.
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml` и `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
+4. выбрать adoption mode;
+5. выполнить safety gate;
+6. подготовить adoption audit;
+7. только после этого планировать bootstrap PR.
 
 ## Обязательный порядок
 
 1. Repository self-discovery.
 2. Local instructions discovery.
 3. Template repository discovery.
-4. Safety gate.
-5. Adoption audit.
-6. Only then planned bootstrap PRs.
+4. Adoption mode selection.
+5. Safety gate.
+6. Adoption audit.
+7. Only then planned bootstrap PRs.
 
 ## Repository self-discovery
 
@@ -62,11 +64,24 @@ Self-discovery подтверждает:
 
 - `ENGINE_ENTRYPOINT.md`;
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- `ADOPTION_GUIDE.md`;
+- `ADOPTION_TRANSFER_MANIFEST.yml`;
+- `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
 - `STAGE_2_COMPLETION_CHECKLIST.md`;
 - `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 
 Template repository является методологической основой, а не источником для слепого копирования.
+
+## Adoption mode selection
+
+Перед изменениями `engine` выбирает режим по `ADOPTION_GUIDE.md`:
+
+- `audit-only` - первый безопасный dry run, результатом является только `docs/agent-system/ADOPTION_AUDIT.md`;
+- `docs-only adoption` - перенос адаптированной документационной системы без runtime changes;
+- `runtime adoption` - отдельный runtime scope только после архитектурного решения target repository.
+
+`ADOPTION_TRANSFER_MANIFEST.yml` используется для проверки, какие файлы являются generic, какие отражают template repository state и какие требуют target adaptation. `DOWNSTREAM_ADAPTATION_CHECKLIST.md` используется как review checklist перед docs-only adoption.
 
 ## Safety gate
 
@@ -92,6 +107,7 @@ Template repository является методологической основ
 - public/private visibility, если она известна из локального контекста;
 - какие документы template repository применимы;
 - какие документы требуют адаптации;
+- какие файлы по transfer manifest нельзя копировать verbatim;
 - какие изменения можно предложить первым bootstrap PR;
 - какие риски требуют решения пользователя.
 
