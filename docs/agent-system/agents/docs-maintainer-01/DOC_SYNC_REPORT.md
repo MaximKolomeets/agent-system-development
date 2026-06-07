@@ -26,3 +26,9 @@
 - Добавлен CI forbidden files check.
 - Добавлен `CI_POLICY.md`.
 - Обновлены `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, `PR_WORKFLOW`, `MANUAL_REVIEW_CHECKLIST`, `GITHUB_RULESETS` и Source index.
+
+## 2026-06-07 - PR-2a reusable new project bootstrap doctrine
+
+- Добавлен `PROJECT_LIFECYCLE.md`.
+- Добавлены шаблоны нового проекта в `docs/agent-system/templates/`.
+- Обновлены `README.md`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, Source index и docs-maintainer summary/prompt.

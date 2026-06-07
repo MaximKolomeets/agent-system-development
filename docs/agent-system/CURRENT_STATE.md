@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-06
+Дата: 2026-06-07
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-1e CI forbidden files check.
+Текущий этап: PR-2a reusable new project bootstrap doctrine.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-1e-ci-forbidden-files-check
+work/docs-maintainer-01/pr-2a-new-project-bootstrap-doctrine
 ```
 
 Ветки:
@@ -47,6 +47,8 @@ work/docs-maintainer-01/pr-1e-ci-forbidden-files-check
 - Codex сейчас может использоваться только как engine-исполнитель по прямому заданию пользователя;
 - роли агентов не зависят от конкретного vendor/tool.
 
-Текущая задача добавляет GitHub Actions guardrail для forbidden tracked files.
+PR-1e добавил GitHub Actions guardrail для forbidden tracked files.
 
-Следующая цель после PR-1e: pre-push hook documentation.
+Текущая задача PR-2a добавляет lifecycle и шаблоны запуска нового проекта.
+
+Следующая цель после PR-2a: практический bootstrap example без конкретных внешних проектов или onboarding guide для первого нового проекта.
