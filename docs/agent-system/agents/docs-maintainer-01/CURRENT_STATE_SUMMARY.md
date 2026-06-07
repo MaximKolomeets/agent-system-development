@@ -7,6 +7,6 @@
 - Repo public.
 - Rulesets active по UI: `Protect main`, `Protect developer`.
 - `main`/`developer` protected by process and rulesets.
-- Worktree docs-maintainer создан.
-- Текущая задача: PR-1d local worktree setup verification.
-- Следующий шаг: CI forbidden files check.
+- Worktree workflow зафиксирован.
+- Текущая задача: PR-1e CI forbidden files check.
+- Следующий шаг: PR-1f pre-push hook documentation.

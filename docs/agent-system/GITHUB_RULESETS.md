@@ -8,6 +8,12 @@
 - Rulesets защищают `main` и `developer` от прямого небезопасного workflow.
 - Изменения должны идти через `work/<role>/*` -> `developer` -> `main`.
 
+## Status checks
+
+- На текущем этапе добавлен GitHub Actions workflow forbidden files check.
+- Решение, делать ли этот check обязательным в rulesets, принимается отдельной задачей.
+- До включения required status checks пользователь вручную проверяет результат GitHub Actions перед merge.
+
 ## main
 
 Рекомендуемые ручные правила GitHub branch protection/rulesets:

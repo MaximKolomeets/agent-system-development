@@ -10,11 +10,16 @@
 8. Исполнитель меняет только разрешенные файлы.
 9. Исполнитель обновляет отчет.
 10. Исполнитель делает commit и push.
-11. Пользователь/ChatGPT проверяют diff.
-12. Создается PR в `developer`.
-13. После проверки PR merge в `developer`.
-14. После накопления стабильных изменений `developer` merge в `main`.
-15. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
+11. Дождаться GitHub Actions CI.
+12. Если CI failed - не мержить PR.
+13. Исправить нарушения в рабочей ветке.
+14. Повторить push.
+15. Review выполняется только после успешного CI или после осознанного решения пользователя.
+16. Пользователь/ChatGPT проверяют diff.
+17. Создается PR в `developer`.
+18. После проверки PR merge в `developer`.
+19. После накопления стабильных изменений `developer` merge в `main`.
+20. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
 
 ## Base branch warning
 
