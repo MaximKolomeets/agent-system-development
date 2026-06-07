@@ -14,3 +14,9 @@
 - Зафиксирован Active status rulesets `Protect main` и `Protect developer` по ручной проверке пользователя в GitHub UI.
 - Добавлен `PUBLICATION_POLICY.md`.
 - Добавлено разграничение public methodology repo и private implementation repository.
+
+## 2026-06-06 - PR-1d local worktree setup verification
+
+- Зафиксирована локальная worktree-схема.
+- Docs-maintainer worktree создан.
+- Обновлены `WORKTREE_GUIDE`, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG`, `PR_WORKFLOW` и Source index.
