@@ -47,6 +47,11 @@
 - [ ] Branch pattern не содержит vendor/tool names.
 - [ ] После PR обновляются state docs.
 
+## Transfer manifest consistency
+
+- [ ] Transfer manifest не содержит противоречий между reusable templates и target-adapted files.
+- [ ] Reusable source templates отделены от materialized target files.
+
 ## Security
 
 - [ ] `.env` не читался и не переносился.

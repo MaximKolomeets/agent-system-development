@@ -57,7 +57,7 @@ categories:
       - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/WORKTREE_GUIDE.md
-      - docs/agent-system/templates/**
+      - docs/agent-system/templates/** # target-copied/adapted template instances; source templates explicitly listed in categories.generic.files remain reusable sources
       - PROJECT_DASHBOARD.md
       - ROADMAP.md
       - RUNBOOK.md
@@ -194,3 +194,15 @@ docs_only_governance_pack:
   rule: >
     Эти файлы пишутся по target repository facts и не должны содержать
     private data, client data, private repository URL или internal code names.
+
+template_materialization:
+  reusable_source_templates:
+    rule: >
+      Templates explicitly listed in categories.generic.files are reusable
+      source templates from methodology repository. They may be copied as
+      template references or used to generate target files.
+  target_materialized_files:
+    rule: >
+      Any target repository files created from templates must be adapted to
+      target repository facts. Target state files must never be copied verbatim
+      from methodology repository.

@@ -2,6 +2,8 @@
 
 Использовать этот шаблон при создании governance pack в target repository.
 
+Этот файл является reusable source template из methodology repository. Файлы target repository, созданные по нему, требуют адаптации под target facts, branch names, roadmap stages, backlog, current state, decisions и guardrails. Target state нужно писать заново, а не копировать из methodology repository verbatim.
+
 ## Обязательная шапка задачи для engine
 
 ```text

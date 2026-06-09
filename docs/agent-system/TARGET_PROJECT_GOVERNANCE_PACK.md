@@ -84,6 +84,14 @@ docs/agent-system/agents/
 - `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`;
 - `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`.
 
+## Template source vs target materialization
+
+Governance templates в methodology repository являются reusable sources. Они используются как reference или как основа для создания target files.
+
+Materialized target governance files всегда требуют target adaptation. `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `BACKLOG.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` не копируются verbatim и пишутся по фактам target repository.
+
+Project-specific state живет только в target repository.
+
 Нужно переписать под target repository:
 
 - `README.md`;

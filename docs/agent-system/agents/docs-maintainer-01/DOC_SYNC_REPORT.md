@@ -91,3 +91,4 @@
 - Добавлен `TARGET_PROJECT_GOVERNANCE_PACK.md`.
 - Добавлены governance templates: `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`, `PROJECT_DASHBOARD_TEMPLATE.md`, `ROADMAP_TEMPLATE.md`, `BACKLOG_TEMPLATE.md`, `PROJECT_GUARDRAILS_TEMPLATE.md`, `ENGINE_REGISTRY_TEMPLATE.md`.
 - Обновлены README, adoption guide, target repository adoption guide, onboarding guide, transfer manifest, downstream checklist, docs-only/bootstrap templates, repository structure template, project profile template, source index и state docs.
+- Follow-up: уточнено разделение reusable source templates и materialized target files в transfer manifest, governance docs, checklist и docs-only adoption template.

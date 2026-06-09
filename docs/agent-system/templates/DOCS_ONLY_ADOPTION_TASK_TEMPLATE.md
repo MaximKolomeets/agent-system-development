@@ -150,6 +150,8 @@ Governance pack files разрешены только как docs-only artifacts
 - sensitive grep filename-only
 - проверить, что нет runtime/code/CI changes
 - проверить, что governance state files переписаны по фактам target repository
+- проверить, что reusable templates не смешаны с target-specific state files
+- проверить, что materialized governance files адаптированы под target repository
 
 ## Final report
 
