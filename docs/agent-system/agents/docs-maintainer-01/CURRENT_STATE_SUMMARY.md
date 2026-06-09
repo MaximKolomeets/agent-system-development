@@ -17,5 +17,6 @@
 - PR-2f target repository feedback loop завершен.
 - PR-2g adoption modes and transfer manifest завершен.
 - PR-2h docs-only adoption task templates завершен.
-- Текущая задача: PR-2i engine task header and repository role.
-- Следующий шаг: проверить PR-2i и продолжить target repository adoption dry run.
+- PR-2i engine task header and repository role завершен.
+- Текущая задача: PR-2j target project governance pack.
+- Следующий шаг: проверить PR-2j и применить обновленный governance pack template в target repository.

@@ -269,3 +269,19 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - универсальные улучшения возвращаются в `agent-system-development` только отдельными methodology PR;
 - task templates требуют role-based `<agent-name>`, а не vendor/tool name;
 - `<task-id>` связывает задачу, ветку, отчет и Pull Request.
+
+## 2026-06-09 - Target project governance pack
+
+Решение:
+Target repositories должны получать governance pack, который фиксирует цель, roadmap, backlog, current state, next steps, decisions, guardrails и engine registry.
+
+Причина:
+После adoption target repository должен иметь не только роли, ветки и task templates, но и управляемый контур состояния проекта. Это снижает риск scope drift, несопоставимых задач, устаревших state docs и смешивания methodology repository state с downstream project-specific state.
+
+Последствия:
+
+- `agent-system-development` хранит reusable governance templates и adoption rules;
+- project-specific governance state создается и обновляется только в target repository;
+- docs-only adoption может включать governance pack без runtime code, Docker, CI или production data;
+- после значимых PR target repository обновляет минимум `CURRENT_STATE.md` и при необходимости `NEXT_STEPS.md`, `ROADMAP.md`, `BACKLOG.md`, `DECISION_LOG.md`;
+- `ENGINE_REGISTRY.md` отделяет stable agent roles от replaceable engines.

@@ -54,6 +54,12 @@ docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
 ```
 
+Governance pack для target repository описан в:
+
+```text
+docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+```
+
 ## Feedback to methodology repository
 
 После target repository dry run `engine` должен собрать нейтральные предложения по улучшению methodology repository.
@@ -133,6 +139,31 @@ docs/agent-system/agents/
 
 Структура может адаптироваться под target repository, но bootstrap должен оставаться маленьким и проверяемым.
 
+## 3a. Подготовить target project governance pack
+
+До docs-only adoption нужно создать или адаптировать governance pack, чтобы проект не уходил от цели, roadmap и scope.
+
+Использовать:
+
+```text
+docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+```
+
+Создать или адаптировать в target repository:
+
+- `PROJECT_DASHBOARD.md`;
+- `ROADMAP.md`;
+- `RUNBOOK.md`;
+- `DECISIONS.md` или `docs/agent-system/DECISION_LOG.md`;
+- `docs/agent-system/CURRENT_STATE.md`;
+- `docs/agent-system/NEXT_STEPS.md`;
+- `docs/agent-system/BACKLOG.md`;
+- `docs/agent-system/PROJECT_GUARDRAILS.md`;
+- `docs/agent-system/ENGINE_REGISTRY.md`.
+
+Эти файлы содержат target-specific state и не копируются verbatim из methodology repository. Они пишутся по фактам target repository.
+
 ## 4. Адаптировать документы
 
 Можно переносить как основу:
@@ -144,6 +175,7 @@ docs/agent-system/agents/
 - PR workflow;
 - role model;
 - publication policy;
+- governance pack templates;
 - templates.
 
 Нужно адаптировать:

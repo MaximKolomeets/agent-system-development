@@ -76,6 +76,8 @@ Entrypoint для `engine` и короткого prompt находится в `d
 
 Feedback loop из target repository dry run в methodology repository описан в `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`.
 
+Target project governance pack описан в `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`.
+
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
 
 Checklist готовности этапа находится в `docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md`.
@@ -86,6 +88,26 @@ Checklist готовности этапа находится в `docs/agent-syst
 
 Шаблон docs-only adoption task находится в `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
 
+Шаблон governance pack находится в `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
+
 Шаблоны для запуска нового проекта лежат в `docs/agent-system/templates/`.
 
 Конкретные downstream/private projects не называются в public repository. Для примеров используются только нейтральные формулировки.
+
+## Target project governance pack
+
+`agent-system-development` предоставляет не только агентные роли, branch workflow и task templates, но и reusable набор project governance документов для target repository.
+
+Governance pack помогает target repository удерживать:
+
+- цель и non-goals;
+- roadmap;
+- backlog;
+- current state;
+- next steps;
+- decisions;
+- project guardrails;
+- engine registry;
+- handoff для нового чата или новой рабочей сессии.
+
+Project-specific governance state создается и обновляется только в target repository. В public methodology repository хранятся только универсальные шаблоны, правила adoption и checklist.
