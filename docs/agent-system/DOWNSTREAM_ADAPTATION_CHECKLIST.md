@@ -34,6 +34,19 @@
 - [ ] Template repository state не скопирован verbatim.
 - [ ] Worktree paths заменены на target repository paths.
 
+## Project governance pack
+
+- [ ] `PROJECT_DASHBOARD.md` создан или адаптирован.
+- [ ] `ROADMAP.md` создан или адаптирован.
+- [ ] `BACKLOG.md` создан.
+- [ ] `CURRENT_STATE.md` переписан по фактам target repository.
+- [ ] `NEXT_STEPS.md` отражает текущий план.
+- [ ] `DECISION_LOG.md` не скопирован verbatim.
+- [ ] `PROJECT_GUARDRAILS.md` фиксирует goal, non-goals и forbidden scope.
+- [ ] `ENGINE_REGISTRY.md` отделяет agent roles от engines.
+- [ ] Branch pattern не содержит vendor/tool names.
+- [ ] После PR обновляются state docs.
+
 ## Security
 
 - [ ] `.env` не читался и не переносился.

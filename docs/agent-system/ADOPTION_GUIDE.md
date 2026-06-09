@@ -89,6 +89,7 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 
 - generic docs;
 - role model;
+- target project governance pack;
 - workflow docs;
 - PR workflow;
 - branch policy;
@@ -100,12 +101,14 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 - runtime agent code;
 - Docker/service changes;
 - CI changes, если не отдельный PR;
+- production data;
 - копировать `CURRENT_STATE`/`NEXT_STEPS`/`DECISION_LOG` дословно из template repository;
 - переносить private data.
 
 Acceptance criteria:
 
 - project-specific state переписан под target repository;
+- governance pack создан или адаптирован по фактам target repository;
 - branch names адаптированы;
 - local `AGENTS.md` имеет приоритет;
 - Source mirror не менялся.
@@ -177,6 +180,23 @@ Checklist используется перед docs-only adoption и review, чт
 - Source mirror policy.
 
 `CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` из methodology repository нельзя копировать verbatim. Они описывают состояние template repository, а не target repository.
+
+Governance pack описан в:
+
+```text
+docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+```
+
+Шаблоны governance pack находятся в:
+
+```text
+docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+docs/agent-system/templates/ROADMAP_TEMPLATE.md
+docs/agent-system/templates/BACKLOG_TEMPLATE.md
+docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+```
 
 ## Developer vs develop
 

@@ -17,6 +17,7 @@
 - adoption modes;
 - transfer manifest;
 - downstream adaptation checklist;
+- target project governance pack;
 - шаблоны задач, отчетов и review;
 - отчеты и рабочие заметки агентов.
 
@@ -26,3 +27,9 @@ GitHub остается основным источником правды. Sour
 
 - `templates/ADOPTION_AUDIT_TASK_TEMPLATE.md` - задача первого safe dry run в режиме `audit-only`.
 - `templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` - задача docs-only adoption после adoption audit.
+- `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` - структура governance pack для target repository.
+- `templates/PROJECT_DASHBOARD_TEMPLATE.md` - dashboard проекта.
+- `templates/ROADMAP_TEMPLATE.md` - roadmap проекта.
+- `templates/BACKLOG_TEMPLATE.md` - backlog задач.
+- `templates/PROJECT_GUARDRAILS_TEMPLATE.md` - project guardrails и stop conditions.
+- `templates/ENGINE_REGISTRY_TEMPLATE.md` - registry ролей и engines.

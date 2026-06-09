@@ -89,9 +89,15 @@
 
 - `README.md`;
 - `AGENTS.md`;
+- `PROJECT_DASHBOARD.md`;
+- `ROADMAP.md`;
+- `RUNBOOK.md`;
 - `docs/agent-system/CURRENT_STATE.md`;
 - `docs/agent-system/NEXT_STEPS.md`;
+- `docs/agent-system/BACKLOG.md`;
 - `docs/agent-system/DECISION_LOG.md`;
+- `docs/agent-system/PROJECT_GUARDRAILS.md`;
+- `docs/agent-system/ENGINE_REGISTRY.md`;
 - `docs/agent-system/BRANCH_POLICY.md`;
 - `docs/agent-system/WORKFLOW.md`;
 - `docs/agent-system/PR_WORKFLOW.md`;
@@ -103,6 +109,7 @@
 - repository создан;
 - branch policy определена;
 - forbidden data rules зафиксированы;
+- governance pack создан по фактам target repository;
 - первый PR малый и проверяемый;
 - handoff подготовлен;
 - пользователь подтвердил следующий шаг.

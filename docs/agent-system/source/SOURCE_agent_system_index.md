@@ -48,15 +48,22 @@ https://github.com/MaximKolomeets/agent-system-development
 20. docs/agent-system/ENGINE_ENTRYPOINT.md
 21. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
 22. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
-23. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-24. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-25. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
-26. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
-27. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+23. docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+24. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+25. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+26. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+27. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+28. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+29. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+30. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+31. docs/agent-system/templates/ROADMAP_TEMPLATE.md
+32. docs/agent-system/templates/BACKLOG_TEMPLATE.md
+33. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+34. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: PR-2i engine task header and repository role.
+Current stage: PR-2j target project governance pack.
 
 ## Состояние веток
 
@@ -66,7 +73,7 @@ Current stage: PR-2i engine task header and repository role.
 
 ## Следующий шаг
 
-Проверить PR-2i и продолжить target repository adoption dry run.
+Проверить PR-2j и применить обновленный governance pack template в target repository.
 
 ## Важно
 
@@ -77,6 +84,8 @@ Current stage: PR-2i engine task header and repository role.
 - `agent-system-development` - reusable methodology/template repository, а не центральный repository управления downstream-проектами.
 - Задачи для engine писать на русском и начинать с `Задача для <agent-name>: <task-id>`.
 - Task id должен быть связан с issue, PR, task id или внутренним номером работы проекта.
+- Target repository governance pack фиксирует dashboard, roadmap, backlog, state, decisions, guardrails и engine registry.
+- Project-specific governance state создается только в target repository.
 - Не читать `.env`.
 - Не коммитить `.env`, `.venv`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.
 - Все решения фиксировать в GitHub.

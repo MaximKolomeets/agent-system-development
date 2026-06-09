@@ -5,17 +5,26 @@
 ```text
 README.md
 AGENTS.md
+PROJECT_DASHBOARD.md
+ROADMAP.md
+RUNBOOK.md
+DECISIONS.md
 .gitignore
 docs/
   agent-system/
+    README.md
     CURRENT_STATE.md
     NEXT_STEPS.md
+    BACKLOG.md
     DECISION_LOG.md
+    PROJECT_GUARDRAILS.md
+    ENGINE_REGISTRY.md
     BRANCH_POLICY.md
     WORKFLOW.md
     PR_WORKFLOW.md
     ROLE_MODEL.md
     PUBLICATION_POLICY.md
+    MANUAL_REVIEW_CHECKLIST.md
     templates/
     agents/
 .github/
@@ -26,18 +35,27 @@ docs/
 
 - `README.md` - назначение проекта и краткий workflow.
 - `AGENTS.md` - правила для engine-исполнителей.
+- `PROJECT_DASHBOARD.md` - краткий project status, active branch/PR, risks и links.
+- `ROADMAP.md` - этапы проекта, criteria и next PR candidates.
+- `RUNBOOK.md` - повторяемые операции и проверки.
+- `DECISIONS.md` - root-level decision log, если проект выбирает такой формат.
 - `.gitignore` - forbidden local/runtime paths.
 
 ## Required docs
 
+- `docs/agent-system/README.md`
 - `docs/agent-system/CURRENT_STATE.md`
 - `docs/agent-system/NEXT_STEPS.md`
+- `docs/agent-system/BACKLOG.md`
 - `docs/agent-system/DECISION_LOG.md`
+- `docs/agent-system/PROJECT_GUARDRAILS.md`
+- `docs/agent-system/ENGINE_REGISTRY.md`
 - `docs/agent-system/BRANCH_POLICY.md`
 - `docs/agent-system/WORKFLOW.md`
 - `docs/agent-system/PR_WORKFLOW.md`
 - `docs/agent-system/ROLE_MODEL.md`
 - `docs/agent-system/PUBLICATION_POLICY.md`
+- `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md`
 
 ## Optional docs
 
@@ -50,6 +68,15 @@ docs/
 
 `docs/agent-system/templates/` хранит reusable templates для задач, review, решений, handoff и bootstrap.
 
+Governance pack templates:
+
+- `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`
+- `PROJECT_DASHBOARD_TEMPLATE.md`
+- `ROADMAP_TEMPLATE.md`
+- `BACKLOG_TEMPLATE.md`
+- `PROJECT_GUARDRAILS_TEMPLATE.md`
+- `ENGINE_REGISTRY_TEMPLATE.md`
+
 ## Agent reports
 
 `docs/agent-system/agents/` хранит отчеты ролей. Имена папок должны быть role-based и не должны содержать vendor/tool names.
@@ -61,3 +88,5 @@ docs/
 ## Adaptation
 
 Структура может адаптироваться под public/private repository. В public repository нельзя хранить приватные данные, реальные секреты, внутренние кодовые имена или материалы private downstream repository.
+
+Project-specific state files нужно создавать заново по фактам target repository, а не копировать из methodology repository verbatim.

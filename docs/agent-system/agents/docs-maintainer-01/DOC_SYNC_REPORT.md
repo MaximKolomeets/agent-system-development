@@ -85,3 +85,9 @@
 - Уточнена роль `agent-system-development` как reusable methodology/template repository, а не центрального repository управления downstream-проектами.
 - Добавлена обязательная русскоязычная шапка задач для `engine`: `Задача для <agent-name>: <task-id>` и блок рекомендуемого режима.
 - Обновлены README, adoption/engine guides, downstream checklist, transfer manifest, task templates, state docs и docs-maintainer summary/prompt.
+
+## 2026-06-09 - PR-2j target project governance pack
+
+- Добавлен `TARGET_PROJECT_GOVERNANCE_PACK.md`.
+- Добавлены governance templates: `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`, `PROJECT_DASHBOARD_TEMPLATE.md`, `ROADMAP_TEMPLATE.md`, `BACKLOG_TEMPLATE.md`, `PROJECT_GUARDRAILS_TEMPLATE.md`, `ENGINE_REGISTRY_TEMPLATE.md`.
+- Обновлены README, adoption guide, target repository adoption guide, onboarding guide, transfer manifest, downstream checklist, docs-only/bootstrap templates, repository structure template, project profile template, source index и state docs.

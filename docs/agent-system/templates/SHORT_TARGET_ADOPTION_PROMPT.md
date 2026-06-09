@@ -40,8 +40,10 @@ Reasoning: <Low | Medium | High>
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
+- `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`;
 - `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;
 - `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`;
+- `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`;
 - `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
 
 После этого `engine` выполняет repository self-discovery в текущем target repository и читает локальные инструкции.
@@ -70,6 +72,7 @@ Adoption audit должен показать:
 - sensitive grep result без matching lines;
 - какие документы template repository применимы;
 - какие файлы adoption transfer manifest относит к `template_state_do_not_copy_verbatim` или `requires_target_adaptation`;
+- какие governance pack files нужно создать или адаптировать;
 - какие изменения можно предложить первым bootstrap PR.
 
 Первым результатом не должен быть полный перенос всех файлов template repository.

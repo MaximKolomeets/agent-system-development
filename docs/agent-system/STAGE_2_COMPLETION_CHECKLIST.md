@@ -15,8 +15,10 @@
 - [ ] `ENGINE_ENTRYPOINT.md` exists.
 - [ ] `ENGINE_SELF_DISCOVERY_CONTRACT.md` exists.
 - [ ] `METHODOLOGY_FEEDBACK_LOOP.md` exists.
+- [ ] `TARGET_PROJECT_GOVERNANCE_PACK.md` exists.
 - [ ] `SHORT_TARGET_ADOPTION_PROMPT.md` exists.
 - [ ] reusable templates exist.
+- [ ] governance pack templates exist.
 - [ ] branch policy exists.
 - [ ] workflow exists.
 - [ ] PR workflow exists.
@@ -41,6 +43,8 @@
 - [ ] methodology repository role is documented as reusable template, not downstream control center.
 - [ ] mandatory engine task header is documented.
 - [ ] task id to issue/PR/task mapping is documented.
+- [ ] target project governance pack is documented.
+- [ ] dashboard, roadmap, backlog, guardrails and engine registry templates exist.
 
 ## Process readiness
 
