@@ -7,6 +7,15 @@
 - [ ] Project purpose переписан под target repository.
 - [ ] Public/private publication constraints зафиксированы.
 - [ ] Private data не переносится в public methodology repository.
+- [ ] `agent-system-development` описан как methodology/template repository, а не как центральный repository управления target repository.
+
+## Engine task header
+
+- [ ] Задачи для `engine` формулируются на русском языке.
+- [ ] Шапка использует формат `Задача для <agent-name>: <task-id>`.
+- [ ] `<agent-name>` является role-based именем назначенного агента.
+- [ ] `<task-id>` связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+- [ ] Шапка содержит запуск, модель, reasoning, режим работы и причину выбора режима.
 
 ## Branch model
 

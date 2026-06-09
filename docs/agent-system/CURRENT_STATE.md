@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-07
+Дата: 2026-06-09
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2h docs-only adoption task templates.
+Текущий этап: PR-2i engine task header and repository role.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2h-docs-only-adoption-task-template
+work/docs-maintainer-01/pr-2i-engine-task-header-and-repository-role
 ```
 
 Ветки:
@@ -63,6 +63,8 @@ PR-2f завершен и добавил methodology feedback loop.
 
 PR-2g завершен и добавил adoption modes, transfer manifest, downstream checklist и minimal first PR rule.
 
-Текущая задача PR-2h добавляет reusable task templates для `audit-only` и `docs-only adoption`.
+PR-2h завершен и добавил reusable task templates для `audit-only` и `docs-only adoption`.
 
-Следующая цель после PR-2h: запустить docs-only adoption PR в target repository.
+Текущая задача PR-2i уточняет роль `agent-system-development` как reusable methodology/template repository и закрепляет обязательную русскоязычную шапку задач для `engine`.
+
+Следующая цель после PR-2i: проверить и смержить PR-2i, затем продолжить target repository adoption dry run.

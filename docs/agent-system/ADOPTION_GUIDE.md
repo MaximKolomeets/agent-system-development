@@ -11,6 +11,32 @@
 - не переносить template repository state дословно;
 - не раскрывать private data target repository.
 
+## Роль methodology repository
+
+`agent-system-development` является reusable methodology/template repository.
+
+Он не является центральным репозиторием управления downstream-проектами. После adoption ветки, worktree, отчеты, Pull Request, project-specific state и рабочие артефакты ведутся в target repository.
+
+В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR без private data, client data, private repository URL, внутренних кодовых имен и project-specific state.
+
+## Обязательная шапка task prompt
+
+Каждая задача для `engine` должна быть на русском языке и начинаться с шапки:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
 ## Adoption modes
 
 ### 1. audit-only

@@ -79,3 +79,9 @@
 - Добавлен `ADOPTION_AUDIT_TASK_TEMPLATE.md`.
 - Добавлен `DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
 - Обновлены `README.md`, `ADOPTION_GUIDE.md`, `SHORT_TARGET_ADOPTION_PROMPT.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `STAGE_2_COMPLETION_CHECKLIST.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
+
+## 2026-06-09 - PR-2i engine task header and repository role
+
+- Уточнена роль `agent-system-development` как reusable methodology/template repository, а не центрального repository управления downstream-проектами.
+- Добавлена обязательная русскоязычная шапка задач для `engine`: `Задача для <agent-name>: <task-id>` и блок рекомендуемого режима.
+- Обновлены README, adoption/engine guides, downstream checklist, transfer manifest, task templates, state docs и docs-maintainer summary/prompt.

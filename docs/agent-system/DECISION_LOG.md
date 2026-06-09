@@ -252,3 +252,20 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 - engine может выбирать template по adoption mode;
 - target repository adoption становится более повторяемым;
 - docs-only adoption не смешивается с runtime adoption.
+
+## 2026-06-09 - Repository role and engine task header
+
+Решение:
+Явно закрепить, что `agent-system-development` является reusable methodology/template repository, а не центральным репозиторием управления downstream-проектами.
+
+Также закрепить обязательную русскоязычную шапку задач для `engine`: `Задача для <agent-name>: <task-id>` и блок рекомендуемого режима запуска, модели, reasoning, режима работы и причины выбора режима.
+
+Причина:
+Методология будет переиспользоваться в target repositories. Нужно предотвратить перенос project-specific state, отчетов, секретов и рабочих веток обратно в public methodology repository, а также сделать задачи для engine сопоставимыми с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
+Последствия:
+
+- после adoption рабочие ветки, worktree, отчеты и Pull Request ведутся в target repository;
+- универсальные улучшения возвращаются в `agent-system-development` только отдельными methodology PR;
+- task templates требуют role-based `<agent-name>`, а не vendor/tool name;
+- `<task-id>` связывает задачу, ветку, отчет и Pull Request.
