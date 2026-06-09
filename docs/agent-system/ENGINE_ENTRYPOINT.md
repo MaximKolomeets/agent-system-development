@@ -6,6 +6,28 @@
 
 Entrypoint нужен, чтобы короткий prompt пользователя был достаточен для безопасного старта. `engine` должен сам найти методологию template repository, проверить текущий target repository и начать не с переноса файлов, а с adoption audit.
 
+`agent-system-development` является reusable methodology/template repository. Он не является центральным репозиторием управления агентами target repository и не хранит рабочие ветки, worktree, отчеты, Pull Request, project-specific state, исходный код или секреты downstream-проектов.
+
+После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
+
+## Обязательная шапка задачи
+
+Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
 ## Короткий prompt
 
 Пользователь может дать короткий prompt:

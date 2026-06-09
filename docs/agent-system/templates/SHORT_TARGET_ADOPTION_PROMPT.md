@@ -1,5 +1,23 @@
 # SHORT_TARGET_ADOPTION_PROMPT
 
+## Обязательная шапка задачи
+
+Короткий prompt используется после русскоязычной task header:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
 ## Короткий prompt
 
 ```text

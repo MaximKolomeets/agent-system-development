@@ -6,6 +6,8 @@
 
 GitHub является source of truth: в target repository должны фиксироваться файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Public methodology repository не должен содержать приватные данные target repository. Target repository может быть public или private, и его visibility выбирается отдельно. Пользователь принимает финальные решения. `engine` запускается пользователем вручную.
 
+`agent-system-development` используется как reusable methodology/template repository. Он не является центральным репозиторием управления агентами target repository. После adoption рабочие ветки, worktree, отчеты, Pull Request, project-specific state и рабочие артефакты создаются в самом target repository.
+
 ## Short prompt adoption mode
 
 Пользователь может начать adoption коротким prompt со ссылкой на template repository:
@@ -257,6 +259,22 @@ Sensitive grep работает в filename-only режиме и должен п
 - `engine` пишет отчет.
 
 `engine` не должен расширять scope задачи без отдельного решения пользователя.
+
+Задача для `engine` должна быть на русском языке и начинаться с обязательной шапки:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта. Это связывает задачу, ветку, отчет и Pull Request.
 
 ## 9. Проверить отчет engine
 
