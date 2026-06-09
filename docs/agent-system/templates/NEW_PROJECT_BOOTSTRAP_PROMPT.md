@@ -28,6 +28,15 @@
 2. Предложить структуру repository:
    - README.md;
    - AGENTS.md;
+   - PROJECT_DASHBOARD.md;
+   - ROADMAP.md;
+   - RUNBOOK.md;
+   - docs/agent-system/CURRENT_STATE.md;
+   - docs/agent-system/NEXT_STEPS.md;
+   - docs/agent-system/BACKLOG.md;
+   - docs/agent-system/DECISION_LOG.md;
+   - docs/agent-system/PROJECT_GUARDRAILS.md;
+   - docs/agent-system/ENGINE_REGISTRY.md;
    - .gitignore;
    - docs/agent-system/;
    - docs/agent-system/templates/;
@@ -41,15 +50,26 @@
 
 4. Предложить локальную worktree-схему для ролей.
 
-5. Предложить роли без vendor/tool names.
+5. Предложить governance pack до первых implementation PR:
+   - dashboard;
+   - roadmap;
+   - backlog;
+   - current state;
+   - next steps;
+   - decision log;
+   - project guardrails;
+   - engine registry;
+   - handoff rule.
 
-6. Предложить первые PR:
+6. Предложить роли без vendor/tool names.
+
+7. Предложить первые PR:
    - bootstrap PR;
    - documentation PR;
    - first implementation PR;
    - guardrail/CI PR, если нужен.
 
-7. Сформировать задачи для engine-исполнителей:
+8. Сформировать задачи для engine-исполнителей:
    - каждая задача формулируется на русском языке;
    - каждая задача начинается с шапки `Задача для <agent-name>: <task-id>`;
    - task id связан с GitHub issue, PR, task id или внутренним номером работы проекта;
@@ -60,7 +80,7 @@
    - checks;
    - final report format.
 
-8. Подготовить handoff для следующего чата:
+9. Подготовить handoff для следующего чата:
    - repository;
    - visibility;
    - current branches;

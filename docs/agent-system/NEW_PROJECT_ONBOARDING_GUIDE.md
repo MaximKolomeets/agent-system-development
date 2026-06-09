@@ -73,6 +73,35 @@ docs/agent-system/agents/
 
 На bootstrap-этапе структура должна быть маленькой и проверяемой. Дополнительные папки и CI лучше добавлять отдельными PR, если они не нужны сразу.
 
+## 4a. Подготовить governance pack
+
+Новый проект должен получить governance pack до первых implementation PR. Это снижает риск, что engine уведет проект в сторону от цели или начнет работу без понятного roadmap, backlog, guardrails и state docs.
+
+Минимальный набор:
+
+- `PROJECT_DASHBOARD.md`;
+- `ROADMAP.md`;
+- `RUNBOOK.md`;
+- `docs/agent-system/CURRENT_STATE.md`;
+- `docs/agent-system/NEXT_STEPS.md`;
+- `docs/agent-system/BACKLOG.md`;
+- `docs/agent-system/DECISION_LOG.md`;
+- `docs/agent-system/PROJECT_GUARDRAILS.md`;
+- `docs/agent-system/ENGINE_REGISTRY.md`.
+
+Использовать шаблоны:
+
+```text
+docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+docs/agent-system/templates/ROADMAP_TEMPLATE.md
+docs/agent-system/templates/BACKLOG_TEMPLATE.md
+docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+```
+
+Governance pack пишется по фактам target repository и не должен копировать project-specific state из methodology repository.
+
 ## 5. Создать ветки
 
 Рекомендуемая схема:

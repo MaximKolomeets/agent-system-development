@@ -60,6 +60,7 @@ Self-discovery, adoption mode selection и adoption audit выполняются
 docs/agent-system/ADOPTION_GUIDE.md
 docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
+docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
 ```
 
 ## Goal
@@ -106,16 +107,23 @@ docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
 
 - `README.md`
 - `AGENTS.md`
+- `PROJECT_DASHBOARD.md`
+- `ROADMAP.md`
+- `RUNBOOK.md`
+- `DECISIONS.md`, если нужен root-level decision log
 - `docs/agent-system/CURRENT_STATE.md`
 - `docs/agent-system/NEXT_STEPS.md`
+- `docs/agent-system/BACKLOG.md`
 - `docs/agent-system/DECISION_LOG.md`
+- `docs/agent-system/PROJECT_GUARDRAILS.md`
+- `docs/agent-system/ENGINE_REGISTRY.md`
 - `docs/agent-system/BRANCH_POLICY.md`
 - `docs/agent-system/WORKFLOW.md`
 - `docs/agent-system/PR_WORKFLOW.md`
 - `docs/agent-system/ROLE_MODEL.md`
 - `docs/agent-system/PUBLICATION_POLICY.md`
 
-`CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` не копировать из template repository verbatim. Они должны быть переписаны под target repository.
+Governance state files не копировать из template repository verbatim. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `BACKLOG.md`, `DECISION_LOG.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` должны быть переписаны под target repository.
 
 ## Checks
 

@@ -42,13 +42,14 @@ Reasoning: <Low | Medium | High>
 
 ## Goal
 
-Добавить адаптированную документационную систему `docs/agent-system/` в target repository без runtime changes.
+Добавить адаптированную документационную систему `docs/agent-system/` и, если входит в scope, target project governance pack в target repository без runtime changes.
 
 ## Inputs
 
 - `docs/agent-system/ADOPTION_AUDIT.md` from target repository;
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` from template repository;
+- `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` from template repository;
 - local `AGENTS.md`;
 - local `README.md`;
 - local architecture/status docs.
@@ -64,16 +65,38 @@ Reasoning: <Low | Medium | High>
 - `docs/agent-system/PR_WORKFLOW.md`
 - `docs/agent-system/SECURITY_POLICY.md`
 - `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md`
+- `docs/agent-system/PROJECT_GUARDRAILS.md`
+- `docs/agent-system/ENGINE_REGISTRY.md`
 - `docs/agent-system/templates/**`
 - `docs/agent-system/agents/docs-maintainer-01/**`
+
+Governance pack files разрешены только как docs-only artifacts:
+
+- `PROJECT_DASHBOARD.md`
+- `ROADMAP.md`
+- `RUNBOOK.md`
+- `DECISIONS.md`
+- `docs/agent-system/BACKLOG.md`
+- `docs/agent-system/CURRENT_STATE.md`
+- `docs/agent-system/NEXT_STEPS.md`
+- `docs/agent-system/DECISION_LOG.md`
+- `docs/agent-system/PROJECT_GUARDRAILS.md`
+- `docs/agent-system/ENGINE_REGISTRY.md`
 
 ## Requires adaptation
 
 Нельзя копировать дословно:
 
+- `PROJECT_DASHBOARD.md`
+- `ROADMAP.md`
+- `RUNBOOK.md`
+- `DECISIONS.md`
 - `CURRENT_STATE.md`
 - `NEXT_STEPS.md`
+- `BACKLOG.md`
 - `DECISION_LOG.md`
+- `PROJECT_GUARDRAILS.md`
+- `ENGINE_REGISTRY.md`
 - Source index
 - docs-maintainer reports
 - ruleset status
@@ -114,6 +137,7 @@ Reasoning: <Low | Medium | High>
 - прочитать local instructions;
 - применить transfer manifest;
 - применить downstream checklist;
+- применить governance pack template, если он в scope;
 - выбрать только docs-only adoption mode.
 
 ## Checks
@@ -125,6 +149,9 @@ Reasoning: <Low | Medium | High>
 - forbidden tracked paths check
 - sensitive grep filename-only
 - проверить, что нет runtime/code/CI changes
+- проверить, что governance state files переписаны по фактам target repository
+- проверить, что reusable templates не смешаны с target-specific state files
+- проверить, что materialized governance files адаптированы под target repository
 
 ## Final report
 
