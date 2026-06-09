@@ -1,5 +1,21 @@
 # TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE
 
+## Mandatory header
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+Задача формулируется на русском языке. `<agent-name>` - role-based имя агента. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
 ## Task
 
 `<task title>`

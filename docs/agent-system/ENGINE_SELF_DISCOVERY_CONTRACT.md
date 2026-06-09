@@ -6,6 +6,24 @@
 
 Цель self-discovery - подтвердить, что `engine` находится в правильном repository, понимает локальные инструкции, видит состояние working tree и не начинает bootstrap при риске повреждения данных или раскрытия секретов.
 
+## Проверка task header
+
+До изменений `engine` должен зафиксировать, что задача сформулирована на русском языке и начинается с обязательной шапки:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<agent-name>` должен быть role-based именем назначенного агента, а `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
 ## Обязательные команды
 
 В target repository выполнить:
@@ -103,6 +121,7 @@ Matching lines нельзя печатать:
 - remote summary;
 - current branch;
 - working tree status;
+- task header summary;
 - local instructions found;
 - template documents found;
 - forbidden tracked paths result;

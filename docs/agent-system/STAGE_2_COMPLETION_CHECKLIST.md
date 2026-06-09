@@ -38,6 +38,9 @@
 - [ ] `CURRENT_STATE.md` verbatim copy is forbidden.
 - [ ] target repository final report includes Methodology feedback.
 - [ ] feedback does not expose private data.
+- [ ] methodology repository role is documented as reusable template, not downstream control center.
+- [ ] mandatory engine task header is documented.
+- [ ] task id to issue/PR/task mapping is documented.
 
 ## Process readiness
 
@@ -47,6 +50,7 @@
 - [ ] main receives stable state from developer;
 - [ ] developer sync after main release is handled through PR if ruleset requires it;
 - [ ] user manually launches engine;
+- [ ] engine tasks start with `Задача для <agent-name>: <task-id>`;
 - [ ] ChatGPT reviews reports and prepares next tasks;
 - [ ] user makes final decisions.
 
@@ -80,8 +84,8 @@
 
 Этап считается готовым, если:
 
-- PR-2g merged в `developer`;
-- PR-2g released в `main`;
+- PR-2i merged в `developer`;
+- PR-2i released в `main`, если нужен methodology release;
 - `developer` синхронизирован с `main`;
 - stage checklist заполнен;
-- следующий шаг - повторный target repository dry run в `audit-only` режиме.
+- следующий шаг - target repository adoption dry run с обязательной task header.

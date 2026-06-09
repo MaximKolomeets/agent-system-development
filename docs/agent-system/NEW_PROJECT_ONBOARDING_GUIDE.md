@@ -6,6 +6,8 @@
 
 GitHub является source of truth: в репозитории фиксируются файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Чат помогает формулировать задачи и проверять отчеты, но не заменяет GitHub. Пользователь принимает финальные решения по scope, visibility, merge, release и изменению правил. Engine-исполнители запускаются пользователем вручную.
 
+`agent-system-development` используется как reusable methodology/template repository. Он не становится центральным репозиторием управления новым проектом: после adoption все рабочие ветки, worktree, отчеты, Pull Request и project-specific state ведутся в repository нового проекта.
+
 ## 1. Описать идею проекта
 
 Пользователь кратко описывает:
@@ -138,6 +140,22 @@ docs-maintainer-01: engine=<manual or selected engine>
 5. Engine не меняет `main` или `developer` напрямую.
 
 Если задача требует новой ветки, она создается от актуальной `developer`.
+
+Каждая задача для `engine` формулируется на русском языке и начинается с обязательной шапки:
+
+```text
+Задача для <agent-name>: <task-id>
+
+Рекомендуемый режим <engine-name>:
+
+Запуск: <Local only | Cloud allowed | Hybrid>
+Модель: <model recommendation>
+Reasoning: <Low | Medium | High>
+Режим: <Agent | Ask | Manual review>
+Почему: <краткое обоснование выбора режима>
+```
+
+`<agent-name>` - role-based имя агента. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта, чтобы задачу, ветку, отчет и PR можно было сопоставить.
 
 ## 10. Проверить отчет engine
 

@@ -1,6 +1,6 @@
 # SOURCE_agent_system_index
 
-Дата фиксации: 2026-06-07
+Дата фиксации: 2026-06-09
 Проект: Создание агентской системы
 Основной источник правды: GitHub
 Repository visibility: public
@@ -56,7 +56,7 @@ https://github.com/MaximKolomeets/agent-system-development
 
 ## Текущий этап
 
-Current stage: PR-2h docs-only adoption task templates.
+Current stage: PR-2i engine task header and repository role.
 
 ## Состояние веток
 
@@ -66,7 +66,7 @@ Current stage: PR-2h docs-only adoption task templates.
 
 ## Следующий шаг
 
-Запустить docs-only adoption PR в target repository.
+Проверить PR-2i и продолжить target repository adoption dry run.
 
 ## Важно
 
@@ -74,6 +74,9 @@ Current stage: PR-2h docs-only adoption task templates.
 - Для downstream-проектов использовать нейтральные формулировки.
 - Codex/Claude/Gemini/Copilot не использовать в названиях агентов.
 - Конкретный инструмент указывается отдельно как engine.
+- `agent-system-development` - reusable methodology/template repository, а не центральный repository управления downstream-проектами.
+- Задачи для engine писать на русском и начинать с `Задача для <agent-name>: <task-id>`.
+- Task id должен быть связан с issue, PR, task id или внутренним номером работы проекта.
 - Не читать `.env`.
 - Не коммитить `.env`, `.venv`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.
 - Все решения фиксировать в GitHub.

@@ -11,6 +11,9 @@ visibility:
   rule: >
     Private data target repository нельзя переносить в public methodology
     repository. Visibility target repository не наследуется автоматически.
+  repository_role: >
+    agent-system-development является reusable methodology/template repository,
+    а не центральным репозиторием управления downstream-проектами.
 
 categories:
   generic:
@@ -53,6 +56,7 @@ categories:
       - developer vs develop
       - worktree paths
       - role names
+      - task ids and issue/PR mapping
       - forbidden data rules
       - CI branch filters
 
@@ -79,6 +83,14 @@ rules:
       из methodology repository verbatim.
   - id: local_instructions_first
     text: Local AGENTS.md и локальные инструкции target repository имеют приоритет.
+  - id: methodology_repository_not_downstream_control_center
+    text: >
+      Не хранить в methodology repository рабочие ветки, отчеты, исходный код,
+      секреты или project-specific state target repository.
+  - id: mandatory_engine_task_header
+    text: >
+      Каждая задача для engine начинается с русскоязычной шапки
+      "Задача для <agent-name>: <task-id>" и блока рекомендуемого режима.
   - id: no_private_data
     text: >
       Не переносить credentials, tokens, passwords, API keys, .env,
