@@ -42,7 +42,7 @@ Reasoning: <Low | Medium | High>
 
 ## Goal
 
-Выполнить repository self-discovery и создать только `docs/agent-system/ADOPTION_AUDIT.md`.
+Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md`.
 
 ## Allowed files
 
@@ -83,10 +83,23 @@ Reasoning: <Low | Medium | High>
 - current project state;
 - template repository summary;
 - fit analysis;
+- language consistency audit;
+- список файлов с нерусскими governance descriptions;
+- рекомендация по унификации языка;
+- проверка скриптов, workflow и templates на достаточные русские комментарии для нужных строк/блоков;
 - adoption recommendation;
 - risks;
 - open questions;
-- Methodology feedback.
+- Methodology feedback;
+- нейтральный `Methodology repository improvement request`, если audit показал, что methodology repository нужно улучшить.
+
+Language consistency rule:
+
+- English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names and API names;
+- для русскоязычного target repository governance descriptions должны быть на русском языке;
+- mixed-language sections должны быть либо оправданы, либо рекомендованы к нормализации.
+
+Methodology feedback не должен включать private downstream data, private repository URLs, client data, customer data, internal code names или secrets.
 
 ## Checks
 
@@ -96,6 +109,8 @@ Reasoning: <Low | Medium | High>
 - git ls-files
 - forbidden tracked paths check
 - sensitive grep filename-only
+- language consistency audit
+- commenting consistency audit
 
 ## Final report
 
@@ -105,8 +120,11 @@ Reasoning: <Low | Medium | High>
 - checks;
 - forbidden tracked paths result;
 - sensitive grep result без matching lines;
+- language consistency result;
+- commenting consistency result;
 - risks;
 - Methodology feedback;
+- Methodology repository improvement request, если есть;
 - commit SHA;
 - push status;
 - PR link/number.
