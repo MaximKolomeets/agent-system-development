@@ -79,6 +79,7 @@ docs/agent-system/agents/
 
 Минимальный набор:
 
+- `PROJECT_CONSTITUTION.md`;
 - `PROJECT_DASHBOARD.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
@@ -93,6 +94,7 @@ docs/agent-system/agents/
 
 ```text
 docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
 docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
 docs/agent-system/templates/ROADMAP_TEMPLATE.md
 docs/agent-system/templates/BACKLOG_TEMPLATE.md
@@ -101,6 +103,8 @@ docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
 ```
 
 Governance pack пишется по фактам target repository и не должен копировать project-specific state из methodology repository.
+
+`PROJECT_CONSTITUTION.md` должен быть подготовлен до первых implementation PR. В нем фиксируются mission, success criteria, out-of-scope, architectural principles, одна active strategic goal, Agent Authority, Decision Authority и Scope Expansion Control.
 
 ## 5. Создать ветки
 

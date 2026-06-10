@@ -16,6 +16,10 @@
 
 Кратко описать целевой результат проекта.
 
+## Current strategic goal
+
+Описать одну active strategic goal для `PROJECT_CONSTITUTION.md`.
+
 ## Non-goals
 
 Перечислить, что проект намеренно не делает на текущем этапе.
@@ -89,6 +93,7 @@
 
 - `README.md`;
 - `AGENTS.md`;
+- `PROJECT_CONSTITUTION.md`;
 - `PROJECT_DASHBOARD.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
@@ -109,6 +114,7 @@
 - repository создан;
 - branch policy определена;
 - forbidden data rules зафиксированы;
+- `PROJECT_CONSTITUTION.md` создан по фактам target repository;
 - governance pack создан по фактам target repository;
 - первый PR малый и проверяемый;
 - handoff подготовлен;

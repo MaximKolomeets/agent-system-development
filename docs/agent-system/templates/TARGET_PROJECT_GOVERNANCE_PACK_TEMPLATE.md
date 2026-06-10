@@ -25,6 +25,7 @@ Reasoning: <Low | Medium | High>
 ```text
 README.md
 AGENTS.md
+PROJECT_CONSTITUTION.md
 PROJECT_DASHBOARD.md
 ROADMAP.md
 RUNBOOK.md
@@ -53,6 +54,7 @@ docs/agent-system/
 |---|---|---|
 | `README.md` | Назначение проекта и входная точка | переписать под target repository |
 | `AGENTS.md` | Правила для engine | адаптировать local rules |
+| `PROJECT_CONSTITUTION.md` | Закон проекта: mission, success criteria, strategic goal, authority и scope control | создать по target facts |
 | `PROJECT_DASHBOARD.md` | Краткое состояние проекта | создать по фактам |
 | `ROADMAP.md` | Этапы и критерии завершения | создать по target plan |
 | `RUNBOOK.md` | Повторяемые операции | адаптировать команды |
@@ -81,6 +83,7 @@ docs/agent-system/
 ## Связь state documents
 
 - `PROJECT_DASHBOARD.md` кратко показывает current goal, active PR, blockers и links.
+- `PROJECT_CONSTITUTION.md` фиксирует mission, success criteria, out-of-scope, architectural principles, current strategic goal, authority и scope expansion control.
 - `ROADMAP.md` задает stages, completion criteria и next PR candidates.
 - `docs/agent-system/CURRENT_STATE.md` фиксирует фактическое состояние после PR.
 - `docs/agent-system/NEXT_STEPS.md` фиксирует ближайший план.
@@ -94,6 +97,7 @@ docs/agent-system/
 Не копировать эти файлы verbatim из methodology repository:
 
 - `PROJECT_DASHBOARD.md`;
+- `PROJECT_CONSTITUTION.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
 - `DECISIONS.md`;
@@ -121,6 +125,16 @@ work/<agent-name>/<task-id>
 - не использовать vendor/tool names в agent folder names;
 - task id связывает task, branch, report и PR;
 - engine выбирается для конкретной задачи и фиксируется в task header.
+- `ENGINE_REGISTRY.md` содержит Agent Authority Matrix, согласованную с `PROJECT_CONSTITUTION.md`.
+
+## Governance review checklist
+
+- [ ] Изменение соответствует mission.
+- [ ] Изменение соответствует current strategic goal.
+- [ ] Изменение не нарушает out-of-scope.
+- [ ] Изменение не меняет architecture level без approval.
+- [ ] Level 3+ decisions имеют explicit user approval.
+- [ ] Major scope expansion остановлен до решения пользователя.
 
 ## Правило обновления после PR
 

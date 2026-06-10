@@ -58,6 +58,7 @@ Governance pack для target repository описан в:
 
 ```text
 docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 ```
 
 ## Feedback to methodology repository
@@ -124,6 +125,7 @@ docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md
 README.md
 AGENTS.md
 .gitignore
+PROJECT_CONSTITUTION.md
 docs/agent-system/
 docs/agent-system/CURRENT_STATE.md
 docs/agent-system/NEXT_STEPS.md
@@ -147,11 +149,14 @@ docs/agent-system/agents/
 
 ```text
 docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
 ```
 
 Создать или адаптировать в target repository:
 
+- `PROJECT_CONSTITUTION.md`;
 - `PROJECT_DASHBOARD.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
@@ -162,7 +167,7 @@ docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
 - `docs/agent-system/PROJECT_GUARDRAILS.md`;
 - `docs/agent-system/ENGINE_REGISTRY.md`.
 
-Эти файлы содержат target-specific state и не копируются verbatim из methodology repository. Они пишутся по фактам target repository.
+Эти файлы содержат target-specific state и не копируются verbatim из methodology repository. Они пишутся по фактам target repository. `PROJECT_CONSTITUTION.md` фиксирует mission, success criteria, out-of-scope, architectural principles, current strategic goal, decision authority и scope expansion control.
 
 ## 4. Адаптировать документы
 

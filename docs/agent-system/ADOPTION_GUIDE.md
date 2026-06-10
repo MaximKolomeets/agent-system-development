@@ -90,6 +90,7 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 - generic docs;
 - role model;
 - target project governance pack;
+- project constitution;
 - workflow docs;
 - PR workflow;
 - branch policy;
@@ -181,16 +182,18 @@ Checklist используется перед docs-only adoption и review, чт
 
 `CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` из methodology repository нельзя копировать verbatim. Они описывают состояние template repository, а не target repository.
 
-Governance pack описан в:
+Governance pack и Project Constitution Framework описаны в:
 
 ```text
 docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 ```
 
 Шаблоны governance pack находятся в:
 
 ```text
 docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
 docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
 docs/agent-system/templates/ROADMAP_TEMPLATE.md
 docs/agent-system/templates/BACKLOG_TEMPLATE.md

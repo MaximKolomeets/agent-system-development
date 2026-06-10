@@ -5,6 +5,7 @@
 ```text
 README.md
 AGENTS.md
+PROJECT_CONSTITUTION.md
 PROJECT_DASHBOARD.md
 ROADMAP.md
 RUNBOOK.md
@@ -35,6 +36,7 @@ docs/
 
 - `README.md` - назначение проекта и краткий workflow.
 - `AGENTS.md` - правила для engine-исполнителей.
+- `PROJECT_CONSTITUTION.md` - mission, success criteria, strategic goal, authority и scope control.
 - `PROJECT_DASHBOARD.md` - краткий project status, active branch/PR, risks и links.
 - `ROADMAP.md` - этапы проекта, criteria и next PR candidates.
 - `RUNBOOK.md` - повторяемые операции и проверки.
@@ -71,6 +73,7 @@ docs/
 Governance pack templates:
 
 - `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`
+- `PROJECT_CONSTITUTION_TEMPLATE.md`
 - `PROJECT_DASHBOARD_TEMPLATE.md`
 - `ROADMAP_TEMPLATE.md`
 - `BACKLOG_TEMPLATE.md`
