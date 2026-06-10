@@ -99,3 +99,10 @@
 - Добавлен reusable `PROJECT_CONSTITUTION_TEMPLATE.md`.
 - Обновлены adoption/governance guides, transfer manifest, downstream checklist, task templates, source index и state docs.
 - Зафиксированы Agent Authority Matrix, Decision Authority Levels, Scope Expansion Control, Governance Review Checklist и stop conditions.
+
+## 2026-06-10 - PR-2l reusable target adoption chat prompt
+
+- Добавлен `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`.
+- README, short prompt, target repository adoption guide, adoption guide, engine entrypoint, onboarding guide и transfer manifest связаны с canonical prompt.
+- Обновлены state docs, Source index и docs-maintainer summary/prompt.
+- Первый шаг применения методологии в target repository закреплен как audit-only task generation.

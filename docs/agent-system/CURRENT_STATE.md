@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2k project constitution framework.
+Текущий этап: PR-2l reusable target adoption chat prompt.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2k-project-constitution-framework
+work/docs-maintainer-01/pr-2l-reusable-target-adoption-chat-prompt
 ```
 
 Ветки:
@@ -69,6 +69,8 @@ PR-2i завершен и уточнил роль `agent-system-development` к�
 
 PR-2j завершен и добавил target project governance pack: dashboard, roadmap, backlog, current state, next steps, decision log, project guardrails, engine registry и handoff rules для target repositories.
 
-Текущая задача PR-2k добавляет Project Constitution Framework: reusable framework, `PROJECT_CONSTITUTION_TEMPLATE.md`, Agent Authority Matrix, Decision Authority Levels, Scope Expansion Control и Governance Review Checklist для target repositories.
+PR-2k завершен и добавил Project Constitution Framework: reusable framework, `PROJECT_CONSTITUTION_TEMPLATE.md`, Agent Authority Matrix, Decision Authority Levels, Scope Expansion Control и Governance Review Checklist для target repositories.
 
-Следующая цель после PR-2k: проверить и смержить PR-2k, затем применять constitution/governance templates в target repository.
+Текущая задача PR-2l добавляет canonical copy/paste prompt для запуска adoption в target repository из нового project chat.
+
+Следующая цель после PR-2l: review, merge, release methodology repository, затем применять prompt в target repositories.

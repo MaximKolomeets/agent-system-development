@@ -19,5 +19,6 @@
 - PR-2h docs-only adoption task templates завершен.
 - PR-2i engine task header and repository role завершен.
 - PR-2j target project governance pack завершен.
-- Текущая задача: PR-2k project constitution framework.
-- Следующий шаг: проверить PR-2k и после merge применять constitution/governance templates в target repository.
+- PR-2k project constitution framework завершен.
+- Текущая задача: PR-2l reusable target adoption chat prompt.
+- Следующий шаг: проверить PR-2l, release methodology repository и применять canonical prompt в target repositories.

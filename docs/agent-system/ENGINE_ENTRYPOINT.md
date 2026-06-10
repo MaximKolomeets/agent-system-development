@@ -30,6 +30,12 @@ Reasoning: <Low | Medium | High>
 
 ## Короткий prompt
 
+Для запуска adoption из нового target project chat используйте:
+
+```text
+docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+```
+
 Пользователь может дать короткий prompt:
 
 ```text
