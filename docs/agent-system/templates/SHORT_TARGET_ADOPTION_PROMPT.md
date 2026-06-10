@@ -1,5 +1,15 @@
 # SHORT_TARGET_ADOPTION_PROMPT
 
+## Full copy/paste prompt
+
+Для применения методологии в новом target repository используйте полный canonical prompt:
+
+```text
+docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+```
+
+Этот файл остается короткой entrypoint-версией. Canonical full prompt находится в `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`.
+
 ## Обязательная шапка задачи
 
 Короткий prompt используется после русскоязычной task header:

@@ -39,6 +39,16 @@ Reasoning: <Low | Medium | High>
 
 ## Adoption modes
 
+## Canonical adoption chat prompt
+
+Для нового target repository пользователь может скопировать полный prompt из:
+
+```text
+docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+```
+
+Этот prompt просит ChatGPT подготовить первую задачу для engine в режиме `audit-only`. Он не запускает full docs-only adoption и не переносит template repository state на первом шаге.
+
 ### 1. audit-only
 
 Назначение:

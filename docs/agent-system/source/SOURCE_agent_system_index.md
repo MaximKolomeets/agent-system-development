@@ -52,20 +52,21 @@ https://github.com/MaximKolomeets/agent-system-development
 24. docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 25. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
 26. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-27. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
-28. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
-29. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
-30. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
-31. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
-32. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
-33. docs/agent-system/templates/ROADMAP_TEMPLATE.md
-34. docs/agent-system/templates/BACKLOG_TEMPLATE.md
-35. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
-36. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+27. docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+28. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+29. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+30. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+31. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+32. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
+33. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+34. docs/agent-system/templates/ROADMAP_TEMPLATE.md
+35. docs/agent-system/templates/BACKLOG_TEMPLATE.md
+36. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+37. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: PR-2k project constitution framework.
+Current stage: PR-2l reusable target adoption chat prompt.
 
 ## Состояние веток
 
@@ -75,7 +76,7 @@ Current stage: PR-2k project constitution framework.
 
 ## Следующий шаг
 
-Проверить PR-2k и после merge применять Project Constitution Framework и governance pack templates в target repository.
+Проверить PR-2l, release methodology repository и применять `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` в target repositories для первого audit-only adoption PR.
 
 ## Важно
 
@@ -88,6 +89,7 @@ Current stage: PR-2k project constitution framework.
 - Task id должен быть связан с issue, PR, task id или внутренним номером работы проекта.
 - Target repository governance pack фиксирует dashboard, roadmap, backlog, state, decisions, guardrails и engine registry.
 - Project Constitution Framework фиксирует mission, success criteria, out-of-scope, strategic goal, authority, decision levels и scope expansion control.
+- Canonical target adoption chat prompt лежит в `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`.
 - Project-specific governance state создается только в target repository.
 - Не читать `.env`.
 - Не коммитить `.env`, `.venv`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.
