@@ -36,6 +36,14 @@
 
 ## Project governance pack
 
+- [ ] `PROJECT_CONSTITUTION.md` создан по фактам target repository.
+- [ ] Mission и success criteria зафиксированы.
+- [ ] Current strategic goal ровно одна и актуальна.
+- [ ] Out-of-scope явно запрещает новые продукты, платформы, сервисы и направления без approval.
+- [ ] Decision Authority содержит Level 1 Implementation, Level 2 Subsystem, Level 3 Architecture и Level 4 Project Strategy.
+- [ ] Level 3+ требует explicit user approval.
+- [ ] Scope Expansion Control содержит No scope expansion, Minor scope expansion и Major scope expansion.
+- [ ] Major scope expansion требует остановки и решения пользователя.
 - [ ] `PROJECT_DASHBOARD.md` создан или адаптирован.
 - [ ] `ROADMAP.md` создан или адаптирован.
 - [ ] `BACKLOG.md` создан.
@@ -44,8 +52,17 @@
 - [ ] `DECISION_LOG.md` не скопирован verbatim.
 - [ ] `PROJECT_GUARDRAILS.md` фиксирует goal, non-goals и forbidden scope.
 - [ ] `ENGINE_REGISTRY.md` отделяет agent roles от engines.
+- [ ] `ENGINE_REGISTRY.md` содержит Agent Authority Matrix: allowed scope, forbidden scope и approval required.
 - [ ] Branch pattern не содержит vendor/tool names.
 - [ ] После PR обновляются state docs.
+
+## Governance review checklist
+
+- [ ] Изменение соответствует mission.
+- [ ] Изменение соответствует current strategic goal.
+- [ ] Изменение не нарушает out-of-scope.
+- [ ] Изменение не меняет architecture level без approval.
+- [ ] Требуется ли explicit user approval проверено.
 
 ## Transfer manifest consistency
 

@@ -16,6 +16,18 @@ Agent role стабильна. Engine заменяем.
 | `security-reviewer-01` | Secrets и forbidden files review | selected per task | Sensitive grep только filename-only |
 | `solution-architect-01` | Architecture proposals и tradeoffs | selected per task | Не реализует без отдельной задачи |
 
+## Agent Authority Matrix
+
+Authority roles ограничены `PROJECT_CONSTITUTION.md`, task header, local instructions и branch policy.
+
+| Agent role | Allowed scope | Forbidden scope | Approval required |
+|---|---|---|---|
+| `docs-maintainer-01` | Документация, state sync, templates, reports | Runtime code, services, private data, implementation outside docs | Scope expansion, Level 3+ decisions |
+| `dev-implementer-01` | Implementation внутри назначенной задачи | Project strategy, unrelated subsystems, direct protected branch changes | Architecture changes, major scope expansion |
+| `qa-reviewer-01` | Review, regression checks, risk findings | Исправления без отдельной задачи, scope changes | Any file edits, Level 3+ findings |
+| `security-reviewer-01` | Secrets review, forbidden files review, filename-only sensitive grep | Reading `.env`, printing secret values, using real credentials | Suspected secret or policy conflict |
+| `solution-architect-01` | Architecture proposals, tradeoffs, decision drafts | Implementation without separate task, strategy changes without approval | Level 3+ decisions and strategic changes |
+
 ## Правило веток
 
 ```text

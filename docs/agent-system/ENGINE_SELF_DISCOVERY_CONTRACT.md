@@ -58,6 +58,7 @@ git ls-files
 - `README.md`;
 - `AI_SYSTEM_ARCHITECTURE.md`;
 - `PROJECT_DASHBOARD.md`;
+- `PROJECT_CONSTITUTION.md`;
 - `ROADMAP.md`;
 - `DECISIONS.md`;
 - `RUNBOOK.md`;

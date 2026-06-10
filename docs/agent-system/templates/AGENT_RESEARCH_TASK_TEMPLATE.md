@@ -28,6 +28,14 @@ Reasoning: <Low | Medium | High>
 
 Описать границы исследования.
 
+## Project constitution check
+
+Project mission:
+Current strategic goal:
+Scope impact: <No scope expansion | Minor scope expansion | Major scope expansion>
+Decision level: <Level 1 | Level 2 | Level 3 | Level 4>
+Requires explicit user approval: <yes/no>
+
 ## Files to inspect
 
 Перечислить файлы для чтения.

@@ -26,11 +26,13 @@ categories:
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
       - docs/agent-system/templates/ROADMAP_TEMPLATE.md
       - docs/agent-system/templates/BACKLOG_TEMPLATE.md
@@ -58,6 +60,7 @@ categories:
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/WORKTREE_GUIDE.md
       - docs/agent-system/templates/** # target-copied/adapted template instances; source templates explicitly listed in categories.generic.files remain reusable sources
+      - PROJECT_CONSTITUTION.md
       - PROJECT_DASHBOARD.md
       - ROADMAP.md
       - RUNBOOK.md
@@ -71,6 +74,9 @@ categories:
       - branch model
       - developer vs develop
       - worktree paths
+      - project mission and strategic goal
+      - decision authority levels
+      - scope expansion control
       - role names
       - task ids and issue/PR mapping
       - forbidden data rules
@@ -85,6 +91,7 @@ categories:
       - docs/agent-system/NEXT_STEPS.md
       - docs/agent-system/BACKLOG.md
       - docs/agent-system/DECISION_LOG.md
+      - PROJECT_CONSTITUTION.md
       - PROJECT_DASHBOARD.md
       - ROADMAP.md
       - RUNBOOK.md
@@ -95,6 +102,7 @@ categories:
       - current state переписать по фактам target repository
       - next steps переписать по текущему плану target repository
       - backlog создать по candidate tasks target repository
+      - project constitution создать по mission, success criteria, out-of-scope, strategic goal и authority target repository
       - dashboard создать по текущему состоянию target repository
       - roadmap создать по target milestones
       - decision log заполнять только решениями target repository
@@ -118,7 +126,13 @@ rules:
   - id: target_project_governance_pack
     text: >
       Target repository получает governance pack: dashboard, roadmap, backlog,
-      current state, next steps, decision log, project guardrails и engine registry.
+      current state, next steps, decision log, project constitution,
+      project guardrails и engine registry.
+  - id: project_constitution_required
+    text: >
+      Target repository должен иметь PROJECT_CONSTITUTION.md или явно указать,
+      почему constitution отложен. Constitution фиксирует mission, out-of-scope,
+      architecture principles, decision authority и scope expansion control.
   - id: governance_state_rewritten
     text: >
       Governance state files создаются заново по фактам target repository и
@@ -175,12 +189,14 @@ minimal_first_pr:
 docs_only_governance_pack:
   allowed_templates:
     - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+    - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
     - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
     - docs/agent-system/templates/ROADMAP_TEMPLATE.md
     - docs/agent-system/templates/BACKLOG_TEMPLATE.md
     - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
     - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
   target_files_to_create_or_adapt:
+    - PROJECT_CONSTITUTION.md
     - PROJECT_DASHBOARD.md
     - ROADMAP.md
     - RUNBOOK.md
@@ -194,6 +210,15 @@ docs_only_governance_pack:
   rule: >
     Эти файлы пишутся по target repository facts и не должны содержать
     private data, client data, private repository URL или internal code names.
+
+governance_review:
+  required_checks:
+    - соответствие project mission
+    - соответствие current strategic goal
+    - отсутствие out-of-scope violation
+    - отсутствие unapproved architecture level change
+    - explicit user approval для Level 3+ decisions
+    - stop and user decision для major scope expansion
 
 template_materialization:
   reusable_source_templates:

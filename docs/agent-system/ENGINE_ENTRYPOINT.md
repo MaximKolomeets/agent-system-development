@@ -40,7 +40,7 @@ Reasoning: <Low | Medium | High>
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml` и `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -91,8 +91,10 @@ Self-discovery подтверждает:
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
 - `TARGET_PROJECT_GOVERNANCE_PACK.md`;
+- `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 - `STAGE_2_COMPLETION_CHECKLIST.md`;
 - `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`;
+- `templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
 - `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
 
 Template repository является методологической основой, а не источником для слепого копирования.
@@ -102,7 +104,7 @@ Template repository является методологической основ
 Перед изменениями `engine` выбирает режим по `ADOPTION_GUIDE.md`:
 
 - `audit-only` - первый безопасный dry run, результатом является только `docs/agent-system/ADOPTION_AUDIT.md`;
-- `docs-only adoption` - перенос адаптированной документационной системы и governance pack без runtime changes;
+- `docs-only adoption` - перенос адаптированной документационной системы, project constitution и governance pack без runtime changes;
 - `runtime adoption` - отдельный runtime scope только после архитектурного решения target repository.
 
 `ADOPTION_TRANSFER_MANIFEST.yml` используется для проверки, какие файлы являются generic, какие отражают template repository state и какие требуют target adaptation. `DOWNSTREAM_ADAPTATION_CHECKLIST.md` используется как review checklist перед docs-only adoption.
