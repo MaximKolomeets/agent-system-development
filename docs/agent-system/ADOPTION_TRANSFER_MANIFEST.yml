@@ -91,6 +91,7 @@ categories:
       - docs/agent-system/NEXT_STEPS.md
       - docs/agent-system/BACKLOG.md
       - docs/agent-system/DECISION_LOG.md
+      - PROJECT_CONSTITUTION.md
       - PROJECT_DASHBOARD.md
       - ROADMAP.md
       - RUNBOOK.md
@@ -101,6 +102,7 @@ categories:
       - current state переписать по фактам target repository
       - next steps переписать по текущему плану target repository
       - backlog создать по candidate tasks target repository
+      - project constitution создать по mission, success criteria, out-of-scope, strategic goal и authority target repository
       - dashboard создать по текущему состоянию target repository
       - roadmap создать по target milestones
       - decision log заполнять только решениями target repository
