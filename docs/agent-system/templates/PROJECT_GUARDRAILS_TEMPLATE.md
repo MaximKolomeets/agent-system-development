@@ -4,6 +4,16 @@
 
 `<project goal>`
 
+## Связь с Project Constitution
+
+Primary authority document:
+
+```text
+PROJECT_CONSTITUTION.md
+```
+
+Guardrails не должны противоречить mission, current strategic goal, out-of-scope, decision authority и scope expansion control из `PROJECT_CONSTITUTION.md`.
+
 ## Non-goals
 
 - `<non-goal>`;
@@ -31,6 +41,8 @@
 - `<architecture constraint>`;
 - architecture changes require decision log entry;
 - runtime adoption requires separate architecture decision.
+- Level 3+ decisions require explicit user approval.
+- Major scope expansion requires engine stop and user decision.
 
 ## Ограничения веток
 

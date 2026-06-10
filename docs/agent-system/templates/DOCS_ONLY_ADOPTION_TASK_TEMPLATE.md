@@ -44,12 +44,21 @@ Reasoning: <Low | Medium | High>
 
 Добавить адаптированную документационную систему `docs/agent-system/` и, если входит в scope, target project governance pack в target repository без runtime changes.
 
+## Project constitution check
+
+Project mission:
+Current strategic goal:
+Scope impact: <No scope expansion | Minor scope expansion | Major scope expansion>
+Decision level: <Level 1 | Level 2 | Level 3 | Level 4>
+Requires explicit user approval: <yes/no>
+
 ## Inputs
 
 - `docs/agent-system/ADOPTION_AUDIT.md` from target repository;
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` from template repository;
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` from template repository;
+- `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` from template repository;
 - local `AGENTS.md`;
 - local `README.md`;
 - local architecture/status docs.
@@ -72,6 +81,7 @@ Reasoning: <Low | Medium | High>
 
 Governance pack files разрешены только как docs-only artifacts:
 
+- `PROJECT_CONSTITUTION.md`
 - `PROJECT_DASHBOARD.md`
 - `ROADMAP.md`
 - `RUNBOOK.md`
@@ -88,6 +98,7 @@ Governance pack files разрешены только как docs-only artifacts
 Нельзя копировать дословно:
 
 - `PROJECT_DASHBOARD.md`
+- `PROJECT_CONSTITUTION.md`
 - `ROADMAP.md`
 - `RUNBOOK.md`
 - `DECISIONS.md`
@@ -138,6 +149,7 @@ Governance pack files разрешены только как docs-only artifacts
 - применить transfer manifest;
 - применить downstream checklist;
 - применить governance pack template, если он в scope;
+- создать или адаптировать `PROJECT_CONSTITUTION.md`, если governance pack в scope;
 - выбрать только docs-only adoption mode.
 
 ## Checks
@@ -152,6 +164,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что governance state files переписаны по фактам target repository
 - проверить, что reusable templates не смешаны с target-specific state files
 - проверить, что materialized governance files адаптированы под target repository
+- проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 
 ## Final report
 

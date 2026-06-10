@@ -61,11 +61,20 @@ docs/agent-system/ADOPTION_GUIDE.md
 docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
 docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 ```
 
 ## Goal
 
 Описать цель bootstrap.
+
+## Project constitution check
+
+Project mission:
+Current strategic goal:
+Scope impact: <No scope expansion | Minor scope expansion | Major scope expansion>
+Decision level: <Level 1 | Level 2 | Level 3 | Level 4>
+Requires explicit user approval: <yes/no>
 
 ## Adoption mode
 
@@ -107,6 +116,7 @@ docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
 
 - `README.md`
 - `AGENTS.md`
+- `PROJECT_CONSTITUTION.md`
 - `PROJECT_DASHBOARD.md`
 - `ROADMAP.md`
 - `RUNBOOK.md`
@@ -123,7 +133,7 @@ docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
 - `docs/agent-system/ROLE_MODEL.md`
 - `docs/agent-system/PUBLICATION_POLICY.md`
 
-Governance state files не копировать из template repository verbatim. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `BACKLOG.md`, `DECISION_LOG.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` должны быть переписаны под target repository.
+Governance state files не копировать из template repository verbatim. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `BACKLOG.md`, `DECISION_LOG.md`, `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` должны быть переписаны под target repository.
 
 ## Checks
 

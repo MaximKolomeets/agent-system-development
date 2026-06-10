@@ -16,6 +16,7 @@
 - [ ] `ENGINE_SELF_DISCOVERY_CONTRACT.md` exists.
 - [ ] `METHODOLOGY_FEEDBACK_LOOP.md` exists.
 - [ ] `TARGET_PROJECT_GOVERNANCE_PACK.md` exists.
+- [ ] `PROJECT_CONSTITUTION_FRAMEWORK.md` exists.
 - [ ] `SHORT_TARGET_ADOPTION_PROMPT.md` exists.
 - [ ] reusable templates exist.
 - [ ] governance pack templates exist.
@@ -44,7 +45,9 @@
 - [ ] mandatory engine task header is documented.
 - [ ] task id to issue/PR/task mapping is documented.
 - [ ] target project governance pack is documented.
+- [ ] project constitution framework is documented.
 - [ ] dashboard, roadmap, backlog, guardrails and engine registry templates exist.
+- [ ] project constitution template exists.
 
 ## Process readiness
 
