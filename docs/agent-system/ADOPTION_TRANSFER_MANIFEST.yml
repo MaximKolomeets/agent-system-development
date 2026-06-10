@@ -29,6 +29,7 @@ categories:
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+      - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md

@@ -301,3 +301,19 @@ Target repository должен до implementation PR фиксировать mis
 - Agent Authority Matrix фиксирует allowed scope, forbidden scope и approval conditions для ролей;
 - Level 3+ decisions требуют explicit user approval;
 - major scope expansion является stop condition.
+
+## 2026-06-10 - Reusable target adoption chat prompt
+
+Решение:
+Добавить canonical copy/paste prompt для запуска adoption в target repository из нового project chat.
+
+Причина:
+Пользователю нужен версионируемый prompt в methodology repository, чтобы не создавать длинную инструкцию заново в каждом чате. Первый шаг adoption должен оставаться audit-only и не должен превращаться в full docs-only adoption без review.
+
+Последствия:
+
+- canonical prompt хранится в `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`;
+- README, adoption guide, engine entrypoint и short prompt ссылаются на новый prompt;
+- ChatGPT в target project chat готовит задачу для engine, но не меняет файлы сам;
+- первая задача engine создает только `docs/agent-system/ADOPTION_AUDIT.md`;
+- full docs-only adoption и governance pack применяются отдельным PR после audit.
