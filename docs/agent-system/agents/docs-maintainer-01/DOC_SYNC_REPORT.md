@@ -146,3 +146,4 @@
 - `CHATGPT_RESPONSE_STANDARD.md`, `CHATGPT_RESPONSE_TEMPLATE.md` и `ENGINE_ENTRYPOINT.md` требуют task/result artifacts.
 - Adoption docs/templates обновлены так, чтобы target repository adoption создавал engine journal.
 - State docs и Source index обновлены под PR-2r.
+- Follow-up: `ADOPTION_TRANSFER_MANIFEST.yml` синхронизирован с engine journal scaffold/templates; methodology operational history не переносится.

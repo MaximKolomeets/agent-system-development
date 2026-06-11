@@ -24,11 +24,16 @@ categories:
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
+      - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+      - docs/agent-system/engine-journal/README.md
+      - docs/agent-system/engine-journal/INDEX.md
+      - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
+      - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
       - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
@@ -150,6 +155,11 @@ rules:
     text: Runtime adoption требует отдельного архитектурного решения.
   - id: source_mirror_not_changed_by_default
     text: Source mirror не меняется в audit-only и docs-only adoption без отдельного scope.
+  - id: engine_journal_scaffold_only
+    text: >
+      Engine journal scaffold/templates переносится в target repository.
+      Methodology repository operational history не переносится. Реальные
+      task/result files создаются только в target repository.
 
 branch_adaptation:
   template_default: developer
@@ -171,6 +181,12 @@ minimal_first_pr:
   adoption_mode: audit-only
   allowed_outputs:
     - docs/agent-system/ADOPTION_AUDIT.md
+    - docs/agent-system/engine-journal/README.md
+    - docs/agent-system/engine-journal/INDEX.md
+    - "docs/agent-system/engine-journal/input/TASK-*.md"
+    - "docs/agent-system/engine-journal/output/RESULT-*.md"
+    - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
+    - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
   forbidden_changes:
     - runtime code
     - Docker
@@ -185,6 +201,8 @@ minimal_first_pr:
     - local instructions прочитаны
     - working tree clean или используется отдельный clean worktree
     - создан только adoption audit
+    - target-specific engine journal task/result artifacts created
+    - methodology operational history not copied
     - final report содержит Methodology feedback
 
 docs_only_governance_pack:

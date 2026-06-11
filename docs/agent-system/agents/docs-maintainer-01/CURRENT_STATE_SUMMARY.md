@@ -29,4 +29,5 @@
 - PR-2q blocker fix для release PR #49 merged в `developer`.
 - Текущая задача: PR-2r engine journal contract.
 - PR-2r добавляет `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` и `docs/agent-system/engine-journal/`.
+- PR-2r follow-up синхронизирует `ADOPTION_TRANSFER_MANIFEST.yml` с engine journal scaffold/templates без добавления real TASK/RESULT files в methodology repository.
 - Следующий шаг: merge PR-2r в `developer`, re-check release PR #49, затем cleanup GitHub/local branches и target adoption tasks с engine journal.
