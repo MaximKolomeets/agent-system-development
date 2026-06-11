@@ -105,7 +105,11 @@ Canonical copy/paste prompt для запуска adoption в target repository 
 
 Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
+Короткий operating contract для ChatGPT находится в `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`.
+
 Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
+
+Шаблон стартового prompt для нового project chat находится в `docs/agent-system/templates/PROJECT_CHAT_START_PROMPT_TEMPLATE.md`.
 
 Контракт воспроизводимого журнала engine-задач и ответов находится в `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 
