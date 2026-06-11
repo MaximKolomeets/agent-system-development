@@ -56,6 +56,14 @@ docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 
 ## Короткий prompt
 
+Короткий project chat prompt должен ссылаться на общий operating contract:
+
+```text
+docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
+```
+
+Этот prompt используется для старта project chat. Engine-задачи остаются отдельным workflow и оформляются self-contained блоками по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
+
 Для запуска adoption из нового target project chat используйте:
 
 ```text

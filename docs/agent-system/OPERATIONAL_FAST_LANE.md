@@ -6,6 +6,14 @@ Operational Fast Lane - это короткий режим для простых
 
 Operational Fast Lane не заменяет engine task workflow и не применяется к задачам, которые меняют repository files или создают Pull Request.
 
+Общий стартовый contract для проектного чата описан в:
+
+```text
+docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
+```
+
+Если после применения contract задача сводится только к проверке или cleanup, ChatGPT использует этот Fast Lane вместо methodology PR.
+
 ## Когда применять
 
 Operational Fast Lane применяется для:
