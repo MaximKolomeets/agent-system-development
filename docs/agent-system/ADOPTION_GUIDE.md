@@ -37,6 +37,23 @@ Reasoning: <Low | Medium | High>
 
 `<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
+## Engine journal
+
+Каждая engine-задача и ответ engine должны сохраняться в target repository:
+
+```text
+docs/agent-system/engine-journal/input/
+docs/agent-system/engine-journal/output/
+```
+
+Journal связывает task -> result -> branch -> PR -> commit/result. Task/result files являются append-only и не должны удаляться или перезаписываться без отдельного решения пользователя.
+
+Contract:
+
+```text
+docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
+```
+
 ## Adoption modes
 
 ## Canonical adoption chat prompt
@@ -55,7 +72,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 первый безопасный dry run.
 
 Результат:
-только `docs/agent-system/ADOPTION_AUDIT.md`.
+только `docs/agent-system/ADOPTION_AUDIT.md` и связанные engine journal artifacts.
 
 Task template:
 
@@ -79,6 +96,7 @@ Acceptance criteria:
 - локальные инструкции прочитаны;
 - working tree clean или используется отдельный clean worktree;
 - создан только adoption audit;
+- создана или обновлена journal entry для audit task/result;
 - final report содержит Methodology feedback.
 
 ### 2. docs-only adoption
@@ -105,7 +123,8 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 - PR workflow;
 - branch policy;
 - manual review checklist;
-- templates.
+- templates;
+- engine journal templates and folders.
 
 Запрещено:
 
@@ -119,6 +138,7 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 Acceptance criteria:
 
 - project-specific state переписан под target repository;
+- engine journal structure перенесена как process artifact;
 - governance pack создан или адаптирован по фактам target repository;
 - branch names адаптированы;
 - local `AGENTS.md` имеет приоритет;
@@ -242,6 +262,7 @@ Minimal first PR должен создавать только:
 
 ```text
 docs/agent-system/ADOPTION_AUDIT.md
+docs/agent-system/engine-journal/**
 ```
 
 Minimal first PR не должен:

@@ -101,11 +101,12 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
 9. Проверит language consistency governance docs target repository.
 10. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
 11. После audit порекомендует привести описания target docs к русскому языку, если repository governance ведется на русском.
-12. Создаст только один audit artifact:
+12. Создаст только audit artifacts:
 
 docs/agent-system/ADOPTION_AUDIT.md
+docs/agent-system/engine-journal/
 
-Если `docs/agent-system/` еще нет, engine может создать только минимальную папку и файл audit.
+Если `docs/agent-system/` еще нет, engine может создать только минимальную папку, файл audit и engine journal artifacts для этой audit-задачи.
 
 Запрещено в первой задаче:
 
@@ -122,6 +123,7 @@ docs/agent-system/ADOPTION_AUDIT.md
 - добавлять secrets;
 - добавлять private data;
 - делать full docs-only adoption без audit.
+- удалять или перезаписывать task/result files engine journal без решения пользователя.
 
 Задача engine должна использовать branch model:
 
@@ -167,6 +169,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - Engine Registry readiness;
 - language consistency result;
 - commenting consistency result;
+- engine journal task/result files;
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
 - Methodology feedback;

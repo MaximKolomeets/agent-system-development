@@ -28,6 +28,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 
 - `docs/agent-system/ENGINE_ENTRYPOINT.md`;
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
 - `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
 
 До любых изменений `engine` выполняет repository self-discovery в текущем target repository, читает локальные инструкции и применяет safety gate. Первый результат должен быть adoption audit, а не полный перенос всех файлов template repository.
@@ -68,6 +69,26 @@ Governance pack для target repository описан в:
 docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
 docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 ```
+
+## Engine journal adoption
+
+Target repository должен получить собственный journal:
+
+```text
+docs/agent-system/engine-journal/
+```
+
+Первый adoption/audit PR должен создать или проверить:
+
+- `docs/agent-system/engine-journal/README.md`;
+- `docs/agent-system/engine-journal/INDEX.md`;
+- `docs/agent-system/engine-journal/input/`;
+- `docs/agent-system/engine-journal/output/`;
+- `docs/agent-system/engine-journal/templates/`;
+- task file для первой engine-задачи;
+- result file для ответа engine.
+
+Journal files являются project-specific execution history target repository. Их нельзя переносить обратно в public methodology repository, кроме нейтральных улучшений methodology templates.
 
 ## Feedback to methodology repository
 
@@ -145,6 +166,7 @@ docs/agent-system/ROLE_MODEL.md
 docs/agent-system/PUBLICATION_POLICY.md
 docs/agent-system/templates/
 docs/agent-system/agents/
+docs/agent-system/engine-journal/
 ```
 
 Структура может адаптироваться под target repository, но bootstrap должен оставаться маленьким и проверяемым.
@@ -247,9 +269,10 @@ Minimal first PR после короткого adoption prompt должен со
 
 ```text
 docs/agent-system/ADOPTION_AUDIT.md
+docs/agent-system/engine-journal/**
 ```
 
-Полный docs-only bootstrap планируется только после audit и Methodology feedback.
+Полный docs-only bootstrap планируется только после audit, engine journal result и Methodology feedback.
 
 ## 6a. PowerShell/UTF-8 note
 
@@ -325,6 +348,7 @@ Reasoning: <Low | Medium | High>
 
 Отчет должен содержать:
 
+- engine result file;
 - рабочая ветка;
 - что создано;
 - что изменено;
@@ -336,7 +360,7 @@ Reasoning: <Low | Medium | High>
 - commit SHA;
 - PR link/number.
 
-Если отчет не содержит проверок, рисков или changed files, его нужно уточнить перед review/merge.
+Если отчет не содержит result file, проверок, рисков или changed files, его нужно уточнить перед review/merge.
 
 ## 10. Провести review и merge
 
