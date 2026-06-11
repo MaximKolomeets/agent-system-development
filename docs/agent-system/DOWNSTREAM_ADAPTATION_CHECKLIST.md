@@ -64,6 +64,30 @@
 - [ ] Изменение не меняет architecture level без approval.
 - [ ] Требуется ли explicit user approval проверено.
 
+## Language consistency
+
+- [ ] Governance docs use one primary human language.
+- [ ] For Russian-language projects, governance docs are in Russian.
+- [ ] Engine prompts and agent reports are in Russian.
+- [ ] English is preserved for paths, commands, code identifiers, config keys, package names, API names, vendor/tool names.
+- [ ] Mixed-language sections are either justified or normalized.
+
+## Commenting consistency
+
+- [ ] New or changed scripts contain Russian comments for non-obvious and safety-critical lines/blocks.
+- [ ] Git, branch, push, merge, deletion, remote and security-check commands are commented.
+- [ ] Workflow/config files use comments where the format supports comments.
+- [ ] Formats that do not support comments use adjacent documentation or schema descriptions.
+- [ ] Comments explain what the line/block does and why it exists.
+- [ ] Comments do not include secrets, private data or downstream project names.
+
+## Methodology freshness
+
+- [ ] ChatGPT checked current `agent-system-development` before preparing the engine task.
+- [ ] Engine synced or freshly read `agent-system-development` before applying methodology.
+- [ ] If sync/check was impossible, the limitation is stated in the report.
+- [ ] Methodology feedback is neutral and does not reveal private data.
+
 ## Transfer manifest consistency
 
 - [ ] Transfer manifest не содержит противоречий между reusable templates и target-adapted files.

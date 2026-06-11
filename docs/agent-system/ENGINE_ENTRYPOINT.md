@@ -46,7 +46,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -98,12 +98,48 @@ Self-discovery подтверждает:
 - `TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
 - `TARGET_PROJECT_GOVERNANCE_PACK.md`;
 - `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+- `CHATGPT_RESPONSE_STANDARD.md`;
+- `FILE_COMMENTING_STANDARD.md`;
 - `STAGE_2_COMPLETION_CHECKLIST.md`;
+- `templates/CHATGPT_RESPONSE_TEMPLATE.md`;
 - `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`;
 - `templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
 - `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
 
 Template repository является методологической основой, а не источником для слепого копирования.
+
+## Methodology repository freshness check
+
+Перед использованием methodology repository `engine` должен выполнить `git fetch --all --prune`.
+
+Если `engine` работает с локальной копией `agent-system-development`, он должен проверить наличие `origin/developer`.
+
+Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin developer`.
+
+После pull локальный `HEAD` должен строго совпадать с `origin/developer` или другим явно заданным `origin/<METHODOLOGY_BASE_BRANCH>`. Если локальный `HEAD` отличается от remote branch, `engine` должен написать `STOP`, потому что methodology repository не подтвержден как публично синхронизированный.
+
+Если working tree не чистый, `engine` должен написать `STOP` и не перетирать изменения.
+
+Если `developer` отсутствует, `engine` должен написать `STOP` для methodology repository changes.
+
+Если methodology repository используется только как template для target repository, `engine` должен читать актуальные файлы из GitHub или из свежесинхронизированной локальной копии.
+
+После синхронизации methodology repository `engine` должен явно вернуться в target repository перед target checks или target changes. Проверки target remote, branch, working tree и allowed files нельзя выполнять, пока текущая папка остается `agent-system-development`.
+
+Engine не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в final report.
+
+Этот entrypoint применяется вместе с:
+
+- `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`;
+- `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
+
+ChatGPT сначала формирует ответ в стандартизированном виде. Engine получает один цельный copy/paste prompt.
+
+Manual commands не должны быть частью engine prompt, если они предназначены пользователю, а не `engine`.
+
+После adoption audit `engine` должен проверить language consistency target governance docs.
+
+Если выявлена необходимость улучшить methodology repository, `engine` должен добавить в report нейтральный `Methodology repository improvement request`, без private downstream data.
 
 ## Adoption mode selection
 

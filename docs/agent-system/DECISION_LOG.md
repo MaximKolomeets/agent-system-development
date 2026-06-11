@@ -317,3 +317,71 @@ Target repository должен до implementation PR фиксировать mis
 - ChatGPT в target project chat готовит задачу для engine, но не меняет файлы сам;
 - первая задача engine создает только `docs/agent-system/ADOPTION_AUDIT.md`;
 - full docs-only adoption и governance pack применяются отдельным PR после audit.
+
+## 2026-06-10 - Unified ChatGPT response, methodology freshness and commenting standard
+
+Решение:
+`agent-system-development` закрепляет единый формат ответов ChatGPT: одна engine-задача выводится одним самодостаточным copy/paste-блоком; ручные terminal-действия разделяются по независимым задачам; перед формированием и выполнением engine-задач проверяется актуальный methodology repository; target governance docs проходят language consistency audit; создаваемые и изменяемые скрипты/технические файлы получают русские комментарии для нужных строк и блоков.
+
+Причина:
+Пользователь должен иметь возможность скопировать весь prompt для engine одним нажатием и вставить его в engine без ручного сбора команд, ограничений и проверок из разных частей ответа. Методология должна применяться только из актуального `agent-system-development`, а файлы должны оставаться понятными русскоязычной команде.
+
+Последствия:
+
+- появляется `CHATGPT_RESPONSE_STANDARD.md`;
+- появляется `CHATGPT_RESPONSE_TEMPLATE.md`;
+- появляется `FILE_COMMENTING_STANDARD.md`;
+- adoption prompts требуют standardized ChatGPT response;
+- engine block становится самодостаточным;
+- audit-only tasks проверяют language consistency;
+- docs-only adoption может включать нормализацию языка governance docs;
+- в target scripts/workflows/templates добавляются русские комментарии для нужных строк;
+- methodology repository freshness check становится обязательным;
+- methodology feedback оформляется отдельным нейтральным блоком, если нужна доработка `agent-system-development`;
+- public methodology repository не раскрывает private downstream data.
+
+## 2026-06-11 - PR-2m merged and methodology release readiness
+
+Решение:
+После merge PR-2m в `developer` считать unified ChatGPT response standard, `FILE_COMMENTING_STANDARD`, methodology freshness check и language consistency rule принятыми как актуальная методология для следующих target repository adoption chats.
+
+Причина:
+PR-2m добавил reusable response standard и template, а также закрепил self-contained Engine-блоки, разделение manual terminal tasks, обязательную синхронизацию methodology repository и нейтральный methodology feedback без private downstream data.
+
+Последствия:
+
+- `developer` содержит актуальную версию unified response standard;
+- state docs обновляются отдельным PR-2n перед release readiness review;
+- release `developer` -> `main` выполняется только после решения пользователя;
+- новые target repository adoption chats должны использовать текущие response/template rules после release или явной проверки актуального `developer`.
+
+## 2026-06-11 - Release readiness review before main release
+
+Решение:
+Перед созданием release PR `developer` -> `main` фиксировать отдельный release readiness review в `docs/agent-system/RELEASE_READINESS.md`.
+
+Причина:
+После PR-2m и PR-2n нужно проверить pre-PR-2o snapshot, forbidden paths, sensitive/private markers, актуальность state docs и readiness checklist без неявного выполнения release. Финальный release candidate должен быть пересобран после merge PR-2o в `developer`.
+
+Последствия:
+
+- PR-2o документирует pre-release snapshot для `developer` -> `main`;
+- перед release PR требуется post-PR-2o refresh с актуальным `origin/developer`;
+- release PR в `main` не создается без явного решения пользователя;
+- следующий шаг после merge PR-2o - release PR или target adoption dry run по решению пользователя;
+- public methodology repository framing сохраняется без private downstream data.
+
+## 2026-06-11 - Repository context safety after methodology sync
+
+Решение:
+Engine-facing templates должны явно разделять синхронизацию methodology repository и работу в target repository.
+
+Причина:
+Если после `cd <METHODOLOGY_REPOSITORY_LOCAL_PATH>` engine не возвращается в target repository, проверки remote, branch, working tree и последующие изменения могут быть выполнены в `agent-system-development`, а не в target repository. Кроме того, `git pull --ff-only` сам по себе не подтверждает, что локальная methodology branch равна remote source of truth, если локально есть незапушенные commits.
+
+Последствия:
+
+- после `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>` engine проверяет `HEAD == origin/<METHODOLOGY_BASE_BRANCH>`;
+- если local HEAD отличается от remote branch, engine пишет `STOP`;
+- после синхронизации methodology repository engine обязан выполнить `cd <TARGET_REPOSITORY_LOCAL_PATH>` перед target checks или target changes;
+- release PR #49 должен быть re-checked после merge PR-2q в `developer`.

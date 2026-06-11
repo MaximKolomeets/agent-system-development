@@ -1,0 +1,220 @@
+# CHATGPT_RESPONSE_STANDARD
+
+## Назначение
+
+Этот стандарт описывает, как ChatGPT должен формировать ответы, если из ответа рождается задача для `engine`.
+
+Цель стандарта - сделать так, чтобы пользователь мог скопировать один полный prompt для `engine` одним действием и вставить его без ручного сбора цели, команд, ограничений, проверок и формата отчета из разных частей ответа.
+
+## Когда применяется стандарт
+
+Стандарт применяется, когда ChatGPT:
+
+- готовит задачу для `engine`;
+- формирует adoption task для target repository;
+- предлагает отдельную задачу для доработки methodology repository;
+- выводит ручные terminal-команды рядом с engine prompt;
+- описывает audit, docs-only adoption, runtime adoption или methodology feedback.
+
+Если ответ не содержит задачи для `engine`, стандарт используется как ориентир для ясности ответа, но сам Engine-блок не обязателен.
+
+## Главное правило
+
+Одна engine-задача = один самодостаточный copy/paste-блок.
+
+Если ChatGPT дает задачу для `engine`, все входные данные для выполнения этой engine-задачи должны быть внутри одного fenced code block с заголовком `Блок для Engine — копировать целиком`.
+
+Все данные engine, которые нужны для выполнения задачи, должны оставаться внутри этого блока.
+
+Пользователь не должен искать недостающие команды, ограничения, ветки, allowed files, forbidden files, проверки, STOP-условия или требования к отчету в других разделах ответа.
+
+## Что считается данными для engine
+
+Данными для `engine` считаются:
+
+- цель задачи;
+- контекст;
+- repository URL;
+- local path, если применимо;
+- base branch;
+- working branch;
+- роль агента;
+- режим запуска;
+- preflight-команды;
+- allowed files;
+- forbidden files;
+- конкретные изменения;
+- проверки;
+- STOP-условия;
+- commit, push и PR policy;
+- требования к final report;
+- дополнительные ограничения безопасности.
+
+Все эти данные должны быть внутри Engine-блока, если без них `engine` не сможет корректно выполнить задачу.
+
+## Что запрещено выносить за пределы Engine-блока
+
+За пределами Engine-блока нельзя оставлять:
+
+- обязательные команды;
+- ограничения scope;
+- allowed files;
+- forbidden files;
+- проверки;
+- STOP-условия;
+- требования к отчету;
+- branch policy;
+- commit/push/PR policy;
+- сведения, без которых `engine` не поймет задачу.
+
+Вне Engine-блока можно давать только короткий вывод, контекст для пользователя, ссылки, цитаты и пояснения, которые не являются обязательными execution data.
+
+## Блок для Engine — копировать целиком
+
+Engine-блок должен быть одним fenced code block.
+
+Внутри него должны быть:
+
+- обязательная шапка задачи;
+- цель;
+- контекст;
+- repository URL;
+- local path;
+- base branch;
+- working branch;
+- allowed files;
+- forbidden files;
+- точные изменения;
+- preflight;
+- checks;
+- STOP-условия;
+- commit/push/PR policy;
+- формат финального отчета.
+
+Нельзя использовать вложенные fenced code blocks внутри Engine-блока. Для внутренних команд используются маркеры `BEGIN POWERSHELL`, `END POWERSHELL`, `BEGIN BASH`, `END BASH`.
+
+## Ручная работа пользователя
+
+Ручная работа выводится только для действий, которые должен выполнить пользователь, а не `engine`.
+
+Ручные действия должны быть явно помечены как ручные. Они не должны содержать данных, без которых `engine` не сможет выполнить свою задачу.
+
+Если ручные действия нужны до запуска `engine`, они должны быть либо внутри Engine-блока как preflight для `engine`, либо в отдельном разделе `Ручная работа до запуска engine`. Даже в этом случае Engine-блок должен оставаться самодостаточным.
+
+## Разделение ручной работы
+
+Одна ручная задача = один раздел = один terminal block.
+
+Нельзя смешивать несколько независимых ручных операций в одном terminal block, если пользователь должен выполнять их в разное время, в разных repositories или с разными правами.
+
+Нельзя помещать в один fenced code block и engine prompt, и manual terminal commands, если эти команды предназначены пользователю, а не `engine`.
+
+## Несколько engine или repository в одном ответе
+
+Если ответ содержит две независимые engine-задачи, каждая задача получает отдельный самодостаточный copy/paste-блок.
+
+Например, задача для target repository и задача для methodology repository должны быть разными Engine-блоками. Нельзя делать один Engine-блок неполным из-за того, что часть данных находится в другом блоке.
+
+## Проверка актуального methodology repository
+
+Перед формированием задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
+
+Если проверить актуальность невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight для `git fetch --all --prune` и `git pull --ff-only` там, где это безопасно.
+
+## Синхронизация methodology repository перед выполнением
+
+Любой `engine`, который применяет или изменяет methodology repository, должен перед изменениями синхронизировать локальную копию `agent-system-development` с GitHub.
+
+Если working tree не чистый, `engine` должен написать `STOP` и не перетирать локальные изменения.
+
+Если `origin/developer` отсутствует или pull fast-forward невозможен, `engine` должен написать `STOP` для methodology repository changes.
+
+После `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>` локальный `HEAD` methodology repository должен строго совпадать с `origin/<METHODOLOGY_BASE_BRANCH>`. Если значения отличаются, `engine` должен написать `STOP`, потому что локальная methodology branch содержит состояние, которого нет в remote source of truth.
+
+Если `engine` синхронизировал methodology repository в рамках задачи для target repository, он обязан вернуться в target repository через явный `cd <TARGET_REPOSITORY_LOCAL_PATH>` до проверки target remote, branch, working tree, файлов или выполнения изменений.
+
+## Методологический feedback block
+
+Если при работе с target repository выявлена необходимость доработки `agent-system-development`, ChatGPT должен вывести отдельный самодостаточный блок для engine-разработчика methodology repository.
+
+Этот блок должен быть нейтральным и не должен раскрывать private downstream data, private repository URL, client data, customer data, credentials или internal code names.
+
+В final report target repository такой вывод фиксируется как `Methodology repository improvement request`.
+
+## Audit summary
+
+Ответ с audit-задачей должен требовать от `engine` краткий audit summary:
+
+- что проверено;
+- что найдено;
+- какие документы отсутствуют;
+- какие риски есть;
+- какой следующий PR рекомендуется;
+- нужен ли отдельный methodology feedback.
+
+Audit summary не заменяет полный audit artifact, если задача требует создать отдельный файл.
+
+## Language consistency rule
+
+ChatGPT и `engine` должны проверять language consistency target docs.
+
+Для русскоязычного target repository governance docs, agent-system docs, задачи, отчеты и пользовательские инструкции оформляются на русском языке.
+
+Английский сохраняется для путей, команд, code identifiers, config keys, package names, API names, vendor/tool names, branch names, file names и GitHub terms, если перевод ухудшает точность.
+
+## Русский язык документации target repository
+
+После adoption audit и docs-only adoption целевые governance docs должны иметь один основной человеческий язык.
+
+Если repository ведется на русском, смешанные англо-русские описания либо нормализуются, либо явно объясняются в audit/report.
+
+## Запрет смешивания prompt, terminal commands и пояснений
+
+Engine prompt, manual terminal commands и пояснения пользователю должны быть разделены.
+
+Engine prompt помещается в Engine-блок. Ручные terminal-команды помещаются в отдельный раздел ручной работы. Пояснения остаются вне terminal blocks.
+
+## Definition of Done для ответа
+
+Ответ ChatGPT считается готовым, если:
+
+- есть короткий вывод для пользователя;
+- каждая engine-задача имеет отдельный самодостаточный Engine-блок;
+- внутри Engine-блока есть все execution data;
+- manual steps отделены от Engine-блока;
+- проверки и STOP-условия не потеряны вне блока;
+- methodology freshness check указан;
+- language consistency rule указан, если задача связана с adoption;
+- methodology feedback нейтрален и не раскрывает private data;
+- следующий шаг сформулирован явно.
+
+## Пример правильного ответа
+
+Правильный ответ:
+
+- коротко объясняет пользователю, что будет сделано;
+- выводит один раздел `Блок для Engine — копировать целиком`;
+- внутри одного fenced code block содержит цель, контекст, ветки, allowed files, forbidden files, preflight, checks, STOP-условия, commit/push/PR policy и final report;
+- ручную работу выводит отдельным разделом только если она действительно нужна пользователю.
+
+## Пример неправильного ответа
+
+Неправильный ответ:
+
+- часть цели оставляет до Engine-блока;
+- часть команд оставляет после Engine-блока;
+- allowed files или forbidden files выносит в отдельный список вне блока;
+- делает несколько разрозненных блоков для одной engine-задачи;
+- смешивает manual terminal commands и engine prompt;
+- не указывает, как проверялась актуальность methodology repository.
+
+## Safety rules
+
+- Не добавлять private downstream names.
+- Не добавлять private repository URLs.
+- Не добавлять client data или customer data.
+- Не добавлять credentials, tokens, passwords, API keys или `.env`.
+- Не печатать matching lines sensitive grep.
+- Не читать `.env`.
+- Не менять `main` или `developer` напрямую без отдельного разрешения.
+- Не делать force push.

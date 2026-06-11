@@ -43,6 +43,14 @@
 
 Задачи для `engine` формулируются на русском языке и начинаются с обязательной шапки. Шапка назначает задачу агенту, а конкретный инструмент указывается только как `engine`.
 
+Задача для `engine` всегда выводится одним самодостаточным copy/paste-блоком. Все данные engine должны быть внутри этого блока: цель, контекст, repository, ветки, allowed files, forbidden files, preflight, проверки, STOP-условия и формат отчета.
+
+Пользователь не должен собирать задачу из нескольких мест ответа. Manual steps выводятся отдельно и не должны быть обязательной частью engine execution data.
+
+Перед подготовкой задачи ChatGPT проверяет актуальный `agent-system-development`. Перед выполнением `engine` синхронизирует methodology repository с GitHub, если задача применяет или меняет методологию.
+
+Русские комментарии обязательны для нужных строк/блоков в скриптах, workflow и технических файлах. `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md` является обязательным стандартом для target adoption prompts.
+
 Нельзя всегда писать "Задача для Codex", если задача назначается конкретному агенту. Нужно указывать role-based имя агента:
 
 ```text
@@ -94,6 +102,12 @@ Target project governance pack описан в `docs/agent-system/TARGET_PROJECT
 Project Constitution Framework описан в `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 
 Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`.
+
+Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
+
+Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
+
+Стандарт русских комментариев в технических файлах находится в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
 

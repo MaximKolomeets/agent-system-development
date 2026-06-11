@@ -1,7 +1,8 @@
 # NEXT_STEPS
 
-1. Проверить PR-2l.
-2. Смержить PR-2l в `developer`.
-3. Перенести `developer` в `main`, если нужен release methodology repository.
-4. Синхронизировать `main` в `developer`, если ruleset требует PR.
-5. После release применять `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` в target repositories для первого audit-only adoption PR.
+1. Завершить PR-2q: исправить blocker comments release PR #49 по engine repository context preflight.
+2. После merge PR-2q в `developer` re-check release PR #49.
+3. После зеленого PR #49 выполнить cleanup GitHub/local branches по отдельному решению пользователя.
+4. После release применять unified ChatGPT response standard в новых target repository adoption chats.
+5. Следующие target adoption tasks должны использовать template, где methodology sync завершается возвратом в target repository и проверкой `HEAD == origin/<METHODOLOGY_BASE_BRANCH>`.
+6. По результатам target adoption dry run возвращать только нейтральный methodology feedback без private downstream data.

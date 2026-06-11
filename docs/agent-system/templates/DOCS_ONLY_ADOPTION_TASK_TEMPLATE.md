@@ -44,6 +44,14 @@ Reasoning: <Low | Medium | High>
 
 Добавить адаптированную документационную систему `docs/agent-system/` и, если входит в scope, target project governance pack в target repository без runtime changes.
 
+Governance docs target repository должны быть приведены к единому языку. Для русскоязычного target repository по умолчанию используется русский язык.
+
+Не переводить code identifiers, paths, commands, config keys, package names, API names, branch names, file names и vendor/tool names.
+
+При переводе или унификации языка нельзя менять смысл архитектурных решений.
+
+В создаваемые и изменяемые скрипты, workflow и технические файлы добавить русские комментарии для нужных строк/блоков. Если формат файла не поддерживает комментарии, пояснения добавить в соседнюю документацию или schema descriptions.
+
 ## Project constitution check
 
 Project mission:
@@ -165,6 +173,9 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что reusable templates не смешаны с target-specific state files
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
+- проверить language consistency governance docs
+- проверить, где добавлены русские комментарии для нужных строк/блоков
+- проверить, где комментарии не применимы из-за формата файла
 
 ## Final report
 
@@ -178,6 +189,9 @@ Governance pack files разрешены только как docs-only artifacts
 - forbidden tracked paths result;
 - sensitive grep result без matching lines;
 - local instruction conflicts;
+- language consistency changes;
+- commenting changes;
+- files where comments are not applicable and why;
 - risks;
 - Methodology feedback;
 - next recommended PR;
