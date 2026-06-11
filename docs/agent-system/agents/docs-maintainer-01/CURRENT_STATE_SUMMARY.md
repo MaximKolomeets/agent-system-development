@@ -23,4 +23,5 @@
 - PR-2l reusable target adoption chat prompt завершен.
 - PR-2m unified ChatGPT response, methodology freshness and commenting standard merged в `developer`.
 - Текущая задача: PR-2n post-PR-2m state refresh and release readiness.
+- Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновляется в PR-2n follow-up commit.
 - Следующий шаг: проверить readiness checklist, затем подготовить release methodology repository по решению пользователя.

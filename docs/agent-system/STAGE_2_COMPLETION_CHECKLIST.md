@@ -36,6 +36,7 @@
 - [x] `CHATGPT_RESPONSE_TEMPLATE.md` exists.
 - [x] `FILE_COMMENTING_STANDARD.md` exists.
 - [x] `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` exists.
+- [x] `docs/agent-system/source/SOURCE_agent_system_index.md` exists and is updated after PR-2m.
 - [x] short prompt adoption mode documented.
 - [x] audit-only, docs-only adoption and runtime adoption modes documented.
 - [x] minimal first PR creates only `ADOPTION_AUDIT.md`.
@@ -81,18 +82,18 @@
 
 ## Documentation readiness
 
-- [ ] `CURRENT_STATE.md` is current;
-- [ ] `NEXT_STEPS.md` is current;
-- [ ] `DECISION_LOG.md` has current decisions;
-- [ ] Source index is current;
-- [ ] docs-maintainer summary is current;
-- [ ] next chat prompt is current.
+- [x] `CURRENT_STATE.md` is current;
+- [x] `NEXT_STEPS.md` is current;
+- [x] `DECISION_LOG.md` has current decisions;
+- [x] Source index is current;
+- [x] docs-maintainer summary is current;
+- [x] next chat prompt is current.
 
 ## Known issues
 
 - На момент PR-2c workflow был updated to Node.js 24 compatible checkout action.
 - Если GitHub Actions снова покажет runtime warning, это должно идти отдельным PR.
-- `SOURCE_INDEX.md` не найден как отдельный файл; source/index responsibility сейчас покрывается README, guides и manifest files.
+- Source index существует как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен в PR-2n follow-up commit.
 - Release `developer` -> `main` после PR-2m еще не выполнен.
 - Unified response standard готов к применению в новых target repository adoption chats после release decision пользователя.
 

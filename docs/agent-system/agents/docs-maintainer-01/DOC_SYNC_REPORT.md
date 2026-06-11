@@ -119,4 +119,5 @@
 
 - Обновляются state docs после merge PR-2m.
 - Checklist приводится к актуальному состоянию после unified response standard.
+- Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен до состояния после PR-2m / PR-2n.
 - Следующий рекомендуемый шаг после PR-2n: release methodology repository или target adoption dry run по решению пользователя.
