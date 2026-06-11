@@ -42,6 +42,10 @@ Reasoning: <Low | Medium | High>
 
 ## Goal
 
+Use the methodology repository engine journal scaffold/templates only. Do not
+copy methodology operational history. The audit creates target-specific
+task/result files and a target-specific index entry.
+
 Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md` plus engine journal artifacts для этой audit-задачи.
 
 ## Allowed files

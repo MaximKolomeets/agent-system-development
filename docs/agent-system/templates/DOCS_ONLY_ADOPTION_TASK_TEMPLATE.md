@@ -88,6 +88,10 @@ Requires explicit user approval: <yes/no>
 - `docs/agent-system/agents/docs-maintainer-01/**`
 - `docs/agent-system/engine-journal/**`
 
+Engine journal scope is target-specific: copy or create scaffold/templates as
+needed, but do not copy methodology repository operational history. Target
+task/result entries are append-only after creation.
+
 Governance pack files разрешены только как docs-only artifacts:
 
 - `PROJECT_CONSTITUTION.md`

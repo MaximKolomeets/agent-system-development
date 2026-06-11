@@ -106,6 +106,11 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
 docs/agent-system/ADOPTION_AUDIT.md
 docs/agent-system/engine-journal/
 
+Engine journal scaffold/templates may be created or updated for the target
+repository, but methodology repository operational history must not be copied.
+The first audit creates target-specific task/result files and a target-specific
+INDEX entry.
+
 Если `docs/agent-system/` еще нет, engine может создать только минимальную папку, файл audit и engine journal artifacts для этой audit-задачи.
 
 Запрещено в первой задаче:

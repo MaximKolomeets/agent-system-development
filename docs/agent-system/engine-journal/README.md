@@ -1,5 +1,11 @@
 # Engine Journal
 
+In the reusable methodology/template repository this folder is scaffold only.
+`input/` and `output/` are intentionally empty except `.gitkeep`; real task and
+result files are created in target repositories after adoption.
+
+Do not copy methodology operational history into target repositories.
+
 Этот каталог хранит воспроизводимый журнал задач для `engine` и ответов `engine`.
 
 Назначение:

@@ -194,6 +194,10 @@ Journal связывает task file, result file, branch, PR и commit/result. 
 
 Task/result files append-only. Их нельзя удалять или перезаписывать без отдельного решения пользователя.
 
+The methodology repository provides only engine journal scaffold/templates and
+contract. Target repositories maintain their own operational history. Do not
+copy methodology operational history into target repositories.
+
 ## Governance review checklist
 
 Перед merge значимого PR проверить:

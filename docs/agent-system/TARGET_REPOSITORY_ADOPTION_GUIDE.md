@@ -78,6 +78,10 @@ Target repository должен получить собственный journal:
 docs/agent-system/engine-journal/
 ```
 
+Transfer only scaffold, templates, README, INDEX, and the contract. Do not copy
+methodology repository operational history. The first target adoption/audit task
+creates target-specific task/result files and the target-specific index entry.
+
 Первый adoption/audit PR должен создать или проверить:
 
 - `docs/agent-system/engine-journal/README.md`;

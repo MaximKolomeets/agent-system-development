@@ -33,6 +33,19 @@ docs/agent-system/engine-journal/
   templates/
 ```
 
+## Template Repository Scope
+
+`agent-system-development` is a reusable methodology/template repository.
+
+In this repository, `docs/agent-system/engine-journal/` contains only scaffold,
+contract, index, README, and reusable templates. The `input/` and `output/`
+folders are intentionally empty except `.gitkeep`.
+
+Real task/result files are created in target repositories after adoption. Do not
+store real methodology development TASK/RESULT history in this template
+repository, and do not copy methodology operational history into target
+repositories.
+
 ## Input And Output
 
 `input/` содержит входные задачи для `engine`.
@@ -116,6 +129,10 @@ Target repository journal хранит project-specific task/result history вн
 
 Если первый шаг adoption остается `audit-only`, task/result files допускаются как journal artifacts рядом с `docs/agent-system/ADOPTION_AUDIT.md`, потому что они описывают выполнение audit, а не переносят full methodology state.
 
+Adoption transfers scaffold/templates only. The first target adoption/audit task
+creates target-specific task/result files and target-specific `INDEX.md`
+entries. Methodology repository operational history is not transferred.
+
 ## Required Links
 
 Каждый result file должен ссылаться на:
@@ -133,6 +150,18 @@ Target repository journal хранит project-specific task/result history вн
 - next recommended step.
 
 ## Review Rule
+
+### Methodology Repository Review
+
+For `agent-system-development`, reviewer must verify that:
+
+- engine journal scaffold, templates, README, and contract are present;
+- `input/` and `output/` are intentionally empty except `.gitkeep`;
+- `INDEX.md` explains that entries are populated by target repositories;
+- no real TASK/RESULT operational history is stored in the template repository;
+- no private downstream data, credentials, tokens, or private repository URLs are added.
+
+### Target Repository Review
 
 Перед merge PR reviewer должен проверить, что:
 

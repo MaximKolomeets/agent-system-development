@@ -54,6 +54,11 @@ Contract:
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+During adoption, transfer only the engine journal scaffold, templates, and
+contract. Do not copy methodology repository operational history. The first
+target adoption/audit task creates target-specific task/result files and the
+target-specific `INDEX.md` entry.
+
 ## Adoption modes
 
 ## Canonical adoption chat prompt
@@ -125,6 +130,9 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 - manual review checklist;
 - templates;
 - engine journal templates and folders.
+
+Engine journal transfer means scaffold/templates only. Existing methodology
+repository task/result history, if any, is not copied into target repositories.
 
 Запрещено:
 

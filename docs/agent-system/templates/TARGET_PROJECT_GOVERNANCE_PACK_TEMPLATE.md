@@ -95,6 +95,10 @@ docs/agent-system/
 - `docs/agent-system/ENGINE_REGISTRY.md` связывает stable agent roles с replaceable engines.
 - `docs/agent-system/engine-journal/` связывает engine task files, result files, branches, PR и commits.
 
+Engine journal in a target repository is project-specific operational history.
+Use methodology repository scaffold/templates, but do not copy methodology
+operational history or existing task/result entries.
+
 ## Target-specific files
 
 Не копировать эти файлы verbatim из methodology repository:
