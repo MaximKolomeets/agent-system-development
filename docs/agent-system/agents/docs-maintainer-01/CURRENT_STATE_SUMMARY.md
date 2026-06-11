@@ -26,6 +26,8 @@
 - Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен после PR-2m / PR-2n.
 - PR-2o release readiness review merged в `developer`.
 - PR-2p открыл release PR #49 из `developer` в `main`; release PR #49 не мержить до re-check.
-- Текущая задача: PR-2q blocker fix для release PR #49.
-- PR-2q исправляет engine-facing template: после methodology sync нужно вернуться в target repository, а methodology sync валиден только при `HEAD == origin/<METHODOLOGY_BASE_BRANCH>`.
-- Следующий шаг: merge PR-2q в `developer`, re-check release PR #49, затем cleanup GitHub/local branches и target adoption tasks.
+- PR-2q blocker fix для release PR #49 merged в `developer`.
+- Текущая задача: PR-2r engine journal contract.
+- PR-2r добавляет `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` и `docs/agent-system/engine-journal/`.
+- PR-2r follow-up синхронизирует `ADOPTION_TRANSFER_MANIFEST.yml` с engine journal scaffold/templates без добавления real TASK/RESULT files в methodology repository.
+- Следующий шаг: merge PR-2r в `developer`, re-check release PR #49, затем cleanup GitHub/local branches и target adoption tasks с engine journal.

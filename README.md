@@ -107,6 +107,10 @@ Canonical copy/paste prompt для запуска adoption в target repository 
 
 Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
 
+Контракт воспроизводимого журнала engine-задач и ответов находится в `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
+
+Шаблоны и индекс engine journal находятся в `docs/agent-system/engine-journal/`.
+
 Стандарт русских комментариев в технических файлах находится в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.

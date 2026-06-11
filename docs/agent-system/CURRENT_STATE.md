@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2q blocker fix for release PR #49.
+Текущий этап: PR-2r engine journal contract.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2q-fix-engine-template-repo-context
+work/docs-maintainer-01/pr-2r-engine-journal-contract
 ```
 
 Ветки:
@@ -91,9 +91,15 @@ PR-2o merged в `developer` через PR #48 и зафиксировал releas
 
 PR-2p открыл release PR #49 из `developer` в `main` без merge.
 
-PR-2q исправляет blocker review comments перед merge release PR #49:
+PR-2q merged в `developer` через PR #50 и исправил blocker review comments перед merge release PR #49:
 
 - после синхронизации methodology repository engine должен явно вернуться в target repository перед target checks или target changes;
 - methodology sync считается валидным только если локальный `HEAD` равен `origin/<METHODOLOGY_BASE_BRANCH>` после `git pull --ff-only`.
 
-Следующая цель после PR-2q: merge PR-2q в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches, затем переходить к target adoption tasks.
+PR-2r добавляет стандарт engine journal:
+
+- `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
+- `docs/agent-system/engine-journal/`;
+- task/result templates для воспроизводимой связи task -> result -> branch -> PR -> commit/result.
+
+Следующая цель после PR-2r: merge PR-2r в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches, затем переходить к target adoption tasks с обязательным engine journal.

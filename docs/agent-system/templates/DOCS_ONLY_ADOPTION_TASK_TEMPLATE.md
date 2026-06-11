@@ -86,6 +86,11 @@ Requires explicit user approval: <yes/no>
 - `docs/agent-system/ENGINE_REGISTRY.md`
 - `docs/agent-system/templates/**`
 - `docs/agent-system/agents/docs-maintainer-01/**`
+- `docs/agent-system/engine-journal/**`
+
+Engine journal scope is target-specific: copy or create scaffold/templates as
+needed, but do not copy methodology repository operational history. Target
+task/result entries are append-only after creation.
 
 Governance pack files разрешены только как docs-only artifacts:
 
@@ -118,6 +123,7 @@ Governance pack files разрешены только как docs-only artifacts
 - `ENGINE_REGISTRY.md`
 - Source index
 - docs-maintainer reports
+- engine journal index entries and task/result files
 - ruleset status
 - branch status
 - project-specific history
@@ -171,6 +177,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что нет runtime/code/CI changes
 - проверить, что governance state files переписаны по фактам target repository
 - проверить, что reusable templates не смешаны с target-specific state files
+- проверить, что engine journal structure создана и task/result files не содержат private data
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 - проверить language consistency governance docs
@@ -191,6 +198,7 @@ Governance pack files разрешены только как docs-only artifacts
 - local instruction conflicts;
 - language consistency changes;
 - commenting changes;
+- engine journal files;
 - files where comments are not applicable and why;
 - risks;
 - Methodology feedback;

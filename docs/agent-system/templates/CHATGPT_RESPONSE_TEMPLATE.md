@@ -45,6 +45,22 @@ Methodology base branch:
 
 <METHODOLOGY_BASE_BRANCH, обычно developer>
 
+Engine task file:
+
+docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md
+
+Expected engine result file:
+
+docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
+
+Engine journal policy:
+
+- task/result files сохраняются в `docs/agent-system/engine-journal/`;
+- task/result files связываются одним `SEQ` и `<task-id>`;
+- task/result files append-only и не удаляются/не перезаписываются без решения пользователя;
+- result file обязателен как artifact final report;
+- private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
+
 Обязательная проверка актуального agent-system-development:
 
 - перед применением методологии проверить актуальную версию methodology repository;
@@ -206,6 +222,7 @@ Commit/push/PR policy:
 - commit SHA;
 - push status;
 - PR link/number;
+- engine result file;
 - Methodology repository improvement request, если нужен.
 ```
 

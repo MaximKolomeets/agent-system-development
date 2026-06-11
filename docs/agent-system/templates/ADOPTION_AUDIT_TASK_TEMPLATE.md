@@ -42,11 +42,21 @@ Reasoning: <Low | Medium | High>
 
 ## Goal
 
-Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md`.
+Use the methodology repository engine journal scaffold/templates only. Do not
+copy methodology operational history. The audit creates target-specific
+task/result files and a target-specific index entry.
+
+Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md` plus engine journal artifacts для этой audit-задачи.
 
 ## Allowed files
 
 - `docs/agent-system/ADOPTION_AUDIT.md`
+- `docs/agent-system/engine-journal/README.md`
+- `docs/agent-system/engine-journal/INDEX.md`
+- `docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md`
+- `docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md`
+- `docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md`
+- `docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md`
 
 ## Forbidden changes
 
@@ -74,6 +84,7 @@ Reasoning: <Low | Medium | High>
 - проверить working tree;
 - если working tree dirty - использовать clean worktree или STOP;
 - sensitive grep только filename-only.
+- подготовить task file и expected result file по `ENGINE_JOURNAL_CONTRACT.md`.
 
 ## Output
 
@@ -93,6 +104,12 @@ Reasoning: <Low | Medium | High>
 - Methodology feedback;
 - нейтральный `Methodology repository improvement request`, если audit показал, что methodology repository нужно улучшить.
 
+Создать journal artifacts:
+
+- task file в `docs/agent-system/engine-journal/input/`;
+- result file в `docs/agent-system/engine-journal/output/`;
+- строку в `docs/agent-system/engine-journal/INDEX.md`.
+
 Language consistency rule:
 
 - English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names and API names;
@@ -111,10 +128,13 @@ Methodology feedback не должен включать private downstream data,
 - sensitive grep filename-only
 - language consistency audit
 - commenting consistency audit
+- engine journal index/task/result consistency
 
 ## Final report
 
 - working branch;
+- engine task file;
+- engine result file;
 - created files;
 - changed files;
 - checks;
