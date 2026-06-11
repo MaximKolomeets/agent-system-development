@@ -48,6 +48,14 @@ Result file обязателен как artifact. Ответ `engine` долже
 
 Task/result files не удаляются и не перезаписываются без отдельного решения пользователя.
 
+### Post-PR journal finalization
+
+После `push` и создания PR `engine` должен выполнить journal finalization check.
+
+Если `Expected engine result file` или `INDEX.md` содержат placeholders, `engine` не должен завершать задачу как ready-for-review.
+
+`engine` должен обновить journal files фактическими branch, commit SHA, PR URL, PR status, checks, blockers и next step, затем сделать follow-up commit/push в ту же рабочую ветку.
+
 Contract:
 
 ```text

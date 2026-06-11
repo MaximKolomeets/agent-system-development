@@ -9,6 +9,7 @@ https://github.com/MaximKolomeets/agent-system-development
 Работай по Operational Fast Lane для проверок/cleanup.
 GitHub состояние проверяй сам.
 Engine-задачи оформляй через self-contained block и engine-journal.
+Engine must finalize journal RESULT/INDEX after PR creation; ready-for-review PRs must not contain journal placeholders.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
 

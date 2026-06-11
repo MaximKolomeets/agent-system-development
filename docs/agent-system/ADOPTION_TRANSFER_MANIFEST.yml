@@ -202,6 +202,9 @@ minimal_first_pr:
     - working tree clean или используется отдельный clean worktree
     - создан только adoption audit
     - target-specific engine journal task/result artifacts created
+    - RESULT file has final PR URL and commit SHA when PR is ready for review
+    - INDEX entry has final PR URL/status
+    - no unresolved journal placeholders
     - methodology operational history not copied
     - final report содержит Methodology feedback
 

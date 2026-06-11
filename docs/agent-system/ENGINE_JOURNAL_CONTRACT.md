@@ -149,6 +149,34 @@ entries. Methodology repository operational history is not transferred.
 - risks;
 - next recommended step.
 
+## Post-PR Finalization Rule
+
+`RESULT` и `INDEX` могут содержать временные placeholders только до создания PR.
+
+После создания PR `engine` обязан обновить `RESULT` и `INDEX` фактическими значениями:
+
+- final branch;
+- final commit SHA;
+- PR URL;
+- PR status;
+- checks run;
+- blockers;
+- next recommended step.
+
+Если PR URL или final commit SHA стали известны только после materialization journal files, `engine` должен сделать follow-up commit в ту же рабочую ветку и push в тот же PR.
+
+Ready-for-review PR не должен содержать unresolved journal placeholders:
+
+- `created after file materialization`;
+- `pending at file materialization`;
+- `see Engine final report`;
+- `<commit SHA>`;
+- `<PR URL>`;
+- `<result>`;
+- `<check command>`.
+
+Reviewer должен считать такие placeholders blocker.
+
 ## Review Rule
 
 ### Methodology Repository Review
@@ -170,3 +198,4 @@ For `agent-system-development`, reviewer must verify that:
 - forbidden/private data не добавлены;
 - task/result files не противоречат final report;
 - branch, PR и commit references совпадают с фактическим GitHub state.
+- ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`.
