@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2m unified ChatGPT response, methodology freshness and commenting standard.
+Текущий этап: PR-2n post-PR-2m state refresh and methodology release readiness.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2m-unified-chatgpt-response-and-commenting-standard
+work/docs-maintainer-01/pr-2n-post-pr-2m-state-refresh
 ```
 
 Ветки:
@@ -73,14 +73,20 @@ PR-2k завершен и добавил Project Constitution Framework: reusabl
 
 PR-2l завершен и добавил canonical copy/paste prompt для запуска adoption в target repository из нового project chat.
 
-PR-2m закрепляет один самодостаточный Engine-блок на одну engine-задачу.
+PR-2m завершен и merged в `developer` через PR #46.
 
-PR-2m закрепляет обязательную проверку актуального `agent-system-development` перед формированием и выполнением задач.
+PR-2m закрепил один самодостаточный Engine-блок на одну engine-задачу.
 
-PR-2m закрепляет language consistency rule для target governance docs.
+PR-2m закрепил обязательную проверку актуального `agent-system-development` перед формированием и выполнением задач.
 
-PR-2m закрепляет `FILE_COMMENTING_STANDARD` для русских комментариев в нужных строках/блоках скриптов и технических файлов.
+PR-2m закрепил language consistency rule для target governance docs.
 
-PR-2m закрепляет отдельный нейтральный блок для предложений по доработке methodology repository без раскрытия private downstream data.
+PR-2m закрепил `FILE_COMMENTING_STANDARD` для русских комментариев в нужных строках/блоках скриптов и технических файлов.
 
-Следующая цель после PR-2m: review, merge, release methodology repository, затем применять unified response standard в новых target repository adoption chats.
+PR-2m закрепил отдельный нейтральный блок для предложений по доработке methodology repository без раскрытия private downstream data.
+
+PR-2n выполняет refresh state docs после merge PR-2m и готовит methodology repository к release readiness review.
+
+Следующая цель после PR-2n: проверить readiness checklist, затем подготовить release `developer` -> `main`, если пользователь подтвердит release.
+
+После release unified ChatGPT response standard применяется в новых target repository adoption chats.

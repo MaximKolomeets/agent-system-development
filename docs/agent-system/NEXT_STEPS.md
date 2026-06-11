@@ -1,10 +1,7 @@
 # NEXT_STEPS
 
-1. Проверить PR-2m.
-2. Убедиться, что новый response standard не содержит private downstream names.
-3. Проверить, что target adoption prompt требует один самодостаточный copy/paste Engine-блок.
-4. Проверить, что manual terminal steps разделены по задачам и не содержат обязательные engine execution data.
-5. Проверить, что methodology freshness check закреплен в templates и entrypoint.
-6. Проверить, что `FILE_COMMENTING_STANDARD` применяется к скриптам, workflow и техническим файлам.
-7. Проверить, что language consistency audit включен в adoption audit.
-8. После merge применять standard в новых target repository adoption chats.
+1. Завершить PR-2n: refresh state docs после merge PR-2m.
+2. Проверить `STAGE_2_COMPLETION_CHECKLIST.md` на readiness после unified response standard.
+3. Подготовить release `developer` -> `main`, если пользователь подтвердит release methodology repository.
+4. После release применять unified ChatGPT response standard в новых target repository adoption chats.
+5. По результатам target adoption dry run возвращать только нейтральный methodology feedback без private downstream data.

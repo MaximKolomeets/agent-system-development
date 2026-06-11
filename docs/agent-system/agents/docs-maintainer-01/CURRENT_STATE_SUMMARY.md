@@ -2,7 +2,7 @@
 
 Кратко отражать текущее состояние проекта для быстрого чтения в новом чате.
 
-## 2026-06-09
+## 2026-06-11
 
 - Repo public.
 - Rulesets active по UI: `Protect main`, `Protect developer`.
@@ -20,5 +20,7 @@
 - PR-2i engine task header and repository role завершен.
 - PR-2j target project governance pack завершен.
 - PR-2k project constitution framework завершен.
-- Текущая задача: PR-2l reusable target adoption chat prompt.
-- Следующий шаг: проверить PR-2l, release methodology repository и применять canonical prompt в target repositories.
+- PR-2l reusable target adoption chat prompt завершен.
+- PR-2m unified ChatGPT response, methodology freshness and commenting standard merged в `developer`.
+- Текущая задача: PR-2n post-PR-2m state refresh and release readiness.
+- Следующий шаг: проверить readiness checklist, затем подготовить release methodology repository по решению пользователя.
