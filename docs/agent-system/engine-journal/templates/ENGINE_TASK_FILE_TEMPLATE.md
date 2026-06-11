@@ -18,6 +18,16 @@ Agent:
 
 Engine:
 
+Task source mode: `<copy-paste | task-file-handoff>`
+
+Task source commit SHA:
+
+Task file blob SHA:
+
+Bootstrap prompt reference:
+
+Source-of-truth note:
+
 Base branch:
 
 Working branch:

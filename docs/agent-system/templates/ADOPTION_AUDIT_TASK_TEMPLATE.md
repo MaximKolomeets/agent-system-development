@@ -110,6 +110,8 @@ task/result files and a target-specific index entry.
 - result file в `docs/agent-system/engine-journal/output/`;
 - строку в `docs/agent-system/engine-journal/INDEX.md`.
 
+Если audit-задача передана через Task File Handoff Mode, TASK file является source of truth, а result file должен зафиксировать task source commit SHA или blob SHA.
+
 После создания PR обновить target-specific `RESULT` и `INDEX` фактическими PR/commit/status/checks значениями.
 
 Выполнить placeholder scan journal files. Если placeholders остались, задачу нельзя считать ready-for-review.
@@ -133,6 +135,7 @@ Methodology feedback не должен включать private downstream data,
 - language consistency audit
 - commenting consistency audit
 - engine journal index/task/result consistency
+- task-file-handoff metadata consistency, если режим использовался
 - engine journal placeholder scan
 
 ## Final report

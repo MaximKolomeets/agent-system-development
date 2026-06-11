@@ -91,6 +91,23 @@ Task/result files нельзя удалять, перезаписывать ил
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
+## Task File Handoff Mode
+
+TASK file может быть создан до выполнения как отдельный task-file-only commit в target repository.
+
+В этом режиме TASK file является source of truth, а short bootstrap prompt только указывает `engine`, какой repository, branch и task file path прочитать.
+
+RESULT обязан ссылаться на:
+
+- task file path;
+- task source commit SHA;
+- task file blob SHA, если доступен;
+- execution branch;
+- execution PR URL;
+- final commit SHA.
+
+Если TASK file, bootstrap prompt, branch или source SHA конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
+
 ## Safety
 
 Engine journal хранится в GitHub и считается публичным, если repository public.
@@ -138,6 +155,9 @@ entries. Methodology repository operational history is not transferred.
 Каждый result file должен ссылаться на:
 
 - related task file;
+- task source mode;
+- task source commit SHA, если TASK file создан заранее;
+- task file blob SHA, если доступен;
 - task id;
 - branch;
 - commit SHA, если commit создан;
