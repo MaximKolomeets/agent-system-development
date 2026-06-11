@@ -33,10 +33,24 @@ Methodology repository:
 
 https://github.com/MaximKolomeets/agent-system-development
 
+Methodology repository local path:
+
+<METHODOLOGY_REPOSITORY_LOCAL_PATH>
+
+Methodology base branch:
+
+<METHODOLOGY_BASE_BRANCH, обычно developer>
+
 Обязательная проверка актуального agent-system-development:
 
 - перед применением методологии проверить актуальную версию methodology repository;
-- если используется локальная копия, выполнить fetch/pull fast-forward при чистом working tree;
+- если используется локальная копия, сначала проверить clean working tree;
+- выполнить `git fetch --all --prune`;
+- проверить наличие `origin/<METHODOLOGY_BASE_BRANCH>`;
+- переключиться на `<METHODOLOGY_BASE_BRANCH>`;
+- выполнить `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>`;
+- только после успешного fast-forward pull считать локальную methodology repository актуальной;
+- если выполнялся только fetch без pull, не писать, что локальная копия синхронизирована;
 - если актуальность проверить невозможно, явно указать это в final report.
 
 Base branch:
@@ -68,6 +82,41 @@ Forbidden files and changes:
 Preflight:
 
 BEGIN POWERSHELL
+# Перейти в локальную копию methodology repository, чтобы синхронизировать методологию перед подготовкой задачи.
+cd <METHODOLOGY_REPOSITORY_LOCAL_PATH>
+
+# Проверить рабочее дерево methodology repository до pull, чтобы не перетереть локальные изменения.
+$methodologyStatus = git status --short
+if ($methodologyStatus) {
+  Write-Output "STOP: methodology repository working tree is not clean"
+  $methodologyStatus
+  exit 1
+}
+
+# Забрать актуальные remote refs methodology repository.
+git fetch --all --prune
+
+# Проверить наличие remote base branch methodology repository перед переключением.
+$methodologyRemoteBranch = git branch -r --list origin/<METHODOLOGY_BASE_BRANCH>
+if (-not $methodologyRemoteBranch) {
+  Write-Output "STOP: methodology remote base branch not found"
+  exit 1
+}
+
+# Переключиться на локальную methodology base branch для fast-forward синхронизации.
+git switch <METHODOLOGY_BASE_BRANCH>
+
+# Подтянуть локальную methodology branch строго fast-forward, чтобы не работать по устаревшим файлам.
+git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>
+
+# Проверить, что working tree methodology repository остался clean после синхронизации.
+$methodologyPostStatus = git status --short
+if ($methodologyPostStatus) {
+  Write-Output "STOP: methodology repository working tree changed during sync"
+  $methodologyPostStatus
+  exit 1
+}
+
 # Проверить корень repository, чтобы не выполнить задачу в неправильной папке.
 git rev-parse --show-toplevel
 
