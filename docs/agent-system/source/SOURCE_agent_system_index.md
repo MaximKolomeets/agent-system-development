@@ -51,26 +51,27 @@ https://github.com/MaximKolomeets/agent-system-development
 23. docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
 24. docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
 25. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-26. docs/agent-system/source/SOURCE_agent_system_index.md
-27. docs/agent-system/CHATGPT_RESPONSE_STANDARD.md
-28. docs/agent-system/FILE_COMMENTING_STANDARD.md
-29. docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md
-30. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-31. docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
-32. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
-33. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
-34. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
-35. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
-36. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
-37. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
-38. docs/agent-system/templates/ROADMAP_TEMPLATE.md
-39. docs/agent-system/templates/BACKLOG_TEMPLATE.md
-40. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
-41. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+26. docs/agent-system/RELEASE_READINESS.md
+27. docs/agent-system/source/SOURCE_agent_system_index.md
+28. docs/agent-system/CHATGPT_RESPONSE_STANDARD.md
+29. docs/agent-system/FILE_COMMENTING_STANDARD.md
+30. docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md
+31. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+32. docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+33. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+34. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+35. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+36. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+37. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
+38. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+39. docs/agent-system/templates/ROADMAP_TEMPLATE.md
+40. docs/agent-system/templates/BACKLOG_TEMPLATE.md
+41. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+42. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: PR-2n post-PR-2m state refresh and methodology release readiness.
+Current stage: PR-2o pre-release readiness snapshot for future `developer` -> `main` release.
 
 PR-2m merged в `developer` через PR #46 и закрепил:
 
@@ -89,7 +90,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 
 ## Следующий шаг
 
-Завершить PR-2n, после merge PR-2n проверить release readiness, выполнять release `developer` -> `main` только после решения пользователя, затем применять unified ChatGPT response standard в target repository adoption chats.
+Завершить PR-2o, после merge PR-2o выполнить post-PR-2o release refresh перед release PR `developer` -> `main`, если пользователь подтвердит release. Если release откладывается, выполнять target adoption dry run только от явно синхронизированного `developer`.
 
 ## Важно
 
@@ -106,6 +107,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 - Unified ChatGPT response standard лежит в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 - File commenting standard лежит в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 - Copy/paste-ready response template лежит в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
+- Pre-release readiness snapshot лежит в `docs/agent-system/RELEASE_READINESS.md`; final release refresh требуется после merge PR-2o.
 - Project-specific governance state создается только в target repository.
 - Не читать `.env`.
 - Не коммитить `.env`, `.venv`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.
