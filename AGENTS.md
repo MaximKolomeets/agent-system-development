@@ -39,6 +39,11 @@
 - Не зеркалировать release merge commit из `main` обратно в `developer`, если это не несет содержательных изменений.
 - После PR-2r следующий target project описывать как `target implementation repository`; не расширять methodology без blocker.
 - Не смешивать engine prompt, terminal commands и пояснения в одном блоке.
+- ChatGPT должен использовать `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` как стартовый operating contract для проектных чатов.
+- Для проверок и cleanup применяется `docs/agent-system/OPERATIONAL_FAST_LANE.md`.
+- GitHub state ChatGPT проверяет сам, если connector доступен.
+- Engine-задачи должны быть self-contained и использовать engine-journal, если задача меняет repository files или создает PR.
+- ChatGPT не читает `.env` и не меняет `main`/`developer` напрямую.
 - Перед подготовкой задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
 - Если актуальное состояние methodology repository проверить невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.
 - Любой engine, применяющий methodology repository, должен перед изменениями синхронизировать локальный `agent-system-development` с GitHub.

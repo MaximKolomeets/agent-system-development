@@ -6,6 +6,14 @@
 
 Цель стандарта - сделать так, чтобы пользователь мог скопировать один полный prompt для `engine` одним действием и вставить его без ручного сбора цели, команд, ограничений, проверок и формата отчета из разных частей ответа.
 
+В новом project chat ChatGPT сначала применяет короткий operating contract:
+
+```text
+docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
+```
+
+Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту.
+
 ## Когда применяется стандарт
 
 Стандарт применяется, когда ChatGPT:
@@ -150,6 +158,8 @@ Operational Fast Lane используется для простых status chec
 Перед формированием задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
 
 Если проверить актуальность невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight для `git fetch --all --prune` и `git pull --ff-only` там, где это безопасно.
+
+В новых проектных чатах проверка актуальности methodology repository выполняется после применения `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` и до постановки Engine-задачи для target repository.
 
 ## Синхронизация methodology repository перед выполнением
 
