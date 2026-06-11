@@ -87,13 +87,13 @@ PR-2m закрепил отдельный нейтральный блок для
 
 PR-2n merged в `developer` через PR #47 и обновил state docs, Source index и readiness checklist после PR-2m.
 
-PR-2o выполняет release readiness review для кандидата `developer` -> `main` без создания release PR.
+PR-2o выполняет pre-release readiness snapshot для будущего кандидата `developer` -> `main` без создания release PR.
 
-Release candidate:
+Pre-PR-2o snapshot:
 
 - `origin/main`: `9f10a79b495b2f4467dfaf7932f34aab6f70c241`;
 - `origin/developer`: `672c263c039bac042e8ec0672b05ce6077aad8fd`.
 
-Следующая цель после PR-2o: создать release PR `developer` -> `main`, если пользователь подтвердит release.
+Snapshot фиксирует состояние `developer` до merge PR-2o. Следующая цель после PR-2o: выполнить post-PR-2o release refresh и только затем создать release PR `developer` -> `main`, если пользователь подтвердит release.
 
 После release unified ChatGPT response standard применяется в новых target repository adoption chats.

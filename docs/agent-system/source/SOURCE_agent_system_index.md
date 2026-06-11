@@ -71,7 +71,7 @@ https://github.com/MaximKolomeets/agent-system-development
 
 ## Текущий этап
 
-Current stage: PR-2o release readiness review for `developer` -> `main`.
+Current stage: PR-2o pre-release readiness snapshot for future `developer` -> `main` release.
 
 PR-2m merged в `developer` через PR #46 и закрепил:
 
@@ -90,7 +90,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 
 ## Следующий шаг
 
-Завершить PR-2o, после merge PR-2o выполнять release `developer` -> `main` только после решения пользователя, затем применять unified ChatGPT response standard в target repository adoption chats.
+Завершить PR-2o, после merge PR-2o выполнить post-PR-2o release refresh перед release PR `developer` -> `main`, если пользователь подтвердит release. Если release откладывается, выполнять target adoption dry run только от явно синхронизированного `developer`.
 
 ## Важно
 
@@ -107,7 +107,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 - Unified ChatGPT response standard лежит в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 - File commenting standard лежит в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 - Copy/paste-ready response template лежит в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
-- Release readiness review лежит в `docs/agent-system/RELEASE_READINESS.md`.
+- Pre-release readiness snapshot лежит в `docs/agent-system/RELEASE_READINESS.md`; final release refresh требуется после merge PR-2o.
 - Project-specific governance state создается только в target repository.
 - Не читать `.env`.
 - Не коммитить `.env`, `.venv`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`.

@@ -125,7 +125,8 @@
 ## 2026-06-11 - PR-2o release readiness review
 
 - Добавлен `docs/agent-system/RELEASE_READINESS.md`.
-- Зафиксирован release candidate `developer` -> `main`.
+- Зафиксирован pre-PR-2o snapshot для будущего release candidate `developer` -> `main`.
 - Проверены candidate SHAs, release diff, forbidden paths и sensitive/private markers без переноса содержимого marker lines в docs.
 - Обновлены `CURRENT_STATE.md`, `NEXT_STEPS.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
+- Review follow-up уточнил: final release PR требует post-PR-2o refresh после merge PR-2o в `developer`.
 - Release PR `developer` -> `main` не создавался; следующий шаг зависит от решения пользователя.

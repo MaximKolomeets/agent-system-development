@@ -24,6 +24,6 @@
 - PR-2m unified ChatGPT response, methodology freshness and commenting standard merged в `developer`.
 - PR-2n post-PR-2m state refresh merged в `developer`.
 - Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен после PR-2m / PR-2n.
-- Текущая задача: PR-2o release readiness review для кандидата `developer` -> `main`.
-- Release candidate: `origin/main` `9f10a79b495b2f4467dfaf7932f34aab6f70c241`, `origin/developer` `672c263c039bac042e8ec0672b05ce6077aad8fd`.
-- Следующий шаг: после merge PR-2o создать release PR `developer` -> `main` только по решению пользователя или выполнить target adoption dry run.
+- Текущая задача: PR-2o pre-release readiness snapshot для будущего кандидата `developer` -> `main`.
+- Pre-PR-2o snapshot: `origin/main` `9f10a79b495b2f4467dfaf7932f34aab6f70c241`, `origin/developer` `672c263c039bac042e8ec0672b05ce6077aad8fd`.
+- Следующий шаг: после merge PR-2o выполнить post-PR-2o release refresh перед release PR `developer` -> `main` или выполнить target adoption dry run от явно синхронизированного `developer`.
