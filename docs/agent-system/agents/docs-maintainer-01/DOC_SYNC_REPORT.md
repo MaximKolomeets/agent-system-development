@@ -106,3 +106,18 @@
 - README, short prompt, target repository adoption guide, adoption guide, engine entrypoint, onboarding guide и transfer manifest связаны с canonical prompt.
 - Обновлены state docs, Source index и docs-maintainer summary/prompt.
 - Первый шаг применения методологии в target repository закреплен как audit-only task generation.
+
+## 2026-06-11 - PR-2m unified ChatGPT response and commenting standards
+
+- Добавлен `CHATGPT_RESPONSE_STANDARD.md`.
+- Добавлен `CHATGPT_RESPONSE_TEMPLATE.md`.
+- Добавлен `FILE_COMMENTING_STANDARD.md`.
+- Закреплены one-engine-task-one-block rule, separation of manual terminal tasks, methodology freshness check, language consistency rule и нейтральный methodology feedback.
+- PR-2m merged в `developer` через PR #46.
+
+## 2026-06-11 - PR-2n post-PR-2m state refresh
+
+- Обновляются state docs после merge PR-2m.
+- Checklist приводится к актуальному состоянию после unified response standard.
+- Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен до состояния после PR-2m / PR-2n.
+- Следующий рекомендуемый шаг после PR-2n: release methodology repository или target adoption dry run по решению пользователя.

@@ -339,3 +339,18 @@ Target repository должен до implementation PR фиксировать mis
 - methodology repository freshness check становится обязательным;
 - methodology feedback оформляется отдельным нейтральным блоком, если нужна доработка `agent-system-development`;
 - public methodology repository не раскрывает private downstream data.
+
+## 2026-06-11 - PR-2m merged and methodology release readiness
+
+Решение:
+После merge PR-2m в `developer` считать unified ChatGPT response standard, `FILE_COMMENTING_STANDARD`, methodology freshness check и language consistency rule принятыми как актуальная методология для следующих target repository adoption chats.
+
+Причина:
+PR-2m добавил reusable response standard и template, а также закрепил self-contained Engine-блоки, разделение manual terminal tasks, обязательную синхронизацию methodology repository и нейтральный methodology feedback без private downstream data.
+
+Последствия:
+
+- `developer` содержит актуальную версию unified response standard;
+- state docs обновляются отдельным PR-2n перед release readiness review;
+- release `developer` -> `main` выполняется только после решения пользователя;
+- новые target repository adoption chats должны использовать текущие response/template rules после release или явной проверки актуального `developer`.
