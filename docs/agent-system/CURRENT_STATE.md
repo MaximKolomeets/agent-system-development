@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2n post-PR-2m state refresh and methodology release readiness.
+Текущий этап: PR-2o release readiness review for `developer` -> `main`.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2n-post-pr-2m-state-refresh
+work/docs-maintainer-01/pr-2o-release-readiness-review
 ```
 
 Ветки:
@@ -85,8 +85,15 @@ PR-2m закрепил `FILE_COMMENTING_STANDARD` для русских комм
 
 PR-2m закрепил отдельный нейтральный блок для предложений по доработке methodology repository без раскрытия private downstream data.
 
-PR-2n выполняет refresh state docs после merge PR-2m и готовит methodology repository к release readiness review.
+PR-2n merged в `developer` через PR #47 и обновил state docs, Source index и readiness checklist после PR-2m.
 
-Следующая цель после PR-2n: проверить readiness checklist, затем подготовить release `developer` -> `main`, если пользователь подтвердит release.
+PR-2o выполняет release readiness review для кандидата `developer` -> `main` без создания release PR.
+
+Release candidate:
+
+- `origin/main`: `9f10a79b495b2f4467dfaf7932f34aab6f70c241`;
+- `origin/developer`: `672c263c039bac042e8ec0672b05ce6077aad8fd`.
+
+Следующая цель после PR-2o: создать release PR `developer` -> `main`, если пользователь подтвердит release.
 
 После release unified ChatGPT response standard применяется в новых target repository adoption chats.

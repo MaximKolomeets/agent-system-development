@@ -37,6 +37,7 @@
 - [x] `FILE_COMMENTING_STANDARD.md` exists.
 - [x] `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` exists.
 - [x] `docs/agent-system/source/SOURCE_agent_system_index.md` exists and is updated after PR-2m.
+- [x] `RELEASE_READINESS.md` exists and records the current `developer` -> `main` release candidate.
 - [x] short prompt adoption mode documented.
 - [x] audit-only, docs-only adoption and runtime adoption modes documented.
 - [x] minimal first PR creates only `ADOPTION_AUDIT.md`.
@@ -60,25 +61,25 @@
 
 ## Process readiness
 
-- [ ] one task = one branch = one PR;
-- [ ] work branches use `work/<role>/<task>`;
-- [ ] developer receives changes through PR;
-- [ ] main receives stable state from developer;
-- [ ] developer sync after main release is handled through PR if ruleset requires it;
-- [ ] user manually launches engine;
-- [ ] engine tasks start with `Задача для <agent-name>: <task-id>`;
-- [ ] ChatGPT reviews reports and prepares next tasks;
-- [ ] user makes final decisions.
+- [x] one task = one branch = one PR;
+- [x] work branches use `work/<role>/<task>`;
+- [x] developer receives changes through PR;
+- [x] main receives stable state from developer;
+- [x] developer sync after main release is handled through PR if ruleset requires it;
+- [x] user manually launches engine;
+- [x] engine tasks start with `Задача для <agent-name>: <task-id>`;
+- [x] ChatGPT reviews reports and prepares next tasks;
+- [x] user makes final decisions.
 
 ## Security readiness
 
-- [ ] `.env` is forbidden;
-- [ ] `.venv/` is forbidden;
-- [ ] `data/`, `runtime/`, `dist/`, `backups/`, `exports/` are forbidden;
-- [ ] real credentials/tokens/passwords/API keys are forbidden;
-- [ ] sensitive grep is part of review;
-- [ ] public repository rules are documented;
-- [ ] target repository visibility is handled separately.
+- [x] `.env` is forbidden;
+- [x] `.venv/` is forbidden;
+- [x] `data/`, `runtime/`, `dist/`, `backups/`, `exports/` are forbidden;
+- [x] real credentials/tokens/passwords/API keys are forbidden;
+- [x] sensitive grep is part of review;
+- [x] public repository rules are documented;
+- [x] target repository visibility is handled separately.
 
 ## Documentation readiness
 
@@ -88,13 +89,14 @@
 - [x] Source index is current;
 - [x] docs-maintainer summary is current;
 - [x] next chat prompt is current.
+- [x] release readiness review is current.
 
 ## Known issues
 
 - На момент PR-2c workflow был updated to Node.js 24 compatible checkout action.
 - Если GitHub Actions снова покажет runtime warning, это должно идти отдельным PR.
 - Source index существует как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен в PR-2n follow-up commit.
-- Release `developer` -> `main` после PR-2m еще не выполнен.
+- Release `developer` -> `main` еще не выполнен; PR-2o только готовит readiness review и не создает release PR.
 - Unified response standard готов к применению в новых target repository adoption chats после release decision пользователя.
 
 ## Completion criteria
@@ -108,5 +110,6 @@
 - one-engine-task-one-block rule закреплен в response standard/template;
 - language consistency rule закреплен в adoption audit/docs-only adoption flow;
 - stage checklist заполнен по фактически проверенным файлам;
-- release `developer` -> `main` подготовлен только после решения пользователя;
-- следующий шаг - release readiness review или target repository adoption dry run с обязательной task header.
+- release readiness review для `developer` -> `main` зафиксирован;
+- release `developer` -> `main` выполняется только после решения пользователя;
+- следующий шаг - release PR или target repository adoption dry run с обязательной task header.

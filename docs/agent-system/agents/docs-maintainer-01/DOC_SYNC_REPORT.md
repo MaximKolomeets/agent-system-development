@@ -121,3 +121,11 @@
 - Checklist приводится к актуальному состоянию после unified response standard.
 - Source index найден как `docs/agent-system/source/SOURCE_agent_system_index.md` и обновлен до состояния после PR-2m / PR-2n.
 - Следующий рекомендуемый шаг после PR-2n: release methodology repository или target adoption dry run по решению пользователя.
+
+## 2026-06-11 - PR-2o release readiness review
+
+- Добавлен `docs/agent-system/RELEASE_READINESS.md`.
+- Зафиксирован release candidate `developer` -> `main`.
+- Проверены candidate SHAs, release diff, forbidden paths и sensitive/private markers без переноса содержимого marker lines в docs.
+- Обновлены `CURRENT_STATE.md`, `NEXT_STEPS.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
+- Release PR `developer` -> `main` не создавался; следующий шаг зависит от решения пользователя.
