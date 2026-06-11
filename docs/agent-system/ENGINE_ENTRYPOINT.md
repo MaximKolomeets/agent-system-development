@@ -116,11 +116,15 @@ Template repository является методологической основ
 
 Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin developer`.
 
+После pull локальный `HEAD` должен строго совпадать с `origin/developer` или другим явно заданным `origin/<METHODOLOGY_BASE_BRANCH>`. Если локальный `HEAD` отличается от remote branch, `engine` должен написать `STOP`, потому что methodology repository не подтвержден как публично синхронизированный.
+
 Если working tree не чистый, `engine` должен написать `STOP` и не перетирать изменения.
 
 Если `developer` отсутствует, `engine` должен написать `STOP` для methodology repository changes.
 
 Если methodology repository используется только как template для target repository, `engine` должен читать актуальные файлы из GitHub или из свежесинхронизированной локальной копии.
+
+После синхронизации methodology repository `engine` должен явно вернуться в target repository перед target checks или target changes. Проверки target remote, branch, working tree и allowed files нельзя выполнять, пока текущая папка остается `agent-system-development`.
 
 Engine не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в final report.
 

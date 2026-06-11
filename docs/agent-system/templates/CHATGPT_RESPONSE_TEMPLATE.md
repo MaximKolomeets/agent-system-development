@@ -29,6 +29,10 @@ Target repository:
 
 <owner/repository или URL>
 
+Target repository local path:
+
+<TARGET_REPOSITORY_LOCAL_PATH>
+
 Methodology repository:
 
 https://github.com/MaximKolomeets/agent-system-development
@@ -49,7 +53,9 @@ Methodology base branch:
 - проверить наличие `origin/<METHODOLOGY_BASE_BRANCH>`;
 - переключиться на `<METHODOLOGY_BASE_BRANCH>`;
 - выполнить `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>`;
-- только после успешного fast-forward pull считать локальную methodology repository актуальной;
+- проверить, что локальный `HEAD` строго равен `origin/<METHODOLOGY_BASE_BRANCH>`;
+- только после успешного fast-forward pull и `HEAD == origin/<METHODOLOGY_BASE_BRANCH>` считать локальную methodology repository актуальной;
+- после синхронизации methodology repository обязательно вернуться в target repository через `cd <TARGET_REPOSITORY_LOCAL_PATH>`;
 - если выполнялся только fetch без pull, не писать, что локальная копия синхронизирована;
 - если актуальность проверить невозможно, явно указать это в final report.
 
@@ -109,6 +115,16 @@ git switch <METHODOLOGY_BASE_BRANCH>
 # Подтянуть локальную methodology branch строго fast-forward, чтобы не работать по устаревшим файлам.
 git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>
 
+# Проверить, что локальная methodology branch строго совпадает с remote branch после pull.
+$methodologyLocal = git rev-parse HEAD
+$methodologyRemote = git rev-parse origin/<METHODOLOGY_BASE_BRANCH>
+if ($methodologyLocal -ne $methodologyRemote) {
+  Write-Output "STOP: methodology local HEAD does not match origin/<METHODOLOGY_BASE_BRANCH>"
+  Write-Output "local: $methodologyLocal"
+  Write-Output "remote: $methodologyRemote"
+  exit 1
+}
+
 # Проверить, что working tree methodology repository остался clean после синхронизации.
 $methodologyPostStatus = git status --short
 if ($methodologyPostStatus) {
@@ -116,6 +132,9 @@ if ($methodologyPostStatus) {
   $methodologyPostStatus
   exit 1
 }
+
+# Вернуться в target repository перед любыми target checks или изменениями.
+cd <TARGET_REPOSITORY_LOCAL_PATH>
 
 # Проверить корень repository, чтобы не выполнить задачу в неправильной папке.
 git rev-parse --show-toplevel

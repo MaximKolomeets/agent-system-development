@@ -130,3 +130,11 @@
 - Обновлены `CURRENT_STATE.md`, `NEXT_STEPS.md`, `STAGE_2_COMPLETION_CHECKLIST.md`, `DECISION_LOG.md`, Source index и docs-maintainer summary/prompt.
 - Review follow-up уточнил: final release PR требует post-PR-2o refresh после merge PR-2o в `developer`.
 - Release PR `developer` -> `main` не создавался; следующий шаг зависит от решения пользователя.
+
+## 2026-06-11 - PR-2q engine repository context preflight
+
+- Исправляется blocker review feedback из release PR #49.
+- `CHATGPT_RESPONSE_TEMPLATE.md` теперь требует `cd <TARGET_REPOSITORY_LOCAL_PATH>` после methodology sync перед target checks и changes.
+- Methodology sync теперь требует `HEAD == origin/<METHODOLOGY_BASE_BRANCH>` после `git pull --ff-only`.
+- `CHATGPT_RESPONSE_STANDARD.md` и `ENGINE_ENTRYPOINT.md` уточняют repository context safety rule.
+- Release PR #49 остается open и должен быть re-checked после merge PR-2q.

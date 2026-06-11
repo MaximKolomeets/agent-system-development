@@ -129,6 +129,10 @@ Engine-блок должен быть одним fenced code block.
 
 Если `origin/developer` отсутствует или pull fast-forward невозможен, `engine` должен написать `STOP` для methodology repository changes.
 
+После `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>` локальный `HEAD` methodology repository должен строго совпадать с `origin/<METHODOLOGY_BASE_BRANCH>`. Если значения отличаются, `engine` должен написать `STOP`, потому что локальная methodology branch содержит состояние, которого нет в remote source of truth.
+
+Если `engine` синхронизировал methodology repository в рамках задачи для target repository, он обязан вернуться в target repository через явный `cd <TARGET_REPOSITORY_LOCAL_PATH>` до проверки target remote, branch, working tree, файлов или выполнения изменений.
+
 ## Методологический feedback block
 
 Если при работе с target repository выявлена необходимость доработки `agent-system-development`, ChatGPT должен вывести отдельный самодостаточный блок для engine-разработчика methodology repository.
