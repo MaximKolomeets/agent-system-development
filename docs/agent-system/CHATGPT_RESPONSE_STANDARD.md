@@ -121,6 +121,16 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Если ручные действия нужны до запуска `engine`, они должны быть либо внутри Engine-блока как preflight для `engine`, либо в отдельном разделе `Ручная работа до запуска engine`. Даже в этом случае Engine-блок должен оставаться самодостаточным.
 
+## Operational Fast Lane
+
+Для manual checks/cleanup не нужен Engine-блок, если задача не меняет файлы repository, не создает PR и не затрагивает secrets/private data.
+
+Operational Fast Lane используется для простых status checks, cleanup, post-engine result checks и release readiness sanity checks. Команды даются одним terminal block, а ответ не растягивается на много уточняющих сообщений.
+
+Если GitHub connector доступен, ChatGPT сам проверяет PR/open/merged/branch state и не просит пользователя присылать длинные логи при чистом результате.
+
+Длинный Engine-блок нужен только для задач, которые меняют файлы, создают PR, выполняют adoption/bootstrap или требуют полного воспроизводимого scope.
+
 ## Разделение ручной работы
 
 Одна ручная задача = один раздел = один terminal block.

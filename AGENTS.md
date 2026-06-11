@@ -34,6 +34,10 @@
 - Task/result artifacts engine journal являются append-only и не удаляются/не перезаписываются без отдельного решения пользователя.
 - Нельзя оставлять за пределами Engine-блока команды, ограничения, проверки, allowed files, forbidden files, STOP-условия или требования к отчету, если они нужны engine.
 - Если ответ содержит ручные terminal-команды, каждая независимая ручная задача должна быть отдельным разделом и отдельным terminal block.
+- Простые проверки и cleanup выполнять через Operational Fast Lane: один ответ, один terminal block, без нового methodology PR.
+- Не создавать methodology PR для простой операционной проверки, status check или cleanup.
+- Не зеркалировать release merge commit из `main` обратно в `developer`, если это не несет содержательных изменений.
+- После PR-2r следующий target project описывать как `target implementation repository`; не расширять methodology без blocker.
 - Не смешивать engine prompt, terminal commands и пояснения в одном блоке.
 - Перед подготовкой задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
 - Если актуальное состояние methodology repository проверить невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.

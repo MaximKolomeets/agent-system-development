@@ -10,6 +10,14 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
 
+## Operational Fast Lane
+
+Operational Fast Lane не заменяет engine task workflow. Он применяется только для простых status/cleanup операций, которые безопасно выполняются пользователем по одному terminal block без изменения repository files.
+
+Engine не должен запускаться для простых GitHub PR status checks, local git status checks, branch cleanup или post-engine result checks, если эти действия не требуют изменения файлов, PR или работы с sensitive/private data.
+
+Для target adoption Operational Fast Lane используется только до или после engine task: проверить статус, cleanup или результат. Он не заменяет adoption audit, docs-only adoption и engine journal workflow.
+
 ## Обязательная шапка задачи
 
 Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
