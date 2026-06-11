@@ -22,6 +22,22 @@ Commit SHA:
 
 PR URL:
 
+Finalization status:
+
+Result finalized:
+
+Index finalized:
+
+Placeholder check:
+
+PR created at:
+
+Final commit SHA:
+
+Final PR URL:
+
+Ready for review:
+
 Changed files:
 
 - `<changed path>`
@@ -45,3 +61,8 @@ Blockers:
 Next recommended step:
 
 Methodology feedback:
+
+Journal finalization note:
+
+- placeholders допустимы только до PR creation;
+- перед ready-for-review все placeholders должны быть заменены фактическими значениями.

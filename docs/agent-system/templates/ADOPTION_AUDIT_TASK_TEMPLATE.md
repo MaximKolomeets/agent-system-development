@@ -110,6 +110,10 @@ task/result files and a target-specific index entry.
 - result file в `docs/agent-system/engine-journal/output/`;
 - строку в `docs/agent-system/engine-journal/INDEX.md`.
 
+После создания PR обновить target-specific `RESULT` и `INDEX` фактическими PR/commit/status/checks значениями.
+
+Выполнить placeholder scan journal files. Если placeholders остались, задачу нельзя считать ready-for-review.
+
 Language consistency rule:
 
 - English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names and API names;
@@ -129,6 +133,7 @@ Methodology feedback не должен включать private downstream data,
 - language consistency audit
 - commenting consistency audit
 - engine journal index/task/result consistency
+- engine journal placeholder scan
 
 ## Final report
 
@@ -142,6 +147,9 @@ Methodology feedback не должен включать private downstream data,
 - sensitive grep result без matching lines;
 - language consistency result;
 - commenting consistency result;
+- RESULT finalized: yes/no;
+- INDEX finalized: yes/no;
+- No journal placeholders: yes/no;
 - risks;
 - Methodology feedback;
 - Methodology repository improvement request, если есть;

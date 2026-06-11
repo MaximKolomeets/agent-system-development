@@ -115,6 +115,8 @@ Template ответа ChatGPT находится в `docs/agent-system/templates
 
 Шаблоны и индекс engine journal находятся в `docs/agent-system/engine-journal/`.
 
+Ready-for-review PR должен содержать финализированные journal `RESULT` и `INDEX`: без unresolved placeholders, с фактическими PR URL, commit SHA, status и checks.
+
 Стандарт русских комментариев в технических файлах находится в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
