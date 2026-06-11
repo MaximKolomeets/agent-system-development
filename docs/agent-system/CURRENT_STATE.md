@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2o release readiness review for `developer` -> `main`.
+Текущий этап: PR-2q blocker fix for release PR #49.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2o-release-readiness-review
+work/docs-maintainer-01/pr-2q-fix-engine-template-repo-context
 ```
 
 Ветки:
@@ -87,13 +87,13 @@ PR-2m закрепил отдельный нейтральный блок для
 
 PR-2n merged в `developer` через PR #47 и обновил state docs, Source index и readiness checklist после PR-2m.
 
-PR-2o выполняет pre-release readiness snapshot для будущего кандидата `developer` -> `main` без создания release PR.
+PR-2o merged в `developer` через PR #48 и зафиксировал release readiness snapshot.
 
-Pre-PR-2o snapshot:
+PR-2p открыл release PR #49 из `developer` в `main` без merge.
 
-- `origin/main`: `9f10a79b495b2f4467dfaf7932f34aab6f70c241`;
-- `origin/developer`: `672c263c039bac042e8ec0672b05ce6077aad8fd`.
+PR-2q исправляет blocker review comments перед merge release PR #49:
 
-Snapshot фиксирует состояние `developer` до merge PR-2o. Следующая цель после PR-2o: выполнить post-PR-2o release refresh и только затем создать release PR `developer` -> `main`, если пользователь подтвердит release.
+- после синхронизации methodology repository engine должен явно вернуться в target repository перед target checks или target changes;
+- methodology sync считается валидным только если локальный `HEAD` равен `origin/<METHODOLOGY_BASE_BRANCH>` после `git pull --ff-only`.
 
-После release unified ChatGPT response standard применяется в новых target repository adoption chats.
+Следующая цель после PR-2q: merge PR-2q в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches, затем переходить к target adoption tasks.

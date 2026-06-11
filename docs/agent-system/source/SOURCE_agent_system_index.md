@@ -71,7 +71,7 @@ https://github.com/MaximKolomeets/agent-system-development
 
 ## Текущий этап
 
-Current stage: PR-2o pre-release readiness snapshot for future `developer` -> `main` release.
+Current stage: PR-2q blocker fix for release PR #49.
 
 PR-2m merged в `developer` через PR #46 и закрепил:
 
@@ -90,7 +90,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 
 ## Следующий шаг
 
-Завершить PR-2o, после merge PR-2o выполнить post-PR-2o release refresh перед release PR `developer` -> `main`, если пользователь подтвердит release. Если release откладывается, выполнять target adoption dry run только от явно синхронизированного `developer`.
+Завершить PR-2q, merge PR-2q в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches по решению пользователя, затем переходить к target adoption tasks.
 
 ## Важно
 
@@ -107,6 +107,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 - Unified ChatGPT response standard лежит в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 - File commenting standard лежит в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 - Copy/paste-ready response template лежит в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
+- Engine preflight должен возвращаться в target repository после methodology sync и проверять `HEAD == origin/<METHODOLOGY_BASE_BRANCH>`.
 - Pre-release readiness snapshot лежит в `docs/agent-system/RELEASE_READINESS.md`; final release refresh требуется после merge PR-2o.
 - Project-specific governance state создается только в target repository.
 - Не читать `.env`.
