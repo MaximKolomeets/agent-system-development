@@ -10,6 +10,14 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
 
+## Operational Fast Lane
+
+Operational Fast Lane не заменяет engine task workflow. Он применяется только для простых status/cleanup операций, которые безопасно выполняются пользователем по одному terminal block без изменения repository files.
+
+Engine не должен запускаться для простых GitHub PR status checks, local git status checks, branch cleanup или post-engine result checks, если эти действия не требуют изменения файлов, PR или работы с sensitive/private data.
+
+Для target adoption Operational Fast Lane используется только до или после engine task: проверить статус, cleanup или результат. Он не заменяет adoption audit, docs-only adoption и engine journal workflow.
+
 ## Обязательная шапка задачи
 
 Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
@@ -27,6 +35,24 @@ Reasoning: <Low | Medium | High>
 ```
 
 `<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+
+## Engine journal
+
+Перед выполнением задачи `engine` должен проверить, есть ли в задаче поле `Engine task file` или ссылка на существующий task file.
+
+Если task file существует, `engine` выполняет задачу из него и сверяет, что copy/paste prompt не противоречит task file.
+
+Если task file не существует, но указан `Engine task file`, `engine` создает его в рамках allowed files и сохраняет входную задачу как воспроизводимый artifact.
+
+Result file обязателен как artifact. Ответ `engine` должен быть сохранен в `docs/agent-system/engine-journal/output/` по `Expected engine result file`.
+
+Task/result files не удаляются и не перезаписываются без отдельного решения пользователя.
+
+Contract:
+
+```text
+docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
+```
 
 ## Короткий prompt
 
@@ -46,7 +72,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -92,6 +118,7 @@ Self-discovery подтверждает:
 
 - `ENGINE_ENTRYPOINT.md`;
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- `ENGINE_JOURNAL_CONTRACT.md`;
 - `ADOPTION_GUIDE.md`;
 - `ADOPTION_TRANSFER_MANIFEST.yml`;
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
@@ -180,6 +207,8 @@ Manual commands не должны быть частью engine prompt, если 
 - какие риски требуют решения пользователя.
 
 Adoption audit не должен переносить private data в public methodology repository.
+
+Adoption audit должен создать journal artifacts в target repository, если это входит в allowed files: task file в `docs/agent-system/engine-journal/input/`, result file в `docs/agent-system/engine-journal/output/` и строку в `docs/agent-system/engine-journal/INDEX.md`.
 
 ## Methodology feedback
 

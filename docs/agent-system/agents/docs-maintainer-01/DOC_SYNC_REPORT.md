@@ -138,3 +138,12 @@
 - Methodology sync теперь требует `HEAD == origin/<METHODOLOGY_BASE_BRANCH>` после `git pull --ff-only`.
 - `CHATGPT_RESPONSE_STANDARD.md` и `ENGINE_ENTRYPOINT.md` уточняют repository context safety rule.
 - Release PR #49 остается open и должен быть re-checked после merge PR-2q.
+
+## 2026-06-11 - PR-2r engine journal contract
+
+- Добавлен `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
+- Добавлена структура `docs/agent-system/engine-journal/` с `README.md`, `INDEX.md`, `input/`, `output/` и templates.
+- `CHATGPT_RESPONSE_STANDARD.md`, `CHATGPT_RESPONSE_TEMPLATE.md` и `ENGINE_ENTRYPOINT.md` требуют task/result artifacts.
+- Adoption docs/templates обновлены так, чтобы target repository adoption создавал engine journal.
+- State docs и Source index обновлены под PR-2r.
+- Follow-up: `ADOPTION_TRANSFER_MANIFEST.yml` синхронизирован с engine journal scaffold/templates; methodology operational history не переносится.

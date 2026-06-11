@@ -47,31 +47,36 @@ https://github.com/MaximKolomeets/agent-system-development
 19. docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
 20. docs/agent-system/ENGINE_ENTRYPOINT.md
 21. docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
-22. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
-23. docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
-24. docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
-25. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
-26. docs/agent-system/RELEASE_READINESS.md
-27. docs/agent-system/source/SOURCE_agent_system_index.md
-28. docs/agent-system/CHATGPT_RESPONSE_STANDARD.md
-29. docs/agent-system/FILE_COMMENTING_STANDARD.md
-30. docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md
-31. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
-32. docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
-33. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
-34. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
-35. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
-36. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
-37. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
-38. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
-39. docs/agent-system/templates/ROADMAP_TEMPLATE.md
-40. docs/agent-system/templates/BACKLOG_TEMPLATE.md
-41. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
-42. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+22. docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
+23. docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+24. docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
+25. docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
+26. docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
+27. docs/agent-system/RELEASE_READINESS.md
+28. docs/agent-system/source/SOURCE_agent_system_index.md
+29. docs/agent-system/CHATGPT_RESPONSE_STANDARD.md
+30. docs/agent-system/FILE_COMMENTING_STANDARD.md
+31. docs/agent-system/engine-journal/README.md
+32. docs/agent-system/engine-journal/INDEX.md
+33. docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
+34. docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
+35. docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md
+36. docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+37. docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+38. docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md
+39. docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+40. docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+41. docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+42. docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
+43. docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+44. docs/agent-system/templates/ROADMAP_TEMPLATE.md
+45. docs/agent-system/templates/BACKLOG_TEMPLATE.md
+46. docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+47. docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
 
 ## Текущий этап
 
-Current stage: PR-2q blocker fix for release PR #49.
+Current stage: PR-2r engine journal contract.
 
 PR-2m merged в `developer` через PR #46 и закрепил:
 
@@ -90,7 +95,7 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 
 ## Следующий шаг
 
-Завершить PR-2q, merge PR-2q в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches по решению пользователя, затем переходить к target adoption tasks.
+Завершить PR-2r, merge PR-2r в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches по решению пользователя, затем переходить к target adoption tasks с обязательным engine journal.
 
 ## Важно
 
@@ -108,6 +113,8 @@ PR-2m merged в `developer` через PR #46 и закрепил:
 - File commenting standard лежит в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 - Copy/paste-ready response template лежит в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
 - Engine preflight должен возвращаться в target repository после methodology sync и проверять `HEAD == origin/<METHODOLOGY_BASE_BRANCH>`.
+- Engine journal contract лежит в `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
+- Engine journal structure лежит в `docs/agent-system/engine-journal/`.
 - Pre-release readiness snapshot лежит в `docs/agent-system/RELEASE_READINESS.md`; final release refresh требуется после merge PR-2o.
 - Project-specific governance state создается только в target repository.
 - Не читать `.env`.

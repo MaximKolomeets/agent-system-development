@@ -38,6 +38,7 @@ docs/agent-system/
   DECISION_LOG.md
   PROJECT_GUARDRAILS.md
   ENGINE_REGISTRY.md
+  engine-journal/
   BRANCH_POLICY.md
   WORKFLOW.md
   PR_WORKFLOW.md
@@ -64,6 +65,7 @@ docs/agent-system/
 | `docs/agent-system/DECISION_LOG.md` | Решения проекта | создать по target decisions |
 | `docs/agent-system/PROJECT_GUARDRAILS.md` | Goal, non-goals, stop conditions | создать по target constraints |
 | `docs/agent-system/ENGINE_REGISTRY.md` | Роли агентов и mapping engines | адаптировать роли |
+| `docs/agent-system/engine-journal/` | Journal task/result artifacts | создать project-specific journal |
 | `docs/agent-system/BRANCH_POLICY.md` | Branch model | адаптировать branch names |
 | `docs/agent-system/WORKFLOW.md` | Work process | адаптировать workflow |
 | `docs/agent-system/PR_WORKFLOW.md` | PR flow | адаптировать target rules |
@@ -91,6 +93,11 @@ docs/agent-system/
 - `docs/agent-system/DECISION_LOG.md` фиксирует decisions, reasons и consequences.
 - `docs/agent-system/PROJECT_GUARDRAILS.md` задает goal, non-goals, forbidden scope и stop conditions.
 - `docs/agent-system/ENGINE_REGISTRY.md` связывает stable agent roles с replaceable engines.
+- `docs/agent-system/engine-journal/` связывает engine task files, result files, branches, PR и commits.
+
+Engine journal in a target repository is project-specific operational history.
+Use methodology repository scaffold/templates, but do not copy methodology
+operational history or existing task/result entries.
 
 ## Target-specific files
 
@@ -107,6 +114,7 @@ docs/agent-system/
 - `docs/agent-system/DECISION_LOG.md`;
 - `docs/agent-system/PROJECT_GUARDRAILS.md`;
 - `docs/agent-system/ENGINE_REGISTRY.md`;
+- `docs/agent-system/engine-journal/**`;
 - `docs/agent-system/agents/**`.
 
 Эти файлы должны быть написаны по фактам target repository.
@@ -124,6 +132,7 @@ work/<agent-name>/<task-id>
 - не использовать vendor/tool names в branch names;
 - не использовать vendor/tool names в agent folder names;
 - task id связывает task, branch, report и PR;
+- engine journal связывает task file, result file, branch, PR и commit/result;
 - engine выбирается для конкретной задачи и фиксируется в task header.
 - `ENGINE_REGISTRY.md` содержит Agent Authority Matrix, согласованную с `PROJECT_CONSTITUTION.md`.
 
