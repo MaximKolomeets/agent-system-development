@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-10
+Дата: 2026-06-11
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2l reusable target adoption chat prompt.
+Текущий этап: PR-2m unified ChatGPT response, methodology freshness and commenting standard.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2l-reusable-target-adoption-chat-prompt
+work/docs-maintainer-01/pr-2m-unified-chatgpt-response-and-commenting-standard
 ```
 
 Ветки:
@@ -71,6 +71,16 @@ PR-2j завершен и добавил target project governance pack: dashboa
 
 PR-2k завершен и добавил Project Constitution Framework: reusable framework, `PROJECT_CONSTITUTION_TEMPLATE.md`, Agent Authority Matrix, Decision Authority Levels, Scope Expansion Control и Governance Review Checklist для target repositories.
 
-Текущая задача PR-2l добавляет canonical copy/paste prompt для запуска adoption в target repository из нового project chat.
+PR-2l завершен и добавил canonical copy/paste prompt для запуска adoption в target repository из нового project chat.
 
-Следующая цель после PR-2l: review, merge, release methodology repository, затем применять prompt в target repositories.
+PR-2m закрепляет один самодостаточный Engine-блок на одну engine-задачу.
+
+PR-2m закрепляет обязательную проверку актуального `agent-system-development` перед формированием и выполнением задач.
+
+PR-2m закрепляет language consistency rule для target governance docs.
+
+PR-2m закрепляет `FILE_COMMENTING_STANDARD` для русских комментариев в нужных строках/блоках скриптов и технических файлов.
+
+PR-2m закрепляет отдельный нейтральный блок для предложений по доработке methodology repository без раскрытия private downstream data.
+
+Следующая цель после PR-2m: review, merge, release methodology repository, затем применять unified response standard в новых target repository adoption chats.

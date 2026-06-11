@@ -37,6 +37,21 @@ Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
 Почему: <краткое обоснование выбора режима>
 
+Перед формированием задачи:
+
+1. Обратись к актуальному `agent-system-development`.
+2. Проверь, что используется текущая версия methodology repository.
+3. Если GitHub, connector или локальная синхронизация недоступны, явно напиши это пользователю.
+4. Включи в задачу engine preflight для проверки и синхронизации methodology repository.
+
+Формат ответа ChatGPT:
+
+1. Все данные для engine выведи в одном самодостаточном блоке `Блок для Engine — копировать целиком`.
+2. Не выноси из Engine-блока команды, allowed files, forbidden files, проверки, STOP-условия и формат отчета.
+3. Ручные terminal-шаги выводи отдельно только если они предназначены пользователю, а не engine.
+4. Не смешивай engine prompt и manual commands.
+5. Если нужна доработка `agent-system-development`, выведи отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
+
 Главная цель:
 
 Применить в target repository обновленную методологию из `agent-system-development`, но безопасно и поэтапно.
@@ -83,7 +98,10 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
    - Decision Authority Levels
    - Scope Expansion Control
    - Governance Review Checklist
-9. Создаст только один audit artifact:
+9. Проверит language consistency governance docs target repository.
+10. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
+11. После audit порекомендует привести описания target docs к русскому языку, если repository governance ведется на русском.
+12. Создаст только один audit artifact:
 
 docs/agent-system/ADOPTION_AUDIT.md
 
@@ -147,12 +165,17 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - Project Constitution readiness;
 - Governance Pack readiness;
 - Engine Registry readiness;
+- language consistency result;
+- commenting consistency result;
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
 - Methodology feedback;
+- Methodology repository improvement request, если нужна доработка `agent-system-development`;
 - next recommended PR.
 
 После анализа target repository выведи мне готовую задачу для engine целиком, чтобы я мог скопировать ее и вставить в окно engine.
+
+В создаваемых или изменяемых скриптах и технических файлах требуй русские комментарии для нужных строк/блоков: что делает строка/блок и зачем он нужен.
 
 Не начинай с полного внедрения. Сначала сформируй только задачу на audit-only adoption.
 ```

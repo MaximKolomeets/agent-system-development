@@ -317,3 +317,25 @@ Target repository должен до implementation PR фиксировать mis
 - ChatGPT в target project chat готовит задачу для engine, но не меняет файлы сам;
 - первая задача engine создает только `docs/agent-system/ADOPTION_AUDIT.md`;
 - full docs-only adoption и governance pack применяются отдельным PR после audit.
+
+## 2026-06-10 - Unified ChatGPT response, methodology freshness and commenting standard
+
+Решение:
+`agent-system-development` закрепляет единый формат ответов ChatGPT: одна engine-задача выводится одним самодостаточным copy/paste-блоком; ручные terminal-действия разделяются по независимым задачам; перед формированием и выполнением engine-задач проверяется актуальный methodology repository; target governance docs проходят language consistency audit; создаваемые и изменяемые скрипты/технические файлы получают русские комментарии для нужных строк и блоков.
+
+Причина:
+Пользователь должен иметь возможность скопировать весь prompt для engine одним нажатием и вставить его в engine без ручного сбора команд, ограничений и проверок из разных частей ответа. Методология должна применяться только из актуального `agent-system-development`, а файлы должны оставаться понятными русскоязычной команде.
+
+Последствия:
+
+- появляется `CHATGPT_RESPONSE_STANDARD.md`;
+- появляется `CHATGPT_RESPONSE_TEMPLATE.md`;
+- появляется `FILE_COMMENTING_STANDARD.md`;
+- adoption prompts требуют standardized ChatGPT response;
+- engine block становится самодостаточным;
+- audit-only tasks проверяют language consistency;
+- docs-only adoption может включать нормализацию языка governance docs;
+- в target scripts/workflows/templates добавляются русские комментарии для нужных строк;
+- methodology repository freshness check становится обязательным;
+- methodology feedback оформляется отдельным нейтральным блоком, если нужна доработка `agent-system-development`;
+- public methodology repository не раскрывает private downstream data.

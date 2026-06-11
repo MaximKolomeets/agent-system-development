@@ -28,3 +28,15 @@
 - `engine`, работающий с target repository, должен в final report добавлять нейтральную секцию `Methodology feedback` с предложениями по улучшению methodology repository, не раскрывая private data.
 - Названия агентов не должны содержать Codex, Claude, Gemini, Copilot и другие vendor/tool names.
 - Конкретный инструмент указывается отдельно как engine.
+- Если ответ содержит задачу для engine, все данные для выполнения этой engine-задачи должны быть внутри одного самодостаточного copy/paste-блока.
+- Одна engine-задача = один полный copy/paste-блок.
+- Нельзя оставлять за пределами Engine-блока команды, ограничения, проверки, allowed files, forbidden files, STOP-условия или требования к отчету, если они нужны engine.
+- Если ответ содержит ручные terminal-команды, каждая независимая ручная задача должна быть отдельным разделом и отдельным terminal block.
+- Не смешивать engine prompt, terminal commands и пояснения в одном блоке.
+- Перед подготовкой задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
+- Если актуальное состояние methodology repository проверить невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.
+- Любой engine, применяющий methodology repository, должен перед изменениями синхронизировать локальный `agent-system-development` с GitHub.
+- В создаваемых и изменяемых скриптах, workflow и технических файлах обязательны русские комментарии для нужных строк/блоков.
+- Если после adoption audit нужна доработка `agent-system-development`, ChatGPT должен вывести отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
+- В public methodology repository не упоминать private downstream project names.
+- После adoption audit проверять language consistency target docs.
