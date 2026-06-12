@@ -6,6 +6,8 @@
 
 Русские комментарии обязательны для нужных строк и блоков, если формат файла поддерживает комментарии.
 
+Правило применяется одинаково к methodology repository, target repositories, target-local templates, generated scripts, workflow files, config-like files и code examples.
+
 Комментарии нужны не для украшения, а для безопасной передачи смысла: что делает строка или блок и зачем он нужен.
 
 ## Где комментарии обязательны
@@ -16,6 +18,7 @@
 - workflow files;
 - automation files;
 - config-like files;
+- code files;
 - template files;
 - технических примерах команд;
 - блоках, которые меняют поведение CI, Docker, Git, security checks или release workflow.
@@ -96,7 +99,7 @@ on:
 
 Комментарии внутри файлов должны быть на русском языке.
 
-Английский сохраняется для commands, code identifiers, config keys, package names, API names, vendor/tool names, branch names и file names.
+Английский сохраняется для command names, flags, paths, code identifiers, config keys, package names, API names, vendor/tool names, branch names, filenames и literal external names. Эти технические значения не переводятся механически.
 
 ## Safety comments
 

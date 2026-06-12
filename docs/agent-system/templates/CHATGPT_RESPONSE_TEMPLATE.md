@@ -45,11 +45,11 @@ Methodology base branch:
 
 <METHODOLOGY_BASE_BRANCH, обычно developer>
 
-Engine task file:
+Файл задачи Engine:
 
 docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md
 
-Expected engine result file:
+Ожидаемый файл результата Engine:
 
 docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
 
@@ -60,6 +60,11 @@ Engine journal policy:
 - task/result files append-only и не удаляются/не перезаписываются без решения пользователя;
 - result file обязателен как artifact final report;
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
+- TASK/RESULT/INDEX labels and descriptions пишутся на русском языке, кроме technical identifiers и literal external names.
+
+Language policy:
+
+Все ответы, final report, target-local docs/templates, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. English допускается только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, code identifiers и literal external names.
 
 Обязательная проверка актуального agent-system-development:
 
@@ -83,11 +88,11 @@ Working branch:
 
 work/<role>/<task>
 
-Allowed files:
+Разрешенные файлы:
 
 - <allowed path>
 
-Forbidden files and changes:
+Запрещенные файлы и изменения:
 
 - `.env`
 - `.venv/`
@@ -219,6 +224,7 @@ Commit/push/PR policy:
 - sensitive grep result без matching lines;
 - risks;
 - STOP conditions encountered;
+- language policy result;
 - commit SHA;
 - push status;
 - PR link/number;
@@ -262,7 +268,7 @@ Repository:
 
 https://github.com/MaximKolomeets/agent-system-development
 
-Allowed files:
+Разрешенные файлы:
 
 - <methodology files>
 
@@ -280,15 +286,16 @@ Checks:
 
 BEGIN POWERSHELL
 # Проверить diff на запрещенные private/downstream markers.
-git grep -I -n -i -E "private repo url|client data|customer data|internal code name" -- docs/agent-system
+git grep -I -l -i -E "private repo url|client data|customer data|internal code name" -- docs/agent-system
 END POWERSHELL
 
-Final report:
+Финальный отчет:
 
 - summary;
 - changed files;
 - checks;
 - private data check result;
+- language policy result;
 - PR link/number.
 ```
 

@@ -27,6 +27,7 @@ categories:
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
+      - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
@@ -130,6 +131,12 @@ rules:
     text: >
       Каждая задача для engine начинается с русскоязычной шапки
       "Задача для <agent-name>: <task-id>" и блока рекомендуемого режима.
+  - id: russian_first_policy
+    text: >
+      Все user-facing answers, Engine final reports, TASK/RESULT/INDEX, target-local docs/templates
+      и комментарии в файлах пишутся на русском языке. English допускается только для
+      command names, flags, paths, filenames, branch names, config keys, API names,
+      package names, vendor/tool names, code identifiers и literal external names.
   - id: target_project_governance_pack
     text: >
       Target repository получает governance pack: dashboard, roadmap, backlog,
@@ -207,6 +214,9 @@ minimal_first_pr:
     - INDEX entry has final PR URL/status
     - no unresolved journal placeholders
     - target task/result journal supports task-file-handoff when used
+    - target task/result journal является Russian-first
+    - target AGENTS.md или equivalent target instructions содержит Russian-first policy, если instructions входят в scope изменений
+    - generated target-local templates являются Russian-first
     - methodology operational history not copied
     - final report содержит Methodology feedback
 
@@ -243,6 +253,10 @@ governance_review:
     - отсутствие unapproved architecture level change
     - explicit user approval для Level 3+ decisions
     - stop and user decision для major scope expansion
+    - Russian-first policy есть в target AGENTS.md или equivalent target instructions, если adoption/update scope включает instructions
+    - generated target-local templates не являются преимущественно English, кроме technical identifiers
+    - Engine TASK/RESULT templates являются Russian-first
+    - comments in generated scripts/workflows/config examples написаны на русском, если comments нужны
 
 template_materialization:
   reusable_source_templates:

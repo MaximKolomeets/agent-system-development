@@ -46,6 +46,12 @@ Reasoning: <Low | Medium | High>
 
 Governance docs target repository должны быть приведены к единому языку. Для русскоязычного target repository по умолчанию используется русский язык.
 
+Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
+
+Target `AGENTS.md` или эквивалентные target instructions должны содержать Russian-first policy после adoption/update scope, если этот scope меняет такие инструкции.
+
+Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
+
 Не переводить code identifiers, paths, commands, config keys, package names, API names, branch names, file names и vendor/tool names.
 
 При переводе или унификации языка нельзя менять смысл архитектурных решений.
@@ -88,9 +94,7 @@ Requires explicit user approval: <yes/no>
 - `docs/agent-system/agents/docs-maintainer-01/**`
 - `docs/agent-system/engine-journal/**`
 
-Engine journal scope is target-specific: copy or create scaffold/templates as
-needed, but do not copy methodology repository operational history. Target
-task/result entries are append-only after creation.
+Engine journal scope является target-specific: скопировать или создать scaffold/templates при необходимости, но не копировать methodology repository operational history. Target task/result entries являются append-only после создания.
 
 Governance pack files разрешены только как docs-only artifacts:
 
@@ -181,11 +185,13 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 - проверить language consistency governance docs
+- проверить Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если они входят в scope
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
 
 ## Final report
 
+- final report на русском языке;
 - adoption mode;
 - working branch;
 - created files;
@@ -197,6 +203,7 @@ Governance pack files разрешены только как docs-only artifacts
 - sensitive grep result без matching lines;
 - local instruction conflicts;
 - language consistency changes;
+- Russian-first policy result;
 - commenting changes;
 - engine journal files;
 - files where comments are not applicable and why;

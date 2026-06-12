@@ -51,6 +51,8 @@
 
 Русские комментарии обязательны для нужных строк/блоков в скриптах, workflow и технических файлах. `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md` является обязательным стандартом для target adoption prompts.
 
+Все пользовательские ответы, Engine final reports, TASK/RESULT/INDEX, target-local methodology docs/templates и комментарии в файлах должны быть Russian-first. English сохраняется только для code identifiers, команд, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
+
 Нельзя всегда писать "Задача для Codex", если задача назначается конкретному агенту. Нужно указывать role-based имя агента:
 
 ```text
@@ -120,6 +122,8 @@ Template ответа ChatGPT находится в `docs/agent-system/templates
 Ready-for-review PR должен содержать финализированные journal `RESULT` и `INDEX`: без unresolved placeholders, с фактическими PR URL, commit SHA, status и checks.
 
 Стандарт русских комментариев в технических файлах находится в `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
+
+Методологическая Russian-first policy находится в `docs/agent-system/LANGUAGE_POLICY.md`.
 
 Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
 

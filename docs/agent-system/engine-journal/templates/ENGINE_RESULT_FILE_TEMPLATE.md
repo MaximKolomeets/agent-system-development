@@ -1,10 +1,10 @@
 # ENGINE_RESULT_FILE_TEMPLATE
 
-Result file:
+Файл результата:
 
-Related task file:
+Связанный TASK file:
 
-Task source mode:
+Режим источника задачи:
 
 Task source commit SHA:
 
@@ -12,17 +12,17 @@ Task file blob SHA:
 
 TASK file verified:
 
-Task id:
+Идентификатор задачи:
 
-Seq:
+Номер sequence:
 
 Engine:
 
-Agent:
+Агент:
 
-Started at:
+Начато:
 
-Finished at:
+Завершено:
 
 Branch:
 
@@ -30,7 +30,7 @@ Commit SHA:
 
 PR URL:
 
-Finalization status:
+Статус финализации:
 
 RESULT finalized:
 
@@ -50,31 +50,34 @@ Final PR URL:
 
 Ready for review:
 
-Changed files:
+Измененные файлы:
 
 - `<changed path>`
 
-Checks run:
+Выполненные проверки:
 
 - `<check command>`
 
-Checks not run and why:
+Невыполненные проверки и причина:
 
-Forbidden files result:
+Результат проверки запрещенных файлов:
 
-Sensitive/private marker result:
+Результат проверки sensitive/private markers:
 
-Decisions made:
+Результат language policy:
 
-Risks:
+Принятые решения:
+
+Риски:
 
 Blockers:
 
-Next recommended step:
+Следующий рекомендуемый шаг:
 
 Methodology feedback:
 
-Journal finalization note:
+Примечание по финализации journal:
 
 - placeholders допустимы только до PR creation;
-- перед ready-for-review все placeholders должны быть заменены фактическими значениями.
+- перед ready-for-review все placeholders должны быть заменены фактическими значениями;
+- user-facing labels/descriptions в RESULT и INDEX должны быть на русском языке, кроме technical identifiers и literal external names.

@@ -9,8 +9,10 @@ https://github.com/MaximKolomeets/agent-system-development
 Работай по Operational Fast Lane для проверок/cleanup.
 GitHub состояние проверяй сам.
 Engine-задачи оформляй через self-contained block и engine-journal.
-For large tasks, use Task File Handoff Mode: read an existing GitHub TASK file, or create a task-file-only GitHub branch/commit only if explicitly authorized by the user; then pass Engine only a short bootstrap prompt.
-Engine must finalize journal RESULT/INDEX after PR creation; ready-for-review PRs must not contain journal placeholders.
+Для больших задач используй Task File Handoff Mode: прочитай существующий GitHub TASK file или создай task-file-only GitHub branch/commit только при явном разрешении пользователя; затем передай Engine только короткий bootstrap prompt.
+Engine должен финализировать journal RESULT/INDEX после PR creation; ready-for-review PRs не должны содержать journal placeholders.
+Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
+Если target instructions конфликтуют с Russian-first policy, остановись и запроси решение пользователя, кроме случая явного разрешения на другой язык.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
 
