@@ -116,6 +116,8 @@ Reasoning: <Low | Medium | High>
 
 После создания PR обновить target-specific `RESULT` и `INDEX` фактическими PR/commit/status/checks значениями.
 
+После merge рабочего PR, release PR или sync PR выполнить Post-merge Journal Closure: обновить target-specific `RESULT` и `INDEX` статусом `merged`, merge commit SHA, release/sync PR данными при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+
 Выполнить placeholder scan journal files. Если placeholders остались, задачу нельзя считать ready-for-review.
 
 Language consistency rule:
@@ -140,6 +142,7 @@ Methodology feedback не должен включать private downstream data,
 - engine journal index/task/result consistency
 - task-file-handoff metadata consistency, если режим использовался
 - engine journal placeholder scan
+- проверка Post-merge Journal Closure
 
 ## Final report
 
@@ -157,6 +160,13 @@ Methodology feedback не должен включать private downstream data,
 - RESULT finalized: yes/no;
 - INDEX finalized: yes/no;
 - No journal placeholders: yes/no;
+- статус PR после review (`PR status after review`);
+- merge commit SHA после merge, если доступен;
+- release PR URL/status/merge commit SHA, если release выполнялся;
+- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- RESULT закрыт после merge: yes/no/not applicable;
+- INDEX закрыт после merge: yes/no/not applicable;
+- проверка Post-merge Journal Closure;
 - risks;
 - Methodology feedback;
 - Methodology repository improvement request, если есть;

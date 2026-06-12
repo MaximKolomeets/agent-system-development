@@ -96,6 +96,8 @@ Requires explicit user approval: <yes/no>
 
 Engine journal scope является target-specific: скопировать или создать scaffold/templates при необходимости, но не копировать methodology repository operational history. Target task/result entries являются append-only после создания.
 
+После merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` должны быть закрыты по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+
 Governance pack files разрешены только как docs-only artifacts:
 
 - `PROJECT_CONSTITUTION.md`
@@ -182,6 +184,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что governance state files переписаны по фактам target repository
 - проверить, что reusable templates не смешаны с target-specific state files
 - проверить, что engine journal structure создана и task/result files не содержат private data
+- проверить, что шаг Post-merge Journal Closure есть для RESULT/INDEX
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 - проверить language consistency governance docs
@@ -206,6 +209,7 @@ Governance pack files разрешены только как docs-only artifacts
 - Russian-first policy result;
 - commenting changes;
 - engine journal files;
+- проверка Post-merge Journal Closure;
 - files where comments are not applicable and why;
 - risks;
 - Methodology feedback;

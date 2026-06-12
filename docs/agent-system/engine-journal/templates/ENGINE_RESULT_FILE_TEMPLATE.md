@@ -50,6 +50,30 @@ Final PR URL:
 
 Ready for review:
 
+Статус PR после review (`PR status after review`):
+
+Merge commit SHA после merge:
+
+Время merge (`merged_at`):
+
+Release PR URL:
+
+Статус release PR:
+
+Merge commit SHA release PR:
+
+Sync PR URL:
+
+Статус sync PR:
+
+Merge commit SHA sync PR:
+
+RESULT закрыт после merge:
+
+INDEX закрыт после merge:
+
+Проверка Post-merge Journal Closure:
+
 Измененные файлы:
 
 - `<changed path>`
@@ -80,4 +104,6 @@ Methodology feedback:
 
 - placeholders допустимы только до PR creation;
 - перед ready-for-review все placeholders должны быть заменены фактическими значениями;
+- после merge `RESULT` и `INDEX` должны фиксировать PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`;
+- после merge недопустимы final states `PR open`, `ready for review`, `draft open`, `pending at file materialization` и `see Engine final report`;
 - user-facing labels/descriptions в RESULT и INDEX должны быть на русском языке, кроме technical identifiers и literal external names.

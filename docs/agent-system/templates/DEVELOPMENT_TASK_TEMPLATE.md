@@ -58,8 +58,12 @@ Requires explicit user approval: <yes/no>
 
 Описать проверки перед отчетом.
 
+Если задача создает PR, release PR или sync PR, проверки должны включать проверку Post-merge Journal Closure для RESULT/INDEX.
+
 ## Ожидаемый отчет
 
 Описать формат итогового отчета.
 
 Отчет должен быть на русском языке и содержать language policy result.
+
+Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, `RESULT closed after merge`, `INDEX closed after merge` и проверку Post-merge Journal Closure.

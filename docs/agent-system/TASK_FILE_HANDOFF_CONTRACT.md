@@ -66,6 +66,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 Все ответы, final report, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 Если target instructions конфликтуют с Russian-first policy, напиши STOP и запроси решение пользователя.
 После PR creation финализируй RESULT и INDEX: PR URL, final commit SHA, status и placeholder check.
+После merge/release/sync выполни Post-merge Journal Closure: зафиксируй PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
 ```
 
 ## Приоритет источника правды
@@ -96,6 +97,7 @@ TASK file для handoff должен содержать:
 - checks;
 - Russian-first policy;
 - Journal finalization policy;
+- policy Post-merge Journal Closure;
 - final report requirements на русском языке.
 
 ## Требования к выполнению Engine
@@ -126,13 +128,22 @@ TASK file для handoff должен содержать:
 - execution branch;
 - execution PR URL;
 - final commit SHA;
+- статус PR после review (`PR status after review`);
+- merge commit SHA после merge, если доступен;
+- `merged_at` date/time, если доступно;
+- release PR URL/status/merge commit SHA, если release выполнялся;
+- sync PR URL/status/merge commit SHA, если sync выполнялся;
 - RESULT finalized status;
 - INDEX finalized status;
+- status `RESULT closed after merge`;
+- status `INDEX closed after merge`;
 - no journal placeholders status;
 - language policy result;
 - follow-up finalization commit SHA, if finalization required a second commit.
 
 После PR creation `engine` должен финализировать `RESULT` и `INDEX` фактическими PR URL, final commit SHA, PR status, checks, blockers и next recommended step.
+
+После merge рабочего PR, release PR или sync PR `engine` должен финализировать post-merge closure в `RESULT` и `INDEX`. Journal entry не может оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
 
 User-facing labels/descriptions в RESULT и INDEX должны быть Russian-first.
 
@@ -158,5 +169,12 @@ Reviewer must block the PR if:
 - TASK file and bootstrap prompt conflict and execution continued without STOP;
 - ready-for-review PR contains unresolved journal placeholders;
 - RESULT or INDEX is not finalized after PR creation;
+- merged PR journal remains `PR open`;
+- merged PR journal remains `ready for review`;
+- merged PR journal remains `draft open`;
+- merged PR journal contains `pending at file materialization`;
+- merged PR journal contains `see Engine final report`;
+- RESULT lacks merge commit SHA after merge when available;
+- RESULT or INDEX is not closed after merge;
 - TASK/RESULT/INDEX, final report or target-local templates are mostly English without explicit user language decision;
 - private data, credentials, `.env`, private repository URLs or real target project names were added.

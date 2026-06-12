@@ -25,6 +25,7 @@ Operational Fast Lane применяется для:
 - branch cleanup;
 - post-engine result check;
 - release readiness sanity check;
+- post-merge cleanup/status check;
 - remote branch cleanup;
 - verify no open PRs;
 - verify work branch is clean.
@@ -62,6 +63,22 @@ Operational Fast Lane не применяется для:
 Ожидаемо:
 Следующий шаг:
 ```
+
+## Проверка и cleanup после merge
+
+Использовать после merge рабочего PR, release PR или sync PR, когда пользователь пишет `готово` или просит закрыть цикл.
+
+Проверить:
+
+- рабочий PR имеет status `merged`;
+- release PR merged, если release в `main` выполнялся;
+- sync PR merged, если выполнялся sync `main -> developer`;
+- stale work branches удалены или явно оставлены по причине;
+- target `RESULT` и `INDEX` закрыты после merge;
+- target `RESULT` и `INDEX` фиксируют merge commit SHA, если он доступен;
+- target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state.
+
+Если stale `RESULT` или `INDEX` найдены, ChatGPT должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data.
 
 ## Safety
 

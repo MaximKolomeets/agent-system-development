@@ -22,3 +22,7 @@
 - Проверить, что `DECISION_LOG` обновлен, если принято архитектурное решение.
 - Проверить, что агентский отчет обновлен.
 - Проверить итоговый отчет исполнителя.
+- Если PR уже merged, проверить Post-merge Journal Closure в `RESULT` и `INDEX`.
+- Считать blocker, если merged PR journal остается `PR open`, `ready for review` или `draft open`.
+- Считать blocker, если merged PR journal содержит `pending at file materialization` или `see Engine final report`.
+- Считать blocker, если `RESULT` не фиксирует merge commit SHA после merge, когда SHA доступен.

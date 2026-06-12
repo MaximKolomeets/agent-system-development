@@ -28,6 +28,7 @@ https://github.com/MaximKolomeets/agent-system-development
 5. Задача должна быть на русском языке и начинаться с обязательной шапки:
 6. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
 7. Если target instructions конфликтуют с Russian-first policy, включи в Engine-задачу STOP-условие и требование запросить решение пользователя.
+8. Включи в Engine-задачу Post-merge Journal Closure: после merge/release/sync RESULT/INDEX должны фиксировать status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
 
 Задача для <agent-name>: <task-id>
 
@@ -111,6 +112,8 @@ docs/agent-system/engine-journal/
 
 Engine journal scaffold/templates могут быть созданы или обновлены для target repository, но methodology repository operational history нельзя копировать. Первый audit создает target-specific task/result files и target-specific INDEX entry.
 
+Journal entries не должны оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` после merge.
+
 Если `docs/agent-system/` еще нет, engine может создать только минимальную папку, файл audit и engine journal artifacts для этой audit-задачи.
 
 Запрещено в первой задаче:
@@ -176,6 +179,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - commenting consistency result;
 - Russian-first policy result;
 - engine journal task/result files;
+- проверка Post-merge Journal Closure;
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
 - Methodology feedback;
