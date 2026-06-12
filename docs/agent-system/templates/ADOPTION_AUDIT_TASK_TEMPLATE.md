@@ -42,11 +42,13 @@ Reasoning: <Low | Medium | High>
 
 ## Goal
 
-Use the methodology repository engine journal scaffold/templates only. Do not
-copy methodology operational history. The audit creates target-specific
-task/result files and a target-specific index entry.
+Использовать только engine journal scaffold/templates из methodology repository. Не копировать methodology operational history. Audit создает target-specific task/result files и target-specific index entry.
 
 Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md` plus engine journal artifacts для этой audit-задачи.
+
+Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
+
+Если target `AGENTS.md` или эквивалентные target instructions еще не содержат Russian-first policy, зафиксировать это в audit и рекомендовать добавить правило в следующий adoption/update scope.
 
 ## Allowed files
 
@@ -118,8 +120,9 @@ task/result files and a target-specific index entry.
 
 Language consistency rule:
 
-- English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names and API names;
-- для русскоязычного target repository governance descriptions должны быть на русском языке;
+- все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пишутся на русском языке;
+- English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names, API names, branch names, filenames and literal external names;
+- governance descriptions target repository должны быть Russian-first;
 - mixed-language sections должны быть либо оправданы, либо рекомендованы к нормализации.
 
 Methodology feedback не должен включать private downstream data, private repository URLs, client data, customer data, internal code names или secrets.
@@ -140,6 +143,7 @@ Methodology feedback не должен включать private downstream data,
 
 ## Final report
 
+- final report на русском языке;
 - working branch;
 - engine task file;
 - engine result file;

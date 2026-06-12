@@ -56,6 +56,14 @@ repositories.
 
 Task file и result file должны иметь одинаковый sequence number и task id, чтобы их можно было сопоставить без внешнего контекста.
 
+## Russian-first journal policy
+
+TASK/RESULT/INDEX files, user-facing labels, descriptions и final report должны быть на русском языке по `docs/agent-system/LANGUAGE_POLICY.md`.
+
+Английский допустим только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
+
+Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
+
 ## Naming
 
 Recommended naming:
@@ -218,4 +226,5 @@ For `agent-system-development`, reviewer must verify that:
 - forbidden/private data не добавлены;
 - task/result files не противоречат final report;
 - branch, PR и commit references совпадают с фактическим GitHub state.
-- ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`.
+- ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
+- TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.

@@ -16,6 +16,8 @@ Reasoning: <Low | Medium | High>
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
+Все ответы, final report, TASK/RESULT/INDEX, target-local docs/templates и комментарии в файлах писать на русском языке. Английский допустим только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и code identifiers.
+
 ## Task ID
 
 Указать идентификатор задачи.
@@ -40,11 +42,11 @@ Requires explicit user approval: <yes/no>
 
 Указать рабочую ветку в разрешенном namespace.
 
-## Allowed files
+## Разрешенные файлы
 
 Перечислить файлы и директории, которые можно менять.
 
-## Forbidden files
+## Запрещенные файлы
 
 Перечислить файлы и директории, которые нельзя читать или менять.
 
@@ -56,6 +58,8 @@ Requires explicit user approval: <yes/no>
 
 Описать проверки перед отчетом.
 
-## Expected report
+## Ожидаемый отчет
 
 Описать формат итогового отчета.
+
+Отчет должен быть на русском языке и содержать language policy result.
