@@ -91,6 +91,23 @@ Task/result files нельзя удалять, перезаписывать ил
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
+## Task File Handoff Mode
+
+TASK file может быть создан до выполнения как отдельный task-file-only commit в target repository.
+
+В этом режиме TASK file является source of truth, а short bootstrap prompt только указывает `engine`, какой repository, branch и task file path прочитать.
+
+RESULT обязан ссылаться на:
+
+- task file path;
+- task source commit SHA;
+- task file blob SHA, если доступен;
+- execution branch;
+- execution PR URL;
+- final commit SHA.
+
+Если TASK file, bootstrap prompt, branch или source SHA конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
+
 ## Safety
 
 Engine journal хранится в GitHub и считается публичным, если repository public.
@@ -138,6 +155,9 @@ entries. Methodology repository operational history is not transferred.
 Каждый result file должен ссылаться на:
 
 - related task file;
+- task source mode;
+- task source commit SHA, если TASK file создан заранее;
+- task file blob SHA, если доступен;
 - task id;
 - branch;
 - commit SHA, если commit создан;
@@ -148,6 +168,34 @@ entries. Methodology repository operational history is not transferred.
 - sensitive/private marker result;
 - risks;
 - next recommended step.
+
+## Post-PR Finalization Rule
+
+`RESULT` и `INDEX` могут содержать временные placeholders только до создания PR.
+
+После создания PR `engine` обязан обновить `RESULT` и `INDEX` фактическими значениями:
+
+- final branch;
+- final commit SHA;
+- PR URL;
+- PR status;
+- checks run;
+- blockers;
+- next recommended step.
+
+Если PR URL или final commit SHA стали известны только после materialization journal files, `engine` должен сделать follow-up commit в ту же рабочую ветку и push в тот же PR.
+
+Ready-for-review PR не должен содержать unresolved journal placeholders:
+
+- `created after file materialization`;
+- `pending at file materialization`;
+- `see Engine final report`;
+- `<commit SHA>`;
+- `<PR URL>`;
+- `<result>`;
+- `<check command>`.
+
+Reviewer должен считать такие placeholders blocker.
 
 ## Review Rule
 
@@ -170,3 +218,4 @@ For `agent-system-development`, reviewer must verify that:
 - forbidden/private data не добавлены;
 - task/result files не противоречат final report;
 - branch, PR и commit references совпадают с фактическим GitHub state.
+- ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`.

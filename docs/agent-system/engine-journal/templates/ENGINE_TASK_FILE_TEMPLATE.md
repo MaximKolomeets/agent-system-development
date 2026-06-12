@@ -18,6 +18,16 @@ Agent:
 
 Engine:
 
+Task source mode: `<copy-paste | task-file-handoff>`
+
+Task source commit SHA:
+
+Task file blob SHA:
+
+Bootstrap prompt reference:
+
+Source-of-truth note:
+
 Base branch:
 
 Working branch:
@@ -85,4 +95,8 @@ Final report requirements:
 - forbidden files result;
 - sensitive/private marker result;
 - risks;
+- result file finalized;
+- index entry finalized;
+- no journal placeholders;
+- follow-up commit SHA if finalization required;
 - next recommended step.

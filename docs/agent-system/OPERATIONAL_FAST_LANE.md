@@ -6,6 +6,8 @@ Operational Fast Lane - это короткий режим для простых
 
 Operational Fast Lane не заменяет engine task workflow и не применяется к задачам, которые меняют repository files или создают Pull Request.
 
+Operational Fast Lane не требует Task File Handoff. Task File Handoff используется для больших задач с TASK file, а не для cleanup/status.
+
 Общий стартовый contract для проектного чата описан в:
 
 ```text
@@ -37,6 +39,7 @@ Operational Fast Lane не применяется для:
 - docs-only governance pack;
 - задач, где есть риск secrets/private data;
 - задач, которые меняют файлы repository.
+- больших задач, которым нужен Task File Handoff Mode.
 
 ## Правила ответа ChatGPT
 

@@ -32,6 +32,10 @@
 - Одна engine-задача = один полный copy/paste-блок.
 - Задачи для engine и ответы engine должны сохраняться в `docs/agent-system/engine-journal/` как task/result artifacts, если это входит в scope задачи.
 - Task/result artifacts engine journal являются append-only и не удаляются/не перезаписываются без отдельного решения пользователя.
+- Engine journal RESULT/INDEX must be finalized after PR creation; placeholders in ready-for-review PRs are blockers.
+- Large Engine tasks should use Task File Handoff Mode to avoid context-window bloat.
+- ChatGPT may create only task-file-only GitHub branch/commit when explicitly authorized.
+- Engine must treat TASK file as source of truth and finalize RESULT/INDEX.
 - Нельзя оставлять за пределами Engine-блока команды, ограничения, проверки, allowed files, forbidden files, STOP-условия или требования к отчету, если они нужны engine.
 - Если ответ содержит ручные terminal-команды, каждая независимая ручная задача должна быть отдельным разделом и отдельным terminal block.
 - Простые проверки и cleanup выполнять через Operational Fast Lane: один ответ, один terminal block, без нового methodology PR.

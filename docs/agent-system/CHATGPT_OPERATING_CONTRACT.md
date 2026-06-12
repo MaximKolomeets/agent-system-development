@@ -15,6 +15,7 @@ https://github.com/MaximKolomeets/agent-system-development
 Работай по Operational Fast Lane для проверок/cleanup.
 GitHub состояние проверяй сам, если connector доступен.
 Engine-задачи оформляй через self-contained block и engine-journal.
+Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
 Для простых проверок/cleanup не создавать methodology PR.
@@ -31,7 +32,8 @@ Engine-задачи оформляй через self-contained block и engine-j
 2. Проверить актуальность methodology repository перед подготовкой задачи для target repository.
 3. Для простых status/check/cleanup использовать `docs/agent-system/OPERATIONAL_FAST_LANE.md`.
 4. Для задач, которые меняют файлы, создают Pull Request, выполняют adoption/bootstrap или требуют полного воспроизводимого scope, использовать self-contained Engine-блок по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
-5. Не расширять methodology repository после adoption без blocker или отдельного решения пользователя.
+5. Для длинных задач использовать Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`, чтобы long task source of truth был TASK file в GitHub.
+6. Не расширять methodology repository после adoption без blocker или отдельного решения пользователя.
 
 ## Safety
 

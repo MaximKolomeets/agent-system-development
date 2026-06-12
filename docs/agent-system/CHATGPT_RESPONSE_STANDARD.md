@@ -12,7 +12,7 @@
 docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 ```
 
-Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту.
+Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту. Если Engine block становится слишком длинным, ChatGPT использует Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
 
 ## Когда применяется стандарт
 
@@ -56,6 +56,8 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 - конкретные изменения;
 - проверки;
 - STOP-условия;
+- Journal finalization policy;
+- task source mode, если используется Task File Handoff Mode;
 - commit, push и PR policy;
 - требования к final report;
 - дополнительные ограничения безопасности.
@@ -100,6 +102,8 @@ Engine-блок должен быть одним fenced code block.
 - preflight;
 - checks;
 - STOP-условия;
+- Journal finalization policy;
+- task source mode, если используется Task File Handoff Mode;
 - commit/push/PR policy;
 - формат финального отчета.
 
@@ -120,6 +124,33 @@ docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 Task/result files являются append-only artifacts. Их нельзя удалять, перезаписывать или переиспользовать без отдельного решения пользователя.
 
 Если задача создается до materialization task file, Engine-блок должен содержать `Engine task file` и `Expected engine result file`, чтобы `engine` создал оба artifacts в рамках разрешенного scope.
+
+Engine-блок должен содержать обязательное поле `Journal finalization policy`: `engine` финализирует `RESULT` и `INDEX` после PR creation, заменяет journal placeholders фактическими значениями и делает follow-up commit/push, если PR URL или final commit SHA стали известны после materialization.
+
+Final report `engine` должен подтверждать:
+
+- `RESULT finalized: yes`;
+- `INDEX finalized: yes`;
+- `No journal placeholders: yes`.
+
+## Task File Handoff Response
+
+Task File Handoff Response используется, когда Engine-блок становится слишком длинным, задача может забить context window или long task source of truth должен жить в Git history target repository.
+
+Ответ ChatGPT в этом режиме должен содержать:
+
+- repository;
+- branch;
+- task file path;
+- task file commit SHA или blob SHA, если известно;
+- short Engine bootstrap prompt;
+- safety reminders;
+- instruction that TASK file is source of truth;
+- instruction to finalize RESULT/INDEX after PR creation.
+
+Если GitHub connector доступен и пользователь явно разрешил, ChatGPT может создать только task-file-only branch/commit с TASK file. ChatGPT не должен менять runtime, templates, RESULT, INDEX, governance files или другие docs в этом staging commit.
+
+Bootstrap prompt не заменяет TASK file. Если TASK file и bootstrap prompt конфликтуют, `engine` должен написать `STOP`.
 
 ## Ручная работа пользователя
 

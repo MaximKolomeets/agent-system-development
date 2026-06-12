@@ -18,6 +18,22 @@ Engine не должен запускаться для простых GitHub PR 
 
 Для target adoption Operational Fast Lane используется только до или после engine task: проверить статус, cleanup или результат. Он не заменяет adoption audit, docs-only adoption и engine journal workflow.
 
+## Task File Handoff Mode
+
+Перед большими задачами следует предпочитать Task File Handoff Mode по контракту:
+
+```text
+docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
+```
+
+В этом режиме `engine` может получить только short bootstrap prompt. Bootstrap prompt указывает repository, branch и TASK file path, а TASK file в target repository является source of truth.
+
+`engine` должен fetch/checkout указанную branch, прочитать TASK file, проверить repository, branch, task file path и task source SHA или blob SHA, если они указаны.
+
+Если TASK file и bootstrap prompt конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
+
+`engine` не должен завершать задачу как ready-for-review, пока `RESULT` и `INDEX` не финализированы после PR creation.
+
 ## Обязательная шапка задачи
 
 Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
@@ -47,6 +63,14 @@ Reasoning: <Low | Medium | High>
 Result file обязателен как artifact. Ответ `engine` должен быть сохранен в `docs/agent-system/engine-journal/output/` по `Expected engine result file`.
 
 Task/result files не удаляются и не перезаписываются без отдельного решения пользователя.
+
+### Post-PR journal finalization
+
+После `push` и создания PR `engine` должен выполнить journal finalization check.
+
+Если `Expected engine result file` или `INDEX.md` содержат placeholders, `engine` не должен завершать задачу как ready-for-review.
+
+`engine` должен обновить journal files фактическими branch, commit SHA, PR URL, PR status, checks, blockers и next step, затем сделать follow-up commit/push в ту же рабочую ветку.
 
 Contract:
 
@@ -80,7 +104,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -127,6 +151,7 @@ Self-discovery подтверждает:
 - `ENGINE_ENTRYPOINT.md`;
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
 - `ENGINE_JOURNAL_CONTRACT.md`;
+- `TASK_FILE_HANDOFF_CONTRACT.md`;
 - `ADOPTION_GUIDE.md`;
 - `ADOPTION_TRANSFER_MANIFEST.yml`;
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
