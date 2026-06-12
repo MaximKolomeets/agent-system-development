@@ -11,6 +11,8 @@ GitHub состояние проверяй сам.
 Engine-задачи оформляй через self-contained block и engine-journal.
 Для больших задач используй Task File Handoff Mode: прочитай существующий GitHub TASK file или создай task-file-only GitHub branch/commit только при явном разрешении пользователя; затем передай Engine только короткий bootstrap prompt.
 Engine должен финализировать journal RESULT/INDEX после PR creation; ready-for-review PRs не должны содержать journal placeholders.
+После merge/release/sync проверяй Post-merge Journal Closure: RESULT/INDEX фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Если пользователь пишет `готово` после merge/release/sync, проверь target journal entries и создай docs-only cleanup task, если они stale.
 Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
 Если target instructions конфликтуют с Russian-first policy, остановись и запроси решение пользователя, кроме случая явного разрешения на другой язык.
 Не читать `.env`.

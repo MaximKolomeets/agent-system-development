@@ -205,6 +205,33 @@ Ready-for-review PR не должен содержать unresolved journal plac
 
 Reviewer должен считать такие placeholders blocker.
 
+## Post-merge Journal Closure
+
+После merge рабочего PR target repository journal entry не должна оставаться в pre-merge статусе.
+
+Если рабочий PR, release PR или sync PR был merged, `RESULT` и `INDEX` должны быть закрыты фактическими post-merge данными:
+
+- PR status: `merged`;
+- merge commit SHA;
+- `merged_at` date/time, если доступно;
+- release PR URL/status/merge commit SHA, если выполнялся release в `main`;
+- sync PR URL/status/merge commit SHA, если выполнялся sync `main -> developer`;
+- `RESULT closed after merge: yes`;
+- `INDEX closed after merge: yes`;
+- `No journal placeholders: yes`.
+
+После merge следующие значения являются недопустимыми final states в `RESULT` или `INDEX`:
+
+- `PR open`;
+- `ready for review`;
+- `draft open`;
+- `pending at file materialization`;
+- `see Engine final report`.
+
+Если merge commit SHA доступен в GitHub или local git history, `RESULT` должен зафиксировать его. Отсутствие merge commit SHA после merge без явного объяснения считается blocker.
+
+Post-merge closure не требует переписывать historical task/result content произвольно. Нужно добавить или обновить только closure-поля, final status и безопасный summary, сохранив append-only смысл journal entry.
+
 ## Review Rule
 
 ### Methodology Repository Review
@@ -228,3 +255,14 @@ For `agent-system-development`, reviewer must verify that:
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.
+
+Reviewer должен считать blocker, если merged PR journal:
+
+- остается в статусе `PR open`;
+- остается в статусе `ready for review`;
+- остается в статусе `draft open`;
+- содержит `pending at file materialization`;
+- содержит `see Engine final report`;
+- не фиксирует merge commit SHA после merge, когда SHA доступен;
+- не фиксирует `RESULT closed after merge: yes`;
+- не фиксирует `INDEX closed after merge: yes`.

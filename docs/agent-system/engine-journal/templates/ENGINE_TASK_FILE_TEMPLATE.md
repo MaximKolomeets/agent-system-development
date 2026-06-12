@@ -87,6 +87,14 @@ Commit policy:
 
 PR policy:
 
+Post-merge journal closure policy:
+
+- после merge рабочего PR зафиксировать PR status `merged`, merge commit SHA и `merged_at`, если доступно;
+- если выполнялся release PR в `main`, зафиксировать release PR URL/status/merge commit SHA;
+- если выполнялся sync PR `main -> developer`, зафиксировать sync PR URL/status/merge commit SHA;
+- после merge `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`;
+- не оставлять после merge final states `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
+
 Ожидаемый RESULT file:
 
 Требования к final report:
@@ -104,5 +112,12 @@ PR policy:
 - result file finalized;
 - index entry finalized;
 - no journal placeholders;
+- статус PR после review (`PR status after review`);
+- merge commit SHA после merge, если доступен;
+- release PR URL/status/merge commit SHA, если release выполнялся;
+- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- RESULT закрыт после merge;
+- INDEX закрыт после merge;
+- проверка Post-merge Journal Closure;
 - follow-up commit SHA if finalization required;
 - next recommended step.

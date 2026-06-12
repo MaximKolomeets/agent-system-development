@@ -61,6 +61,8 @@ Engine journal policy:
 - result file обязателен как artifact final report;
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
 - TASK/RESULT/INDEX labels and descriptions пишутся на русском языке, кроме technical identifiers и literal external names.
+- после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
+- после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
 
 Language policy:
 
@@ -190,6 +192,9 @@ git status --short
 # Проверить whitespace/errors в diff.
 git diff --check
 
+# Проверить, что journal не содержит stale post-merge placeholders.
+git grep -I -l -E "PR open|ready for review|draft open|pending at file materialization|see Engine final report" -- docs/agent-system/engine-journal
+
 # Выполнить filename-only sensitive grep без вывода matching lines.
 git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" --
 END POWERSHELL
@@ -210,6 +215,7 @@ Commit/push/PR policy:
 - не делать force push;
 - Pull Request создавать в base branch;
 - не делать auto-merge.
+- после merge/release/sync выполнить или явно запланировать post-merge journal closure для RESULT/INDEX.
 
 Финальный отчет:
 
@@ -228,6 +234,13 @@ Commit/push/PR policy:
 - commit SHA;
 - push status;
 - PR link/number;
+- статус PR после review (`PR status after review`);
+- merge commit SHA после merge, если доступен;
+- release PR URL/status/merge commit SHA, если release выполнялся;
+- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- RESULT закрыт после merge;
+- INDEX закрыт после merge;
+- проверка Post-merge Journal Closure;
 - engine result file;
 - Methodology repository improvement request, если нужен.
 ```
