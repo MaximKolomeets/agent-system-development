@@ -78,7 +78,8 @@
    - expected files;
    - forbidden files;
    - checks;
-   - final report format.
+   - final report format;
+   - Russian-first policy для final report, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
 
 9. Подготовить handoff для следующего чата:
    - repository;
@@ -94,6 +95,7 @@
 
 Правила:
 - отвечать на русском;
+- все target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допустим только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и code identifiers;
 - не использовать реальные credentials, passwords, tokens или API keys;
 - не читать и не создавать .env;
 - не добавлять клиентские, персональные, корпоративные или рабочие данные в public repository;

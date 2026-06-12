@@ -1,42 +1,46 @@
 # ENGINE_TASK_FILE_TEMPLATE
 
-Task file:
+Файл задачи:
 
-Task id:
+Идентификатор задачи:
 
-Seq:
+Номер sequence:
 
-Created at:
+Создано:
 
-Created by:
+Автор:
 
 Target repository:
 
 Methodology repository:
 
-Agent:
+Агент:
 
 Engine:
 
-Task source mode: `<copy-paste | task-file-handoff>`
+Режим источника задачи: `<copy-paste | task-file-handoff>`
 
 Task source commit SHA:
 
 Task file blob SHA:
 
-Bootstrap prompt reference:
+Ссылка на bootstrap prompt:
 
-Source-of-truth note:
+Примечание об источнике правды:
 
 Base branch:
 
 Working branch:
 
-Allowed files:
+Правило языка:
+
+Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. English допускается только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
+
+Разрешенные файлы:
 
 - `<allowed path>`
 
-Forbidden files:
+Запрещенные файлы:
 
 - `.env`
 - `.venv/`
@@ -54,9 +58,9 @@ Forbidden files:
 - client/customer data
 - production/runtime data
 
-Objective:
+Цель:
 
-Context:
+Контекст:
 
 Preflight:
 
@@ -64,15 +68,16 @@ BEGIN POWERSHELL
 # Вставить команды preflight для engine.
 END POWERSHELL
 
-STOP conditions:
+STOP-условия:
 
 - working tree dirty before changes;
 - pull fast-forward impossible;
 - forbidden files detected;
 - private data or secrets required;
-- scope expands beyond allowed files.
+- scope expands beyond allowed files;
+- target instructions conflict with Russian-first policy and user did not explicitly allow another language.
 
-Checks:
+Проверки:
 
 BEGIN POWERSHELL
 # Вставить команды проверки результата.
@@ -82,9 +87,9 @@ Commit policy:
 
 PR policy:
 
-Expected output file:
+Ожидаемый RESULT file:
 
-Final report requirements:
+Требования к final report:
 
 - branch;
 - commit SHA;
@@ -94,6 +99,7 @@ Final report requirements:
 - checks not run and why;
 - forbidden files result;
 - sensitive/private marker result;
+- language policy result;
 - risks;
 - result file finalized;
 - index entry finalized;

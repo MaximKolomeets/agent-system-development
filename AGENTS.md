@@ -3,6 +3,11 @@
 ## Agent development workflow
 
 - Отвечать на русском.
+- Russian-first policy: все пользовательские ответы, Engine final reports, TASK/RESULT/INDEX, target-local docs/templates и комментарии в файлах писать на русском языке.
+- Английский допустим только для code identifiers, команд, flags, путей, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
+- Engine-блоки должны явно требовать от engine писать final report и journal artifacts на русском языке.
+- Target adoption/update tasks должны добавлять Russian-first policy в target `AGENTS.md` или эквивалентные target instructions.
+- Если target instructions конфликтуют с Russian-first policy, engine должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык для target repository.
 - Docker-first.
 - Не читать `.env`.
 - Не коммитить `.env`.
@@ -33,6 +38,7 @@
 - Задачи для engine и ответы engine должны сохраняться в `docs/agent-system/engine-journal/` как task/result artifacts, если это входит в scope задачи.
 - Task/result artifacts engine journal являются append-only и не удаляются/не перезаписываются без отдельного решения пользователя.
 - Engine journal RESULT/INDEX must be finalized after PR creation; placeholders in ready-for-review PRs are blockers.
+- Engine journal TASK/RESULT/INDEX должны быть Russian-first; English сохраняется только для технических identifiers и literal external names.
 - Large Engine tasks should use Task File Handoff Mode to avoid context-window bloat.
 - ChatGPT may create only task-file-only GitHub branch/commit when explicitly authorized.
 - Engine must treat TASK file as source of truth and finalize RESULT/INDEX.
@@ -52,6 +58,7 @@
 - Если актуальное состояние methodology repository проверить невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.
 - Любой engine, применяющий methodology repository, должен перед изменениями синхронизировать локальный `agent-system-development` с GitHub.
 - В создаваемых и изменяемых скриптах, workflow и технических файлах обязательны русские комментарии для нужных строк/блоков.
+- В создаваемых и изменяемых target-local templates обязательны Russian-first labels/descriptions; не переводить команды, flags, paths и identifiers.
 - Если после adoption audit нужна доработка `agent-system-development`, ChatGPT должен вывести отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
 - В public methodology repository не упоминать private downstream project names.
 - После adoption audit проверять language consistency target docs.

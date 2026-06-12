@@ -16,6 +16,10 @@ Reasoning: <Low | Medium | High>
 
 Задача формулируется на русском языке. `<agent-name>` - role-based имя агента. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
+Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. Английский допустим только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и code identifiers.
+
+Target `AGENTS.md` или эквивалентные target instructions должны содержать Russian-first policy после adoption/update scope, если этот scope меняет такие инструкции. Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
+
 ## Task
 
 `<task title>`
@@ -148,12 +152,13 @@ Governance state files не копировать из template repository verbat
 git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" --
 ```
 
-Sensitive grep must print only filenames. Do not print matching lines in terminal output, engine logs, or final reports.
+Sensitive grep должен печатать только filenames. Не печатать matching lines в terminal output, engine logs или final reports.
 
 ## Final report format
 
 `engine` должен вернуть:
 
+- final report на русском языке;
 - working branch;
 - created files;
 - changed files;
@@ -163,6 +168,7 @@ Sensitive grep must print only filenames. Do not print matching lines in termina
 - adoption mode;
 - transfer manifest notes;
 - methodology feedback;
+- Russian-first policy result;
 - suggested methodology improvements;
 - automation opportunities;
 - safety gaps;
@@ -180,3 +186,4 @@ Sensitive grep must print only filenames. Do not print matching lines in termina
 - Do not expose secrets.
 - Do not use real credentials in examples.
 - User makes final decisions.
+- Final report, TASK/RESULT/INDEX и target-local docs/templates пишутся на русском языке, кроме технических identifiers и literal external names.

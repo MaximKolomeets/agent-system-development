@@ -26,6 +26,8 @@ https://github.com/MaximKolomeets/agent-system-development
 3. Не вноси изменения в файлы сам.
 4. Сначала подготовь задачу для engine.
 5. Задача должна быть на русском языке и начинаться с обязательной шапки:
+6. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
+7. Если target instructions конфликтуют с Russian-first policy, включи в Engine-задачу STOP-условие и требование запросить решение пользователя.
 
 Задача для <agent-name>: <task-id>
 
@@ -99,17 +101,15 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
    - Scope Expansion Control
    - Governance Review Checklist
 9. Проверит language consistency governance docs target repository.
-10. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
-11. После audit порекомендует привести описания target docs к русскому языку, если repository governance ведется на русском.
-12. Создаст только audit artifacts:
+10. Проверит Russian-first policy в target `AGENTS.md` или эквивалентных target instructions.
+11. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
+12. После audit порекомендует привести target docs/templates к Russian-first policy.
+13. Создаст только audit artifacts:
 
 docs/agent-system/ADOPTION_AUDIT.md
 docs/agent-system/engine-journal/
 
-Engine journal scaffold/templates may be created or updated for the target
-repository, but methodology repository operational history must not be copied.
-The first audit creates target-specific task/result files and a target-specific
-INDEX entry.
+Engine journal scaffold/templates могут быть созданы или обновлены для target repository, но methodology repository operational history нельзя копировать. Первый audit создает target-specific task/result files и target-specific INDEX entry.
 
 Если `docs/agent-system/` еще нет, engine может создать только минимальную папку, файл audit и engine journal artifacts для этой audit-задачи.
 
@@ -174,6 +174,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - Engine Registry readiness;
 - language consistency result;
 - commenting consistency result;
+- Russian-first policy result;
 - engine journal task/result files;
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
@@ -183,7 +184,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 
 После анализа target repository выведи мне готовую задачу для engine целиком, чтобы я мог скопировать ее и вставить в окно engine.
 
-В создаваемых или изменяемых скриптах и технических файлах требуй русские комментарии для нужных строк/блоков: что делает строка/блок и зачем он нужен.
+В создаваемых или изменяемых скриптах, workflow, config-like files, templates и технических файлах требуй русские комментарии для нужных строк/блоков: что делает строка/блок и зачем он нужен.
 
 Не начинай с полного внедрения. Сначала сформируй только задачу на audit-only adoption.
 ```
