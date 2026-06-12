@@ -113,6 +113,8 @@ Template ответа ChatGPT находится в `docs/agent-system/templates
 
 Контракт воспроизводимого журнала engine-задач и ответов находится в `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 
+Контракт handoff-режима для больших задач находится в `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
+
 Шаблоны и индекс engine journal находятся в `docs/agent-system/engine-journal/`.
 
 Ready-for-review PR должен содержать финализированные journal `RESULT` и `INDEX`: без unresolved placeholders, с фактическими PR URL, commit SHA, status и checks.

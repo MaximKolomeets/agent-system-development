@@ -26,6 +26,7 @@ categories:
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+      - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PROJECT_LIFECYCLE.md
@@ -205,6 +206,7 @@ minimal_first_pr:
     - RESULT file has final PR URL and commit SHA when PR is ready for review
     - INDEX entry has final PR URL/status
     - no unresolved journal placeholders
+    - target task/result journal supports task-file-handoff when used
     - methodology operational history not copied
     - final report содержит Methodology feedback
 

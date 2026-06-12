@@ -4,6 +4,14 @@ Result file:
 
 Related task file:
 
+Task source mode:
+
+Task source commit SHA:
+
+Task file blob SHA:
+
+TASK file verified:
+
 Task id:
 
 Seq:
@@ -24,9 +32,13 @@ PR URL:
 
 Finalization status:
 
-Result finalized:
+RESULT finalized:
 
-Index finalized:
+INDEX finalized:
+
+No journal placeholders:
+
+Follow-up finalization commit SHA:
 
 Placeholder check:
 

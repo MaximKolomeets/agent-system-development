@@ -12,7 +12,7 @@
 docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 ```
 
-Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту.
+Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту. Если Engine block становится слишком длинным, ChatGPT использует Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
 
 ## Когда применяется стандарт
 
@@ -57,6 +57,7 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 - проверки;
 - STOP-условия;
 - Journal finalization policy;
+- task source mode, если используется Task File Handoff Mode;
 - commit, push и PR policy;
 - требования к final report;
 - дополнительные ограничения безопасности.
@@ -102,6 +103,7 @@ Engine-блок должен быть одним fenced code block.
 - checks;
 - STOP-условия;
 - Journal finalization policy;
+- task source mode, если используется Task File Handoff Mode;
 - commit/push/PR policy;
 - формат финального отчета.
 
@@ -130,6 +132,25 @@ Final report `engine` должен подтверждать:
 - `RESULT finalized: yes`;
 - `INDEX finalized: yes`;
 - `No journal placeholders: yes`.
+
+## Task File Handoff Response
+
+Task File Handoff Response используется, когда Engine-блок становится слишком длинным, задача может забить context window или long task source of truth должен жить в Git history target repository.
+
+Ответ ChatGPT в этом режиме должен содержать:
+
+- repository;
+- branch;
+- task file path;
+- task file commit SHA или blob SHA, если известно;
+- short Engine bootstrap prompt;
+- safety reminders;
+- instruction that TASK file is source of truth;
+- instruction to finalize RESULT/INDEX after PR creation.
+
+Если GitHub connector доступен и пользователь явно разрешил, ChatGPT может создать только task-file-only branch/commit с TASK file. ChatGPT не должен менять runtime, templates, RESULT, INDEX, governance files или другие docs в этом staging commit.
+
+Bootstrap prompt не заменяет TASK file. Если TASK file и bootstrap prompt конфликтуют, `engine` должен написать `STOP`.
 
 ## Ручная работа пользователя
 
