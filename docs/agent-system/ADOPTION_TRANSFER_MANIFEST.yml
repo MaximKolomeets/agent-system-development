@@ -168,6 +168,13 @@ rules:
       Engine journal scaffold/templates переносится в target repository.
       Methodology repository operational history не переносится. Реальные
       task/result files создаются только в target repository.
+  - id: post_merge_journal_closure
+    text: >
+      После merge рабочего PR, release PR или sync PR target repository
+      должен закрывать journal RESULT/INDEX фактическим status `merged`,
+      merge commit SHA и closure-полями. Journal entries не должны
+      оставаться в статусах PR open, ready for review, draft open,
+      pending at file materialization или see Engine final report.
 
 branch_adaptation:
   template_default: developer
@@ -213,6 +220,9 @@ minimal_first_pr:
     - RESULT file has final PR URL and commit SHA when PR is ready for review
     - INDEX entry has final PR URL/status
     - no unresolved journal placeholders
+    - journal entries не оставлены в PR open или pending state после merge
+    - Post-merge Journal Closure обязателен после release или sync
+    - target repository имеет cleanup/check step для journal closure
     - target task/result journal supports task-file-handoff when used
     - target task/result journal является Russian-first
     - target AGENTS.md или equivalent target instructions содержит Russian-first policy, если instructions входят в scope изменений
@@ -256,6 +266,8 @@ governance_review:
     - Russian-first policy есть в target AGENTS.md или equivalent target instructions, если adoption/update scope включает instructions
     - generated target-local templates не являются преимущественно English, кроме technical identifiers
     - Engine TASK/RESULT templates являются Russian-first
+    - post-merge journal closure проверяет RESULT/INDEX после merge, release и sync
+    - merged PR journal не остается в статусах PR open, ready for review, draft open, pending at file materialization или see Engine final report
     - comments in generated scripts/workflows/config examples написаны на русском, если comments нужны
 
 template_materialization:

@@ -147,3 +147,11 @@
 - Adoption docs/templates обновлены так, чтобы target repository adoption создавал engine journal.
 - State docs и Source index обновлены под PR-2r.
 - Follow-up: `ADOPTION_TRANSFER_MANIFEST.yml` синхронизирован с engine journal scaffold/templates; methodology operational history не переносится.
+
+## 2026-06-12 - PR-2x post-merge journal closure
+
+- Добавлено правило Post-merge Journal Closure: после merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` не должны оставаться в pre-merge статусах.
+- `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md` и `OPERATIONAL_FAST_LANE.md` требуют closure-поля, merge commit SHA и проверку stale statuses.
+- Engine journal templates и task/adoption templates обновлены Russian-first labels для PR status after review, merge commit SHA, release/sync PR и closure check.
+- Review checklist/templates считают blocker, если merged journal entry остается `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
+- Real TASK/RESULT operational history в methodology repository не добавлялась.

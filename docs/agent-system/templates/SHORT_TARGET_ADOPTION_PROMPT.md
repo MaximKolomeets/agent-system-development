@@ -30,16 +30,18 @@ Reasoning: <Low | Medium | High>
 
 Короткий prompt должен включать Russian-first reminder: все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допустим только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 
+Короткий prompt должен требовать Post-merge Journal Closure: после merge/release/sync target `RESULT` и `INDEX` фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+
 ## Короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure.
 ```
 
 ## Безопасный короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure. В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
 ```
 
 ## Как должен действовать engine

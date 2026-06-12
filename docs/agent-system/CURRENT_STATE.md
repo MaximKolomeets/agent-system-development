@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-11
+Дата: 2026-06-12
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2r engine journal contract.
+Текущий этап: PR-2x Post-merge Journal Closure.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2r-engine-journal-contract
+work/docs-maintainer-01/pr-2x-post-merge-journal-closure
 ```
 
 Ветки:
@@ -102,4 +102,14 @@ PR-2r добавляет стандарт engine journal:
 - `docs/agent-system/engine-journal/`;
 - task/result templates для воспроизводимой связи task -> result -> branch -> PR -> commit/result.
 
-Следующая цель после PR-2r: merge PR-2r в `developer`, re-check release PR #49, после зеленого PR #49 выполнить cleanup GitHub/local branches, затем переходить к target adoption tasks с обязательным engine journal.
+PR-2w merged в `developer` через PR #62, release PR #63 и sync PR #64.
+
+PR-2w закрепил Russian-first language policy как отдельный reusable contract для ChatGPT, `engine`, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
+
+PR-2x добавляет Post-merge Journal Closure:
+
+- после merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` не должны оставаться в pre-merge статусах;
+- journal closure фиксирует PR status `merged`, merge commit SHA, `merged_at` при доступности, release/sync PR данные при наличии;
+- stale statuses `PR open`, `ready for review`, `draft open`, `pending at file materialization` и `see Engine final report` становятся blockers после merge.
+
+Следующая цель после PR-2x: merge PR-2x в `developer`, затем применить docs-only journal-closure cleanup tasks в target repositories, где historical RESULT/INDEX entries уже stale после merge.
