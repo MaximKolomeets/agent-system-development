@@ -113,6 +113,7 @@ Matching lines нельзя печатать:
 - локальные инструкции запрещают требуемое действие;
 - нет разрешения пользователя на изменение файлов;
 - задача требует доступа к private data, которые нельзя переносить в public methodology repository.
+- selected branch model is `standard developer workflow`, `developer` is absent, and task does not explicitly authorize bootstrap creation of `developer`.
 
 ## Результат self-discovery
 
@@ -123,6 +124,10 @@ Matching lines нельзя печатать:
 - current branch;
 - working tree status;
 - task header summary;
+- repository lifecycle mode: `new empty bootstrap` | `existing adoption` | `unknown`;
+- selected branch model;
+- developer branch existence;
+- fallback-to-main allowed: yes/no with reason;
 - local instructions found;
 - template documents found;
 - forbidden tracked paths result;

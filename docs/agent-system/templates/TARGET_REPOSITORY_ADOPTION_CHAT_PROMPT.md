@@ -133,12 +133,23 @@ Journal entries не должны оставаться в статусах `PR o
 - делать full docs-only adoption без audit.
 - удалять или перезаписывать task/result files engine journal без решения пользователя.
 
-Задача engine должна использовать branch model:
+Задача engine должна использовать безопасный branch mode selection:
 
-1. Проверить наличие `developer`.
-2. Если `developer` существует - стартовать от `developer`.
-3. Если `developer` отсутствует - стартовать от `main` и явно указать это в отчете.
-4. Рабочая ветка должна быть:
+1. Определить, это `new empty repository bootstrap` или `existing repository adoption`.
+2. Если это `new empty repository bootstrap` и пользователь выбрал стандартный workflow `main -> developer -> work/<role>/*`:
+   - проверить наличие `developer`;
+   - если `developer` отсутствует, сначала создать `developer` от актуального `main` как явно разрешенный bootstrap-шаг или написать `STOP`, если такого разрешения нет;
+   - рабочую ветку создавать только от `developer`;
+   - PR направлять только в `developer`;
+   - не открывать рабочий PR в `main`.
+3. Если это `existing repository adoption`:
+   - проверить фактическую branch model target repository;
+   - если target repository использует `developer`, `develop`, `main-only flow` или custom flow, адаптировать branch policy под фактическую модель;
+   - если branch model неясна или противоречит задаче, написать `STOP` и запросить решение пользователя.
+4. Base branch должен быть явно указан в задаче.
+5. Если selected branch model = `standard developer workflow`, отсутствие `developer` является blocker или explicit bootstrap branch creation step.
+6. Для `standard developer workflow` запрещен `fallback-to-main`.
+7. Рабочая ветка должна быть:
 
 work/docs-maintainer-01/<task-id>-adoption-audit
 
@@ -163,6 +174,10 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - repository root;
 - remote summary;
 - current branch;
+- repository lifecycle mode;
+- selected branch model;
+- developer branch existence;
+- fallback-to-main allowed: yes/no with reason;
 - выбранная base branch;
 - working branch;
 - local instructions found;

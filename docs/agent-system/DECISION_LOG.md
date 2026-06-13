@@ -436,3 +436,19 @@ Post-PR finalization закрывает journal после создания PR, 
 - impact: docs-only;
 - runtime impact: none;
 - downstream-specific data: none.
+
+## 2026-06-13 - New repository bootstrap branch gate
+
+Решение:
+Для нового пустого target repository с выбранным `standard developer workflow` ветка `developer` обязательна до первой рабочей ветки. `Fallback-to-main` для рабочих PR запрещен.
+
+Причина:
+Реальный bootstrap target repository показал, что разрешение рабочей ветке использовать `main` как base branch при отсутствии `developer` может остановить downstream workflow.
+
+Последствия:
+
+- методология разделяет `new empty repository bootstrap` и `existing repository adoption`;
+- отсутствие `developer` в стандартной схеме является bootstrap blocker или explicit bootstrap creation step;
+- existing repository adoption продолжает поддерживать осознанный `main-only flow`, если это фактическая модель target repository или отдельное решение пользователя;
+- runtime impact: none;
+- downstream-specific data: none.
