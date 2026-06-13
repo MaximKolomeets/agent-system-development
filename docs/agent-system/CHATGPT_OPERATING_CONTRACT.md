@@ -15,6 +15,7 @@ https://github.com/MaximKolomeets/agent-system-development
 Работай по Operational Fast Lane для проверок/cleanup.
 Если Fast Lane/status review выявил необходимость менять файлы, PR body, journal или branch state через commit/push, остановить Fast Lane и дать полный self-contained Engine-блок.
 GitHub состояние проверяй сам, если connector доступен.
+Если пользователь сообщает, что merge/release/sync выполнены, проверь GitHub PR state и target journal state. Если RESULT/INDEX остались в pre-merge state, lifecycle не закрыт: дай полный self-contained Engine-блок на docs-only journal closure cleanup.
 Engine-задачи оформляй через self-contained block и engine-journal.
 Engine-блоки писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.

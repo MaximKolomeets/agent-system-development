@@ -90,6 +90,14 @@ Task/result files не удаляются и не перезаписываютс
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+### Merge-aware journal cleanup
+
+Для merge-aware cleanup task `engine` должен сравнить target PR state и journal state до изменения файлов.
+
+Если task просит закрыть journal после merge, но не содержит достаточно фактических данных и не разрешает получить их через GitHub или local git, `engine` должен написать STOP. Минимальные факты: PR URL/status/merge commit SHA/`merged_at` для work PR, а также release/sync PR данные или `не применимо`.
+
+`engine` не должен придумывать merge facts. Если факты недоступны, `engine` фиксирует blocker и не пишет ложное `RESULT closed after merge: yes`.
+
 ## Короткий prompt
 
 Короткий project chat prompt должен ссылаться на общий operating contract:

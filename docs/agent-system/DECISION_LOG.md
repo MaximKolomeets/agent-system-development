@@ -46,6 +46,20 @@ Source используется не как полное хранилище вс
 Последствия:
 Code review отделяется от implementation. Findings превращаются в отдельные PR только после решения пользователя.
 
+## 2026-06-14 - Post-merge lifecycle closure requires journal agreement
+
+Решение:
+После merge/release/sync task lifecycle считается закрытым только когда GitHub PR state и target journal RESULT/INDEX state согласованы.
+
+Причина:
+Это предотвращает stale pre-merge journal entries после фактического merge.
+
+Последствия:
+ChatGPT, Engine и reviewer должны проверять post-merge journal closure. Stale journal требует docs-only closure cleanup.
+
+Privacy:
+Target-specific examples, private repository names, branch names, PR numbers и SHA не фиксируются в methodology repository.
+
 ## 2026-06-13 - Fast Lane write boundary and Russian-first Engine blocks
 
 Решение:

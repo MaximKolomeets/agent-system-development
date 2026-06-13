@@ -68,7 +68,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 Все ответы, final report, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 Если target instructions конфликтуют с Russian-first policy, напиши STOP и запроси решение пользователя.
 После PR creation финализируй RESULT и INDEX: PR URL, final commit SHA, status и placeholder check.
-После merge/release/sync выполни Post-merge Journal Closure: зафиксируй PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+После merge/release/sync выполни Post-merge Journal Closure: сверить GitHub PR state и journal state, зафиксировать PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
 ```
 
 ## Приоритет источника правды
@@ -155,8 +155,8 @@ TASK file для handoff должен содержать:
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;
 - `merged_at` date/time, если доступно;
-- release PR URL/status/merge commit SHA, если release выполнялся;
-- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- release PR URL/status/merge commit SHA/`merged_at`, если release выполнялся;
+- sync PR URL/status/merge commit SHA/`merged_at`, если sync выполнялся;
 - RESULT finalized status;
 - INDEX finalized status;
 - status `RESULT closed after merge`;
@@ -167,7 +167,7 @@ TASK file для handoff должен содержать:
 
 После PR creation `engine` должен финализировать `RESULT` и `INDEX` фактическими PR URL, final commit SHA, PR status, checks, blockers и next recommended step.
 
-После merge рабочего PR, release PR или sync PR `engine` должен финализировать post-merge closure в `RESULT` и `INDEX`. Journal entry не может оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
+После merge рабочего PR, release PR или sync PR `engine` должен финализировать post-merge closure в `RESULT` и `INDEX`. Journal entry не может оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`. Если GitHub PR state и journal state расходятся, TASK file handoff не считается закрытым.
 
 User-facing labels/descriptions в RESULT и INDEX должны быть Russian-first.
 
