@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-3e Fast Lane write boundary and Russian-first Engine blocks.
+Текущий этап: методология актуализирована после merge PR-3e; следующий шаг - применять обновленный response standard и выполнять target review/adoption tasks по новой границе Fast Lane -> Engine.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -25,10 +25,10 @@ Rulesets:
 C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 ```
 
-Текущая рабочая ветка:
+Активная рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-3e-fast-lane-write-boundary-and-russian-first-engine-blocks
+нет постоянной активной ветки; каждая новая задача создается в work/<role>/<task>.
 ```
 
 Ветки:
@@ -134,7 +134,9 @@ PR-3c merged в developer через PR #77. Vendor-neutral review-only workflow
 
 PR-3d merged в developer через PR #80. Post-merge state cleanup после PR-3c завершен.
 
-PR-3e усиливает методологическую границу:
+PR-3e merged в developer через PR #83, перенесен в main через PR #84 и синхронизирован обратно в developer через PR #85.
+
+PR-3e закрепил:
 
 - Operational Fast Lane остается read-only/status/cleanup-only;
 - write-action recommendations требуют полного self-contained Engine-блока;

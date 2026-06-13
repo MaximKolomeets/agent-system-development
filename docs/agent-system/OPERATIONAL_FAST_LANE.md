@@ -22,14 +22,14 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 
 Operational Fast Lane применяется для:
 
-- GitHub PR status check;
-- local git status check;
-- branch cleanup;
-- post-engine result check;
+- проверка GitHub PR status;
+- проверка local git status;
+- cleanup branch;
+- проверка post-engine result;
 - release readiness sanity check;
 - post-merge cleanup/status check;
-- remote branch cleanup;
-- verify no open PRs;
+- cleanup remote branch;
+- проверка отсутствия open PRs;
 - verify work branch is clean.
 
 ## Когда не применять
@@ -87,8 +87,8 @@ Operational Fast Lane не применяется для:
 
 Если stale `RESULT` или `INDEX` найдены, ChatGPT должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data.
 
-## Safety
+## Безопасность
 
-Operational Fast Lane должен оставаться read-only или cleanup-only. Если в ходе проверки появляется необходимость менять файлы, создавать PR, работать с private data, читать `.env` или разбирать sensitive output, нужно остановиться и перейти к обычной задаче с явным scope, allowed files, forbidden files и checks.
+Operational Fast Lane должен оставаться read-only или cleanup-only. Если в ходе проверки появляется необходимость менять файлы, создавать PR, работать с private data, читать `.env` или разбирать sensitive output, нужно остановиться и перейти к обычной задаче с явным scope, разрешенными файлами, запрещенными файлами и проверками.
 
 Нельзя выводить гибридный shortcut, где Fast Lane-команды смешаны с неформальной просьбой к `engine` изменить repository files. Write-action instructions должны находиться внутри полного self-contained Engine-блока по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
