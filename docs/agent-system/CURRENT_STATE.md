@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-13
+Дата: 2026-06-14
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: методология актуализирована после merge PR-3e; следующий шаг - применять обновленный response standard и выполнять target review/adoption tasks по новой границе Fast Lane -> Engine.
+Текущий этап: открыт следующий methodology hardening pass PR-3g для усиления post-merge journal closure enforcement после merge/release/sync.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -142,3 +142,5 @@ PR-3e закрепил:
 - write-action recommendations требуют полного self-contained Engine-блока;
 - Engine-блоки должны соблюдать Russian-first policy для пользовательских заголовков и описаний;
 - PR head SHA policy уточняется без self-referential commit loop.
+
+PR-3g усиливает reusable правила: task lifecycle после merge/release/sync считается закрытым только когда GitHub PR state и target journal RESULT/INDEX state согласованы.

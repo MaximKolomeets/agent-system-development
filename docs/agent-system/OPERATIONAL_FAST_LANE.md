@@ -75,17 +75,34 @@ Operational Fast Lane не применяется для:
 
 Использовать после merge рабочего PR, release PR или sync PR, когда пользователь пишет `готово` или просит закрыть цикл.
 
+После любого сообщения пользователя о merge/release/sync ChatGPT должен различать GitHub PR state и target journal state.
+
 Проверить:
 
 - рабочий PR имеет status `merged`;
+- рабочий PR имеет merge commit SHA и `merged_at`, если эти данные доступны;
 - release PR merged, если release в `main` выполнялся;
+- release PR имеет URL/status/merge commit SHA/`merged_at`, если release выполнялся;
 - sync PR merged, если выполнялся sync `main -> developer`;
+- sync PR имеет URL/status/merge commit SHA/`merged_at`, если sync выполнялся;
 - stale work branches удалены или явно оставлены по причине;
 - target `RESULT` и `INDEX` закрыты после merge;
 - target `RESULT` и `INDEX` фиксируют merge commit SHA, если он доступен;
+- target `RESULT` и `INDEX` фиксируют release/sync факты или явно пишут `не применимо`;
 - target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state.
 
+Fast Lane может завершиться коротким `чисто` только если:
+
+- work PR merged: yes;
+- release/sync merged или явно `не применимо`;
+- RESULT closed after merge: yes;
+- INDEX closed after merge: yes;
+- No journal placeholders: yes;
+- stale pre-merge status check: clean.
+
 Если stale `RESULT` или `INDEX` найдены, ChatGPT должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data.
+
+Запрещено отвечать `все закрыто`, если GitHub PR merged, но target journal entry все еще содержит `open`, `ready for review`, `not merged`, `submitted for review`, `PR open`, `draft open`, `pending at file materialization` или `see Engine final report` как final state.
 
 ## Безопасность
 

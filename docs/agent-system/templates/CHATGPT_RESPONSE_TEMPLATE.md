@@ -66,7 +66,7 @@ docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
 - TASK/RESULT/INDEX labels и описания пишутся на русском языке, кроме technical identifiers и literal external names.
 - после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
-- после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
+- после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
 
 Языковая политика:
 
@@ -243,12 +243,17 @@ STOP-условия:
 - статус push;
 - ссылка/номер PR;
 - статус PR после review (`PR status after review`);
-- merge commit SHA после merge, если доступен;
-- release PR URL/status/merge commit SHA, если release выполнялся;
-- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- work PR status;
+- work PR merge commit SHA;
+- work PR `merged_at`;
+- release PR status/merge commit SHA/`merged_at` или `не применимо`;
+- sync PR status/merge commit SHA/`merged_at` или `не применимо`;
 - RESULT закрыт после merge;
 - INDEX закрыт после merge;
+- No journal placeholders;
+- результат stale pre-merge status check;
 - проверка Post-merge Journal Closure;
+- требуется post-merge journal closure: yes/no;
 - файл результата Engine;
 - запрос на улучшение methodology repository (`Methodology repository improvement request`), если нужен.
 ```

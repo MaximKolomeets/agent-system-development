@@ -212,6 +212,10 @@ Engine-блок должен быть одним fenced code block.
 - [ ] Все ли пользовательские заголовки Engine-блока написаны на русском?
 - [ ] Остался ли английский только в технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names?
 - [ ] Нет ли англоязычных служебных заголовков, если для них есть русская формулировка?
+- [ ] Если пользователь сообщил о merge/release/sync, проверены ли GitHub state и journal state?
+- [ ] Если PR merged, закрыты ли RESULT/INDEX после merge?
+- [ ] Если release/sync выполнены, записаны ли release/sync факты?
+- [ ] Если journal stale, создан ли полный Engine-блок для docs-only closure cleanup?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Engine journal
@@ -232,7 +236,7 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Engine-блок должен содержать обязательное поле `Journal finalization policy`: `engine` финализирует `RESULT` и `INDEX` после PR creation, заменяет journal placeholders фактическими значениями и делает follow-up commit/push, если PR URL или final commit SHA стали известны после materialization.
 
-Если задача может завершиться merge/release/sync, Engine-блок должен требовать Post-merge Journal Closure по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: после merge journal фиксирует PR status `merged`, merge commit SHA, `merged_at` при доступности, release PR и sync PR status/merge commit SHA при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Если задача может завершиться merge/release/sync, Engine-блок должен требовать Post-merge Journal Closure по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: после merge journal фиксирует PR status `merged`, merge commit SHA, `merged_at` при доступности, release PR и sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
 
 Final report `engine` должен подтверждать:
 
@@ -240,6 +244,25 @@ Final report `engine` должен подтверждать:
 - `INDEX finalized: yes`;
 - `No journal placeholders: yes`;
 - язык final report: русский.
+
+## Обязательная post-merge journal closure проверка
+
+Любой ответ ChatGPT после сообщения пользователя о merge/release/sync должен разделять GitHub PR state и target journal RESULT/INDEX state.
+
+GitHub merge сам по себе не закрывает lifecycle задачи, если target journal stale. Lifecycle считается закрытым только когда work PR state и journal state согласованы.
+
+Если `RESULT` или `INDEX` остаются в pre-merge state после merge/release/sync, ChatGPT должен дать полный self-contained Engine-блок на docs-only journal closure cleanup.
+
+Closure Engine-блок должен включать:
+
+- target repository;
+- work PR URL/status/merge commit SHA/`merged_at`;
+- release PR URL/status/merge commit SHA/`merged_at` или `не применимо`;
+- sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`;
+- разрешенные файлы только для `RESULT`, `INDEX` и безопасных state docs, если они нужны;
+- запрет runtime, Docker, CI, secrets, private data и downstream-specific details;
+- проверки stale placeholders и pre-merge statuses в `RESULT`/`INDEX`;
+- финальный отчет на русском языке.
 
 ## Ответ Task File Handoff
 
