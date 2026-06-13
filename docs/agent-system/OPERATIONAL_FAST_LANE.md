@@ -6,6 +6,8 @@ Operational Fast Lane - это короткий режим для простых
 
 Operational Fast Lane не заменяет engine task workflow и не применяется к задачам, которые меняют repository files или создают Pull Request.
 
+Operational Fast Lane не должен включать file-changing instructions для `engine`. Если проверка показывает, что нужны изменения файлов, PR body, journal artifacts или branch state через commit/push, Fast Lane заканчивается до выдачи actionable instructions.
+
 Operational Fast Lane не требует Task File Handoff. Task File Handoff используется для больших задач с TASK file, а не для cleanup/status.
 
 Общий стартовый contract для проектного чата описан в:
@@ -40,6 +42,9 @@ Operational Fast Lane не применяется для:
 - docs-only governance pack;
 - задач, где есть риск secrets/private data;
 - задач, которые меняют файлы repository.
+- задач, которые обновляют PR body, journal artifacts или branch state через commit/push;
+- follow-up commits;
+- shortcut-ответов вида "выполни быстрые команды, а потом пусть Engine patch files";
 - больших задач, которым нужен Task File Handoff Mode.
 
 ## Правила ответа ChatGPT
@@ -53,6 +58,8 @@ Operational Fast Lane не применяется для:
 - Не предлагать новый methodology PR для простой проверки/cleanup.
 - Не предлагать sync `main -> developer` только из-за release merge commit.
 - Не зеркалировать release merge commit обратно в `developer`, если содержательные изменения уже в `developer`.
+- Если Fast Lane check обнаруживает необходимость file change, PR body update, journal update, branch state change через commit/push или follow-up commit, следующий ответ должен быть либо полным self-contained Engine-блоком, либо коротким запросом решения пользователя, если scope/approval отсутствуют.
+- Cleanup-only означает cleanup без изменения repository files, если только не используется полный Engine-блок.
 
 ## Стандартный формат
 
@@ -83,3 +90,5 @@ Operational Fast Lane не применяется для:
 ## Safety
 
 Operational Fast Lane должен оставаться read-only или cleanup-only. Если в ходе проверки появляется необходимость менять файлы, создавать PR, работать с private data, читать `.env` или разбирать sensitive output, нужно остановиться и перейти к обычной задаче с явным scope, allowed files, forbidden files и checks.
+
+Нельзя выводить гибридный shortcut, где Fast Lane-команды смешаны с неформальной просьбой к `engine` изменить repository files. Write-action instructions должны находиться внутри полного self-contained Engine-блока по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.

@@ -205,6 +205,31 @@ Ready-for-review PR не должен содержать unresolved journal plac
 
 Reviewer должен считать такие placeholders blocker.
 
+## Политика PR head SHA без self-reference
+
+Commit не может честно содержать собственный SHA внутри файлов, включенных в этот же commit.
+
+Journal artifacts могут фиксировать:
+
+- `primary/materialization commit SHA`;
+- `journal finalization commit SHA`;
+- `follow-up materialization commit SHA`, если применимо;
+- `latest known PR head SHA before follow-up`, если применимо;
+- `actual/current PR head SHA after push`, если он проверен после push и может быть зафиксирован без self-referential loop.
+
+Если запись `actual/current PR head SHA after final push` внутрь `RESULT` или `INDEX` требует бесконечного self-referential commit loop, `engine` не должен выдумывать false value.
+
+В этом случае финальный отчет `engine` и PR body могут быть authoritative place для latest verified PR head SHA after final push.
+
+`RESULT` и `INDEX` должны различать:
+
+- commit SHA, зафиксированный в journal;
+- actual/current PR head SHA, проверенный после final push.
+
+Reviewer не должен требовать, чтобы commit содержал собственный SHA.
+
+Unresolved placeholders остаются blockers, но явно отмеченное ограничение self-reference не считается placeholder.
+
 ## Post-merge Journal Closure
 
 После merge рабочего PR target repository journal entry не должна оставаться в pre-merge статусе.

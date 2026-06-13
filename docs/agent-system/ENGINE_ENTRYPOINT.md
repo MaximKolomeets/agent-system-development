@@ -20,6 +20,8 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 Если локальные инструкции target repository конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая, когда пользователь явно разрешил другой язык для этого target repository.
 
+`engine` должен написать `STOP`, если получил задачу, где пользовательские заголовки и описания массово оформлены на английском языке без технической необходимости, а target или methodology policy требует русский язык.
+
 ## Operational Fast Lane
 
 Operational Fast Lane не заменяет engine task workflow. Он применяется только для простых status/cleanup операций, которые безопасно выполняются пользователем по одному terminal block без изменения repository files.
@@ -114,6 +116,8 @@ docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 `engine` не меняет code by default. Review-only task создает только review report и PR, а findings превращаются в отдельные implementation PR только после решения пользователя.
 
 Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
+
+Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, allowed files, forbidden files, checks, STOP-условиями и требованиями к финальному отчету.
 
 Для запуска adoption из нового target project chat используйте:
 
@@ -265,6 +269,8 @@ Manual commands не должны быть частью engine prompt, если 
 - есть разрешение пользователя на изменение файлов.
 
 Если safety gate не пройден, `engine` пишет `STOP`, объясняет причину и не меняет файлы.
+
+`engine` также пишет `STOP`, если получил implementation prompt, который просит изменить файлы, но не содержит repository, branch, allowed files, forbidden files, checks, STOP-условия и требования к финальному отчету. Исключение допустимо только когда prompt явно указывает действительный TASK file как source of truth, и этот TASK file содержит недостающий execution context.
 
 ## Adoption audit
 
