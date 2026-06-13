@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-3a methodology bootstrap hardening.
+Текущий этап: post-merge state cleanup после PR-3a / PR #71.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-3a-methodology-bootstrap-hardening
+work/docs-maintainer-01/pr-3b-post-merge-state-cleanup
 ```
 
 Ветки:
@@ -119,4 +119,4 @@ PR-3a hardens new repository bootstrap branch rules:
 - `fallback-to-main` для рабочих PR запрещен;
 - отсутствие `developer` является bootstrap blocker или explicit bootstrap creation step.
 
-Следующая цель после PR-3a: merge PR-3a в `developer`, затем использовать обновленный adoption prompt для следующих target implementation repositories.
+PR-3a merged в developer через PR #71. Bootstrap gate для новых repository закреплен. Следующий шаг: использовать обновленный adoption prompt для новых target repositories или выбрать следующий methodology hardening PR.
