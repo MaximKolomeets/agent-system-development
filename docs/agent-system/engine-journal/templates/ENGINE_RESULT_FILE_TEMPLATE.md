@@ -12,6 +12,14 @@ Task file blob SHA:
 
 TASK file verified:
 
+Engine block/TASK was self-contained:
+
+Recommended Engine Mode present:
+
+Verified baseline present or explicitly not applicable:
+
+No required execution context was taken only from surrounding chat:
+
 Идентификатор задачи:
 
 Номер sequence:

@@ -20,6 +20,37 @@ Reasoning: <Low | Medium | High>
 
 Target `AGENTS.md` или эквивалентные target instructions должны содержать Russian-first policy после adoption/update scope, если этот scope меняет такие инструкции. Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
 
+## Recommended Engine Mode
+
+Заполнить блок `Рекомендуемый режим <engine-name>` в mandatory header: launch mode / запуск, model / модель, reasoning, execution mode / режим и why this mode is required / почему.
+
+## Verified Baseline
+
+- Repository:
+- Local path, если применимо:
+- Base branch:
+- Working branch:
+- Checked branch state:
+- Latest relevant PR numbers/statuses, если применимо:
+- Release PR status, если применимо:
+- Sync PR status, если применимо:
+- Open PR state, если relevant:
+- Verification source:
+- Verification date/time:
+
+## Copy/Paste Completeness Check
+
+- [ ] This TASK/Engine block can be executed without reading surrounding chat text.
+- [ ] Recommended Engine Mode is included.
+- [ ] Verified baseline is included or explicitly marked as not applicable.
+- [ ] Repository/base branch/working branch are included.
+- [ ] Allowed files are included.
+- [ ] Forbidden files are included.
+- [ ] Checks are included.
+- [ ] STOP conditions are included.
+- [ ] Final report requirements are included.
+- [ ] No required execution context exists only in surrounding chat.
+
 ## Task
 
 `<task title>`

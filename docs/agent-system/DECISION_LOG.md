@@ -419,3 +419,20 @@ Post-PR finalization закрывает journal после создания PR, 
 - Task File Handoff и target adoption templates требуют post-merge closure fields;
 - reviewer должен считать stale merged journal entry blocker;
 - methodology repository по-прежнему не хранит real TASK/RESULT operational history target repositories.
+
+## 2026-06-13 - Engine handoff baseline completeness
+
+Решение:
+Закрепить, что Recommended Engine Mode, Verified execution baseline и другой обязательный execution context должны находиться внутри Engine-блока или TASK file.
+
+Причина:
+Нужно предотвратить split-context Engine handoffs, когда часть GitHub/local baseline, branch state, PR state, release/sync state или safety assumptions остается только в обычном тексте перед Engine-блоком.
+
+Последствия:
+
+- ChatGPT перед отправкой Engine-блока проверяет copy/paste completeness;
+- TASK file фиксирует recommended engine mode, verified baseline и assertion, что bootstrap prompt не содержит уникальных execution data;
+- `engine` должен написать `STOP`, если bootstrap prompt и TASK file конфликтуют;
+- impact: docs-only;
+- runtime impact: none;
+- downstream-specific data: none.

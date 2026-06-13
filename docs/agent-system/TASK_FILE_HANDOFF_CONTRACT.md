@@ -51,6 +51,8 @@ Task-file-only staging:
 
 Bootstrap prompt должен быть коротким и указывать только repository, branch, TASK file path и обязательные safety/finalization reminders.
 
+Bootstrap prompt не должен содержать уникальные execution data, которых нет в TASK file. Если baseline, режим запуска, branch state, PR state, safety assumptions или execution constraints указаны в bootstrap prompt, они должны быть также зафиксированы в TASK file.
+
 Пример:
 
 ```text
@@ -74,6 +76,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 - TASK file имеет более высокий приоритет, чем chat summary.
 - Bootstrap prompt только указывает `engine`, где прочитать задачу.
 - Если TASK file и chat prompt конфликтуют, `engine` должен написать `STOP` и сообщить о конфликте.
+- Если bootstrap prompt и TASK file конфликтуют, `engine` должен написать `STOP` и не продолжать выполнение.
 - `engine` должен записать task file path и task source commit SHA или blob SHA в RESULT.
 - `engine` не должен молча выполнять TASK file из неожиданного repository или branch.
 
@@ -91,6 +94,27 @@ TASK file для handoff должен содержать:
 - task source commit SHA, если известен;
 - task file blob SHA, если доступен;
 - bootstrap prompt reference;
+- recommended engine mode:
+  - launch mode;
+  - model;
+  - reasoning;
+  - execution mode;
+  - why this mode is required;
+- verified baseline:
+  - checked repository;
+  - local path, если применимо;
+  - checked base branch;
+  - working branch;
+  - latest relevant merged PR, если применимо;
+  - release PR status, если применимо;
+  - sync PR status, если применимо;
+  - open PR state, если relevant;
+  - baseline verification source;
+  - baseline verification date/time;
+- copy/paste completeness assertion:
+  - TASK file is source of truth;
+  - bootstrap prompt has no unique execution data not present in TASK file;
+  - required execution context is not stored only in surrounding chat;
 - allowed files;
 - forbidden files;
 - STOP conditions;
@@ -167,6 +191,7 @@ Reviewer must block the PR if:
 - RESULT does not record task source commit SHA or blob SHA when available;
 - `engine` executed a TASK file from an unexpected repository or branch;
 - TASK file and bootstrap prompt conflict and execution continued without STOP;
+- bootstrap prompt contains unique execution data absent from TASK file;
 - ready-for-review PR contains unresolved journal placeholders;
 - RESULT or INDEX is not finalized after PR creation;
 - merged PR journal remains `PR open`;
