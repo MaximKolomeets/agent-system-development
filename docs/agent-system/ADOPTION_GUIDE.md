@@ -61,6 +61,27 @@ target-specific `INDEX.md` entry.
 
 ## Adoption modes
 
+## New empty repository bootstrap vs existing repository adoption
+
+`new empty repository bootstrap` используется для нового пустого repository.
+
+Если выбран `standard developer workflow`:
+
+- `developer` должен существовать до первой рабочей ветки;
+- отсутствие `developer` не разрешает рабочий PR в `main`;
+- допускается только явно разрешенный bootstrap-шаг создания `developer` от актуального `main`;
+- после создания `developer` все рабочие ветки идут от `developer`;
+- рабочие PR направляются в `developer`.
+
+`existing repository adoption` используется для уже существующего target repository.
+
+Для него действуют другие правила:
+
+- фактическая branch model может быть `developer`, `develop`, `main-only flow` или custom;
+- `engine` не переименовывает ветки без решения пользователя;
+- если пользователь выбирает `standard developer workflow`, нужно создать или подтвердить `developer` до рабочих PR;
+- если branch model неясна, `engine` пишет `STOP` и запрашивает решение пользователя.
+
 ## Canonical adoption chat prompt
 
 Для нового target repository пользователь может скопировать полный prompt из:
@@ -250,6 +271,10 @@ Target repository может использовать `developer`, `develop`, `m
 - проверить GitHub Actions branch filters;
 - убедиться, что CI запускается на реальных target branches;
 - не переименовывать ветки без отдельного решения пользователя.
+
+`main-only flow` допустим только как осознанная фактическая модель existing repository adoption. Его нельзя молча применять к новому пустому repository, если пользователь выбрал `standard developer workflow` с `developer`.
+
+Для нового пустого repository со стандартной схемой `main -> developer -> work/<role>/*` отсутствие `developer` является bootstrap blocker или trigger для явно разрешенного bootstrap creation step.
 
 ## PowerShell and UTF-8
 

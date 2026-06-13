@@ -19,8 +19,13 @@
 
 ## Branch model
 
+- [ ] Определен lifecycle mode: `new empty bootstrap` или `existing adoption`.
+- [ ] Определена selected branch model.
 - [ ] Фактические branches target repository проверены.
 - [ ] Выбрана модель `developer`, `develop`, `main`-only flow или другая.
+- [ ] Для `standard developer workflow` подтвержден `developer`.
+- [ ] Если `developer` отсутствовал, bootstrap creation явно разрешен и зафиксирован.
+- [ ] `Fallback-to-main` запрещен для `standard developer workflow`.
 - [ ] `BRANCH_POLICY.md` адаптирован под target repository.
 - [ ] `WORKFLOW.md` и `PR_WORKFLOW.md` адаптированы.
 - [ ] Task templates используют реальные branch names.
