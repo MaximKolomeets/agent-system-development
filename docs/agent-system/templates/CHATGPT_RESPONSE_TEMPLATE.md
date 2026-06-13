@@ -227,21 +227,21 @@ STOP-условия:
 
 Финальный отчет:
 
-- repository root;
-- remote summary;
-- base branch;
-- working branch;
-- created files;
-- changed files;
-- checks run;
-- checks not run and why;
-- sensitive grep result без matching lines;
-- risks;
+- корень repository;
+- сводка remote;
+- базовая ветка;
+- рабочая ветка;
+- созданные файлы;
+- измененные файлы;
+- запущенные проверки;
+- не запущенные проверки и причина;
+- результат sensitive grep без вывода matching lines;
+- риски;
 - сработавшие STOP-условия;
-- language policy result;
+- результат language policy;
 - commit SHA;
-- push status;
-- PR link/number;
+- статус push;
+- ссылка/номер PR;
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;
 - release PR URL/status/merge commit SHA, если release выполнялся;
@@ -249,8 +249,8 @@ STOP-условия:
 - RESULT закрыт после merge;
 - INDEX закрыт после merge;
 - проверка Post-merge Journal Closure;
-- engine result file;
-- Methodology repository improvement request, если нужен.
+- файл результата Engine;
+- запрос на улучшение methodology repository, если нужен.
 ```
 
 ## Ручная работа
@@ -312,12 +312,12 @@ END POWERSHELL
 
 Финальный отчет:
 
-- summary;
-- changed files;
-- checks;
-- private data check result;
-- language policy result;
-- PR link/number.
+- краткое описание;
+- измененные файлы;
+- проверки;
+- результат проверки private data;
+- результат language policy;
+- ссылка/номер PR.
 ```
 
 ## Проверка результата
