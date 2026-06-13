@@ -93,3 +93,11 @@ Governance pack templates:
 Структура может адаптироваться под public/private repository. В public repository нельзя хранить приватные данные, реальные секреты, внутренние кодовые имена или материалы private downstream repository.
 
 Project-specific state files нужно создавать заново по фактам target repository, а не копировать из methodology repository verbatim.
+
+## Branch bootstrap gate
+
+Для нового пустого repository со стандартной схемой `main -> developer -> work/<role>/*` ветка `developer` создается до первой рабочей ветки.
+
+Если `developer` отсутствует, сначала нужен явно разрешенный bootstrap step: создать `developer` от актуального `main` и синхронизировать `origin/developer`.
+
+Рабочие ветки создаются от `developer`, а рабочие PR направляются в `developer`. Рабочий PR в `main` запрещен для `standard developer workflow`.

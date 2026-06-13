@@ -222,6 +222,19 @@ Manual commands не должны быть частью engine prompt, если 
 
 `ADOPTION_TRANSFER_MANIFEST.yml` используется для проверки, какие файлы являются generic, какие отражают template repository state и какие требуют target adaptation. `DOWNSTREAM_ADAPTATION_CHECKLIST.md` используется как review checklist перед docs-only adoption.
 
+## Branch discovery for target repository
+
+Перед созданием рабочей ветки `engine` должен определить:
+
+- repository lifecycle mode: `new empty bootstrap`, `existing adoption` или `unknown`;
+- selected branch model;
+- наличие `developer`;
+- разрешен ли `fallback-to-main`, с причиной.
+
+Если short prompt или task выбирает `standard developer workflow` для нового target repository, отсутствие `developer` является `STOP` condition или trigger для explicit bootstrap branch creation.
+
+`engine` не должен использовать `fallback-to-main` для рабочих PR в `standard developer workflow`.
+
 ## Safety gate
 
 До adoption audit и до любых изменений `engine` проверяет:

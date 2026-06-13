@@ -1,8 +1,7 @@
 # NEXT_STEPS
 
-1. Завершить PR-2r: добавить engine journal contract и templates.
-2. После merge PR-2r в `developer` re-check release PR #49.
-3. После зеленого PR #49 выполнить cleanup GitHub/local branches по отдельному решению пользователя.
-4. После release применять unified ChatGPT response standard и engine journal в новых target repository adoption chats.
-5. Следующие target adoption tasks должны создавать task/result artifacts в `docs/agent-system/engine-journal/`.
-6. По результатам target adoption dry run возвращать только нейтральный methodology feedback без private downstream data.
+1. Завершить PR-3a: закрепить bootstrap gate для нового repository со стандартной схемой `main -> developer -> work/<role>/*`.
+2. После merge PR-3a в `developer` использовать обновленный adoption prompt для следующих target implementation repositories.
+3. Проверять, что новые target adoption tasks явно фиксируют lifecycle mode, selected branch model, наличие `developer` и запрет `fallback-to-main` для `standard developer workflow`.
+4. Для existing repository adoption сохранять поддержку осознанного `main-only flow`, если это фактическая модель target repository или отдельное решение пользователя.
+5. По результатам target adoption dry run возвращать только нейтральный methodology feedback без private downstream data.

@@ -24,6 +24,10 @@ Reasoning: <Low | Medium | High>
 
 - Repository:
 - Local path, если применимо:
+- Repository lifecycle mode:
+- Selected branch model:
+- Developer branch existence:
+- Fallback-to-main allowed:
 - Base branch:
 - Working branch:
 - Checked branch state:
@@ -124,6 +128,10 @@ Reasoning: <Low | Medium | High>
 Создать audit file с разделами:
 
 - repository self-discovery;
+- repository lifecycle mode;
+- selected branch model;
+- developer branch existence;
+- fallback-to-main allowed: yes/no with reason;
 - current project state;
 - template repository summary;
 - fit analysis;
@@ -179,6 +187,10 @@ Methodology feedback не должен включать private downstream data,
 
 - final report на русском языке;
 - working branch;
+- repository lifecycle mode;
+- selected branch model;
+- developer branch existence;
+- fallback-to-main allowed: yes/no with reason;
 - engine task file;
 - engine result file;
 - created files;

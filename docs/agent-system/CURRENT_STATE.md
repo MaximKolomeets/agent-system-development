@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-12
+Дата: 2026-06-13
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-2x Post-merge Journal Closure.
+Текущий этап: PR-3a methodology bootstrap hardening.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2x-post-merge-journal-closure
+work/docs-maintainer-01/pr-3a-methodology-bootstrap-hardening
 ```
 
 Ветки:
@@ -112,4 +112,11 @@ PR-2x добавляет Post-merge Journal Closure:
 - journal closure фиксирует PR status `merged`, merge commit SHA, `merged_at` при доступности, release/sync PR данные при наличии;
 - stale statuses `PR open`, `ready for review`, `draft open`, `pending at file materialization` и `see Engine final report` становятся blockers после merge.
 
-Следующая цель после PR-2x: merge PR-2x в `developer`, затем применить docs-only journal-closure cleanup tasks в target repositories, где historical RESULT/INDEX entries уже stale после merge.
+PR-3a hardens new repository bootstrap branch rules:
+
+- `new empty repository bootstrap` отделен от `existing repository adoption`;
+- для `standard developer workflow` ветка `developer` обязательна до первой рабочей ветки;
+- `fallback-to-main` для рабочих PR запрещен;
+- отсутствие `developer` является bootstrap blocker или explicit bootstrap creation step.
+
+Следующая цель после PR-3a: merge PR-3a в `developer`, затем использовать обновленный adoption prompt для следующих target implementation repositories.
