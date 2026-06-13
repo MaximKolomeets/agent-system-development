@@ -250,7 +250,7 @@ STOP-условия:
 - INDEX закрыт после merge;
 - проверка Post-merge Journal Closure;
 - файл результата Engine;
-- запрос на улучшение methodology repository, если нужен.
+- запрос на улучшение methodology repository (`Methodology repository improvement request`), если нужен.
 ```
 
 ## Ручная работа
