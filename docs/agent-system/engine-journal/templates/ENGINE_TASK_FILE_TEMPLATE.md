@@ -127,10 +127,19 @@ PR policy:
 Post-merge journal closure policy:
 
 - после merge рабочего PR зафиксировать PR status `merged`, merge commit SHA и `merged_at`, если доступно;
-- если выполнялся release PR в `main`, зафиксировать release PR URL/status/merge commit SHA;
-- если выполнялся sync PR `main -> developer`, зафиксировать sync PR URL/status/merge commit SHA;
+- если выполнялся release PR в `main`, зафиксировать release PR URL/status/merge commit SHA/`merged_at`;
+- если выполнялся sync PR `main -> developer`, зафиксировать sync PR URL/status/merge commit SHA/`merged_at`;
 - после merge `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`;
 - не оставлять после merge final states `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
+
+Post-merge closure checklist:
+
+- [ ] Проверить GitHub/local state work PR.
+- [ ] Проверить release PR, если release использовался.
+- [ ] Проверить sync PR, если sync использовался.
+- [ ] Проверить, что RESULT/INDEX не остались в pre-merge state.
+- [ ] Ограничить allowed files минимально: RESULT, INDEX и безопасные state docs.
+- [ ] Не менять runtime, Docker, CI, secrets, private data или downstream-specific details.
 
 Ожидаемый RESULT file:
 
@@ -151,10 +160,12 @@ Post-merge journal closure policy:
 - no journal placeholders;
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;
-- release PR URL/status/merge commit SHA, если release выполнялся;
-- sync PR URL/status/merge commit SHA, если sync выполнялся;
+- `merged_at` date/time, если доступно;
+- release PR URL/status/merge commit SHA/`merged_at`, если release выполнялся;
+- sync PR URL/status/merge commit SHA/`merged_at`, если sync выполнялся;
 - RESULT закрыт после merge;
 - INDEX закрыт после merge;
 - проверка Post-merge Journal Closure;
+- stale pre-merge status check result;
 - follow-up commit SHA if finalization required;
 - next recommended step.
