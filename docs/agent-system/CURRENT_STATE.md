@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: PR-3c vendor-neutral code review workflow.
+Текущий этап: post-merge state cleanup после PR-3c / PR #77.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-3c-code-review-workflow-methodology
+work/docs-maintainer-01/pr-3d-post-merge-code-review-workflow-cleanup
 ```
 
 Ветки:
@@ -123,11 +123,11 @@ PR-3a merged в developer через PR #71. Bootstrap gate для новых re
 
 PR-3b merged в developer через PR #74. Post-merge state cleanup завершен.
 
-PR-3c добавляет vendor-neutral review-only workflow для code review / external review / consulting review:
+PR-3c merged в developer через PR #77. Vendor-neutral review-only workflow для code review / external review / consulting review закреплен.
 
 - reviewer roles отделены от engine names;
 - branch и report filenames не используют vendor/tool names;
 - review-only PR идет через `work/code-reviewer-01/<task-id>` в `developer`;
 - findings превращаются в отдельные implementation PR только после решения пользователя.
 
-Следующий шаг: после merge PR-3c использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository или выбрать следующий methodology hardening PR.
+Следующий шаг: использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository или выбрать следующий methodology hardening PR.
