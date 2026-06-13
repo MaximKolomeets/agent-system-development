@@ -64,7 +64,7 @@ docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
 - task/result files append-only и не удаляются/не перезаписываются без решения пользователя;
 - result file обязателен как artifact final report;
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
-- TASK/RESULT/INDEX labels and descriptions пишутся на русском языке, кроме technical identifiers и literal external names.
+- TASK/RESULT/INDEX labels и описания пишутся на русском языке, кроме technical identifiers и literal external names.
 - после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
 - после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
 

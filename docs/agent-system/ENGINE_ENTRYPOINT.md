@@ -10,7 +10,7 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
 
-## Russian-first policy
+## Политика Russian-first
 
 `engine` должен применять `docs/agent-system/LANGUAGE_POLICY.md`.
 
@@ -22,7 +22,7 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 `engine` должен написать `STOP`, если получил задачу, где пользовательские заголовки и описания массово оформлены на английском языке без технической необходимости, а target или methodology policy требует русский язык.
 
-## Operational Fast Lane
+## Режим Operational Fast Lane
 
 Operational Fast Lane не заменяет engine task workflow. Он применяется только для простых status/cleanup операций, которые безопасно выполняются пользователем по одному terminal block без изменения repository files.
 
@@ -30,7 +30,7 @@ Engine не должен запускаться для простых GitHub PR 
 
 Для target adoption Operational Fast Lane используется только до или после engine task: проверить статус, cleanup или результат. Он не заменяет adoption audit, docs-only adoption и engine journal workflow.
 
-## Task File Handoff Mode
+## Режим Task File Handoff
 
 Перед большими задачами следует предпочитать Task File Handoff Mode по контракту:
 
@@ -70,13 +70,13 @@ Reasoning: <Low | Medium | High>
 
 Если task file существует, `engine` выполняет задачу из него и сверяет, что copy/paste prompt не противоречит task file.
 
-Если task file не существует, но указан `Engine task file`, `engine` создает его в рамках allowed files и сохраняет входную задачу как воспроизводимый artifact.
+Если task file не существует, но указан `Engine task file`, `engine` создает его в рамках разрешенных файлов и сохраняет входную задачу как воспроизводимый artifact.
 
 Result file обязателен как artifact. Ответ `engine` должен быть сохранен в `docs/agent-system/engine-journal/output/` по `Expected engine result file`.
 
 Task/result files не удаляются и не перезаписываются без отдельного решения пользователя.
 
-### Post-PR journal finalization
+### Финализация journal после PR
 
 После `push` и создания PR `engine` должен выполнить journal finalization check.
 
@@ -84,7 +84,7 @@ Task/result files не удаляются и не перезаписываютс
 
 `engine` должен обновить journal files фактическими branch, commit SHA, PR URL, PR status, checks, blockers и next step, затем сделать follow-up commit/push в ту же рабочую ветку.
 
-Contract:
+Контракт:
 
 ```text
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
@@ -100,7 +100,7 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 
 Этот prompt используется для старта project chat. Engine-задачи остаются отдельным workflow и оформляются self-contained блоками по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
-## Code review prompts
+## Prompts для code review
 
 Если user prompt просит провести review проекта, code review, external review или consulting review, `engine` должен определить, это review-only task или implementation task.
 
@@ -117,7 +117,7 @@ docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 
 Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
 
-Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, allowed files, forbidden files, checks, STOP-условиями и требованиями к финальному отчету.
+Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, разрешенными файлами, запрещенными файлами, проверками, STOP-условиями и требованиями к финальному отчету.
 
 Для запуска adoption из нового target project chat используйте:
 
@@ -151,7 +151,7 @@ docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
 6. Adoption audit.
 7. Only then planned bootstrap PRs.
 
-## Repository self-discovery
+## Самообнаружение repository
 
 До любых изменений `engine` обязан выполнить repository self-discovery по контракту:
 
@@ -169,13 +169,13 @@ Self-discovery подтверждает:
 - нет ли запрещенных tracked paths;
 - нет ли признаков риска секретов.
 
-## Local instructions discovery
+## Поиск local instructions
 
 `engine` должен прочитать локальные инструкции target repository до применения шаблона. Если в target repository есть `AGENTS.md`, `README.md` или локальные документы в `docs/agent-system/`, они имеют значение для adoption audit.
 
 Локальные инструкции нельзя механически перетирать документами из template repository. Если инструкции конфликтуют, `engine` должен зафиксировать конфликт в audit и запросить решение пользователя.
 
-## Template repository discovery
+## Поиск template repository
 
 После чтения локального target repository `engine` читает template repository и находит:
 
@@ -199,7 +199,7 @@ Self-discovery подтверждает:
 
 Template repository является методологической основой, а не источником для слепого копирования.
 
-## Methodology repository freshness check
+## Проверка актуальности methodology repository
 
 Перед использованием methodology repository `engine` должен выполнить `git fetch --all --prune`.
 
@@ -215,9 +215,9 @@ Template repository является методологической основ
 
 Если methodology repository используется только как template для target repository, `engine` должен читать актуальные файлы из GitHub или из свежесинхронизированной локальной копии.
 
-После синхронизации methodology repository `engine` должен явно вернуться в target repository перед target checks или target changes. Проверки target remote, branch, working tree и allowed files нельзя выполнять, пока текущая папка остается `agent-system-development`.
+После синхронизации methodology repository `engine` должен явно вернуться в target repository перед target checks или target changes. Проверки target remote, branch, working tree и разрешенных файлов нельзя выполнять, пока текущая папка остается `agent-system-development`.
 
-Engine не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в final report.
+Engine не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в финальном отчете.
 
 Этот entrypoint применяется вместе с:
 
@@ -231,9 +231,9 @@ Manual commands не должны быть частью engine prompt, если 
 
 После adoption audit `engine` должен проверить language consistency target governance docs и Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если adoption/update scope меняет такие инструкции.
 
-Если выявлена необходимость улучшить methodology repository, `engine` должен добавить в report нейтральный `Methodology repository improvement request`, без private downstream data.
+Если выявлена необходимость улучшить methodology repository, `engine` должен добавить в отчет нейтральный `Methodology repository improvement request`, без private downstream data.
 
-## Adoption mode selection
+## Выбор adoption mode
 
 Перед изменениями `engine` выбирает режим по `ADOPTION_GUIDE.md`:
 
@@ -243,7 +243,7 @@ Manual commands не должны быть частью engine prompt, если 
 
 `ADOPTION_TRANSFER_MANIFEST.yml` используется для проверки, какие файлы являются generic, какие отражают template repository state и какие требуют target adaptation. `DOWNSTREAM_ADAPTATION_CHECKLIST.md` используется как review checklist перед docs-only adoption.
 
-## Branch discovery for target repository
+## Поиск branch target repository
 
 Перед созданием рабочей ветки `engine` должен определить:
 
@@ -270,7 +270,7 @@ Manual commands не должны быть частью engine prompt, если 
 
 Если safety gate не пройден, `engine` пишет `STOP`, объясняет причину и не меняет файлы.
 
-`engine` также пишет `STOP`, если получил implementation prompt, который просит изменить файлы, но не содержит repository, branch, allowed files, forbidden files, checks, STOP-условия и требования к финальному отчету. Исключение допустимо только когда prompt явно указывает действительный TASK file как source of truth, и этот TASK file содержит недостающий execution context.
+`engine` также пишет `STOP`, если получил implementation prompt, который просит изменить файлы, но не содержит repository, branch, разрешенные файлы, запрещенные файлы, проверки, STOP-условия и требования к финальному отчету. Исключение допустимо только когда prompt явно указывает действительный TASK file как source of truth, и этот TASK file содержит недостающий execution context.
 
 ## Adoption audit
 
@@ -288,7 +288,7 @@ Manual commands не должны быть частью engine prompt, если 
 
 Adoption audit не должен переносить private data в public methodology repository.
 
-Adoption audit должен создать journal artifacts в target repository, если это входит в allowed files: task file в `docs/agent-system/engine-journal/input/`, result file в `docs/agent-system/engine-journal/output/` и строку в `docs/agent-system/engine-journal/INDEX.md`.
+Adoption audit должен создать journal artifacts в target repository, если это входит в разрешенные файлы: task file в `docs/agent-system/engine-journal/input/`, result file в `docs/agent-system/engine-journal/output/` и строку в `docs/agent-system/engine-journal/INDEX.md`.
 
 ## Methodology feedback
 
@@ -296,10 +296,10 @@ Adoption audit должен создать journal artifacts в target repositor
 
 Feedback должен быть нейтральным и не должен раскрывать private data target repository. Он может включать:
 
-- missing template docs;
-- manual steps to automate;
+- отсутствующие template docs;
+- ручные steps для автоматизации;
 - safety gaps;
-- conflicts with local instructions;
+- конфликты с local instructions;
 - suggested methodology PRs.
 
 Methodology feedback не должен автоматически менять methodology repository. Любое улучшение `agent-system-development` выполняется отдельной задачей, отдельной веткой и отдельным PR.
@@ -313,7 +313,7 @@ Methodology feedback не должен автоматически менять m
 - Не печатать matching lines sensitive grep.
 - Не начинать bootstrap PR, пока adoption audit не завершен.
 
-## STOP rule
+## STOP-правило
 
 Если текущий repository не соответствует задаче, `engine` должен написать:
 
