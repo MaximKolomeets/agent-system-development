@@ -18,6 +18,12 @@
   - work branch -> developer;
   - developer -> main.
 - Проверить, что нет vendor-specific agent names в именах папок.
+- Для review-only PR проверить, что branch name role-based, not vendor-based.
+- Для review-only PR проверить, что report filename role/task based, not vendor-based.
+- Для review-only PR проверить, что reviewer не modified production code.
+- Для review-only PR проверить, что findings categorized as Critical, Important, Optional.
+- Для review-only PR проверить, что sensitive grep output filename-only.
+- Для review-only PR проверить, что next implementation PRs proposed separately.
 - Проверить, что `CURRENT_STATE` обновлен, если изменилось состояние проекта.
 - Проверить, что `DECISION_LOG` обновлен, если принято архитектурное решение.
 - Проверить, что агентский отчет обновлен.
