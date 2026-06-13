@@ -8,6 +8,10 @@
 
 Кратко опишите, что обнаружено или что будет сделано. Не помещайте сюда execution data, без которых `engine` не сможет выполнить задачу.
 
+Если Fast Lane/status review выявил необходимость менять repository files, PR body, journal artifacts или branch state через commit/push, остановите Fast Lane и перепишите actionable часть в полный self-contained Engine-блок.
+
+Не оставляйте write-action instructions вне Engine-блока.
+
 ## Блок для Engine — копировать целиком
 
 ```text
@@ -25,23 +29,23 @@ Reasoning: <Low | Medium | High>
 
 <одна конкретная цель задачи>
 
-Target repository:
+Целевой репозиторий:
 
 <owner/repository или URL>
 
-Target repository local path:
+Локальный путь целевого репозитория:
 
 <TARGET_REPOSITORY_LOCAL_PATH>
 
-Methodology repository:
+Методологический репозиторий:
 
 https://github.com/MaximKolomeets/agent-system-development
 
-Methodology repository local path:
+Локальный путь методологического репозитория:
 
 <METHODOLOGY_REPOSITORY_LOCAL_PATH>
 
-Methodology base branch:
+Базовая ветка методологии:
 
 <METHODOLOGY_BASE_BRANCH, обычно developer>
 
@@ -53,7 +57,7 @@ docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md
 
 docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
 
-Engine journal policy:
+Политика engine journal:
 
 - task/result files сохраняются в `docs/agent-system/engine-journal/`;
 - task/result files связываются одним `SEQ` и `<task-id>`;
@@ -64,9 +68,11 @@ Engine journal policy:
 - после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
 - после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
 
-Language policy:
+Языковая политика:
 
 Все ответы, final report, target-local docs/templates, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. English допускается только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, code identifiers и literal external names.
+
+Пользовательские заголовки и описания внутри Engine-блока писать на русском языке. Не использовать англоязычные служебные заголовки вроде `Required changes`, `Checks`, `Expected checks result`, `Commit/push policy`, `Final report requirements`, `STOP conditions`, `Allowed files`, `Forbidden files`, если есть нормальная русская формулировка.
 
 Обязательная проверка актуального agent-system-development:
 
@@ -82,11 +88,11 @@ Language policy:
 - если выполнялся только fetch без pull, не писать, что локальная копия синхронизирована;
 - если актуальность проверить невозможно, явно указать это в final report.
 
-Base branch:
+Базовая ветка:
 
 <base branch>
 
-Working branch:
+Рабочая ветка:
 
 work/<role>/<task>
 
@@ -108,7 +114,7 @@ work/<role>/<task>
 - private data
 - secrets
 
-Preflight:
+Предварительная проверка:
 
 BEGIN POWERSHELL
 # Перейти в локальную копию methodology repository, чтобы синхронизировать методологию перед подготовкой задачи.
@@ -180,7 +186,7 @@ END POWERSHELL
 - <изменение 1>
 - <изменение 2>
 
-Checks:
+Проверки:
 
 BEGIN POWERSHELL
 # Проверить активную ветку после изменений.
@@ -207,11 +213,13 @@ STOP-условия:
 - base branch отсутствует;
 - pull fast-forward невозможен;
 - обнаружены private data или secrets;
-- требуются изменения вне allowed files.
+- требуются изменения вне разрешенных файлов.
+- implementation prompt просит изменить файлы, но не содержит repository, branch, разрешенные файлы, запрещенные файлы, проверки, STOP-условия и требования к финальному отчету, кроме случая действительного TASK file как source of truth.
+- пользовательские заголовки и описания массово оформлены на английском языке без технической необходимости при действующей Russian-first policy.
 
-Commit/push/PR policy:
+Политика commit/push/PR:
 
-- коммитить только allowed files;
+- коммитить только разрешенные файлы;
 - не делать force push;
 - Pull Request создавать в base branch;
 - не делать auto-merge.
@@ -229,7 +237,7 @@ Commit/push/PR policy:
 - checks not run and why;
 - sensitive grep result без matching lines;
 - risks;
-- STOP conditions encountered;
+- сработавшие STOP-условия;
 - language policy result;
 - commit SHA;
 - push status;
@@ -285,7 +293,7 @@ https://github.com/MaximKolomeets/agent-system-development
 
 - <methodology files>
 
-Forbidden data:
+Запрещенные данные:
 
 - private downstream names
 - private repository URLs
@@ -295,7 +303,7 @@ Forbidden data:
 - credentials
 - `.env`
 
-Checks:
+Проверки:
 
 BEGIN POWERSHELL
 # Проверить diff на запрещенные private/downstream markers.
@@ -315,6 +323,14 @@ END POWERSHELL
 ## Проверка результата
 
 Укажите команды проверки и ожидаемые признаки успеха. Если команды нужны `engine`, они должны быть продублированы внутри Engine-блока.
+
+Проверьте перед отправкой:
+
+- если ответ просит `engine` изменить файлы, есть ли ровно один полный Engine-блок для этой задачи;
+- нет ли write-action instructions вне Engine-блока;
+- были ли PR body update, journal update, commit/push и review follow-up instructions помещены внутрь Engine-блока;
+- все ли пользовательские заголовки Engine-блока написаны на русском;
+- остался ли английский только в технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
 
 ## Риски и STOP-условия
 

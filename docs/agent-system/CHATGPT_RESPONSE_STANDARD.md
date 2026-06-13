@@ -107,6 +107,59 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 
 Вне Engine-блока можно давать только короткий вывод, контекст для пользователя, ссылки, цитаты и пояснения, которые не являются обязательными execution data.
 
+## Защита перехода из Fast Lane в Engine-блок
+
+Ответ ChatGPT может использовать Operational Fast Lane только пока остается read-only/status/cleanup-only.
+
+Если в ходе анализа ChatGPT решает, что `engine` должен изменить repository files, обновить PR body, обновить journal artifacts, сделать commit, push, создать PR или исправить review findings через file edits, ChatGPT обязан прекратить Fast Lane.
+
+До отправки пользователю actionable часть должна быть переписана как один полный self-contained Engine-блок с заголовком `Блок для Engine — копировать целиком`.
+
+Запрещен гибридный ответ, где Fast Lane text содержит implementation instructions, требующие write actions от `engine`.
+
+Триггером является рекомендуемое действие, а не исходная формулировка пользователя. Даже если пользователь попросил только review/status, как только ChatGPT рекомендует write changes, ответ становится Engine task.
+
+Read-only review может завершиться фразой "нужна отдельная Engine-задача" только если:
+
+- полный Engine-блок включен в ответ;
+- или ChatGPT явно запрашивает решение пользователя, потому что scope/approval недостаточны.
+
+Если следующий шаг уже ясен, безопасен и не требует уточнения, ChatGPT должен дать полный Engine-блок, а не неформальное указание "пусть Engine поправит".
+
+## Языковая граница Engine-блоков
+
+Engine-блоки являются user-facing task descriptions и должны соблюдать Russian-first policy.
+
+Пользовательские заголовки и описания внутри Engine-блока должны быть на русском языке.
+
+Английский допускается только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
+
+Запрещено использовать англоязычные служебные заголовки, если есть нормальная русская формулировка.
+
+Примеры запрещенных пользовательских заголовков:
+
+- `Required changes`;
+- `Checks`;
+- `Expected checks result`;
+- `Commit/push policy`;
+- `Final report requirements`;
+- `STOP conditions`;
+- `Allowed files`;
+- `Forbidden files`.
+
+Примеры правильных русских заголовков:
+
+- `Требуемые изменения`;
+- `Проверки`;
+- `Ожидаемый результат проверок`;
+- `Политика commit/push/PR`;
+- `Требования к финальному отчету`;
+- `STOP-условия`;
+- `Разрешенные файлы`;
+- `Запрещенные файлы`.
+
+Термины `Engine`, `PR`, `commit`, `push`, `branch`, `merge`, `SHA`, `Local only`, `Reasoning`, `Agent` допустимы как technical terms или literal values, но не должны заменять русские пользовательские описания там, где описание можно написать по-русски.
+
 ## Блок для Engine — копировать целиком
 
 Engine-блок должен быть одним fenced code block.
@@ -145,13 +198,20 @@ Engine-блок должен быть одним fenced code block.
 - [ ] Есть ли внутри блока Recommended Engine Mode?
 - [ ] Есть ли внутри блока Verified execution baseline или явное `not applicable`?
 - [ ] Есть ли repository/base branch/working branch?
-- [ ] Есть ли allowed files?
-- [ ] Есть ли forbidden files?
+- [ ] Есть ли разрешенные файлы?
+- [ ] Есть ли запрещенные файлы?
 - [ ] Есть ли checks?
-- [ ] Есть ли STOP conditions?
+- [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
-- [ ] Есть ли final report requirements?
+- [ ] Есть ли требования к финальному отчету?
 - [ ] Нет ли обязательных execution data вне блока?
+- [ ] Если ответ просит `engine` изменить файлы, есть ли ровно один полный Engine-блок для этой задачи?
+- [ ] Остались ли write-action instructions вне Engine-блока?
+- [ ] Если Fast Lane/status review выявил необходимость file changes, был ли Fast Lane остановлен и заменен полным Engine-блоком?
+- [ ] Находятся ли PR body update, journal update, commit/push и review follow-up instructions внутри Engine-блока?
+- [ ] Все ли пользовательские заголовки Engine-блока написаны на русском?
+- [ ] Остался ли английский только в технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names?
+- [ ] Нет ли англоязычных служебных заголовков, если для них есть русская формулировка?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Engine journal
