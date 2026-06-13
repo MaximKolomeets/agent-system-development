@@ -46,6 +46,22 @@ Source используется не как полное хранилище вс
 Последствия:
 Code review отделяется от implementation. Findings превращаются в отдельные PR только после решения пользователя.
 
+## 2026-06-13 - Fast Lane write boundary and Russian-first Engine blocks
+
+Решение:
+ChatGPT обязан перейти из Operational Fast Lane в полный self-contained Engine-блок, если review/status answer превращается в write-action recommendation.
+
+ChatGPT обязан применять Russian-first policy не только к final reports и journal files, но и к самим Engine-блокам.
+
+Причина:
+Это предотвращает hybrid shortcuts, неполные Engine prompts и нарушение методологии еще до запуска Engine.
+
+Последствия:
+Fast Lane остается read-only/status/cleanup-only. File-changing follow-ups требуют полного scope. Engine-блоки должны иметь русские пользовательские заголовки.
+
+Privacy:
+Downstream-specific details не фиксируются.
+
 ## 2026-06-06 - Bootstrap merged to main
 
 Решение:

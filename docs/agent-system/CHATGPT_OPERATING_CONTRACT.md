@@ -13,8 +13,10 @@ Contract не заменяет Engine-блоки, engine journal или full ado
 https://github.com/MaximKolomeets/agent-system-development
 
 Работай по Operational Fast Lane для проверок/cleanup.
+Если Fast Lane/status review выявил необходимость менять файлы, PR body, journal или branch state через commit/push, остановить Fast Lane и дать полный self-contained Engine-блок.
 GitHub состояние проверяй сам, если connector доступен.
 Engine-задачи оформляй через self-contained block и engine-journal.
+Engine-блоки писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
