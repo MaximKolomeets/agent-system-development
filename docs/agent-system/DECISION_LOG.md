@@ -35,6 +35,17 @@ Source используется не как полное хранилище вс
   - `security-reviewer-01`;
   - `docs-maintainer-01`.
 
+## 2026-06-13 - Vendor-neutral code review workflow
+
+Решение:
+Ввести review-only workflow для code reviewers. Reviewer roles не используют vendor/tool names, не исправляют код по умолчанию и создают report PR в `work/<role>/*`.
+
+Причина:
+Внешние engines могут предлагать review prompts с vendor-specific branches и прямой работой от `main`. Это нарушает branch policy и role model.
+
+Последствия:
+Code review отделяется от implementation. Findings превращаются в отдельные PR только после решения пользователя.
+
 ## 2026-06-06 - Bootstrap merged to main
 
 Решение:

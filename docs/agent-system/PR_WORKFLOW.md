@@ -26,3 +26,26 @@
 - Для рабочих веток base branch должен быть `developer`.
 - Для переноса стабильного состояния base branch должен быть `main`, compare branch `developer`.
 - Перед merge всегда проверять base/compare, чтобы не повторить ошибку merge рабочей ветки напрямую в `main`.
+
+## Review-only PR
+
+Для code review / external review / consulting review используется ветка:
+
+```text
+developer -> work/code-reviewer-01/<task-id> -> PR в developer
+```
+
+Review-only PR может содержать только report files и journal/state updates, если они разрешены задачей.
+
+Запрещено в review-only PR:
+
+- исправлять production code;
+- делать refactor;
+- менять runtime, Docker, CI, scripts или dependencies;
+- использовать vendor/tool names в branch names или report filenames.
+
+Если findings требуют исправлений, создается отдельный implementation PR, например:
+
+```text
+work/dev-implementer-01/<task-id>
+```

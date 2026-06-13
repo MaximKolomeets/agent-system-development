@@ -98,6 +98,23 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 
 Этот prompt используется для старта project chat. Engine-задачи остаются отдельным workflow и оформляются self-contained блоками по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
+## Code review prompts
+
+Если user prompt просит провести review проекта, code review, external review или consulting review, `engine` должен определить, это review-only task или implementation task.
+
+Если пользователь явно не просит исправлять код, `engine` выбирает review-only by default.
+
+Для review-only task `engine` должен использовать:
+
+```text
+docs/agent-system/CODE_REVIEW_WORKFLOW.md
+docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
+```
+
+`engine` не меняет code by default. Review-only task создает только review report и PR, а findings превращаются в отдельные implementation PR только после решения пользователя.
+
+Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
+
 Для запуска adoption из нового target project chat используйте:
 
 ```text

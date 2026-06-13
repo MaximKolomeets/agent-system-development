@@ -69,6 +69,18 @@
 - [ ] Изменение не меняет architecture level без approval.
 - [ ] Требуется ли explicit user approval проверено.
 
+## External/code review adoption
+
+- [ ] Selected reviewer role defined: `code-reviewer-01`, `qa-reviewer-01` или `security-reviewer-01`.
+- [ ] Engine name separated from role name.
+- [ ] Branch namespace is `work/<role>/*`.
+- [ ] Report path is target-local.
+- [ ] Review-only scope confirmed.
+- [ ] Fixes split into separate implementation PRs.
+- [ ] No vendor-specific branches/reports.
+- [ ] Sensitive grep result is filename-only.
+- [ ] Report uses Critical, Important, Optional findings categories.
+
 ## Language consistency
 
 - [ ] Governance docs use one primary human language.
