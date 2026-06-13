@@ -52,6 +52,25 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 - working branch;
 - роль агента;
 - режим запуска;
+- Recommended Engine Mode:
+  - launch mode / запуск;
+  - model / модель;
+  - reasoning;
+  - execution mode / режим;
+  - why this mode is required / почему;
+- Verified execution baseline:
+  - repository full name;
+  - local path, если применимо;
+  - base branch;
+  - working branch;
+  - checked branch state;
+  - latest relevant PR numbers/statuses, если применимо;
+  - release PR status, если применимо;
+  - sync PR status, если применимо;
+  - latest known merge commit SHA, если доступен;
+  - open PR state, если relevant;
+  - verification source: GitHub connector / local git / user-provided;
+  - verification date/time;
 - preflight-команды;
 - allowed files;
 - forbidden files;
@@ -66,6 +85,10 @@ docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
 - дополнительные ограничения безопасности.
 
 Все эти данные должны быть внутри Engine-блока, если без них `engine` не сможет корректно выполнить задачу.
+
+Если ChatGPT перед Engine-блоком пишет GitHub/local baseline, summary, current state, recommended mode, branch state, PR state, release/sync state или safety assumptions, и эти данные нужны `engine` для выполнения задачи, они должны быть продублированы внутри Engine-блока.
+
+Нельзя оставлять уникальный execution context только в обычном тексте перед Engine-блоком. В обычном тексте перед блоком допускаются пояснения для пользователя, но не обязательные execution data.
 
 ## Что запрещено выносить за пределы Engine-блока
 
@@ -107,10 +130,29 @@ Engine-блок должен быть одним fenced code block.
 - STOP-условия;
 - Journal finalization policy;
 - task source mode, если используется Task File Handoff Mode;
+- Recommended Engine Mode;
+- Verified execution baseline или явное `not applicable`;
 - commit/push/PR policy;
 - формат финального отчета.
 
 Нельзя использовать вложенные fenced code blocks внутри Engine-блока. Для внутренних команд используются маркеры `BEGIN POWERSHELL`, `END POWERSHELL`, `BEGIN BASH`, `END BASH`.
+
+## Pre-send checklist для Engine-блока
+
+Перед отправкой Engine-блока ChatGPT проверяет:
+
+- [ ] Можно ли выполнить задачу, скопировав только один fenced code block?
+- [ ] Есть ли внутри блока Recommended Engine Mode?
+- [ ] Есть ли внутри блока Verified execution baseline или явное `not applicable`?
+- [ ] Есть ли repository/base branch/working branch?
+- [ ] Есть ли allowed files?
+- [ ] Есть ли forbidden files?
+- [ ] Есть ли checks?
+- [ ] Есть ли STOP conditions?
+- [ ] Есть ли commit/push/PR policy, если задача создает изменения?
+- [ ] Есть ли final report requirements?
+- [ ] Нет ли обязательных execution data вне блока?
+- [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Engine journal
 
