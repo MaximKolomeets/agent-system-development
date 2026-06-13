@@ -28,7 +28,7 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 Текущая рабочая ветка:
 
 ```text
-work/docs-maintainer-01/pr-2x-post-merge-journal-closure
+work/docs-maintainer-01/pr-3a-methodology-bootstrap-hardening
 ```
 
 Ветки:
