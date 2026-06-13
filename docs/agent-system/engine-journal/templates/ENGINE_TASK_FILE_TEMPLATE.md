@@ -18,6 +18,14 @@ Methodology repository:
 
 Engine:
 
+Recommended Engine Mode:
+
+- launch mode / запуск:
+- model / модель:
+- reasoning:
+- execution mode / режим:
+- why this mode is required / почему:
+
 Режим источника задачи: `<copy-paste | task-file-handoff>`
 
 Task source commit SHA:
@@ -31,6 +39,35 @@ Task file blob SHA:
 Base branch:
 
 Working branch:
+
+Verified Baseline:
+
+- checked repository:
+- local path, если применимо:
+- checked base branch:
+- working branch:
+- checked branch state:
+- latest relevant PR numbers/statuses, если применимо:
+- latest relevant merged PR, если применимо:
+- release PR status, если применимо:
+- sync PR status, если применимо:
+- latest known merge commit SHA, если доступен:
+- open PR state, если relevant:
+- baseline verification source:
+- baseline verification date/time:
+
+Copy/Paste Completeness Check:
+
+- [ ] This TASK/Engine block can be executed without reading surrounding chat text.
+- [ ] Recommended Engine Mode is included.
+- [ ] Verified baseline is included or explicitly marked as not applicable.
+- [ ] Repository/base branch/working branch are included.
+- [ ] Allowed files are included.
+- [ ] Forbidden files are included.
+- [ ] Checks are included.
+- [ ] STOP conditions are included.
+- [ ] Final report requirements are included.
+- [ ] No required execution context exists only in surrounding chat.
 
 Правило языка:
 
