@@ -1,5 +1,61 @@
 # ROLE_MODEL
 
+## Vendor-neutral boundaries
+
+Роли описывают ответственность, а не конкретный vendor/tool. Название роли, branch namespace, task id, report filename и journal entry не должны содержать vendor/tool names.
+
+`engine` - это конкретный инструмент или исполнитель, который выполняет задачу. Engine name указывается в task header отдельно и не становится role name.
+
+Документы adapter layer могут называться по конкретному интерфейсу, например `CHATGPT_*`, но такие файлы описывают применение роли через отдельный tool/interface и не меняют canonical role model.
+
+## Orchestrator
+
+- помогает пользователю выбрать режим работы: Operational Fast Lane, Engine-блок, Task File Handoff или review-only;
+- проверяет GitHub/local baseline, если connector или локальная среда доступны;
+- формирует self-contained задачу для `engine`;
+- не выполняет repository file changes напрямую, если задача требует engine workflow, journal и PR;
+- не подменяет решение пользователя о merge, scope expansion или превращении findings в implementation task.
+
+В solo-operator режиме orchestrator может быть тем же человеком или тем же chat interface, который ведет задачу, но обязан явно фиксировать safety gates.
+
+## Engine
+
+- выполняет конкретную задачу в repository в разрешенном scope;
+- работает в указанной branch model и не меняет `main`/`developer` напрямую;
+- создает или обновляет TASK/RESULT/INDEX, если задача меняет repository files или создает PR;
+- пишет final report на русском языке;
+- не расширяет scope и не придумывает недостающие PR/merge facts.
+
+Engine может быть любым tool/human executor. Замена engine не меняет роль агента.
+
+## Reviewer
+
+- проверяет PR, branch, commit, diff или набор файлов;
+- работает review-only по умолчанию;
+- пишет findings, risks, missing tests и proposed next PRs;
+- не исправляет production files, runtime, Docker, CI, dependencies или architecture docs без отдельного `fix-allowed` scope;
+- не назначает сам себе implementation task.
+
+External reviewer не заменяет orchestrator и не принимает решение пользователя о merge/scope.
+
+## Режимы применения ролей
+
+### Lightweight solo-operator mode
+
+- один оператор может последовательно выполнять функции orchestrator, engine и reviewer;
+- роли используются как checklist ответственности, а не как требование запускать разных исполнителей;
+- для простых read-only/status/cleanup действий применяется Operational Fast Lane;
+- для file-changing tasks сохраняются рабочая ветка, PR, journal finalization и локальный sync block;
+- допускается компактный review, если риск низкий и scope docs-only, но reviewer boundary остается явно проверенным.
+
+### Multi-agent governed mode
+
+- роли выполняют разные агенты, люди или tools;
+- одна задача = одна ветка = один PR;
+- review findings превращаются в implementation work только через отдельное решение пользователя;
+- reports, TASK/RESULT/INDEX и PR body должны быть воспроизводимыми и Russian-first;
+- branch namespace остается `work/<role>/<task>`.
+
 ## dev-implementer-01
 
 - исполнитель задач разработки;

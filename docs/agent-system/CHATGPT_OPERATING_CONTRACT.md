@@ -1,5 +1,7 @@
 # CHATGPT_OPERATING_CONTRACT
 
+> Adapter layer: этот документ описывает применение роли `orchestrator` через ChatGPT-интерфейс. Canonical role boundaries находятся в `ROLE_MODEL.md`, `WORKFLOW.md` и `ENGINE_ENTRYPOINT.md`. Название файла не разрешает использовать `ChatGPT` как role name, branch namespace, task id или report filename.
+
 ## Назначение
 
 Этот короткий contract используется как стартовая инструкция для ChatGPT в новых проектных чатах, где нужно применять актуальную методологию `agent-system-development`.

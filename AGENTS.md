@@ -25,6 +25,9 @@
 - Рабочие ветки создаются от актуальной `developer` в формате `work/<role>/<task>`.
 - После bootstrap `developer` принимает изменения только через PR из `work/<role>/*`, кроме отдельного решения пользователя.
 - Каждый агент использует свой GitHub TOKEN.
+- В solo/operator lightweight mode агент может быть logical role внутри пользовательского окружения; отдельный token per role является recommended hardening, но не blocker для docs-only локальной задачи, если пользователь явно разрешил выполнение и все изменения идут через PR.
+- В multi-agent governed mode отдельные tokens/accounts для агентов обязательны.
+- Если token separation не настроена, final report должен честно указать это как operational risk.
 - Research/Review агенты не ставят задачи development executor напрямую.
 - Review-агент проверяет PR, branch, commit, diff или набор файлов; он не чинит код, не меняет production-файлы и не выполняет задачи разработки без отдельной явно выданной задачи.
 - Review-агент может предложить кандидаты на будущие задачи, но не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
