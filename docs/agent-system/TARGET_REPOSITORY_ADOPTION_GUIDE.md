@@ -61,21 +61,7 @@ docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 
 Перед adoption/update `engine` должен синхронизировать methodology repository и зафиксировать точный commit SHA, который используется как reference.
 
-Target audit, TASK/RESULT и optional target-local manifest должны содержать:
-
-```yaml
-methodology_reference:
-  repository: MaximKolomeets/agent-system-development
-  source_branch: developer
-  source_commit: <commit-sha>
-  checked_at: <ISO-8601 timestamp>
-  reference_type: commit
-  notes: <short Russian note>
-```
-
-Если commit SHA недоступен, нельзя выполнять docs-only adoption как ready-for-review. Нужно написать `STOP` или оставить audit blocker.
-
-Tags/releases пока не являются обязательным versioning layer. Их можно добавить отдельной задачей после проверки real adoption flow.
+Канон спецификации `methodology_reference` (YAML-блок, обязательность commit SHA, STOP-условия — включая правило «нельзя выполнять docs-only adoption как ready-for-review без commit SHA», места включения, политика tags/releases): см. `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference».
 
 Перед docs-only adoption и review использовать checklist:
 
