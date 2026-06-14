@@ -46,6 +46,7 @@ Reasoning: <Low | Medium | High>
 2. Проверь, что используется текущая версия methodology repository.
 3. Если GitHub, connector или локальная синхронизация недоступны, явно напиши это пользователю.
 4. Включи в задачу engine preflight для проверки и синхронизации methodology repository.
+5. Требуй, чтобы engine зафиксировал `methodology_reference` с repository, source branch, source commit SHA, checked_at и reference_type.
 
 Формат ответа ChatGPT:
 
@@ -76,7 +77,20 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
 3. Прочитает локальные инструкции target repository.
 4. Проверит branch model.
 5. Проверит наличие или отсутствие `docs/agent-system/`.
-6. Проверит наличие root governance docs:
+6. Зафиксирует methodology reference:
+
+```yaml
+methodology_reference:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: <developer или явно заданная branch>
+  source_commit: <commit-sha>
+  checked_at: <ISO-8601 timestamp>
+  reference_type: commit
+  notes: <short Russian note>
+```
+
+`source_commit` обязателен. Если commit SHA получить нельзя, engine пишет `STOP` или фиксирует audit blocker.
+7. Проверит наличие root governance docs:
    - `README.md`
    - `AGENTS.md`
    - `PROJECT_CONSTITUTION.md`
@@ -84,14 +98,14 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
    - `ROADMAP.md`
    - `RUNBOOK.md`
    - `DECISIONS.md`
-7. Проверит готовность к governance pack:
+8. Проверит готовность к governance pack:
    - `CURRENT_STATE.md`
    - `NEXT_STEPS.md`
    - `BACKLOG.md`
    - `DECISION_LOG.md`
    - `PROJECT_GUARDRAILS.md`
    - `ENGINE_REGISTRY.md`
-8. Проверит готовность к Project Constitution Framework:
+9. Проверит готовность к Project Constitution Framework:
    - Project Mission
    - Success Criteria
    - Out Of Scope
@@ -101,11 +115,11 @@ Private data, secrets, `.env`, client data, private repository URL и internal c
    - Decision Authority Levels
    - Scope Expansion Control
    - Governance Review Checklist
-9. Проверит language consistency governance docs target repository.
-10. Проверит Russian-first policy в target `AGENTS.md` или эквивалентных target instructions.
-11. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
-12. После audit порекомендует привести target docs/templates к Russian-first policy.
-13. Создаст только audit artifacts:
+10. Проверит language consistency governance docs target repository.
+11. Проверит Russian-first policy в target `AGENTS.md` или эквивалентных target instructions.
+12. Проверит, есть ли в target repository скрипты, workflow или templates без достаточных русских комментариев для нужных строк/блоков.
+13. После audit порекомендует привести target docs/templates к Russian-first policy.
+14. Создаст только audit artifacts:
 
 docs/agent-system/ADOPTION_AUDIT.md
 docs/agent-system/engine-journal/
@@ -181,6 +195,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - выбранная base branch;
 - working branch;
 - local instructions found;
+- methodology reference;
 - existing governance docs;
 - missing governance docs;
 - existing agent-system docs;
@@ -193,6 +208,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - language consistency result;
 - commenting consistency result;
 - Russian-first policy result;
+- methodology reference result;
 - engine journal task/result files;
 - проверка Post-merge Journal Closure;
 - recommended docs-only adoption scope;

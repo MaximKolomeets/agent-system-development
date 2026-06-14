@@ -1,5 +1,7 @@
 # CHATGPT_RESPONSE_STANDARD
 
+> Adapter layer: этот стандарт описывает ChatGPT как один implementation-specific интерфейс роли `orchestrator`. Canonical vendor-neutral правила находятся в `ROLE_MODEL.md`, `WORKFLOW.md`, `ENGINE_ENTRYPOINT.md` и `LANGUAGE_POLICY.md`. Не использовать `ChatGPT` как role name, branch namespace, task id или report filename.
+
 ## Назначение
 
 Этот стандарт описывает, как ChatGPT должен формировать ответы, если из ответа рождается задача для `engine`.

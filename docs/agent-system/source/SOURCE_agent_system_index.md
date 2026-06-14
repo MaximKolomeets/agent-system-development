@@ -1,5 +1,14 @@
 # SOURCE_agent_system_index
 
+```yaml
+source_snapshot:
+  source_of_truth: GitHub
+  source_repository: MaximKolomeets/agent-system-development
+  source_commit: cb950132ee779b3632d0df396ab65115ba46864d
+  generated_at: 2026-06-14T00:00:00+07:00
+  staleness_policy: use GitHub files if this snapshot differs from repository state
+```
+
 Дата фиксации: 2026-06-11
 Проект: Создание агентской системы
 Основной источник правды: GitHub

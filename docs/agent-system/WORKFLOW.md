@@ -9,6 +9,44 @@
 7. Пользователь принимает решение о merge.
 8. После merge обновляются `CURRENT_STATE` и `DECISION_LOG`, если нужно.
 
+## Режимы применения
+
+### Lightweight solo-operator mode
+
+Этот режим используется, когда один оператор ведет задачу end-to-end. Он не требует искусственно запускать несколько агентов для маленькой docs-only или status-задачи.
+
+Минимальные правила остаются обязательными:
+
+- direct changes в `main`/`developer` запрещены без отдельного решения пользователя;
+- file-changing task идет через `work/<role>/<task>` и PR;
+- TASK/RESULT/INDEX создаются и финализируются, если задача меняет repository files или создает PR;
+- Operational Fast Lane допускается только для read-only/status/cleanup без file edits;
+- final report содержит проверки, риски и локальный sync block после PR/merge.
+
+### Multi-agent governed mode
+
+Этот режим используется для задач с высоким риском, несколькими исполнителями, review gate, runtime scope или target adoption.
+
+Дополнительно требуется:
+
+- явное разделение orchestrator, engine и reviewer responsibilities;
+- review-only boundary для reviewer roles;
+- отдельные implementation tasks для исправления findings;
+- полный self-contained Engine-блок или Task File Handoff Mode;
+- воспроизводимые journal artifacts и PR metadata.
+
+## Anti-overengineering checkpoint
+
+Перед добавлением нового документа, роли, workflow, template или gate нужно ответить:
+
+- решает ли изменение повторяющуюся проблему, уже встреченную в работе;
+- можно ли обойтись правкой существующего документа или checklist;
+- не превращает ли изменение простой solo-operator workflow в обязательную multi-agent церемонию;
+- есть ли явный trigger, когда правило обязательно, и когда оно не применяется;
+- не добавляет ли изменение runtime/CI/Docker scope в docs-only задачу.
+
+Если ответ неясен, изменение фиксируется как proposed follow-up, а не как обязательное правило.
+
 ## После bootstrap
 
 - Прямые изменения в `developer` запрещены без отдельного разрешения пользователя.

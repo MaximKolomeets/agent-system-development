@@ -24,6 +24,10 @@ Reasoning: <Low | Medium | High>
 
 - Repository:
 - Local path, если применимо:
+- Methodology repository:
+- Methodology source branch:
+- Methodology source commit:
+- Methodology checked at:
 - Base branch:
 - Working branch:
 - Checked branch state:
@@ -74,6 +78,20 @@ Reasoning: <Low | Medium | High>
 ## Goal
 
 Добавить адаптированную документационную систему `docs/agent-system/` и, если входит в scope, target project governance pack в target repository без runtime changes.
+
+Зафиксировать methodology reference, использованную для docs-only adoption:
+
+```yaml
+methodology_reference:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: <developer или явно заданная branch>
+  source_commit: <commit-sha>
+  checked_at: <ISO-8601 timestamp>
+  reference_type: commit
+  notes: <short Russian note>
+```
+
+`source_commit` обязателен. Если commit SHA получить нельзя, docs-only adoption нельзя считать ready-for-review.
 
 Governance docs target repository должны быть приведены к единому языку. Для русскоязычного target repository по умолчанию используется русский язык.
 
@@ -222,6 +240,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если они входят в scope
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
+- проверить, что `methodology_reference` есть в audit/adoption artifacts и содержит source commit SHA
 
 ## Final report
 
@@ -239,6 +258,7 @@ Governance pack files разрешены только как docs-only artifacts
 - language consistency changes;
 - Russian-first policy result;
 - commenting changes;
+- methodology reference;
 - engine journal files;
 - проверка Post-merge Journal Closure;
 - files where comments are not applicable and why;

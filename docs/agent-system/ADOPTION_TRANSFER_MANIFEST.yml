@@ -1,5 +1,15 @@
 version: 1
 
+methodology_reference_required: true
+
+methodology_reference_schema:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: developer
+  source_commit: "<commit-sha>"
+  checked_at: "<ISO-8601 timestamp>"
+  reference_type: commit
+  notes: "<short Russian note>"
+
 purpose: >
   Машиночитаемый manifest для безопасного применения methodology repository
   к target repository. Manifest помогает отличать generic documents от файлов,
@@ -123,6 +133,11 @@ rules:
       из methodology repository verbatim.
   - id: local_instructions_first
     text: Local AGENTS.md и локальные инструкции target repository имеют приоритет.
+  - id: methodology_reference_required
+    text: >
+      Target adoption/update artifacts должны фиксировать methodology_reference
+      с repository, source branch, source commit SHA, checked_at и reference_type.
+      Commit SHA является обязательным reproducibility anchor.
   - id: methodology_repository_not_downstream_control_center
     text: >
       Не хранить в methodology repository рабочие ветки, отчеты, исходный код,
@@ -163,6 +178,12 @@ rules:
     text: Runtime adoption требует отдельного архитектурного решения.
   - id: source_mirror_not_changed_by_default
     text: Source mirror не меняется в audit-only и docs-only adoption без отдельного scope.
+  - id: source_snapshot_derived_only
+    text: >
+      Source snapshots являются derived context only. GitHub/repository files,
+      commits, branches and PRs remain source of truth. Snapshot должен иметь
+      source commit, generated timestamp и staleness policy; при drift использовать
+      canonical GitHub files.
   - id: engine_journal_scaffold_only
     text: >
       Engine journal scaffold/templates переносится в target repository.

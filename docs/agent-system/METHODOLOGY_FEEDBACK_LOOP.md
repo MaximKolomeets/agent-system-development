@@ -53,6 +53,19 @@ Feedback loop используется после:
 - приватные URL;
 - содержимое private downstream repository, если оно раскрывает приватный контекст.
 
+## Sanitization checkpoint
+
+Перед созданием methodology PR каждый feedback item нужно привести к нейтральному виду:
+
+- заменить конкретное имя repository на `target implementation repository`;
+- заменить private/local paths на обобщенные категории вроде `target docs path` или `runtime config path`;
+- удалить target branch names, PR numbers, commit SHA, timestamps и private issue ids, если они не нужны для универсального правила;
+- удалить имена клиентов, пользователей, команд, внутренних систем и code names;
+- не цитировать private logs, prompts, source snippets, configs или file contents;
+- описать problem pattern, reusable methodology change, affected docs/templates и acceptance criteria.
+
+Если после sanitization item теряет смысл или все еще раскрывает private context, его нельзя переносить в public methodology repository. Такой feedback остается в target repository или private notes.
+
 ## Как превращать feedback в задачи
 
 Feedback из target repository не должен автоматически менять methodology repository.

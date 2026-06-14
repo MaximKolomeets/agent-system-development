@@ -24,6 +24,10 @@ Reasoning: <Low | Medium | High>
 
 - Repository:
 - Local path, если применимо:
+- Methodology repository:
+- Methodology source branch:
+- Methodology source commit:
+- Methodology checked at:
 - Repository lifecycle mode:
 - Selected branch model:
 - Developer branch existence:
@@ -80,6 +84,20 @@ Reasoning: <Low | Medium | High>
 Использовать только engine journal scaffold/templates из methodology repository. Не копировать methodology operational history. Audit создает target-specific task/result files и target-specific index entry.
 
 Выполнить repository self-discovery, проверить language consistency и создать только `docs/agent-system/ADOPTION_AUDIT.md` plus engine journal artifacts для этой audit-задачи.
+
+Зафиксировать methodology reference, использованную для audit:
+
+```yaml
+methodology_reference:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: <developer или явно заданная branch>
+  source_commit: <commit-sha>
+  checked_at: <ISO-8601 timestamp>
+  reference_type: commit
+  notes: <short Russian note>
+```
+
+Если `source_commit` получить нельзя, написать `STOP` или зафиксировать blocker и не считать audit ready-for-review.
 
 Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
 
@@ -153,6 +171,8 @@ Reasoning: <Low | Medium | High>
 
 Если audit-задача передана через Task File Handoff Mode, TASK file является source of truth, а result file должен зафиксировать task source commit SHA или blob SHA.
 
+TASK и RESULT должны содержать `methodology_reference`.
+
 После создания PR обновить target-specific `RESULT` и `INDEX` фактическими PR/commit/status/checks значениями.
 
 После merge рабочего PR, release PR или sync PR выполнить Post-merge Journal Closure: обновить target-specific `RESULT` и `INDEX` статусом `merged`, merge commit SHA, release/sync PR данными при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
@@ -178,6 +198,7 @@ Methodology feedback не должен включать private downstream data,
 - sensitive grep filename-only
 - language consistency audit
 - commenting consistency audit
+- methodology reference present with source commit SHA
 - engine journal index/task/result consistency
 - task-file-handoff metadata consistency, если режим использовался
 - engine journal placeholder scan
@@ -200,6 +221,7 @@ Methodology feedback не должен включать private downstream data,
 - sensitive grep result без matching lines;
 - language consistency result;
 - commenting consistency result;
+- methodology reference;
 - RESULT finalized: yes/no;
 - INDEX finalized: yes/no;
 - No journal placeholders: yes/no;
