@@ -2,6 +2,9 @@ version: 1
 
 methodology_reference_required: true
 
+# Машиночитаемая копия спецификации methodology_reference.
+# Human canon: docs/agent-system/ENGINE_ENTRYPOINT.md, раздел «Methodology reference».
+# Этот блок остаётся как машинная схема для adoption/audit tooling и должен совпадать с каноном.
 methodology_reference_schema:
   repository: MaximKolomeets/agent-system-development
   source_branch: developer

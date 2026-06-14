@@ -16,3 +16,7 @@ source_snapshot:
 ```
 
 Если snapshot не содержит metadata block или расходится с repository files, использовать GitHub/repository files и зафиксировать drift в RESULT или review report.
+
+Snapshot не должен быть основанием для изменения repository state без проверки canonical files.
+
+Этот документ — канон политики `source_snapshot` для всего methodology repository. Остальные документы ссылаются на него.
