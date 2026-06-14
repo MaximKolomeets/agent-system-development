@@ -61,4 +61,55 @@ docs/agent-system/CODE_REVIEW_WORKFLOW.md
 ## Локальные действия после PR/merge
 ```
 
-Блок должен включать команды для текущего repository и затронутых веток. Запрещено рекомендовать `git reset --hard`, если пользователь явно не подтвердил, что локальные изменения и локальные commits не нужны.
+Для PR в `developer` минимальный блок:
+
+````text
+## Локальные действия после PR/merge
+
+Когда PR будет смержен в developer, выполнить локально:
+
+```powershell
+cd <repo-path>
+
+git status --short
+git fetch --all --prune
+
+git switch developer
+git pull --ff-only origin developer
+
+git rev-parse developer
+git rev-parse origin/developer
+git status --short
+```
+
+Ожидаемый результат:
+
+```text
+developer == origin/developer
+working tree clean
+```
+````
+
+Если затронут `main`, добавить:
+
+```powershell
+git switch main
+git pull --ff-only origin main
+
+git switch developer
+git pull --ff-only origin developer
+```
+
+Если локальная ветка устарела или расходится, вместо общих советов вывести диагностику:
+
+```powershell
+git status --short
+git branch --show-current
+git fetch --all --prune
+git rev-parse developer
+git rev-parse origin/developer
+git log --oneline --decorate --left-right developer...origin/developer
+git worktree list
+```
+
+Запрещено рекомендовать `git reset --hard`, если пользователь явно не подтвердил, что локальные изменения и локальные commits не нужны.

@@ -98,50 +98,7 @@ docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ## Локальные действия после PR/merge
 ```
 
-Минимальный блок для PR в `developer`:
-
-````text
-## Локальные действия после PR/merge
-
-Когда PR будет смержен в developer, выполнить локально:
-
-```powershell
-cd <repo-path>
-
-git status --short
-git fetch --all --prune
-
-git switch developer
-git pull --ff-only origin developer
-
-git rev-parse developer
-git rev-parse origin/developer
-git status --short
-```
-
-Ожидаемый результат:
-
-```text
-developer == origin/developer
-working tree clean
-```
-````
-
-Если затронут `main`, добавить sync для `main` и затем вернуться на `developer`.
-
-Если локальная ветка устарела или расходится, отчет должен содержать диагностику:
-
-```powershell
-git status --short
-git branch --show-current
-git fetch --all --prune
-git rev-parse developer
-git rev-parse origin/developer
-git log --oneline --decorate --left-right developer...origin/developer
-git worktree list
-```
-
-`git reset --hard` запрещено рекомендовать без явного подтверждения пользователя.
+Полный формат блока, команды для sync `developer`/`main`, диагностика рассинхрона и запрет `git reset --hard` описаны в каноническом разделе `docs/agent-system/WORKFLOW.md`.
 
 ### Merge-aware journal cleanup
 
@@ -268,7 +225,7 @@ Template repository является методологической основ
 
 Если `engine` работает с локальной копией `agent-system-development`, он должен проверить наличие `origin/developer`.
 
-Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin developer`.
+Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>`.
 
 После pull локальный `HEAD` должен строго совпадать с `origin/developer` или другим явно заданным `origin/<METHODOLOGY_BASE_BRANCH>`. Если локальный `HEAD` отличается от remote branch, `engine` должен написать `STOP`, потому что methodology repository не подтвержден как публично синхронизированный.
 

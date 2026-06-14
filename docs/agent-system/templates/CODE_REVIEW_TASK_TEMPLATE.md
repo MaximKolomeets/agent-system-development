@@ -133,8 +133,8 @@ git status --short
 Для standard developer workflow:
 
 ```powershell
-git checkout developer
-git pull --ff-only origin developer
+git checkout <base>
+git pull --ff-only origin <base>
 git checkout -b work/<reviewer-role>/<task-id>
 ```
 
@@ -276,11 +276,18 @@ Report filename не должен содержать vendor/tool name.
 ## 10. Итоговый вывод
 ```
 
-## Commit, push and PR policy
+## Шаги commit, push и PR — только при явном разрешении сохранить отчет
 
 Review-only task по умолчанию возвращает report в чат и не создает PR.
 
-Report PR создается только если `Report persistence` явно разрешает docs-only сохранение отчета и `PR creation allowed` = `yes`.
+Если `Report persistence` = `chat-only by default`, repository files не менять, `git add`, `git commit`, `git push` не выполнять и PR не создавать.
+
+Команды `git add`, `git commit`, `git push` и создание PR разрешены только если:
+
+- `Report persistence` = `docs-only repository save explicitly allowed`;
+- `PR creation allowed` = `yes`;
+- report path явно входит в allowed files;
+- задача явно разрешила docs-only фиксацию отчета.
 
 Запрещено:
 
@@ -293,7 +300,7 @@ Report PR создается только если `Report persistence` явно
 - reading `.env`;
 - printing sensitive grep matching lines.
 
-После report:
+Только при выполнении всех условий выше:
 
 ```powershell
 git status --short
@@ -314,34 +321,7 @@ Title: <review task title>
 
 ## Локальные действия после PR/merge
 
-Если report PR создан, final report должен содержать:
-
-````text
-## Локальные действия после PR/merge
-
-Когда PR будет смержен в developer, выполнить локально:
-
-```powershell
-cd <repo-path>
-
-git status --short
-git fetch --all --prune
-
-git switch developer
-git pull --ff-only origin developer
-
-git rev-parse developer
-git rev-parse origin/developer
-git status --short
-```
-
-Ожидаемый результат:
-
-```text
-developer == origin/developer
-working tree clean
-```
-````
+Если report PR создан или обнаружен рассинхрон с `origin/*`, final report должен включать блок `Локальные действия после PR/merge` по каноническому разделу `docs/agent-system/WORKFLOW.md`.
 
 ## Final report
 
