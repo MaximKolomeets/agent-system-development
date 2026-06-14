@@ -2,13 +2,14 @@
 
 ## Статус
 
-Материализация файлов выполняется. PR metadata будет финализирована после создания PR.
+Финализировано после создания PR. Готово к review.
 
 ## Branch
 
 - Base branch: `developer`
 - Base commit: `cb950132ee779b3632d0df396ab65115ba46864d`
 - Working branch: `work/docs-maintainer-01/meth-operability-01`
+- Materialization commit SHA: `c3a943527e79c9fac25f45064457498e6a10837d`
 
 ## Methodology reference
 
@@ -34,19 +35,27 @@ methodology_reference:
 
 ## Проверки
 
-Ожидают запуска перед созданием PR.
+- `git diff --check` - passed.
+- `git diff --cached --check` - passed before commit.
+- `git diff --cached --name-only` - docs/journal/templates/source files only.
+- Journal placeholder scan - no matches before commit.
+- `rg -n "ChatGPT|Claude|Gemini|Codex|Copilot" AGENTS.md README.md docs/agent-system` - reviewed; remaining hits are allowed adapter/tool references or legacy documented policy.
+- `rg -n "methodology_reference|source_snapshot|staleness_policy|solo-operator|governed mode|adapter layer|Sanitization checkpoint|Anti-overengineering" README.md docs/agent-system` - passed.
+- GitHub connector combined status for `c3a943527e79c9fac25f45064457498e6a10837d` вернул empty status list.
 
 ## PR
 
-- PR URL: ожидает создания PR
-- PR status: ожидает создания PR
-- Head commit SHA: ожидает создания PR
-- Checks: ожидают создания PR
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/95`
+- PR status: `open`
+- Head commit SHA at PR creation: `c3a943527e79c9fac25f45064457498e6a10837d`
+- Checks: empty status list from GitHub connector
+- PR created at: `2026-06-14T05:06:18Z`
+- Finalization commit SHA: не фиксируется внутри этого же commit по self-reference policy; actual/current PR head SHA фиксируется в PR body и final chat report после push.
 
 ## Blockers
 
-Ожидают финальной проверки.
+Нет текущих blockers.
 
 ## Next step
 
-Запустить проверки, сделать commit/push, создать PR, затем финализировать RESULT и INDEX фактической PR metadata.
+Review PR #95. После merge выполнить Post-merge Journal Closure, если пользователь попросит закрыть lifecycle.
