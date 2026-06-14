@@ -176,11 +176,13 @@ Findings из review-only tasks превращаются в implementation tasks
 
 Review report по умолчанию возвращается в чат. Сохранение review report в repository и создание PR допустимы только если task явно разрешает docs-only фиксацию отчета.
 
-Для запуска adoption из нового target project chat используйте:
+Для запуска adoption из нового target project chat используйте канон:
 
 ```text
-docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+docs/agent-system/templates/ADOPTION_PROMPT.md
 ```
+
+(Прежние файлы `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` и `SHORT_TARGET_ADOPTION_PROMPT.md` — redirect-заглушки на канон.)
 
 Пользователь может дать короткий prompt:
 
