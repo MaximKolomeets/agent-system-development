@@ -49,7 +49,8 @@ categories:
       - docs/agent-system/engine-journal/INDEX.md
       - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
       - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
-      - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+      - docs/agent-system/templates/ADOPTION_PROMPT.md
+      # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md и SHORT_TARGET_ADOPTION_PROMPT.md — redirect-заглушки на ADOPTION_PROMPT.md (PR-C3); сами заглушки переносить не нужно.
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md

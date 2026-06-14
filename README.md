@@ -107,9 +107,9 @@ Templates, journal и навигационный индекс:
 
 1. Откройте файл:
 
-`docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`
+`docs/agent-system/templates/ADOPTION_PROMPT.md`
 
-2. Скопируйте prompt из раздела `Copy/paste prompt`.
+2. Скопируйте prompt из раздела `Полный canonical copy/paste prompt`.
 3. Вставьте его в новый чат в контексте target repository.
 4. Замените placeholder `<ВСТАВИТЬ_URL_TARGET_REPOSITORY>` на URL target repository.
 5. Получите первую задачу для engine в режиме `audit-only`.
@@ -180,7 +180,7 @@ Target project governance pack описан в `docs/agent-system/TARGET_PROJECT
 
 Project Constitution Framework описан в `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 
-Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`.
+Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/ADOPTION_PROMPT.md` (раздел «Полный canonical copy/paste prompt»). Прежние файлы `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` и `SHORT_TARGET_ADOPTION_PROMPT.md` оставлены как redirect-заглушки.
 
 Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
@@ -204,7 +204,7 @@ Ready-for-review PR должен содержать финализированн
 
 Методологическая Russian-first policy находится в `docs/agent-system/LANGUAGE_POLICY.md`.
 
-Шаблон короткого prompt для adoption mode находится в `docs/agent-system/templates/SHORT_TARGET_ADOPTION_PROMPT.md`.
+Короткий и безопасный короткий варианты adoption prompt находятся в `docs/agent-system/templates/ADOPTION_PROMPT.md` (разделы «Короткий prompt» и «Безопасный короткий prompt»).
 
 Checklist готовности этапа находится в `docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md`.
 
