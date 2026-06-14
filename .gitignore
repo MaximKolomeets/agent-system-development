@@ -15,3 +15,6 @@ exports/
 *.log
 *.tmp
 *.bak
+
+# Узкий паттерн для verification-логов Operational Fast Lane (например branch_cleanup_verify_log.txt)
+*_verify_log.txt
