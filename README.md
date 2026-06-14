@@ -27,6 +27,72 @@ Source snapshot считается пригодным для работы тол
 
 После bootstrap прямые изменения в `developer` запрещены без отдельного решения пользователя. Новые задачи выполняются в рабочих ветках `work/<role>/*`, затем проходят review и merge в `developer`. Перенос в `main` выполняется только после проверки интеграционной ветки.
 
+## Обязательное чтение
+
+Канонический reading-list этого repository живёт здесь. `docs/agent-system/source/SOURCE_agent_system_index.md` ссылается на этот раздел и не дублирует список.
+
+Граница: **Core** — «нужно всегда» (обязательный контекст любого чата/задачи); **Reference** — «нужно по типу задачи» (подключается, когда задача затрагивает соответствующую область). Обоснование границы — `docs/agent-system/engine-journal/output/RESULT-0004-METH-CONSOLIDATION-PLAN-01-consolidation-plan.md` §5.
+
+### Core (читать всегда, 10 файлов)
+
+1. [`AGENTS.md`](AGENTS.md)
+2. [`README.md`](README.md) (этот файл)
+3. [`docs/agent-system/CURRENT_STATE.md`](docs/agent-system/CURRENT_STATE.md)
+4. [`docs/agent-system/NEXT_STEPS.md`](docs/agent-system/NEXT_STEPS.md)
+5. [`docs/agent-system/ROLE_MODEL.md`](docs/agent-system/ROLE_MODEL.md)
+6. [`docs/agent-system/WORKFLOW.md`](docs/agent-system/WORKFLOW.md)
+7. [`docs/agent-system/BRANCH_POLICY.md`](docs/agent-system/BRANCH_POLICY.md)
+8. [`docs/agent-system/CODE_REVIEW_WORKFLOW.md`](docs/agent-system/CODE_REVIEW_WORKFLOW.md)
+9. [`docs/agent-system/ENGINE_ENTRYPOINT.md`](docs/agent-system/ENGINE_ENTRYPOINT.md)
+10. [`docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`](docs/agent-system/ENGINE_JOURNAL_CONTRACT.md)
+
+### Reference (читать по типу задачи)
+
+Decisions / language / commenting:
+
+- `docs/agent-system/DECISION_LOG.md`
+- `docs/agent-system/LANGUAGE_POLICY.md`
+- `docs/agent-system/FILE_COMMENTING_STANDARD.md`
+
+Operational / branch / PR / worktree:
+
+- `docs/agent-system/OPERATIONAL_FAST_LANE.md`
+- `docs/agent-system/PR_WORKFLOW.md`
+- `docs/agent-system/WORKTREE_GUIDE.md`
+
+Engine / handoff / orchestrator interface:
+
+- `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`
+- `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`
+- `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`
+- `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`
+
+Adoption:
+
+- `docs/agent-system/ADOPTION_GUIDE.md`
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`
+- `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`
+- `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`
+- `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` (по плану PR-C4 будет слит в `ADOPTION_GUIDE.md`; до этого читать как Reference)
+- `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`
+- `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`
+- `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`
+
+Security / publication / release / CI / rulesets:
+
+- `docs/agent-system/SECURITY_POLICY.md`
+- `docs/agent-system/PUBLICATION_POLICY.md`
+- `docs/agent-system/GITHUB_RULESETS.md`
+- `docs/agent-system/GITHUB_TOKEN_POLICY.md`
+- `docs/agent-system/CI_POLICY.md`
+- `docs/agent-system/RELEASE_READINESS.md`
+
+Templates, journal и навигационный индекс:
+
+- `docs/agent-system/templates/**` (шаблоны задач, отчётов, governance pack, prompts)
+- `docs/agent-system/engine-journal/**` (`README.md`, `INDEX.md`, `templates/`, `input/`, `output/`)
+- `docs/agent-system/source/SOURCE_agent_system_index.md` (навигационный индекс; ссылается на этот reading-list)
+
 ## Роль репозитория
 
 `agent-system-development` - это переиспользуемый методологический и шаблонный репозиторий.
