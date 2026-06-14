@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: открыт следующий methodology hardening pass PR-3g для усиления post-merge journal closure enforcement после merge/release/sync.
+Текущий этап: выполняется methodology hardening task `METH-GUARDRAILS-01` для review-agent guardrails, branch-policy consistency и обязательного блока локальной синхронизации после PR/merge.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -144,3 +144,12 @@ PR-3e закрепил:
 - PR head SHA policy уточняется без self-referential commit loop.
 
 PR-3g усиливает reusable правила: task lifecycle после merge/release/sync считается закрытым только когда GitHub PR state и target journal RESULT/INDEX state согласованы.
+
+`METH-GUARDRAILS-01` должен закрепить:
+
+- review-агенты работают review-only по умолчанию и не становятся исполнителями разработки без отдельной задачи;
+- review findings не превращаются в самостоятельные задачи Codex/Engine без решения пользователя;
+- review branch/report naming остается role-based и vendor-neutral;
+- фактическая branch policy для review использует `work/<role>/<task>`, а не отдельный `review/*` namespace;
+- review-отчет по умолчанию возвращается в чат, а сохранение в repository требует явного docs-only разрешения;
+- final report после PR/merge должен содержать конкретный блок локальных действий для синхронизации repository пользователя.

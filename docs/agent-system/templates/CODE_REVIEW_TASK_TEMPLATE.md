@@ -11,7 +11,7 @@
 Модель: <model recommendation>
 Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: задача выполняет review-only audit/review и должна создать report PR без исправления кода.
+Почему: задача выполняет review-only audit/review без исправления кода; report PR создается только если явно разрешено docs-only сохранение отчета.
 
 ## Repository
 
@@ -68,7 +68,25 @@ Engine:
 Review mode:
 
 ```text
-review-only
+<review-only | docs-only | fix-allowed>
+```
+
+Review object:
+
+```text
+<PR | branch | commit | diff | files>
+```
+
+Report persistence:
+
+```text
+<chat-only by default | docs-only repository save explicitly allowed>
+```
+
+PR creation allowed:
+
+```text
+<yes | no>
 ```
 
 ## Russian-first policy
@@ -86,10 +104,12 @@ Reviewer должен:
 - изучить repository;
 - выполнить безопасные checks;
 - описать findings;
-- предложить next implementation PRs, если нужны fixes;
-- создать report PR в base branch.
+- предложить кандидаты на будущие implementation PRs, если нужны fixes;
+- вернуть review report в чат по умолчанию;
+- создавать report PR в base branch только если task явно разрешает docs-only сохранение отчета.
 
 Reviewer не должен исправлять production code в этой задаче.
+Reviewer не должен запускать Codex/Engine, менять очередь исполнителя или формулировать себе implementation task.
 
 ## Required preflight
 
@@ -133,6 +153,15 @@ git checkout -b work/<reviewer-role>/<task-id>
 ```
 
 Если файл не указан в allowed files, не менять его.
+
+Если `Report persistence` = `chat-only by default`, repository files не менять и PR не создавать.
+
+Если `Report persistence` = `docs-only repository save explicitly allowed`, разрешенные места для отчета:
+
+```text
+docs/agent-system/reviews/
+docs/agent-system/agents/<review-agent-name>/
+```
 
 ## Forbidden files and paths
 
@@ -218,54 +247,40 @@ Report filename не должен содержать vendor/tool name.
 ## Report structure
 
 ```text
-# <task-id> - code review report
+# <TASK-ID> - review report
 
-## Summary
+## 1. Объект проверки
 
-## Repository snapshot
+## 2. Что было проверено
 
-## Branch model
+## 3. Запущенные команды
 
-## Project description
+## 4. Команды, которые не запускались, и почему
 
-## Architecture overview
+## 5. Найденные проблемы
 
-## Entry points
+### Критично
 
-## Dependency and tooling overview
+### Желательно
 
-## Tests and quality gates
+### Опционально
 
-## Security and secret-handling observations
+## 6. Security / forbidden files risks
 
-## Findings
+## 7. Несоответствия документации и фактического состояния
 
-### Critical
+## 8. Рекомендации
 
-### Important
+## 9. Кандидаты на будущие задачи Codex/Engine
 
-### Optional
-
-## Recommendations
-
-## Proposed next PRs
-
-## Checks executed
-
-## Checks not executed and why
-
-## Forbidden paths result
-
-## Sensitive grep result
-
-## Scope boundaries
-
-## Reviewer notes
+## 10. Итоговый вывод
 ```
 
 ## Commit, push and PR policy
 
-Review-only task создает report PR.
+Review-only task по умолчанию возвращает report в чат и не создает PR.
+
+Report PR создается только если `Report persistence` явно разрешает docs-only сохранение отчета и `PR creation allowed` = `yes`.
 
 Запрещено:
 
@@ -274,6 +289,7 @@ Review-only task создает report PR.
 - vendor-specific branch names;
 - vendor-specific report filenames;
 - fixing code in review-only task;
+- launching Codex/Engine or assigning implementation work to self;
 - reading `.env`;
 - printing sensitive grep matching lines.
 
@@ -296,6 +312,37 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
+## Локальные действия после PR/merge
+
+Если report PR создан, final report должен содержать:
+
+````text
+## Локальные действия после PR/merge
+
+Когда PR будет смержен в developer, выполнить локально:
+
+```powershell
+cd <repo-path>
+
+git status --short
+git fetch --all --prune
+
+git switch developer
+git pull --ff-only origin developer
+
+git rev-parse developer
+git rev-parse origin/developer
+git status --short
+```
+
+Ожидаемый результат:
+
+```text
+developer == origin/developer
+working tree clean
+```
+````
+
 ## Final report
 
 Ответить на русском:
@@ -310,6 +357,7 @@ Title: <review task title>
 - sensitive grep filename-only result;
 - vendor-specific naming check result;
 - risks;
-- next step.
+- next step;
+- локальные действия после PR/merge, если PR создан или обнаружен рассинхрон с `origin/*`.
 ```
 ````

@@ -90,6 +90,59 @@ Task/result files не удаляются и не перезаписываютс
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+### Локальные действия после PR/merge
+
+Если задача создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, финальный отчет `engine` должен содержать конкретный блок:
+
+```text
+## Локальные действия после PR/merge
+```
+
+Минимальный блок для PR в `developer`:
+
+````text
+## Локальные действия после PR/merge
+
+Когда PR будет смержен в developer, выполнить локально:
+
+```powershell
+cd <repo-path>
+
+git status --short
+git fetch --all --prune
+
+git switch developer
+git pull --ff-only origin developer
+
+git rev-parse developer
+git rev-parse origin/developer
+git status --short
+```
+
+Ожидаемый результат:
+
+```text
+developer == origin/developer
+working tree clean
+```
+````
+
+Если затронут `main`, добавить sync для `main` и затем вернуться на `developer`.
+
+Если локальная ветка устарела или расходится, отчет должен содержать диагностику:
+
+```powershell
+git status --short
+git branch --show-current
+git fetch --all --prune
+git rev-parse developer
+git rev-parse origin/developer
+git log --oneline --decorate --left-right developer...origin/developer
+git worktree list
+```
+
+`git reset --hard` запрещено рекомендовать без явного подтверждения пользователя.
+
 ### Merge-aware journal cleanup
 
 Для merge-aware cleanup task `engine` должен сравнить target PR state и journal state до изменения файлов.
@@ -126,6 +179,8 @@ docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
 
 Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, разрешенными файлами, запрещенными файлами, проверками, STOP-условиями и требованиями к финальному отчету.
+
+Review report по умолчанию возвращается в чат. Сохранение review report в repository и создание PR допустимы только если task явно разрешает docs-only фиксацию отчета.
 
 Для запуска adoption из нового target project chat используйте:
 

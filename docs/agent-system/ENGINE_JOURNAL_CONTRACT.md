@@ -46,6 +46,13 @@ Real task/result files создаются в target repositories после adop
 repository и не копировать methodology operational history в target
 repositories.
 
+Исключение: если пользователь явно назначил methodology-hardening задачу для
+самого `agent-system-development` и включил engine journal в allowed files/scope,
+эта задача может создать собственные TASK/RESULT/INDEX entries в этом
+repository. Такие entries не являются transferable template state и не должны
+копироваться в target repositories. Ветка, PR, RESULT и INDEX все равно должны
+быть Russian-first, append-only и финализированы после PR creation.
+
 ## Вход и выход
 
 `input/` содержит входные задачи для `engine`.
@@ -192,6 +199,11 @@ Methodology repository operational history не переносится.
 - следующий рекомендуемый шаг.
 
 Если PR URL или final commit SHA стали известны только после materialization journal files, `engine` должен сделать follow-up commit в ту же рабочую ветку и push в тот же PR.
+
+Финальный отчет задачи, которая создала PR, была смержена, обновила remote
+`developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`,
+должен содержать конкретный блок `Локальные действия после PR/merge` по
+`docs/agent-system/WORKFLOW.md`.
 
 Ready-for-review PR не должен содержать unresolved journal placeholders:
 

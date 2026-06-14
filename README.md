@@ -135,6 +135,12 @@ Checklist готовности этапа находится в `docs/agent-syst
 
 Шаблон docs-only adoption task находится в `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`.
 
+Review-only workflow для code review / external review / consulting review находится в `docs/agent-system/CODE_REVIEW_WORKFLOW.md`.
+
+Шаблон review-задачи находится в `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`.
+
+Шаблон review-отчета находится в `docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md`.
+
 Шаблон governance pack находится в `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
 
 Шаблон project constitution находится в `docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md`.

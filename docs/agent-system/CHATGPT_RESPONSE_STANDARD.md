@@ -253,6 +253,67 @@ GitHub merge сам по себе не закрывает lifecycle задачи
 
 Если `RESULT` или `INDEX` остаются в pre-merge state после merge/release/sync, ChatGPT должен дать полный self-contained Engine-блок на docs-only journal closure cleanup.
 
+## Локальные действия после PR/merge
+
+Если задача создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, финальный ответ ChatGPT или final report `engine` должен содержать конкретный блок:
+
+```text
+## Локальные действия после PR/merge
+```
+
+Для PR в `developer` минимальный блок:
+
+````text
+## Локальные действия после PR/merge
+
+Когда PR будет смержен в developer, выполнить локально:
+
+```powershell
+cd <repo-path>
+
+git status --short
+git fetch --all --prune
+
+git switch developer
+git pull --ff-only origin developer
+
+git rev-parse developer
+git rev-parse origin/developer
+git status --short
+```
+
+Ожидаемый результат:
+
+```text
+developer == origin/developer
+working tree clean
+```
+````
+
+Если затронут `main`, добавить:
+
+```powershell
+git switch main
+git pull --ff-only origin main
+
+git switch developer
+git pull --ff-only origin developer
+```
+
+Если локальная ветка устарела или расходится, вместо общих советов вывести диагностику:
+
+```powershell
+git status --short
+git branch --show-current
+git fetch --all --prune
+git rev-parse developer
+git rev-parse origin/developer
+git log --oneline --decorate --left-right developer...origin/developer
+git worktree list
+```
+
+Запрещено рекомендовать `git reset --hard`, если пользователь явно не подтвердил, что локальные изменения и локальные commits не нужны.
+
 Closure Engine-блок должен включать:
 
 - target repository;

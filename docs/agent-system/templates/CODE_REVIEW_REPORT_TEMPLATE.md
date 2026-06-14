@@ -1,94 +1,70 @@
-# <task-id> - code review report
+# <TASK-ID> - review report
 
-## Summary
-
-Кратко описать scope review, общий вывод и главный риск.
-
-## Repository snapshot
+## 1. Объект проверки
 
 - Repository:
 - Local path:
 - Remote:
 - Base branch:
 - Head branch:
+- Object type: `<PR | branch | commit | diff | files>`
+- Object reference:
 - Commit SHA:
 - Working tree status:
 
-## Branch model
+## 2. Что было проверено
 
-Указать selected branch model и подтвердить, что reviewer branch создан от разрешенной base branch.
+Кратко перечислить документы, файлы, diff, команды, workflows, entry points или PR sections, которые реально проверялись.
 
-## Project description
+## 3. Запущенные команды
 
-Кратко описать назначение repository без private downstream data.
+Перечислить команды и краткий результат.
 
-## Architecture overview
+## 4. Команды, которые не запускались, и почему
 
-Кратко описать основные компоненты, границы и зависимости.
+Перечислить tests/linters/checks, которые не запускались, и причину.
 
-## Entry points
+## 5. Найденные проблемы
 
-Перечислить основные entry points, команды, workflows или документы, с которых начинается работа.
+### Критично
 
-## Dependency and tooling overview
+- Нет findings.
 
-Кратко описать package managers, runtimes, linters, tests и внешние инструменты, если они обнаружены без чтения forbidden files.
+### Желательно
 
-## Tests and quality gates
+- Нет findings.
 
-Описать доступные tests/linters/CI checks и что фактически было выполнено.
+### Опционально
 
-## Security and secret-handling observations
+- Нет findings.
+
+## 6. Security / forbidden files risks
 
 Описать observations по forbidden paths, `.env` policy, credentials/tokens/passwords и sensitive grep filename-only result.
 
-## Findings
+Matching lines и secret values не печатать.
 
-### Critical
+## 7. Несоответствия документации и фактического состояния
 
-- Нет findings.
+Описать расхождения между docs/templates/workflow и фактическим состоянием repository.
 
-### Important
-
-- Нет findings.
-
-### Optional
-
-- Нет findings.
-
-## Recommendations
+## 8. Рекомендации
 
 Перечислить рекомендации без внесения code fixes.
 
-## Proposed next PRs
+## 9. Кандидаты на будущие задачи Codex/Engine
 
-Для каждого proposed PR указать:
+Для каждого candidate указать:
 
 - role:
 - branch:
 - scope:
 - reason:
 
-## Checks executed
+Это только кандидаты. Reviewer не запускает Codex/Engine, не меняет очередь исполнителя и не ставит себе implementation task.
 
-Перечислить команды и краткий результат.
+## 10. Итоговый вывод
 
-## Checks not executed and why
+Кратко указать итог: `approve`, `changes required`, `hold` или другой явный вывод, соответствующий задаче.
 
-Перечислить tests/linters/checks, которые не запускались, и причину.
-
-## Forbidden paths result
-
-Указать filename-only результат проверки forbidden paths.
-
-## Sensitive grep result
-
-Указать только filenames или `no matches`. Matching lines не печатать.
-
-## Scope boundaries
-
-Подтвердить, что reviewer не менял production code, runtime, Docker, CI, scripts, dependencies и forbidden files.
-
-## Reviewer notes
-
-Дополнительные замечания reviewer.
+Подтвердить scope boundaries: reviewer не менял production code, runtime, Docker, CI, scripts, dependencies и forbidden files, если задача не разрешала это отдельно.
