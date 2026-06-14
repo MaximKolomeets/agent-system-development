@@ -38,11 +38,11 @@ Base branch: `developer` (base commit `f45fe5fb539e9e2de7c24b090c7f7902230d21d0`
 
 ## Статус
 
-Финализировано после commit. PR создаёт пользователь (`gh` недоступен в среде engine).
+Финализировано после commit; work PR #101 merged в `developer`. Journal закрыт после merge.
 
-Commit SHA: фиксируется в финальном отчёте и PR body после commit по self-reference policy; commit не может содержать собственный SHA внутри того же commit.
+Commit SHA: `e1cd082647ba11216d998a4eca1976bfb9a09144` (materialization commit задачи 0003).
 
-PR URL: PR создаёт пользователь; команда/URL переданы в финальном отчёте.
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/101`
 
 RESULT finalized: yes
 
@@ -129,23 +129,37 @@ methodology_reference:
 
 ## Закрытие после merge
 
-Work PR status: не применимо до merge (PR создаёт пользователь).
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/101`
 
-Work PR merge commit SHA: не применимо до merge.
+Work PR status: `merged`
 
-Work PR merged_at: не применимо до merge.
+Work PR merge commit SHA: `045ebe4e6f92de4322af31002e6b6be401f1240e`
 
-Release PR status: не применимо.
+Work PR merged_at: `2026-06-14T16:18:45+07:00` (committer date merge commit; `gh` недоступен для GitHub `mergedAt`).
 
-Sync PR status: не применимо.
+Release PR status: не применимо (перенос в `main` не выполнялся).
 
-RESULT closed after merge: not applicable before merge.
+Release PR merge commit SHA: не применимо.
 
-INDEX closed after merge: not applicable before merge.
+Release PR merged_at: не применимо.
 
-Stale pre-merge status check: not applicable before merge.
+Sync PR status: не применимо (sync `main -> developer` не выполнялся).
 
-Closure blockers: нет; post-merge closure выполняется после merge PR по `ENGINE_JOURNAL_CONTRACT.md`.
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Stale pre-merge status check: clean.
+
+Closure source: local git history (`git log` / `git show`); `gh` недоступен.
+
+Closure blockers: нет.
 
 ## Следующий рекомендуемый шаг
 
