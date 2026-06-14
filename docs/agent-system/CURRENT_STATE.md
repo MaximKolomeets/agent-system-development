@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: выполняется methodology hardening task `METH-GUARDRAILS-01` для review-agent guardrails, branch-policy consistency и обязательного блока локальной синхронизации после PR/merge.
+Текущий этап: выполняется methodology hardening task `METH-OPERABILITY-01` для operability guardrails, solo-operator vs governed mode, role boundary clarity, methodology reference/versioning и source snapshot drift control.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -145,7 +145,9 @@ PR-3e закрепил:
 
 PR-3g усиливает reusable правила: task lifecycle после merge/release/sync считается закрытым только когда GitHub PR state и target journal RESULT/INDEX state согласованы.
 
-`METH-GUARDRAILS-01` должен закрепить:
+`METH-GUARDRAILS-01` merged в `developer` через PR #92, перенесен в `main` через PR #93 и синхронизирован обратно в `developer` через PR #94.
+
+`METH-GUARDRAILS-01` закрепил:
 
 - review-агенты работают review-only по умолчанию и не становятся исполнителями разработки без отдельной задачи;
 - review findings не превращаются в самостоятельные задачи Codex/Engine без решения пользователя;
@@ -153,3 +155,13 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 - фактическая branch policy для review использует `work/<role>/<task>`, а не отдельный `review/*` namespace;
 - review-отчет по умолчанию возвращается в чат, а сохранение в repository требует явного docs-only разрешения;
 - final report после PR/merge должен содержать конкретный блок локальных действий для синхронизации repository пользователя.
+
+`METH-OPERABILITY-01` добавляет:
+
+- lightweight solo-operator mode и multi-agent governed mode;
+- явные boundaries для `orchestrator`, `engine` и `reviewer`;
+- policy, что `CHATGPT_*` документы являются adapter layer, а не role naming exception;
+- `methodology_reference` с commit SHA для target adoption/update;
+- drift-control для `docs/agent-system/source/**` snapshots;
+- ceremony/token budget policy и anti-overengineering checkpoint;
+- усиленную sanitization policy для Methodology feedback.

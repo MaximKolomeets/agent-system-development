@@ -10,6 +10,30 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
 
+## Role boundary
+
+`orchestrator` формирует задачу и помогает пользователю принять решение. `engine` выполняет конкретный repository scope. `reviewer` проверяет объект review и не исправляет найденные проблемы без отдельного `fix-allowed` задания.
+
+Vendor/tool name не является role name. Если задача упоминает конкретный tool, он указывается только как `engine`.
+
+В solo-operator режиме один человек или интерфейс может последовательно выполнять эти функции, но boundaries должны оставаться явными в TASK, RESULT и final report.
+
+## Methodology reference
+
+Если `engine` применяет methodology repository к target repository, task/result artifacts и adoption audit должны фиксировать используемую версию методологии:
+
+```yaml
+methodology_reference:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: developer
+  source_commit: <commit-sha>
+  checked_at: <ISO-8601 timestamp>
+  reference_type: commit
+  notes: <short Russian note>
+```
+
+Для reproducibility текущим обязательным reference является commit SHA. Tags/releases могут быть добавлены отдельным будущим решением.
+
 ## Политика Russian-first
 
 `engine` должен применять `docs/agent-system/LANGUAGE_POLICY.md`.

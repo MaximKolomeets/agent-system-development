@@ -57,6 +57,26 @@ docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 
 Файлы из category `template_state_do_not_copy_verbatim` нельзя копировать дословно. Файлы из category `requires_target_adaptation` нужно переписать под target repository.
 
+## Methodology reference
+
+Перед adoption/update `engine` должен синхронизировать methodology repository и зафиксировать точный commit SHA, который используется как reference.
+
+Target audit, TASK/RESULT и optional target-local manifest должны содержать:
+
+```yaml
+methodology_reference:
+  repository: MaximKolomeets/agent-system-development
+  source_branch: developer
+  source_commit: <commit-sha>
+  checked_at: <ISO-8601 timestamp>
+  reference_type: commit
+  notes: <short Russian note>
+```
+
+Если commit SHA недоступен, нельзя выполнять docs-only adoption как ready-for-review. Нужно написать `STOP` или оставить audit blocker.
+
+Tags/releases пока не являются обязательным versioning layer. Их можно добавить отдельной задачей после проверки real adoption flow.
+
 Перед docs-only adoption и review использовать checklist:
 
 ```text
@@ -108,6 +128,17 @@ Feedback может включать:
 - какие отдельные PR стоит создать в `agent-system-development`.
 
 Private data из target repository не переносится в public methodology repository. Нельзя публиковать реальные credentials, tokens, passwords, API keys, `.env`, клиентские данные, персональные данные, внутренние кодовые имена, private repository URL или приватные логи.
+
+Перед переносом feedback в methodology repository нужно выполнить sanitization:
+
+- заменить concrete repository names на `target implementation repository`;
+- заменить private paths на обобщенные path categories;
+- убрать branch names, PR numbers, SHA и timestamps target repository, если они не нужны для универсального правила;
+- убрать client/customer/person names и внутренние кодовые имена;
+- не цитировать private logs, prompts или file contents;
+- оставить только generalized problem, reusable rule, affected methodology docs/templates и proposed neutral acceptance criteria.
+
+Если feedback нельзя безопасно обобщить, он остается в target/private notes и не переносится в public methodology repository.
 
 Feedback не меняет methodology repository автоматически. Пользователь переносит только безопасную обобщенную часть в ChatGPT, после чего изменения оформляются отдельной задачей, отдельной веткой и отдельным PR в `agent-system-development`.
 

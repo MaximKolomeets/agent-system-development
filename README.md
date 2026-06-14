@@ -4,7 +4,9 @@
 
 Репозиторий GitHub `MaximKolomeets/agent-system-development` является основным источником правды для самой методологии: здесь хранятся файлы, история изменений, ветки, Pull Request, отчеты и текущее состояние methodology repository.
 
-`docs/agent-system/source/` используется только как индекс и краткий слепок состояния. Source не заменяет GitHub и не должен становиться полным хранилищем всех рабочих файлов.
+`docs/agent-system/source/` используется только как индекс и краткий слепок состояния. Source snapshots являются производным контекстом, а не source of truth. Каноничными остаются файлы GitHub, commits, PR и branch state.
+
+Source snapshot считается пригодным для работы только если в начале файла указаны source commit, generated timestamp и staleness policy. Если snapshot расходится с GitHub-файлами, использовать GitHub и отметить drift.
 
 Разработка ведется через ветки:
 
@@ -13,6 +15,15 @@
 - `work/<agent-role>/*` - рабочие ветки отдельных задач.
 
 Инструменты-исполнители могут меняться. Роли агентов описываются через назначение и ответственность, а не через конкретный vendor или tool. Конкретный инструмент указывается отдельно как `engine`.
+
+`orchestrator` помогает пользователю выбрать режим, сформулировать задачу, проверить GitHub/local state и принять follow-up. `engine` выполняет конкретную задачу в repository. `reviewer` проверяет объект review и не становится implementer без отдельного решения пользователя.
+
+Методология поддерживает два практических режима применения:
+
+- `lightweight solo-operator mode` - один человек использует роли как checklist и может совмещать orchestrator/reviewer decisions, но сохраняет branch, PR, journal и safety gates для file-changing tasks;
+- `multi-agent governed mode` - роли разделены между агентами/исполнителями, каждая задача имеет отдельную ветку, PR, report/journal и review boundary.
+
+Если задача простая и не меняет repository files, применять Operational Fast Lane. Если задача меняет файлы, создает PR или обновляет journal, использовать полный self-contained Engine-блок или Task File Handoff Mode.
 
 После bootstrap прямые изменения в `developer` запрещены без отдельного решения пользователя. Новые задачи выполняются в рабочих ветках `work/<role>/*`, затем проходят review и merge в `developer`. Перенос в `main` выполняется только после проверки интеграционной ветки.
 
@@ -108,6 +119,8 @@ Canonical copy/paste prompt для запуска adoption в target repository 
 Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
 Короткий operating contract для ChatGPT находится в `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`.
+
+Документы с prefix `CHATGPT_` являются adapter/implementation-specific layer для одного orchestrator-интерфейса. Они не меняют vendor-neutral role model и не являются основанием использовать vendor/tool names в названиях ролей, веток, task id или report files.
 
 Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
 
