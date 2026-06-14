@@ -32,6 +32,7 @@ methodology_reference:
 - Добавлен Source/snapshot drift-control.
 - Добавлен ceremony/token budget guidance и anti-overengineering checkpoint.
 - Усилена sanitization policy для Methodology feedback.
+- Уточнена token separation policy в `AGENTS.md`: recommended hardening для solo/operator docs-only задач и requirement для multi-agent governed mode.
 
 ## Проверки
 
@@ -55,6 +56,16 @@ methodology_reference:
 ## Blockers
 
 Нет текущих blockers.
+
+## Fixup before review
+
+Дата: `2026-06-14`
+
+Причина: финальная сверка с task source показала, что token separation policy должна быть уточнена рядом с существующим правилом `Каждый агент использует свой GitHub TOKEN` в `AGENTS.md`.
+
+Изменение: добавлен solo/operator vs multi-agent governed nuance и требование честно фиксировать отсутствие token separation как operational risk.
+
+Примечание по SHA: SHA fixup commit не записывается внутри этого же commit по self-reference policy; он фиксируется в PR body/final chat report после push.
 
 ## Next step
 
