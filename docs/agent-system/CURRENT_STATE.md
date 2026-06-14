@@ -8,7 +8,7 @@
 
 Repository visibility: public.
 
-Текущий этап: выполняется methodology hardening task `METH-OPERABILITY-01` для operability guardrails, solo-operator vs governed mode, role boundary clarity, methodology reference/versioning и source snapshot drift control.
+Текущий этап: methodology hardening task `METH-OPERABILITY-01` завершён и merged (work PR #95 в `developer`, release PR #96 в `main`, sync PR #97 обратно в `developer`, journal closure через PR #98). После merge проведён `REVIEW-INITIAL-01` (review-only, отчёт возвращён в чат), затем выполняется consistency-проход `METH-CONSISTENCY-01` по findings review.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -130,7 +130,7 @@ PR-3c merged в developer через PR #77. Vendor-neutral review-only workflow
 - review-only PR идет через `work/code-reviewer-01/<task-id>` в `developer`;
 - findings превращаются в отдельные implementation PR только после решения пользователя.
 
-Следующий шаг: использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository или выбрать следующий methodology hardening PR.
+После PR-3c следующим шагом было использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository или выбрать следующий methodology hardening PR.
 
 PR-3d merged в developer через PR #80. Post-merge state cleanup после PR-3c завершен.
 
@@ -156,7 +156,9 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 - review-отчет по умолчанию возвращается в чат, а сохранение в repository требует явного docs-only разрешения;
 - final report после PR/merge должен содержать конкретный блок локальных действий для синхронизации repository пользователя.
 
-`METH-OPERABILITY-01` добавляет:
+`METH-OPERABILITY-01` merged в `developer` через PR #95, перенесён в `main` через PR #96, синхронизирован обратно в `developer` через PR #97 и закрыт в journal через PR #98.
+
+`METH-OPERABILITY-01` закрепил:
 
 - lightweight solo-operator mode и multi-agent governed mode;
 - явные boundaries для `orchestrator`, `engine` и `reviewer`;
@@ -165,3 +167,9 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 - drift-control для `docs/agent-system/source/**` snapshots;
 - ceremony/token budget policy и anti-overengineering checkpoint;
 - усиленную sanitization policy для Methodology feedback.
+
+`REVIEW-INITIAL-01` выполнен как review-only проход по обновлённой методологии: вердикт Hold, blocker'ов нет, отчёт возвращён в чат. Findings — класса Желательно/Опционально (stale state/source docs, vendor name в заголовке review-шаблонов, рассинхрон token-документа).
+
+`METH-CONSISTENCY-01` снимает документационные рассинхроны из `REVIEW-INITIAL-01` без изменения методологии по сути.
+
+Следующий шаг: после merge `METH-CONSISTENCY-01` подготовить adoption/review для target implementation repository по `CODE_REVIEW_TASK_TEMPLATE.md` либо `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` (см. `NEXT_STEPS.md`).

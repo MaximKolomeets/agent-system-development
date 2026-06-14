@@ -52,7 +52,7 @@ Matching lines и secret values не печатать.
 
 Перечислить рекомендации без внесения code fixes.
 
-## 9. Кандидаты на будущие задачи Codex/Engine
+## 9. Кандидаты на будущие задачи Engine
 
 Для каждого candidate указать:
 
