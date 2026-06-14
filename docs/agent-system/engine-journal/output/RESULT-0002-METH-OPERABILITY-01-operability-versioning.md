@@ -18,7 +18,7 @@ methodology_reference:
   repository: MaximKolomeets/agent-system-development
   source_branch: developer
   source_commit: cb950132ee779b3632d0df396ab65115ba46864d
-  checked_at: 2026-06-14T00:00:00+07:00
+  checked_at: 2026-06-14T14:23:07.1492210+07:00
   reference_type: commit
   notes: "Стартовая точка после PR #94 sync developer."
 ```
