@@ -90,6 +90,16 @@ Task/result files не удаляются и не перезаписываютс
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+### Локальные действия после PR/merge
+
+Если задача создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, финальный отчет `engine` должен содержать конкретный блок:
+
+```text
+## Локальные действия после PR/merge
+```
+
+Полный формат блока, команды для sync `developer`/`main`, диагностика рассинхрона и запрет `git reset --hard` описаны в каноническом разделе `docs/agent-system/WORKFLOW.md`.
+
 ### Merge-aware journal cleanup
 
 Для merge-aware cleanup task `engine` должен сравнить target PR state и journal state до изменения файлов.
@@ -126,6 +136,8 @@ docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
 
 Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, разрешенными файлами, запрещенными файлами, проверками, STOP-условиями и требованиями к финальному отчету.
+
+Review report по умолчанию возвращается в чат. Сохранение review report в repository и создание PR допустимы только если task явно разрешает docs-only фиксацию отчета.
 
 Для запуска adoption из нового target project chat используйте:
 
@@ -213,7 +225,7 @@ Template repository является методологической основ
 
 Если `engine` работает с локальной копией `agent-system-development`, он должен проверить наличие `origin/developer`.
 
-Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin developer`.
+Если локальная ветка отстает и working tree чистый, `engine` должен выполнить `git pull --ff-only origin <METHODOLOGY_BASE_BRANCH>`.
 
 После pull локальный `HEAD` должен строго совпадать с `origin/developer` или другим явно заданным `origin/<METHODOLOGY_BASE_BRANCH>`. Если локальный `HEAD` отличается от remote branch, `engine` должен написать `STOP`, потому что methodology repository не подтвержден как публично синхронизированный.
 
