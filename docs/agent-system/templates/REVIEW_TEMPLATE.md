@@ -1,5 +1,13 @@
 # REVIEW_TEMPLATE
 
+Канонический шаблон review-отчета:
+
+```text
+docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md
+```
+
+Этот краткий template используется только для легкого PR review/comment review. Для full review task использовать `CODE_REVIEW_TASK_TEMPLATE.md` и `CODE_REVIEW_REPORT_TEMPLATE.md`.
+
 ## PR/branch
 
 Указать PR или ветку.

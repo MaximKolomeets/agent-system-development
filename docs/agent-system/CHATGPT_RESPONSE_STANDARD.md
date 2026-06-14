@@ -253,6 +253,16 @@ GitHub merge сам по себе не закрывает lifecycle задачи
 
 Если `RESULT` или `INDEX` остаются в pre-merge state после merge/release/sync, ChatGPT должен дать полный self-contained Engine-блок на docs-only journal closure cleanup.
 
+## Локальные действия после PR/merge
+
+Если задача создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, финальный ответ ChatGPT или final report `engine` должен содержать конкретный блок:
+
+```text
+## Локальные действия после PR/merge
+```
+
+Полный формат блока, команды для sync `developer`/`main`, диагностика рассинхрона и запрет `git reset --hard` описаны в каноническом разделе `docs/agent-system/WORKFLOW.md`.
+
 Closure Engine-блок должен включать:
 
 - target repository;

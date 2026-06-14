@@ -60,6 +60,29 @@ ChatGPT, Engine и reviewer должны проверять post-merge journal c
 Privacy:
 Target-specific examples, private repository names, branch names, PR numbers и SHA не фиксируются в methodology repository.
 
+## 2026-06-14 - Review guardrails and local sync block
+
+Решение:
+Review-агенты работают review-only по умолчанию, не исправляют production-файлы, не запускают Codex/Engine и не ставят себе implementation tasks без отдельного решения пользователя.
+
+Фактическая branch policy для review в standard developer workflow использует `work/<role>/<task>`. Отдельный namespace `review/*` не является каноническим для этого repository без будущего отдельного решения.
+
+Финальный отчет задачи, которая создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, должен содержать конкретный блок `Локальные действия после PR/merge`.
+
+Причина:
+Нужно устранить небезопасные review prompts с model/vendor-specific именами, стартом от `main`, неявным сохранением отчета в repository и превращением review-агента в исполнителя разработки.
+
+Последствия:
+
+- запрещены branch/report examples вроде `claude/*` и `docs/CLAUDE_REVIEW.md`;
+- review task обязан указывать режим `review-only` / `docs-only` / `fix-allowed`, объект проверки и allowed/forbidden files;
+- review report по умолчанию возвращается в чат;
+- docs-only сохранение review report выполняется только по явному разрешению пользователя;
+- после PR/merge пользователь получает команды для локальной синхронизации `developer`/`main`.
+
+Privacy:
+Правила сформулированы нейтрально и не раскрывают downstream/private data.
+
 ## 2026-06-13 - Fast Lane write boundary and Russian-first Engine blocks
 
 Решение:
