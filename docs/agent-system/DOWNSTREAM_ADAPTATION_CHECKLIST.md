@@ -1,5 +1,15 @@
 # DOWNSTREAM_ADAPTATION_CHECKLIST
 
+Этот файл — отдельный pre-merge gate (чеклист) для docs-only adoption и review. Он не дублирует правила прозой, а проверяет их пунктами. Канон самих правил:
+
+- режимы adoption, transfer manifest, branch-flow (`developer`/`develop`/`main-only flow`), minimal first PR, пошаговый existing-repo adoption — `docs/agent-system/ADOPTION_GUIDE.md`;
+- `methodology_reference` — `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference»;
+- source snapshot drift — `docs/agent-system/source/README.md`;
+- feedback и его sanitization — `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`;
+- governance pack и project constitution — `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`, `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
+
+Пункты ниже сохранены полностью как проверяемый список.
+
 ## Repository identity
 
 - [ ] Repository name заменен на имя target repository.
