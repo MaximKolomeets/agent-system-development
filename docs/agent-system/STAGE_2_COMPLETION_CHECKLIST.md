@@ -6,9 +6,9 @@
 
 ## Required artifacts
 
-- [x] `PROJECT_LIFECYCLE.md` exists.
+- [x] `PROJECT_LIFECYCLE.md` exists (PR-C4: redirect-заглушка; канон жизненного цикла — `NEW_PROJECT_ONBOARDING_GUIDE.md`).
 - [x] `NEW_PROJECT_ONBOARDING_GUIDE.md` exists.
-- [x] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists.
+- [x] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists (PR-C4: redirect-заглушка; канон existing-repo adoption — `ADOPTION_GUIDE.md`).
 - [x] `ADOPTION_GUIDE.md` exists.
 - [x] `ADOPTION_TRANSFER_MANIFEST.yml` exists.
 - [x] `DOWNSTREAM_ADAPTATION_CHECKLIST.md` exists.

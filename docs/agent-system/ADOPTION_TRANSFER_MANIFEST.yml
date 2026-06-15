@@ -43,7 +43,7 @@ categories:
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
-      - docs/agent-system/PROJECT_LIFECYCLE.md
+      # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1); файл — redirect-заглушка, переносить не нужно.
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/engine-journal/README.md
       - docs/agent-system/engine-journal/INDEX.md
@@ -69,7 +69,7 @@ categories:
     files:
       - AGENTS.md
       - README.md
-      - docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
+      # TARGET_REPOSITORY_ADOPTION_GUIDE.md слит в ADOPTION_GUIDE.md (PR-C4, Р3); файл — redirect-заглушка, переносить не нужно.
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/WORKFLOW.md
