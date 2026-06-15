@@ -9,6 +9,12 @@
 7. Пользователь принимает решение о merge.
 8. После merge обновляются `CURRENT_STATE` и `DECISION_LOG`, если нужно.
 
+## Шаблоны отчётов и решений
+
+- Универсальный отчёт роли (не-PR работ, исследований, status-апдейтов): `docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md` (Summary, Changed files, Checks, Risks, Open questions, Next step).
+- Запись решения для `docs/agent-system/DECISION_LOG.md`: `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions).
+- Review report: `docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md` (полный 10-секционный шаблон + раздел «Облегчённый PR/comment review»).
+
 ## Режимы применения
 
 ### Lightweight solo-operator mode
