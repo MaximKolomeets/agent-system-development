@@ -100,13 +100,13 @@ target-specific `INDEX.md` entry.
 
 ## Canonical adoption chat prompt
 
-Для нового target repository пользователь может скопировать полный prompt из:
+Для нового target repository пользователь может скопировать полный prompt из канона:
 
 ```text
-docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+docs/agent-system/templates/ADOPTION_PROMPT.md
 ```
 
-Этот prompt просит ChatGPT подготовить первую задачу для engine в режиме `audit-only`. Он не запускает full docs-only adoption и не переносит template repository state на первом шаге.
+(раздел «Полный canonical copy/paste prompt»). Этот prompt просит ChatGPT подготовить первую задачу для engine в режиме `audit-only`. Он не запускает full docs-only adoption и не переносит template repository state на первом шаге.
 
 ### 1. audit-only
 
@@ -331,3 +331,79 @@ Minimal first PR не должен:
 - копировать `CURRENT_STATE.md`, `NEXT_STEPS.md` или `DECISION_LOG.md` из methodology repository.
 
 Цель minimal first PR - получить безопасный audit, зафиксировать Methodology feedback и только после этого планировать docs-only adoption.
+
+## Пошаговый existing-repo adoption
+
+Этот раздел — канон пошагового переноса методологии в **уже существующий** target implementation repository (ранее жил в отдельном `TARGET_REPOSITORY_ADOPTION_GUIDE.md`).
+
+GitHub является source of truth: в target repository фиксируются файлы, история, ветки, Pull Request, отчёты, решения и состояние. Public methodology repository не должен содержать приватные данные target repository. Visibility target repository выбирается отдельно и не наследуется от methodology repository. Пользователь принимает финальные решения; `engine` запускается вручную.
+
+Старт adoption — через canonical prompt (`docs/agent-system/templates/ADOPTION_PROMPT.md`). Режимы (`audit-only` / `docs-only adoption` / `runtime adoption`), `methodology_reference`, transfer manifest, source snapshot drift, branch-flow канон (`developer` / `develop` / `main-only flow`), minimal first PR и PowerShell/UTF-8 — см. соответствующие разделы выше в этом документе. Feedback и его sanitization — канон в `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`.
+
+### 1. Подготовить target repository profile
+
+Шаблон: `docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md`. Поля: project name, visibility, goal, non-goals, repository name, roles, branch policy, forbidden data, first milestone, first PR, acceptance criteria. Profile нейтральный, без приватных данных.
+
+### 2. Проверить visibility и публикационные ограничения
+
+- Public target repository — всё содержимое публично.
+- Private target repository — секреты всё равно не попадают в Git.
+- Methodology repository и target repository имеют разные уровни доступа; приватные данные target repository не переносятся обратно. Visibility решает пользователь.
+
+### 3. Создать или подтвердить базовую структуру
+
+Шаблон: `docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md`. Нейтральная структура: `README.md`, `AGENTS.md`, `.gitignore`, `PROJECT_CONSTITUTION.md`, `docs/agent-system/` с `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, `BRANCH_POLICY.md`, `WORKFLOW.md`, `PR_WORKFLOW.md`, `ROLE_MODEL.md`, `PUBLICATION_POLICY.md`, `templates/`, `agents/`, `engine-journal/`. Bootstrap остаётся маленьким и проверяемым.
+
+### 3a. Подготовить target project governance pack
+
+До docs-only adoption создать или адаптировать governance pack по `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` и `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` (шаблоны `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`, `PROJECT_CONSTITUTION_TEMPLATE.md`): `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `RUNBOOK.md`, `DECISIONS.md` или `docs/agent-system/DECISION_LOG.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `BACKLOG.md`, `PROJECT_GUARDRAILS.md`, `ENGINE_REGISTRY.md`. Файлы пишутся по фактам target repository, не копируются verbatim. `PROJECT_CONSTITUTION.md` фиксирует mission, success criteria, out-of-scope, architectural principles, current strategic goal, decision authority и scope expansion control.
+
+### 4. Адаптировать документы
+
+Как основу можно переносить: `AGENTS.md`, README workflow-секции, branch policy, workflow, PR workflow, role model, publication policy, governance pack templates, templates. Адаптировать: project name, repository name, visibility, roles, first milestone, first PR, CI needs, branch model, worktree paths, forbidden data list, handoff text. Не переносить credentials, tokens, passwords, API keys, `.env`, клиентские/персональные данные, внутренние кодовые имена. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md` пишутся заново по фактам target repository.
+
+### 5. Создать ветки и worktree
+
+Схема: `main`, `developer`, `work/<role>/*`. Нейтральный пример путей: `C:\Neural\repos\<target-repository-name>` и `C:\Neural\worktrees\<target-repository-name>\<role-name>`. Каждая задача — в ветке `work/<role>/<task>` от актуальной `developer`. Если target repository использует `develop` или другую модель — адаптировать branch policy, PR workflow, task templates, CI branch filters; не переименовывать ветки без решения пользователя (см. раздел «Developer vs develop» выше).
+
+### 6. Подготовить первый bootstrap PR
+
+Первый PR маленький и проверяемый (например: `README.md`, `AGENTS.md`, `.gitignore`, минимальный `docs/agent-system`, templates; без рабочих данных). Bootstrap PR не смешивается с implementation PR. Minimal first PR после короткого adoption prompt создаёт только `docs/agent-system/ADOPTION_AUDIT.md` и `docs/agent-system/engine-journal/**` (см. «Minimal first PR» выше). Полный docs-only bootstrap — только после audit, engine journal result и Methodology feedback.
+
+### 7. Проверить forbidden files
+
+Запрещённые пути: `.env`, `.env.*` (кроме безопасного `.env.example`), `.venv/`, `data/`, `runtime/`, `dist/`, `backups/`, `exports/`, `*.log`, `*.tmp`, `*.bak`. Проверки:
+
+```bash
+git status --short
+git ls-files
+git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" --
+```
+
+Sensitive grep — только filename-only; matching lines не печатать в терминал, отчёт или логи. При подозрении на реальный секрет — не печатать его и остановиться для решения пользователя.
+
+### 8. Запустить engine
+
+ChatGPT формирует задачу; пользователь запускает engine вручную; `engine` работает только в рабочей ветке, не читает `.env`, не меняет `main`/`developer` напрямую, пишет отчёт и не расширяет scope без решения пользователя. Задача на русском, начинается с обязательной шапки (`Задача для <agent-name>: <task-id>` + блок рекомендованного режима; канон шапки — `docs/agent-system/templates/TASK_HEADER_COMMON.md`). `<task-id>` связан с GitHub issue, Pull Request, task id или внутренним номером работы.
+
+### 9. Проверить отчёт engine
+
+Отчёт содержит: engine result file, рабочую ветку, что создано/изменено, changed files, проверки, что не проверялось, риски, next step, commit SHA, PR link/number. Без result file, проверок, рисков или changed files — уточнить перед review/merge.
+
+### 10. Провести review и merge
+
+Поток `work/<role>/<task> -> developer -> main`. PR из рабочей ветки идёт в `developer`; стабильное состояние переносится в `main`. Если ruleset запрещает direct push, sync `developer` после release выполняется через PR.
+
+### 11. Подготовить handoff
+
+Шаблон: `docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md`. Handoff фиксирует repository, visibility, current branches, active PR, completed PRs, important docs, current goal, next PR, risks и exact prompt for continuation.
+
+### 12. Что нельзя делать
+
+- Не переносить приватные данные в public methodology repository.
+- Не переносить `.env`.
+- Не коммитить runtime/work data.
+- Не давать engine прямой push в `main`/`developer`.
+- Не смешивать bootstrap с implementation.
+- Не использовать vendor/tool names в названиях ролей.
+- Не считать public/private visibility одинаковыми для разных repositories.

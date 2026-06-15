@@ -73,7 +73,6 @@ Adoption:
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`
 - `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`
-- `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` (по плану PR-C4 будет слит в `ADOPTION_GUIDE.md`; до этого читать как Reference)
 - `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`
 - `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`
@@ -158,11 +157,11 @@ Reasoning: <Low | Medium | High>
 
 Проект содержит универсальную методологию запуска новых проектов через GitHub, роли, worktree, отчеты агентов и ручной запуск engine-исполнителей.
 
-Lifecycle описан в `docs/agent-system/PROJECT_LIFECYCLE.md`.
+Жизненный цикл нового проекта (стадии 1–11) описан в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` (вводная секция «Жизненный цикл (стадии 1–11)»; прежний `PROJECT_LIFECYCLE.md` — redirect-заглушка).
 
 Практический onboarding guide находится в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`.
 
-Guide для применения методологии к target repository находится в `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`.
+Guide для применения методологии к существующему target repository находится в `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»; прежний `TARGET_REPOSITORY_ADOPTION_GUIDE.md` — redirect-заглушка).
 
 Режимы применения methodology repository описаны в `docs/agent-system/ADOPTION_GUIDE.md`.
 
