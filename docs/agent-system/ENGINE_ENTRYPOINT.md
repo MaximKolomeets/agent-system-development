@@ -20,6 +20,8 @@ Vendor/tool name не является role name. Если задача упом
 
 ## Methodology reference
 
+Этот раздел — канон спецификации `methodology_reference` для всего methodology repository. Остальные документы ссылаются на него.
+
 Если `engine` применяет methodology repository к target repository, task/result artifacts и adoption audit должны фиксировать используемую версию методологии:
 
 ```yaml
@@ -32,7 +34,18 @@ methodology_reference:
   notes: <short Russian note>
 ```
 
-Для reproducibility текущим обязательным reference является commit SHA. Tags/releases могут быть добавлены отдельным будущим решением.
+`source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. Tags/releases могут стать отдельным будущим слоем versioning, но не заменяют commit SHA до отдельного решения.
+
+Места включения блока:
+
+- adoption audit (`docs/agent-system/ADOPTION_AUDIT.md` или эквивалент target-local пути);
+- TASK / RESULT journal artifacts;
+- target-local manifest или generated governance pack, если они есть.
+
+STOP-условия:
+
+- если commit SHA получить невозможно, `engine` пишет `STOP` или явно фиксирует blocker в audit-only результате;
+- docs-only adoption нельзя выполнять как ready-for-review без commit SHA — нужно написать `STOP` или оставить audit blocker.
 
 ## Политика Russian-first
 
@@ -163,11 +176,13 @@ Findings из review-only tasks превращаются в implementation tasks
 
 Review report по умолчанию возвращается в чат. Сохранение review report в repository и создание PR допустимы только если task явно разрешает docs-only фиксацию отчета.
 
-Для запуска adoption из нового target project chat используйте:
+Для запуска adoption из нового target project chat используйте канон:
 
 ```text
-docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+docs/agent-system/templates/ADOPTION_PROMPT.md
 ```
+
+(Прежние файлы `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` и `SHORT_TARGET_ADOPTION_PROMPT.md` — redirect-заглушки на канон.)
 
 Пользователь может дать короткий prompt:
 

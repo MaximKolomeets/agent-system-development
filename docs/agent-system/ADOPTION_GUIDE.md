@@ -65,21 +65,7 @@ target-specific `INDEX.md` entry.
 
 Каждая target adoption/update task должна фиксировать, какая версия methodology repository использована.
 
-Минимальный YAML-блок:
-
-```yaml
-methodology_reference:
-  repository: MaximKolomeets/agent-system-development
-  source_branch: developer
-  source_commit: <commit-sha>
-  checked_at: <ISO-8601 timestamp>
-  reference_type: commit
-  notes: <short Russian note>
-```
-
-`source_commit` является обязательным reproducibility anchor. Если commit SHA получить невозможно, `engine` пишет `STOP` или явно фиксирует blocker в audit-only результате. Tags/releases могут стать отдельным будущим слоем versioning, но не заменяют commit SHA до отдельного решения.
-
-Этот блок включается в adoption audit, TASK/RESULT journal artifacts и, если есть manifest или generated governance pack, в target-local metadata.
+Канон спецификации `methodology_reference` (YAML-блок, обязательность commit SHA, STOP-условия, места включения): см. `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference».
 
 ## Ceremony and token budget
 
@@ -245,20 +231,7 @@ Manifest должен содержать `methodology_reference_required: true` 
 
 ## Source and snapshot drift control
 
-GitHub files, commits, branches and PRs are source of truth. `docs/agent-system/source/**` files are derived context only.
-
-Любой source snapshot должен иметь header:
-
-```yaml
-source_snapshot:
-  source_of_truth: GitHub
-  source_repository: MaximKolomeets/agent-system-development
-  source_commit: <commit-sha>
-  generated_at: <ISO-8601 timestamp>
-  staleness_policy: use GitHub files if this snapshot differs from repository state
-```
-
-Если snapshot устарел или не содержит header, engine использует GitHub/repository files and records drift. Snapshot не должен быть основанием для изменения repository state без проверки canonical files.
+Канон политики `source_snapshot` (YAML-header, GitHub как source of truth, drift handling, запрет менять repository state по устаревшему snapshot): см. `docs/agent-system/source/README.md` → «Source Snapshot Policy».
 
 ## Downstream adaptation checklist
 

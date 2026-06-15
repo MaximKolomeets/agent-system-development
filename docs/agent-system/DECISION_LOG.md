@@ -1,5 +1,7 @@
 # DECISION_LOG
 
+Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
+
 ## 2026-06-06 - GitHub as source of truth
 
 Решение:
