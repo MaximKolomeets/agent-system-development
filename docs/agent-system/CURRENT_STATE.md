@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-14
+Дата: 2026-06-15
 
 Проект: Создание агентской системы
 
@@ -8,7 +8,18 @@
 
 Repository visibility: public.
 
-Текущий этап: methodology hardening task `METH-OPERABILITY-01` завершён и merged (work PR #95 в `developer`, release PR #96 в `main`, sync PR #97 обратно в `developer`, journal closure через PR #98). После merge проведён `REVIEW-INITIAL-01` (review-only, отчёт возвращён в чат), затем выполняется consistency-проход `METH-CONSISTENCY-01` по findings review.
+Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
+
+Итог консолидации (journal 0004–0011, все closure-записи закрыты):
+
+- **C1 (0006)** — reading-list разнесён на Core (10) + Reference; канон — раздел «Обязательное чтение» в `README.md`, `source/SOURCE_agent_system_index.md` ссылается без дубля.
+- **C2 (0007)** — `methodology_reference` сведён к одному канону (`ENGINE_ENTRYPOINT.md`), `source_snapshot` — к `source/README.md`; дубли заменены ссылками; в manifest пометка «human canon».
+- **C3 (0008)** — два adoption-prompt слиты в канон `templates/ADOPTION_PROMPT.md` (короткий + безопасный короткий + полный); прежние файлы — redirect-заглушки.
+- **C4 (0011)** — adoption-guides слиты: existing-repo шаги → `ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption», branch-flow канон там же); стадийная модель → `NEW_PROJECT_ONBOARDING_GUIDE.md` (секция «Жизненный цикл (стадии 1–11)»); `DOWNSTREAM_ADAPTATION_CHECKLIST.md` дедуплицирован и оставлен отдельным pre-merge gate; `TARGET_REPOSITORY_ADOPTION_GUIDE.md` и `PROJECT_LIFECYCLE.md` — redirect-заглушки.
+- **C5 (0009 C5A + 0010 C5B)** — templates cleanup: `REVIEW_TEMPLATE` слит в `CODE_REVIEW_REPORT_TEMPLATE.md`; общий task-header вынесен в канон `templates/TASK_HEADER_COMMON.md` (DEVELOPMENT/RESEARCH ссылаются, тела раздельные); new-project prompt'ы слиты в `templates/NEW_PROJECT_PROMPT.md`; `AGENT_REPORT_TEMPLATE`/`DECISION_TEMPLATE` wired ссылками.
+- **C6 (0005)** — review-задачи теперь всегда журналируют TASK+RESULT (`Journal trace: always`); `Report delivery: chat` относится только к телу отчёта.
+
+Накоплено 7 redirect-заглушек (C3×2, C5A×1, C5B×2, C4×2) — валидные 1-hop redirect; их чистка — опциональный backlog-пункт (см. `NEXT_STEPS.md`).
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
@@ -172,4 +183,4 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 
 `METH-CONSISTENCY-01` снимает документационные рассинхроны из `REVIEW-INITIAL-01` без изменения методологии по сути.
 
-Следующий шаг: после merge `METH-CONSISTENCY-01` подготовить adoption/review для target implementation repository по `CODE_REVIEW_TASK_TEMPLATE.md` либо `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` (см. `NEXT_STEPS.md`).
+Следующий шаг: методология финальная и облегчённая. Применять к реальному target implementation repository (adoption) по `docs/agent-system/templates/ADOPTION_PROMPT.md` либо подготовить review по `CODE_REVIEW_TASK_TEMPLATE.md` (см. `NEXT_STEPS.md`).
