@@ -171,13 +171,37 @@ RESULT Russian-first; English только для technical identifiers, paths, 
 
 ## Закрытие после merge
 
-Work PR status: PR создаёт пользователь (`gh` недоступен) — closure после merge отдельной задачей по `ENGINE_JOURNAL_CONTRACT.md`.
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/121`
 
-Release/sync: возможны, фактические данные фиксируются при closure.
+Work PR status: `merged`
 
-RESULT closed after merge: not applicable before merge.
+Work PR merge commit SHA: `cb53b436b18b96a4c9046ba3245e72bf1ffa9c65`
 
-INDEX closed after merge: not applicable before merge.
+Work PR merged_at: `2026-06-15T12:18:51+07:00` (committer date merge commit; `gh` недоступен для GitHub `mergedAt`).
+
+Release PR status: не применимо (перенос в `main` не выполнялся).
+
+Release PR merge commit SHA: не применимо.
+
+Release PR merged_at: не применимо.
+
+Sync PR status: не применимо (sync `main -> developer` не выполнялся).
+
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Stale pre-merge status check: clean.
+
+Closure source: local git history (`git log` / `git show`); `gh` недоступен.
+
+Closure blockers: нет.
 
 ## Следующий рекомендуемый шаг
 
