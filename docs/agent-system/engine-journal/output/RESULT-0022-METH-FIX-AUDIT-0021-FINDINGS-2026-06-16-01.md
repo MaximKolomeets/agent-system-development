@@ -97,3 +97,37 @@ INDEX finalized after PR creation: `yes`
 ## Methodology feedback
 
 Явное `<actual-next-seq>` в copy/paste templates снижает риск sequence collision при параллельной работе. Для downstream adoption это полезнее, чем заранее проставленный номер, потому что engine всегда сверяется с актуальным `INDEX.md`.
+
+## Закрытие после merge
+
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/154`
+
+Work PR status: `merged`
+
+Work PR merge commit SHA: `5b697d22949885deabcd89a85c5d47db2a600dc3`
+
+Work PR merged_at: `2026-06-16T16:41:57Z`
+
+Release PR status: не выполнялся после PR #154 на момент closure.
+
+Release PR merge commit SHA: не применимо на момент closure.
+
+Release PR merged_at: не применимо на момент closure.
+
+Sync PR status: не выполнялся после PR #154 на момент closure.
+
+Sync PR merge commit SHA: не применимо на момент closure.
+
+Sync PR merged_at: не применимо на момент closure.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Closure source: GitHub `gh pr view 154`.
+
+Closure blockers: нет.
+
+Future release/sync note: если после этой closure-задачи будет выполнен release `developer -> main` и sync `main -> developer`, release/sync facts для journal `0022` должны быть обновлены отдельным closure/update шагом.
