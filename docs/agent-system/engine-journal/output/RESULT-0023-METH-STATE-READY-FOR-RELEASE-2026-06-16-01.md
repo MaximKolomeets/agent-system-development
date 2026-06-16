@@ -80,14 +80,14 @@ Filename-only sensitive scan выполнен командой `git grep -I -l -
 
 ## Финализация PR
 
-PR URL: pending PR creation.
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/156`
 
-PR status at finalization: pending PR creation.
+PR status at finalization: `OPEN`
 
-PR draft status: pending PR creation.
+PR draft status: `false`
 
-PR head at creation: pending PR creation.
+PR head at creation: `0dcab372352eaae9a2f9346f0d8bc6c9ecc2d585`
 
-RESULT finalized after PR creation: pending.
+RESULT finalized after PR creation: `yes`
 
-INDEX finalized after PR creation: pending.
+INDEX finalized after PR creation: `yes`
