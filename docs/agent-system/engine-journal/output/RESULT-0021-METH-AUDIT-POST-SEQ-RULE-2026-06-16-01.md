@@ -90,3 +90,35 @@ PR head at creation: `45ef38de2a7ff13dfff972cb90f64a87a3fc5f08`
 RESULT finalized after PR creation: `yes`
 
 INDEX finalized after PR creation: `yes`
+
+## Закрытие после merge
+
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/152`
+
+Work PR status: `merged`
+
+Work PR merge commit SHA: `3748d79580d1f992bdfedfc4705bb808c463d609`
+
+Work PR merged_at: `2026-06-16T16:16:16Z`
+
+Release PR status: не применимо для этой closure-only journal-записи.
+
+Release PR merge commit SHA: не применимо.
+
+Release PR merged_at: не применимо.
+
+Sync PR status: не применимо для этой closure-only journal-записи.
+
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Closure source: GitHub `gh pr view 152`.
+
+Closure blockers: нет.
