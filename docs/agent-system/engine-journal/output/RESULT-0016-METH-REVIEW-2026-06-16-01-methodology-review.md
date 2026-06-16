@@ -104,7 +104,7 @@ TASK/RESULT/INDEX Russian-first. English сохранен только для te
 
 PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/136`
 
-PR status: `OPEN`, non-draft, base `developer`, head `work/code-reviewer-01/meth-review-2026-06-16-01`
+PR status after creation: `OPEN`, non-draft, base `developer`, head `work/code-reviewer-01/meth-review-2026-06-16-01`
 
 Journal materialization commit SHA: `c8e21a8c167d60de3d413bc25e77b22ed4660129`
 
@@ -127,3 +127,37 @@ No unresolved journal placeholders at finalization: yes
 ## Methodology feedback
 
 Review-only workflow полезно держать как два независимых параметра: `Journal trace: always` и `Report delivery: chat`. Это снижает риск, что reviewer либо пропустит journal PR, либо сохранит полный body review-отчета в repository вопреки scope.
+
+## Закрытие после merge
+
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/136`
+
+Work PR status: `merged`
+
+Work PR merge commit SHA: `f27165472c721ca3171c2cb49b5aea4cfa80aa27`
+
+Work PR merged_at: `2026-06-16T05:15:57Z` (GitHub `mergedAt` через `gh`).
+
+Release PR status: не применимо (release после PR #136 не выполнялся).
+
+Release PR merge commit SHA: не применимо.
+
+Release PR merged_at: не применимо.
+
+Sync PR status: не применимо (sync после PR #136 не выполнялся).
+
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Closure source: GitHub `gh pr view 136` и local git sync после merge PR #136.
+
+Closure blockers: нет.
+
+Next step after closure: выполнить `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01`, чтобы закрыть blockers из review.

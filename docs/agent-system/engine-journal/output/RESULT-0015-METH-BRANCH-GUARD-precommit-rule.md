@@ -113,17 +113,21 @@ Work PR merge commit SHA: `d4c527b0541a0b56254e8cf5d654f95ab3b01684`
 
 Work PR merged_at: `2026-06-16T00:49:13Z` (GitHub `mergedAt` через `gh`).
 
-Release PR status: не применимо (перенос в `main` не выполнялся).
+Release PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/134`
 
-Release PR merge commit SHA: не применимо.
+Release PR status: `merged`
 
-Release PR merged_at: не применимо.
+Release PR merge commit SHA: `220d23e23a329212e69f5ddd18f7bf1d462db24c`
 
-Sync PR status: не применимо (sync `main -> developer` не выполнялся).
+Release PR merged_at: `2026-06-16T01:00:18Z` (GitHub `mergedAt` через `gh`).
 
-Sync PR merge commit SHA: не применимо.
+Sync PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/135`
 
-Sync PR merged_at: не применимо.
+Sync PR status: `merged`
+
+Sync PR merge commit SHA: `d185062ea9ad19378b311224070dfa4f0928315a`
+
+Sync PR merged_at: `2026-06-16T01:01:07Z` (GitHub `mergedAt` через `gh`; changed files: 0).
 
 RESULT closed after merge: yes
 
@@ -133,13 +137,13 @@ No journal placeholders after merge: yes
 
 Stale pre-merge status check: clean.
 
-Closure source: GitHub `gh pr view 132`.
+Closure source: GitHub `gh pr view 132`, `gh pr view 134`, `gh pr view 135`.
 
 Closure blockers: нет.
 
 ## Следующий рекомендуемый шаг
 
-После merge — closure 0015. Также остаётся закрыть journal 0014 (METH-GOVERNANCE-BOUNDARIES, PR #130 уже merged) отдельной closure-задачей. Далее — adoption на реальном target-проекте.
+Задача 0015 закрыта после work/release/sync merge. Далее — adoption на реальном target-проекте после закрытия текущих review blockers.
 
 ## Methodology feedback
 

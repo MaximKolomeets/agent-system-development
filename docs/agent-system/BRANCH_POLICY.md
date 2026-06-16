@@ -43,6 +43,27 @@
 - прямой коммит в `developer` или `main` запрещён даже локально (не только push); локальный коммит в `developer`/`main` считается нарушением, даже если он ещё не запушен;
 - обоснование: инцидент journal 0013 — resume сессии оставил HEAD на `developer`, и коммит сначала лёг туда; remote `developer` уцелел только потому, что пушилась work-ветка. Проверка ветки перед commit предотвращает это.
 
+### Repository sync / checkout guard (канон, правило 4)
+
+Перед любым `git switch`, `git checkout`, `git pull`, `git merge`, `git rebase`, repository synchronization sequence или multi-repo sync script агент выполняет safety gate для каждого repository отдельно:
+
+```powershell
+git rev-parse --show-toplevel
+git remote -v
+git branch --show-current
+git status --short
+```
+
+Если `git status --short` не пустой, агент пишет `STOP` и не выполняет checkout, switch, pull, merge, rebase, reset, clean или stash в этом repository.
+
+Запрещено автоматически скрывать локальные изменения через `git stash`, `git reset --hard`, `git clean -fd`, checkout поверх локальных изменений или pull/merge поверх dirty tree без отдельного явного решения пользователя.
+
+Для синхронизации используется только `git pull --ff-only`. Если fast-forward невозможен, агент пишет `STOP` и сообщает факты.
+
+В multi-repo sync dirty working tree в одном repository не должен приводить к продолжению опасных действий в этом repository. Другой repository можно обрабатывать только после его отдельной проверки root/remote/branch/status.
+
+Если нужно продолжить работу при dirty tree, пользователь принимает отдельное решение: commit, stash, discard или отдельный clean worktree.
+
 ## work/dev-implementer-01/*
 
 - задачи разработки.

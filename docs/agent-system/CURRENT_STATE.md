@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-15
+Дата: 2026-06-16
 
 Проект: Создание агентской системы
 
@@ -181,6 +181,21 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 
 `REVIEW-INITIAL-01` выполнен как review-only проход по обновлённой методологии: вердикт Hold, blocker'ов нет, отчёт возвращён в чат. Findings — класса Желательно/Опционально (stale state/source docs, vendor name в заголовке review-шаблонов, рассинхрон token-документа).
 
-`METH-CONSISTENCY-01` снимает документационные рассинхроны из `REVIEW-INITIAL-01` без изменения методологии по сути.
+`METH-CONSISTENCY-01` сняла документационные рассинхроны из `REVIEW-INITIAL-01` без изменения методологии по сути.
 
-Следующий шаг: методология финальная и облегчённая. Применять к реальному target implementation repository (adoption) по `docs/agent-system/templates/ADOPTION_PROMPT.md` либо подготовить review по `CODE_REVIEW_TASK_TEMPLATE.md` (см. `NEXT_STEPS.md`).
+После METH-CONSISTENCY выполнена серия governance hardening задач:
+
+- PR #130 (`METH-GOVERNANCE-BOUNDARIES`, journal 0014) закрепил правила, что `main` обновляется только через release-PR `developer -> main`, который мержит человек-архитектор, а агенты работают только в своем `work/<role>/<task>` namespace.
+- PR #132 (`METH-BRANCH-GUARD`, journal 0015) закрепил pre-commit branch guard: перед commit HEAD должен быть work-веткой задачи, прямой локальный commit в `developer`/`main` запрещен.
+- PR #133 закрыл journal state для 0014/0015 после work PR, а PR #134 перенес `developer` в `main`; PR #135 синхронизировал `main` обратно в `developer` без changed files.
+- PR #136 (`METH-REVIEW-2026-06-16-01`, journal 0016) выполнил review-only комплексную проверку methodology repository с `Journal trace: always` и `Report delivery: chat`; полный body review report возвращен в чат и не сохранен в repository.
+
+Текущая задача `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` закрывает blockers из PR #136:
+
+- stale release/sync closure для 0014/0015 после PR #134/#135;
+- post-merge closure для 0016 после PR #136;
+- рассинхрон Core-документов по `Journal trace: always` и `Report delivery`;
+- отсутствие явного `Repository sync / checkout guard`;
+- ambiguity вокруг переноса engine-journal scaffold/templates и operational history.
+
+После merge текущей fix-задачи методология считается готовой к target implementation repository adoption/review по `docs/agent-system/templates/ADOPTION_PROMPT.md` и `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`. Остаточные идеи можно вести как optional polish, без blocker status.

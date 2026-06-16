@@ -20,6 +20,7 @@
 - Не менять `main` напрямую. `main` обновляется только через release-PR `developer -> main`, который мержит человек-архитектор; агент может подготовить release-PR, но не мержит и не пушит в `main` (канон: `docs/agent-system/BRANCH_POLICY.md` → «Обновление main»).
 - Не менять `developer` напрямую без отдельного разрешения.
 - Перед любым commit проверять `git rev-parse --abbrev-ref HEAD`: HEAD должен быть рабочей веткой задачи `work/<role>/<task>`; коммит в `developer`/`main` запрещён даже локально (канон: `docs/agent-system/BRANCH_POLICY.md` → «Pre-commit branch guard»).
+- Перед любым sync / checkout / switch / pull / merge проверять repository root, remote, текущую ветку и `git status --short`; если working tree dirty — `STOP`, без `git stash`, `git reset --hard` или `git clean -fd` без отдельного решения пользователя (канон: `docs/agent-system/BRANCH_POLICY.md` → «Repository sync / checkout guard»).
 - Все изменения через отдельную ветку и Pull Request после bootstrap-этапа.
 - Одна задача = одна ветка = один PR.
 - Каждый агент работает только в своем namespace веток. Запрещено пушить, менять, force-пушить или удалять ветку другого агента; передача работы — только через merged PR в `developer`, не через правку чужих веток (канон: `docs/agent-system/BRANCH_POLICY.md` → «Изоляция веток агентов»).

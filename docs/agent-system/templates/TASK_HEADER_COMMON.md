@@ -52,6 +52,7 @@ Reasoning: <Low | Medium | High>
 - [ ] STOP conditions are included.
 - [ ] Final report requirements are included.
 - [ ] No required execution context exists only in surrounding chat.
+- [ ] Перед sync/checkout/switch/pull/merge/rebase: repository root, remote, текущая ветка и `git status --short` проверены; dirty tree → STOP (канон: `docs/agent-system/BRANCH_POLICY.md` → «Repository sync / checkout guard»).
 - [ ] Перед commit: `git rev-parse --abbrev-ref HEAD` == work-ветка задачи; если `developer`/`main` → STOP (канон: `docs/agent-system/BRANCH_POLICY.md` → «Pre-commit branch guard»).
 
 ## Project constitution check
