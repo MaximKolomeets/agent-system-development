@@ -207,4 +207,8 @@ Release/sync после journal 0020 и audit 0021 выполнены:
 - PR #152 зафиксировал review-only audit `0021` с verdict `blocked`;
 - PR #153 закрыл journal `0021`.
 
-Текущая docs-only fix-задача `METH-FIX-AUDIT-0021-FINDINGS-2026-06-16-01` закрывает B-01/M-01/M-02/M-03 из journal 0021. После merge этой fix-задачи нужен обычный post-merge journal closure для новой sequence-записи, затем review/decision по готовности к downstream adoption.
+PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл journal 0022.
+
+Контрольный audit после #155 выполнен в ChatGPT: blocking/major не найдено; journal 0020-0022, state docs и templates sequence/checkout guard проверены.
+
+Текущий следующий шаг: подготовить release PR `developer -> main`. После merge release PR выполнить sync `main -> developer`, затем обновить release/sync facts для последней journal-записи при необходимости и перейти к downstream adoption decision после финальной проверки state.

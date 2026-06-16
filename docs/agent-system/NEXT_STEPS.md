@@ -1,13 +1,13 @@
 # NEXT_STEPS
 
-Консолидация методологии (`RESULT-0004`, C1–C6) завершена. После review-only прохода `METH-REVIEW-2026-06-16-01` fix-задача `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` merged через PR #137 и закрыла найденные blockers. Journal 0017 закрыт terminal closure-only шагом. Release/sync после journal 0020 выполнены через PR #150/#151, review-only audit 0021 merged через PR #152, journal 0021 закрыт через PR #153.
+Консолидация методологии (`RESULT-0004`, C1-C6) завершена. После review-only прохода `METH-REVIEW-2026-06-16-01` fix-задача `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` merged через PR #137 и закрыла найденные blockers. Journal 0017 закрыт terminal closure-only шагом. Release/sync после journal 0020 выполнены через PR #150/#151, review-only audit 0021 merged через PR #152, journal 0021 закрыт через PR #153, fix PR #154 закрыл B-01/M-01/M-02/M-03, closure PR #155 закрыл journal 0022. Контрольный audit после #155 не нашёл blocking/major.
 
 ## Основной следующий шаг
 
-1. Закрыть findings B-01/M-01/M-02/M-03 из journal 0021 через docs-only fix PR.
-2. После merge fix PR выполнить post-merge journal closure для новой sequence-записи.
-3. Затем принять решение: нужен ли контрольный review-only audit перед downstream adoption.
-4. После положительного review/decision применять методологию к target implementation repository по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на commit SHA.
+1. Подготовить release PR `developer -> main` для текущего состояния методологии после PR #154/#155.
+2. После merge release PR выполнить sync PR `main -> developer`.
+3. После release/sync обновить release/sync facts для последней journal-записи, если journal contract этого требует.
+4. Затем переходить к downstream adoption по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на финальный commit SHA.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
