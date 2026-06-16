@@ -1,6 +1,6 @@
 # NEW_PROJECT_PROMPT
 
-Канонический prompt для запуска нового проекта через методологию `agent-system-development`. Файл объединяет короткий стартовый prompt проектного чата и полный bootstrap prompt нового проекта. Прежние файлы `PROJECT_CHAT_START_PROMPT_TEMPLATE.md` и `NEW_PROJECT_BOOTSTRAP_PROMPT.md` оставлены как redirect-заглушки.
+Канонический prompt для запуска нового проекта через методологию `agent-system-development`. Файл объединяет короткий стартовый prompt проектного чата и полный bootstrap prompt нового проекта. Прежние файлы `PROJECT_CHAT_START_PROMPT_TEMPLATE.md` и `NEW_PROJECT_BOOTSTRAP_PROMPT.md` удалены (METH-BACKLOG-POLISH); этот файл — канон.
 
 Минимальный чеклист запуска нового проекта остаётся отдельным файлом: `docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md`.
 

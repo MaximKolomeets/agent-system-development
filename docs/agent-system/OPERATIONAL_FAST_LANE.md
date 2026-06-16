@@ -45,7 +45,8 @@ Operational Fast Lane не применяется для:
 - задач, которые обновляют PR body, journal artifacts или branch state через commit/push;
 - follow-up commits;
 - shortcut-ответов вида "выполни быстрые команды, а потом пусть Engine patch files";
-- больших задач, которым нужен Task File Handoff Mode.
+- больших задач, которым нужен Task File Handoff Mode;
+- review-задач: review ≠ fast-lane status-check. Review всегда журналирует TASK+RESULT (`Journal trace: always` по `docs/agent-system/CODE_REVIEW_WORKFLOW.md` и `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`) и идёт docs-only PR; Fast Lane — read-only status/cleanup без journal. Простой GitHub PR status check или git status check остаётся Fast Lane, но это не review.
 
 ## Правила ответа ChatGPT
 

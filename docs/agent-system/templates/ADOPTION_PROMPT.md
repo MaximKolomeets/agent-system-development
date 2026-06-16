@@ -2,7 +2,7 @@
 
 Канонический adoption prompt для запуска внедрения методологии `agent-system-development` в target repository.
 
-Файл объединяет короткий, безопасный короткий и полный canonical copy/paste варианты. Прежние файлы `SHORT_TARGET_ADOPTION_PROMPT.md` и `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлены как redirect-заглушки для внешних bookmark и продолжают вести сюда.
+Файл объединяет короткий, безопасный короткий и полный canonical copy/paste варианты. Прежний файл `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен как redirect-заглушка для внешних bookmark и продолжает вести сюда; `SHORT_TARGET_ADOPTION_PROMPT.md` удалён (METH-BACKLOG-POLISH).
 
 ## Когда какой вариант использовать
 
@@ -275,7 +275,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - `docs/agent-system/ADOPTION_GUIDE.md`;
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
-- `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md`;
+- `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»);
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`;
 - `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`;
 - `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;
