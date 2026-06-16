@@ -65,18 +65,28 @@ methodology_reference:
 
 ## Forbidden files result
 
-На момент materialization изменены только разрешённые journal artifacts текущей review-задачи. Финальная diff-scope проверка выполняется перед commit и после PR finalization.
+Изменены только разрешённые journal artifacts текущей review-задачи:
+
+- `docs/agent-system/engine-journal/INDEX.md`
+- `docs/agent-system/engine-journal/input/TASK-0021-METH-AUDIT-POST-SEQ-RULE-2026-06-16-01.md`
+- `docs/agent-system/engine-journal/output/RESULT-0021-METH-AUDIT-POST-SEQ-RULE-2026-06-16-01.md`
+
+Forbidden tracked path check (`.env`, `.venv`, `data`, `runtime`, `dist`, `backups`, `exports`) не вернул совпадений.
 
 ## Sensitive scan result
 
-Filename-only sensitive scan выполняется перед commit/PR finalization. Matching lines не печатаются.
+Filename-only sensitive scan выполнен командой `git grep -I -l -E ... .`; matching lines не печатались. Вывод содержит существующие policy/template/journal docs с guardrail-терминами. В изменённых файлах секретные значения не добавлялись.
 
 ## PR finalization
 
-PR URL: `pending until PR creation`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/152`
 
-PR status at finalization: `pending until PR creation`
+PR status at finalization: `OPEN`
 
-RESULT finalized after PR creation: `pending`
+PR draft status: `false`
 
-INDEX finalized after PR creation: `pending`
+PR head at creation: `45ef38de2a7ff13dfff972cb90f64a87a3fc5f08`
+
+RESULT finalized after PR creation: `yes`
+
+INDEX finalized after PR creation: `yes`
