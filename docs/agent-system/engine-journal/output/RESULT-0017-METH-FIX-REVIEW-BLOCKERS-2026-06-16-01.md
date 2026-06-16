@@ -54,11 +54,51 @@ Work branch: `work/docs-maintainer-01/meth-fix-review-blockers-2026-06-16-01`
 
 ## Changed files
 
-См. `git diff --name-only developer...HEAD` перед commit и final report.
+- `AGENTS.md`
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`
+- `docs/agent-system/BRANCH_POLICY.md`
+- `docs/agent-system/CODE_REVIEW_WORKFLOW.md`
+- `docs/agent-system/CURRENT_STATE.md`
+- `docs/agent-system/ENGINE_ENTRYPOINT.md`
+- `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`
+- `docs/agent-system/NEXT_STEPS.md`
+- `docs/agent-system/ROLE_MODEL.md`
+- `docs/agent-system/WORKFLOW.md`
+- `docs/agent-system/engine-journal/INDEX.md`
+- `docs/agent-system/engine-journal/input/TASK-0017-METH-FIX-REVIEW-BLOCKERS-2026-06-16-01.md`
+- `docs/agent-system/engine-journal/output/RESULT-0014-METH-GOVERNANCE-BOUNDARIES-branch-main-rules.md`
+- `docs/agent-system/engine-journal/output/RESULT-0015-METH-BRANCH-GUARD-precommit-rule.md`
+- `docs/agent-system/engine-journal/output/RESULT-0016-METH-REVIEW-2026-06-16-01-methodology-review.md`
+- `docs/agent-system/engine-journal/output/RESULT-0017-METH-FIX-REVIEW-BLOCKERS-2026-06-16-01.md`
+- `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`
+- `docs/agent-system/templates/TASK_HEADER_COMMON.md`
 
 ## Checks run
 
-Будет финализировано после выполнения проверок и PR creation.
+- `git rev-parse --show-toplevel`
+- `git remote -v`
+- `git fetch --all --prune`
+- `git switch developer`
+- `git pull --ff-only origin developer`
+- `gh pr view 130`
+- `gh pr view 132`
+- `gh pr view 134`
+- `gh pr view 135`
+- `gh pr view 136`
+- `git status --short`
+- `git branch --show-current`
+- `git diff --check`
+- `git diff --check developer...HEAD`
+- `git diff --name-only developer...HEAD`
+- `git diff --cached --check`
+- `git diff --cached --name-only`
+- forbidden tracked paths scan
+- sensitive marker scan filename-only
+- stale closure / placeholder scans for 0014/0015/0016 and `INDEX.md`
+- review-only wording consistency scan
+- sync/checkout guard wording scan
+- `gh pr view 137`
+- `gh pr checks 137`
 
 ## Checks skipped and why
 
@@ -68,24 +108,37 @@ Work branch: `work/docs-maintainer-01/meth-fix-review-blockers-2026-06-16-01`
 
 ## Forbidden paths result
 
-Будет финализировано после forbidden tracked paths scan.
+Forbidden tracked paths scan: no matches.
 
 ## Sensitive grep filename-only result
 
-Будет финализировано после filename-only scan.
+Filename-only sensitive marker scan returned existing methodology/policy files only. Matching lines were not printed. No secret values were added.
 
 ## Journal finalization
 
-RESULT finalized: no
+Materialization commit SHA: `1fbdd19ca2c221d51a4519773373211de00cd3a9`
 
-INDEX finalized: no
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/137`
 
-No journal placeholders: no
+PR status at finalization: `OPEN`, non-draft, base `developer`, head `work/docs-maintainer-01/meth-fix-review-blockers-2026-06-16-01`
 
-PR URL: будет обновлено после PR creation.
+PR head SHA at PR creation: `1fbdd19ca2c221d51a4519773373211de00cd3a9`
 
-PR status: будет обновлено после PR creation.
+PR mergeability at finalization: `MERGEABLE`
+
+Checks at PR creation/finalization read:
+
+- `Forbidden tracked files`: pass for run `27596260597`;
+- `Forbidden tracked files`: pending for run `27596271080` at the first `gh pr checks 137` read.
+
+RESULT finalized: yes
+
+INDEX finalized: yes
+
+No journal placeholders: yes
 
 Risks: token separation не проверялась; для solo/operator docs-only задачи это operational risk, но не blocker.
 
-Next step: создать PR, затем обновить RESULT/INDEX фактическими PR URL/status/checks.
+Journal finalization commit SHA не self-recorded в этом файле, чтобы не создавать self-referential SHA loop. Authoritative current PR head после final push фиксируется в final chat report и может быть проверен через GitHub.
+
+Next step: review/merge PR #137. После merge выполнить короткий journal-closure шаг для 0017, если RESULT/INDEX останутся в pre-merge status.
