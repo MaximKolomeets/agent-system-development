@@ -69,9 +69,13 @@ Code review / external review / consulting review по умолчанию вып
 developer -> work/<reviewer-role>/<task-id> -> PR в developer
 ```
 
-Review report по умолчанию возвращается в чат. Review-only PR создается только если пользователь явно разрешил docs-only сохранение отчета в repository.
+Review-задача по умолчанию возвращает тело review report в чат (`Report delivery: chat`) и не сохраняет этот полный report-body отдельным файлом в repository.
 
-Review-only PR содержит только review report files и journal/state updates, если они явно разрешены задачей.
+При этом review-задача всегда журналирует TASK/RESULT/INDEX: `Journal trace: always`. Journal artifacts идут в docs-only PR в `developer` или другой явно выбранный base branch, независимо от того, сохраняется ли тело review report в repository.
+
+Сохранение тела отчета в repository требует `Report delivery: repository` или `Report delivery: chat+repository`. Такое разрешение относится только к report-body файлу; обязательный journal trace действует отдельно.
+
+Review-only PR содержит journal artifacts всегда; review report files и state docs добавляются только если они явно разрешены задачей.
 
 Reviewer не исправляет production code, runtime, Docker, CI, scripts или dependencies. Findings превращаются в отдельные implementation PR только после решения пользователя.
 
@@ -86,8 +90,10 @@ Review task должен явно указывать:
 - allowed files;
 - forbidden files;
 - разрешенные и запрещенные команды;
-- можно ли сохранять отчет в repository;
-- можно ли создавать PR.
+- `Report delivery`: `chat`, `repository` или `chat+repository`;
+- `Journal trace`: `always`;
+- можно ли сохранять тело отчета в repository;
+- какие journal artifacts и state docs входят в allowed files.
 
 Для standard developer workflow review стартует от `developer`, конкретного PR/diff/branch/commit/files. `main` используется только если пользователь явно указал, что нужно проверить стабильную версию.
 

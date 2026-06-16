@@ -168,13 +168,17 @@ docs/agent-system/CODE_REVIEW_WORKFLOW.md
 docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 ```
 
-`engine` не меняет code by default. Review-only task создает только review report и PR, а findings превращаются в отдельные implementation PR только после решения пользователя.
+`engine` не меняет code by default. Review-only task возвращает тело review report согласно `Report delivery` и всегда создает TASK/RESULT/INDEX (`Journal trace: always`).
+
+Journal artifacts публикуются через docs-only PR. Findings превращаются в отдельные implementation PR только после решения пользователя.
 
 Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
 
 Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, разрешенными файлами, запрещенными файлами, проверками, STOP-условиями и требованиями к финальному отчету.
 
-Review report по умолчанию возвращается в чат. Сохранение review report в repository и создание PR допустимы только если task явно разрешает docs-only фиксацию отчета.
+Тело review report по умолчанию возвращается в чат (`Report delivery: chat`) и не сохраняется в repository. Сохранение тела review report в repository допустимо только при `Report delivery: repository` или `chat+repository`.
+
+Создание journal PR действует независимо от сохранения тела отчета. TASK/RESULT/INDEX создаются и идут в docs-only PR всегда, если это review-задача с `Journal trace: always`.
 
 Для запуска adoption из нового target project chat используйте канон:
 
@@ -258,6 +262,8 @@ Self-discovery подтверждает:
 Template repository является методологической основой, а не источником для слепого копирования.
 
 ## Проверка актуальности methodology repository
+
+Перед checkout/switch/pull/merge/rebase или multi-repo sync `engine` применяет `Repository sync / checkout guard` из `docs/agent-system/BRANCH_POLICY.md`: проверяет repository root, remote, текущую ветку и `git status --short`; при dirty working tree пишет `STOP` и не скрывает локальные изменения через stash/reset/clean без отдельного решения пользователя.
 
 Перед использованием methodology repository `engine` должен выполнить `git fetch --all --prune`.
 

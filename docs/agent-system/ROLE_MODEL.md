@@ -115,10 +115,11 @@ External reviewer не заменяет orchestrator и не принимает 
 
 - `code-reviewer-01`, `qa-reviewer-01` и `security-reviewer-01` не implement fixes по умолчанию.
 - Reviewer roles создают reports, findings и proposed next PRs.
+- Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`).
 - Исправления выполняет `dev-implementer-01` или другая явно назначенная implementation role в отдельной задаче, ветке и PR.
 - Engine name указывается отдельно от role name и не попадает в branch namespace.
 - Reviewer role проверяет PR, branch, commit, diff или набор файлов.
 - Reviewer role не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе implementation task.
 - Решение о превращении findings в задачу принимает пользователь вместе с ChatGPT.
-- Review report по умолчанию возвращается в чат; сохранение report в repository требует отдельного docs-only разрешения.
+- Тело review report по умолчанию возвращается в чат; сохранение report-body в repository требует `Report delivery: repository` или `chat+repository` и не отменяет обязательный journal trace.
 - Допустимые режимы review-задачи: `review-only`, `docs-only`, `fix-allowed`. Режим `fix-allowed` требует явного scope, allowed files, forbidden files и отдельного разрешения пользователя.
