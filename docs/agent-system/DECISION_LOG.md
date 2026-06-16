@@ -543,3 +543,20 @@ Post-PR finalization закрывает journal после создания PR, 
 - existing repository adoption продолжает поддерживать осознанный `main-only flow`, если это фактическая модель target repository или отдельное решение пользователя;
 - runtime impact: none;
 - downstream-specific data: none.
+
+## 2026-06-15 - Broken-ссылки в append-only истории допустимы; history-only заглушки можно удалять
+
+Решение:
+Broken-ссылки на удалённые файлы в append-only истории (engine-journal TASK/RESULT/INDEX, `docs/agent-system/agents/*`, прошлые записи `DECISION_LOG.md`) считаются допустимым историческим фактом. Если у redirect-заглушки остались ТОЛЬКО ссылки из append-only истории и нет обоснования внешними bookmark, файл-заглушку можно удалить.
+
+Причина:
+После консолидации `RESULT-0004` накопилось 7 redirect-заглушек, существовавших исключительно ради ссылок в append-only истории. Сохранять пустые заглушки только ради исторических упоминаний — лишний вес методологии; история и так фиксирует прошлое состояние как факт.
+
+Последствия:
+
+- live (не-history) broken refs по-прежнему запрещены: перед удалением заглушки все живые ссылки перенаправляются на канон;
+- заглушки с обоснованием внешними bookmark (например `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`, на который ссылаются внешние чаты) сохраняются всегда;
+- редирект-заглушки исключаются из target-copy категорий `ADOPTION_TRANSFER_MANIFEST.yml`, чтобы downstream-проекты их не наследовали;
+- impact: docs-only;
+- runtime impact: none;
+- downstream-specific data: none.

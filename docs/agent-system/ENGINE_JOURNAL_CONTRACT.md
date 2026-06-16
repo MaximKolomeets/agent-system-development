@@ -281,6 +281,17 @@ Post-merge closure не требует переписывать historical task/
 
 ## Правило review
 
+### Journal trace для review всегда
+
+Любая review-задача (в т.ч. `review-only`) журналирует TASK + RESULT и обновляет `INDEX.md` по этому контракту — `Journal trace: always`. Это согласовано с `docs/agent-system/CODE_REVIEW_WORKFLOW.md`.
+
+`Report delivery` — отдельный независимый параметр, задающий, куда уходит **тело** review report:
+
+- `chat` (дефолт) — тело отчёта возвращается в чат и в repository не сохраняется;
+- `repository` / `chat+repository` — тело отчёта дополнительно сохраняется как файл по `Report naming`.
+
+`Report delivery: chat` НЕ отменяет journal trace: TASK/RESULT/INDEX создаются всегда и идут в docs-only PR. «Chat-only» относится только к телу отчёта, а не к отсутствию journal-следа.
+
 ### Проверка methodology repository
 
 Для `agent-system-development` reviewer должен проверить, что:

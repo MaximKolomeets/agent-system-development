@@ -43,14 +43,14 @@ categories:
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
-      # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1); файл — redirect-заглушка, переносить не нужно.
+      # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1) и удалён (METH-BACKLOG-POLISH); не переносить.
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/engine-journal/README.md
       - docs/agent-system/engine-journal/INDEX.md
       - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
       - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
       - docs/agent-system/templates/ADOPTION_PROMPT.md
-      # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md и SHORT_TARGET_ADOPTION_PROMPT.md — redirect-заглушки на ADOPTION_PROMPT.md (PR-C3); сами заглушки переносить не нужно.
+      # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md — redirect-заглушка на ADOPTION_PROMPT.md для внешних bookmark (PR-C3); не переносить. SHORT_TARGET_ADOPTION_PROMPT.md удалён (METH-BACKLOG-POLISH).
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
@@ -69,7 +69,7 @@ categories:
     files:
       - AGENTS.md
       - README.md
-      # TARGET_REPOSITORY_ADOPTION_GUIDE.md слит в ADOPTION_GUIDE.md (PR-C4, Р3); файл — redirect-заглушка, переносить не нужно.
+      # TARGET_REPOSITORY_ADOPTION_GUIDE.md слит в ADOPTION_GUIDE.md (PR-C4, Р3) и удалён (METH-BACKLOG-POLISH); не переносить.
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/WORKFLOW.md

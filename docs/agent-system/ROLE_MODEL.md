@@ -28,6 +28,13 @@
 
 Engine может быть любым tool/human executor. Замена engine не меняет роль агента.
 
+## Границы веток и main
+
+Два governance-правила являются обязательными для всех ролей. Канон — `docs/agent-system/BRANCH_POLICY.md`:
+
+- агент никогда не мержит и не пушит в `main`; `main` обновляется только через release-PR, который мержит человек-архитектор (канон: BRANCH_POLICY → «Обновление main»);
+- агент работает только в своих ветках `work/<role>/<task>` и не трогает ветки других агентов; передача — через merged PR в `developer` (канон: BRANCH_POLICY → «Изоляция веток агентов»).
+
 ## Reviewer
 
 - проверяет PR, branch, commit, diff или набор файлов;

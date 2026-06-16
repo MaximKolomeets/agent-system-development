@@ -9,8 +9,7 @@
 ## Опциональный backlog (на усмотрение архитектора)
 
 - **PR-C6.1**: согласовать `ENGINE_JOURNAL_CONTRACT.md` (явная отметка про review-journal) и `OPERATIONAL_FAST_LANE.md` (review ≠ Fast Lane) с дефолтом «review журналирует всегда» (отложено из C6).
-- **Чистка redirect-заглушек**: накопленные 7 stub-файлов (`templates/SHORT_TARGET_ADOPTION_PROMPT.md`, `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`, `templates/REVIEW_TEMPLATE.md`, `templates/NEW_PROJECT_BOOTSTRAP_PROMPT.md`, `templates/PROJECT_CHAT_START_PROMPT_TEMPLATE.md`, `TARGET_REPOSITORY_ADOPTION_GUIDE.md`, `PROJECT_LIFECYCLE.md`) — рассмотреть exclude из `ADOPTION_TRANSFER_MANIFEST.yml`/target-копий.
-- **ADOPTION_PROMPT.md:278**: заменить ссылку на `TARGET_REPOSITORY_ADOPTION_GUIDE.md` в списке «engine should find» на `ADOPTION_GUIDE.md` (сейчас работает через redirect).
+- **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны; `ADOPTION_PROMPT.md` список «engine should find» обновлён на `ADOPTION_GUIDE.md`.
 
 ## Текущие операционные правила
 
