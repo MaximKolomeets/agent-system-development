@@ -11,7 +11,7 @@
 Модель: <model recommendation>
 Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: задача выполняет review-only audit/review без исправления кода; report PR создается только если явно разрешено docs-only сохранение отчета.
+Почему: задача выполняет review-only audit/review без исправления кода; journal PR создается всегда, а тело отчета сохраняется в repository только при `Report delivery: repository` или `chat+repository`.
 
 ## Repository
 
@@ -170,7 +170,9 @@ docs/agent-system/engine-journal/INDEX.md
 
 Если файл не указан в allowed files, не менять его.
 
-При `Report delivery: chat` тело отчёта в repository не сохраняется; journal artefacts всё равно создаются, коммитятся, пушатся и идут в docs-only PR в `base`.
+При `Report delivery: chat` тело отчёта в repository не сохраняется.
+
+Journal artefacts всё равно создаются, коммитятся, пушатся и идут в docs-only PR в `base`.
 
 При `Report delivery: repository` или `chat+repository` разрешённые места для тела отчёта:
 
@@ -336,7 +338,7 @@ Title: <review task title>
 
 ## Локальные действия после PR/merge
 
-Если report PR создан или обнаружен рассинхрон с `origin/*`, final report должен включать блок `Локальные действия после PR/merge` по каноническому разделу `docs/agent-system/WORKFLOW.md`.
+Если journal PR создан или обнаружен рассинхрон с `origin/*`, final report должен включать блок `Локальные действия после PR/merge` по каноническому разделу `docs/agent-system/WORKFLOW.md`.
 
 ## Final report
 

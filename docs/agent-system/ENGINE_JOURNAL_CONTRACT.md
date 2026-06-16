@@ -161,8 +161,15 @@ Target repository journal хранит project-specific task/result history вн
 
 Если первый шаг adoption остается `audit-only`, task/result files допускаются как journal artifacts рядом с `docs/agent-system/ADOPTION_AUDIT.md`, потому что они описывают выполнение audit, а не переносят full methodology state.
 
-Adoption переносит только scaffold/templates. Первая target adoption/audit task
-создает target-specific task/result files и target-specific записи `INDEX.md`.
+Adoption переносит только scaffold/templates и формат `INDEX.md`. Первая target
+adoption/audit task создает target-specific task/result files и target-specific
+записи `INDEX.md`.
+
+Если `INDEX.md` используется как reusable source, переносится структура таблицы,
+заголовки и правила заполнения. Operational rows methodology repository
+(`METH-*`, PR history, local closure facts) не копируются verbatim в target
+repository.
+
 Methodology repository operational history не переносится.
 
 ## Обязательные ссылки

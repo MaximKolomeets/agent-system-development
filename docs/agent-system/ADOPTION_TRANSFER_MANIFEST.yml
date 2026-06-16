@@ -191,8 +191,11 @@ rules:
   - id: engine_journal_scaffold_only
     text: >
       Engine journal scaffold/templates переносится в target repository.
-      Methodology repository operational history не переносится. Реальные
-      task/result files создаются только в target repository.
+      `INDEX.md` переносится или создается как target-specific index: можно
+      использовать структуру и format таблицы, но нельзя копировать
+      operational rows methodology repository. Methodology repository
+      operational history не переносится. Реальные task/result files
+      создаются только в target repository.
   - id: post_merge_journal_closure
     text: >
       После merge рабочего PR, release PR или sync PR target repository
