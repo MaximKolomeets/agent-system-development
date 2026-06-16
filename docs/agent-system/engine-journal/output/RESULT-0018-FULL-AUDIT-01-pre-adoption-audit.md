@@ -166,13 +166,37 @@ RESULT Russian-first; English только для technical identifiers, paths, 
 
 ## Закрытие после merge
 
-Work PR status: создаётся в этой задаче через `gh` (доступен).
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/141`
 
-Release/sync: фиксируются при closure по факту.
+Work PR status: `merged`
 
-RESULT closed after merge: not applicable before merge.
+Work PR merge commit SHA: `a1f91ea52bd45a685378bd71a0642099766a76ee`
 
-INDEX closed after merge: not applicable before merge.
+Work PR merged_at: `2026-06-16T07:30:52Z` (GitHub `mergedAt` через `gh`).
+
+Release PR status: не применимо (перенос в `main` не выполнялся).
+
+Release PR merge commit SHA: не применимо.
+
+Release PR merged_at: не применимо.
+
+Sync PR status: не применимо (sync `main -> developer` не выполнялся).
+
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Stale pre-merge status check: clean.
+
+Closure source: GitHub `gh pr view 141` (closure выполнен в задаче METH-AUDIT-POLISH, journal 0019).
+
+Closure blockers: нет.
 
 ## Следующий рекомендуемый шаг
 
