@@ -57,7 +57,10 @@ methodology_reference:
 - Work branch guard: `git rev-parse --abbrev-ref HEAD` == `work/docs-maintainer-01/meth-fix-audit-0021-findings-2026-06-16-01`.
 - GitHub facts по PR #148/#149/#150/#151/#152/#153 получены через `gh pr view`.
 - Actual next sequence вычислен из `INDEX.md`: last `0021`, next `0022`.
+- `git status --short`.
+- `git diff --name-only developer...HEAD`.
 - `git diff --check`.
+- `git diff --check developer...HEAD`.
 - Stale-fragment grep checks: stale release/sync text in `RESULT-0020`, stale release step in `CURRENT_STATE.md`/`NEXT_STEPS.md`, old `<SEQ>/<next>` journal placeholders in target templates, and old `git checkout <base>` block are absent.
 - Presence checks: `actual-next-seq`, `git status --short`, and `stash/reset/clean` guard text are present in the required templates.
 - Forbidden tracked paths check for `.env`, `.venv`, `data`, `runtime`, `dist`, `backups`, `exports` returned no matches.
@@ -79,17 +82,17 @@ Filename-only sensitive scan выполнен командой `git grep -I -l -
 
 ## Финализация PR
 
-PR URL: pending PR creation.
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/154`
 
-PR status at finalization: pending PR creation.
+PR status at finalization: `OPEN`
 
-PR draft status: pending PR creation.
+PR draft status: `false`
 
-PR head at finalization: pending PR creation.
+PR head at finalization: `30a2d8bed19f6fb056f7953bc4a6ebdeb12de794`
 
-RESULT finalized after PR creation: pending.
+RESULT finalized after PR creation: `yes`
 
-INDEX finalized after PR creation: pending.
+INDEX finalized after PR creation: `yes`
 
 ## Methodology feedback
 
