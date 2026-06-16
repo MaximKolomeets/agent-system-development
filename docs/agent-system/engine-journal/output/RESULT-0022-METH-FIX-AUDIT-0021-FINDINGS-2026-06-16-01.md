@@ -88,7 +88,7 @@ PR status at finalization: `OPEN`
 
 PR draft status: `false`
 
-PR head at finalization: `30a2d8bed19f6fb056f7953bc4a6ebdeb12de794`
+PR head at creation: `30a2d8bed19f6fb056f7953bc4a6ebdeb12de794`
 
 RESULT finalized after PR creation: `yes`
 
