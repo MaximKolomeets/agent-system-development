@@ -121,13 +121,37 @@ RESULT Russian-first; English только для technical identifiers, paths, 
 
 ## Закрытие после merge
 
-Work PR status: создаётся в этой задаче через `gh` (доступен).
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/130`
 
-Release/sync: фиксируются при closure по факту.
+Work PR status: `merged`
 
-RESULT closed after merge: not applicable before merge.
+Work PR merge commit SHA: `78a127070aa8b9586950fa2e58ba54134454f068`
 
-INDEX closed after merge: not applicable before merge.
+Work PR merged_at: `2026-06-16T00:35:52Z` (GitHub `mergedAt` через `gh`).
+
+Release PR status: не применимо (перенос в `main` не выполнялся).
+
+Release PR merge commit SHA: не применимо.
+
+Release PR merged_at: не применимо.
+
+Sync PR status: не применимо (sync `main -> developer` не выполнялся).
+
+Sync PR merge commit SHA: не применимо.
+
+Sync PR merged_at: не применимо.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Stale pre-merge status check: clean.
+
+Closure source: GitHub `gh pr view 130`.
+
+Closure blockers: нет.
 
 ## Следующий рекомендуемый шаг
 
