@@ -1,10 +1,11 @@
 # NEXT_STEPS
 
-Консолидация методологии (`RESULT-0004`, C1–C6) завершена. После review-only прохода `METH-REVIEW-2026-06-16-01` текущая fix-задача закрывает найденные blockers. После merge этого PR основной следующий шаг — применять методологию к реальному target-проекту.
+Консолидация методологии (`RESULT-0004`, C1–C6) завершена. После review-only прохода `METH-REVIEW-2026-06-16-01` fix-задача `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` merged через PR #137 и закрыла найденные blockers. Journal 0017 закрыт terminal closure-only шагом.
 
 ## Основной следующий шаг
 
-1. После merge `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` применять методологию к реальному target implementation repository (adoption) по канону `docs/agent-system/templates/ADOPTION_PROMPT.md`: начать с `audit-only`, зафиксировать `methodology_reference` с commit SHA, собрать Methodology feedback с sanitization.
+1. Проверить и подготовить release PR `developer -> main`, потому что `developer` содержит изменения относительно `main`.
+2. После release/sync применять методологию к реальному target implementation repository (adoption) по канону `docs/agent-system/templates/ADOPTION_PROMPT.md`: начать с `audit-only`, зафиксировать `methodology_reference` с commit SHA, собрать Methodology feedback с sanitization.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
