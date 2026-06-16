@@ -190,7 +190,7 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 - PR #133 закрыл journal state для 0014/0015 после work PR, а PR #134 перенес `developer` в `main`; PR #135 синхронизировал `main` обратно в `developer` без changed files.
 - PR #136 (`METH-REVIEW-2026-06-16-01`, journal 0016) выполнил review-only комплексную проверку methodology repository с `Journal trace: always` и `Report delivery: chat`; полный body review report возвращен в чат и не сохранен в repository.
 
-Текущая задача `METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` закрывает blockers из PR #136:
+`METH-FIX-REVIEW-BLOCKERS-2026-06-16-01` merged в `developer` через PR #137 и закрыл blockers из PR #136:
 
 - stale release/sync closure для 0014/0015 после PR #134/#135;
 - post-merge closure для 0016 после PR #136;
@@ -198,4 +198,6 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 - отсутствие явного `Repository sync / checkout guard`;
 - ambiguity вокруг переноса engine-journal scaffold/templates и operational history.
 
-После merge текущей fix-задачи методология считается готовой к target implementation repository adoption/review по `docs/agent-system/templates/ADOPTION_PROMPT.md` и `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`. Остаточные идеи можно вести как optional polish, без blocker status.
+Journal 0017 закрыт terminal closure-only шагом: RESULT/INDEX зафиксировали PR #137 status `merged`, merge commit `697be521f6d258b866bd59142207cf279c8869db` и `merged_at` `2026-06-16T05:34:39Z`.
+
+Следующий операционный шаг: подготовить release PR `developer -> main`, потому что `developer` содержит изменения относительно `main`. После release/sync методология готова к target implementation repository adoption/review по `docs/agent-system/templates/ADOPTION_PROMPT.md` и `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`. Остаточные идеи можно вести как optional polish, без blocker status.
