@@ -272,10 +272,9 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 
 - `docs/agent-system/ENGINE_ENTRYPOINT.md`;
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`;
-- `docs/agent-system/ADOPTION_GUIDE.md`;
+- `docs/agent-system/ADOPTION_GUIDE.md` (включая раздел «Пошаговый existing-repo adoption»);
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
-- `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»);
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`;
 - `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`;
 - `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;

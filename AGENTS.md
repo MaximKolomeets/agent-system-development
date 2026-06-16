@@ -33,7 +33,7 @@
 - Research/Review агенты не ставят задачи development executor напрямую.
 - Review-агент проверяет PR, branch, commit, diff или набор файлов; он не чинит код, не меняет production-файлы и не выполняет задачи разработки без отдельной явно выданной задачи.
 - Review-агент может предложить кандидаты на будущие задачи, но не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
-- Review-отчет по умолчанию возвращается в чат; сохранение отчета в repository допустимо только как явно разрешенное docs-only действие.
+- Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.
 - Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены `claude/*`, `gpt/*`, `gemini/*`, `docs/CLAUDE_REVIEW.md`, `docs/GPT_REVIEW.md`, `docs/GEMINI_REVIEW.md`.
 - После задачи агент обязан обновить свой отчет.
