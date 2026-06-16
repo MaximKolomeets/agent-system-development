@@ -105,17 +105,23 @@ Work PR merge commit SHA: `cedc5abc1016da8bedb25231182317cf199f9392`
 
 Work PR merged_at: `2026-06-16T11:56:52Z` (GitHub `mergedAt` через `gh`).
 
-Release PR status: не применимо (перенос в `main` не выполнялся).
+Release PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/150`
 
-Release PR merge commit SHA: не применимо.
+Release PR status: `merged`
 
-Release PR merged_at: не применимо.
+Release PR merge commit SHA: `f0f61b5ee6c22b2cc2219c9f7125714c93b48fdf`
 
-Sync PR status: не применимо (sync `main -> developer` не выполнялся).
+Release PR merged_at: `2026-06-16T12:03:16Z`
 
-Sync PR merge commit SHA: не применимо.
+Sync PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/151`
 
-Sync PR merged_at: не применимо.
+Sync PR status: `merged`
+
+Sync PR merge commit SHA: `30496a390c42460444cd3791699cf916b3b4e070`
+
+Sync PR merged_at: `2026-06-16T12:04:17Z`
+
+Release/sync closure updated after post-work release/sync: yes
 
 RESULT closed after merge: yes
 

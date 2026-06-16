@@ -108,10 +108,12 @@ methodology_reference:
 - `docs/agent-system/ADOPTION_AUDIT.md`
 - `docs/agent-system/engine-journal/README.md`
 - `docs/agent-system/engine-journal/INDEX.md`
-- `docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md`
-- `docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md`
+- `docs/agent-system/engine-journal/input/TASK-<actual-next-seq>-<task-id>-<slug>.md`
+- `docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug>.md`
 - `docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md`
 - `docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md`
+
+Перед созданием TASK/RESULT engine вычисляет actual next sequence из `docs/agent-system/engine-journal/INDEX.md` на момент выполнения (`last seq + 1`) и подставляет его вместо `<actual-next-seq>`. Нельзя использовать заранее предсказанный номер из prompt.
 
 ## Forbidden changes
 

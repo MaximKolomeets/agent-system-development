@@ -144,10 +144,26 @@ git status --short
 Для standard developer workflow:
 
 ```powershell
-git checkout <base>
-git pull --ff-only origin <base>
-git checkout -b work/<reviewer-role>/<task-id>
+git rev-parse --show-toplevel
+git remote -v
+git branch --show-current
+git status --short
 ```
+
+Если `git status --short` не пустой — STOP. Не выполнять stash/reset/clean/checkout поверх локальных изменений без отдельного решения пользователя.
+
+Затем:
+
+```powershell
+git fetch --all --prune
+git switch <base>
+git pull --ff-only origin <base>
+git status --short
+git switch -c work/<reviewer-role>/<task-id>
+git rev-parse --abbrev-ref HEAD
+```
+
+Если HEAD не `work/<reviewer-role>/<task-id>` — STOP.
 
 Для main-only flow использовать `main` только если это явно указано в selected branch model.
 
@@ -156,10 +172,12 @@ git checkout -b work/<reviewer-role>/<task-id>
 Всегда обязательны (`Journal trace: always`):
 
 ```text
-docs/agent-system/engine-journal/input/TASK-<next>-<task-id>-<slug>.md
-docs/agent-system/engine-journal/output/RESULT-<next>-<task-id>-<slug>.md
+docs/agent-system/engine-journal/input/TASK-<actual-next-seq>-<task-id>-<slug>.md
+docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug>.md
 docs/agent-system/engine-journal/INDEX.md
 ```
+
+`<actual-next-seq>` engine вычисляет из `docs/agent-system/engine-journal/INDEX.md` на момент выполнения. Нельзя предсказывать, переиспользовать или пропускать sequence.
 
 Дополнительно — только если task явно их разрешает:
 
@@ -300,7 +318,7 @@ Report filename не должен содержать vendor/tool name.
 
 В commit включаются:
 
-- всегда: `engine-journal/input/TASK-<next>-*.md`, `engine-journal/output/RESULT-<next>-*.md`, `engine-journal/INDEX.md`;
+- всегда: `engine-journal/input/TASK-<actual-next-seq>-*.md`, `engine-journal/output/RESULT-<actual-next-seq>-*.md`, `engine-journal/INDEX.md`;
 - дополнительно (только при `Report delivery: repository` или `chat+repository`): файл тела отчёта по `Report naming`;
 - иное — только если явно входит в allowed files (например, явно разрешённые state docs).
 
