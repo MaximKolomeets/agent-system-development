@@ -6,9 +6,9 @@
 
 ## Required artifacts
 
-- [x] `PROJECT_LIFECYCLE.md` exists (PR-C4: redirect-заглушка; канон жизненного цикла — `NEW_PROJECT_ONBOARDING_GUIDE.md`).
+- [x] жизненный цикл документирован в `NEW_PROJECT_ONBOARDING_GUIDE.md` (прежний `PROJECT_LIFECYCLE.md` слит в C4 и удалён в METH-BACKLOG-POLISH).
 - [x] `NEW_PROJECT_ONBOARDING_GUIDE.md` exists.
-- [x] `TARGET_REPOSITORY_ADOPTION_GUIDE.md` exists (PR-C4: redirect-заглушка; канон existing-repo adoption — `ADOPTION_GUIDE.md`).
+- [x] existing-repo adoption документирован в `ADOPTION_GUIDE.md` (прежний `TARGET_REPOSITORY_ADOPTION_GUIDE.md` слит в C4 и удалён в METH-BACKLOG-POLISH).
 - [x] `ADOPTION_GUIDE.md` exists.
 - [x] `ADOPTION_TRANSFER_MANIFEST.yml` exists.
 - [x] `DOWNSTREAM_ADAPTATION_CHECKLIST.md` exists.
@@ -17,7 +17,7 @@
 - [x] `METHODOLOGY_FEEDBACK_LOOP.md` exists.
 - [x] `TARGET_PROJECT_GOVERNANCE_PACK.md` exists.
 - [x] `PROJECT_CONSTITUTION_FRAMEWORK.md` exists.
-- [x] `SHORT_TARGET_ADOPTION_PROMPT.md` exists.
+- [x] короткий/безопасный adoption prompt документирован в `templates/ADOPTION_PROMPT.md` (прежний `SHORT_TARGET_ADOPTION_PROMPT.md` слит в C3 и удалён в METH-BACKLOG-POLISH).
 - [x] reusable templates exist.
 - [x] governance pack templates exist.
 - [x] branch policy exists.

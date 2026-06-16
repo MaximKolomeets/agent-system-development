@@ -157,11 +157,11 @@ Reasoning: <Low | Medium | High>
 
 Проект содержит универсальную методологию запуска новых проектов через GitHub, роли, worktree, отчеты агентов и ручной запуск engine-исполнителей.
 
-Жизненный цикл нового проекта (стадии 1–11) описан в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` (вводная секция «Жизненный цикл (стадии 1–11)»; прежний `PROJECT_LIFECYCLE.md` — redirect-заглушка).
+Жизненный цикл нового проекта (стадии 1–11) описан в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` (вводная секция «Жизненный цикл (стадии 1–11)»).
 
 Практический onboarding guide находится в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`.
 
-Guide для применения методологии к существующему target repository находится в `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»; прежний `TARGET_REPOSITORY_ADOPTION_GUIDE.md` — redirect-заглушка).
+Guide для применения методологии к существующему target repository находится в `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»).
 
 Режимы применения methodology repository описаны в `docs/agent-system/ADOPTION_GUIDE.md`.
 
@@ -179,7 +179,7 @@ Target project governance pack описан в `docs/agent-system/TARGET_PROJECT
 
 Project Constitution Framework описан в `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 
-Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/ADOPTION_PROMPT.md` (раздел «Полный canonical copy/paste prompt»). Прежние файлы `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` и `SHORT_TARGET_ADOPTION_PROMPT.md` оставлены как redirect-заглушки.
+Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/ADOPTION_PROMPT.md` (раздел «Полный canonical copy/paste prompt»). Прежний файл `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен как redirect-заглушка для внешних bookmark.
 
 Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
 
@@ -189,7 +189,7 @@ Canonical copy/paste prompt для запуска adoption в target repository 
 
 Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
 
-Prompt для запуска нового проекта (короткий стартовый prompt проектного чата и полный bootstrap prompt) находится в `docs/agent-system/templates/NEW_PROJECT_PROMPT.md`. Прежние файлы `PROJECT_CHAT_START_PROMPT_TEMPLATE.md` и `NEW_PROJECT_BOOTSTRAP_PROMPT.md` оставлены как redirect-заглушки.
+Prompt для запуска нового проекта (короткий стартовый prompt проектного чата и полный bootstrap prompt) находится в `docs/agent-system/templates/NEW_PROJECT_PROMPT.md`.
 
 Контракт воспроизводимого журнала engine-задач и ответов находится в `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 

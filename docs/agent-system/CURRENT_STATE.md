@@ -19,7 +19,7 @@ Repository visibility: public.
 - **C5 (0009 C5A + 0010 C5B)** — templates cleanup: `REVIEW_TEMPLATE` слит в `CODE_REVIEW_REPORT_TEMPLATE.md`; общий task-header вынесен в канон `templates/TASK_HEADER_COMMON.md` (DEVELOPMENT/RESEARCH ссылаются, тела раздельные); new-project prompt'ы слиты в `templates/NEW_PROJECT_PROMPT.md`; `AGENT_REPORT_TEMPLATE`/`DECISION_TEMPLATE` wired ссылками.
 - **C6 (0005)** — review-задачи теперь всегда журналируют TASK+RESULT (`Journal trace: always`); `Report delivery: chat` относится только к телу отчёта.
 
-Накоплено 7 redirect-заглушек (C3×2, C5A×1, C5B×2, C4×2) — валидные 1-hop redirect; их чистка — опциональный backlog-пункт (см. `NEXT_STEPS.md`).
+Накопленные redirect-заглушки очищены в `METH-BACKLOG-POLISH`: 6 history-only заглушек удалены, живые ссылки перенаправлены на каноны; `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлена заглушкой для внешних bookmark. Политика «broken-ссылки в append-only истории допустимы» зафиксирована в `DECISION_LOG.md`.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 

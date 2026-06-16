@@ -182,7 +182,7 @@ Review report по умолчанию возвращается в чат. Сох
 docs/agent-system/templates/ADOPTION_PROMPT.md
 ```
 
-(Прежние файлы `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` и `SHORT_TARGET_ADOPTION_PROMPT.md` — redirect-заглушки на канон.)
+(Прежний файл `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` — redirect-заглушка на канон для внешних bookmark; `SHORT_TARGET_ADOPTION_PROMPT.md` удалён.)
 
 Пользователь может дать короткий prompt:
 
