@@ -51,16 +51,18 @@ https://github.com/MaximKolomeets/agent-system-development
 
 Файл задачи Engine:
 
-docs/agent-system/engine-journal/input/TASK-<SEQ>-<task-id>-<slug>.md
+docs/agent-system/engine-journal/input/TASK-<actual-next-seq>-<task-id>-<slug>.md
 
 Ожидаемый файл результата Engine:
 
-docs/agent-system/engine-journal/output/RESULT-<SEQ>-<task-id>-<slug>.md
+docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug>.md
+
+`<actual-next-seq>` не предсказывается в ChatGPT-блоке. Engine вычисляет его из `docs/agent-system/engine-journal/INDEX.md` на момент выполнения.
 
 Политика engine journal:
 
 - task/result files сохраняются в `docs/agent-system/engine-journal/`;
-- task/result files связываются одним `SEQ` и `<task-id>`;
+- task/result files связываются одним `<actual-next-seq>` и `<task-id>`;
 - task/result files append-only и не удаляются/не перезаписываются без решения пользователя;
 - result file обязателен как artifact final report;
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.

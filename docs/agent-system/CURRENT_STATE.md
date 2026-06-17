@@ -200,4 +200,15 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 
 Journal 0017 закрыт terminal closure-only шагом: RESULT/INDEX зафиксировали PR #137 status `merged`, merge commit `697be521f6d258b866bd59142207cf279c8869db` и `merged_at` `2026-06-16T05:34:39Z`.
 
-Следующий операционный шаг: подготовить release PR `developer -> main`, потому что `developer` содержит изменения относительно `main`. После release/sync методология готова к target implementation repository adoption/review по `docs/agent-system/templates/ADOPTION_PROMPT.md` и `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md`. Остаточные идеи можно вести как optional polish, без blocker status.
+Release/sync после journal 0020 и audit 0021 выполнены:
+
+- PR #150 перенёс `developer -> main`;
+- PR #151 синхронизировал `main -> developer`;
+- PR #152 зафиксировал review-only audit `0021` с verdict `blocked`;
+- PR #153 закрыл journal `0021`.
+
+PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл journal 0022.
+
+Контрольный audit после #155 выполнен в ChatGPT: blocking/major не найдено; journal 0020-0022, state docs и templates sequence/checkout guard проверены.
+
+Текущий следующий шаг: подготовить release PR `developer -> main`. После merge release PR выполнить sync `main -> developer`, затем обновить release/sync facts для последней journal-записи при необходимости и перейти к downstream adoption decision после финальной проверки state.
