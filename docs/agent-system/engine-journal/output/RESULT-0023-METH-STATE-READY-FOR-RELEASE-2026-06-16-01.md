@@ -82,7 +82,7 @@ Filename-only sensitive scan выполнен командой `git grep -I -l -
 
 PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/156`
 
-PR status at finalization: `OPEN`
+PR status after merge closure: `merged`
 
 PR draft status: `false`
 
@@ -91,3 +91,43 @@ PR head at creation: `0dcab372352eaae9a2f9346f0d8bc6c9ecc2d585`
 RESULT finalized after PR creation: `yes`
 
 INDEX finalized after PR creation: `yes`
+
+## Закрытие после merge
+
+Work PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/156`
+
+Work PR status: `merged`
+
+Work PR reviewed head SHA: `384721a79ee14f641bd92afb05dd6aed56b186e3`
+
+Work PR merge commit SHA: `4770bb23a85c8ff20b1252fda64f1cc76c34faeb`
+
+Work PR merged_at: `2026-06-16T17:12:17Z`
+
+Review verdict: `APPROVE`
+
+Review findings: blocker/major нет; N-01 nit не блокирует release, будет учтён в release-task wording.
+
+Release PR status: не выполнялся после PR #156 на момент closure.
+
+Release PR merge commit SHA: не применимо на момент closure.
+
+Release PR merged_at: не применимо на момент closure.
+
+Sync PR status: не выполнялся после PR #156 на момент closure.
+
+Sync PR merge commit SHA: не применимо на момент closure.
+
+Sync PR merged_at: не применимо на момент closure.
+
+RESULT closed after merge: yes
+
+INDEX closed after merge: yes
+
+No journal placeholders after merge: yes
+
+Closure source: GitHub `gh pr view 156` + review-only report.
+
+Closure blockers: нет.
+
+Future release/sync note: следующий шаг — release PR `developer -> main`; PR готовит агент, merge выполняет человек-архитектор; после merge release PR выполнить sync `main -> developer`.
