@@ -81,6 +81,33 @@ docs/agent-system/
 | `docs/agent-system/SECURITY_POLICY.md` | Если нужны явные security rules |
 | `docs/agent-system/GITHUB_RULESETS.md` | Если настроены rulesets |
 | `docs/agent-system/CI_POLICY.md` | Если CI входит в scope |
+| `docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md` | Если проект ведётся в изолированном Claude Project (operating layer поверх repo governance) |
+| `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` | Если нужна кросс-проектная консолидация статуса (Cowork lane) |
+
+## Три слоя управления
+
+Governance pack — первый слой. Поверх него опционально добавляются ещё два слоя
+operating-управления; границы между ними должны оставаться явными.
+
+1. **Repo governance** — этот governance pack и каноны `docs/agent-system/*`
+   target repository. Источник истины: ветки, PR, engine-journal, решения.
+2. **Project operating layer** — `CLAUDE_PROJECT_OPERATING_LAYER.md`: один
+   изолированный проектный контекст ассистента на один target repository,
+   ролевой контракт (не коммитит/не мержит), knowledge base и правило свежести
+   (`asof` + `developer` HEAD SHA). Аналог для другого ассистент-продукта —
+   `CHATGPT_OPERATING_CONTRACT.md`.
+3. **Cross-project consolidation (Cowork lane)** —
+   `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`: read-only advisory сводка поверх
+   нескольких target repositories через visibility-matrix (need-to-know как
+   граница), `STATE_DIGEST` и `CONSOLIDATED_VIEW`.
+
+Правила слоёв:
+
+- при конфликте побеждает repo governance target repository; operating-слои при
+  конфликте останавливаются (`STOP`);
+- operating-слои не коммитят, не мержат и не меняют `main`/`developer`;
+- реальные visibility-matrix, имена проектов и дайджесты живут в приватном
+  control plane и НИКОГДА не попадают в публичный методологический репозиторий.
 
 ## Связь state documents
 

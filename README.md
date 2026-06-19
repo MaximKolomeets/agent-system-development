@@ -66,6 +66,8 @@ Engine / handoff / orchestrator interface:
 - `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`
 - `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`
 - `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`
+- `docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md`
+- `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`
 
 Adoption:
 

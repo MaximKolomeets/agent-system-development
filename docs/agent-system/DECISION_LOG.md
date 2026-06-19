@@ -560,3 +560,46 @@ Broken-ссылки на удалённые файлы в append-only истор
 - impact: docs-only;
 - runtime impact: none;
 - downstream-specific data: none.
+
+## 2026-06-19 - Трёхслойная operating-модель (project operating layer + cross-project consolidation)
+
+Решение:
+Зафиксированы два нейтральных operating-контракта поверх repo governance:
+`docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md` (один изолированный
+проектный контекст ассистента на один target implementation repository) и
+`docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (read-only advisory
+кросс-проектная консолидация, Cowork lane). Governance pack template расширен
+разделом «Три слоя управления» со ссылками на оба контракта.
+
+Context:
+Команда ведёт проекты в изолированных проектных контекстах ассистента и хочет
+безопасную сводную картину поверх нескольких target repositories без нарушения
+изоляции и границ данных. Нужен нейтральный, публично-безопасный контракт.
+
+Options considered:
+- (A) описать operating-слой как часть существующего `CHATGPT_OPERATING_CONTRACT`
+  — отклонено: это другой ассистент-продукт и другой режим (single-project vs
+  cross-project);
+- (B) держать матрицу видимости в публичном репозитории — отклонено: нарушает
+  нейтральность и границы данных;
+- (C, выбрано) два нейтральных контракта в методологии + реальные данные в
+  приватном control plane.
+
+Причина:
+Repo governance остаётся источником истины, но команде нужны явные границы
+operating-слоёв: изоляция проектов, ролевой контракт «не коммитит/не мержит»,
+правило свежести (asof + developer HEAD SHA), need-to-know visibility-matrix и
+redaction-граница. Реальные имена/матрицы/дайджесты не должны попадать в
+публичный репозиторий.
+
+Последствия:
+
+- operating-слои не коммитят, не мержат и не меняют `main`/`developer`; при
+  конфликте с repo governance — `STOP`;
+- реальные visibility-matrix, имена проектов и дайджесты живут ТОЛЬКО в приватном
+  control plane, никогда в публичном методологическом репозитории;
+- Cowork lane read-only/advisory и не пригоден для регулируемых данных (нет
+  audit-trail);
+- impact: docs-only;
+- runtime impact: none;
+- downstream-specific data: none.
