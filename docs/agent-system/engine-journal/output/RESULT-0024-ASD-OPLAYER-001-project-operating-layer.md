@@ -40,11 +40,11 @@ methodology_reference:
 
 ## Статус финализации
 
-Commit SHA: `__PRIMARY_COMMIT_SHA__`
+Commit SHA: `a000a51c75475cc5d7d95bfcedb55e5fa4f8e415`
 
-PR URL: `__PR_URL__`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/160`
 
-PR created at: `__PR_CREATED_AT__`
+PR created at: `2026-06-19T04:50:52Z`
 
 RESULT finalized: yes (после создания PR)
 
