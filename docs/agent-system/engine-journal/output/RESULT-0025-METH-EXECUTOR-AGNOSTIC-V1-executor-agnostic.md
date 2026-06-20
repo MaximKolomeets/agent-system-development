@@ -7,8 +7,8 @@
 - Base branch: `developer`. Work branch: `work/docs-maintainer-01/executor-agnostic-v1`.
 - Baseline SHA (`origin/developer` == `developer`): `fdc58ab2b9f7776296353ad99794d2df0627864c`.
 - Timestamp (ISO-8601): `2026-06-20T13:22:26+07:00`.
-- Тип: docs-only, methodology-hardening. PR: #161 (открыт в `developer`).
-- Reviewed/head SHA work-ветки на момент финализации: `5cfa9b4` (см. INDEX).
+- Тип: docs-only, methodology-hardening. PR: [#161](https://github.com/MaximKolomeets/agent-system-development/pull/161) — open, в `developer` (мерж выполняет человек).
+- Head SHA work-ветки (commit задачи): `a173f59c7caca0b89388122b63975f72d7e12fab`.
 
 ## Что сделано
 
@@ -111,7 +111,7 @@ journal TASK-файлы (`TASK-0002/0003/0010/0011/0012/0013/0014/0015/0018/0019
 
 ## Передача
 
-- Сделано: methodology executor-agnostic — role-agnostic шаблоны (без имён инструментов), каноны «Передача» и «Source-reminder» в `TASK_HEADER_COMMON`, роли `infra`/`source-steward` в `ROLE_MODEL`, заведён `SOURCE_CONSUMERS.md` (seed `verification`), scrub vendor-имён в whitelist. PR #161, head SHA `5cfa9b4`.
+- Сделано: methodology executor-agnostic — role-agnostic шаблоны (без имён инструментов), каноны «Передача» и «Source-reminder» в `TASK_HEADER_COMMON`, роли `infra`/`source-steward` в `ROLE_MODEL`, заведён `SOURCE_CONSUMERS.md` (seed `verification`), scrub vendor-имён в whitelist. PR [#161](https://github.com/MaximKolomeets/agent-system-development/pull/161), head SHA `a173f59c7caca0b89388122b63975f72d7e12fab`.
 - Следующий: reviewer — review PR #161 по новому role-agnostic review-шаблону (`gh pr view/diff` по head SHA), особое внимание findings A–D как кандидатам на отдельную follow-up задачу.
 - Обновить Source-снапшот в проектах: verification.
 - Tool-name находки вне whitelist: см. разделы A–D выше (не правились; для follow-up задачи).
