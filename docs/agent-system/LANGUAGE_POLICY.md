@@ -4,11 +4,11 @@
 
 Этот документ закрепляет Russian-first policy для methodology repository и для target repositories, которые применяют эту методологию.
 
-Policy действует для ChatGPT, `engine`, target-local docs, task templates, engine journal artifacts и комментариев внутри создаваемых или изменяемых файлов.
+Policy действует для оркестратора, `engine`, target-local docs, task templates, engine journal artifacts и комментариев внутри создаваемых или изменяемых файлов.
 
 ## Основное правило
 
-Все пользовательские ответы, Engine final reports, target-local methodology docs, TASK/RESULT/INDEX files, template guidance и описательные комментарии в файлах должны быть на русском языке.
+Все пользовательские ответы, final reports исполнителя (engine), target-local methodology docs, TASK/RESULT/INDEX files, template guidance и описательные комментарии в файлах должны быть на русском языке.
 
 English допускается только там, где перевод ухудшает точность или ломает технический смысл:
 
@@ -19,9 +19,9 @@ English допускается только там, где перевод уху
 - vendor/tool names and literal external names;
 - repository identifiers, когда они являются техническим значением.
 
-## Engine-задачи и отчеты
+## Задачи и отчеты исполнителя (engine)
 
-Каждый Engine-блок должен явно требовать от `engine`:
+Каждый блок для исполнителя (engine) должен явно требовать от `engine`:
 
 - писать final report на русском языке;
 - создавать и обновлять TASK/RESULT/INDEX files на русском языке;
@@ -48,7 +48,7 @@ Target adoption/update tasks должны переносить Russian-first pol
 
 Перед PR review нужно проверить:
 
-- Engine TASK/RESULT templates являются Russian-first;
+- TASK/RESULT templates исполнителя (engine) являются Russian-first;
 - target-local methodology templates являются Russian-first;
 - final report requirements требуют русский язык;
 - комментарии в generated scripts/workflows/config examples написаны на русском, если comments нужны;

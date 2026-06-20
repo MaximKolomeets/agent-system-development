@@ -50,11 +50,11 @@ Reviewer по умолчанию:
 - не меняет runtime, Docker, CI, scripts или dependencies без отдельной задачи;
 - не читает `.env`;
 - не печатает matching lines sensitive grep.
-- не запускает Codex/Engine;
+- не запускает исполнителя (engine);
 - не меняет очередь исполнителя;
 - не формулирует себе implementation task.
 
-Если пользователь просит исправить findings, нужно создать отдельную implementation task. Review report может предложить next PRs, но не должен сам превращаться в fix PR. Решение принимает пользователь вместе с ChatGPT.
+Если пользователь просит исправить findings, нужно создать отдельную implementation task. Review report может предложить next PRs, но не должен сам превращаться в fix PR. Решение принимает пользователь вместе с оркестратором.
 
 ## Report delivery vs Journal trace
 
@@ -130,15 +130,9 @@ Vendor/tool names запрещены в:
 Bad examples:
 
 ```text
-claude/initial-review
-gpt/initial-review
-gemini/initial-review
-codex-review
-docs/CLAUDE_REVIEW.md
-docs/GPT_REVIEW.md
-docs/GEMINI_REVIEW.md
-gemini-audit
-copilot-fixes
+tool-name/initial-review
+tool-review
+docs/TOOL_REVIEW.md
 ```
 
 Good examples:
@@ -287,12 +281,12 @@ Review report должен использовать структуру:
 
 ## 8. Рекомендации
 
-## 9. Кандидаты на будущие задачи Engine
+## 9. Кандидаты на будущие задачи исполнителя (engine)
 
 ## 10. Итоговый вывод
 ```
 
-Раздел `Кандидаты на будущие задачи Engine` содержит только предложения. Reviewer не запускает Codex/Engine и не ставит задачи исполнителю напрямую.
+Раздел `Кандидаты на будущие задачи исполнителя (engine)` содержит только предложения. Reviewer не запускает исполнителя (engine) и не ставит задачи исполнителю напрямую.
 
 ## Final report
 
@@ -329,7 +323,7 @@ base=<developer|explicit branch model>
 Запрещенный prompt:
 
 ```text
-Создай ветку claude/initial-review от main, сделай review, запиши docs/CLAUDE_REVIEW.md, закоммить.
+Создай ветку tool-name/initial-review от main, сделай review, запиши docs/TOOL_REVIEW.md, закоммить.
 ```
 
 Почему запрещено:

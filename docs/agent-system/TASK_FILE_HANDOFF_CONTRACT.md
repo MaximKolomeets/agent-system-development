@@ -2,7 +2,7 @@
 
 ## Назначение
 
-Task File Handoff Mode - режим постановки больших задач для `engine`, в котором long task source of truth хранится в TASK file внутри target repository, а short Engine bootstrap prompt только указывает, где этот TASK file прочитать.
+Task File Handoff Mode - режим постановки больших задач для `engine`, в котором long task source of truth хранится в TASK file внутри target repository, а короткий bootstrap prompt для исполнителя (engine) только указывает, где этот TASK file прочитать.
 
 Режим нужен, чтобы длинные audit/adoption/bootstrap задачи не забивали context window и оставались воспроизводимыми через Git history target repository.
 
@@ -31,23 +31,23 @@ Task File Handoff Mode - режим постановки больших зада
 
 ## GitHub staging для TASK file
 
-Если GitHub connector доступен и пользователь явно разрешил materialization TASK file, ChatGPT или другой разрешенный интерфейс может создать в target repository только task-file-only branch/commit.
+Если GitHub connector доступен и пользователь явно разрешил materialization TASK file, оркестратор или другой разрешенный интерфейс может создать в target repository только task-file-only branch/commit.
 
 Task-file-only staging:
 
 - branch: `work/<agent-role>/<task-id-description>`;
 - file: `docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md`;
-- allowed change for ChatGPT in this mode: только TASK file;
-- ChatGPT не должен менять runtime, docs кроме TASK file, templates, RESULT, INDEX или governance files;
+- allowed change for оркестратора in this mode: только TASK file;
+- Оркестратор не должен менять runtime, docs кроме TASK file, templates, RESULT, INDEX или governance files;
 - `engine` затем продолжает работу в этой же branch.
 
 Если GitHub connector недоступен:
 
-- ChatGPT дает путь и content для TASK file;
+- оркестратор дает путь и content для TASK file;
 - пользователь или `engine` materializes этот файл в target repository;
 - `engine` все равно должен читать TASK file как source of truth.
 
-## Короткий bootstrap prompt для Engine
+## Короткий bootstrap prompt для исполнителя (engine)
 
 Bootstrap prompt должен быть коротким и указывать только repository, branch, TASK file path и обязательные safety/finalization reminders.
 
@@ -124,7 +124,7 @@ TASK file для handoff должен содержать:
 - policy Post-merge Journal Closure;
 - final report requirements на русском языке.
 
-## Требования к выполнению Engine
+## Требования к выполнению исполнителя (engine)
 
 Перед выполнением `engine` должен проверить:
 
