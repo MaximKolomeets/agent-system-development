@@ -8,7 +8,7 @@
 - Russian-first;
 - Рекомендуемый режим исполнения (без имён инструментов/моделей);
 - Передача (отчёт заканчивается блоком `Следующий: <роль> — <что делает>`);
-- Source-reminder (при изменении методологии/канонов — обновить source-снапшот и добавить «Обновить Source-снапшот в проектах: …» из `docs/agent-system/SOURCE_CONSUMERS.md`);
+- Source-reminder (при изменении методологии/канонов — применить канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»);
 - Verified Baseline;
 - Copy/Paste Completeness Check;
 - Project constitution check.
@@ -39,4 +39,4 @@
 
 Описать ожидаемый результат исследования.
 
-Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если исследование меняло методологию/каноны — добавить Source-reminder (`Обновить Source-снапшот в проектах: …` из `docs/agent-system/SOURCE_CONSUMERS.md`).
+Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если исследование меняло методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».

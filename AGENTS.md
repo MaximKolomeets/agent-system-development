@@ -75,4 +75,4 @@
 - После adoption audit проверять language consistency target docs.
 - Task header role-agnostic: указывается роль (функция), а исполнителя назначает архитектор (`Исполнитель: на усмотрение архитектора`); имена инструментов/моделей в шаблонах не пишутся; канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md` и `docs/agent-system/ROLE_MODEL.md` → «Роль vs исполнитель».
 - Final report и RESULT любой задачи заканчиваются блоком «Передача» (`Следующий: <роль> — <что делает>`); канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача».
-- Если задача меняла методологию/каноны — обновить source-снапшот и добавить в RESULT и «Передачу» строку «Обновить Source-снапшот в проектах: …» из реестра `docs/agent-system/SOURCE_CONSUMERS.md`; канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
+- Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»; реестр — `docs/agent-system/SOURCE_CONSUMERS.md`.

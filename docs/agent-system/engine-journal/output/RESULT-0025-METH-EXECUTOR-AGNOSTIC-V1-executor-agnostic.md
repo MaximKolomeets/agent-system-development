@@ -26,7 +26,7 @@
 
 ### 3. Правило «Source-reminder» (канон — `templates/TASK_HEADER_COMMON.md` → «Source-reminder»)
 
-- Новый канонический раздел: при изменении методологии/канонов — (а) обновить source-снапшот по `source/README.md`, если файлы входят; (б) в RESULT и «Передаче» строка «Обновить Source-снапшот в проектах: …» из `SOURCE_CONSUMERS.md`; иначе «не применимо».
+- Новый канонический раздел: при изменении методологии/канонов — применять Source-reminder по `templates/TASK_HEADER_COMMON.md` → «Source-reminder»; иначе «не применимо».
 - Wired по ссылке в DEVELOPMENT/RESEARCH/CODE_REVIEW шаблонах, `AGENTS.md`, checklist.
 
 ### 4. `CODE_REVIEW_TASK_TEMPLATE.md`
@@ -121,3 +121,7 @@ journal TASK-файлы (`TASK-0002/0003/0010/0011/0012/0013/0014/0015/0018/0019
 По review архитектора убрана привязка методологии к конкретному downstream-проекту: `SOURCE_CONSUMERS.md` переведён в scaffold-only (без реальных проектов; формат + закомментированный placeholder + явная пометка, что реестр ведётся в потребляющем развёртывании), правило «Source-reminder» в `TASK_HEADER_COMMON` переформулировано generic («у зарегистрированных потребителей»; методология сама потребителей не перечисляет), упоминания downstream-проекта удалены из `RESULT-0025` и строки INDEX 0025. Изменение self-contained для `agent-system-development`. PR #161 не merged — правка `RESULT-0025`/INDEX до merge допустима (не история).
 
 Дополнительная находка (E): verbatim-запись `TASK-0025` (`input/TASK-0025-*.md`, строки про seed/Передачу) содержит имя downstream-проекта как дословный текст исходной задачи — append-only история, вне whitelist, **не правится**.
+
+## v3 (правка до merge PR #161)
+
+Source-reminder выровнен на канон: дублирующие переизложения в `AGENTS.md`, `DEVELOPMENT_TASK_TEMPLATE.md` и `AGENT_RESEARCH_TASK_TEMPLATE.md` заменены ссылками на `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder». Divergent-формула из Major 2 review удалена из канонических/шаблонных файлов и этого RESULT. Канон generic остаётся только в `TASK_HEADER_COMMON`; `SOURCE_CONSUMERS.md` остаётся scaffold-only.

@@ -8,7 +8,7 @@
 - Russian-first;
 - Рекомендуемый режим исполнения (без имён инструментов/моделей);
 - Передача (отчёт заканчивается блоком `Следующий: <роль> — <что делает>`);
-- Source-reminder (при изменении методологии/канонов — обновить source-снапшот и добавить «Обновить Source-снапшот в проектах: …» из `docs/agent-system/SOURCE_CONSUMERS.md`);
+- Source-reminder (при изменении методологии/канонов — применить канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»);
 - Verified Baseline;
 - Copy/Paste Completeness Check;
 - Project constitution check.
@@ -55,6 +55,6 @@
 
 Отчет должен быть на русском языке и содержать language policy result.
 
-Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — добавить Source-reminder (`Обновить Source-снапшот в проектах: …` из `docs/agent-system/SOURCE_CONSUMERS.md`).
+Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
 
 Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, `RESULT closed after merge`, `INDEX closed after merge` и проверку Post-merge Journal Closure.
