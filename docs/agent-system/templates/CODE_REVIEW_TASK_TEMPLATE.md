@@ -389,7 +389,7 @@ Title: <review task title>
 - risks;
 - next step;
 - Передача — блок `Следующий: <роль> — <что делает>` (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);
-- Source-reminder, если review менял методологию/каноны (`Обновить Source-снапшот в проектах: …` из `docs/agent-system/SOURCE_CONSUMERS.md`); иначе «не применимо»;
+- Source-reminder, если review менял методологию/каноны (`Обновить Source-снапшот у зарегистрированных потребителей: …` из `docs/agent-system/SOURCE_CONSUMERS.md`); иначе «не применимо»;
 - локальные действия после PR/merge, если PR создан или обнаружен рассинхрон с `origin/*`.
 ```
 ````

@@ -52,7 +52,7 @@ Final report и RESULT обязаны заканчиваться блоком «
 Если задача меняла методологию или каноны (canon-файлы, шаблоны, governance этого methodology repository), исполнитель обязан:
 
 1. Обновить source-снапшот, если изменённые файлы входят в него (политика — `docs/agent-system/source/README.md`); снапшоты являются derived context, source of truth — GitHub-файлы.
-2. В RESULT и в блоке «Передача» явно добавить строку «Обновить Source-снапшот в проектах: <список потребителей>», где список берётся из реестра `docs/agent-system/SOURCE_CONSUMERS.md`.
+2. В RESULT и в блоке «Передача» явно добавить строку «Обновить Source-снапшот у зарегистрированных потребителей: …», где список берётся из реестра `docs/agent-system/SOURCE_CONSUMERS.md`. Реестр потребителей ведётся в потребляющем развёртывании; обезличенная upstream-методология своих потребителей не перечисляет, поэтому в ней список остаётся generic-placeholder.
 
 Если методология/каноны не менялись — в RESULT явно отметить «Source-reminder: не применимо (методология не менялась)».
 
@@ -75,7 +75,7 @@ Final report и RESULT обязаны заканчиваться блоком «
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
 - [ ] Рекомендуемый режим исполнения is included (роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему); имён инструментов/моделей в шаблоне нет.
 - [ ] Требование к отчёту включает блок «Передача» (`Следующий: <роль> — <что делает>`) — канон `TASK_HEADER_COMMON` → «Передача».
-- [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот в проектах: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
+- [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот у зарегистрированных потребителей: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

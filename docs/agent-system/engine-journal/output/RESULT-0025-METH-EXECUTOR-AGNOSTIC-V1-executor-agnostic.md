@@ -45,8 +45,8 @@
 
 ### 6. `SOURCE_CONSUMERS.md` (новый файл)
 
-- Реестр downstream-потребителей Source-снапшота, привязанный к правилу «Source-reminder» и роли `source-steward`.
-- Засеяна запись `verification` (github.com/MaximKolomeets/verification).
+- Scaffold-only реестр потребителей Source-снапшота, привязанный к правилу «Source-reminder» и роли `source-steward`.
+- В обезличенной upstream-методологии содержит только формат/колонки и закомментированный пример-placeholder; реальные потребители перечисляются в потребляющем развёртывании, не в шаблоне.
 
 ### 7. `AGENTS.md`
 
@@ -70,7 +70,7 @@
 - Изменяемые шаблоны **не имеют** verbatim-копии в `docs/agent-system/source/` — там только навигационный индекс (`SOURCE_agent_system_index.md`) и requirements-снапшот, без копий тел шаблонов.
 - В `ADOPTION_TRANSFER_MANIFEST.yml` шаблоны покрыты wildcard `docs/agent-system/templates/**` (категория `requires_target_adaptation`) — контентных копий нет, обновлять нечего.
 - Вывод: в этой задаче обновление файлов в `source/` не требуется. Source of truth — GitHub-файлы; снапшоты downstream обновляются у потребителей.
-- **Source-reminder (downstream): Обновить Source-снапшот в проектах: verification.**
+- **Source-reminder (generic): Обновить Source-снапшот у зарегистрированных потребителей: …** — обезличенная upstream-методология своих потребителей не перечисляет; реестр `SOURCE_CONSUMERS.md` ведётся в потребляющем развёртывании.
 
 ## Scrub-находки вне whitelist (для следующей задачи, НЕ правились)
 
@@ -111,7 +111,13 @@ journal TASK-файлы (`TASK-0002/0003/0010/0011/0012/0013/0014/0015/0018/0019
 
 ## Передача
 
-- Сделано: methodology executor-agnostic — role-agnostic шаблоны (без имён инструментов), каноны «Передача» и «Source-reminder» в `TASK_HEADER_COMMON`, роли `infra`/`source-steward` в `ROLE_MODEL`, заведён `SOURCE_CONSUMERS.md` (seed `verification`), scrub vendor-имён в whitelist. PR [#161](https://github.com/MaximKolomeets/agent-system-development/pull/161), head SHA `a173f59c7caca0b89388122b63975f72d7e12fab`.
-- Следующий: reviewer — review PR #161 по новому role-agnostic review-шаблону (`gh pr view/diff` по head SHA), особое внимание findings A–D как кандидатам на отдельную follow-up задачу.
-- Обновить Source-снапшот в проектах: verification.
-- Tool-name находки вне whitelist: см. разделы A–D выше (не правились; для follow-up задачи).
+- Сделано: methodology executor-agnostic — role-agnostic шаблоны (без имён инструментов), каноны «Передача» и «Source-reminder» в `TASK_HEADER_COMMON`, роли `infra`/`source-steward` в `ROLE_MODEL`, заведён scaffold-only `SOURCE_CONSUMERS.md`, scrub vendor-имён в whitelist. PR [#161](https://github.com/MaximKolomeets/agent-system-development/pull/161).
+- Следующий: reviewer — re-review PR #161 по role-agnostic review-шаблону (`gh pr view/diff` по head SHA); методология обезличена (нет имён downstream-проектов; `SOURCE_CONSUMERS` scaffold-only); особое внимание findings A–E как кандидатам на отдельную follow-up задачу.
+- Обновить Source-снапшот у зарегистрированных потребителей: … (generic — upstream-методология потребителей не перечисляет; реестр ведётся в потребляющем развёртывании).
+- Tool-name находки вне whitelist: см. разделы A–E ниже (не правились; для follow-up задачи).
+
+## v2 (правка до merge PR #161)
+
+По review архитектора убрана привязка методологии к конкретному downstream-проекту: `SOURCE_CONSUMERS.md` переведён в scaffold-only (без реальных проектов; формат + закомментированный placeholder + явная пометка, что реестр ведётся в потребляющем развёртывании), правило «Source-reminder» в `TASK_HEADER_COMMON` переформулировано generic («у зарегистрированных потребителей»; методология сама потребителей не перечисляет), упоминания downstream-проекта удалены из `RESULT-0025` и строки INDEX 0025. Изменение self-contained для `agent-system-development`. PR #161 не merged — правка `RESULT-0025`/INDEX до merge допустима (не история).
+
+Дополнительная находка (E): verbatim-запись `TASK-0025` (`input/TASK-0025-*.md`, строки про seed/Передачу) содержит имя downstream-проекта как дословный текст исходной задачи — append-only история, вне whitelist, **не правится**.
