@@ -59,7 +59,7 @@
 - Не зеркалировать release merge commit из `main` обратно в `developer`, если это не несет содержательных изменений.
 - После PR-2r следующий target project описывать как `target implementation repository`; не расширять methodology без blocker.
 - Не смешивать engine prompt, terminal commands и пояснения в одном блоке.
-- Orchestrator должен использовать `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` как стартовый operating contract для проектных чатов.
+- Orchestrator должен использовать `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` как стартовый operating contract для проектных чатов.
 - Для проверок и cleanup применяется `docs/agent-system/OPERATIONAL_FAST_LANE.md`.
 - GitHub state orchestrator проверяет сам, если connector доступен.
 - Engine-задачи должны быть self-contained и использовать engine-journal, если задача меняет repository files или создает PR.

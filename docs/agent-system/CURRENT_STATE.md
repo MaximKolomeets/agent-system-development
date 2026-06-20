@@ -173,7 +173,7 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 
 - lightweight solo-operator mode и multi-agent governed mode;
 - явные boundaries для `orchestrator`, `engine` и `reviewer`;
-- policy, что `CHATGPT_*` документы являются adapter layer, а не role naming exception;
+- policy, что `ORCHESTRATOR_*` документы являются role-based layer, а не role naming exception;
 - `methodology_reference` с commit SHA для target adoption/update;
 - drift-control для `docs/agent-system/source/**` snapshots;
 - ceremony/token budget policy и anti-overengineering checkpoint;
@@ -213,4 +213,4 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 
 Текущий следующий шаг: подготовить release PR `developer -> main`. После merge release PR выполнить sync `main -> developer`, затем обновить release/sync facts для последней journal-записи при необходимости и перейти к downstream adoption decision после финальной проверки state.
 
-Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.
+Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.

@@ -109,8 +109,8 @@
 
 ## 2026-06-11 - PR-2m unified ChatGPT response and commenting standards
 
-- Добавлен `CHATGPT_RESPONSE_STANDARD.md`.
-- Добавлен `CHATGPT_RESPONSE_TEMPLATE.md`.
+- Добавлен `ORCHESTRATOR_RESPONSE_STANDARD.md`.
+- Добавлен `ORCHESTRATOR_RESPONSE_TEMPLATE.md`.
 - Добавлен `FILE_COMMENTING_STANDARD.md`.
 - Закреплены one-engine-task-one-block rule, separation of manual terminal tasks, methodology freshness check, language consistency rule и нейтральный methodology feedback.
 - PR-2m merged в `developer` через PR #46.
@@ -134,16 +134,16 @@
 ## 2026-06-11 - PR-2q engine repository context preflight
 
 - Исправляется blocker review feedback из release PR #49.
-- `CHATGPT_RESPONSE_TEMPLATE.md` теперь требует `cd <TARGET_REPOSITORY_LOCAL_PATH>` после methodology sync перед target checks и changes.
+- `ORCHESTRATOR_RESPONSE_TEMPLATE.md` теперь требует `cd <TARGET_REPOSITORY_LOCAL_PATH>` после methodology sync перед target checks и changes.
 - Methodology sync теперь требует `HEAD == origin/<METHODOLOGY_BASE_BRANCH>` после `git pull --ff-only`.
-- `CHATGPT_RESPONSE_STANDARD.md` и `ENGINE_ENTRYPOINT.md` уточняют repository context safety rule.
+- `ORCHESTRATOR_RESPONSE_STANDARD.md` и `ENGINE_ENTRYPOINT.md` уточняют repository context safety rule.
 - Release PR #49 остается open и должен быть re-checked после merge PR-2q.
 
 ## 2026-06-11 - PR-2r engine journal contract
 
 - Добавлен `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 - Добавлена структура `docs/agent-system/engine-journal/` с `README.md`, `INDEX.md`, `input/`, `output/` и templates.
-- `CHATGPT_RESPONSE_STANDARD.md`, `CHATGPT_RESPONSE_TEMPLATE.md` и `ENGINE_ENTRYPOINT.md` требуют task/result artifacts.
+- `ORCHESTRATOR_RESPONSE_STANDARD.md`, `ORCHESTRATOR_RESPONSE_TEMPLATE.md` и `ENGINE_ENTRYPOINT.md` требуют task/result artifacts.
 - Adoption docs/templates обновлены так, чтобы target repository adoption создавал engine journal.
 - State docs и Source index обновлены под PR-2r.
 - Follow-up: `ADOPTION_TRANSFER_MANIFEST.yml` синхронизирован с engine journal scaffold/templates; methodology operational history не переносится.
@@ -151,7 +151,7 @@
 ## 2026-06-12 - PR-2x post-merge journal closure
 
 - Добавлено правило Post-merge Journal Closure: после merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` не должны оставаться в pre-merge статусах.
-- `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md` и `OPERATIONAL_FAST_LANE.md` требуют closure-поля, merge commit SHA и проверку stale statuses.
+- `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `ORCHESTRATOR_RESPONSE_STANDARD.md` и `OPERATIONAL_FAST_LANE.md` требуют closure-поля, merge commit SHA и проверку stale statuses.
 - Engine journal templates и task/adoption templates обновлены Russian-first labels для PR status after review, merge commit SHA, release/sync PR и closure check.
 - Review checklist/templates считают blocker, если merged journal entry остается `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
 - Real TASK/RESULT operational history в methodology repository не добавлялась.

@@ -64,9 +64,9 @@ Engine / handoff / orchestrator interface:
 
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`
 - `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`
-- `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`
-- `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`
-- `docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md`
+- `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`
+- `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
+- `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md`
 - `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`
 
 Adoption:
@@ -127,7 +127,7 @@ Templates, journal и навигационный индекс:
 
 Перед подготовкой задачи ChatGPT проверяет актуальный `agent-system-development`. Перед выполнением `engine` синхронизирует methodology repository с GitHub, если задача применяет или меняет методологию.
 
-Русские комментарии обязательны для нужных строк/блоков в скриптах, workflow и технических файлах. `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md` является обязательным стандартом для target adoption prompts.
+Русские комментарии обязательны для нужных строк/блоков в скриптах, workflow и технических файлах. `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` является обязательным стандартом для target adoption prompts.
 
 Все пользовательские ответы, Engine final reports, TASK/RESULT/INDEX, target-local methodology docs/templates и комментарии в файлах должны быть Russian-first. English сохраняется только для code identifiers, команд, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
 
@@ -183,13 +183,13 @@ Project Constitution Framework описан в `docs/agent-system/PROJECT_CONSTI
 
 Canonical copy/paste prompt для запуска adoption в target repository находится в `docs/agent-system/templates/ADOPTION_PROMPT.md` (раздел «Полный canonical copy/paste prompt»). Прежний файл `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен как redirect-заглушка для внешних bookmark.
 
-Стандарт ответа ChatGPT находится в `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
+Стандарт ответа роли `orchestrator` находится в `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`.
 
-Короткий operating contract для ChatGPT находится в `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md`.
+Короткий operating contract для роли `orchestrator` находится в `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`.
 
-Документы с prefix `CHATGPT_` являются adapter/implementation-specific layer для одного orchestrator-интерфейса. Они не меняют vendor-neutral role model и не являются основанием использовать vendor/tool names в названиях ролей, веток, task id или report files.
+Документы с prefix `ORCHESTRATOR_` являются role-based layer для роли `orchestrator`. Они не меняют vendor-neutral role model и не являются основанием использовать vendor/tool names в названиях ролей, веток, task id или report files.
 
-Template ответа ChatGPT находится в `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`.
+Template ответа роли `orchestrator` находится в `docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`.
 
 Prompt для запуска нового проекта (короткий стартовый prompt проектного чата и полный bootstrap prompt) находится в `docs/agent-system/templates/NEW_PROJECT_PROMPT.md`.
 
