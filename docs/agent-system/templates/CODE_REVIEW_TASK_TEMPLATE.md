@@ -5,11 +5,12 @@
 ````text
 Задача для <reviewer-role>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: reviewer (<code-reviewer-01 | qa-reviewer-01 | security-reviewer-01>)
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
 Почему: задача выполняет review-only audit/review без исправления кода; journal PR создается всегда, а тело отчета сохраняется в repository только при `Report delivery: repository` или `chat+repository`.
 
@@ -59,10 +60,10 @@ Reviewer role:
 <code-reviewer-01 | qa-reviewer-01 | security-reviewer-01>
 ```
 
-Engine:
+Engine (опционально, исполнителя назначает архитектор; имя инструмента фиксируется постфактум, не как рекомендация):
 
 ```text
-<engine-name>
+<engine-name | на усмотрение архитектора>
 ```
 
 Review mode:
@@ -120,7 +121,20 @@ Reviewer должен:
 - добавить report-файл в тот же PR, только если `Report delivery` включает `repository`.
 
 Reviewer не должен исправлять production code в этой задаче.
-Reviewer не должен запускать Codex/Engine, менять очередь исполнителя или формулировать себе implementation task.
+Reviewer не должен запускать исполнителя (engine), менять очередь исполнителя или формулировать себе implementation task.
+
+## Конвенция: review PR на GitHub по head SHA
+
+Если `Review object` = `PR`, ревью выполняется по конкретному PR на GitHub и пиннится к head SHA для воспроизводимости — через `gh`:
+
+```powershell
+gh pr view <pr-number> --json number,headRefName,headRefOid,state,mergeable,baseRefName
+gh pr diff <pr-number>
+git fetch origin pull/<pr-number>/head
+git checkout <headRefOid>   # head SHA из `gh pr view`
+```
+
+Review report и RESULT фиксируют reviewed head SHA. Если PR обновился после ревью (head SHA сменился), вердикт относится только к зафиксированному head SHA, что отмечается явно.
 
 ## Required preflight
 
@@ -329,7 +343,7 @@ Report filename не должен содержать vendor/tool name.
 - vendor-specific branch names;
 - vendor-specific report filenames;
 - fixing code в `review-only`-задаче;
-- launching Codex/Engine or assigning implementation work to self;
+- launching исполнителя (engine) or assigning implementation work to self;
 - reading `.env`;
 - printing sensitive grep matching lines.
 
@@ -371,8 +385,11 @@ Title: <review task title>
 - forbidden paths result;
 - sensitive grep filename-only result;
 - vendor-specific naming check result;
+- reviewed head SHA, если Review object = PR;
 - risks;
 - next step;
+- Передача — блок `Следующий: <роль> — <что делает>` (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);
+- Source-reminder, если review менял методологию/каноны (`Обновить Source-снапшот в проектах: …` из `docs/agent-system/SOURCE_CONSUMERS.md`); иначе «не применимо»;
 - локальные действия после PR/merge, если PR создан или обнаружен рассинхрон с `origin/*`.
 ```
 ````

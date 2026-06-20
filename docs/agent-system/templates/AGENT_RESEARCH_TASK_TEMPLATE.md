@@ -4,9 +4,11 @@
 
 Заполнить общий header по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`:
 
-- Mandatory header (`Задача для <agent-name>: <task-id>` + блок рекомендуемого режима);
+- Mandatory header (`Задача для <роль>: <task-id>` + role-agnostic блок рекомендуемого режима исполнения: роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему);
 - Russian-first;
-- Recommended Engine Mode;
+- Рекомендуемый режим исполнения (без имён инструментов/моделей);
+- Передача (отчёт заканчивается блоком `Следующий: <роль> — <что делает>`);
+- Source-reminder (при изменении методологии/канонов — обновить source-снапшот и добавить «Обновить Source-снапшот в проектах: …» из `docs/agent-system/SOURCE_CONSUMERS.md`);
 - Verified Baseline;
 - Copy/Paste Completeness Check;
 - Project constitution check.
@@ -36,3 +38,5 @@
 ## Expected output
 
 Описать ожидаемый результат исследования.
+
+Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если исследование меняло методологию/каноны — добавить Source-reminder (`Обновить Source-снапшот в проектах: …` из `docs/agent-system/SOURCE_CONSUMERS.md`).
