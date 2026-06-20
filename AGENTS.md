@@ -32,7 +32,7 @@
 - Если token separation не настроена, final report должен честно указать это как operational risk.
 - Research/Review агенты не ставят задачи development executor напрямую.
 - Review-агент проверяет PR, branch, commit, diff или набор файлов; он не чинит код, не меняет production-файлы и не выполняет задачи разработки без отдельной явно выданной задачи.
-- Review-агент может предложить кандидаты на будущие задачи, но не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
+- Review-агент может предложить кандидаты на будущие задачи, но не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.
 - Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены `claude/*`, `gpt/*`, `gemini/*`, `docs/CLAUDE_REVIEW.md`, `docs/GPT_REVIEW.md`, `docs/GEMINI_REVIEW.md`.
@@ -50,7 +50,7 @@
 - Engine journal RESULT/INDEX must be finalized after PR creation; placeholders in ready-for-review PRs are blockers.
 - Engine journal TASK/RESULT/INDEX должны быть Russian-first; English сохраняется только для технических identifiers и literal external names.
 - Large Engine tasks should use Task File Handoff Mode to avoid context-window bloat.
-- ChatGPT may create only task-file-only GitHub branch/commit when explicitly authorized.
+- Orchestrator may create only task-file-only GitHub branch/commit when explicitly authorized.
 - Engine must treat TASK file as source of truth and finalize RESULT/INDEX.
 - Нельзя оставлять за пределами Engine-блока команды, ограничения, проверки, allowed files, forbidden files, STOP-условия или требования к отчету, если они нужны engine.
 - Если ответ содержит ручные terminal-команды, каждая независимая ручная задача должна быть отдельным разделом и отдельным terminal block.
@@ -59,17 +59,20 @@
 - Не зеркалировать release merge commit из `main` обратно в `developer`, если это не несет содержательных изменений.
 - После PR-2r следующий target project описывать как `target implementation repository`; не расширять methodology без blocker.
 - Не смешивать engine prompt, terminal commands и пояснения в одном блоке.
-- ChatGPT должен использовать `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` как стартовый operating contract для проектных чатов.
+- Orchestrator должен использовать `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` как стартовый operating contract для проектных чатов.
 - Для проверок и cleanup применяется `docs/agent-system/OPERATIONAL_FAST_LANE.md`.
-- GitHub state ChatGPT проверяет сам, если connector доступен.
+- GitHub state orchestrator проверяет сам, если connector доступен.
 - Engine-задачи должны быть self-contained и использовать engine-journal, если задача меняет repository files или создает PR.
 - Если задача создала PR, была смержена, обновила remote `developer`/`main` или обнаружила рассинхрон локальной ветки с `origin/*`, финальный отчет должен содержать конкретный блок `Локальные действия после PR/merge`.
-- ChatGPT не читает `.env` и не меняет `main`/`developer` напрямую.
-- Перед подготовкой задачи для target repository ChatGPT должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
-- Если актуальное состояние methodology repository проверить невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.
+- Orchestrator не читает `.env` и не меняет `main`/`developer` напрямую.
+- Перед подготовкой задачи для target repository orchestrator должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
+- Если актуальное состояние methodology repository проверить невозможно, orchestrator должен явно сказать это пользователю и включить в Engine-блок обязательный preflight `git fetch/pull`.
 - Любой engine, применяющий methodology repository, должен перед изменениями синхронизировать локальный `agent-system-development` с GitHub.
 - В создаваемых и изменяемых скриптах, workflow и технических файлах обязательны русские комментарии для нужных строк/блоков.
 - В создаваемых и изменяемых target-local templates обязательны Russian-first labels/descriptions; не переводить команды, flags, paths и identifiers.
-- Если после adoption audit нужна доработка `agent-system-development`, ChatGPT должен вывести отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
+- Если после adoption audit нужна доработка `agent-system-development`, orchestrator должен вывести отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
 - В public methodology repository не упоминать private downstream project names.
 - После adoption audit проверять language consistency target docs.
+- Task header role-agnostic: указывается роль (функция), а исполнителя назначает архитектор (`Исполнитель: на усмотрение архитектора`); имена инструментов/моделей в шаблонах не пишутся; канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md` и `docs/agent-system/ROLE_MODEL.md` → «Роль vs исполнитель».
+- Final report и RESULT любой задачи заканчиваются блоком «Передача» (`Следующий: <роль> — <что делает>`); канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача».
+- Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»; реестр — `docs/agent-system/SOURCE_CONSUMERS.md`.
