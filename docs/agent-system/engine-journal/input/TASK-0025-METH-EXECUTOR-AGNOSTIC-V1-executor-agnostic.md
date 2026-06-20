@@ -43,14 +43,14 @@ git rev-parse --abbrev-ref HEAD     # == work/docs-maintainer-01/executor-agnost
 3. Правило «Source-reminder» (канон в TASK_HEADER_COMMON): если задача меняла методологию/каноны — (а) обновить source-снапшот; (б) в RESULT и «Передаче» явно «Обновить Source-снапшот в проектах: <из SOURCE_CONSUMERS>».
 4. CODE_REVIEW_TASK_TEMPLATE: role-agnostic reviewer-заголовок + «Передача» + конвенция «ревью PR на GitHub по head SHA через gh».
 5. ROLE_MODEL: добавить различение «роль (в методологии) vs исполнитель (назначает архитектор)»; добавить роли `infra` (Docker/CI/деплой; тугой whitelist; без .env) и `source-steward` (кросс-проектная синхронизация Source).
-6. SOURCE_CONSUMERS.md (новый): реестр downstream-проектов, которым нужен Source-снапшот; засеять записью `verification` (github.com/MaximKolomeets/verification).
+6. SOURCE_CONSUMERS.md (новый): реестр downstream-проектов, которым нужен Source-снапшот; засеять записью `<downstream-project>` (имя обезличено для публичного шаблона; в оригинале был назван конкретный проект — это и была устранённая coupling-ошибка).
 7. Scrub: в whitelisted-файлах заменить любые имена инструментов на роли. Имена инструментов ВНЕ whitelist НЕ править — вынести списком в RESULT как находки для следующей задачи.
 
 Целевая форма шаблонов — как в двух согласованных блоках (executor + reviewer). Канон + ссылки, без дублирования прозой; не противоречить BRANCH_POLICY/WORKFLOW/governance.
 
 ## Source-снапшот (ОБЯЗАТЕЛЬНО — методология меняется)
 - Проверить, входят ли изменяемые шаблоны в source-снапшот (source/ + ADOPTION_TRANSFER_MANIFEST). Если да — обновить их там же.
-- В RESULT и «Передаче»: «Обновить Source-снапшот в проектах: verification».
+- В RESULT и «Передаче»: «Обновить Source-снапшот в проектах: <downstream-project>» (имя обезличено для публичного шаблона; в оригинале был назван конкретный проект — это и была устранённая coupling-ошибка).
 
 ## Journal
 TASK-<seq> (дословно), RESULT-<seq> (что изменено, где каноны/ссылки, scrub-находки вне whitelist, baseline SHA, timestamp ISO-8601), INDEX строка <seq>. Append-only, без placeholders, Russian-first.
@@ -64,7 +64,7 @@ push work-ветку; открыть PR в developer.
 ## Передача (ОБЯЗАТЕЛЬНО в конце отчёта)
 - что сделано + № PR + head SHA;
 - «Следующий: reviewer — review PR #NN по новому role-agnostic review-шаблону»;
-- «Обновить Source-снапшот в проектах: verification»;
+- «Обновить Source-снапшот в проектах: <downstream-project>» (имя обезличено для публичного шаблона; в оригинале был назван конкретный проект — это и была устранённая coupling-ошибка);
 - список tool-name находок вне whitelist (если есть).
 
 ## DoD / STOP
