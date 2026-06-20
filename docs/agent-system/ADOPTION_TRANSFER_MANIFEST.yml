@@ -46,6 +46,7 @@ categories:
       - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
       - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
+      - docs/agent-system/SOURCE_CONSUMERS.md
       # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1) и удалён (METH-BACKLOG-POLISH); не переносить.
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/engine-journal/README.md
@@ -152,8 +153,10 @@ rules:
       секреты или project-specific state target repository.
   - id: mandatory_engine_task_header
     text: >
-      Каждая задача для engine начинается с русскоязычной шапки
-      "Задача для <agent-name>: <task-id>" и блока рекомендуемого режима.
+      Каждая задача для engine начинается с русскоязычной role-agnostic шапки
+      "Задача для <роль>: <task-id>" и блока "Рекомендуемый режим исполнения":
+      "Роль", "Исполнитель: на усмотрение архитектора" и "Reasoning effort".
+      Канон: docs/agent-system/templates/TASK_HEADER_COMMON.md.
   - id: russian_first_policy
     text: >
       Все user-facing answers, Engine final reports, TASK/RESULT/INDEX, target-local docs/templates
