@@ -17,13 +17,14 @@
 ```text
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 
 Цель:
 
@@ -280,11 +281,12 @@ STOP-условия:
 ```text
 Задача для methodology-maintainer-01: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: docs-maintainer
+Исполнитель: на усмотрение архитектора
+Reasoning effort: высокий
 Запуск: Local only
-Модель: <model recommendation>
-Reasoning: High
 Режим: Agent
 Почему: задача меняет reusable methodology repository и должна быть выполнена отдельной веткой и Pull Request.
 

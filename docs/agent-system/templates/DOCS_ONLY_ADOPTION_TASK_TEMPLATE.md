@@ -5,20 +5,21 @@
 ```text
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
 ## Recommended Engine Mode
 
-Заполнить блок `Рекомендуемый режим <engine-name>` в mandatory header: launch mode / запуск, model / модель, reasoning, execution mode / режим и why this mode is required / почему.
+Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
 
 ## Verified Baseline
 
