@@ -42,6 +42,9 @@ categories:
       - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
+      - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
+      - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1) и удалён (METH-BACKLOG-POLISH); не переносить.
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
@@ -50,6 +53,7 @@ categories:
       - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
       - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
       - docs/agent-system/templates/ADOPTION_PROMPT.md
+      - docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md
       # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md — redirect-заглушка на ADOPTION_PROMPT.md для внешних bookmark (PR-C3); не переносить. SHORT_TARGET_ADOPTION_PROMPT.md удалён (METH-BACKLOG-POLISH).
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md

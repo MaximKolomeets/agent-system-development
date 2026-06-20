@@ -90,7 +90,7 @@ Privacy:
 Решение:
 Закрепить два режима применения методологии: `lightweight solo-operator mode` и `multi-agent governed mode`.
 
-Явно разделить `orchestrator`, `engine` и `reviewer`. Vendor/tool names не используются как role names, branch namespaces, task ids или report filenames. Документы `CHATGPT_*` считаются adapter/implementation-specific layer для одного orchestrator-интерфейса и не требуют mechanical rename.
+Явно разделить `orchestrator`, `engine` и `reviewer`. Vendor/tool names не используются как role names, branch namespaces, task ids или report filenames. Документы `ORCHESTRATOR_*` считаются role-based layer для роли `orchestrator`.
 
 Target adoption/update artifacts должны фиксировать `methodology_reference` с repository, source branch, source commit SHA, checked_at и reference_type. Commit SHA является обязательным reproducibility anchor.
 
@@ -419,8 +419,8 @@ Target repository должен до implementation PR фиксировать mis
 
 Последствия:
 
-- появляется `CHATGPT_RESPONSE_STANDARD.md`;
-- появляется `CHATGPT_RESPONSE_TEMPLATE.md`;
+- появляется `ORCHESTRATOR_RESPONSE_STANDARD.md`;
+- появляется `ORCHESTRATOR_RESPONSE_TEMPLATE.md`;
 - появляется `FILE_COMMENTING_STANDARD.md`;
 - adoption prompts требуют standardized ChatGPT response;
 - engine block становится самодостаточным;
@@ -565,7 +565,7 @@ Broken-ссылки на удалённые файлы в append-only истор
 
 Решение:
 Зафиксированы два нейтральных operating-контракта поверх repo governance:
-`docs/agent-system/CLAUDE_PROJECT_OPERATING_LAYER.md` (один изолированный
+`docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (один изолированный
 проектный контекст ассистента на один target implementation repository) и
 `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (read-only advisory
 кросс-проектная консолидация, Cowork lane). Governance pack template расширен
@@ -577,7 +577,7 @@ Context:
 изоляции и границ данных. Нужен нейтральный, публично-безопасный контракт.
 
 Options considered:
-- (A) описать operating-слой как часть существующего `CHATGPT_OPERATING_CONTRACT`
+- (A) описать operating-слой как часть существующего `ORCHESTRATOR_OPERATING_CONTRACT`
   — отклонено: это другой ассистент-продукт и другой режим (single-project vs
   cross-project);
 - (B) держать матрицу видимости в публичном репозитории — отклонено: нарушает

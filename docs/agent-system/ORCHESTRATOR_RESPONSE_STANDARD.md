@@ -1,4 +1,4 @@
-# CHATGPT_RESPONSE_STANDARD
+# ORCHESTRATOR_RESPONSE_STANDARD
 
 > Adapter layer: этот стандарт описывает ChatGPT как один implementation-specific интерфейс роли `orchestrator`. Canonical vendor-neutral правила находятся в `ROLE_MODEL.md`, `WORKFLOW.md`, `ENGINE_ENTRYPOINT.md` и `LANGUAGE_POLICY.md`. Не использовать `ChatGPT` как role name, branch namespace, task id или report filename.
 
@@ -11,7 +11,7 @@
 В новом project chat ChatGPT сначала применяет короткий operating contract:
 
 ```text
-docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
+docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 ```
 
 Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, ChatGPT готовит self-contained Engine-блок по этому стандарту. Если Engine block становится слишком длинным, ChatGPT использует Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
@@ -339,7 +339,7 @@ Post-merge checks в Operational Fast Lane должны включать journal
 
 Если проверить актуальность невозможно, ChatGPT должен явно сказать это пользователю и включить в Engine-блок обязательный preflight для `git fetch --all --prune` и `git pull --ff-only` там, где это безопасно.
 
-В новых проектных чатах проверка актуальности methodology repository выполняется после применения `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` и до постановки Engine-задачи для target repository.
+В новых проектных чатах проверка актуальности methodology repository выполняется после применения `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` и до постановки Engine-задачи для target repository.
 
 ## Синхронизация methodology repository перед выполнением
 

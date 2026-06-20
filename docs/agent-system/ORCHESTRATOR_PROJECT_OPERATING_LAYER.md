@@ -1,26 +1,26 @@
-# CLAUDE_PROJECT_OPERATING_LAYER
+# ORCHESTRATOR_PROJECT_OPERATING_LAYER
 
 ## Назначение
 
 Этот документ описывает нейтральный operating layer для случая, когда команда
 ведёт работу по конкретному target implementation repository внутри отдельного
-Claude Project (изолированного проектного контекста ассистента).
+project operating context (изолированного проектного контекста ассистента).
 
 Документ методологический и не зависит от конкретного downstream-проекта. Он
-описывает контракт «один Claude Project на один target repository», шаблон
+описывает контракт «один project operating context на один target repository», шаблон
 project custom-instructions и состав knowledge base. Реальные имена проектов,
 клиентов, приватные URL и данные сюда не добавляются (канон нейтральности —
 `AGENTS.md` и `docs/agent-system/PUBLICATION_POLICY.md`).
 
-Этот слой стоит рядом с `CHATGPT_OPERATING_CONTRACT.md`: оба описывают, как
+Этот слой стоит рядом с `ORCHESTRATOR_OPERATING_CONTRACT.md`: оба описывают, как
 ассистент-продукт обслуживает проектный чат. Здесь зафиксирован вариант для
-Claude Project как control surface поверх repo governance.
+project operating context как control surface поверх repo governance.
 
 ## Место в трёхслойной модели
 
 1. **Repo governance** — каноны в `docs/agent-system/*` target repository
    (источник истины: ветки, PR, journal, решения).
-2. **Claude Project operating layer** — этот документ: изолированный проектный
+2. **Project operating layer** — этот документ: изолированный проектный
    контекст, ролевой контракт, knowledge base и правило свежести.
 3. **Cross-project consolidation (Cowork lane)** — `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`:
    read-only advisory консолидация поверх нескольких проектов.
@@ -28,13 +28,13 @@ Claude Project как control surface поверх repo governance.
 Operating layer не заменяет repo governance. При конфликте побеждает repo
 governance target repository, а operating layer останавливается (`STOP`).
 
-## Правило «один Claude Project на target repository»
+## Правило «один project operating context на target repository»
 
-- Один Claude Project обслуживает ровно один target implementation repository.
+- Один project operating context обслуживает ровно один target implementation repository.
 - Контексты проектов изолированы: знания, инструкции и knowledge base одного
   проекта не перетекают в другой. Кросс-проектные обзоры — только через
   отдельный consolidation lane (см. `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`).
-- Если нужно вести два target repository, заводятся два отдельных Claude Project.
+- Если нужно вести два target repository, заводятся два отдельных project operating context.
 - Project operating layer не хранит секреты, приватные данные и реальные имена
   downstream-проектов; источником истины остаётся target repository.
 
@@ -138,7 +138,7 @@ developer_head_sha: <commit-sha origin/developer на момент слепка>
 
 ## Связь с другими документами
 
-- `docs/agent-system/CHATGPT_OPERATING_CONTRACT.md` — аналогичный operating
+- `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` — аналогичный operating
   contract для другого ассистент-продукта.
 - `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` — слой кросс-
   проектной консолидации (Cowork lane).
