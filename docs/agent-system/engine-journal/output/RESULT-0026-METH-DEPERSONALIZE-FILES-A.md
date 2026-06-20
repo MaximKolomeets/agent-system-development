@@ -10,8 +10,8 @@
 - Baseline SHA (`origin/developer`): `13d5540cb3694b8876f5ce13cb8d9d42ecca57af`.
 - Timestamp (ISO-8601): `2026-06-20T14:46:54.8405243+07:00`.
 - Тип: docs-only, methodology-hardening.
-- PR: pending until PR creation.
-- Head SHA: pending until PR creation.
+- PR: [#162](https://github.com/MaximKolomeets/agent-system-development/pull/162) — open, в `developer` (review/merge выполняет человек).
+- Head SHA at PR creation: `12b3b9df514124b85994fe62f0e02c2cdb8bbece`.
 
 ## Что сделано
 
@@ -43,6 +43,7 @@
 - Branch guard: `work/docs-maintainer-01/depersonalize-files-a`.
 - Проверка старых vendor-named file identifiers вне `docs/agent-system/engine-journal/**` -> 0.
 - `git diff --check` -> OK.
+- PR created: [#162](https://github.com/MaximKolomeets/agent-system-development/pull/162).
 
 ## Остаток phase-2
 
