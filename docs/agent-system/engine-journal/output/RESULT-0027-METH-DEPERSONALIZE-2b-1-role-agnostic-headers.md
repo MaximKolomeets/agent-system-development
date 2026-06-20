@@ -11,7 +11,7 @@
 - Timestamp (ISO-8601): `2026-06-20T22:01:32+07:00`.
 - Тип: docs-only, methodology-hardening (phase-2b-1, finding A).
 - PR: [#163](https://github.com/MaximKolomeets/agent-system-development/pull/163) — open, в `developer` (review/merge выполняет человек).
-- Head SHA at PR creation: `<finalized-after-push>`.
+- Head SHA at PR creation: `1be7fbfd0cf43331dd40a4b997234345dd47be47`.
 
 ## Что сделано
 
