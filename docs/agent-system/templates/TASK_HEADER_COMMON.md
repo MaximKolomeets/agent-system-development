@@ -86,7 +86,7 @@ Final report и RESULT обязаны включать блок «Source Delta»
 
 | путь | действие | категория | Source-рекомендация | manifest обновлён? |
 | --- | --- | --- | --- | --- |
-| `<path>` | `<added | modified | renamed | deleted>` | `<source | template | target_generated | history_state | journal | scaffold>` | `<add | update | remove | rename | none>` | `<yes | no | n-a>` |
+| `<path>` | `<added | modified | renamed | deleted>` | `<source | template | target_generated | history_state | journal | scaffold | generated>` | `<add | update | remove | rename | none>` | `<yes | no | n-a>` |
 
 Категория берётся из `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`. Если файл не классифицируется однозначно, исполнитель пишет `STOP` и запрашивает решение архитектора.
 
@@ -96,10 +96,10 @@ Final report и RESULT обязаны включать блок «Source Delta»
 - изменённый `source` или `template` file — `update`;
 - удалённый `source` или `template` file — `remove`;
 - переименованный `source` или `template` file — `rename`;
-- `history_state`, `journal` и `scaffold` — `none`;
+- `history_state`, `journal`, `scaffold` и `generated` — `none`;
 - `target_generated` — `none` для source-снапшота, если task не меняет source template; если меняет соответствующий template, рекомендация ставится на template row.
 
-Если действие `added`, `deleted` или `renamed` затрагивает inventory-файл категории `source`, `template` или `target_generated`, `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` обязан быть обновлён в том же PR. Если manifest не обновлён — `STOP`. Для обычного `modified` без изменения inventory-списка manifest field = `n-a`.
+Если действие `added`, `deleted` или `renamed` затрагивает inventory-файл категории `source`, `template`, `target_generated` или `generated`, `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` обязан быть обновлён в том же PR, а `docs/agent-system/PROJECT_FILE_MAP.md` обязан быть регенерирован через `python docs/agent-system/tools/gen_file_map.py` и проверен через `python docs/agent-system/tools/gen_file_map.py --check`. Если manifest не обновлён или file map не регенерирован — `STOP`. Для обычного `modified` без изменения inventory-списка manifest field = `n-a`.
 
 ## Verified Baseline
 
