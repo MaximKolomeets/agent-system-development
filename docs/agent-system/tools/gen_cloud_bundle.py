@@ -15,6 +15,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml"
 README_NAME = "README.md"
+README_INFORMATIONAL_LINE_PATTERNS = (
+    (r"(?m)^- asof: `[^`\n]*`$", "- asof: `<informational>`"),
+    (r"(?m)^- developer_head_sha: `[^`\n]*`$", "- developer_head_sha: `<informational>`"),
+)
 
 
 @dataclass
@@ -183,7 +187,7 @@ def render_readme(config: BundleConfig, asof: str, developer_head_sha: str) -> b
             "",
             "## Upload how-to",
             "",
-            "### ChatGPT / browser upload",
+            "### Chat UI / browser upload",
             "",
             "1. Открыть `docs/agent-system/cloud/`.",
             "2. Загрузить все файлы из папки целиком, если интерфейс допускает текущий `file_count_including_readme`.",
@@ -259,6 +263,9 @@ def check_snapshot(config: BundleConfig, snapshot: dict[str, bytes]) -> int:
     for name in sorted(expected_names & set(actual_files)):
         actual = actual_files[name].read_bytes()
         expected = snapshot[name]
+        if name == README_NAME:
+            actual = normalize_readme_for_check(actual)
+            expected = normalize_readme_for_check(expected)
         if actual == expected:
             continue
         errors += 1
@@ -266,6 +273,13 @@ def check_snapshot(config: BundleConfig, snapshot: dict[str, bytes]) -> int:
         print(_byte_diff(actual, expected, str(actual_files[name]), f"regenerated {name}"), file=sys.stderr)
 
     return 1 if errors else 0
+
+
+def normalize_readme_for_check(content: bytes) -> bytes:
+    text = content.decode("utf-8", errors="replace")
+    for pattern, replacement in README_INFORMATIONAL_LINE_PATTERNS:
+        text = re.sub(pattern, replacement, text)
+    return text.encode("utf-8")
 
 
 def _byte_diff(actual: bytes, expected: bytes, fromfile: str, tofile: str) -> str:
