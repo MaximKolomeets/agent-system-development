@@ -10,12 +10,12 @@
 - Branch: `work/docs-maintainer-01/orchestrator-context-handoff-01`.
 - Baseline `developer`: `e45ed129d4d63f9263da2f43e0cdd19c07c0c1eb`.
 - Timestamp: `2026-06-21T19:07:00.8263921+07:00`.
-- PR URL: `pending`.
-- PR number: `pending`.
-- PR state at creation: `pending`.
-- PR created at: `pending`.
-- Head SHA at PR creation: `pending`.
-- PR state after journal finalization: `pending`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/180
+- PR number: `180`.
+- PR state at creation: `OPEN`, draft `true`, mergeable `MERGEABLE`.
+- PR created at: `2026-06-21T12:09:23Z`.
+- Head SHA at PR creation: `e99a264f8aa85931238e7e7745e74cf9bdec5bd4`.
+- PR state after journal finalization: `OPEN`, ready for review.
 
 ## Что изменено
 
