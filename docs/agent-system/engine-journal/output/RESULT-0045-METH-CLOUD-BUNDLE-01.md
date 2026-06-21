@@ -10,9 +10,13 @@ Baseline SHA: `80df100005580f54c976ac64d21c3cfcd87ca49e`
 
 Начато: `2026-06-21T21:56:49.4848543+07:00`
 
-PR URL: `TBD after gh pr create`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/185`
 
-Статус: `draft before PR creation`
+PR created at: `2026-06-21T14:59:51Z`
+
+Head at PR creation: `7432934075c4848c2a2dda37cf95ef4ae5a04e39`
+
+Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
 
 ## Что изменено
 
@@ -50,6 +54,7 @@ PR URL: `TBD after gh pr create`
 - `git diff --check` → exit 0.
 - `git rev-parse --abbrev-ref HEAD` → `work/docs-maintainer-01/cloud-bundle-01`.
 - `docs/agent-system/cloud/` регенерирован повторно после обновления `engine-journal/INDEX.md`, чтобы `ENGINE_JOURNAL_INDEX.md` внутри cloud bundle совпадал с текущим INDEX.
+- `gh pr view 185 --json url,createdAt,headRefOid,state,baseRefName,headRefName` → `OPEN`, base `developer`, head `work/docs-maintainer-01/cloud-bundle-01`, head at PR creation `7432934075c4848c2a2dda37cf95ef4ae5a04e39`.
 
 ## Передача
 
