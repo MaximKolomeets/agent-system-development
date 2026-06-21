@@ -244,8 +244,11 @@ Final report `engine` должен подтверждать:
 
 - `RESULT finalized: yes`;
 - `INDEX finalized: yes`;
+- `Source Delta present: yes` по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»;
 - `No journal placeholders: yes`;
 - язык final report: русский.
+
+Оркестратор обязан ретранслировать Source Delta архитектору в своём ответе/передаче. Если final report или RESULT исполнителя (engine) не содержит «Source Delta», оркестратор запрашивает у исполнителя (engine) дополнение отчёта или journal-result, а не реконструирует таблицу молча.
 
 ## Closure policy после merge/release/sync
 

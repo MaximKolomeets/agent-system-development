@@ -76,6 +76,31 @@ Final report и RESULT обязаны заканчиваться блоком «
 
 Если методология/каноны не менялись — в RESULT явно отметить «Source-reminder: не применимо (методология не менялась)».
 
+## Source Delta
+
+Сквозное правило отчётности по изменённым файлам и Source-рекомендациям.
+
+Final report и RESULT обязаны включать блок «Source Delta» перед блоком «Передача». Блок нужен даже для review/journal-only задач; если файловые изменения отсутствуют, писать `Source Delta: не применимо (файлы не менялись)`.
+
+Формат таблицы:
+
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+| --- | --- | --- | --- | --- |
+| `<path>` | `<added | modified | renamed | deleted>` | `<source | template | target_generated | history_state | journal | scaffold>` | `<add | update | remove | rename | none>` | `<yes | no | n-a>` |
+
+Категория берётся из `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`. Если файл не классифицируется однозначно, исполнитель пишет `STOP` и запрашивает решение архитектора.
+
+Семантика Source-рекомендации:
+
+- новый `source` или `template` file — `add`;
+- изменённый `source` или `template` file — `update`;
+- удалённый `source` или `template` file — `remove`;
+- переименованный `source` или `template` file — `rename`;
+- `history_state`, `journal` и `scaffold` — `none`;
+- `target_generated` — `none` для source-снапшота, если task не меняет source template; если меняет соответствующий template, рекомендация ставится на template row.
+
+Если действие `added`, `deleted` или `renamed` затрагивает inventory-файл категории `source`, `template` или `target_generated`, `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` обязан быть обновлён в том же PR. Если manifest не обновлён — `STOP`. Для обычного `modified` без изменения inventory-списка manifest field = `n-a`.
+
 ## Verified Baseline
 
 - Repository:
@@ -96,6 +121,7 @@ Final report и RESULT обязаны заканчиваться блоком «
 - [ ] Рекомендуемый режим исполнения is included (роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему); имён инструментов/моделей в шаблоне нет.
 - [ ] Требование к отчёту включает блок «Передача» (`Следующий: <роль> — <что делает>`) — канон `TASK_HEADER_COMMON` → «Передача».
 - [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот у зарегистрированных потребителей: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
+- [ ] Source Delta включён в final report и RESULT: таблица по всем затронутым файлам, категории взяты из `ADOPTION_TRANSFER_MANIFEST.yml`, Source-рекомендации и manifest flag заполнены; add/delete/rename inventory-файлов без manifest update → STOP.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

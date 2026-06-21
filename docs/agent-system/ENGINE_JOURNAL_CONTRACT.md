@@ -123,6 +123,8 @@ RESULT обязан ссылаться на:
 - execution PR URL;
 - final commit SHA.
 
+RESULT обязан включать блок «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta». Этот блок персистится в journal и не заменяется ссылкой на chat/final report.
+
 Если TASK file, bootstrap prompt, branch или source SHA конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
 
 ## Безопасность
@@ -341,6 +343,7 @@ Append-only journal entries, decision log, dated state snapshots и docs-maintai
 - index обновлен;
 - forbidden/private data не добавлены;
 - task/result files не противоречат final report;
+- RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.

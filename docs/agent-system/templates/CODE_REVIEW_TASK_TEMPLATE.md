@@ -136,6 +136,8 @@ git checkout <headRefOid>   # head SHA из `gh pr view`
 
 Review report и RESULT фиксируют reviewed head SHA. Если PR обновился после ревью (head SHA сменился), вердикт относится только к зафиксированному head SHA, что отмечается явно.
 
+Reviewer сверяет «Source Delta» из проверяемого PR с фактическим diff и `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`: все inventory-изменения отражены, категории соответствуют manifest, Source-рекомендации корректны, `manifest обновлён?` правдив. Для `added`/`deleted`/`renamed` inventory-файлов категории `source`, `template` или `target_generated` отсутствие manifest update является finding/blocker по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
+
 ## Required preflight
 
 ```powershell
@@ -386,6 +388,7 @@ Title: <review task title>
 - sensitive grep filename-only result;
 - vendor-specific naming check result;
 - reviewed head SHA, если Review object = PR;
+- Source Delta review result: сверка с diff/manifest, findings по категориям, рекомендациям и manifest flag;
 - risks;
 - next step;
 - Передача — блок `Следующий: <роль> — <что делает>` и batch-friendly формулировка, если применимо (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);
