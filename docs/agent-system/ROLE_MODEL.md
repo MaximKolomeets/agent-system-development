@@ -6,7 +6,16 @@
 
 `engine` - это конкретный инструмент или исполнитель, который выполняет задачу. Engine name указывается в task header отдельно и не становится role name.
 
-Документы adapter layer могут называться по конкретному интерфейсу, например `CHATGPT_*`, но такие файлы описывают применение роли через отдельный tool/interface и не меняют canonical role model.
+Документы adapter layer могут называться по конкретному интерфейсу, например `<INTERFACE>_*`, но такие файлы описывают применение роли через отдельный tool/interface и не меняют canonical role model.
+
+## Роль vs исполнитель
+
+Методология различает два понятия:
+
+- **Роль** — функция ответственности в методологии (`orchestrator`, `engine`/executor-роль, `reviewer`, `dev-implementer-01`, `docs-maintainer-01`, `infra`, `source-steward` и т. д.). Роль vendor-neutral и задаёт scope, allowed/forbidden files, journal- и PR-обязанности.
+- **Исполнитель** — конкретный tool/model/human, который выполняет роль. Исполнителя назначает архитектор; в task header исполнитель не фиксируется (`Исполнитель: на усмотрение архитектора`). Смена исполнителя не меняет роль и её границы.
+
+Канон role-agnostic task header (`Reasoning effort`, правила «Передача» и «Source-reminder») — `docs/agent-system/templates/TASK_HEADER_COMMON.md`.
 
 ## Orchestrator
 
@@ -66,7 +75,7 @@ External reviewer не заменяет orchestrator и не принимает 
 ## dev-implementer-01
 
 - исполнитель задач разработки;
-- engine может быть Codex, Claude Code, локальная LLM, человек или другой инструмент;
+- исполнителя назначает архитектор: это может быть LLM-агент, локальная модель, человек или другой инструмент — выбор исполнителя не меняет роль;
 - не принимает архитектурные решения самостоятельно.
 
 ## solution-architect-01
@@ -111,6 +120,22 @@ External reviewer не заменяет orchestrator и не принимает 
 - Source summaries;
 - prompts for next chat.
 
+## infra
+
+- Docker, CI/CD, деплой, runtime-конфигурация, workflow-файлы;
+- работает по тугому whitelist: каждое изменение Docker/CI/деплой ограничено явным allowed-files списком;
+- не читает и не коммитит `.env`, секреты, credentials, tokens (канон forbidden — `AGENTS.md`);
+- работает только в `work/infra/<task>`, не мержит и не пушит `main`/`developer` напрямую;
+- ведёт TASK/RESULT/INDEX и открывает PR; final report заканчивается блоком «Передача».
+
+## source-steward
+
+- кросс-проектная синхронизация Source-снапшота методологии между downstream-потребителями;
+- ведёт реестр потребителей `docs/agent-system/SOURCE_CONSUMERS.md`;
+- применяет правило «Source-reminder» (канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md`): после изменения методологии/канонов обновляет source-снапшот и оповещает потребителей из реестра;
+- не меняет downstream production code; синхронизация идёт через PR в каждом потребителе по их branch-модели;
+- source of truth — GitHub-файлы methodology repository; снапшоты — derived context (канон — `docs/agent-system/source/README.md`).
+
 ## Reviewer role boundary
 
 - `code-reviewer-01`, `qa-reviewer-01` и `security-reviewer-01` не implement fixes по умолчанию.
@@ -119,7 +144,7 @@ External reviewer не заменяет orchestrator и не принимает 
 - Исправления выполняет `dev-implementer-01` или другая явно назначенная implementation role в отдельной задаче, ветке и PR.
 - Engine name указывается отдельно от role name и не попадает в branch namespace.
 - Reviewer role проверяет PR, branch, commit, diff или набор файлов.
-- Reviewer role не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе implementation task.
-- Решение о превращении findings в задачу принимает пользователь вместе с ChatGPT.
+- Reviewer role не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе implementation task.
+- Решение о превращении findings в задачу принимает пользователь вместе с архитектором (orchestrator).
 - Тело review report по умолчанию возвращается в чат; сохранение report-body в repository требует `Report delivery: repository` или `chat+repository` и не отменяет обязательный journal trace.
 - Допустимые режимы review-задачи: `review-only`, `docs-only`, `fix-allowed`. Режим `fix-allowed` требует явного scope, allowed files, forbidden files и отдельного разрешения пользователя.

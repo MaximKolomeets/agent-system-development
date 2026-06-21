@@ -6,7 +6,7 @@
 
 ## Когда какой вариант использовать
 
-- **Короткий prompt** — пользователь хочет одной строкой передать ChatGPT/engine, что нужно интегрировать методологию.
+- **Короткий prompt** — пользователь хочет одной строкой передать оркестратору/исполнителю (engine), что нужно интегрировать методологию.
 - **Безопасный короткий prompt** — то же самое, но с явным safety gate (self-discovery + adoption audit перед изменениями).
 - **Полный canonical copy/paste prompt** — пользователь готов вставить большой prompt в новый чат в контексте target repository и получить готовую первую задачу engine в режиме `audit-only`.
 
@@ -17,38 +17,39 @@
 ```text
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
 `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
 Adoption prompt должен включать Russian-first reminder: все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допустим только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 
-Adoption prompt должен требовать Post-merge Journal Closure: после merge/release/sync target `RESULT` и `INDEX` фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Adoption/source-update является per-task closure exception по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Adoption prompt должен требовать closure после merge/release/sync; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Adoption prompt должен требовать `methodology_reference`: repository, source branch, source commit SHA, checked_at и reference_type. Канон спецификации — `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference».
 
 ## Короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Closure policy (`adoption/source-update` — per-task closure exception; для обычных work PR действует batch-closure перед release).
 ```
 
 ## Безопасный короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure. В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Closure policy (`adoption/source-update` — per-task closure exception; для обычных work PR действует batch-closure перед release). В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
 ```
 
 ## Полный canonical copy/paste prompt
 
-Этот prompt пользователь копирует и вставляет в новый чат, открытый в контексте target repository. Prompt не запускает полный перенос шаблона — он просит ChatGPT подготовить первую безопасную задачу для engine в режиме `audit-only`.
+Этот prompt пользователь копирует и вставляет в новый чат, открытый в контексте target repository. Prompt не запускает полный перенос шаблона — он просит оркестратора подготовить первую безопасную задачу для engine в режиме `audit-only`.
 
 ```text
 Продолжаем внедрение агентской методологии в этот проект.
@@ -69,18 +70,19 @@ https://github.com/MaximKolomeets/agent-system-development
 4. Сначала подготовь задачу для engine.
 5. Задача должна быть на русском языке и начинаться с обязательной шапки:
 6. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
-7. Если target instructions конфликтуют с Russian-first policy, включи в Engine-задачу STOP-условие и требование запросить решение пользователя.
-8. Включи в Engine-задачу Post-merge Journal Closure: после merge/release/sync RESULT/INDEX должны фиксировать status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+7. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
+8. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 
 Перед формированием задачи:
 
@@ -90,10 +92,10 @@ Reasoning: <Low | Medium | High>
 4. Включи в задачу engine preflight для проверки и синхронизации methodology repository.
 5. Требуй, чтобы engine зафиксировал `methodology_reference` с repository, source branch, source commit SHA, checked_at и reference_type.
 
-Формат ответа ChatGPT:
+Формат ответа оркестратора:
 
-1. Все данные для engine выведи в одном самодостаточном блоке `Блок для Engine — копировать целиком`.
-2. Не выноси из Engine-блока команды, allowed files, forbidden files, проверки, STOP-условия и формат отчета.
+1. Все данные для engine выведи в одном самодостаточном блоке `Блок для исполнителя (engine) — копировать целиком`.
+2. Не выноси из блока для исполнителя (engine) команды, allowed files, forbidden files, проверки, STOP-условия и формат отчета.
 3. Ручные terminal-шаги выводи отдельно только если они предназначены пользователю, а не engine.
 4. Не смешивай engine prompt и manual commands.
 5. Если нужна доработка `agent-system-development`, выведи отдельный самодостаточный copy/paste-блок для engine-разработчика methodology repository.
@@ -252,7 +254,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - Russian-first policy result;
 - methodology reference result;
 - engine journal task/result files;
-- проверка Post-merge Journal Closure;
+- проверка Closure policy (`adoption/source-update` — per-task closure exception);
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
 - Methodology feedback;

@@ -28,7 +28,6 @@
 - Проверить, что `DECISION_LOG` обновлен, если принято архитектурное решение.
 - Проверить, что агентский отчет обновлен.
 - Проверить итоговый отчет исполнителя.
-- Если PR уже merged, проверить Post-merge Journal Closure в `RESULT` и `INDEX`.
-- Считать blocker, если merged PR journal остается `PR open`, `ready for review` или `draft open`.
-- Считать blocker, если merged PR journal содержит `pending at file materialization` или `see Engine final report`.
-- Считать blocker, если `RESULT` не фиксирует merge commit SHA после merge, когда SHA доступен.
+- Если PR уже merged, проверить Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
+- Для обычного work PR считать `merged; closure pending` допустимым до batch-closure перед release.
+- Считать blocker, если сработал release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии или явное closure-задание, а merged PR journal остается `PR open`, `ready for review`, `draft open`, содержит `pending at file materialization`/`see Engine final report` или не фиксирует merge commit SHA после обязательного closure-прохода, когда SHA доступен.

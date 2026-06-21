@@ -42,7 +42,11 @@ categories:
       - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
+      - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
+      - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
+      - docs/agent-system/SOURCE_CONSUMERS.md
       # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1) и удалён (METH-BACKLOG-POLISH); не переносить.
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/engine-journal/README.md
@@ -50,6 +54,7 @@ categories:
       - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
       - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
       - docs/agent-system/templates/ADOPTION_PROMPT.md
+      - docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md
       # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md — redirect-заглушка на ADOPTION_PROMPT.md для внешних bookmark (PR-C3); не переносить. SHORT_TARGET_ADOPTION_PROMPT.md удалён (METH-BACKLOG-POLISH).
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
@@ -148,8 +153,10 @@ rules:
       секреты или project-specific state target repository.
   - id: mandatory_engine_task_header
     text: >
-      Каждая задача для engine начинается с русскоязычной шапки
-      "Задача для <agent-name>: <task-id>" и блока рекомендуемого режима.
+      Каждая задача для engine начинается с русскоязычной role-agnostic шапки
+      "Задача для <роль>: <task-id>" и блока "Рекомендуемый режим исполнения":
+      "Роль", "Исполнитель: на усмотрение архитектора" и "Reasoning effort".
+      Канон: docs/agent-system/templates/TASK_HEADER_COMMON.md.
   - id: russian_first_policy
     text: >
       Все user-facing answers, Engine final reports, TASK/RESULT/INDEX, target-local docs/templates
@@ -198,11 +205,11 @@ rules:
       создаются только в target repository.
   - id: post_merge_journal_closure
     text: >
-      После merge рабочего PR, release PR или sync PR target repository
-      должен закрывать journal RESULT/INDEX фактическим status `merged`,
-      merge commit SHA и closure-полями. Journal entries не должны
-      оставаться в статусах PR open, ready for review, draft open,
-      pending at file materialization или see Engine final report.
+      Target repository должен поддерживать Closure policy по
+      `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: обычные work PR
+      закрываются batch-closure перед release; per-task closure обязателен
+      для release/state docs, audit/review consistency gate, adoption/source-update,
+      завершения/паузы серии или явного closure-задания.
 
 branch_adaptation:
   template_default: developer
@@ -249,7 +256,7 @@ minimal_first_pr:
     - INDEX entry has final PR URL/status
     - no unresolved journal placeholders
     - journal entries не оставлены в PR open или pending state после merge
-    - Post-merge Journal Closure обязателен после release или sync
+    - Closure policy соблюдена: release/sync являются gate для полного journal closure
     - target repository имеет cleanup/check step для journal closure
     - target task/result journal supports task-file-handoff when used
     - target task/result journal является Russian-first
@@ -294,8 +301,8 @@ governance_review:
     - Russian-first policy есть в target AGENTS.md или equivalent target instructions, если adoption/update scope включает instructions
     - generated target-local templates не являются преимущественно English, кроме technical identifiers
     - Engine TASK/RESULT templates являются Russian-first
-    - post-merge journal closure проверяет RESULT/INDEX после merge, release и sync
-    - merged PR journal не остается в статусах PR open, ready for review, draft open, pending at file materialization или see Engine final report
+    - Closure policy проверяет RESULT/INDEX после merge, release и sync
+    - merged PR journal может временно оставаться `merged; closure pending` только до batch-closure; release запрещён до полного closure
     - comments in generated scripts/workflows/config examples написаны на русском, если comments нужны
 
 template_materialization:

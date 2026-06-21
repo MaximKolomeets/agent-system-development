@@ -54,8 +54,8 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 
 Правила именования:
 
-- Codex/Claude/etc не используются в названиях агентов;
-- Codex сейчас может использоваться только как engine-исполнитель по прямому заданию пользователя;
+- Конкретные vendor/tool names не используются в названиях агентов;
+- Конкретный инструмент может использоваться только как исполнитель (engine) по прямому заданию пользователя;
 - роли агентов не зависят от конкретного vendor/tool.
 
 PR-1e добавил GitHub Actions guardrail для forbidden tracked files.
@@ -115,7 +115,7 @@ PR-2r добавляет стандарт engine journal:
 
 PR-2w merged в `developer` через PR #62, release PR #63 и sync PR #64.
 
-PR-2w закрепил Russian-first language policy как отдельный reusable contract для ChatGPT, `engine`, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
+PR-2w закрепил Russian-first language policy как отдельный reusable contract для оркестратора, `engine`, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
 
 PR-2x добавляет Post-merge Journal Closure:
 
@@ -161,7 +161,7 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 `METH-GUARDRAILS-01` закрепил:
 
 - review-агенты работают review-only по умолчанию и не становятся исполнителями разработки без отдельной задачи;
-- review findings не превращаются в самостоятельные задачи Codex/Engine без решения пользователя;
+- review findings не превращаются в самостоятельные задачи исполнителя (engine) без решения пользователя;
 - review branch/report naming остается role-based и vendor-neutral;
 - фактическая branch policy для review использует `work/<role>/<task>`, а не отдельный `review/*` namespace;
 - review-отчет по умолчанию возвращается в чат, а сохранение в repository требует явного docs-only разрешения;
@@ -173,7 +173,7 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 
 - lightweight solo-operator mode и multi-agent governed mode;
 - явные boundaries для `orchestrator`, `engine` и `reviewer`;
-- policy, что `CHATGPT_*` документы являются adapter layer, а не role naming exception;
+- policy, что `ORCHESTRATOR_*` документы являются role-based layer, а не role naming exception;
 - `methodology_reference` с commit SHA для target adoption/update;
 - drift-control для `docs/agent-system/source/**` snapshots;
 - ceremony/token budget policy и anti-overengineering checkpoint;
@@ -212,3 +212,5 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 Контрольный audit после #155 выполнен в ChatGPT: blocking/major не найдено; journal 0020-0022, state docs и templates sequence/checkout guard проверены.
 
 Текущий следующий шаг: подготовить release PR `developer -> main`. После merge release PR выполнить sync `main -> developer`, затем обновить release/sync facts для последней journal-записи при необходимости и перейти к downstream adoption decision после финальной проверки state.
+
+Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.

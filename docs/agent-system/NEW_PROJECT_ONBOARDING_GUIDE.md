@@ -4,7 +4,7 @@
 
 Этот документ помогает пользователю запустить новый проект через lifecycle и templates из `agent-system-development`.
 
-GitHub является source of truth: в репозитории фиксируются файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Чат помогает формулировать задачи и проверять отчеты, но не заменяет GitHub. Пользователь принимает финальные решения по scope, visibility, merge, release и изменению правил. Engine-исполнители запускаются пользователем вручную.
+GitHub является source of truth: в репозитории фиксируются файлы, история изменений, ветки, pull request, отчеты, решения и текущее состояние. Чат помогает формулировать задачи и проверять отчеты, но не заменяет GitHub. Пользователь принимает финальные решения по scope, visibility, merge, release и изменению правил. Исполнители (engine) запускаются пользователем вручную.
 
 `agent-system-development` используется как reusable methodology/template repository. Он не становится центральным репозиторием управления новым проектом: после adoption все рабочие ветки, worktree, отчеты, Pull Request и project-specific state ведутся в repository нового проекта.
 
@@ -202,11 +202,11 @@ docs-maintainer-01: engine=<manual or selected engine>
 
 Обычный порядок:
 
-1. ChatGPT формирует задачу.
+1. Оркестратор формирует задачу.
 2. Пользователь запускает engine вручную.
-3. Engine работает только в своей рабочей ветке.
-4. Engine обновляет отчет.
-5. Engine не меняет `main` или `developer` напрямую.
+3. Исполнитель (engine) работает только в своей рабочей ветке.
+4. Исполнитель (engine) обновляет отчет.
+5. Исполнитель (engine) не меняет `main` или `developer` напрямую.
 
 Если задача требует новой ветки, она создается от актуальной `developer`.
 
@@ -215,13 +215,14 @@ docs-maintainer-01: engine=<manual or selected engine>
 ```text
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
 `<agent-name>` - role-based имя агента. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта, чтобы задачу, ветку, отчет и PR можно было сопоставить.

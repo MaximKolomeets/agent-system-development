@@ -4,9 +4,11 @@
 
 Заполнить общий header по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`:
 
-- Mandatory header (`Задача для <agent-name>: <task-id>` + блок рекомендуемого режима);
+- Mandatory header (`Задача для <роль>: <task-id>` + role-agnostic блок рекомендуемого режима исполнения: роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему);
 - Russian-first;
-- Recommended Engine Mode;
+- Рекомендуемый режим исполнения (без имён инструментов/моделей);
+- Передача (отчёт заканчивается блоком `Следующий: <роль> — <что делает>`);
+- Source-reminder (при изменении методологии/канонов — применить канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»);
 - Verified Baseline;
 - Copy/Paste Completeness Check;
 - Project constitution check.
@@ -45,7 +47,7 @@
 
 Описать проверки перед отчетом.
 
-Если задача создает PR, release PR или sync PR, проверки должны включать проверку Post-merge Journal Closure для RESULT/INDEX.
+Если задача создает PR, release PR или sync PR, проверки должны включать Closure policy для RESULT/INDEX: batch-closure перед release по умолчанию, per-task только для исключений из `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 
 ## Ожидаемый отчет
 
@@ -53,4 +55,6 @@
 
 Отчет должен быть на русском языке и содержать language policy result.
 
-Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, `RESULT closed after merge`, `INDEX closed after merge` и проверку Post-merge Journal Closure.
+Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
+
+Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, статус Closure policy для RESULT/INDEX: `closed`, `closure pending until batch before release` или `not applicable`.

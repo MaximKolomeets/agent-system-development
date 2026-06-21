@@ -63,7 +63,7 @@ STOP-условия:
 
 Operational Fast Lane не заменяет engine task workflow. Он применяется только для простых status/cleanup операций, которые безопасно выполняются пользователем по одному terminal block без изменения repository files.
 
-Engine не должен запускаться для простых GitHub PR status checks, local git status checks, branch cleanup или post-engine result checks, если эти действия не требуют изменения файлов, PR или работы с sensitive/private data.
+Исполнитель (engine) не должен запускаться для простых GitHub PR status checks, local git status checks, branch cleanup или post-engine result checks, если эти действия не требуют изменения файлов, PR или работы с sensitive/private data.
 
 Для target adoption Operational Fast Lane используется только до или после engine task: проверить статус, cleanup или результат. Он не заменяет adoption audit, docs-only adoption и engine journal workflow.
 
@@ -90,13 +90,14 @@ docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
 ```text
 Задача для <agent-name>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
 `<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
@@ -150,10 +151,10 @@ docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 Короткий project chat prompt должен ссылаться на общий operating contract:
 
 ```text
-docs/agent-system/CHATGPT_OPERATING_CONTRACT.md
+docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 ```
 
-Этот prompt используется для старта project chat. Engine-задачи остаются отдельным workflow и оформляются self-contained блоками по `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`.
+Этот prompt используется для старта project chat. Задачи для исполнителя (engine) остаются отдельным workflow и оформляются self-contained блоками по `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`.
 
 ## Prompts для code review
 
@@ -172,7 +173,7 @@ docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
 
 Journal artifacts публикуются через docs-only PR. Findings превращаются в отдельные implementation PR только после решения пользователя.
 
-Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Engine name указывается отдельно.
+Reviewer role, branch name, report filename и task id не должны содержать vendor/tool names. Имя исполнителя (engine) указывается отдельно.
 
 Findings из review-only tasks превращаются в implementation tasks только через отдельную self-contained task с явным scope, разрешенными файлами, запрещенными файлами, проверками, STOP-условиями и требованиями к финальному отчету.
 
@@ -198,7 +199,7 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `CHATGPT_RESPONSE_STANDARD.md`, `LANGUAGE_POLICY.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `ORCHESTRATOR_RESPONSE_STANDARD.md`, `LANGUAGE_POLICY.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -251,10 +252,10 @@ Self-discovery подтверждает:
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
 - `TARGET_PROJECT_GOVERNANCE_PACK.md`;
 - `PROJECT_CONSTITUTION_FRAMEWORK.md`;
-- `CHATGPT_RESPONSE_STANDARD.md`;
+- `ORCHESTRATOR_RESPONSE_STANDARD.md`;
 - `FILE_COMMENTING_STANDARD.md`;
 - `STAGE_2_COMPLETION_CHECKLIST.md`;
-- `templates/CHATGPT_RESPONSE_TEMPLATE.md`;
+- `templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`;
 - `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`;
 - `templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
 - `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
@@ -281,15 +282,15 @@ Template repository является методологической основ
 
 После синхронизации methodology repository `engine` должен явно вернуться в target repository перед target checks или target changes. Проверки target remote, branch, working tree и разрешенных файлов нельзя выполнять, пока текущая папка остается `agent-system-development`.
 
-Engine не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в финальном отчете.
+Исполнитель (engine) не должен применять устаревшую локальную копию методологии без проверки актуальности. Если актуальность проверить невозможно, `engine` должен указать это в финальном отчете.
 
 Этот entrypoint применяется вместе с:
 
-- `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`;
+- `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`;
 - `docs/agent-system/LANGUAGE_POLICY.md`;
 - `docs/agent-system/FILE_COMMENTING_STANDARD.md`.
 
-ChatGPT сначала формирует ответ в стандартизированном виде. Engine получает один цельный copy/paste prompt.
+Оркестратор сначала формирует ответ в стандартизированном виде. Исполнитель (engine) получает один цельный copy/paste prompt.
 
 Manual commands не должны быть частью engine prompt, если они предназначены пользователю, а не `engine`.
 

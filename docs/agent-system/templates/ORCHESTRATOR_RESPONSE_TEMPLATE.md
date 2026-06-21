@@ -1,29 +1,30 @@
-# CHATGPT_RESPONSE_TEMPLATE
+# ORCHESTRATOR_RESPONSE_TEMPLATE
 
 ## Назначение
 
-Этот template задает copy/paste-ready структуру ответа ChatGPT, если ответ содержит задачу для `engine`.
+Этот template задает copy/paste-ready структуру ответа оркестратора, если ответ содержит задачу для `engine`.
 
 ## Короткий вывод
 
 Кратко опишите, что обнаружено или что будет сделано. Не помещайте сюда execution data, без которых `engine` не сможет выполнить задачу.
 
-Если Fast Lane/status review выявил необходимость менять repository files, PR body, journal artifacts или branch state через commit/push, остановите Fast Lane и перепишите actionable часть в полный self-contained Engine-блок.
+Если Fast Lane/status review выявил необходимость менять repository files, PR body, journal artifacts или branch state через commit/push, остановите Fast Lane и перепишите actionable часть в полный self-contained блок для исполнителя (engine).
 
-Не оставляйте write-action instructions вне Engine-блока.
+Не оставляйте write-action instructions вне блока для исполнителя (engine).
 
-## Блок для Engine — копировать целиком
+## Блок для исполнителя (engine) — копировать целиком
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: <функция в методологии: docs-maintainer | reviewer | dev-implementer | infra | source-steward | ...>
+Исполнитель: на усмотрение архитектора
+Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
-Модель: <model recommendation>
-Reasoning: <Low | Medium | High>
 Режим: <Agent | Ask | Manual review>
-Почему: <краткое обоснование выбора режима>
+Почему: <краткое обоснование выбора режима и reasoning effort>
 
 Цель:
 
@@ -49,15 +50,15 @@ https://github.com/MaximKolomeets/agent-system-development
 
 <METHODOLOGY_BASE_BRANCH, обычно developer>
 
-Файл задачи Engine:
+Файл задачи исполнителя (engine):
 
 docs/agent-system/engine-journal/input/TASK-<actual-next-seq>-<task-id>-<slug>.md
 
-Ожидаемый файл результата Engine:
+Ожидаемый файл результата исполнителя (engine):
 
 docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug>.md
 
-`<actual-next-seq>` не предсказывается в ChatGPT-блоке. Engine вычисляет его из `docs/agent-system/engine-journal/INDEX.md` на момент выполнения.
+`<actual-next-seq>` не предсказывается в блоке оркестратора. Исполнитель (engine) вычисляет его из `docs/agent-system/engine-journal/INDEX.md` на момент выполнения.
 
 Политика engine journal:
 
@@ -68,13 +69,13 @@ docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
 - TASK/RESULT/INDEX labels и описания пишутся на русском языке, кроме technical identifiers и literal external names.
 - после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
-- после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
+- после merge/release/sync применяется Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: обычные work PR закрываются batch-closure перед release; per-task closure используется только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
 
 Языковая политика:
 
 Все ответы, final report, target-local docs/templates, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. English допускается только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, code identifiers и literal external names.
 
-Пользовательские заголовки и описания внутри Engine-блока писать на русском языке. Не использовать англоязычные служебные заголовки вроде `Required changes`, `Checks`, `Expected checks result`, `Commit/push policy`, `Final report requirements`, `STOP conditions`, `Allowed files`, `Forbidden files`, если есть нормальная русская формулировка.
+Пользовательские заголовки и описания внутри блока для исполнителя (engine) писать на русском языке. Не использовать англоязычные служебные заголовки вроде `Required changes`, `Checks`, `Expected checks result`, `Commit/push policy`, `Final report requirements`, `STOP conditions`, `Allowed files`, `Forbidden files`, если есть нормальная русская формулировка.
 
 Обязательная проверка актуального agent-system-development:
 
@@ -225,7 +226,7 @@ STOP-условия:
 - не делать force push;
 - Pull Request создавать в base branch;
 - не делать auto-merge.
-- после merge/release/sync выполнить или явно запланировать post-merge journal closure для RESULT/INDEX.
+- после merge/release/sync применить Closure policy для RESULT/INDEX: batch перед release по умолчанию, per-task только для исключений из канона.
 
 Финальный отчет:
 
@@ -254,9 +255,9 @@ STOP-условия:
 - INDEX закрыт после merge;
 - No journal placeholders;
 - результат stale pre-merge status check;
-- проверка Post-merge Journal Closure;
-- требуется post-merge journal closure: yes/no;
-- файл результата Engine;
+- проверка Closure policy;
+- требуется per-task closure: yes/no; если no — указать batch-closure перед release.
+- файл результата исполнителя (engine);
 - запрос на улучшение methodology repository (`Methodology repository improvement request`), если нужен.
 ```
 
@@ -280,11 +281,12 @@ STOP-условия:
 ```text
 Задача для methodology-maintainer-01: <task-id>
 
-Рекомендуемый режим <engine-name>:
+Рекомендуемый режим исполнения:
 
+Роль: docs-maintainer
+Исполнитель: на усмотрение архитектора
+Reasoning effort: высокий
 Запуск: Local only
-Модель: <model recommendation>
-Reasoning: High
 Режим: Agent
 Почему: задача меняет reusable methodology repository и должна быть выполнена отдельной веткой и Pull Request.
 
@@ -329,19 +331,19 @@ END POWERSHELL
 
 ## Проверка результата
 
-Укажите команды проверки и ожидаемые признаки успеха. Если команды нужны `engine`, они должны быть продублированы внутри Engine-блока.
+Укажите команды проверки и ожидаемые признаки успеха. Если команды нужны `engine`, они должны быть продублированы внутри блока для исполнителя (engine).
 
 Проверьте перед отправкой:
 
-- если ответ просит `engine` изменить файлы, есть ли ровно один полный Engine-блок для этой задачи;
-- нет ли write-action instructions вне Engine-блока;
-- были ли PR body update, journal update, commit/push и review follow-up instructions помещены внутрь Engine-блока;
-- все ли пользовательские заголовки Engine-блока написаны на русском;
+- если ответ просит `engine` изменить файлы, есть ли ровно один полный блок для исполнителя (engine) для этой задачи;
+- нет ли write-action instructions вне блока для исполнителя (engine);
+- были ли PR body update, journal update, commit/push и review follow-up instructions помещены внутрь блока для исполнителя (engine);
+- все ли пользовательские заголовки блока для исполнителя (engine) написаны на русском;
 - остался ли английский только в технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
 
 ## Риски и STOP-условия
 
-Кратко перечислите главные риски для пользователя. Execution STOP-условия для `engine` должны оставаться внутри Engine-блока.
+Кратко перечислите главные риски для пользователя. Execution STOP-условия для `engine` должны оставаться внутри блока для исполнителя (engine).
 
 ## Следующий шаг
 

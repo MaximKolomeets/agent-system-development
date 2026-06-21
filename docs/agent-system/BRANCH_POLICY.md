@@ -12,6 +12,7 @@
 - `main` обновляется ТОЛЬКО через release-PR `developer -> main`;
 - release-PR мержит человек-архитектор (пользователь), а не агент;
 - агент может ПОДГОТОВИТЬ release-PR (создать release-ветку/PR из `developer` в `main`), но НЕ мержит его и НЕ пушит в `main` напрямую;
+- release-PR `developer -> main` запрещён, пока engine journal не закрыт полностью: все seq, входящие в release, должны иметь closed/merged facts; pre-release batch-closure обязателен по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
 - агент не делает merge release-PR даже при наличии прав; решение о переносе в `main` принимает человек.
 
 ## developer

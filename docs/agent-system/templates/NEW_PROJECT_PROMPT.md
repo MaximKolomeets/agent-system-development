@@ -6,7 +6,7 @@
 
 ## Когда какой вариант использовать
 
-- **Короткий стартовый prompt проектного чата** — задать ChatGPT базовые правила работы в проектном чате (Operational Fast Lane, engine-journal, Task File Handoff, Post-merge Journal Closure, Russian-first) для конкретной цели в target repository.
+- **Короткий стартовый prompt проектного чата** — задать оркестратору базовые правила работы в проектном чате (Operational Fast Lane, engine-journal, Task File Handoff, Closure policy, Russian-first) для конкретной цели в target repository.
 - **Полный bootstrap prompt нового проекта** — провести запуск нового проекта от идеи до handoff: project profile, структура repository, ветки, governance pack, роли, первые PR, задачи engine.
 
 ## Короткий стартовый prompt проектного чата
@@ -17,11 +17,11 @@ https://github.com/MaximKolomeets/agent-system-development
 
 Работай по Operational Fast Lane для проверок/cleanup.
 GitHub состояние проверяй сам.
-Engine-задачи оформляй через self-contained block и engine-journal.
-Для больших задач используй Task File Handoff Mode: прочитай существующий GitHub TASK file или создай task-file-only GitHub branch/commit только при явном разрешении пользователя; затем передай Engine только короткий bootstrap prompt.
-Engine должен финализировать journal RESULT/INDEX после PR creation; ready-for-review PRs не должны содержать journal placeholders.
-После merge/release/sync проверяй Post-merge Journal Closure: RESULT/INDEX фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
-Если пользователь пишет `готово` после merge/release/sync, проверь target journal entries и создай docs-only cleanup task, если они stale.
+Задачи для исполнителя (engine) оформляй через self-contained block и engine-journal.
+Для больших задач используй Task File Handoff Mode: прочитай существующий GitHub TASK file или создай task-file-only GitHub branch/commit только при явном разрешении пользователя; затем передай исполнителю (engine) только короткий bootstrap prompt.
+Исполнитель (engine) должен финализировать journal RESULT/INDEX после PR creation; ready-for-review PRs не должны содержать journal placeholders.
+После merge/release/sync проверяй Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: для обычных work PR допустимо `merged; closure pending` до batch-closure перед release; per-task closure обязателен для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
+Если пользователь пишет `готово` после merge/release/sync, проверь target journal entries и создай docs-only cleanup task только если сработало per-task исключение или release gate.
 Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
 Если target instructions конфликтуют с Russian-first policy, остановись и запроси решение пользователя, кроме случая явного разрешения на другой язык.
 Не читать `.env`.
@@ -36,7 +36,7 @@ Local target path:
 Цель:
 <что нужно сделать>
 
-Сначала проверь актуальность methodology repository, затем выдай один self-contained Engine-блок или один Operational Fast Lane block, если задача является только проверкой/cleanup.
+Сначала проверь актуальность methodology repository, затем выдай один self-contained блок для исполнителя (engine) или один Operational Fast Lane block, если задача является только проверкой/cleanup.
 ```
 
 ## Полный bootstrap prompt нового проекта

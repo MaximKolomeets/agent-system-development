@@ -2,7 +2,7 @@
 
 ## Назначение
 
-Task File Handoff Mode - режим постановки больших задач для `engine`, в котором long task source of truth хранится в TASK file внутри target repository, а short Engine bootstrap prompt только указывает, где этот TASK file прочитать.
+Task File Handoff Mode - режим постановки больших задач для `engine`, в котором long task source of truth хранится в TASK file внутри target repository, а короткий bootstrap prompt для исполнителя (engine) только указывает, где этот TASK file прочитать.
 
 Режим нужен, чтобы длинные audit/adoption/bootstrap задачи не забивали context window и оставались воспроизводимыми через Git history target repository.
 
@@ -31,23 +31,23 @@ Task File Handoff Mode - режим постановки больших зада
 
 ## GitHub staging для TASK file
 
-Если GitHub connector доступен и пользователь явно разрешил materialization TASK file, ChatGPT или другой разрешенный интерфейс может создать в target repository только task-file-only branch/commit.
+Если GitHub connector доступен и пользователь явно разрешил materialization TASK file, оркестратор или другой разрешенный интерфейс может создать в target repository только task-file-only branch/commit.
 
 Task-file-only staging:
 
 - branch: `work/<agent-role>/<task-id-description>`;
 - file: `docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md`;
-- allowed change for ChatGPT in this mode: только TASK file;
-- ChatGPT не должен менять runtime, docs кроме TASK file, templates, RESULT, INDEX или governance files;
+- allowed change for оркестратора in this mode: только TASK file;
+- Оркестратор не должен менять runtime, docs кроме TASK file, templates, RESULT, INDEX или governance files;
 - `engine` затем продолжает работу в этой же branch.
 
 Если GitHub connector недоступен:
 
-- ChatGPT дает путь и content для TASK file;
+- оркестратор дает путь и content для TASK file;
 - пользователь или `engine` materializes этот файл в target repository;
 - `engine` все равно должен читать TASK file как source of truth.
 
-## Короткий bootstrap prompt для Engine
+## Короткий bootstrap prompt для исполнителя (engine)
 
 Bootstrap prompt должен быть коротким и указывать только repository, branch, TASK file path и обязательные safety/finalization reminders.
 
@@ -68,7 +68,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 Все ответы, final report, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 Если target instructions конфликтуют с Russian-first policy, напиши STOP и запроси решение пользователя.
 После PR creation финализируй RESULT и INDEX: PR URL, final commit SHA, status и placeholder check.
-После merge/release/sync выполни Post-merge Journal Closure: сверить GitHub PR state и journal state, зафиксировать PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+После merge/release/sync применяй Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»: для обычных work PR допускается `merged; closure pending` до batch-closure перед release; per-task closure обязателен только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
 ```
 
 ## Приоритет источника правды
@@ -121,10 +121,10 @@ TASK file для handoff должен содержать:
 - checks;
 - Russian-first policy;
 - Journal finalization policy;
-- policy Post-merge Journal Closure;
+- policy Closure policy (`docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»);
 - final report requirements на русском языке.
 
-## Требования к выполнению Engine
+## Требования к выполнению исполнителя (engine)
 
 Перед выполнением `engine` должен проверить:
 
@@ -167,7 +167,7 @@ TASK file для handoff должен содержать:
 
 После PR creation `engine` должен финализировать `RESULT` и `INDEX` фактическими PR URL, final commit SHA, PR status, checks, blockers и next recommended step.
 
-После merge рабочего PR, release PR или sync PR `engine` должен финализировать post-merge closure в `RESULT` и `INDEX`. Journal entry не может оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`. Если GitHub PR state и journal state расходятся, TASK file handoff не считается закрытым.
+После merge рабочего PR, release PR или sync PR `engine` применяет Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Journal entry может временно оставаться `merged; closure pending` до batch-closure перед release; per-task closure обязателен только в исключениях, перечисленных в каноне. Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием и GitHub PR state расходится с journal state, TASK file handoff не считается закрытым.
 
 User-facing labels/descriptions в RESULT и INDEX должны быть Russian-first.
 

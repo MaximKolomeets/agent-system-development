@@ -1,7 +1,7 @@
 # WORKFLOW
 
 1. Пользователь принимает решение.
-2. ChatGPT помогает сформулировать задачу.
+2. Оркестратор помогает сформулировать задачу.
 3. Задача оформляется по шаблону.
 4. Исполнитель работает в своей ветке.
 5. Исполнитель обновляет отчет.
@@ -38,7 +38,7 @@
 - явное разделение orchestrator, engine и reviewer responsibilities;
 - review-only boundary для reviewer roles;
 - отдельные implementation tasks для исправления findings;
-- полный self-contained Engine-блок или Task File Handoff Mode;
+- полный self-contained блок для исполнителя (engine) или Task File Handoff Mode;
 - воспроизводимые journal artifacts и PR metadata.
 
 ## Anti-overengineering checkpoint
@@ -79,7 +79,7 @@ Review-only PR содержит journal artifacts всегда; review report fi
 
 Reviewer не исправляет production code, runtime, Docker, CI, scripts или dependencies. Findings превращаются в отдельные implementation PR только после решения пользователя.
 
-Reviewer не запускает Codex/Engine, не меняет очередь исполнителя и не формулирует себе implementation task. Он может предложить кандидаты на будущие задачи, но решение принимает пользователь вместе с ChatGPT.
+Reviewer не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе implementation task. Он может предложить кандидаты на будущие задачи, но решение принимает пользователь вместе с оркестратором.
 
 Review task должен явно указывать:
 

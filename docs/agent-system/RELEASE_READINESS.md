@@ -33,7 +33,7 @@ Pre-PR-2o snapshot содержит изменения PR-2m и PR-2n:
 
 - добавлен unified ChatGPT response standard;
 - добавлен `FILE_COMMENTING_STANDARD`;
-- добавлен `CHATGPT_RESPONSE_TEMPLATE`;
+- добавлен `ORCHESTRATOR_RESPONSE_TEMPLATE`;
 - обновлены adoption templates и engine-facing docs;
 - обновлены state docs после merge PR-2m;
 - обновлен Source index до состояния после PR-2m / PR-2n.
@@ -42,7 +42,7 @@ Pre-PR-2o snapshot содержит изменения PR-2m и PR-2n:
 
 - `AGENTS.md`
 - `README.md`
-- `docs/agent-system/CHATGPT_RESPONSE_STANDARD.md`
+- `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
 - `docs/agent-system/CURRENT_STATE.md`
 - `docs/agent-system/DECISION_LOG.md`
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`
@@ -55,7 +55,7 @@ Pre-PR-2o snapshot содержит изменения PR-2m и PR-2n:
 - `docs/agent-system/agents/docs-maintainer-01/NEXT_CHAT_PROMPT.md`
 - `docs/agent-system/source/SOURCE_agent_system_index.md`
 - `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`
-- `docs/agent-system/templates/CHATGPT_RESPONSE_TEMPLATE.md`
+- `docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`
 - `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`
 - `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`
 

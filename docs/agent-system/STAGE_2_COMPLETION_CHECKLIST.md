@@ -32,8 +32,8 @@
 - [x] target repository bootstrap task template exists.
 - [x] `ADOPTION_AUDIT_TASK_TEMPLATE.md` exists.
 - [x] `DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` exists.
-- [x] `CHATGPT_RESPONSE_STANDARD.md` exists.
-- [x] `CHATGPT_RESPONSE_TEMPLATE.md` exists.
+- [x] `ORCHESTRATOR_RESPONSE_STANDARD.md` exists.
+- [x] `ORCHESTRATOR_RESPONSE_TEMPLATE.md` exists.
 - [x] `FILE_COMMENTING_STANDARD.md` exists.
 - [x] `TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` exists.
 - [x] `docs/agent-system/source/SOURCE_agent_system_index.md` exists and is updated after PR-2m.
@@ -68,7 +68,7 @@
 - [x] developer sync after main release is handled through PR if ruleset requires it;
 - [x] user manually launches engine;
 - [x] engine tasks start with `Задача для <agent-name>: <task-id>`;
-- [x] ChatGPT reviews reports and prepares next tasks;
+- [x] orchestrator reviews reports and prepares next tasks;
 - [x] user makes final decisions.
 
 ## Security readiness
@@ -106,7 +106,7 @@
 
 - PR-2m merged в `developer`;
 - PR-2m standards присутствуют в `developer`;
-- `CHATGPT_RESPONSE_STANDARD.md`, `CHATGPT_RESPONSE_TEMPLATE.md` и `FILE_COMMENTING_STANDARD.md` присутствуют;
+- `ORCHESTRATOR_RESPONSE_STANDARD.md`, `ORCHESTRATOR_RESPONSE_TEMPLATE.md` и `FILE_COMMENTING_STANDARD.md` присутствуют;
 - methodology freshness check закреплен в response template и engine-facing docs;
 - one-engine-task-one-block rule закреплен в response standard/template;
 - language consistency rule закреплен в adoption audit/docs-only adoption flow;
