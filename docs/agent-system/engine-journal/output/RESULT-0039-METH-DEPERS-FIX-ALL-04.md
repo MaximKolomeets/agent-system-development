@@ -2,7 +2,7 @@
 
 ## Статус
 
-Готово к review; PR pending until creation.
+Готово к review; PR открыт.
 
 ## Факты выполнения
 
@@ -10,9 +10,12 @@
 - Branch: `work/docs-maintainer-01/depers-fix-all-04`.
 - Baseline `developer`: `3b69fd190930e6536306c28b8926a3108995312a`.
 - Timestamp: `2026-06-21T18:39:27.9444114+07:00`.
-- PR URL: pending until PR creation.
-- PR number: pending until PR creation.
-- Head SHA at PR creation: pending until PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/179
+- PR number: `179`.
+- PR state at creation: `OPEN`, draft `true`, mergeable `MERGEABLE`.
+- PR created at: `2026-06-21T11:42:19Z`.
+- Head SHA at PR creation: `cf707783f777f07148caf84d6f6ff435e2d10880`.
+- PR state after journal finalization: `OPEN`, ready for review.
 
 ## Discovery
 
