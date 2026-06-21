@@ -40,6 +40,47 @@ GitHub состояние проверяй сам, если connector досту
 5. Для длинных задач использовать Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`, чтобы long task source of truth был TASK file в GitHub.
 6. Не расширять methodology repository после adoption без blocker или отдельного решения пользователя.
 
+## Architect → Orchestrator context handoff
+
+Этот раздел является единственным каноном состава context-load bundle для роли `orchestrator`. Остальные документы должны ссылаться на этот раздел, а не дублировать состав bundle прозой.
+
+### CORE (operate)
+
+Файлы, которые архитектор загружает в контекст оркестратора для безопасного запуска и обычной работы:
+
+- `docs/agent-system/PROJECT_FILE_MAP.md`
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`
+- `docs/agent-system/templates/TASK_HEADER_COMMON.md`
+- `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
+- `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`
+- `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`
+- `docs/agent-system/BRANCH_POLICY.md`
+- `docs/agent-system/ENGINE_ENTRYPOINT.md`
+
+### STATE (текущая ситуация)
+
+Файлы, которые архитектор добавляет к CORE, чтобы оркестратор видел актуальное состояние серии:
+
+- `docs/agent-system/engine-journal/INDEX.md`
+- `docs/agent-system/CURRENT_STATE.md`
+- `docs/agent-system/NEXT_STEPS.md`
+- свежие строки `docs/agent-system/DECISION_LOG.md`, если задача зависит от недавнего решения.
+
+### Что не грузить по умолчанию
+
+Не загружать по умолчанию тела `history_state`, полную историю journal `RESULT-*` и `target_generated` файлы: они не нужны для обычного operate. Категории и назначение файлов проверяются по `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` и производной карте `docs/agent-system/PROJECT_FILE_MAP.md`.
+
+### Freshness
+
+Каждый context-load должен фиксировать:
+
+```text
+asof: <ISO-8601 timestamp>
+developer_head_sha: <commit-sha origin/developer на момент загрузки>
+```
+
+Если текущий `developer` ушёл вперёд относительно загруженного `developer_head_sha`, оркестратор помечает контекст как stale и просит архитектора дозагрузить изменённые файлы по per-task handoff list из последнего final report или journal `RESULT`. До дозагрузки оркестратор не должен принимать решения, которые зависят от потенциально устаревших канонов или state.
+
 ## Safety
 
 - Не читать `.env`.

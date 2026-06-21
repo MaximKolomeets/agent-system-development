@@ -101,6 +101,26 @@ Final report и RESULT обязаны включать блок «Source Delta»
 
 Если действие `added`, `deleted` или `renamed` затрагивает inventory-файл категории `source`, `template`, `target_generated` или `generated`, `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` обязан быть обновлён в том же PR, а `docs/agent-system/PROJECT_FILE_MAP.md` обязан быть регенерирован через `python docs/agent-system/tools/gen_file_map.py` и проверен через `python docs/agent-system/tools/gen_file_map.py --check`. Если manifest не обновлён или file map не регенерирован — `STOP`. Для обычного `modified` без изменения inventory-списка manifest field = `n-a`.
 
+## Orchestrator context handoff
+
+Final report и RESULT обязаны включать строку для архитектора перед блоком
+«Передача» или внутри него:
+
+```text
+Архитектору — загрузить в контекст оркестратора: <изменённые source/template файлы этой задачи> + PROJECT_FILE_MAP.md (если менялся inventory) [+ INDEX/state если менялись]. asof: <ISO-8601 timestamp>; developer_head_sha: <sha>.
+```
+
+Список строится из «Source Delta»:
+
+- включать файлы категорий `source` и `template` с действиями `added`, `modified` и `renamed`;
+- добавлять `docs/agent-system/PROJECT_FILE_MAP.md`, если менялся inventory или карта была регенерирована;
+- добавлять `docs/agent-system/engine-journal/INDEX.md` и state-файлы только если они менялись;
+- если файловых изменений нет, писать `Архитектору — загрузить в контекст оркестратора: не применимо (файлы не менялись). asof: <ISO-8601 timestamp>; developer_head_sha: <sha>.`
+
+Состав базового context-load bundle не дублируется здесь; авторитетный канон:
+`docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect →
+Orchestrator context handoff».
+
 ## Verified Baseline
 
 - Repository:
@@ -122,6 +142,7 @@ Final report и RESULT обязаны включать блок «Source Delta»
 - [ ] Требование к отчёту включает блок «Передача» (`Следующий: <роль> — <что делает>`) — канон `TASK_HEADER_COMMON` → «Передача».
 - [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот у зарегистрированных потребителей: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
 - [ ] Source Delta включён в final report и RESULT: таблица по всем затронутым файлам, категории взяты из `ADOPTION_TRANSFER_MANIFEST.yml`, Source-рекомендации и manifest flag заполнены; add/delete/rename inventory-файлов без manifest update → STOP.
+- [ ] Orchestrator context handoff включён в final report и RESULT: per-task список построен из Source Delta, freshness stamp (`asof`, `developer_head_sha`) заполнен.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

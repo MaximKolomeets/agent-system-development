@@ -77,53 +77,21 @@ Self-contained engine-блоки:
 - При конфликте с repo governance target repository — STOP и эскалация.
 ```
 
-## Состав knowledge base («Source»)
+## Knowledge base и freshness
 
-Project knowledge base («Source») собирается из target repository и держится в
-синхронизации с его `developer`. Минимальный нейтральный состав:
+Состав context-load bundle и freshness rule не дублируются здесь. Авторитетный
+канон: `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect →
+Orchestrator context handoff».
 
-| Источник (в target repository) | Зачем в knowledge base |
-|---|---|
-| `docs/agent-system/CURRENT_STATE.md` | фактическое состояние после последних PR |
-| `docs/agent-system/DECISION_LOG.md` | принятые решения, причины, последствия |
-| `docs/agent-system/NEXT_STEPS.md` | ближайший план |
-| `PROJECT_CONSTITUTION.md` | mission, success criteria, scope control, authority |
-| `docs/agent-system/engine-journal/INDEX.md` | карта task → result → PR |
-| `docs/agent-system/source/` | справочные source-материалы проекта |
+Project operating context использует этот bundle как стартовый «Source» и
+добавляет target-specific материалы только если они разрешены governance target
+repository. Knowledge base остаётся слепком (snapshot), а источником истины
+остаётся target repository на GitHub.
 
-Правила knowledge base:
-
-- только нейтральные/публично-допустимые материалы; секреты, приватные данные и
-  реальные клиентские имена не загружаются;
-- knowledge base — это слепок (snapshot), а не «живой» repository; источником
-  истины остаётся target repository на GitHub;
-- если материал в knowledge base противоречит target repository, истиной
-  считается target repository.
-
-## Правило свежести (asof + developer HEAD SHA)
-
-Каждый слепок knowledge base несёт метку свежести:
-
-```text
-asof: <ISO-8601 timestamp>
-developer_head_sha: <commit-sha origin/developer на момент слепка>
-```
-
-Проверка актуальности в начале каждого проектного чата:
-
-1. Зафиксировать `developer_head_sha` из knowledge base.
-2. Сверить с текущим `origin/developer` target repository (через доступный
-   git/connector).
-3. Если SHA совпадают — knowledge base актуален, можно работать.
-4. Если SHA расходятся — knowledge base устарел: пометить как stale, не
-   принимать решения по устаревшему слепку и предложить обновить «Source» до
-   текущего `developer` перед содержательной работой.
-5. Если проверить актуальность невозможно — честно сказать об этом и работать в
-   режиме повышенной осторожности (сверяться с repository перед write-action
-   рекомендациями).
-
-Это правило согласовано с каноном `source_snapshot` (`docs/agent-system/source/README.md`):
-нельзя менять состояние repository по устаревшему snapshot.
+Если загруженный `developer_head_sha` устарел, оркестратор просит архитектора
+дозагрузить изменённые файлы по per-task handoff list из последнего final report
+или journal `RESULT`. До дозагрузки нельзя принимать решения по устаревшему
+слепку.
 
 ## Границы и запреты
 
