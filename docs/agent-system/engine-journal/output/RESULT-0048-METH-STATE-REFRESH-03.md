@@ -10,13 +10,13 @@ Baseline SHA: `fa9cd2f99bd45330f16227a18b3f45248826c234`
 
 Начато: `2026-06-22T00:26:32.8945088+07:00`
 
-PR URL: `pending`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/190`
 
-PR created at: `pending`
+PR created at: `2026-06-21T17:28:52Z`
 
-Head at PR creation: `pending`
+Head at PR creation: `682b93f6047692f58a7c0963391d790235d51405`
 
-Статус: `in progress; PR not created yet`
+Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
 
 ## Что изменено
 
@@ -49,6 +49,7 @@ Source-reminder: не применимо (source/template файлы не мен
 - `python docs/agent-system/tools/gen_file_map.py --check` → exit 0.
 - `git diff --check` → exit 0.
 - `git rev-parse --abbrev-ref HEAD` → `work/docs-maintainer-01/state-refresh-03`.
+- `gh pr view 190 --json url,createdAt,headRefOid,state,baseRefName,headRefName,mergeable` → `OPEN`, base `developer`, head `work/docs-maintainer-01/state-refresh-03`, mergeable `MERGEABLE`, head at PR creation `682b93f6047692f58a7c0963391d790235d51405`.
 
 ## Передача
 
