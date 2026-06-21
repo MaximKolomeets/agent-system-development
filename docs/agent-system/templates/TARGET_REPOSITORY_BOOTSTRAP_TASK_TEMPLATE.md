@@ -187,7 +187,7 @@ Requires explicit user approval: <yes/no>
 
 Governance state files не копировать из template repository verbatim. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `BACKLOG.md`, `DECISION_LOG.md`, `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` должны быть переписаны под target repository.
 
-Target engine journal должен поддерживать Post-merge Journal Closure: после merge рабочего PR, release PR или sync PR `RESULT` и `INDEX` фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Target engine journal должен поддерживать Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Bootstrap/adoption handoff является per-task closure exception; обычные work PR после bootstrap закрываются batch-closure перед release.
 
 ## Checks
 
@@ -205,7 +205,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 
 Sensitive grep должен печатать только filenames. Не печатать matching lines в terminal output, engine logs или final reports.
 
-- проверка Post-merge Journal Closure для RESULT/INDEX, если PR уже merged
+- проверка Closure policy для RESULT/INDEX, если PR уже merged (`bootstrap/adoption` — per-task closure exception)
 
 ## Final report format
 
@@ -239,7 +239,7 @@ Sensitive grep должен печатать только filenames. Не печ
 - sync PR URL/status/merge commit SHA, если sync выполнялся;
 - RESULT закрыт после merge;
 - INDEX закрыт после merge;
-- проверка Post-merge Journal Closure.
+- проверка Closure policy (`bootstrap/adoption` — per-task closure exception).
 
 ## Rules
 

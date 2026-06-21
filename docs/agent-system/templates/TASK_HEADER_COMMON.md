@@ -45,6 +45,26 @@ Final report и RESULT обязаны заканчиваться блоком «
 - Если следующего шага нет — писать `Следующий: нет — <причина>`.
 - Решение, запускать ли следующий шаг и каким исполнителем, остаётся за пользователем/архитектором.
 
+### Batch-friendly handoff
+
+Для обычного work PR внутри серии:
+
+```text
+Следующий: архитектор — merge; затем engine — следующий под-PR; journal closure — batch перед release; release держим до завершения серии и batch-closure.
+```
+
+Для финального PR серии:
+
+```text
+Следующий: архитектор — merge; затем engine — batch closure journal <seq-range>; затем release dev→main.
+```
+
+## Closure-status policy
+
+Если batch-closure policy: после merge work-PR journal может временно оставаться pre-merge/closure-pending; это не blocker для следующего work PR той же фазы; blocker только для release / audit-review consistency-gate / явного closure-задания.
+
+Канон closure policy — `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Шаблоны closure-задач: `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md` и `docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md`.
+
 ## Source-reminder
 
 Сквозное правило синхронизации Source-снапшота.

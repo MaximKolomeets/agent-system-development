@@ -146,7 +146,7 @@ Requires explicit user approval: <yes/no>
 
 Engine journal scope является target-specific: скопировать или создать scaffold/templates при необходимости, но не копировать methodology repository operational history. Target task/result entries являются append-only после создания.
 
-После merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` должны быть закрыты по Post-merge Journal Closure: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Docs-only adoption/source-update является per-task closure exception по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». После merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` закрываются по Closure policy; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Governance pack files разрешены только как docs-only artifacts:
 
@@ -234,7 +234,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что governance state files переписаны по фактам target repository
 - проверить, что reusable templates не смешаны с target-specific state files
 - проверить, что engine journal structure создана и task/result files не содержат private data
-- проверить, что шаг Post-merge Journal Closure есть для RESULT/INDEX
+- проверить, что шаг Closure policy есть для RESULT/INDEX (`adoption/source-update` — per-task closure exception)
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 - проверить language consistency governance docs
@@ -261,7 +261,7 @@ Governance pack files разрешены только как docs-only artifacts
 - commenting changes;
 - methodology reference;
 - engine journal files;
-- проверка Post-merge Journal Closure;
+- проверка Closure policy (`adoption/source-update` — per-task closure exception);
 - files where comments are not applicable and why;
 - risks;
 - Methodology feedback;

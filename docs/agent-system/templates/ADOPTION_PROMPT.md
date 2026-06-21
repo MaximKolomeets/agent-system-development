@@ -31,20 +31,20 @@ Reasoning effort: <низкий | средний | высокий>
 
 Adoption prompt должен включать Russian-first reminder: все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допустим только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 
-Adoption prompt должен требовать Post-merge Journal Closure: после merge/release/sync target `RESULT` и `INDEX` фиксируют status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+Adoption/source-update является per-task closure exception по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Adoption prompt должен требовать closure после merge/release/sync; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Adoption prompt должен требовать `methodology_reference`: repository, source branch, source commit SHA, checked_at и reference_type. Канон спецификации — `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference».
 
 ## Короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Closure policy (`adoption/source-update` — per-task closure exception; для обычных work PR действует batch-closure перед release).
 ```
 
 ## Безопасный короткий prompt
 
 ```text
-Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Post-merge Journal Closure. В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
+Интегрируй в текущий проект систему агентов. Шаблон возьми в репозитории https://github.com/MaximKolomeets/agent-system-development. Сначала выполни repository self-discovery и adoption audit, без изменения кода и без запуска Docker. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пиши на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names. Зафиксируй methodology_reference с source commit SHA. После merge/release/sync закрой target RESULT/INDEX по Closure policy (`adoption/source-update` — per-task closure exception; для обычных work PR действует batch-closure перед release). В final report добавь Methodology feedback: что улучшить в template repository для следующей интеграции, без private data.
 ```
 
 ## Полный canonical copy/paste prompt
@@ -71,7 +71,7 @@ https://github.com/MaximKolomeets/agent-system-development
 5. Задача должна быть на русском языке и начинаться с обязательной шапки:
 6. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
 7. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
-8. Включи в задачу для исполнителя (engine) Post-merge Journal Closure: после merge/release/sync RESULT/INDEX должны фиксировать status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+8. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Задача для <agent-name>: <task-id>
 
@@ -254,7 +254,7 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 - Russian-first policy result;
 - methodology reference result;
 - engine journal task/result files;
-- проверка Post-merge Journal Closure;
+- проверка Closure policy (`adoption/source-update` — per-task closure exception);
 - recommended docs-only adoption scope;
 - stop conditions, если есть;
 - Methodology feedback;

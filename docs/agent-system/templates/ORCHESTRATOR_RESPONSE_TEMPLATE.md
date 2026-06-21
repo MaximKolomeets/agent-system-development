@@ -69,7 +69,7 @@ docs/agent-system/engine-journal/output/RESULT-<actual-next-seq>-<task-id>-<slug
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data в journal запрещены.
 - TASK/RESULT/INDEX labels и описания пишутся на русском языке, кроме technical identifiers и literal external names.
 - после PR creation RESULT/INDEX финализируются фактическими PR URL, commit SHA, PR status и placeholder check.
-- после merge/release/sync RESULT/INDEX закрываются по Post-merge Journal Closure: PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
+- после merge/release/sync применяется Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: обычные work PR закрываются batch-closure перед release; per-task closure используется только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
 
 Языковая политика:
 
@@ -226,7 +226,7 @@ STOP-условия:
 - не делать force push;
 - Pull Request создавать в base branch;
 - не делать auto-merge.
-- после merge/release/sync выполнить или явно запланировать post-merge journal closure для RESULT/INDEX.
+- после merge/release/sync применить Closure policy для RESULT/INDEX: batch перед release по умолчанию, per-task только для исключений из канона.
 
 Финальный отчет:
 
@@ -255,8 +255,8 @@ STOP-условия:
 - INDEX закрыт после merge;
 - No journal placeholders;
 - результат stale pre-merge status check;
-- проверка Post-merge Journal Closure;
-- требуется post-merge journal closure: yes/no;
+- проверка Closure policy;
+- требуется per-task closure: yes/no; если no — указать batch-closure перед release.
 - файл результата исполнителя (engine);
 - запрос на улучшение methodology repository (`Methodology repository improvement request`), если нужен.
 ```

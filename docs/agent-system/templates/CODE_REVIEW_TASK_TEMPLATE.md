@@ -366,7 +366,7 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
-Журнал финализируется после создания PR и закрывается после merge по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
+Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release или другого явно указанного исключения.
 
 ## Локальные действия после PR/merge
 
@@ -388,7 +388,7 @@ Title: <review task title>
 - reviewed head SHA, если Review object = PR;
 - risks;
 - next step;
-- Передача — блок `Следующий: <роль> — <что делает>` (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);
+- Передача — блок `Следующий: <роль> — <что делает>` и batch-friendly формулировка, если применимо (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);
 - Source-reminder, если review менял методологию/каноны (`Обновить Source-снапшот у зарегистрированных потребителей: …` из `docs/agent-system/SOURCE_CONSUMERS.md`); иначе «не применимо»;
 - локальные действия после PR/merge, если PR создан или обнаружен рассинхрон с `origin/*`.
 ```
