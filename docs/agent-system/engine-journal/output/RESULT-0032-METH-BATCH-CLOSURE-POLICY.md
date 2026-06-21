@@ -28,17 +28,20 @@ Batch-closure policy закреплена в каноне. Старые откр
 ## PR / branch
 
 - Branch: `work/docs-maintainer-01/batch-closure-policy`
-- PR URL: `pending until PR creation`
-- PR status: `pending until PR creation`
-- Commit SHA: `pending until commit`
-- Actual/current PR head SHA after final push: `pending until PR creation`
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/168`
+- PR status: `OPEN`
+- Primary commit SHA: `24db5b05df95719362b03a28b247fe7dd28f517c`
+- Head SHA at PR creation: `24db5b05df95719362b03a28b247fe7dd28f517c`
+- Actual/current PR head SHA after journal finalization push: см. final report; не фиксируется внутри self-referential commit.
+- Mergeable at PR creation check: `MERGEABLE`
 
 ## Проверки
 
-- `git diff --check`: pending.
-- `git diff --name-only`: pending.
-- branch-guard: pending before commit.
-- vendor/tool/model names in new templates: pending.
+- `rg -n "Post-merge Journal Closure|закрывается после merge|строго после merge|не должна оставаться в pre-merge" ...`: 0 совпадений.
+- `rg -n -i "chatgpt|codex|claude|gpt|gemini|copilot|<engine-name>|Модель:" docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md`: 0 совпадений.
+- `git diff --check`: passed.
+- `git diff --name-only` + `git ls-files --others --exclude-standard`: только whitelist.
+- branch-guard before commit: `work/docs-maintainer-01/batch-closure-policy`.
 
 ## Риски
 
