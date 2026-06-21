@@ -84,6 +84,7 @@ Operational Fast Lane не применяется для:
 - рабочий PR имеет merge commit SHA и `merged_at`, если эти данные доступны;
 - release PR merged, если release в `main` выполнялся;
 - release PR имеет URL/status/merge commit SHA/`merged_at`, если release выполнялся;
+- `python docs/agent-system/tools/gen_file_map.py --check` проходит перед release readiness verdict;
 - sync PR merged, если выполнялся sync `main -> developer`;
 - sync PR имеет URL/status/merge commit SHA/`merged_at`, если sync выполнялся;
 - stale work branches удалены или явно оставлены по причине;
@@ -98,6 +99,7 @@ Fast Lane может завершиться коротким `чисто` тол
 - release/sync merged или явно `не применимо`;
 - RESULT closed after merge: yes;
 - INDEX closed after merge: yes;
+- PROJECT_FILE_MAP parity check: clean;
 - No journal placeholders: yes;
 - stale pre-merge status check: clean.
 

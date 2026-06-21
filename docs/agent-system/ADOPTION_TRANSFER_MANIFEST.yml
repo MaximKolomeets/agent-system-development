@@ -47,6 +47,7 @@ categories:
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/FILE_COMMENTING_STANDARD.md
+      - docs/agent-system/tools/gen_file_map.py
       - docs/agent-system/GITHUB_RULESETS.md
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
       - docs/agent-system/LANGUAGE_POLICY.md
@@ -193,6 +194,17 @@ categories:
     rules:
       - В upstream methodology repository этот registry остается generic-placeholder.
       - Реальные consumers перечисляются только в consuming deployment.
+
+  generated:
+    description: >
+      Repo-local derived artifacts generated from authoritative methodology source.
+      Эти файлы не являются source-transferable; их нужно регенерировать, а не править руками.
+    files:
+      - docs/agent-system/PROJECT_FILE_MAP.md
+    rules:
+      - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
+      - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.
+      - Проверка drift: `python docs/agent-system/tools/gen_file_map.py --check`.
 
 rules:
   - id: no_verbatim_state_copy
