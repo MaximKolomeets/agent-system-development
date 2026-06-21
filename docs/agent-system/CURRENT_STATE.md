@@ -54,8 +54,8 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 
 Правила именования:
 
-- Codex/Claude/etc не используются в названиях агентов;
-- Codex сейчас может использоваться только как engine-исполнитель по прямому заданию пользователя;
+- Конкретные vendor/tool names не используются в названиях агентов;
+- Конкретный инструмент может использоваться только как исполнитель (engine) по прямому заданию пользователя;
 - роли агентов не зависят от конкретного vendor/tool.
 
 PR-1e добавил GitHub Actions guardrail для forbidden tracked files.
@@ -115,7 +115,7 @@ PR-2r добавляет стандарт engine journal:
 
 PR-2w merged в `developer` через PR #62, release PR #63 и sync PR #64.
 
-PR-2w закрепил Russian-first language policy как отдельный reusable contract для ChatGPT, `engine`, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
+PR-2w закрепил Russian-first language policy как отдельный reusable contract для оркестратора, `engine`, TASK/RESULT/INDEX, target-local docs/templates и комментариев в файлах.
 
 PR-2x добавляет Post-merge Journal Closure:
 
@@ -161,7 +161,7 @@ PR-3g усиливает reusable правила: task lifecycle после merg
 `METH-GUARDRAILS-01` закрепил:
 
 - review-агенты работают review-only по умолчанию и не становятся исполнителями разработки без отдельной задачи;
-- review findings не превращаются в самостоятельные задачи Codex/Engine без решения пользователя;
+- review findings не превращаются в самостоятельные задачи исполнителя (engine) без решения пользователя;
 - review branch/report naming остается role-based и vendor-neutral;
 - фактическая branch policy для review использует `work/<role>/<task>`, а не отдельный `review/*` namespace;
 - review-отчет по умолчанию возвращается в чат, а сохранение в repository требует явного docs-only разрешения;
