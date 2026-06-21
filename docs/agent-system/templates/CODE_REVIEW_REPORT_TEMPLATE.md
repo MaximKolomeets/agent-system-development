@@ -56,7 +56,7 @@ Matching lines и secret values не печатать.
 
 Перечислить рекомендации без внесения code fixes.
 
-## 9. Кандидаты на будущие задачи Engine
+## 9. Кандидаты на будущие задачи исполнителя (engine)
 
 Для каждого candidate указать:
 
@@ -65,7 +65,7 @@ Matching lines и secret values не печатать.
 - scope:
 - reason:
 
-Это только кандидаты. Reviewer не запускает Codex/Engine, не меняет очередь исполнителя и не ставит себе implementation task.
+Это только кандидаты. Reviewer не запускает исполнителя (engine), не меняет очередь исполнителя и не ставит себе implementation task.
 
 ## 10. Итоговый вывод
 

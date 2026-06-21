@@ -19,7 +19,7 @@
 - [ ] Private data не переносится в public methodology repository.
 - [ ] `agent-system-development` описан как methodology/template repository, а не как центральный repository управления target repository.
 
-## Engine task header
+## Header задачи исполнителя (engine)
 
 - [ ] Задачи для `engine` формулируются на русском языке.
 - [ ] Шапка использует формат `Задача для <agent-name>: <task-id>`.
@@ -82,7 +82,7 @@
 ## External/code review adoption
 
 - [ ] Selected reviewer role defined: `code-reviewer-01`, `qa-reviewer-01` или `security-reviewer-01`.
-- [ ] Engine name separated from role name.
+- [ ] Имя исполнителя (engine) отделено от role name.
 - [ ] Branch namespace is `work/<role>/*`.
 - [ ] Report path is target-local.
 - [ ] Review-only scope confirmed.
@@ -95,7 +95,7 @@
 
 - [ ] Governance docs use one primary human language.
 - [ ] For Russian-language projects, governance docs are in Russian.
-- [ ] Engine prompts and agent reports are in Russian.
+- [ ] Prompts исполнителя (engine) и agent reports написаны на русском.
 - [ ] English is preserved for paths, commands, code identifiers, config keys, package names, API names, vendor/tool names.
 - [ ] Mixed-language sections are either justified or normalized.
 
@@ -110,8 +110,8 @@
 
 ## Methodology freshness
 
-- [ ] ChatGPT checked current `agent-system-development` before preparing the engine task.
-- [ ] Engine synced or freshly read `agent-system-development` before applying methodology.
+- [ ] Оркестратор проверил актуальный `agent-system-development` перед подготовкой engine task.
+- [ ] Исполнитель (engine) синхронизировал или свежо прочитал `agent-system-development` перед применением methodology.
 - [ ] If sync/check was impossible, the limitation is stated in the report.
 - [ ] Methodology feedback is neutral and does not reveal private data.
 

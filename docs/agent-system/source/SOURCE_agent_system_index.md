@@ -42,9 +42,9 @@ Repository visibility: public.
 
 - GitHub является source of truth для файлов, веток, PR, отчётов и состояния.
 - Не использовать названия конкретных внешних проектов; для downstream-проектов использовать нейтральные формулировки.
-- Vendor/tool names (Codex/Claude/Gemini/Copilot) не использовать в названиях агентов, веток, task id и report files; конкретный инструмент указывается отдельно как engine.
+- Vendor/tool names не использовать в названиях агентов, веток, task id и report files; конкретный инструмент указывается отдельно как engine.
 - `agent-system-development` - reusable methodology/template repository, а не центральный repository управления downstream-проектами.
-- Задачи для engine писать на русском и начинать с `Задача для <agent-name>: <task-id>`; task id связывать с issue, PR, task id или внутренним номером работы проекта.
+- Задачи для engine писать на русском и начинать с `Задача для <роль>: <task-id>`; task id связывать с issue, PR, task id или внутренним номером работы проекта.
 - Простые проверки/cleanup выполнять через Operational Fast Lane без methodology PR.
 - File-changing задачи идут через `work/<role>/*`, PR и engine journal.
 - Project-specific governance state создаётся только в target repository.
