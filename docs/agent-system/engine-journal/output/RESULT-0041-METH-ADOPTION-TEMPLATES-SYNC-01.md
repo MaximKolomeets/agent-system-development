@@ -10,12 +10,12 @@
 - Branch: `work/docs-maintainer-01/adoption-templates-sync-01`.
 - Baseline `developer`: `677b36d7dfa3a064c0ee80338ec1ea4c369a9623`.
 - Timestamp: `2026-06-21T20:39:08.5472674+07:00`.
-- PR URL: `pending`.
-- PR number: `pending`.
-- PR state at creation: `pending`.
-- PR created at: `pending`.
-- Head SHA at PR creation: `pending`.
-- PR state after journal finalization: `pending`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/181
+- PR number: `181`.
+- PR state at creation: `OPEN`, draft `true`, mergeable `MERGEABLE`.
+- PR created at: `2026-06-21T13:41:27Z`.
+- Head SHA at PR creation: `5589d8a35bfd47d7e6ebe59c3efd0427733de491`.
+- PR state after journal finalization: `OPEN`, ready for review.
 
 ## Discovery
 
