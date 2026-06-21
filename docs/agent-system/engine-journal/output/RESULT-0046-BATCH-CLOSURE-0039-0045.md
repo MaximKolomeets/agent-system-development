@@ -10,9 +10,9 @@ Baseline SHA: `6128a9188ac211f0c5370a49ad84b583143edaa3`
 
 Начато: `2026-06-21T22:18:49.829768+07:00`
 
-PR URL: `to be filled after create`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/186`
 
-PR number: `to be filled after create`
+PR number: `#186`
 
 Статус: `closed-at-creation; terminal closure; own mergeCommit = stamp at merge`
 
