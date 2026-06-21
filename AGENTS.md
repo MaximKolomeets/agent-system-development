@@ -35,13 +35,13 @@
 - Review-агент может предложить кандидаты на будущие задачи, но не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.
-- Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены `claude/*`, `gpt/*`, `gemini/*`, `docs/CLAUDE_REVIEW.md`, `docs/GPT_REVIEW.md`, `docs/GEMINI_REVIEW.md`.
+- Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены ветки вида `<vendor-name>/*` и файлы вида `docs/<VENDOR-NAME>_REVIEW.md`.
 - После задачи агент обязан обновить свой отчет.
 - После архитектурного решения обновляется `docs/agent-system/DECISION_LOG.md`.
 - После изменения состояния проекта обновляется `docs/agent-system/CURRENT_STATE.md`.
 - Любой engine, применяющий этот repository как template repository для другого проекта, должен начинать с `docs/agent-system/ENGINE_ENTRYPOINT.md` и `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.
 - `engine`, работающий с target repository, должен в final report добавлять нейтральную секцию `Methodology feedback` с предложениями по улучшению methodology repository, не раскрывая private data.
-- Названия агентов не должны содержать Codex, Claude, Gemini, Copilot и другие vendor/tool names.
+- Названия агентов не должны содержать конкретный `<vendor-name>` или другие vendor/tool names.
 - Конкретный инструмент указывается отдельно как engine.
 - Если ответ содержит задачу для engine, все данные для выполнения этой engine-задачи должны быть внутри одного самодостаточного copy/paste-блока.
 - Одна engine-задача = один полный copy/paste-блок.

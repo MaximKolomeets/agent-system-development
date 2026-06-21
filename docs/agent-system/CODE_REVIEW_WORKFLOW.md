@@ -145,6 +145,8 @@ docs/agent-system/reviews/initial-project-review.md
 docs/agent-system/agents/qa-reviewer-01/REPORTS.md
 ```
 
+Depers-check: bare-слово «модель» само по себе не является vendor-marker, если рядом нет vendor/tool name и это не label вида `Модель: <имя исполнителя>`. Остаточная строка `Модель: <имя исполнителя>` в task/header scope заменяется на `Reasoning effort`.
+
 ## Report naming
 
 Тело review report по умолчанию (`Report delivery: chat`) возвращается в чат и в repository не сохраняется.

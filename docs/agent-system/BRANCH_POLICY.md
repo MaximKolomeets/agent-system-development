@@ -97,7 +97,7 @@ git status --short
 - прямой push агентами в `main`;
 - прямой push агентами в `developer` после bootstrap;
 - смешивать несколько независимых задач в одной ветке.
-- использовать model/vendor-specific ветки вроде `claude/*`, `gpt/*` или `gemini/*`.
+- использовать model/vendor-specific ветки вида `<vendor-name>/*`.
 
 ## Review branch policy
 
