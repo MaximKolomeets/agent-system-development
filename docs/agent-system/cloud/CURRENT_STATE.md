@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-21
+Дата: 2026-06-22
 
 Проект: Создание агентской системы
 
@@ -10,9 +10,9 @@ Repository visibility: public.
 
 ## Актуальное состояние
 
-Методология уже выпущена в `main`: pre-release batch-closure 0034-0037 прошёл через PR #176, release `developer -> main` выполнен через PR #177, sync `main -> developer` выполнен через PR #178.
+Методология уже выпущена в `main`: pre-release batch-closure 0039-0045 прошёл через PR #186, release `developer -> main` выполнен через PR #187, sync `main -> developer` выполнен через PR #188.
 
-После release в `developer` завершён fix-all цикл PR #179-#183:
+После предыдущего release в `developer` завершён fix-all цикл PR #179-#185 и terminal batch-closure PR #186:
 
 - полная деперсонализация operational/source/template scope: канон заголовка `Задача для <роль>`, `<agent-name>` устранён из active scope, vendor/tool literals в operational scope сведены к нейтральным placeholders;
 - batch-closure policy закреплена с per-task exceptions и scope-клаузой;
@@ -22,11 +22,12 @@ Repository visibility: public.
 - Source Delta стал обязательным standing output в отчётах, `RESULT` и review-gate;
 - Architect -> Orchestrator context handoff закреплён: CORE/STATE bundle, freshness stamp и per-task load-list;
 - adoption templates синхронизированы с актуальными категориями manifest и Source Delta;
-- audit-ниты закрыты: dead review links убраны, map scope задекларирован, `ADOPTION_AUDIT.md` помечен как `target_generated`, активные EN-заголовки переведены по `LANGUAGE_POLICY`.
+- audit-ниты закрыты: dead review links убраны, map scope задекларирован, `ADOPTION_AUDIT.md` помечен как `target_generated`, активные EN-заголовки переведены по `LANGUAGE_POLICY`;
+- cloud staging bundle добавлен: `docs/agent-system/cloud/**` генерируется из `orchestrator_context_bundle`, `gen_cloud_bundle.py --check` входит в release-gate.
 
-Журнал закрыт до 0038 включительно. Записи 0039-0043 уже merged в `developer`, но остаются open по batch-policy до pre-release closure; текущая задача добавляет 0044 в тот же closure-set.
+Журнал закрыт до 0046 включительно. После post-release multi-engine `METHODOLOGY-AUDIT-04` и cleanup `REPO-SYNC-CLEANUP-03` идёт короткий fix-cycle: FIX-CLOUD PR #189 уже merged в `developer` и закрепил cloud freshness как content-parity gate с vendor-neutral upload heading; текущая задача FIX-STATE добавляет запись 0048; далее планируется FIX-NITS. Открытые записи 0047+ остаются нормой по batch-policy до pre-release closure.
 
-Текущий следующий шаг: pre-release batch-closure 0039-0044, затем release PR `developer -> main`. После release можно переходить к downstream adoption / реальному verification-проекту с актуальным `methodology_reference`.
+Текущий следующий шаг: завершить fix-cycle (FIX-STATE, затем FIX-NITS), выполнить pre-release batch-closure 0047-последний, затем release PR `developer -> main`. Release-gate: journal закрыт, batch-closure выполнен, `python docs/agent-system/tools/gen_file_map.py --check` и `python docs/agent-system/tools/gen_cloud_bundle.py --check` проходят, merge в `main` выполняет только человек-архитектор. После release можно переходить к downstream adoption / реальному verification-проекту с актуальным `methodology_reference`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 

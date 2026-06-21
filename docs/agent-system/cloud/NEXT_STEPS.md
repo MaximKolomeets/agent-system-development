@@ -1,12 +1,13 @@
 # NEXT_STEPS
 
-Методология выпущена в `main` через release PR #177 и sync PR #178. После release в `developer` завершён fix-all цикл PR #179-#183: depersonalization cleanup, Architect -> Orchestrator context handoff, adoption templates sync, closure facts authority clarification и audit nits. Журнал закрыт до 0038; записи 0039-0044 относятся к текущему batch-policy циклу и закрываются перед следующим release.
+Методология выпущена в `main` через release PR #187 и sync PR #188. Журнал закрыт до 0046 включительно. После post-release audit/cleanup идёт короткий fix-cycle: FIX-CLOUD PR #189 уже merged в `developer`; текущий шаг — FIX-STATE; следующий — FIX-NITS. Release-gate включает journal closed + batch-closure + `gen_file_map.py --check` + `gen_cloud_bundle.py --check` (content-parity) + human-only merge в `main`.
 
 ## Основной следующий шаг
 
-1. Выполнить pre-release batch-closure journal 0039-0044: закрыть merged work PR #179-#183 и текущую state-refresh запись 0044.
-2. После review/merge batch-closure выполнить release PR `developer -> main` по rule 1 (human-only merge).
-3. После release переходить к downstream adoption / реальному verification-проекту по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на финальный commit SHA.
+1. Завершить текущий fix-cycle: merge FIX-STATE, затем выполнить и merge FIX-NITS.
+2. Выполнить pre-release batch-closure journal 0047-последний.
+3. После review/merge batch-closure выполнить release PR `developer -> main` по rule 1 (human-only merge).
+4. После release переходить к downstream adoption / реальному verification-проекту по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на финальный commit SHA.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
