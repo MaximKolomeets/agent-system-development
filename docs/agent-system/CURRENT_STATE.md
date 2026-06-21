@@ -1,12 +1,32 @@
 # CURRENT_STATE
 
-Дата: 2026-06-16
+Дата: 2026-06-21
 
 Проект: Создание агентской системы
 
 Репозиторий: `MaximKolomeets/agent-system-development`
 
 Repository visibility: public.
+
+## Актуальное состояние
+
+Методология уже выпущена в `main`: pre-release batch-closure 0034-0037 прошёл через PR #176, release `developer -> main` выполнен через PR #177, sync `main -> developer` выполнен через PR #178.
+
+После release в `developer` завершён fix-all цикл PR #179-#183:
+
+- полная деперсонализация operational/source/template scope: канон заголовка `Задача для <роль>`, `<agent-name>` устранён из active scope, vendor/tool literals в operational scope сведены к нейтральным placeholders;
+- batch-closure policy закреплена с per-task exceptions и scope-клаузой;
+- closure-facts authority уточнён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL;
+- `ADOPTION_TRANSFER_MANIFEST.yml` стал авторитетным manifest с 7 категориями: `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`;
+- `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` включён в release-gate/fast-lane parity;
+- Source Delta стал обязательным standing output в отчётах, `RESULT` и review-gate;
+- Architect -> Orchestrator context handoff закреплён: CORE/STATE bundle, freshness stamp и per-task load-list;
+- adoption templates синхронизированы с актуальными категориями manifest и Source Delta;
+- audit-ниты закрыты: dead review links убраны, map scope задекларирован, `ADOPTION_AUDIT.md` помечен как `target_generated`, активные EN-заголовки переведены по `LANGUAGE_POLICY`.
+
+Журнал закрыт до 0038 включительно. Записи 0039-0043 уже merged в `developer`, но остаются open по batch-policy до pre-release closure; текущая задача добавляет 0044 в тот же closure-set.
+
+Текущий следующий шаг: pre-release batch-closure 0039-0044, затем release PR `developer -> main`. После release можно переходить к downstream adoption / реальному verification-проекту с актуальным `methodology_reference`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
@@ -211,6 +231,6 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 
 Контрольный audit после #155 выполнен в ChatGPT: blocking/major не найдено; journal 0020-0022, state docs и templates sequence/checkout guard проверены.
 
-Текущий следующий шаг: подготовить release PR `developer -> main`. После merge release PR выполнить sync `main -> developer`, затем обновить release/sync facts для последней journal-записи при необходимости и перейти к downstream adoption decision после финальной проверки state.
+Предыдущий release/sync шаг после PR #154/#155 выполнен более поздним release cycle; актуальный следующий шаг зафиксирован в начале файла.
 
 Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.
