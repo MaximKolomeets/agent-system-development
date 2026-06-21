@@ -2,7 +2,7 @@
 
 ## Итог
 
-Статус: initial materialization; PR creation pending.
+Статус: PR создан, RESULT/INDEX финализированы после PR creation.
 
 ## Baseline
 
@@ -12,8 +12,11 @@
 - Working branch: `work/docs-maintainer-01/file-map-gen-01`
 - Baseline SHA: `f0306cfa461b24d0ca435ffee4116c1119bacdd4`
 - Checked at: `2026-06-21T16:45:58+07:00`
-- PR: pending
-- Head SHA at PR creation: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/175
+- PR state at creation: `open`, draft `true`, mergeable `MERGEABLE`
+- PR state after journal finalization: `open`, ready for review
+- Head SHA at PR creation: `25e3f3f61ce2cf16b3b9e22f67c4f8a064cc0beb`
+- PR created at: `2026-06-21T09:52:25Z`
 
 ## Что изменено
 
@@ -31,14 +34,14 @@
 - `python docs/agent-system/tools/gen_file_map.py --check` -> exit 0.
 - Повторный `python docs/agent-system/tools/gen_file_map.py` не изменил `PROJECT_FILE_MAP.md`.
 - Source/template/generated concrete paths из manifest существуют.
-- Whitelist diff: pending final check.
-- `git diff --check`: pending final check.
+- Whitelist diff: only allowed generator/map/manifest/hook files and journal 0037.
+- `git diff --check`: pass; only autocrlf warnings from Git for Windows, whitespace errors none.
 
 ## PR
 
-- PR: pending
-- Head SHA at PR creation: pending
-- PR status after journal finalization: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/175
+- Head SHA at PR creation: `25e3f3f61ce2cf16b3b9e22f67c4f8a064cc0beb`
+- PR status after journal finalization: `open`, ready for review.
 
 ## Source Delta
 
