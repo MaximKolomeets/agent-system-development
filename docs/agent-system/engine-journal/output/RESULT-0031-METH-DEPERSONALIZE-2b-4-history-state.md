@@ -39,9 +39,9 @@
 - Base branch: `developer`
 - Baseline SHA: `50f71cc6e4d835b6bfef88d1240e37462b29df47`
 - Work branch: `work/docs-maintainer-01/depersonalize-2b-4`
-- PR: pending PR creation
-- PR state at finalization: pending PR creation
-- Head SHA at PR creation: pending PR creation
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/167
+- PR state at finalization: open; not merged (мерж выполняет человек); RESULT/INDEX finalized after PR creation
+- Head SHA at PR creation: `87a5615e22064a820614bd292b523e6bbd048ef8`
 - Timestamp: `2026-06-21T11:31:24.1183847+07:00`
 
 ## Проверки
@@ -50,6 +50,8 @@
 - `git diff --name-only origin/developer...HEAD`
 - `git diff --check`
 - `git rev-parse --abbrev-ref HEAD`
+
+Результат: checks clean; active vendor/tool actor refs in scope files = 0; diff ограничен whitelist + journal 0031.
 
 ## Source-reminder
 
