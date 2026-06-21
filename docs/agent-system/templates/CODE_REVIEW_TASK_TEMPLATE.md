@@ -368,7 +368,7 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
-Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release или другого явно указанного исключения.
+Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release или другого явно указанного исключения. В closure-review reviewer сверяет merge-факты по `RESULT` closure-stamp и GitHub/local git; `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
 
 ## Локальные действия после PR/merge
 

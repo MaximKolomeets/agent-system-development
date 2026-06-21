@@ -12,7 +12,7 @@
 Reasoning effort: средний
 Запуск: Local only
 Режим: Agent
-Почему: задача сверяет GitHub merge facts с INDEX/RESULT и закрывает только journal перед release.
+Почему: задача сверяет GitHub merge facts с RESULT closure-stamps и закрывает только journal перед release.
 
 ## Режим
 
@@ -46,7 +46,7 @@ git rev-parse --abbrev-ref HEAD
 ## Discovery
 
 1. Прочитать `docs/agent-system/engine-journal/INDEX.md`.
-2. Найти все seq в диапазоне `<seq-range>`, где PR уже merged, но `RESULT`/`INDEX` не закрыты после merge.
+2. Найти все seq в диапазоне `<seq-range>`, где PR уже merged, но `RESULT` не содержит closure-stamp или `INDEX` не содержит закрытый status + PR URL.
 3. Для каждого PR выполнить:
 
 ```powershell
@@ -72,7 +72,7 @@ docs/agent-system/engine-journal/INDEX.md
 
 Для каждого закрываемого seq:
 
-- RESULT-<seq> и строку INDEX <seq> обновить фактическими merge-данными соответствующего PR:
+- В RESULT-<seq> добавить closure-stamp с фактическими merge-данными соответствующего PR:
   - status: `merged`;
   - mergedAt;
   - merge commit SHA;
@@ -83,6 +83,7 @@ docs/agent-system/engine-journal/INDEX.md
   - `No journal placeholders: yes`;
   - safe summary checks;
   - next step after closure.
+- В строке INDEX <seq> обновить только status + PR URL и safe one-line summary; optional mergedAt date допустима для навигации. Полный merge commit SHA в INDEX не дублировать: авторитетные merge-факты находятся в RESULT closure-stamp.
 - Снять stale `open`, `not merged`, `ready for review`, `PR open`, `draft open`, `pending at file materialization`, `see Engine final report`, если они относятся к final status закрываемой записи.
 - Historical task/result content не переписывать произвольно.
 
