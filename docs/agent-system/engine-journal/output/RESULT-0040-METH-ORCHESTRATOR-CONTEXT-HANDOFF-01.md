@@ -78,3 +78,20 @@ git pull --ff-only origin developer
 ## Передача
 
 Следующий: reviewer — review (бандл определён единожды, per-task вывод обязателен, freshness-штамп, ссылки без дублей); затем архитектор — merge; затем engine — FIX-3 (adoption-templates sync); journal closure — batch перед release.
+
+## Closure-stamp
+
+- status: `merged`
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/180`
+- PR number: `#180`
+- mergedAt: `2026-06-21T13:34:46Z`
+- mergeCommit oid: `677b36d7dfa3a064c0ee80338ec1ea4c369a9623`
+- headRefOid: `5431461e5233469f7c5d6444a137abab4acae3e5`
+- closure source: `gh pr view 180 --json url,state,mergedAt,mergeCommit,headRefOid`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closed by: batch-closure `0046` (`work/docs-maintainer-01/batch-closure-0039-0045`)
+- Closure timestamp: `2026-06-21T22:18:49.829768+07:00`
+
+Передача: journal entry closed; release-gate continues through batch-closure `0046`, then architect release `developer -> main` (human-only).
