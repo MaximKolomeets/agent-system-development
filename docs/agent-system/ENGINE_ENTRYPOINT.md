@@ -40,7 +40,7 @@ methodology_reference:
 
 Места включения блока:
 
-- adoption audit (`docs/agent-system/ADOPTION_AUDIT.md` или эквивалент target-local пути);
+- adoption audit target_generated artifact (`docs/agent-system/ADOPTION_AUDIT.md` в target repository или эквивалент target-local пути; создаётся в target, не ожидается в methodology source checkout);
 - TASK / RESULT journal artifacts;
 - target-local manifest или generated governance pack, если они есть.
 
@@ -304,7 +304,7 @@ Manual commands не должны быть частью engine prompt, если 
 
 Перед изменениями `engine` выбирает режим по `ADOPTION_GUIDE.md`:
 
-- `audit-only` - первый безопасный dry run, результатом является только `docs/agent-system/ADOPTION_AUDIT.md`;
+- `audit-only` - первый безопасный dry run, результатом является только target_generated artifact `docs/agent-system/ADOPTION_AUDIT.md` в target repository;
 - `docs-only adoption` - перенос адаптированной документационной системы, project constitution и governance pack без runtime changes;
 - `runtime adoption` - отдельный runtime scope только после архитектурного решения target repository.
 

@@ -28,6 +28,24 @@ visibility:
     agent-system-development является reusable methodology/template repository,
     а не центральным репозиторием управления downstream-проектами.
 
+scope:
+  covers: >
+    Methodology source set: docs/agent-system/** плюс назначенные root-файлы,
+    явно перечисленные в categories.source/template/generated.
+  root_files:
+    - AGENTS.md
+    - README.md
+  out_of_scope:
+    - .github/**
+    - repo-local CI/runtime/guard infrastructure, если путь явно не перечислен в categories
+  notes:
+    - >
+      .github/workflows/forbidden-files.yml намеренно вне карты: это repo-guard,
+      а не methodology source file.
+    - >
+      PROJECT_FILE_MAP.md строится из categories ниже; repo infrastructure вне
+      methodology source set не является неучтённым canonical/operational doc.
+
 categories:
   source:
     description: >

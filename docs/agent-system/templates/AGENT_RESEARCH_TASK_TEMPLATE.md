@@ -10,7 +10,7 @@
 - Передача (отчёт заканчивается блоком `Следующий: <роль> — <что делает>`);
 - Source-reminder (при изменении методологии/канонов — применить канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder»);
 - Verified Baseline;
-- Copy/Paste Completeness Check;
+- Проверка полноты copy/paste;
 - Project constitution check.
 
 Ниже — секции, специфичные для исследовательской задачи.

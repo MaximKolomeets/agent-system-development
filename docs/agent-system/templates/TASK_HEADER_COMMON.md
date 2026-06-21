@@ -135,7 +135,7 @@ Orchestrator context handoff».
 - Verification source:
 - Verification date/time:
 
-## Copy/Paste Completeness Check
+## Проверка полноты copy/paste
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
 - [ ] Рекомендуемый режим исполнения is included (роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему); имён инструментов/моделей в шаблоне нет.
