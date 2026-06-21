@@ -29,111 +29,170 @@ visibility:
     а не центральным репозиторием управления downstream-проектами.
 
 categories:
-  generic:
+  source:
     description: >
-      Reusable methodology content, которое можно использовать как основу.
+      Authoritative methodology source files: живые reusable/canonical/operational документы
+      methodology repository. Все пути в этой категории должны существовать в source checkout.
     files:
+      - AGENTS.md
+      - README.md
       - docs/agent-system/ADOPTION_GUIDE.md
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
+      - docs/agent-system/BRANCH_POLICY.md
+      - docs/agent-system/CI_POLICY.md
+      - docs/agent-system/CODE_REVIEW_WORKFLOW.md
+      - docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
-      - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
+      - docs/agent-system/FILE_COMMENTING_STANDARD.md
+      - docs/agent-system/GITHUB_RULESETS.md
+      - docs/agent-system/GITHUB_TOKEN_POLICY.md
       - docs/agent-system/LANGUAGE_POLICY.md
+      - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+      - docs/agent-system/OPERATIONAL_FAST_LANE.md
       - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
       - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
+      - docs/agent-system/PR_WORKFLOW.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
-      - docs/agent-system/SOURCE_CONSUMERS.md
-      # PROJECT_LIFECYCLE.md слит в NEW_PROJECT_ONBOARDING_GUIDE.md (PR-C4, Р1) и удалён (METH-BACKLOG-POLISH); не переносить.
+      - docs/agent-system/PUBLICATION_POLICY.md
+      - docs/agent-system/README.md
+      - docs/agent-system/ROLE_MODEL.md
+      - docs/agent-system/SECURITY_POLICY.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
-      - docs/agent-system/engine-journal/README.md
-      - docs/agent-system/engine-journal/INDEX.md
-      - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
-      - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
-      - docs/agent-system/templates/ADOPTION_PROMPT.md
-      - docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md
-      # TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md — redirect-заглушка на ADOPTION_PROMPT.md для внешних bookmark (PR-C3); не переносить. SHORT_TARGET_ADOPTION_PROMPT.md удалён (METH-BACKLOG-POLISH).
-      - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
-      - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
-      - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
-      - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
-      - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
-      - docs/agent-system/templates/ROADMAP_TEMPLATE.md
-      - docs/agent-system/templates/BACKLOG_TEMPLATE.md
-      - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
-      - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
-    notes:
-      - Перед переносом все равно проверить local AGENTS.md target repository.
-
-  requires_target_adaptation:
-    description: >
-      Файлы можно использовать только после переписывания под target repository.
-    files:
+      - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
+      - docs/agent-system/WORKFLOW.md
+      - docs/agent-system/WORKTREE_GUIDE.md
+    target_adaptation_required:
       - AGENTS.md
       - README.md
-      # TARGET_REPOSITORY_ADOPTION_GUIDE.md слит в ADOPTION_GUIDE.md (PR-C4, Р3) и удалён (METH-BACKLOG-POLISH); не переносить.
-      - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/BRANCH_POLICY.md
-      - docs/agent-system/WORKFLOW.md
-      - docs/agent-system/PR_WORKFLOW.md
-      - docs/agent-system/ROLE_MODEL.md
-      - docs/agent-system/PROJECT_GUARDRAILS.md
-      - docs/agent-system/ENGINE_REGISTRY.md
-      - docs/agent-system/PUBLICATION_POLICY.md
-      - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
+      - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+      - docs/agent-system/PR_WORKFLOW.md
+      - docs/agent-system/PUBLICATION_POLICY.md
+      - docs/agent-system/ROLE_MODEL.md
+      - docs/agent-system/WORKFLOW.md
       - docs/agent-system/WORKTREE_GUIDE.md
-      - docs/agent-system/templates/** # target-copied/adapted template instances; source templates explicitly listed in categories.generic.files remain reusable sources
-      - PROJECT_CONSTITUTION.md
-      - PROJECT_DASHBOARD.md
-      - ROADMAP.md
-      - RUNBOOK.md
-      - DECISIONS.md
-    adaptation_required:
-      - repository name
-      - repository visibility
-      - project goal and non-goals
-      - roadmap stages
-      - backlog task ids
-      - branch model
-      - developer vs develop
-      - worktree paths
-      - project mission and strategic goal
-      - decision authority levels
-      - scope expansion control
-      - role names
-      - task ids and issue/PR mapping
-      - forbidden data rules
-      - CI branch filters
+    notes:
+      - Перед переносом всегда читать local instructions target repository.
+      - Source files можно использовать как методологическую основу, но target-facing state и local policy переписываются под target facts.
 
-  template_state_do_not_copy_verbatim:
+  template:
     description: >
-      Файлы отражают состояние methodology repository и не должны копироваться
-      в target repository дословно.
+      Reusable source templates from methodology repository. Шаблоны существуют в source
+      checkout и могут использоваться для materialization/adaptation target files.
     files:
-      - docs/agent-system/CURRENT_STATE.md
-      - docs/agent-system/NEXT_STEPS.md
-      - docs/agent-system/BACKLOG.md
-      - docs/agent-system/DECISION_LOG.md
-      - PROJECT_CONSTITUTION.md
-      - PROJECT_DASHBOARD.md
-      - ROADMAP.md
-      - RUNBOOK.md
-      - DECISIONS.md
-      - docs/agent-system/source/**
+      - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+      - docs/agent-system/templates/ADOPTION_PROMPT.md
+      - docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md
+      - docs/agent-system/templates/AGENT_RESEARCH_TASK_TEMPLATE.md
+      - docs/agent-system/templates/BACKLOG_TEMPLATE.md
+      - docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md
+      - docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md
+      - docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md
+      - docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md
+      - docs/agent-system/templates/DECISION_TEMPLATE.md
+      - docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md
+      - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
+      - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+      - docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md
+      - docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md
+      - docs/agent-system/templates/NEW_PROJECT_PROMPT.md
+      - docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md
+      - docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md
+      - docs/agent-system/templates/ROADMAP_TEMPLATE.md
+      - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+      - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
+      - docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
+      - docs/agent-system/templates/TASK_HEADER_COMMON.md
+
+  target_generated:
+    description: >
+      Target files generated or written from source/templates. Эти пути НЕ являются
+      source files methodology repository; source parity не должна ожидать их наличие
+      в source checkout.
+    files:
+      - path: PROJECT_CONSTITUTION.md
+        source_templates:
+          - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
+          - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
+      - path: PROJECT_DASHBOARD.md
+        source_templates:
+          - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+      - path: ROADMAP.md
+        source_templates:
+          - docs/agent-system/templates/ROADMAP_TEMPLATE.md
+      - path: RUNBOOK.md
+        source_templates:
+          - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+          - docs/agent-system/templates/NEW_REPOSITORY_STRUCTURE_TEMPLATE.md
+      - path: DECISIONS.md
+        source_templates:
+          - docs/agent-system/templates/DECISION_TEMPLATE.md
+          - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
+      - path: docs/agent-system/PROJECT_GUARDRAILS.md
+        source_templates:
+          - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
+      - path: docs/agent-system/ENGINE_REGISTRY.md
+        source_templates:
+          - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+      - path: docs/agent-system/ADOPTION_AUDIT.md
+        source_templates:
+          - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
+    rules:
+      - target_generated files пишутся по target repository facts.
+      - target_generated files не копируются verbatim из methodology repository.
+      - source parity проверяет source_templates, а не наличие target_generated paths в source checkout.
+
+  history_state:
+    description: >
+      История, состояние и производные snapshots methodology repository. Эти файлы
+      не являются reusable source для target-copy и не входят в source parity.
+    files:
       - docs/agent-system/agents/**
+      - docs/agent-system/source/**
+      - docs/agent-system/BACKLOG.md
+      - docs/agent-system/CURRENT_STATE.md
+      - docs/agent-system/DECISION_LOG.md
+      - docs/agent-system/NEXT_STEPS.md
+      - docs/agent-system/RELEASE_READINESS.md
+      - docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
     rewrite_required:
-      - current state переписать по фактам target repository
-      - next steps переписать по текущему плану target repository
-      - backlog создать по candidate tasks target repository
-      - project constitution создать по mission, success criteria, out-of-scope, strategic goal и authority target repository
-      - dashboard создать по текущему состоянию target repository
-      - roadmap создать по target milestones
-      - decision log заполнять только решениями target repository
+      - target state files создавать заново по target facts
+      - source snapshots считать derived context, а не source of truth
       - agent reports создавать заново для target repository
+
+  journal:
+    description: >
+      Engine journal scaffold and operational history. Target repository получает
+      структуру/шаблоны, но не копирует operational rows или TASK/RESULT history
+      methodology repository.
+    files:
+      - docs/agent-system/engine-journal/**
+    target_copy_policy:
+      - docs/agent-system/engine-journal/README.md можно использовать как scaffold.
+      - docs/agent-system/engine-journal/templates/** можно использовать как scaffold templates.
+      - docs/agent-system/engine-journal/INDEX.md в target создается как target-specific index; operational rows methodology repository не копируются.
+      - docs/agent-system/engine-journal/input/** и output/** из methodology repository не копируются как target history.
+
+  scaffold:
+    description: >
+      Scaffold-only files that define format/registry placeholders and are not
+      project-specific source content.
+    files:
+      - docs/agent-system/SOURCE_CONSUMERS.md
+    rules:
+      - В upstream methodology repository этот registry остается generic-placeholder.
+      - Реальные consumers перечисляются только в consuming deployment.
 
 rules:
   - id: no_verbatim_state_copy
@@ -308,9 +367,10 @@ governance_review:
 template_materialization:
   reusable_source_templates:
     rule: >
-      Templates explicitly listed in categories.generic.files are reusable
+      Templates explicitly listed in categories.template.files are reusable
       source templates from methodology repository. They may be copied as
-      template references or used to generate target files.
+      template references or used to generate/adapt target files listed in
+      categories.target_generated.files source_templates.
   target_materialized_files:
     rule: >
       Any target repository files created from templates must be adapted to
