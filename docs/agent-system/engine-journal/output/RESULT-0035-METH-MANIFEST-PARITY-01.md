@@ -89,3 +89,17 @@ git pull --ff-only origin developer
 ## Передача
 
 Следующий: reviewer - review (parity = 0 расхождений); затем архитектор - merge; затем engine - METH-SOURCE-DELTA-01; journal closure - batch перед release.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/173
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-21T09:23:22Z`
+- Work PR merge commit SHA: `e375a27096361483184c593f071df94a97f8b81a`
+- Final head SHA: `b55f3b60a2cf3a97f81cf3bf544d24cad28032a7`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 173 --json url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0038.
