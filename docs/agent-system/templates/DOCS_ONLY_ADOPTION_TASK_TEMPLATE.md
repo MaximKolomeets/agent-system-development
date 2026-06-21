@@ -50,6 +50,7 @@ Reasoning effort: <низкий | средний | высокий>
 - [ ] Checks are included.
 - [ ] STOP conditions are included.
 - [ ] Final report requirements are included.
+- [ ] Source Delta requirement is included by reference to `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
 - [ ] No required execution context exists only in surrounding chat.
 
 ## Task
@@ -242,6 +243,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
 - проверить, что `methodology_reference` есть в audit/adoption artifacts и содержит source commit SHA
+- проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 
 ## Final report
 
@@ -261,6 +263,7 @@ Governance pack files разрешены только как docs-only artifacts
 - commenting changes;
 - methodology reference;
 - engine journal files;
+- Source Delta present: yes/no;
 - проверка Closure policy (`adoption/source-update` — per-task closure exception);
 - files where comments are not applicable and why;
 - risks;
