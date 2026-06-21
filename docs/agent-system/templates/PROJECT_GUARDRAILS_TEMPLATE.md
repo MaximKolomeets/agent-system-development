@@ -46,7 +46,7 @@ Guardrails не должны противоречить mission, current strateg
 
 ## Ограничения веток
 
-- Паттерн рабочей ветки: `work/<agent-name>/<task-id>`.
+- Паттерн рабочей ветки: `work/<роль>/<task-id>`.
 - `main` - stable branch.
 - `developer` - integration branch, если target repository не использует другую модель.
 - Engine не делает direct push в `main` или `developer`.

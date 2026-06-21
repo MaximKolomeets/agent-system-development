@@ -3,7 +3,7 @@
 ## Mandatory header
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -15,7 +15,7 @@ Reasoning effort: <низкий | средний | высокий>
 Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
-Задача формулируется на русском языке. `<agent-name>` - role-based имя агента. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+Задача формулируется на русском языке. `<роль>` - vendor-neutral роль назначенного исполнителя. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
 Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке. Английский допустим только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и code identifiers.
 

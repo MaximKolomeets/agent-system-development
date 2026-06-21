@@ -31,13 +31,13 @@ Authority roles ограничены `PROJECT_CONSTITUTION.md`, task header, loc
 ## Правило веток
 
 ```text
-work/<agent-name>/<task-id>
+work/<роль>/<task-id>
 ```
 
 ## Правило task header
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
