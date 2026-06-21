@@ -14,6 +14,7 @@
 - Checked at: `2026-06-21T15:52:11+07:00`
 - PR: https://github.com/MaximKolomeets/agent-system-development/pull/172
 - PR state at creation: `open`, draft `true`
+- PR state after journal finalization: `open`, ready for review
 - Head SHA at PR creation: `d69b58cabe188c4f9fc728ef28ef4e1478751fcf`
 - PR created at: `2026-06-21T08:56:22Z`
 
@@ -42,7 +43,7 @@
 
 - PR: https://github.com/MaximKolomeets/agent-system-development/pull/172
 - Head SHA at PR creation: `d69b58cabe188c4f9fc728ef28ef4e1478751fcf`
-- PR статус при создании: `open`, draft `true`; journal finalization выполняется отдельным follow-up commit в той же work-ветке.
+- PR статус после journal finalization: `open`, ready for review.
 
 ## Source-reminder
 
