@@ -3,7 +3,7 @@
 ## Mandatory header
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -17,7 +17,7 @@ Reasoning effort: <низкий | средний | высокий>
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
-## Recommended Engine Mode
+## Рекомендуемый режим исполнения
 
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
 
@@ -39,10 +39,10 @@ Reasoning effort: <низкий | средний | высокий>
 - Verification source:
 - Verification date/time:
 
-## Copy/Paste Completeness Check
+## Проверка полноты copy/paste
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
-- [ ] Recommended Engine Mode is included.
+- [ ] Блок «Рекомендуемый режим исполнения» включён.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.
@@ -50,6 +50,7 @@ Reasoning effort: <низкий | средний | высокий>
 - [ ] Checks are included.
 - [ ] STOP conditions are included.
 - [ ] Final report requirements are included.
+- [ ] Source Delta requirement is included by reference to `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
 - [ ] No required execution context exists only in surrounding chat.
 
 ## Task
@@ -242,6 +243,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
 - проверить, что `methodology_reference` есть в audit/adoption artifacts и содержит source commit SHA
+- проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 
 ## Final report
 
@@ -261,6 +263,7 @@ Governance pack files разрешены только как docs-only artifacts
 - commenting changes;
 - methodology reference;
 - engine journal files;
+- Source Delta present: yes/no;
 - проверка Closure policy (`adoption/source-update` — per-task closure exception);
 - files where comments are not applicable and why;
 - risks;

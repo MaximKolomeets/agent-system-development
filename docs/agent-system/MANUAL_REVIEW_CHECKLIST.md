@@ -30,4 +30,4 @@
 - Проверить итоговый отчет исполнителя.
 - Если PR уже merged, проверить Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 - Для обычного work PR считать `merged; closure pending` допустимым до batch-closure перед release.
-- Считать blocker, если сработал release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии или явное closure-задание, а merged PR journal остается `PR open`, `ready for review`, `draft open`, содержит `pending at file materialization`/`see Engine final report` или не фиксирует merge commit SHA после обязательного closure-прохода, когда SHA доступен.
+- Считать blocker, если сработал release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии или явное closure-задание, а merged PR journal остается `PR open`, `ready for review`, `draft open`, содержит `pending at file materialization`/`see Engine final report` или `RESULT` closure-stamp не фиксирует merge commit SHA после обязательного closure-прохода, когда SHA доступен. `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.

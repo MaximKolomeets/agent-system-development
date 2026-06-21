@@ -59,7 +59,7 @@ docs/agent-system/ENGINE_REGISTRY.md
 
 | Agent role | Allowed scope | Forbidden scope | Requires approval |
 |---|---|---|---|
-| `<agent-name>` | `<paths or responsibilities>` | `<paths or responsibilities>` | `<approval conditions>` |
+| `<роль>` | `<paths or responsibilities>` | `<paths or responsibilities>` | `<approval conditions>` |
 
 ## Decision Authority Levels
 

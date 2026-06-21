@@ -15,7 +15,7 @@
 Любой adoption prompt используется после русскоязычной task header:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -73,7 +73,7 @@ https://github.com/MaximKolomeets/agent-system-development
 7. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
 8. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -310,7 +310,7 @@ Adoption audit должен показать:
 - forbidden tracked paths result;
 - sensitive grep result без matching lines;
 - какие документы template repository применимы;
-- какие файлы adoption transfer manifest относит к `template_state_do_not_copy_verbatim` или `requires_target_adaptation`;
+- как adoption transfer manifest классифицирует файлы: `source`/`template` проверяются в source checkout, `target_generated` создаются в target, `history_state` не копируется verbatim, `journal` переносится только как scaffold/templates, `generated` регенерируется;
 - какие governance pack files нужно создать или адаптировать;
 - нужен ли `PROJECT_CONSTITUTION.md` и какие mission/strategic goal/authority gaps есть;
 - какие изменения можно предложить первым bootstrap PR;

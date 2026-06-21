@@ -3,7 +3,7 @@
 ## Mandatory header
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -17,7 +17,7 @@ Reasoning effort: <низкий | средний | высокий>
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
-## Recommended Engine Mode
+## Рекомендуемый режим исполнения
 
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
 
@@ -43,10 +43,10 @@ Reasoning effort: <низкий | средний | высокий>
 - Verification source:
 - Verification date/time:
 
-## Copy/Paste Completeness Check
+## Проверка полноты copy/paste
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
-- [ ] Recommended Engine Mode is included.
+- [ ] Блок «Рекомендуемый режим исполнения» включён.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.
@@ -54,6 +54,7 @@ Reasoning effort: <низкий | средний | высокий>
 - [ ] Checks are included.
 - [ ] STOP conditions are included.
 - [ ] Final report requirements are included.
+- [ ] Source Delta requirement is included by reference to `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
 - [ ] No required execution context exists only in surrounding chat.
 
 ## Task
@@ -176,6 +177,8 @@ methodology_reference:
 
 TASK и RESULT должны содержать `methodology_reference`.
 
+RESULT должен содержать «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
+
 После создания PR обновить target-specific `RESULT` и `INDEX` фактическими PR/commit/status/checks значениями.
 
 Adoption audit является audit/consistency-gate и adoption/source-update контекстом, то есть per-task closure exception по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». После merge рабочего PR, release PR или sync PR target-specific `RESULT` и `INDEX` закрываются по этому исключению.
@@ -205,6 +208,7 @@ Methodology feedback не должен включать private downstream data,
 - engine journal index/task/result consistency
 - task-file-handoff metadata consistency, если режим использовался
 - engine journal placeholder scan
+- final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 - проверка Closure policy (`audit/consistency-gate` и `adoption/source-update` — per-task closure exception)
 
 ## Final report
@@ -227,6 +231,7 @@ Methodology feedback не должен включать private downstream data,
 - methodology reference;
 - RESULT finalized: yes/no;
 - INDEX finalized: yes/no;
+- Source Delta present: yes/no;
 - No journal placeholders: yes/no;
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;

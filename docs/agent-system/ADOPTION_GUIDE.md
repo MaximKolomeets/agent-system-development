@@ -24,7 +24,7 @@
 Каждая задача для `engine` должна быть на русском языке и начинаться с шапки:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -36,7 +36,7 @@ Reasoning effort: <низкий | средний | высокий>
 Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
-`<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+`<роль>` - vendor-neutral роль, которой назначена задача. `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
 ## Engine journal
 
@@ -158,7 +158,7 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 
 Разрешено:
 
-- generic docs;
+- reusable source/template docs;
 - role model;
 - target project governance pack;
 - project constitution;
@@ -220,13 +220,17 @@ Acceptance criteria:
 docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 ```
 
-Manifest делит файлы на categories:
+Manifest делит файлы на текущие categories:
 
-- `generic` - можно использовать как методологическую основу;
-- `requires_target_adaptation` - переносить только после адаптации под target repository;
-- `template_state_do_not_copy_verbatim` - состояние самого methodology repository, не копировать дословно.
+- `source` - reusable/canonical/operational methodology files; проверять наличие в source checkout и адаптировать target-facing policy по target facts;
+- `template` - reusable templates; проверять наличие в source checkout и применять как основу materialization/adaptation;
+- `target_generated` - файлы создаются в target repository из source/templates; не искать эти target paths в source checkout и не копировать verbatim;
+- `history_state` - история, state и snapshots methodology repository; не копировать verbatim;
+- `journal` - переносить только scaffold/templates, без operational rows и без истории TASK/RESULT methodology repository;
+- `scaffold` - placeholder/scaffold files; заполнять в target только target-specific данными;
+- `generated` - repo-local derived artifacts; регенерировать в target, а не копировать руками.
 
-Если файл попадает в несколько categories, применяется самый строгий режим. Например, файл из `template_state_do_not_copy_verbatim` нельзя копировать как есть.
+Если файл попадает в несколько categories или rules, применяется самый строгий режим. Например, `history_state` нельзя копировать как есть, а `target_generated` создаётся заново по target facts.
 
 Manifest должен содержать `methodology_reference_required: true` для target adoption/update flows. Если target repository materializes собственный manifest или adoption audit, он фиксирует commit SHA methodology repository.
 

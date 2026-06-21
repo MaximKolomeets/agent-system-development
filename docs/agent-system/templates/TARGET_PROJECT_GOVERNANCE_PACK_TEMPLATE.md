@@ -7,7 +7,7 @@
 ## Обязательная шапка задачи для engine
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -152,7 +152,7 @@ operational history or existing task/result entries.
 Branch pattern:
 
 ```text
-work/<agent-name>/<task-id>
+work/<роль>/<task-id>
 ```
 
 Правила:
@@ -186,4 +186,4 @@ work/<agent-name>/<task-id>
 - `ROADMAP.md`;
 - `docs/agent-system/BACKLOG.md`;
 - `docs/agent-system/DECISION_LOG.md`;
-- agent report в `docs/agent-system/agents/<agent-name>/`.
+- agent report в `docs/agent-system/agents/<роль>/`.

@@ -100,6 +100,7 @@ Fast Lane может завершиться коротким `чисто` тол
 - RESULT closed after merge: yes;
 - INDEX closed after merge: yes;
 - PROJECT_FILE_MAP parity check: clean;
+- cloud bundle parity check: clean;
 - No journal placeholders: yes;
 - stale pre-merge status check: clean.
 

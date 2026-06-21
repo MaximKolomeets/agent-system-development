@@ -56,7 +56,7 @@ docs/agent-system/engine-journal/INDEX.md
 
 ## Изменения
 
-- RESULT-<seq> и строку INDEX <seq> обновить фактическими merge-данными PR #<NNN>:
+- В RESULT-<seq> добавить closure-stamp с фактическими merge-данными PR #<NNN>:
   - status: `merged`;
   - mergedAt;
   - merge commit SHA;
@@ -67,6 +67,7 @@ docs/agent-system/engine-journal/INDEX.md
   - `No journal placeholders: yes`;
   - safe summary checks;
   - next step after closure.
+- В строке INDEX <seq> обновить только status + PR URL и safe one-line summary; optional mergedAt date допустима для навигации. Полный merge commit SHA в INDEX не дублировать: авторитетные merge-факты находятся в RESULT closure-stamp.
 - Снять stale `open`, `not merged`, `ready for review`, `PR open`, `draft open`, `pending at file materialization`, `see Engine final report`, если они относятся к final status закрываемой записи.
 - Historical task/result content не переписывать произвольно.
 
