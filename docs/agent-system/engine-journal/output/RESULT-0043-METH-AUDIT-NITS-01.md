@@ -10,9 +10,13 @@ Baseline SHA: `c70ca1a6e220f387e721d02fc8a2e9d5f2f15b82`
 
 Начато: `2026-06-21T21:09:47.2202201+07:00`
 
-PR URL: `TBD after gh pr create`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/183`
 
-Статус: `draft before PR creation`
+PR created at: `2026-06-21T14:12:30Z`
+
+Head at PR creation: `b6f9109f09abac00ec76105858166e9080d59878`
+
+Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
 
 ## Что изменено
 
@@ -56,6 +60,7 @@ PR URL: `TBD after gh pr create`
 - `python docs/agent-system/tools/gen_file_map.py --check` → exit 0.
 - `git diff --check` → exit 0.
 - `git rev-parse --abbrev-ref HEAD` → `work/docs-maintainer-01/audit-nits-01`.
+- `gh pr view 183 --json url,createdAt,headRefOid,state,baseRefName,headRefName` → `OPEN`, base `developer`, head `work/docs-maintainer-01/audit-nits-01`, head at PR creation `b6f9109f09abac00ec76105858166e9080d59878`.
 
 ## Передача
 
