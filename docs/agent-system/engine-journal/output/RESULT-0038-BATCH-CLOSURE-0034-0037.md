@@ -15,8 +15,12 @@ PR и применяет release human-only.
 - Branch: `work/docs-maintainer-01/batch-closure-0034-0037`.
 - Baseline `developer`: `052fbafd867ef74965790487ac2dbe1df4fbcc80`.
 - Timestamp: `2026-06-21T17:04:28.6821956+07:00`.
-- PR URL: pending until PR creation.
-- PR number: pending until PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/176
+- PR number: `176`.
+- PR state at creation: `OPEN`, draft `true`, mergeable `MERGEABLE`.
+- PR created at: `2026-06-21T10:10:22Z`.
+- Head SHA at PR creation: `2b12e58b6a75446a2630e650293d571cfead51eb`.
+- PR state after journal finalization: `OPEN`, ready for review.
 - Own mergeCommit: `stamped at merge`.
 
 ## Closure-set
@@ -62,11 +66,11 @@ gh pr view <PR> --json url,state,mergedAt,mergeCommit,headRefOid
 ## Проверки
 
 - `gh pr view 172...175 --json url,state,mergedAt,mergeCommit,headRefOid` — все PR `MERGED`.
-- `python docs/agent-system/tools/gen_file_map.py --check` — pending before final report.
-- `git diff --check` — pending before final report.
-- `git diff --name-only developer...HEAD` — pending before final report.
-- `git rev-parse --abbrev-ref HEAD` — pending before final report.
-- stale-status scan по closure-set и `INDEX.md` — pending before final report.
+- `python docs/agent-system/tools/gen_file_map.py --check` — exit 0.
+- `git diff --check developer...HEAD` — clean.
+- `git diff --name-only developer...HEAD` — only engine-journal files.
+- `git rev-parse --abbrev-ref HEAD` — `work/docs-maintainer-01/batch-closure-0034-0037`.
+- stale-status scan по актуальным статусам `INDEX.md` — незакрытых статусов не найдено.
 
 ## Source-reminder
 
