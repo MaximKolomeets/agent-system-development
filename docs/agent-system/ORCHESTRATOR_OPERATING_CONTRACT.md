@@ -58,6 +58,8 @@ python docs/agent-system/tools/gen_cloud_bundle.py
 python docs/agent-system/tools/gen_cloud_bundle.py --check
 ```
 
+`--check` является content-parity gate: каждый generated flat-файл должен совпадать с текущим source-файлом из bundle, а `cloud/README.md` должен сохранять mapping и upload how-to. Строки `asof` и `developer_head_sha` в `cloud/README.md` информационные и не входят в равенство gate; sync-merge, который меняет commit SHA без content-дрейфа bundle, не должен ломать `--check`.
+
 Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество flat-файлов по per-task handoff. `cloud/README.md` содержит origin path → flat filename mapping, freshness stamp и upload how-to.
 
 Drive-мост является architect-side операцией: архитектор один раз настраивает Google Drive for Desktop или `rclone` на своих credentials и синхронизирует generated `cloud/` folder. Исполнитель (engine) не авторизует Google Drive, не читает credentials и не создаёт token files.
