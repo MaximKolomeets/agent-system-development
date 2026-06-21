@@ -17,7 +17,7 @@ Reasoning effort: <низкий | средний | высокий>
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
-## Recommended Engine Mode
+## Рекомендуемый режим исполнения
 
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
 
@@ -39,10 +39,10 @@ Reasoning effort: <низкий | средний | высокий>
 - Verification source:
 - Verification date/time:
 
-## Copy/Paste Completeness Check
+## Проверка полноты copy/paste
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
-- [ ] Recommended Engine Mode is included.
+- [ ] Блок «Рекомендуемый режим исполнения» включён.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

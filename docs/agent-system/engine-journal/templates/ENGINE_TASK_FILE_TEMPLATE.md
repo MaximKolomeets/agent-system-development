@@ -18,7 +18,7 @@ Methodology repository:
 
 Engine:
 
-Recommended Engine Mode:
+Рекомендуемый режим исполнения:
 
 - launch mode / запуск:
 - model / модель:
@@ -56,10 +56,10 @@ Verified Baseline:
 - baseline verification source:
 - baseline verification date/time:
 
-Copy/Paste Completeness Check:
+Проверка полноты copy/paste:
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
-- [ ] Recommended Engine Mode is included.
+- [ ] Блок «Рекомендуемый режим исполнения» включён.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

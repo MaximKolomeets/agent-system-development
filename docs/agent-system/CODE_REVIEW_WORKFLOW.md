@@ -141,7 +141,7 @@ Good examples:
 work/code-reviewer-01/initial-project-review
 work/security-reviewer-01/dependency-risk-review
 work/qa-reviewer-01/test-gap-review
-docs/agent-system/reviews/initial-project-review.md
+docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md
 docs/agent-system/agents/qa-reviewer-01/REPORTS.md
 ```
 
@@ -158,19 +158,13 @@ Journal artefacts (TASK/RESULT/INDEX) создаются всегда незав
 Для target implementation repository использовать:
 
 ```text
-docs/agent-system/reviews/<task-id>-review.md
-```
-
-Если в target implementation repository нет `docs/agent-system/`, допустим fallback:
-
-```text
 docs/reviews/<task-id>-review.md
 ```
 
 Для methodology repository рекомендуемый путь:
 
 ```text
-docs/agent-system/reviews/
+docs/agent-system/agents/<reviewer-role>/REPORTS.md
 ```
 
 Для role-specific накопительных notes допустим путь:
@@ -378,7 +372,7 @@ Journal trace: always (TASK/RESULT/INDEX обязательно, docs-only PR в
 
 Если отчет разрешено сохранить:
 - ветка: work/qa-reviewer-01/review-initial-01
-- файл: docs/agent-system/reviews/REVIEW-INITIAL-01_agent_system_development.md
+- файл: docs/agent-system/agents/qa-reviewer-01/REPORTS.md
 - только docs-only commit.
 ```
 

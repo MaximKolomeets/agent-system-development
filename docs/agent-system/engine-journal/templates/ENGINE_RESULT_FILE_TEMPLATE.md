@@ -14,7 +14,7 @@ TASK file verified:
 
 Engine block/TASK was self-contained:
 
-Recommended Engine Mode present:
+Рекомендуемый режим исполнения присутствует:
 
 Verified baseline present or explicitly not applicable:
 
