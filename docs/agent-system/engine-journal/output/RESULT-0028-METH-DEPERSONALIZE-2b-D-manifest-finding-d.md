@@ -46,3 +46,17 @@
 ## Передача
 
 Следующий: reviewer — review PR; затем архитектор — merge; затем engine — следующий под-PR phase-2b (2b-2); journal closure — batch перед release; release держим до завершения обезличивания и batch-closure.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/164
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-20T15:53:55Z`
+- Work PR merge commit SHA: `2a99146dab351e22469aa02ad810c48b137f58cf`
+- Final head SHA: `fb98ec67198820d4bffc1a4bb3e525e27748dde6`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 164 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.

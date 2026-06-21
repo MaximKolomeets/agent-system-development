@@ -82,3 +82,17 @@ Batch-closure policy закреплена в каноне. Старые откр
 ## Передача
 
 Следующий: reviewer — review PR; затем архитектор — merge; затем engine — pre-release BATCH-CLOSURE по 0027…0032; затем release dev→main.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/168
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-21T07:50:48Z`
+- Work PR merge commit SHA: `7e8d237f463ebe6eb0b7b56bd5b7cba8cc20437f`
+- Final head SHA: `87fe0388765c43346cc9a245f4c1f3a847f2e9da`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 168 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.

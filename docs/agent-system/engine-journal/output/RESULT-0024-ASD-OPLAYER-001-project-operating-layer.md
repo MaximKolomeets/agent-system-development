@@ -179,3 +179,17 @@ journal closure для 0024.
 template) и ссылаться на него из operating-документов, чтобы границы слоёв и
 правило приоритета (repo governance выигрывает, operating-слои при конфликте
 `STOP`) не дублировались прозой и не расходились между документами.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/160
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-19T06:25:31Z`
+- Work PR merge commit SHA: `fdc58ab2b9f7776296353ad99794d2df0627864c`
+- Final head SHA: `2456819b5a0faec50b25366dd5b9ec4b09d04e99`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 160 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.
