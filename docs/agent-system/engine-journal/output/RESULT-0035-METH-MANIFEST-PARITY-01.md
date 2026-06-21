@@ -2,7 +2,7 @@
 
 ## Итог
 
-Статус: initial materialization; PR creation pending.
+Статус: PR создан, RESULT/INDEX финализированы после PR creation.
 
 ## Baseline
 
@@ -12,8 +12,11 @@
 - Working branch: `work/docs-maintainer-01/manifest-parity-01`
 - Baseline SHA: `13f12c83800b595a329d3386d45f38bfd73a387e`
 - Checked at: `2026-06-21T16:08:29+07:00`
-- PR: pending
-- Head SHA at PR creation: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/173
+- PR state at creation: `open`, draft `true`, mergeable `MERGEABLE`
+- PR state after journal finalization: `open`, ready for review
+- Head SHA at PR creation: `e987a9e980feb29ccb0d4ed97f330e855cc56e70`
+- PR created at: `2026-06-21T09:16:32Z`
 
 ## Структура до
 
@@ -50,14 +53,14 @@
 - `target_generated` не пересекается с `source`.
 - Все `source`, `template` и `target_generated.source_templates` paths существуют.
 - Неучтенных tracked canonical/operational docs в operational scope не найдено.
-- Whitelist diff: pending final check.
-- `git diff --check`: pending final check.
+- Whitelist diff: only `ADOPTION_TRANSFER_MANIFEST.yml` and journal 0035.
+- `git diff --check`: pass; only autocrlf warnings from Git for Windows, whitespace errors none.
 
 ## PR
 
-- PR: pending
-- Head SHA at PR creation: pending
-- PR status after journal finalization: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/173
+- Head SHA at PR creation: `e987a9e980feb29ccb0d4ed97f330e855cc56e70`
+- PR status after journal finalization: `open`, ready for review.
 
 ## Source-reminder
 
