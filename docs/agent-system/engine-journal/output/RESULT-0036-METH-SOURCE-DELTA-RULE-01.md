@@ -2,7 +2,7 @@
 
 ## Итог
 
-Статус: initial materialization; PR creation pending.
+Статус: PR создан, RESULT/INDEX финализированы после PR creation.
 
 ## Baseline
 
@@ -12,8 +12,11 @@
 - Working branch: `work/docs-maintainer-01/source-delta-rule-01`
 - Baseline SHA: `e375a27096361483184c593f071df94a97f8b81a`
 - Checked at: `2026-06-21T16:26:42+07:00`
-- PR: pending
-- Head SHA at PR creation: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/174
+- PR state at creation: `open`, draft `true`, mergeable `MERGEABLE`
+- PR state after journal finalization: `open`, ready for review
+- Head SHA at PR creation: `f0db1dcc49d4127c23a7f5a1b0cbcc9262466aad`
+- PR created at: `2026-06-21T09:31:43Z`
 
 ## Что изменено
 
@@ -28,14 +31,14 @@
 - Branch guard: `git rev-parse --abbrev-ref HEAD` -> `work/docs-maintainer-01/source-delta-rule-01`.
 - Канон-согласованность: полный формат Source Delta задан в `TASK_HEADER_COMMON`; остальные файлы ссылаются на этот канон и не дублируют таблицу.
 - Source Delta dogfood: этот RESULT содержит таблицу по всем затронутым файлам.
-- Whitelist diff: pending final check.
-- `git diff --check`: pending final check.
+- Whitelist diff: only allowed canon files and journal 0036.
+- `git diff --check`: pass; only autocrlf warnings from Git for Windows, whitespace errors none.
 
 ## PR
 
-- PR: pending
-- Head SHA at PR creation: pending
-- PR status after journal finalization: pending
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/174
+- Head SHA at PR creation: `f0db1dcc49d4127c23a7f5a1b0cbcc9262466aad`
+- PR status after journal finalization: `open`, ready for review.
 
 ## Source Delta
 
