@@ -60,3 +60,17 @@
 ## Передача
 
 Деперсонализация (2b) завершена. Следующий: reviewer — review PR; затем архитектор — merge; затем engine — METH-BATCH-CLOSURE-POLICY; затем pre-release batch-closure (0027…последний); затем release dev→main.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/167
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-21T04:40:53Z`
+- Work PR merge commit SHA: `618b68429be7cc788335fa125aecdb789f561caf`
+- Final head SHA: `f9849cd6bc48a064546cdaf1c96978177cea1848`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 167 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.

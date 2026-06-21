@@ -125,3 +125,17 @@ journal TASK-файлы (`TASK-0002/0003/0010/0011/0012/0013/0014/0015/0018/0019
 ## v3 (правка до merge PR #161)
 
 Source-reminder выровнен на канон: дублирующие переизложения в `AGENTS.md`, `DEVELOPMENT_TASK_TEMPLATE.md` и `AGENT_RESEARCH_TASK_TEMPLATE.md` заменены ссылками на `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder». Divergent-формула из Major 2 review удалена из канонических/шаблонных файлов и этого RESULT. Канон generic остаётся только в `TASK_HEADER_COMMON`; `SOURCE_CONSUMERS.md` остаётся scaffold-only.
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/161
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-20T07:39:39Z`
+- Work PR merge commit SHA: `13d5540cb3694b8876f5ce13cb8d9d42ecca57af`
+- Final head SHA: `9c6ea5c3c8c0a8f637e8643604114c70180e7a52`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 161 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.

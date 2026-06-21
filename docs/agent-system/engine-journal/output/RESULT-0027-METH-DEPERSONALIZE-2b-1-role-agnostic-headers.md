@@ -90,3 +90,17 @@ Descriptive-строки `Заполнить блок \`Рекомендуемы
 - Следующий: reviewer — review PR #163 (шапки role-agnostic; actor-текст C не трогался).
 - Обновить Source-снапшот у зарегистрированных потребителей: … (generic).
 - Остаток: 2b-2 (adapter, generic-пометка), 2b-3 (active-rule), 2b-4 (history консервативно + manifest D).
+
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/163
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-20T15:12:42Z`
+- Work PR merge commit SHA: `91bca91926976c50a8f8ef932d46f671e28fdb67`
+- Final head SHA: `b114c2d362ee0312aaf2678c6a09d6c7abb7f651`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 163 --json number,url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0033.
