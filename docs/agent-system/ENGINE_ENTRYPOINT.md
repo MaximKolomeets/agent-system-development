@@ -6,6 +6,8 @@
 
 Entrypoint нужен, чтобы короткий prompt пользователя был достаточен для безопасного старта. `engine` должен сам найти методологию template repository, проверить текущий target repository и начать не с переноса файлов, а с adoption audit.
 
+Для онбординга оркестратора и context-load bundle архитектор использует `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect → Orchestrator context handoff».
+
 `agent-system-development` является reusable methodology/template repository. Он не является центральным репозиторием управления агентами target repository и не хранит рабочие ветки, worktree, отчеты, Pull Request, project-specific state, исходный код или секреты downstream-проектов.
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.

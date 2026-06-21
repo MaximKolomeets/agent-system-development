@@ -188,6 +188,8 @@ Canonical copy/paste prompt для запуска adoption в target repository 
 
 Короткий operating contract для роли `orchestrator` находится в `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`.
 
+Context-load bundle для онбординга оркестратора, freshness stamp (`asof`, `developer_head_sha`) и stale-поведение описаны в `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect → Orchestrator context handoff».
+
 Документы с prefix `ORCHESTRATOR_` являются role-based layer для роли `orchestrator`. Они не меняют vendor-neutral role model и не являются основанием использовать vendor/tool names в названиях ролей, веток, task id или report files.
 
 Template ответа роли `orchestrator` находится в `docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`.

@@ -245,10 +245,13 @@ Final report `engine` должен подтверждать:
 - `RESULT finalized: yes`;
 - `INDEX finalized: yes`;
 - `Source Delta present: yes` по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»;
+- `context-handoff present: yes` по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Orchestrator context handoff»;
 - `No journal placeholders: yes`;
 - язык final report: русский.
 
 Оркестратор обязан ретранслировать Source Delta архитектору в своём ответе/передаче. Если final report или RESULT исполнителя (engine) не содержит «Source Delta», оркестратор запрашивает у исполнителя (engine) дополнение отчёта или journal-result, а не реконструирует таблицу молча.
+
+Оркестратор обязан ретранслировать архитектору строку «Архитектору — загрузить в контекст оркестратора: …» и подтверждать `context-handoff present: yes`. Если final report или RESULT исполнителя (engine) не содержит per-task context handoff, оркестратор запрашивает дополнение отчёта или journal-result. Базовый состав context-load bundle не дублируется здесь; авторитетный канон: `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect → Orchestrator context handoff».
 
 ## Closure policy после merge/release/sync
 
