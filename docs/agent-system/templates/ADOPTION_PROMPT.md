@@ -15,7 +15,7 @@
 Любой adoption prompt используется после русскоязычной task header:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -73,7 +73,7 @@ https://github.com/MaximKolomeets/agent-system-development
 7. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
 8. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 

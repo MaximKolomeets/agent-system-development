@@ -143,7 +143,7 @@ Project-specific state живет только в target repository.
 - `docs/agent-system/BACKLOG.md`;
 - `docs/agent-system/DECISION_LOG.md`;
 - `PROJECT_DASHBOARD.md`;
-- agent report в `docs/agent-system/agents/<agent-name>/`.
+- agent report в `docs/agent-system/agents/<роль>/`.
 
 ## Engine registry rule
 
@@ -159,13 +159,13 @@ Agent role стабильна, engine заменяем. Названия рол�
 Branch pattern:
 
 ```text
-work/<agent-name>/<task-id>
+work/<роль>/<task-id>
 ```
 
 Task header:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 

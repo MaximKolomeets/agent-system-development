@@ -3,7 +3,7 @@
 ## Mandatory header
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 

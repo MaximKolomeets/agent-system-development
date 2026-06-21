@@ -4,7 +4,7 @@
 
 | Task id | Title | Owner/agent role | Priority | Status | Expected branch | Expected PR | Blocked by | Notes |
 |---|---|---|---|---|---|---|---|---|
-| `<task-id>` | `<short title>` | `<agent-name>` | `<low/medium/high>` | `<candidate/planned/in progress/done/blocked>` | `work/<agent-name>/<task-id>` | `<PR or TBD>` | `<blocker or none>` | `<notes>` |
+| `<task-id>` | `<short title>` | `<роль>` | `<low/medium/high>` | `<candidate/planned/in progress/done/blocked>` | `work/<роль>/<task-id>` | `<PR or TBD>` | `<blocker or none>` | `<notes>` |
 
 ## Значения status
 

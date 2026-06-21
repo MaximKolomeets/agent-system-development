@@ -125,16 +125,16 @@ Templates, journal и навигационный индекс:
 
 Пользователь не должен собирать задачу из нескольких мест ответа. Manual steps выводятся отдельно и не должны быть обязательной частью engine execution data.
 
-Перед подготовкой задачи ChatGPT проверяет актуальный `agent-system-development`. Перед выполнением `engine` синхронизирует methodology repository с GitHub, если задача применяет или меняет методологию.
+Перед подготовкой задачи оркестратор проверяет актуальный `agent-system-development`. Перед выполнением `engine` синхронизирует methodology repository с GitHub, если задача применяет или меняет методологию.
 
 Русские комментарии обязательны для нужных строк/блоков в скриптах, workflow и технических файлах. `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` является обязательным стандартом для target adoption prompts.
 
 Все пользовательские ответы, Engine final reports, TASK/RESULT/INDEX, target-local methodology docs/templates и комментарии в файлах должны быть Russian-first. English сохраняется только для code identifiers, команд, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
 
-Нельзя всегда писать "Задача для Codex", если задача назначается конкретному агенту. Нужно указывать role-based имя агента:
+Нельзя писать "Задача для <vendor-name>", если задача назначается роли. Нужно указывать vendor-neutral роль:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
