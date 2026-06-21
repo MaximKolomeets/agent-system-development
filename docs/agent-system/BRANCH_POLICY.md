@@ -13,6 +13,7 @@
 - release-PR мержит человек-архитектор (пользователь), а не агент;
 - агент может ПОДГОТОВИТЬ release-PR (создать release-ветку/PR из `developer` в `main`), но НЕ мержит его и НЕ пушит в `main` напрямую;
 - release-PR `developer -> main` запрещён, пока engine journal не закрыт полностью: все seq, входящие в release, должны иметь closed/merged facts; pre-release batch-closure обязателен по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
+- release-PR `developer -> main` запрещён, если `python docs/agent-system/tools/gen_file_map.py --check` не проходит: `PROJECT_FILE_MAP.md` должен быть синхронизирован с manifest и filesystem parity;
 - агент не делает merge release-PR даже при наличии прав; решение о переносе в `main` принимает человек.
 
 ## developer
@@ -97,7 +98,7 @@ git status --short
 - прямой push агентами в `main`;
 - прямой push агентами в `developer` после bootstrap;
 - смешивать несколько независимых задач в одной ветке.
-- использовать model/vendor-specific ветки вроде `claude/*`, `gpt/*` или `gemini/*`.
+- использовать model/vendor-specific ветки вида `<vendor-name>/*`.
 
 ## Review branch policy
 

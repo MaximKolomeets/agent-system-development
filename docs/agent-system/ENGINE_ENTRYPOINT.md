@@ -88,7 +88,7 @@ docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
 Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
 
 ```text
-Задача для <agent-name>: <task-id>
+Задача для <роль>: <task-id>
 
 Рекомендуемый режим исполнения:
 
@@ -100,7 +100,7 @@ Reasoning effort: <низкий | средний | высокий>
 Почему: <краткое обоснование выбора режима и reasoning effort>
 ```
 
-`<agent-name>` - role-based имя агента, которому назначена задача. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
+`<роль>` - vendor-neutral роль или функция в методологии, для которой сформулирована задача. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
 ## Engine journal
 
