@@ -49,6 +49,20 @@
 
 Обновить Source-снапшот у зарегистрированных потребителей: generic-placeholder из scaffold-only `docs/agent-system/SOURCE_CONSUMERS.md`.
 
+## Batch-closure stamp
+
+- Closure mode: pre-release batch-closure.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/172
+- Work PR state: `MERGED`
+- Work PR mergedAt: `2026-06-21T09:04:20Z`
+- Work PR merge commit SHA: `13f12c83800b595a329d3386d45f38bfd73a387e`
+- Final head SHA: `957041072438df3e7047f094d6284a9ef3d03a75`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closure source: `gh pr view 172 --json url,state,mergedAt,mergeCommit,headRefOid`
+- Closed by: batch-closure journal 0038.
+
 ## Локальные действия после PR/merge
 
 После merge PR #172 локально синхронизировать `developer` только через guard:
