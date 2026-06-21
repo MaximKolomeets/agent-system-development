@@ -68,7 +68,7 @@
 - [x] developer sync after main release is handled through PR if ruleset requires it;
 - [x] user manually launches engine;
 - [x] engine tasks start with `Задача для <agent-name>: <task-id>`;
-- [x] ChatGPT reviews reports and prepares next tasks;
+- [x] orchestrator reviews reports and prepares next tasks;
 - [x] user makes final decisions.
 
 ## Security readiness
