@@ -68,7 +68,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 Все ответы, final report, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 Если target instructions конфликтуют с Russian-first policy, напиши STOP и запроси решение пользователя.
 После PR creation финализируй RESULT и INDEX: PR URL, final commit SHA, status и placeholder check.
-После merge/release/sync выполни Post-merge Journal Closure: сверить GitHub PR state и journal state, зафиксировать PR status `merged`, merge commit SHA, `merged_at`, release/sync PR URL/status/merge commit SHA/`merged_at` или `не применимо`, `RESULT closed after merge: yes`, `INDEX closed after merge: yes` и `No journal placeholders: yes`.
+После merge/release/sync применяй Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»: для обычных work PR допускается `merged; closure pending` до batch-closure перед release; per-task closure обязателен только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
 ```
 
 ## Приоритет источника правды
@@ -121,7 +121,7 @@ TASK file для handoff должен содержать:
 - checks;
 - Russian-first policy;
 - Journal finalization policy;
-- policy Post-merge Journal Closure;
+- policy Closure policy (`docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»);
 - final report requirements на русском языке.
 
 ## Требования к выполнению исполнителя (engine)
@@ -167,7 +167,7 @@ TASK file для handoff должен содержать:
 
 После PR creation `engine` должен финализировать `RESULT` и `INDEX` фактическими PR URL, final commit SHA, PR status, checks, blockers и next recommended step.
 
-После merge рабочего PR, release PR или sync PR `engine` должен финализировать post-merge closure в `RESULT` и `INDEX`. Journal entry не может оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`. Если GitHub PR state и journal state расходятся, TASK file handoff не считается закрытым.
+После merge рабочего PR, release PR или sync PR `engine` применяет Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Journal entry может временно оставаться `merged; closure pending` до batch-closure перед release; per-task closure обязателен только в исключениях, перечисленных в каноне. Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием и GitHub PR state расходится с journal state, TASK file handoff не считается закрытым.
 
 User-facing labels/descriptions в RESULT и INDEX должны быть Russian-first.
 

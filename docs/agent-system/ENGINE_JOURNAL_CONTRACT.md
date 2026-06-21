@@ -304,6 +304,12 @@ Closure фиксирует доступные факты:
 
 Если release/sync PRs были merged, но journal не фиксирует release/sync facts, pre-release closure считается incomplete.
 
+### Scope of closure-policy consistency
+
+Closure-policy consistency check применяется к операционным правилам, active templates, handoff contracts, review checklists и current workflow instructions.
+
+Append-only journal entries, decision log, dated state snapshots и docs-maintainer sync reports сохраняют исторические literals старой политики и не входят в check F. Такие файлы не переписываются ради терминологического scrub, если они описывают прошлое решение/состояние, а не действующее правило.
+
 ## Правило review
 
 ### Journal trace для review всегда

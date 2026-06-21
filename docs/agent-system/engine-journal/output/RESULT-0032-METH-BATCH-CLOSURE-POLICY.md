@@ -43,6 +43,34 @@ Batch-closure policy закреплена в каноне. Старые откр
 - `git diff --name-only` + `git ls-files --others --exclude-standard`: только whitelist.
 - branch-guard before commit: `work/docs-maintainer-01/batch-closure-policy`.
 
+## FIX-01: reconcile strict-closure wording
+
+- Review finding: активные шаблоны/контракты вне `engine-journal` всё ещё требовали immediate post-merge closure как общее правило.
+- Baseline SHA before fix: `af1730dfd39587da6545aeb674e1da4e6163c111`
+- FIX-01 timestamp: `2026-06-21T14:39:40.5452718+07:00`
+
+| Файл | Трактовка | Действие |
+| --- | --- | --- |
+| `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` | check-F scope | Добавлена scope-клауза: проверка применяется к operational rules/templates/checklists; append-only journal, decision log, dated state snapshots и sync reports сохраняют historical literals. |
+| `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md` | batch-развилка | Общий контракт переведён на Closure policy; `merged; closure pending` допустим до batch-closure перед release; per-task closure только для исключений канона. |
+| `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` | batch-развилка | Общее поведение оркестратора переведено на batch-default vs per-task exceptions; immediate closure больше не универсальное правило. |
+| `docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md` | batch-развилка | Engine-блоки теперь требуют Closure policy: batch перед release по умолчанию, per-task только для исключений. |
+| `docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md` | batch-развилка | Development-шаблон заменил post-merge closure wording на статус Closure policy (`closed`/`closure pending until batch before release`/`not applicable`). |
+| `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md` | batch-развилка | Feedback rule различает допустимое `closure pending` и нарушение под release/audit/adoption/series-end/explicit closure gate. |
+| `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` | batch-развилка | Review checklist больше не считает любой merged-but-open journal blocker; blocker только под gates/исключениями. |
+| `docs/agent-system/NEXT_STEPS.md` | batch-развилка | Живые операционные правила обновлены на Closure policy; stale cleanup создаётся только при per-task exception или release gate. |
+| `docs/agent-system/templates/ADOPTION_PROMPT.md` | per-task исключение | Adoption/source-update явно оформлен как per-task closure exception; обычные work PR остаются batch-default. |
+| `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` | per-task исключение | Docs-only adoption/source-update сохранён как per-task closure exception со ссылкой на Closure policy. |
+| `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md` | per-task исключение | Adoption audit оформлен как `audit/consistency-gate` и `adoption/source-update` per-task closure exception. |
+| `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md` | per-task исключение | Bootstrap/adoption handoff оформлен как per-task closure exception; обычные post-bootstrap work PR — batch-default. |
+| `docs/agent-system/templates/NEW_PROJECT_PROMPT.md` | batch-развилка | Project chat prompt переведён на Closure policy: batch-default и per-task exceptions. |
+| `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | active rule, batch-развилка | Manifest policy/acceptance/governance строки переведены на Closure policy; release/sync остаются gate для полного closure. |
+| `docs/agent-system/CURRENT_STATE.md` | history/state исключён | Не тронут: найденные строки описывают dated state snapshot PR-2x, а не новое действующее правило. |
+| `docs/agent-system/DECISION_LOG.md` | history исключён | Не тронут: decision log сохраняет literal прошлого решения по scope-клаузе. |
+| `docs/agent-system/agents/docs-maintainer-01/DOC_SYNC_REPORT.md` | history/sync-report исключён | Не тронут: docs-maintainer sync report сохраняет historical literal по scope-клаузе. |
+
+- `INDEX.md`: не менялся; запись 0032 остаётся open по batch-policy и уже финализирована после PR creation.
+
 ## Риски
 
 - Нужно проверить reviewer'ом, что новый batch-default не противоречит strict release-gate и audit consistency gate.
