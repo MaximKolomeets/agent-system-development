@@ -2,7 +2,7 @@
 
 ## Итог
 
-Статус: pre-PR journal создан; финализация RESULT/INDEX выполняется после создания PR.
+Статус: PR создан, RESULT/INDEX финализированы после PR creation.
 
 ## Baseline
 
@@ -12,6 +12,10 @@
 - Working branch: `work/docs-maintainer-01/depers-complete-01`
 - Baseline SHA: `3fd579ab107387a7e26e7938828c3aa5ddff1273`
 - Checked at: `2026-06-21T15:52:11+07:00`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/172
+- PR state at creation: `open`, draft `true`
+- Head SHA at PR creation: `d69b58cabe188c4f9fc728ef28ef4e1478751fcf`
+- PR created at: `2026-06-21T08:56:22Z`
 
 ## Что изменено
 
@@ -36,12 +40,28 @@
 
 ## PR
 
-- PR: будет создан после первого push.
-- Head SHA: будет зафиксирован после PR creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/172
+- Head SHA at PR creation: `d69b58cabe188c4f9fc728ef28ef4e1478751fcf`
+- PR статус при создании: `open`, draft `true`; journal finalization выполняется отдельным follow-up commit в той же work-ветке.
 
 ## Source-reminder
 
 Обновить Source-снапшот у зарегистрированных потребителей: generic-placeholder из scaffold-only `docs/agent-system/SOURCE_CONSUMERS.md`.
+
+## Локальные действия после PR/merge
+
+После merge PR #172 локально синхронизировать `developer` только через guard:
+
+```powershell
+git rev-parse --show-toplevel
+git remote -v
+git branch --show-current
+git status --short
+git switch developer
+git pull --ff-only origin developer
+```
+
+`main` не менять напрямую; release/sync выполняются отдельным решением архитектора.
 
 ## Риски
 
@@ -51,3 +71,5 @@
 ## Передача
 
 Следующий: reviewer — review; затем архитектор — merge; затем engine — METH-MANIFEST-PARITY-01; journal closure — batch перед release.
+
+Обновить Source-снапшот у зарегистрированных потребителей: generic-placeholder из scaffold-only `docs/agent-system/SOURCE_CONSUMERS.md`.
