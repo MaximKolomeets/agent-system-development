@@ -16,7 +16,7 @@ PR created at: `2026-06-21T17:11:30Z`
 
 Head at PR creation: `38079e25efcf6dd87b6e71b4ca179b96022a68e1`
 
-Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
+Статус: `closed after merge; closure facts authoritative here`
 
 ## Что изменено
 
@@ -56,6 +56,21 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 - `git diff --check` → exit 0.
 - `git rev-parse --abbrev-ref HEAD` → `work/docs-maintainer-01/cloud-freshness-depers-01`.
 - `gh pr view 189 --json url,createdAt,headRefOid,state,baseRefName,headRefName,mergeable` → `OPEN`, base `developer`, head `work/docs-maintainer-01/cloud-freshness-depers-01`, mergeable `MERGEABLE`, head at PR creation `38079e25efcf6dd87b6e71b4ca179b96022a68e1`.
+
+## Closure stamp
+
+- status: `merged`
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/189`
+- PR number: `#189`
+- mergedAt: `2026-06-21T17:21:36Z`
+- mergeCommit oid: `fa9cd2f99bd45330f16227a18b3f45248826c234`
+- headRefOid: `9b07cc44616352e12821ed69d56954a608d398a6`
+- closure source: `gh pr view 189 --json mergeCommit,mergedAt,url,state,headRefOid`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closed by: batch-closure `0051` (`work/docs-maintainer-01/batch-closure-0047-0050`)
+- Closure timestamp: `2026-06-22T09:38:51.7866689+07:00`
 
 ## Передача
 
