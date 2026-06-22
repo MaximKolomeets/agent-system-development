@@ -228,6 +228,8 @@ Ready-for-review PR не должен содержать unresolved journal plac
 - `<result>`;
 - `<check command>`.
 
+Placeholder-scan применяется к finalized `RESULT`/`INDEX` и concrete state/status docs. Легитимные шаблонные поля в templates/examples (`<роль>`, `<task-id>`, `<commit-sha>` и подобные), а также определения forbidden placeholders в тексте политики не являются findings сами по себе. Finding — только unresolved placeholder в finalized или concrete контексте, где уже должно стоять фактическое значение.
+
 Reviewer должен считать такие placeholders blocker.
 
 ## Политика PR head SHA без self-reference
