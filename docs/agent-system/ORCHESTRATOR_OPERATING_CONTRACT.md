@@ -60,6 +60,12 @@ python docs/agent-system/tools/gen_cloud_bundle.py --check
 
 `--check` является content-parity gate: каждый generated numbered `.md` файл должен совпадать с текущим source-файлом из bundle, а `cloud/00_README.md` должен сохранять priority map и upload how-to. Строки `asof` и `developer_head_sha` в `cloud/00_README.md` информационные и не входят в равенство gate; sync-merge, который меняет commit SHA без content-дрейфа bundle, не должен ломать `--check`.
 
+### Проверки generated text artifacts: content-oriented / EOL-safe
+
+Любой generated text artifact и связанный с ним режим `--check` должны сравнивать содержимое, а не байтовую форму checkout. Перед сравнением text-content нормализует `CRLF`, `CR` и `LF` к единому `LF`, чтобы Windows checkout и `core.autocrlf` не создавали false drift при отсутствии реального изменения content.
+
+Новый генератор с режимом `--check` обязан иметь regression-проверку: EOL-only drift не должен давать ненулевой exit, но реальный content-drift в source или generated artifact обязан оставаться обнаруживаемым и приводить к ненулевому exit. Если generator emits generated-bundle paths, эти paths закрепляются в `.gitattributes` через `text eol=lf`, чтобы repository checkout был предсказуемым; это дополняет EOL-normalized compare, но не заменяет его.
+
 Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество numbered-файлов по per-task handoff. `cloud/00_README.md` является авторитетной картой `source path -> cloud filename`, содержит priority map, freshness stamp и upload how-to.
 
 ### Per-task footer naming
