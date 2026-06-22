@@ -1,6 +1,6 @@
 # RESULT-0056-METH-CLOUD-EOL-CHECK-01
 
-Статус: pending PR creation; RESULT/INDEX finalization pending.
+Статус: open; ready for review; RESULT/INDEX finalized after PR creation.
 
 ## Кратко
 
@@ -66,11 +66,11 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 
 ## Journal finalization
 
-- PR URL: pending.
-- PR status after journal finalization: pending.
-- RESULT finalized: no (pending PR creation).
-- INDEX finalized: no (pending PR creation).
-- No journal placeholders: no (pending PR creation).
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/200
+- PR status after journal finalization: `OPEN`, ready for review.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Report delivery: chat.
 - Journal trace: always.
 
