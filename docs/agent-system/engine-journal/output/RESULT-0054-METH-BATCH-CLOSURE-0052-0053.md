@@ -10,11 +10,13 @@ Baseline SHA: `4012146a55728f26cb44e219b5171c3d7b79c831`
 
 Начато: `2026-06-22T15:25:10.0910304+07:00`
 
-PR URL: `pending until PR creation`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/196`
 
-PR number: `pending until PR creation`
+PR number: `196`
 
-Head at PR creation: `pending until PR creation`
+Head at PR creation: `457e278bcfe47f5cee2ba0ca27f57986c38c5353`
+
+PR created at: `2026-06-22T08:28:29Z`
 
 Статус: `closed-at-creation; terminal closure; own mergeCommit = stamp at merge`
 
