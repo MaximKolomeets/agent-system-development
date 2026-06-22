@@ -1,6 +1,6 @@
 # <TASK-ID> - review report
 
-Это шаблон **тела** review report. Путь сохранения файла определяется полем `Report delivery` в TASK (`chat` — не сохранять, `repository` / `chat+repository` — сохранить в `docs/agent-system/reviews/<task-id>-review.md` или эквивалентный путь по `Report naming`).
+Это шаблон **тела** review report. Путь сохранения файла определяется полем `Report delivery` в TASK (`chat` — не сохранять, `repository` / `chat+repository` — сохранить по `Report naming`). Путь `docs/agent-system/reviews/<task-id>-review.md` — target-local create-on-demand convention для потребляющего проекта, а не обязательный каталог methodology-source.
 
 Journal RESULT создаётся отдельным файлом в `docs/agent-system/engine-journal/output/` всегда (`Journal trace: always`) по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` и не заменяется этим шаблоном.
 
