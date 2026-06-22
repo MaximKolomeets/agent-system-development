@@ -125,6 +125,8 @@ RESULT обязан ссылаться на:
 
 RESULT обязан включать блок «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta». Этот блок персистится в journal и не заменяется ссылкой на chat/final report.
 
+RESULT обязан включать строку `Архитектору — загрузить в контекст оркестратора: ...` по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Orchestrator context handoff». В этой строке используются numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, исходные пути пишутся как `src: ...`, а небандловые файлы остаются только в «Source Delta».
+
 Если TASK file, bootstrap prompt, branch или source SHA конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
 
 ## Безопасность
@@ -359,6 +361,7 @@ Append-only journal entries, decision log, dated state snapshots и docs-maintai
 - forbidden/private data не добавлены;
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
+- RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.
