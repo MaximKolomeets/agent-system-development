@@ -15,6 +15,7 @@
 - release-PR `developer -> main` запрещён, пока engine journal не закрыт полностью: все seq, входящие в release, должны иметь closed/merged facts; pre-release batch-closure обязателен по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
 - release-PR `developer -> main` запрещён, если `python docs/agent-system/tools/gen_file_map.py --check` не проходит: `PROJECT_FILE_MAP.md` должен быть синхронизирован с manifest и filesystem parity;
 - release-PR `developer -> main` запрещён, если `python docs/agent-system/tools/gen_cloud_bundle.py --check` не проходит: `docs/agent-system/cloud/` должен иметь content-parity с manifest bundle и filesystem; `asof`/`developer_head_sha` в `cloud/README.md` информационные и не ломают gate при sync-merge без content-дрейфа;
+- перед human merge release-PR обязателен state-refresh: `CURRENT_STATE.md` и `NEXT_STEPS.md` обновлены под фактическое состояние, `docs/agent-system/cloud/**` регенерирован, оба `--check` подтверждены в state-refresh PR; порядок gate: journal closed -> batch-closure -> `gen_file_map.py --check` -> `gen_cloud_bundle.py --check` -> state-refresh -> human merge;
 - агент не делает merge release-PR даже при наличии прав; решение о переносе в `main` принимает человек.
 
 ## developer
