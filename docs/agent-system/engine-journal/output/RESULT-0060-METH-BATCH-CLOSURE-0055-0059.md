@@ -57,18 +57,19 @@ Source-reminder: не применимо (контент методологии 
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- PR status after journal finalization: pending.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/204
+- PR status after journal finalization: OPEN; mergeable: MERGEABLE.
+- PR head after first publication: `10f73838a7612309ac9b7d4b93d324edf96549c8`.
 - Own mergeCommit: stamp at merge.
-- RESULT finalized: no, pending PR creation.
-- INDEX finalized: no, pending PR creation.
-- No journal placeholders: no, pending PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Report delivery: chat.
 - Journal trace: always.
 
 ## Локальные действия после PR/merge
 
-- После PR creation обновить RESULT/INDEX фактическими PR URL/status и допушить follow-up commit.
+- PR #204 создан; RESULT/INDEX финализированы фактическим PR URL/status; follow-up commit допушен в тот же PR.
 - После merge этой closure-задачи следующий шаг — state-refresh (последний pre-release PR, per-task closure), затем release `developer -> main` + tag, затем sync.
 
 ## Передача
