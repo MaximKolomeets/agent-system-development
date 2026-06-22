@@ -16,7 +16,7 @@ PR created at: `2026-06-22T01:37:02Z`
 
 Head at PR creation: `47829925fa28d09ed25d87c92925c34e8686e3cb`
 
-Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
+Статус: `closed after merge; closure facts authoritative here`
 
 ## Что изменено
 
@@ -54,6 +54,21 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 - `python docs/agent-system/tools/gen_file_map.py --check` → exit 0.
 - `git diff --check` → exit 0.
 - `git rev-parse --abbrev-ref HEAD` → `work/docs-maintainer-01/state-freshness-pattern-01`.
+
+## Closure stamp
+
+- status: `merged`
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/191`
+- PR number: `#191`
+- mergedAt: `2026-06-22T01:45:46Z`
+- mergeCommit oid: `0a7b7edbaa098568c5d533b2b8338bf3d9be151f`
+- headRefOid: `be512f9ce8b987f7c6e2653b957262261c5c328c`
+- closure source: `gh pr view 191 --json mergeCommit,mergedAt,url,state,headRefOid`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Closed by: batch-closure `0051` (`work/docs-maintainer-01/batch-closure-0047-0050`)
+- Closure timestamp: `2026-06-22T09:38:51.7866689+07:00`
 
 ## Передача
 
