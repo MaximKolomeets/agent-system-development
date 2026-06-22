@@ -415,11 +415,8 @@ def check_snapshot(config: BundleConfig, snapshot: dict[str, bytes]) -> int:
             print(f"- extra: {name}", file=sys.stderr)
 
     for name in sorted(expected_names & set(actual_files)):
-        actual = actual_files[name].read_bytes()
-        expected = snapshot[name]
-        if name == README_NAME:
-            actual = normalize_readme_for_check(actual)
-            expected = normalize_readme_for_check(expected)
+        actual = normalize_content_for_check(name, actual_files[name].read_bytes())
+        expected = normalize_content_for_check(name, snapshot[name])
         if actual == expected:
             continue
         errors += 1
@@ -448,8 +445,19 @@ def validate_cloud_schema(actual_files: dict[str, Path], expected_count: int) ->
     return errors
 
 
+def normalize_content_for_check(name: str, content: bytes) -> bytes:
+    content = normalize_eol_for_check(content)
+    if name == README_NAME:
+        content = normalize_readme_for_check(content)
+    return content
+
+
+def normalize_eol_for_check(content: bytes) -> bytes:
+    return content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+
+
 def normalize_readme_for_check(content: bytes) -> bytes:
-    text = content.decode("utf-8", errors="replace")
+    text = normalize_eol_for_check(content).decode("utf-8", errors="replace")
     for pattern, replacement in README_INFORMATIONAL_LINE_PATTERNS:
         text = re.sub(pattern, replacement, text)
     return text.encode("utf-8")
