@@ -10,13 +10,15 @@ Baseline SHA: `220512445f179ecd97ebd5bc69373d5f6e3a4e8c`
 
 Начато: `2026-06-22T15:08:13.9630907+07:00`
 
-PR URL: `pending until PR creation`
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/195`
 
-PR number: `pending until PR creation`
+PR number: `195`
 
-Head at PR creation: `pending until PR creation`
+Head at PR creation: `e7ca6651ad8de85a17cdc89f07a46c4a3548b9bf`
 
-Статус: `open; ready for review after PR metadata finalization`
+PR created at: `2026-06-22T08:12:43Z`
+
+Статус: `open; ready for review; RESULT/INDEX finalized after PR creation`
 
 ## Что изменено
 
