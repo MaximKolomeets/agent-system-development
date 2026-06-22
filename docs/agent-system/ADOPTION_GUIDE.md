@@ -60,7 +60,7 @@ contract. Do not copy methodology repository operational history. The first
 target adoption/audit task creates target-specific task/result files and the
 target-specific `INDEX.md` entry.
 
-## Adoption modes
+## Режимы adoption (adoption modes)
 
 ## Methodology reference
 
@@ -68,7 +68,7 @@ target-specific `INDEX.md` entry.
 
 Канон спецификации `methodology_reference` (YAML-блок, обязательность commit SHA, STOP-условия, места включения): см. `docs/agent-system/ENGINE_ENTRYPOINT.md` → раздел «Methodology reference».
 
-## Ceremony and token budget
+## Церемония и token budget
 
 Методология не должна заставлять простую задачу проходить полный multi-agent ritual.
 
@@ -78,7 +78,7 @@ target-specific `INDEX.md` entry.
 - Если блок для исполнителя (engine) становится слишком длинным, использовать Task File Handoff Mode вместо расширения chat prompt.
 - Нельзя добавлять новые templates/checklists только ради полноты, если существующий документ можно точечно расширить.
 
-## New empty repository bootstrap vs existing repository adoption
+## Bootstrap нового пустого repository vs adoption существующего repository
 
 `new empty repository bootstrap` используется для нового пустого repository.
 
@@ -99,7 +99,7 @@ target-specific `INDEX.md` entry.
 - если пользователь выбирает `standard developer workflow`, нужно создать или подтвердить `developer` до рабочих PR;
 - если branch model неясна, `engine` пишет `STOP` и запрашивает решение пользователя.
 
-## Canonical adoption chat prompt
+## Канонический adoption chat prompt
 
 Для нового target repository пользователь может скопировать полный prompt из канона:
 
@@ -212,7 +212,7 @@ Acceptance criteria:
 - есть тесты/проверки;
 - security constraints учтены.
 
-## Transfer manifest
+## Манифест переноса (transfer manifest)
 
 Машиночитаемый manifest переносимых файлов находится в:
 
@@ -234,11 +234,11 @@ Manifest делит файлы на текущие categories:
 
 Manifest должен содержать `methodology_reference_required: true` для target adoption/update flows. Если target repository materializes собственный manifest или adoption audit, он фиксирует commit SHA methodology repository.
 
-## Source and snapshot drift control
+## Контроль Source и snapshot drift
 
 Канон политики `source_snapshot` (YAML-header, GitHub как source of truth, drift handling, запрет менять repository state по устаревшему snapshot): см. `docs/agent-system/source/README.md` → «Source Snapshot Policy».
 
-## Downstream adaptation checklist
+## Чеклист адаптации downstream (downstream adaptation checklist)
 
 Checklist downstream-адаптации находится в:
 
@@ -248,7 +248,7 @@ docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
 
 Checklist используется перед docs-only adoption и review, чтобы проверить repository identity, branch model, state documents, security, adoption mode и review criteria.
 
-## Downstream checklist
+## Чеклист downstream (downstream checklist)
 
 Перед docs-only adoption заменить или подтвердить:
 
@@ -316,7 +316,7 @@ Get-Content -Encoding UTF8 -Raw .\docs\agent-system\CURRENT_STATE.md
 
 Если среда не разрешает менять `Console.OutputEncoding`, использовать `Get-Content -Encoding UTF8` и фиксировать проблему вывода как environment note, а не как ошибку документа.
 
-## Minimal first PR
+## Минимальный первый PR
 
 Minimal first PR должен создавать только:
 

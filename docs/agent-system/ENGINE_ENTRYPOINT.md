@@ -36,7 +36,7 @@ methodology_reference:
   notes: <short Russian note>
 ```
 
-`source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. Tags/releases могут стать отдельным будущим слоем versioning, но не заменяют commit SHA до отдельного решения.
+`source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. Release tag на `main` разрешён как дополнительный human-readable pointer рядом с commit SHA; он не заменяет обязательный `source_commit` как reproducibility anchor.
 
 Места включения блока:
 
