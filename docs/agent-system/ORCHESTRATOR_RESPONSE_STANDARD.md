@@ -251,7 +251,7 @@ Final report `engine` должен подтверждать:
 
 Оркестратор обязан ретранслировать Source Delta архитектору в своём ответе/передаче. Если final report или RESULT исполнителя (engine) не содержит «Source Delta», оркестратор запрашивает у исполнителя (engine) дополнение отчёта или journal-result, а не реконструирует таблицу молча.
 
-Оркестратор обязан ретранслировать архитектору строку «Архитектору — загрузить в контекст оркестратора: …» и подтверждать `context-handoff present: yes`. Если final report или RESULT исполнителя (engine) не содержит per-task context handoff, оркестратор запрашивает дополнение отчёта или journal-result. Базовый состав context-load bundle не дублируется здесь; авторитетный канон: `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect → Orchestrator context handoff».
+Оркестратор обязан ретранслировать архитектору строку «Архитектору — загрузить в контекст оркестратора: …» и подтверждать `context-handoff present: yes`. Если final report или RESULT исполнителя (engine) не содержит per-task context handoff, оркестратор запрашивает дополнение отчёта или journal-result. Footer должен использовать numbered cloud-имена из `docs/agent-system/cloud/00_README.md` и перечислять только bundle-файлы; небандловые tooling/source-файлы остаются в «Source Delta» и не попадают в context-load строку. Базовый состав context-load bundle не дублируется здесь; авторитетный канон: `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Architect → Orchestrator context handoff».
 
 ## Closure policy после merge/release/sync
 

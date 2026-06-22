@@ -1,12 +1,24 @@
 # NEXT_STEPS
 
-Методология выпущена в `main` через release PR #177 и sync PR #178. После release в `developer` завершён fix-all цикл PR #179-#183: depersonalization cleanup, Architect -> Orchestrator context handoff, adoption templates sync, closure facts authority clarification и audit nits. Журнал закрыт до 0038; записи 0039-0044 относятся к текущему batch-policy циклу и закрываются перед следующим release.
+## Standing Workflow Loop
 
-## Основной следующий шаг
+Повторяемый цикл methodology maintenance:
 
-1. Выполнить pre-release batch-closure journal 0039-0044: закрыть merged work PR #179-#183 и текущую state-refresh запись 0044.
-2. После review/merge batch-closure выполнить release PR `developer -> main` по rule 1 (human-only merge).
-3. После release переходить к downstream adoption / реальному verification-проекту по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на финальный commit SHA.
+1. Сформулировать plan/task с точным scope, allowed files, checks, STOP conditions и branch guard.
+2. Выполнить work PR из `work/<role>/<task>` в `developer`.
+3. Провести review по head SHA и фактическому diff.
+4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy.
+5. Повторять work/review/merge до завершения текущей серии.
+6. Перед release выполнить pre-release batch-closure для всех merged-but-unclosed journal entries.
+7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check`, state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
+8. Человек-архитектор мержит release PR `developer -> main`; после release выполняется sync `main -> developer`.
+9. Повторить цикл от актуального `developer`.
+
+## Current Focus
+
+Текущий фокус: production readiness / verification readiness. Ближайшая серия — завершить active fix-cycle, закрыть journal batch перед release, затем перейти к downstream adoption / реальному verification-проекту по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на release commit/tag.
+
+Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
 
 ## Опциональный backlog (на усмотрение архитектора)
 

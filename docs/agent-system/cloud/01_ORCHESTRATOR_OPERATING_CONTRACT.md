@@ -58,7 +58,19 @@ python docs/agent-system/tools/gen_cloud_bundle.py
 python docs/agent-system/tools/gen_cloud_bundle.py --check
 ```
 
-Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество flat-файлов по per-task handoff. `cloud/README.md` содержит origin path → flat filename mapping, freshness stamp и upload how-to.
+`--check` является content-parity gate: каждый generated numbered `.md` файл должен совпадать с текущим source-файлом из bundle, а `cloud/00_README.md` должен сохранять priority map и upload how-to. Строки `asof` и `developer_head_sha` в `cloud/00_README.md` информационные и не входят в равенство gate; sync-merge, который меняет commit SHA без content-дрейфа bundle, не должен ломать `--check`.
+
+Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество numbered-файлов по per-task handoff. `cloud/00_README.md` является авторитетной картой `source path -> cloud filename`, содержит priority map, freshness stamp и upload how-to.
+
+### Per-task footer naming
+
+Строка `Архитектору — загрузить в контекст оркестратора: ...` в final report и RESULT перечисляет только файлы, входящие в `orchestrator_context_bundle` и реально присутствующие в `docs/agent-system/cloud/`. Небандловые файлы, например tooling/generator sources, остаются в `Source Delta`, но не попадают в context-load строку.
+
+Каждый файл в footer указывается cloud-именем из `docs/agent-system/cloud/00_README.md`, а исходный путь даётся в скобках для трассировки. Пример:
+
+```text
+Архитектору — загрузить в контекст оркестратора: 01_ORCHESTRATOR_OPERATING_CONTRACT.md (src: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md), 11_ADOPTION_TRANSFER_MANIFEST_yml.md (src: docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml); asof: <ISO-8601 timestamp>; developer_head_sha: <sha>.
+```
 
 Drive-мост является architect-side операцией: архитектор один раз настраивает Google Drive for Desktop или `rclone` на своих credentials и синхронизирует generated `cloud/` folder. Исполнитель (engine) не авторизует Google Drive, не читает credentials и не создаёт token files.
 

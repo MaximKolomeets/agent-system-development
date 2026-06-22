@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-21
+Дата: 2026-06-22
 
 Проект: Создание агентской системы
 
@@ -10,23 +10,27 @@ Repository visibility: public.
 
 ## Актуальное состояние
 
-Методология уже выпущена в `main`: pre-release batch-closure 0034-0037 прошёл через PR #176, release `developer -> main` выполнен через PR #177, sync `main -> developer` выполнен через PR #178.
+### Standing capabilities
 
-После release в `developer` завершён fix-all цикл PR #179-#183:
+Методология выпущена и поддерживается как reusable methodology/template repository. Этот слой описывает устойчивые возможности; он меняется только при реальном изменении методологии, а не после каждого work/release/sync PR.
 
-- полная деперсонализация operational/source/template scope: канон заголовка `Задача для <роль>`, `<agent-name>` устранён из active scope, vendor/tool literals в operational scope сведены к нейтральным placeholders;
-- batch-closure policy закреплена с per-task exceptions и scope-клаузой;
-- closure-facts authority уточнён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL;
-- `ADOPTION_TRANSFER_MANIFEST.yml` стал авторитетным manifest с 7 категориями: `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`;
-- `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` включён в release-gate/fast-lane parity;
-- Source Delta стал обязательным standing output в отчётах, `RESULT` и review-gate;
-- Architect -> Orchestrator context handoff закреплён: CORE/STATE bundle, freshness stamp и per-task load-list;
-- adoption templates синхронизированы с актуальными категориями manifest и Source Delta;
-- audit-ниты закрыты: dead review links убраны, map scope задекларирован, `ADOPTION_AUDIT.md` помечен как `target_generated`, активные EN-заголовки переведены по `LANGUAGE_POLICY`.
+- Governance правила 1-4 закреплены: `main` обновляется только human-merged release PR `developer -> main`, рабочие ветки изолированы в `work/<role>/<task>`, pre-commit branch-guard обязателен, repository sync/checkout guard останавливает работу на dirty tree.
+- Operational/source/template scope деперсонализирован: канон заголовка `Задача для <роль>`, роли отделены от исполнителя, vendor/tool literals в active operational scope заменены нейтральными placeholders.
+- Batch-closure policy закреплена: обычные work PR могут оставаться open/closure-pending до pre-release batch-closure; release и audit/review consistency gates требуют закрытого journal.
+- Closure-facts authority закреплён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL.
+- `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
+- `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
+- Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
+- Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/README.md` информационные.
+- Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
-Журнал закрыт до 0038 включительно. Записи 0039-0043 уже merged в `developer`, но остаются open по batch-policy до pre-release closure; текущая задача добавляет 0044 в тот же closure-set.
+### Current pointer
 
-Текущий следующий шаг: pre-release batch-closure 0039-0044, затем release PR `developer -> main`. После release можно переходить к downstream adoption / реальному verification-проекту с актуальным `methodology_reference`.
+Авторитет текущего journal state: `docs/agent-system/engine-journal/INDEX.md` и соответствующие `RESULT-*` closure-stamps. Этот файл не дублирует номера work/release/sync PR как source of truth; если здесь встречается конкретный номер PR в исторической летописи ниже, он является информационной историей, а не актуальным pointer.
+
+Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
+
+Текущий фокус: production readiness / verification readiness. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
