@@ -1,0 +1,54 @@
+# RESULT-0052: METH-CLOUD-MD-ONLY-NUMBERED-01
+
+Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0052-METH-CLOUD-MD-ONLY-NUMBERED-01.md`
+
+Номер sequence: `0052`
+
+Branch: `work/tooling-maintainer-01/cloud-md-only-numbered-01`
+
+Baseline SHA: `878ccd2213497bc8cdb201cef220f583cc53050d`
+
+Начато: `2026-06-22T11:05:46.2257898+07:00`
+
+PR URL: `pending until PR creation`
+
+PR number: `pending until PR creation`
+
+Head at PR creation: `pending until PR creation`
+
+Статус: `open; ready for review after PR metadata finalization`
+
+## Что изменено
+
+- `gen_cloud_bundle.py` теперь генерирует uploadable `.md` bundle с двухзначной priority-нумерацией `00`…`11`.
+- Non-md source `ADOPTION_TRANSFER_MANIFEST.yml` пишется в cloud как `08_ADOPTION_TRANSFER_MANIFEST_yml.md` с однострочным source-заголовком и fenced `yaml` блоком.
+- `00_README.md` содержит authoritative map table (`priority | cloud filename | source path | category`) и правило частичной загрузки первых N numbered-файлов.
+- `ADOPTION_TRANSFER_MANIFEST.yml` переставил `orchestrator_context_bundle.files` в канонический priority-порядок и заменил generated cloud glob на конкретные numbered cloud-файлы.
+- `PROJECT_FILE_MAP.md` регенерирован из manifest.
+- `docs/agent-system/cloud/` полностью регенерирован: старые unnumbered файлы удалены, новые numbered `.md` файлы созданы.
+
+## Source Delta
+
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+|---|---|---|---|---|
+| `docs/agent-system/tools/gen_cloud_bundle.py` | modified | source | update | yes |
+| `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | modified | source | update | n-a |
+| `docs/agent-system/PROJECT_FILE_MAP.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/**` | renamed | generated | none | yes |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/input/TASK-0052-METH-CLOUD-MD-ONLY-NUMBERED-01.md` | added | journal | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0052-METH-CLOUD-MD-ONLY-NUMBERED-01.md` | added | journal | none | n-a |
+
+Архитектору — загрузить в контекст оркестратора: numbered bundle из `docs/agent-system/cloud/` (`00_README.md`, затем `01_...` по приоритету); изменённые source-файлы: `docs/agent-system/tools/gen_cloud_bundle.py`, `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`; generated map: `docs/agent-system/PROJECT_FILE_MAP.md`; asof: `2026-06-22T11:05:46.2257898+07:00`; developer_head_sha: `878ccd2213497bc8cdb201cef220f583cc53050d`.
+
+## Проверки
+
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check` → exit 0.
+- `python docs/agent-system/tools/gen_file_map.py --check` → exit 0.
+- Cloud schema check: non-md / unnumbered files → 0.
+- `git diff --check` → exit 0.
+- Branch guard → `work/tooling-maintainer-01/cloud-md-only-numbered-01`.
+
+## Передача
+
+Следующий: `reviewer` — review (все cloud `.md` + numbered, нумерация по канон-порядку, non-md -> fenced, manifest/file-map консистентны, оба `--check` 0); затем архитектор — merge; затем engine — Шаг 2 `METH-CLOUD-HANDOFF-NAMES-01` (footer canon ссылается на numbered cloud-имена); journal closure — batch перед release.
