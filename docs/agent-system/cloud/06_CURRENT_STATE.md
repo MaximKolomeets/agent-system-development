@@ -21,7 +21,7 @@ Repository visibility: public.
 - `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
-- Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/README.md` информационные.
+- Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
 ### Current pointer

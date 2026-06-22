@@ -19,6 +19,8 @@ English допускается только там, где перевод уху
 - vendor/tool names and literal external names;
 - repository identifiers, когда они являются техническим значением.
 
+Section headings, checklist labels и другие user-facing названия разделов пишутся на русском языке. Если англоязычный режим, protocol name или другой technical literal нужен для точности, его можно оставить как alias в скобках после русского названия, например `Лёгкий solo-operator режим (Lightweight solo-operator mode)`.
+
 ## Задачи и отчеты исполнителя (engine)
 
 Каждый блок для исполнителя (engine) должен явно требовать от `engine`:
@@ -51,6 +53,7 @@ Target adoption/update tasks должны переносить Russian-first pol
 - TASK/RESULT templates исполнителя (engine) являются Russian-first;
 - target-local methodology templates являются Russian-first;
 - final report requirements требуют русский язык;
+- section headings и checklist labels являются Russian-first; допустимые английские technical aliases сохранены в скобках;
 - комментарии в generated scripts/workflows/config examples написаны на русском, если comments нужны;
 - английские technical identifiers сохранены и не переведены механически;
 - target `AGENTS.md` или эквивалент содержит Russian-first policy после adoption/update scope.
