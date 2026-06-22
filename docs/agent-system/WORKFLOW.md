@@ -17,7 +17,7 @@
 
 ## Режимы применения
 
-### Lightweight solo-operator mode
+### Лёгкий режим одного оператора
 
 Этот режим используется, когда один оператор ведет задачу end-to-end. Он не требует искусственно запускать несколько агентов для маленькой docs-only или status-задачи.
 
@@ -29,7 +29,7 @@
 - Operational Fast Lane допускается только для read-only/status/cleanup без file edits;
 - final report содержит проверки, риски и локальный sync block после PR/merge.
 
-### Multi-agent governed mode
+### Управляемый многоагентный режим
 
 Этот режим используется для задач с высоким риском, несколькими исполнителями, review gate, runtime scope или target adoption.
 
@@ -41,7 +41,7 @@
 - полный self-contained блок для исполнителя (engine) или Task File Handoff Mode;
 - воспроизводимые journal artifacts и PR metadata.
 
-## Anti-overengineering checkpoint
+## Проверка против избыточного усложнения
 
 Перед добавлением нового документа, роли, workflow, template или gate нужно ответить:
 
@@ -61,7 +61,7 @@
 - `developer` принимает изменения через PR из рабочих веток.
 - `developer` -> `main` выполняется только после проверки интеграционной ветки.
 
-## Review-only workflow
+## Рабочий процесс review-only
 
 Code review / external review / consulting review по умолчанию выполняется как review-only task:
 

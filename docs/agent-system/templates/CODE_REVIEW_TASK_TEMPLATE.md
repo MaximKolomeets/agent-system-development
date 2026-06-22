@@ -211,7 +211,7 @@ Journal artefacts всё равно создаются, коммитятся, п
 При `Report delivery: repository` или `chat+repository` разрешённые места для тела отчёта:
 
 ```text
-docs/agent-system/reviews/
+docs/agent-system/reviews/                 # target-local create-on-demand convention; не methodology-source directory
 docs/agent-system/agents/<review-agent-name>/
 ```
 
@@ -282,11 +282,13 @@ Tests/linters запускать только если они описаны в 
 
 ## Report path
 
-Использовать:
+Использовать как target-local create-on-demand convention, только если `Report delivery` включает `repository`:
 
 ```text
 docs/agent-system/reviews/<task-id>-review.md
 ```
+
+Этот путь создаётся в потребляющем проекте при необходимости и не означает, что `docs/agent-system/reviews/` обязан существовать в methodology-source repository.
 
 Если `docs/agent-system/` отсутствует:
 
