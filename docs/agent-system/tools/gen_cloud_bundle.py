@@ -25,6 +25,19 @@ LANG_BY_EXTENSION = {
     ".yaml": "yaml",
     ".yml": "yaml",
 }
+CANONICAL_BUNDLE_ORDER = [
+    "docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md",
+    "docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md",
+    "docs/agent-system/templates/TASK_HEADER_COMMON.md",
+    "docs/agent-system/BRANCH_POLICY.md",
+    "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+    "docs/agent-system/CURRENT_STATE.md",
+    "docs/agent-system/engine-journal/INDEX.md",
+    "docs/agent-system/NEXT_STEPS.md",
+    "docs/agent-system/ENGINE_ENTRYPOINT.md",
+    "docs/agent-system/PROJECT_FILE_MAP.md",
+    "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml",
+]
 
 
 @dataclass
@@ -115,12 +128,38 @@ def parse_bundle(text: str) -> BundleConfig:
     if not raw_files:
         raise ValueError("orchestrator_context_bundle.files is empty")
 
+    raw_by_path = bundle_files_by_path(raw_files)
     category_by_path = parse_manifest_categories(text)
     files = [
         _entry_from_raw(index, raw, category_by_path)
-        for index, raw in enumerate(raw_files, start=1)
+        for index, raw in enumerate((raw_by_path[path] for path in CANONICAL_BUNDLE_ORDER), start=1)
     ]
     return BundleConfig(generated_dir=generated_dir, max_files=max_files, files=files)
+
+
+def bundle_files_by_path(raw_files: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    raw_by_path: dict[str, dict[str, str]] = {}
+    duplicates: list[str] = []
+    for raw in raw_files:
+        path = raw.get("path", "")
+        if path in raw_by_path:
+            duplicates.append(path)
+        raw_by_path[path] = raw
+
+    expected = set(CANONICAL_BUNDLE_ORDER)
+    actual = set(raw_by_path)
+    missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
+    if duplicates or missing or extra:
+        parts: list[str] = []
+        if duplicates:
+            parts.append(f"duplicates: {', '.join(sorted(duplicates))}")
+        if missing:
+            parts.append(f"missing: {', '.join(missing)}")
+        if extra:
+            parts.append(f"extra: {', '.join(extra)}")
+        raise ValueError("orchestrator_context_bundle.files does not match canonical order set: " + "; ".join(parts))
+    return raw_by_path
 
 
 def parse_manifest_categories(text: str) -> dict[str, str]:

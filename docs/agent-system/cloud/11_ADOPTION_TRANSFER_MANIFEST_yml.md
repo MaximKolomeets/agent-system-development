@@ -63,22 +63,22 @@ orchestrator_context_bundle:
       cloud_flatname: ORCHESTRATOR_RESPONSE_STANDARD.md
     - path: docs/agent-system/templates/TASK_HEADER_COMMON.md
       cloud_flatname: TASK_HEADER_COMMON.md
-    - path: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
-      cloud_flatname: ENGINE_JOURNAL_CONTRACT.md
     - path: docs/agent-system/BRANCH_POLICY.md
       cloud_flatname: BRANCH_POLICY.md
+    - path: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
+      cloud_flatname: ENGINE_JOURNAL_CONTRACT.md
+    - path: docs/agent-system/CURRENT_STATE.md
+      cloud_flatname: CURRENT_STATE.md
+    - path: docs/agent-system/engine-journal/INDEX.md
+      cloud_flatname: ENGINE_JOURNAL_INDEX.md
+    - path: docs/agent-system/NEXT_STEPS.md
+      cloud_flatname: NEXT_STEPS.md
     - path: docs/agent-system/ENGINE_ENTRYPOINT.md
       cloud_flatname: ENGINE_ENTRYPOINT.md
     - path: docs/agent-system/PROJECT_FILE_MAP.md
       cloud_flatname: PROJECT_FILE_MAP.md
     - path: docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       cloud_flatname: ADOPTION_TRANSFER_MANIFEST.yml
-    - path: docs/agent-system/CURRENT_STATE.md
-      cloud_flatname: CURRENT_STATE.md
-    - path: docs/agent-system/NEXT_STEPS.md
-      cloud_flatname: NEXT_STEPS.md
-    - path: docs/agent-system/engine-journal/INDEX.md
-      cloud_flatname: ENGINE_JOURNAL_INDEX.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -262,14 +262,14 @@ categories:
       - docs/agent-system/cloud/01_ORCHESTRATOR_OPERATING_CONTRACT.md
       - docs/agent-system/cloud/02_ORCHESTRATOR_RESPONSE_STANDARD.md
       - docs/agent-system/cloud/03_TASK_HEADER_COMMON.md
-      - docs/agent-system/cloud/04_ENGINE_JOURNAL_CONTRACT.md
-      - docs/agent-system/cloud/05_BRANCH_POLICY.md
-      - docs/agent-system/cloud/06_ENGINE_ENTRYPOINT.md
-      - docs/agent-system/cloud/07_PROJECT_FILE_MAP.md
-      - docs/agent-system/cloud/08_ADOPTION_TRANSFER_MANIFEST_yml.md
-      - docs/agent-system/cloud/09_CURRENT_STATE.md
-      - docs/agent-system/cloud/10_NEXT_STEPS.md
-      - docs/agent-system/cloud/11_ENGINE_JOURNAL_INDEX.md
+      - docs/agent-system/cloud/04_BRANCH_POLICY.md
+      - docs/agent-system/cloud/05_ENGINE_JOURNAL_CONTRACT.md
+      - docs/agent-system/cloud/06_CURRENT_STATE.md
+      - docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md
+      - docs/agent-system/cloud/08_NEXT_STEPS.md
+      - docs/agent-system/cloud/09_ENGINE_ENTRYPOINT.md
+      - docs/agent-system/cloud/10_PROJECT_FILE_MAP.md
+      - docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.
