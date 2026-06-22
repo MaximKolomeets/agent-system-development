@@ -14,17 +14,49 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml"
-README_NAME = "README.md"
+README_NAME = "00_README.md"
 README_INFORMATIONAL_LINE_PATTERNS = (
     (r"(?m)^- asof: `[^`\n]*`$", "- asof: `<informational>`"),
     (r"(?m)^- developer_head_sha: `[^`\n]*`$", "- developer_head_sha: `<informational>`"),
 )
+LANG_BY_EXTENSION = {
+    ".json": "json",
+    ".toml": "toml",
+    ".yaml": "yaml",
+    ".yml": "yaml",
+}
+CANONICAL_BUNDLE_ORDER = [
+    "docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md",
+    "docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md",
+    "docs/agent-system/templates/TASK_HEADER_COMMON.md",
+    "docs/agent-system/BRANCH_POLICY.md",
+    "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+    "docs/agent-system/CURRENT_STATE.md",
+    "docs/agent-system/engine-journal/INDEX.md",
+    "docs/agent-system/NEXT_STEPS.md",
+    "docs/agent-system/ENGINE_ENTRYPOINT.md",
+    "docs/agent-system/PROJECT_FILE_MAP.md",
+    "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml",
+]
 
 
 @dataclass
 class BundleEntry:
+    priority: int
     path: str
     cloud_flatname: str
+    category: str
+
+    @property
+    def cloud_name(self) -> str:
+        source_suffix = Path(self.path).suffix.lower()
+        flat_path = Path(self.cloud_flatname)
+        flat_base = flat_path.stem if flat_path.suffix else flat_path.name
+        if source_suffix and source_suffix != ".md":
+            ext_suffix = f"_{source_suffix.lstrip('.').lower()}"
+        else:
+            ext_suffix = ""
+        return f"{self.priority:02d}_{flat_base}{ext_suffix}.md"
 
 
 @dataclass
@@ -41,7 +73,7 @@ def _strip(value: str) -> str:
 def parse_bundle(text: str) -> BundleConfig:
     generated_dir = ""
     max_files = 25
-    files: list[BundleEntry] = []
+    raw_files: list[dict[str, str]] = []
     current: dict[str, str] | None = None
     in_bundle = False
     in_files = False
@@ -49,7 +81,7 @@ def parse_bundle(text: str) -> BundleConfig:
     for line in text.splitlines():
         if re.match(r"^[a-zA-Z_][a-zA-Z0-9_]*:\s*$", line):
             if current:
-                files.append(_entry_from_raw(current))
+                raw_files.append(current)
                 current = None
             in_bundle = line.strip() == "orchestrator_context_bundle:"
             in_files = False
@@ -80,7 +112,7 @@ def parse_bundle(text: str) -> BundleConfig:
         match = re.match(r"    - path:\s*(.+)$", line)
         if match:
             if current:
-                files.append(_entry_from_raw(current))
+                raw_files.append(current)
             current = {"path": _strip(match.group(1))}
             continue
 
@@ -89,23 +121,109 @@ def parse_bundle(text: str) -> BundleConfig:
             current["cloud_flatname"] = _strip(match.group(1))
 
     if current:
-        files.append(_entry_from_raw(current))
+        raw_files.append(current)
 
     if not generated_dir:
         raise ValueError("orchestrator_context_bundle.generated_dir is missing")
-    if not files:
+    if not raw_files:
         raise ValueError("orchestrator_context_bundle.files is empty")
 
+    raw_by_path = bundle_files_by_path(raw_files)
+    category_by_path = parse_manifest_categories(text)
+    files = [
+        _entry_from_raw(index, raw, category_by_path)
+        for index, raw in enumerate((raw_by_path[path] for path in CANONICAL_BUNDLE_ORDER), start=1)
+    ]
     return BundleConfig(generated_dir=generated_dir, max_files=max_files, files=files)
 
 
-def _entry_from_raw(raw: dict[str, str]) -> BundleEntry:
+def bundle_files_by_path(raw_files: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    raw_by_path: dict[str, dict[str, str]] = {}
+    duplicates: list[str] = []
+    for raw in raw_files:
+        path = raw.get("path", "")
+        if path in raw_by_path:
+            duplicates.append(path)
+        raw_by_path[path] = raw
+
+    expected = set(CANONICAL_BUNDLE_ORDER)
+    actual = set(raw_by_path)
+    missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
+    if duplicates or missing or extra:
+        parts: list[str] = []
+        if duplicates:
+            parts.append(f"duplicates: {', '.join(sorted(duplicates))}")
+        if missing:
+            parts.append(f"missing: {', '.join(missing)}")
+        if extra:
+            parts.append(f"extra: {', '.join(extra)}")
+        raise ValueError("orchestrator_context_bundle.files does not match canonical order set: " + "; ".join(parts))
+    return raw_by_path
+
+
+def parse_manifest_categories(text: str) -> dict[str, str]:
+    categories = {
+        "source",
+        "template",
+        "target_generated",
+        "history_state",
+        "journal",
+        "scaffold",
+        "generated",
+    }
+    category_by_path: dict[str, str] = {}
+    current: str | None = None
+    subkey: str | None = None
+
+    for line in text.splitlines():
+        match = re.match(r"  ([a-z_]+):\s*$", line)
+        if match:
+            name = match.group(1)
+            current = name if name in categories else None
+            subkey = None
+            continue
+
+        if current is None:
+            continue
+
+        match = re.match(r"    ([a-z_]+):\s*(.*)$", line)
+        if match:
+            subkey = match.group(1)
+            continue
+
+        if subkey != "files":
+            continue
+
+        match = re.match(r"      - path:\s*(.+)$", line)
+        if match:
+            category_by_path[_strip(match.group(1))] = current
+            continue
+
+        match = re.match(r"      - (.+)$", line)
+        if match:
+            category_by_path[_strip(match.group(1))] = current
+
+    return category_by_path
+
+
+def _entry_from_raw(priority: int, raw: dict[str, str], category_by_path: dict[str, str]) -> BundleEntry:
     path = raw.get("path", "")
     if not path:
         raise ValueError("Bundle entry without path")
     flatname = raw.get("cloud_flatname") or Path(path).name
     validate_flatname(flatname)
-    return BundleEntry(path=path, cloud_flatname=flatname)
+    category = category_for_path(path, category_by_path)
+    return BundleEntry(priority=priority, path=path, cloud_flatname=flatname, category=category)
+
+
+def category_for_path(path: str, category_by_path: dict[str, str]) -> str:
+    if path in category_by_path:
+        return category_by_path[path]
+    for pattern, category in category_by_path.items():
+        if pattern.endswith("/**") and path.startswith(pattern[:-3]):
+            return category
+    return "unlisted"
 
 
 def validate_flatname(flatname: str) -> None:
@@ -118,14 +236,18 @@ def validate_flatname(flatname: str) -> None:
 def validate_bundle(config: BundleConfig) -> list[str]:
     errors: list[str] = []
     seen: dict[str, str] = {}
-    for entry in config.files:
+    for expected_priority, entry in enumerate(config.files, start=1):
         source = ROOT / entry.path
+        if entry.priority != expected_priority:
+            errors.append(f"Priority gap: expected {expected_priority:02d}, got {entry.priority:02d} for {entry.path}")
         if not source.is_file():
             errors.append(f"Missing bundle source file: {entry.path}")
-        previous = seen.get(entry.cloud_flatname)
+        previous = seen.get(entry.cloud_name)
         if previous:
-            errors.append(f"cloud_flatname collision: {entry.cloud_flatname} for {previous} and {entry.path}")
-        seen[entry.cloud_flatname] = entry.path
+            errors.append(f"cloud filename collision: {entry.cloud_name} for {previous} and {entry.path}")
+        seen[entry.cloud_name] = entry.path
+        if not re.fullmatch(r"\d{2}_[A-Za-z0-9._-]+\.md", entry.cloud_name):
+            errors.append(f"Invalid numbered cloud filename: {entry.cloud_name}")
 
     # README входит в лимит загрузки, потому что архитектор обычно грузит cloud/ целиком.
     total_cloud_files = len(config.files) + 1
@@ -171,27 +293,34 @@ def render_readme(config: BundleConfig, asof: str, developer_head_sha: str) -> b
         "## Контракт",
         "",
         "- Источник состава: `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` → `orchestrator_context_bundle`.",
-        "- Каждый файл ниже является flat copy текущего repo content из origin path.",
+        "- Все файлы бандла имеют расширение `.md`, чтобы проходить upload-ограничения cloud-оркестратора.",
+        "- Нумерация задаёт приоритет: при лимите ниже полного бандла загружать первые N файлов по имени.",
+        "- Non-md источники завернуты в fenced-блок с языком исходного формата.",
         "- Проверка drift: `python docs/agent-system/tools/gen_cloud_bundle.py --check`.",
         "",
-        "## Состав",
+        "## Приоритетная карта",
         "",
-        "| origin path | cloud filename |",
-        "| --- | --- |",
+        "| priority | cloud filename | source path | category |",
+        "| --- | --- | --- | --- |",
+        f"| `00` | `{README_NAME}` | generated bundle guide | generated |",
     ]
     for entry in config.files:
-        lines.append(f"| `{entry.path}` | `{entry.cloud_flatname}` |")
+        lines.append(f"| `{entry.priority:02d}` | `{entry.cloud_name}` | `{entry.path}` | `{entry.category}` |")
 
     lines.extend(
         [
+            "",
+            "## Частичная загрузка",
+            "",
+            "Если engine принимает меньше файлов, чем полный бандл, загрузить `00_README.md` и первые N numbered-файлов по лексическому порядку. Двузначный префикс сохраняет правильный порядок при `10+` файлах.",
             "",
             "## Upload how-to",
             "",
             "### Chat UI / browser upload",
             "",
             "1. Открыть `docs/agent-system/cloud/`.",
-            "2. Загрузить все файлы из папки целиком, если интерфейс допускает текущий `file_count_including_readme`.",
-            "3. Если нужен incremental refresh, загрузить только изменённые flat-файлы из per-task handoff и этот `README.md`.",
+            "2. Загрузить все `.md` файлы из папки целиком, если интерфейс допускает текущий `file_count_including_readme`.",
+            "3. Если нужен incremental refresh, загрузить изменённые numbered-файлы из per-task handoff и этот `00_README.md`.",
             "",
             "### Google Drive for Desktop",
             "",
@@ -217,12 +346,30 @@ def render_readme(config: BundleConfig, asof: str, developer_head_sha: str) -> b
     return ("\n".join(lines).rstrip() + "\n").encode("utf-8")
 
 
+def render_entry(entry: BundleEntry) -> bytes:
+    source = ROOT / entry.path
+    suffix = source.suffix.lower()
+    if suffix == ".md":
+        return source.read_bytes()
+
+    language = LANG_BY_EXTENSION.get(suffix, suffix.lstrip(".") or "text")
+    source_text = source.read_text(encoding="utf-8")
+    lines = [
+        f"# Source: `{entry.path}`",
+        "",
+        f"```{language}",
+        source_text.rstrip(),
+        "```",
+        "",
+    ]
+    return "\n".join(lines).encode("utf-8")
+
+
 def expected_snapshot(config: BundleConfig) -> dict[str, bytes]:
     asof, developer_head_sha = freshness()
-    snapshot: dict[str, bytes] = {}
+    snapshot: dict[str, bytes] = {README_NAME: render_readme(config, asof, developer_head_sha)}
     for entry in config.files:
-        snapshot[entry.cloud_flatname] = (ROOT / entry.path).read_bytes()
-    snapshot[README_NAME] = render_readme(config, asof, developer_head_sha)
+        snapshot[entry.cloud_name] = render_entry(entry)
     return dict(sorted(snapshot.items()))
 
 
@@ -250,6 +397,13 @@ def check_snapshot(config: BundleConfig, snapshot: dict[str, bytes]) -> int:
     actual_files = {path.name: path for path in output_dir.iterdir()} if output_dir.exists() else {}
     expected_names = set(snapshot)
 
+    schema_errors = validate_cloud_schema(actual_files, len(snapshot))
+    if schema_errors:
+        errors += 1
+        print("Cloud bundle filename schema drift detected:", file=sys.stderr)
+        for error in schema_errors:
+            print(f"- {error}", file=sys.stderr)
+
     extra = sorted(set(actual_files) - expected_names)
     missing = sorted(expected_names - set(actual_files))
     if extra or missing:
@@ -275,6 +429,25 @@ def check_snapshot(config: BundleConfig, snapshot: dict[str, bytes]) -> int:
     return 1 if errors else 0
 
 
+def validate_cloud_schema(actual_files: dict[str, Path], expected_count: int) -> list[str]:
+    errors: list[str] = []
+    for name in sorted(actual_files):
+        if not name.endswith(".md"):
+            errors.append(f"non-md cloud file: {name}")
+        if not re.fullmatch(r"\d{2}_[A-Za-z0-9._-]+\.md", name):
+            errors.append(f"unnumbered or invalid cloud file: {name}")
+
+    expected_prefixes = {f"{index:02d}" for index in range(expected_count)}
+    actual_prefixes = {name[:2] for name in actual_files if re.match(r"^\d{2}_", name)}
+    if actual_prefixes != expected_prefixes:
+        errors.append(
+            "numbering is not continuous: "
+            f"expected {', '.join(sorted(expected_prefixes))}; "
+            f"actual {', '.join(sorted(actual_prefixes))}"
+        )
+    return errors
+
+
 def normalize_readme_for_check(content: bytes) -> bytes:
     text = content.decode("utf-8", errors="replace")
     for pattern, replacement in README_INFORMATIONAL_LINE_PATTERNS:
@@ -289,8 +462,8 @@ def _byte_diff(actual: bytes, expected: bytes, fromfile: str, tofile: str) -> st
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate docs/agent-system/cloud/ from orchestrator_context_bundle.")
-    parser.add_argument("--check", action="store_true", help="Check cloud bundle drift and source file existence.")
+    parser = argparse.ArgumentParser(description="Generate numbered .md cloud bundle from orchestrator_context_bundle.")
+    parser.add_argument("--check", action="store_true", help="Check cloud bundle drift, source files and numbered .md schema.")
     args = parser.parse_args(argv)
 
     config = parse_bundle(MANIFEST.read_text(encoding="utf-8"))

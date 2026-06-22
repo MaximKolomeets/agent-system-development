@@ -138,4 +138,15 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | path | description from manifest |
 | --- | --- |
 | `docs/agent-system/PROJECT_FILE_MAP.md` |  |
-| `docs/agent-system/cloud/**` |  |
+| `docs/agent-system/cloud/00_README.md` |  |
+| `docs/agent-system/cloud/01_ORCHESTRATOR_OPERATING_CONTRACT.md` |  |
+| `docs/agent-system/cloud/02_ORCHESTRATOR_RESPONSE_STANDARD.md` |  |
+| `docs/agent-system/cloud/03_TASK_HEADER_COMMON.md` |  |
+| `docs/agent-system/cloud/04_BRANCH_POLICY.md` |  |
+| `docs/agent-system/cloud/05_ENGINE_JOURNAL_CONTRACT.md` |  |
+| `docs/agent-system/cloud/06_CURRENT_STATE.md` |  |
+| `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md` |  |
+| `docs/agent-system/cloud/08_NEXT_STEPS.md` |  |
+| `docs/agent-system/cloud/09_ENGINE_ENTRYPOINT.md` |  |
+| `docs/agent-system/cloud/10_PROJECT_FILE_MAP.md` |  |
+| `docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md` |  |
