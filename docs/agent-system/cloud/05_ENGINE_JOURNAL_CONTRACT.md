@@ -319,6 +319,8 @@ Legacy-записи, где old policy уже продублировала merge
 - `open; not merged`;
 - `merged; closure pending`.
 
+Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal `closed-at-creation` summary в `INDEX` не должен после merge сохранять `own PR ... open` и заменяется merged-фактом собственного PR без self-reference на собственный head SHA. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate.
+
 Если merge commit SHA доступен в GitHub или local git history, closure должен зафиксировать его в `RESULT` closure-stamp. Отсутствие merge commit SHA в `RESULT` после обязательного closure-прохода без явного объяснения считается blocker. Отсутствие merge commit SHA в `INDEX` не является blocker.
 
 Если closure-stamp в `RESULT` или status/PR URL в `INDEX` противоречит GitHub PR state после обязательного closure-прохода, reviewer должен считать это blocker.
