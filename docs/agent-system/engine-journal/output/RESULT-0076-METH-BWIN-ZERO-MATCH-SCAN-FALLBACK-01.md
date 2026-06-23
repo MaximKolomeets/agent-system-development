@@ -7,8 +7,8 @@
 ## Execution timestamps
 
 - execution_started_at: `2026-06-23T23:27:37.8208017+07:00`
-- execution_finished_at: `будет заполнено перед финальным push`
-- reported_at: `будет заполнено перед финальным push`
+- execution_finished_at: `2026-06-23T23:31:34.1482715+07:00`
+- reported_at: `2026-06-23T23:31:34.1482715+07:00`
 
 ## Baseline
 
@@ -35,7 +35,7 @@
 - `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"` → exit 0.
 - `git diff --check` → exit 0; только стандартные Windows line-ending warnings.
 - wording scan по `zero-match/no-output`, `Select-String`, `filename-only/count-only` → новые формулировки найдены в 4 канонических файлах и cloud mirror.
-- placeholder scan deterministic fallback (`Select-String`) → до PR ожидаемо нашёл PR placeholders в RESULT/INDEX; после PR creation должен быть повторён и стать 0.
+- placeholder scan deterministic fallback (`Select-String`) → до PR ожидаемо нашёл PR placeholders в RESULT/INDEX; после PR creation повторён и должен быть 0 после этой финализации.
 - sensitive filename-only/count-only scan → count-only `28` по изменённым файлам; matching lines не печатались, секреты не выводились.
 - branch guard → `work/docs-maintainer-01/bwin-zero-match-scan-fallback-01`.
 
@@ -58,9 +58,10 @@
 
 ## Pull Request
 
-- PR: будет создан после первичного commit/push.
-- PR URL: будет заполнено после `gh pr create`.
-- head SHA: будет заполнено после финального push.
+- PR: #223.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/223
+- head SHA at PR creation: `f3ffed46274c4ff293dbec64577e4f404833fc48`.
+- final PR head SHA после journal-finalization commit проверяется через GitHub PR metadata; RESULT не self-references финальный commit SHA.
 
 ## Передача
 
