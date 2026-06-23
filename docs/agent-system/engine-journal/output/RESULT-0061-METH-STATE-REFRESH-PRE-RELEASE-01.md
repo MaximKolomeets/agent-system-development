@@ -1,6 +1,6 @@
 # RESULT-0061-METH-STATE-REFRESH-PRE-RELEASE-01
 
-Статус: ready for review.
+Статус: closed; PR #205 merged; facts in closure-stamp.
 
 ## Summary
 
