@@ -1,6 +1,6 @@
 # RESULT-0063-METH-RELEASE-REVIEW-GATE-01
 
-Статус: ready for review.
+Статус: closed; PR #207 merged; facts in closure-stamp.
 
 ## Summary
 

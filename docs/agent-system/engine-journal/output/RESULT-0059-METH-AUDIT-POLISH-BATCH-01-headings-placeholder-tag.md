@@ -1,6 +1,6 @@
 # RESULT-0059-METH-AUDIT-POLISH-BATCH-01
 
-Статус: open; ready for review; RESULT/INDEX finalized after PR creation.
+Статус: closed; PR #203 merged; facts in closure-stamp.
 
 ## Кратко
 

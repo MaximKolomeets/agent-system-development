@@ -1,6 +1,6 @@
 # RESULT-0056-METH-CLOUD-EOL-CHECK-01
 
-Статус: open; ready for review; RESULT/INDEX finalized after PR creation.
+Статус: closed; PR #200 merged; facts in closure-stamp.
 
 ## Кратко
 

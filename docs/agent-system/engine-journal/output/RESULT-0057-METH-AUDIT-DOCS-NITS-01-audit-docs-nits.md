@@ -1,6 +1,6 @@
 # RESULT-0057-METH-AUDIT-DOCS-NITS-01
 
-Статус: open; ready for review; RESULT/INDEX finalized after PR creation.
+Статус: closed; PR #201 merged; facts in closure-stamp.
 
 ## Кратко
 
