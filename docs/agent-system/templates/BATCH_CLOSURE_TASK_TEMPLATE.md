@@ -13,6 +13,8 @@ Reasoning effort: средний
 Запуск: Local only
 Режим: Agent
 Почему: задача сверяет GitHub merge facts с RESULT closure-stamps и закрывает только journal перед release.
+Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 
 ## Режим
 

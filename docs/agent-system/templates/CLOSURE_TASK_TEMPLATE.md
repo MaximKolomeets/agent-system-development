@@ -13,6 +13,8 @@ Reasoning effort: низкий
 Запуск: Local only
 Режим: Agent
 Почему: задача меняет только journal-факты после merge и требует branch-guard.
+Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 
 ## Режим
 
