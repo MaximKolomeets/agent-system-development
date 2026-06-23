@@ -1,6 +1,6 @@
 # RESULT-0071: METH-EXEC-TIMESTAMPS-01
 
-Статус: ready for review; PR #217 открыт.
+Статус: closed; PR #217 merged; facts in RESULT closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0071-METH-EXEC-TIMESTAMPS-01.md`
 Режим источника задачи: chat/attachment handoff
@@ -74,3 +74,23 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 ## Передача
 
 Следующий: reviewer — review PR #217: timestamp canon, non-retrofit/minor-finding semantics, dogfood TASK/RESULT fields, cloud/file-map checks. Затем архитектор — merge; затем engine — batch-closure перед release; затем полный methodology audit валидирует новые time fields.
+
+## Closure-stamp после merge
+
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/217
+- Work PR status: merged
+- Work PR merge commit SHA: `4705f92393327691f12cfb8eb89d17845b4191d3`
+- Work PR merged_at: `2026-06-23T09:03:34Z`
+- Final head SHA: `8698524f2a4bbfb2bb6282151093d56125695b2d`
+- Release PR status: не применимо
+- Release PR merge commit SHA: не применимо
+- Release PR merged_at: не применимо
+- Sync PR status: не применимо
+- Sync PR merge commit SHA: не применимо
+- Sync PR merged_at: не применимо
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- Final-state surfaces cleared: верхний status-marker RESULT закрыт; INDEX row 0071 переведён в `closed` + PR URL без полного mergeCommit.
+- Safe summary checks: PR #217 merge facts verified through `gh pr view 217 --json url,state,mergedAt,mergeCommit,headRefOid`; generated checks rerun by closure task 0072.
+- Next step after closure: reviewer — consistency review PR closure 0072; затем архитектор — merge; затем engine — огромный аудит методологии (Блок 3); release держим.
