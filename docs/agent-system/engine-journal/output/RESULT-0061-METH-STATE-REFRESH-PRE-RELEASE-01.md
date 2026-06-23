@@ -79,3 +79,21 @@ Source-reminder: не применимо (каноны/шаблоны/контр
 ## Передача
 
 Следующий: reviewer — проверить state-refresh PR; затем архитектор — merge state-refresh PR; затем engine — release-prep (закрыть 0061 per-task и подготовить release PR `developer -> main`, не мержить); затем архитектор — merge release PR + tag; затем engine — sync `main -> developer`, чистка веток, downstream adoption на tag.
+
+## Closure stamp
+
+- Closure task: `METH-RELEASE-PREP-DEV-TO-MAIN-01`.
+- Closure seq: `0062`.
+- Closure timestamp: `2026-06-23T09:00:21+07:00`.
+- Work PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/205
+- Work PR state: `MERGED`.
+- Work PR merged_at: `2026-06-23T01:58:50Z`.
+- Work PR merge commit SHA: `e8761f7ec206214ab462564edc54d1dc3959abba`.
+- Work PR final head SHA before merge: `ac8986d90521531033046ec90ced8e58e5a9a266`.
+- Release PR: не применимо к work PR #205; release PR готовится после merge closure-PR 0062.
+- Sync PR: не применимо.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- Safe summary: state-refresh PR #205 merged; live state docs refreshed before release; authoritative merge facts recorded in this closure stamp.
+- Next step: merge closure-PR 0062, then prepare/open release PR `developer -> main`; release PR merge and tag are human-only.
