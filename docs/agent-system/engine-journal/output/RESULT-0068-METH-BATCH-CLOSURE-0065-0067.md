@@ -62,11 +62,13 @@
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/212.
+- PR number: #212.
+- PR created_at: `2026-06-23T07:25:48Z`.
 - Own mergeCommit: `stamp at merge`.
-- RESULT finalized: pending after PR creation.
-- INDEX finalized: pending after PR creation.
-- No journal placeholders: pending after PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Передача
 
@@ -74,5 +76,5 @@
 
 ## Локальные действия после PR/merge
 
-- Будет создан docs-only closure PR из `work/docs-maintainer-01/batch-closure-0065-0067` в `developer`.
-- После создания PR RESULT/INDEX 0068 будут финализированы без unresolved placeholders.
+- Создан docs-only closure PR #212: https://github.com/MaximKolomeets/agent-system-development/pull/212.
+- RESULT/INDEX 0068 финализированы без unresolved placeholders; собственный mergeCommit = `stamp at merge`.

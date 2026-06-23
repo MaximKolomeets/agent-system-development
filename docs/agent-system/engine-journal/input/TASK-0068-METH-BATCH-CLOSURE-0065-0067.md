@@ -36,4 +36,4 @@
 - Любой PR из 0065/0066/0067 не `MERGED`.
 - HEAD не рабочая ветка задачи.
 - Diff выходит за journal/cloud allowlist.
-- В INDEX остаётся `own PR ... open` или pre-merge status для закрываемого набора.
+- В INDEX остаётся own-PR-open wording или pre-merge status для закрываемого набора.
