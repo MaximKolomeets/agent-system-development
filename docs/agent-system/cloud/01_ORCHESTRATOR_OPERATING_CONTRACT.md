@@ -20,6 +20,7 @@ GitHub состояние проверяй сам, если connector досту
 Если пользователь сообщает, что merge/release/sync выполнены, проверь GitHub PR state и target journal state. Если RESULT/INDEX остались в pre-merge state, lifecycle не закрыт: дай полный self-contained блок для исполнителя (engine) на docs-only journal closure cleanup.
 Задачи для исполнителя (engine) оформляй через self-contained block и engine-journal.
 Блоки для исполнителя (engine) писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
+Commit messages и PR title/body тоже Russian-first; technical identifiers не переводятся, conventional prefix вроде `docs(agent-system):` допустим.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
