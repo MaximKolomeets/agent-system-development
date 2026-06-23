@@ -59,11 +59,12 @@ Source-reminder: не применим; methodology content не менялся.
 
 ## Journal finalization
 
-- PR URL: pending PR creation.
-- PR status after journal finalization: pending.
-- RESULT finalized: no.
-- INDEX finalized: no.
-- No journal placeholders: no.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/210
+- PR status after journal finalization: `OPEN`; mergeable: `MERGEABLE`.
+- PR head after first publication: `53d0bbdf4f08bc8b8301b269b92decc5b13452f0`.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Передача
 
@@ -71,4 +72,4 @@ Source-reminder: не применим; methodology content не менялся.
 
 ## Локальные действия после PR/merge
 
-- Будет создан docs-only PR после проверок.
+- Создан docs-only PR #210: https://github.com/MaximKolomeets/agent-system-development/pull/210.
