@@ -38,6 +38,7 @@
 - placeholder scan deterministic fallback (`Select-String`) → до PR ожидаемо нашёл PR placeholders в RESULT/INDEX; после PR creation повторён и должен быть 0 после этой финализации.
 - sensitive filename-only/count-only scan → count-only `28` по изменённым файлам; matching lines не печатались, секреты не выводились.
 - branch guard → `work/docs-maintainer-01/bwin-zero-match-scan-fallback-01`.
+- post-push B-WIN evidence: параллельный wrapper финального generated `--check` прохода завис без вывода и без живого полезного `python` процесса; sequential fallback `cmd /c python docs\agent-system\tools\gen_file_map.py --check` и `cmd /c python docs\agent-system\tools\gen_cloud_bundle.py --check` выполнен отдельно, оба exit 0.
 
 ## Source Delta
 
