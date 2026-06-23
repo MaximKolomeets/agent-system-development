@@ -67,3 +67,14 @@
 ## Передача
 
 Следующий: reviewer — review PR по B-WIN zero-match/no-output scan fallback, проверить deterministic fallback wording, sensitive-safe scan wording, оба generated `--check` и cloud mirror; затем архитектор — merge; затем engine — batch-closure серии 0073..0076 перед release.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01` / `TASK-0077`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/223
+- PR state: MERGED
+- merged_at: `2026-06-23T16:44:22Z`
+- merge_commit: `4535ebb41e15b7752b8a611a14becf9d74d20b71`
+- headRefOid: `4b2b1d025d976b27432f050b46a9d2b957b61149`
+- closed_after_merge: yes
+- facts_source: `gh pr view 223 --json state,mergedAt,mergeCommit,headRefOid,url`

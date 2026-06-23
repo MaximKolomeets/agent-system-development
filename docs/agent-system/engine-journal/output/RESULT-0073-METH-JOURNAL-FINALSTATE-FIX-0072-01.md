@@ -1,6 +1,6 @@
 # RESULT-0073: METH-JOURNAL-FINALSTATE-FIX-0072-01
 
-Статус: ready for review; PR #220 open; terminal closure pending after merge.
+Статус: closed; PR #220 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0073-METH-JOURNAL-FINALSTATE-FIX-0072-01.md`
 Режим task source: attachment handoff materialized in this branch
@@ -25,8 +25,8 @@ Branch: `work/docs-maintainer-01/journal-finalstate-fix-0072-01`
 Baseline SHA: `6a9399b6a0efde2dc4957f2b40d62c19095b2144`
 Primary materialization commit SHA: `54a2d1fb5d0d90886b38615e4296e23f2ccae0a8`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/220
-PR state: OPEN
-Latest verified PR head SHA after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #220 и final report.
+PR state: MERGED
+Latest verified PR head SHA after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #220.
 
 ## Выполнено
 
@@ -67,3 +67,14 @@ Source-reminder: не применимо (методология не менял
 ## Передача
 
 Следующий: архитектор — merge PR #220; затем engine — чистый перезапуск full audit; release держим.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01` / `TASK-0077`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/220
+- PR state: MERGED
+- merged_at: `2026-06-23T15:50:11Z`
+- merge_commit: `a51a35b8b731fc948d7f8cd79760db69af0715d4`
+- headRefOid: `e3fffe4b5c39c2ae8e37f1456bc0880658006dcb`
+- closed_after_merge: yes
+- facts_source: `gh pr view 220 --json state,mergedAt,mergeCommit,headRefOid,url`

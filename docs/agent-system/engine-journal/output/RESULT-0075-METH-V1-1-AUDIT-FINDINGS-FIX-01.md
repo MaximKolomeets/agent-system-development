@@ -79,3 +79,14 @@
 ## Передача
 
 Следующий: reviewer — review PR по F-17/F-18/F-06/F-10/F-LEGACY, проверить оба generated `--check`, cloud mirror и отсутствие tag/GitHub Release действий; затем архитектор — merge; затем engine — batch-closure текущей fix-серии перед release.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01` / `TASK-0077`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/222
+- PR state: MERGED
+- merged_at: `2026-06-23T16:23:57Z`
+- merge_commit: `63875b53d6a77ffd14182167bc5125df96ba36d9`
+- headRefOid: `d6d565c10bac5c786b41ac350a4570c9220a09fb`
+- closed_after_merge: yes
+- facts_source: `gh pr view 222 --json state,mergedAt,mergeCommit,headRefOid,url`
