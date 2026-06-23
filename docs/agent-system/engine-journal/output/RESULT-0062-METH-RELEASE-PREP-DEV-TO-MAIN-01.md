@@ -1,6 +1,6 @@
 # RESULT-0062-METH-RELEASE-PREP-DEV-TO-MAIN-01
 
-Статус: closed-at-creation; terminal release-prep closure; pending PR creation.
+Статус: closed-at-creation; terminal release-prep closure.
 
 ## Summary
 
@@ -34,7 +34,7 @@ Release PR `developer -> main` не открыт в этом PR: по task STOP-
 - `python docs/agent-system/tools/gen_file_map.py --check` -> exit 0.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check` -> exit 0.
 - INDEX closure scan `0055..0061` -> exit 0: status columns are closed/closed-at-creation as expected.
-- journal placeholder scan -> pending until PR creation finalization.
+- journal placeholder scan -> exit 0 after PR creation finalization.
 - tree parity expectation `origin/main..origin/developer` -> non-empty release payload, 37 changed paths.
 - `git diff --check` -> exit 0.
 - branch guard before commit -> `work/docs-maintainer-01/release-prep-dev-to-main-01`.
@@ -58,7 +58,7 @@ Source-reminder: не применимо (методология/каноны/ш
 
 ## Release PR handoff
 
-- Closure-PR 0062: pending PR creation.
+- Closure-PR 0062: https://github.com/MaximKolomeets/agent-system-development/pull/206
 - Release PR `developer -> main`: not created yet.
 - Reason: release PR must be opened only after closure-PR 0062 is merged into `developer`; otherwise release PR would include an unclosed journal entry.
 - Release notes draft for next step:
@@ -70,16 +70,17 @@ Source-reminder: не применимо (методология/каноны/ш
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- PR status after journal finalization: pending.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/206
+- PR status after journal finalization: OPEN; mergeable: MERGEABLE.
+- PR head after first publication: `4e44c225f5b2a21eacce3d70755ff341344af4be`.
 - Own mergeCommit: stamp at merge.
-- RESULT finalized: no, pending PR creation.
-- INDEX finalized: no, pending PR creation.
-- No journal placeholders: no, pending PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Локальные действия после PR/merge
 
-- После PR creation обновить RESULT/INDEX фактическими PR URL/status и допушить follow-up commit.
+- PR #206 создан; RESULT/INDEX финализированы фактическим PR URL/status; follow-up commit допушен в тот же PR.
 - После merge closure-PR 0062: engine переключается на `developer`, выполняет `git pull --ff-only`, повторяет оба `--check`, открывает release PR `developer -> main` и не мержит его.
 
 ## Передача
