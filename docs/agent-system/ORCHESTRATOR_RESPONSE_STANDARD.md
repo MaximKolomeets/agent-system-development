@@ -219,6 +219,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если release/sync выполнены, записаны ли release/sync факты?
 - [ ] Если journal stale, создан ли полный блок для исполнителя (engine) для docs-only closure cleanup?
 - [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
+- [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Журнал исполнителя (engine)

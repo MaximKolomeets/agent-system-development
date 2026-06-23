@@ -132,6 +132,8 @@ Final report и RESULT обязаны включать блок «Source Delta»
 
 Если generated `--check` на Windows зависает в wrapper/parallel runner без живого полезного процесса, task использует read-only sequential fallback по `ORCHESTRATOR_OPERATING_CONTRACT.md`: `cmd /c python <generator> --check`; RESULT фиксирует fallback, команду и exit code. Это правило не заменяет обычные runtime/test checks.
 
+Если zero-match/no-output scan на Windows (`rg` или wrapper/shell scan) зависает без вывода и без живого полезного процесса, task использует deterministic fallback по `ORCHESTRATOR_OPERATING_CONTRACT.md`: `Select-String`, PowerShell script, Python script/one-liner или другой sequential scan с явным exit code. RESULT фиксирует fallback-команду, exit code и смысл результата; sensitive matches не печатать построчно, использовать filename-only/count-only.
+
 ## Orchestrator context handoff
 
 Final report и RESULT обязаны включать строку для архитектора перед блоком

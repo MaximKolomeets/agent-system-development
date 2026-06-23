@@ -68,6 +68,8 @@ python docs/agent-system/tools/gen_cloud_bundle.py --check
 
 Windows fallback: если wrapper, parallel runner или shell-композиция для generated `--check` зависает без живого полезного процесса, это не является parity failure. Для read-only generated checks нужно выполнить sequential fallback, предпочтительно `cmd /c python <generator> --check`, и считать gate-result по exit code этой последовательной команды. RESULT обязан записать, что применён fallback, указать команду и exit code. Это правило относится только к read-only generated text checks и не переносится на произвольные runtime/test jobs.
 
+Zero-match/no-output scan fallback: на Windows read-only scans/checks не должны полагаться только на wrapper/parallel `rg`, если он зависает без вывода и без живого полезного процесса. Такой hang не является содержательной scan-находкой и не считается самостоятельным FAIL. Нужно повторить scan последовательным deterministic способом с явным exit code: `Select-String`, PowerShell script, Python script/one-liner или другая простая sequential command. RESULT обязан записать fallback-команду, exit code и смысл результата: zero matches подтверждены или matches найдены. Правило относится к read-only scans/checks вроде placeholder scan, sensitive filename-only/count-only scan, heading scan, wording scan и vendor scan; sensitive matches не печатать построчно, использовать filename-only или count-only.
+
 Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество numbered-файлов по per-task handoff. `cloud/00_README.md` является авторитетной картой `source path -> cloud filename`, содержит priority map, freshness stamp и upload how-to.
 
 ### Per-task footer naming
