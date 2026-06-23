@@ -51,12 +51,13 @@
 
 ## Journal finalization
 
-- PR URL: pending PR creation.
-- PR status after journal finalization: pending.
-- RESULT finalized: no.
-- INDEX finalized: no.
-- No journal placeholders: no.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/211
+- PR status after journal finalization: `OPEN`; mergeable: `MERGEABLE`.
+- PR head after first publication: `7937868ed130a1429616c4397ebe1709230367c8`.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Передача
 
-Следующий: архитектор — merge PR; затем engine — closure записей 0065/0066/0067; затем reviewer — repeat consistency-gate; release держим до GATE PASS.
+Следующий: архитектор — merge PR #211; затем engine — closure записей 0065/0066/0067; затем reviewer — repeat consistency-gate; release держим до GATE PASS.
