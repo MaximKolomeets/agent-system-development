@@ -10,7 +10,7 @@
 
 Пункты ниже сохранены полностью как проверяемый список.
 
-## Repository identity
+## Идентичность repository
 
 - [ ] Repository name заменен на имя target repository.
 - [ ] Repository visibility подтверждена отдельно от methodology repository.
@@ -19,7 +19,7 @@
 - [ ] Private data не переносится в public methodology repository.
 - [ ] `agent-system-development` описан как methodology/template repository, а не как центральный repository управления target repository.
 
-## Header задачи исполнителя (engine)
+## Шапка задачи исполнителя (engine)
 
 - [ ] Задачи для `engine` формулируются на русском языке.
 - [ ] Шапка использует формат `Задача для <роль>: <task-id>`.
@@ -27,7 +27,7 @@
 - [ ] `<task-id>` связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 - [ ] Шапка содержит запуск, модель, reasoning, режим работы и причину выбора режима.
 
-## Branch model
+## Модель веток (branch model)
 
 - [ ] Определен lifecycle mode: `new empty bootstrap` или `existing adoption`.
 - [ ] Определена selected branch model.
@@ -41,7 +41,7 @@
 - [ ] Task templates используют реальные branch names.
 - [ ] GitHub Actions branch filters проверены.
 
-## State documents
+## Документы состояния (state documents)
 
 - [ ] `CURRENT_STATE.md` переписан по фактам target repository.
 - [ ] `NEXT_STEPS.md` переписан по текущему плану target repository.
@@ -49,7 +49,7 @@
 - [ ] Template repository state не скопирован verbatim.
 - [ ] Worktree paths заменены на target repository paths.
 
-## Project governance pack
+## Набор governance для проекта (project governance pack)
 
 - [ ] `PROJECT_CONSTITUTION.md` создан по фактам target repository.
 - [ ] Mission и success criteria зафиксированы.
@@ -71,7 +71,7 @@
 - [ ] Branch pattern не содержит vendor/tool names.
 - [ ] После PR обновляются state docs.
 
-## Governance review checklist
+## Чеклист governance-review (governance review checklist)
 
 - [ ] Изменение соответствует mission.
 - [ ] Изменение соответствует current strategic goal.
@@ -79,7 +79,7 @@
 - [ ] Изменение не меняет architecture level без approval.
 - [ ] Требуется ли explicit user approval проверено.
 
-## External/code review adoption
+## Включение external/code review
 
 - [ ] Selected reviewer role defined: `code-reviewer-01`, `qa-reviewer-01` или `security-reviewer-01`.
 - [ ] Имя исполнителя (engine) отделено от role name.
@@ -91,7 +91,7 @@
 - [ ] Sensitive grep result is filename-only.
 - [ ] Report uses Critical, Important, Optional findings categories.
 
-## Language consistency
+## Языковая согласованность
 
 - [ ] Governance docs use one primary human language.
 - [ ] For Russian-language projects, governance docs are in Russian.
@@ -99,7 +99,7 @@
 - [ ] English is preserved for paths, commands, code identifiers, config keys, package names, API names, vendor/tool names.
 - [ ] Mixed-language sections are either justified or normalized.
 
-## Commenting consistency
+## Согласованность комментариев
 
 - [ ] New or changed scripts contain Russian comments for non-obvious and safety-critical lines/blocks.
 - [ ] Git, branch, push, merge, deletion, remote and security-check commands are commented.
@@ -108,19 +108,19 @@
 - [ ] Comments explain what the line/block does and why it exists.
 - [ ] Comments do not include secrets, private data or downstream project names.
 
-## Methodology freshness
+## Свежесть методологии
 
 - [ ] Оркестратор проверил актуальный `agent-system-development` перед подготовкой engine task.
 - [ ] Исполнитель (engine) синхронизировал или свежо прочитал `agent-system-development` перед применением methodology.
 - [ ] If sync/check was impossible, the limitation is stated in the report.
 - [ ] Methodology feedback is neutral and does not reveal private data.
 
-## Transfer manifest consistency
+## Согласованность transfer manifest
 
 - [ ] Transfer manifest не содержит противоречий между reusable templates и target-adapted files.
 - [ ] Reusable source templates отделены от materialized target files.
 
-## Security
+## Безопасность (security)
 
 - [ ] `.env` не читался и не переносился.
 - [ ] `.env.*` не переносились, кроме безопасного `.env.example`.
@@ -129,7 +129,7 @@
 - [ ] Sensitive grep выполнялся только filename-only.
 - [ ] Matching lines sensitive grep не печатались.
 
-## Adoption mode
+## Режим adoption (adoption mode)
 
 - [ ] Выбран режим `audit-only`, `docs-only adoption` или `runtime adoption`.
 - [ ] Для первого dry run выбран `audit-only`, если пользователь не решил иначе.
@@ -137,7 +137,7 @@
 - [ ] Docs-only adoption не содержит runtime changes.
 - [ ] Runtime adoption имеет отдельное архитектурное решение, ветку и PR.
 
-## Review
+## Проверка (review)
 
 - [ ] `ADOPTION_TRANSFER_MANIFEST.yml` применен как transfer map.
 - [ ] Local `AGENTS.md` target repository имеет приоритет.

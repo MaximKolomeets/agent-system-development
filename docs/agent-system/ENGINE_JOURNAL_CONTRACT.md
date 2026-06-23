@@ -228,6 +228,8 @@ Ready-for-review PR не должен содержать unresolved journal plac
 - `<result>`;
 - `<check command>`.
 
+Placeholder-scan применяется к finalized `RESULT`/`INDEX` и concrete state/status docs. Легитимные шаблонные поля в templates/examples (`<роль>`, `<task-id>`, `<commit-sha>` и подобные), а также определения forbidden placeholders в тексте политики не являются findings сами по себе. Finding — только unresolved placeholder в finalized или concrete контексте, где уже должно стоять фактическое значение.
+
 Reviewer должен считать такие placeholders blocker.
 
 ## Политика PR head SHA без self-reference
@@ -317,6 +319,8 @@ Legacy-записи, где old policy уже продублировала merge
 - `open; not merged`;
 - `merged; closure pending`.
 
+Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal `closed-at-creation` summary в `INDEX` не должен после merge сохранять `own PR ... open` и заменяется merged-фактом собственного PR без self-reference на собственный head SHA. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate.
+
 Если merge commit SHA доступен в GitHub или local git history, closure должен зафиксировать его в `RESULT` closure-stamp. Отсутствие merge commit SHA в `RESULT` после обязательного closure-прохода без явного объяснения считается blocker. Отсутствие merge commit SHA в `INDEX` не является blocker.
 
 Если closure-stamp в `RESULT` или status/PR URL в `INDEX` противоречит GitHub PR state после обязательного closure-прохода, reviewer должен считать это blocker.
@@ -328,6 +332,34 @@ Legacy-записи, где old policy уже продублировала merge
 Closure-policy consistency check применяется к операционным правилам, active templates, handoff contracts, review checklists и current workflow instructions.
 
 Append-only journal entries, decision log, dated state snapshots и docs-maintainer sync reports сохраняют исторические literals старой политики и не входят в check F. Такие файлы не переписываются ради терминологического scrub, если они описывают прошлое решение/состояние, а не действующее правило.
+
+## Pre-release reviewer consistency-gate
+
+Перед каждым release `developer -> main`, после state-refresh и до human merge, обязателен journaled reviewer consistency-gate по release payload. Это focused delta-review накопленной release-серии, а не повтор полного аудита методологии.
+
+Gate выполняет роль reviewer (`code-reviewer-01` или `qa-reviewer-01`). Режим: read-only по содержанию, `Journal trace: always`, `Report delivery: chat`, ветка `work/<reviewer-role>/<task>`, docs-only journal PR в `developer`. Отдельный новый шаблон не создаётся: reviewer использует существующий pattern `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md` + `docs/agent-system/templates/TASK_HEADER_COMMON.md`.
+
+Release payload = накопленный diff `origin/main...origin/developer`, то есть вся серия изменений, которая войдёт в release PR.
+
+Reviewer подтверждает:
+
+- release payload соответствует ровно merged-серии по `INDEX.md`, без посторонних или необъяснённых изменений;
+- `python docs/agent-system/tools/gen_file_map.py --check` и `python docs/agent-system/tools/gen_cloud_bundle.py --check` проходят на release-кандидате;
+- journal закрыт сквозняком: closure-stamp есть в `RESULT`, а `INDEX` содержит closed status + PR URL по всем seq серии;
+- Source Delta и context handoff согласованы по серии;
+- release notes соответствуют фактическому payload;
+- unresolved placeholders отсутствуют;
+- проверки из раздела «Проверка target repository» применены агрегированно к release payload.
+
+Любой невыполненный пункт блокирует release.
+
+Запись reviewer-gate закрывается per-task в release-prep вместе с остальными pre-release записями, чтобы release PR не включал незакрытый journal.
+
+### Отношение к полному аудиту
+
+Полный сквозной аудит методологии — отдельный baseline-проход по необходимости: перед первой downstream adoption, при крупном изменении методологии или по явному запросу. Он не выполняется на каждый release/PR.
+
+Регулярный release-gate — это focused delta consistency-gate по release payload. Per-PR review внутри batch-серии остаётся review-only и не требует полного аудита методологии.
 
 ## Правило review
 

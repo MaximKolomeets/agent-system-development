@@ -56,7 +56,7 @@ External reviewer не заменяет orchestrator и не принимает 
 
 ## Режимы применения ролей
 
-### Lightweight solo-operator mode
+### Лёгкий solo-operator режим (Lightweight solo-operator mode)
 
 - один оператор может последовательно выполнять функции orchestrator, engine и reviewer;
 - роли используются как checklist ответственности, а не как требование запускать разных исполнителей;
@@ -64,7 +64,7 @@ External reviewer не заменяет orchestrator и не принимает 
 - для file-changing tasks сохраняются рабочая ветка, PR, journal finalization и локальный sync block;
 - допускается компактный review, если риск низкий и scope docs-only, но reviewer boundary остается явно проверенным.
 
-### Multi-agent governed mode
+### Управляемый multi-agent режим (Multi-agent governed mode)
 
 - роли выполняют разные агенты, люди или tools;
 - одна задача = одна ветка = один PR;

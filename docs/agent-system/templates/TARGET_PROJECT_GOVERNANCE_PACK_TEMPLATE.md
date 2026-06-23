@@ -127,7 +127,7 @@ Engine journal in a target repository is project-specific operational history.
 Use methodology repository scaffold/templates, but do not copy methodology
 operational history or existing task/result entries.
 
-## Target-specific files
+## Файлы, специфичные для target (target-specific files)
 
 Не копировать эти файлы verbatim из methodology repository:
 
@@ -164,7 +164,7 @@ work/<роль>/<task-id>
 - engine выбирается для конкретной задачи и фиксируется в task header.
 - `ENGINE_REGISTRY.md` содержит Agent Authority Matrix, согласованную с `PROJECT_CONSTITUTION.md`.
 
-## Governance review checklist
+## Чеклист governance-review (governance review checklist)
 
 - [ ] Изменение соответствует mission.
 - [ ] Изменение соответствует current strategic goal.

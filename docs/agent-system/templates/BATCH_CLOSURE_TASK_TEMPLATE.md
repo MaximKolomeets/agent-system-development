@@ -85,6 +85,7 @@ docs/agent-system/engine-journal/INDEX.md
   - next step after closure.
 - В строке INDEX <seq> обновить только status + PR URL и safe one-line summary; optional mergedAt date допустима для навигации. Полный merge commit SHA в INDEX не дублировать: авторитетные merge-факты находятся в RESULT closure-stamp.
 - Снять stale `open`, `not merged`, `ready for review`, `PR open`, `draft open`, `pending at file materialization`, `see Engine final report`, если они относятся к final status закрываемой записи.
+- Очистить final-state surfaces для каждого закрываемого seq: верхний status-marker закрываемого RESULT привести к closed-статусу, согласованному с closure-stamp; terminal INDEX summary не оставлять с `own PR ... open`, а после merge собственного PR заменять на merged-факт без self-reference на собственный head SHA.
 - Historical task/result content не переписывать произвольно.
 
 Для собственной batch-closure записи:
@@ -111,6 +112,10 @@ rg -n "PR open|ready for review|draft open|open; not merged|merged; closure pend
 ```
 
 Если совпадения относятся к историческим литералам вне closure-set, перечислить их в RESULT. Если совпадения относятся к final status closure-set — STOP.
+
+Completion checklist:
+
+- [ ] final-state surfaces cleared: верхние RESULT-статусы и terminal INDEX summary не содержат pre-merge/`own PR open` значений.
 
 ## Commit / PR
 

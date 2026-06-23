@@ -2,17 +2,17 @@
 
 Этот файл создается в target repository по фактам target project. Не копировать project-specific state из methodology repository или другого target repository.
 
-## Project Mission
+## Миссия проекта (Project Mission)
 
 `<short mission statement>`
 
-## Success Criteria
+## Критерии успеха (Success Criteria)
 
 - `<success criterion>`;
 - `<success criterion>`;
 - `<success criterion>`.
 
-## Out Of Scope
+## Вне scope (Out Of Scope)
 
 - `<out-of-scope direction>`;
 - new products before explicit approval;
@@ -25,7 +25,7 @@
 - new business directions before explicit approval;
 - runtime or infrastructure changes outside approved stage.
 
-## Architectural Principles
+## Архитектурные принципы (Architectural Principles)
 
 - `<target architectural principle>`;
 - Local-first, if confirmed for this project;
@@ -35,17 +35,17 @@
 - no paid external dependency without explicit approval;
 - no runtime adoption without separate architecture decision.
 
-## Current Strategic Goal
+## Текущая стратегическая цель (Current Strategic Goal)
 
 ```text
 <current strategic goal>
 ```
 
-## Lifecycle Stage
+## Стадия lifecycle (Lifecycle Stage)
 
 `<idea | bootstrap | foundation | mvp | beta | production | scaling | maintenance | custom>`
 
-## Agent Authority
+## Полномочия агентов (Agent Authority)
 
 Agent roles and engine mapping are defined in:
 
@@ -55,13 +55,13 @@ docs/agent-system/ENGINE_REGISTRY.md
 
 `ENGINE_REGISTRY.md` must include an Agent Authority Matrix.
 
-## Agent Authority Matrix
+## Матрица полномочий агентов (Agent Authority Matrix)
 
 | Agent role | Allowed scope | Forbidden scope | Requires approval |
 |---|---|---|---|
 | `<роль>` | `<paths or responsibilities>` | `<paths or responsibilities>` | `<approval conditions>` |
 
-## Decision Authority Levels
+## Уровни полномочий решений (Decision Authority Levels)
 
 | Level | Name | Examples | Approval |
 |---|---|---|---|
@@ -72,7 +72,7 @@ docs/agent-system/ENGINE_REGISTRY.md
 
 Level 3+ decisions require explicit user approval before changes.
 
-## Scope Expansion Control
+## Контроль расширения scope (Scope Expansion Control)
 
 ```text
 No scope expansion
@@ -82,7 +82,7 @@ Major scope expansion
 
 Major scope expansion is forbidden without explicit user decision.
 
-## Governance Review Checklist
+## Чеклист governance-review (Governance Review Checklist)
 
 - [ ] Change matches `Project Mission`.
 - [ ] Change matches `Current Strategic Goal`.
@@ -92,7 +92,7 @@ Major scope expansion is forbidden without explicit user decision.
 - [ ] Major scope expansion was stopped before changes and sent to user decision.
 - [ ] `ENGINE_REGISTRY.md` Agent Authority Matrix remains current.
 
-## Stop Conditions
+## STOP-условия (Stop Conditions)
 
 - major scope expansion;
 - conflict with Project Mission;
@@ -101,7 +101,7 @@ Major scope expansion is forbidden without explicit user decision.
 - risk of private data or secrets exposure;
 - local instructions conflict.
 
-## Update Rules
+## Правила обновления (Update Rules)
 
 - update after mission changes;
 - update after strategic goal changes;
