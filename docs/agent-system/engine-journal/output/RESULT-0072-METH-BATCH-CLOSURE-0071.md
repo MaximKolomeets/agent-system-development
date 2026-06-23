@@ -1,6 +1,6 @@
 # RESULT-0072: METH-BATCH-CLOSURE-0071
 
-Статус: closed-at-creation; terminal closure; PR будет создан после materialization.
+Статус: closed-at-creation; terminal closure; PR #218 открыт.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0072-METH-BATCH-CLOSURE-0071.md`
 Режим источника задачи: attachment handoff
@@ -17,13 +17,17 @@ No required execution context was taken only from surrounding chat: yes
 Engine: local Codex CLI
 Агент: docs-maintainer
 Время начала выполнения (execution_started_at) [measured/engine]: 2026-06-23T16:07:22.1339368+07:00
-Время окончания выполнения (execution_finished_at) [measured/engine]: будет заполнено перед финальным push
-Длительность выполнения (execution_duration) [measured/engine, опционально]: будет заполнено перед финальным push
+Время окончания выполнения (execution_finished_at) [measured/engine]: 2026-06-23T16:10:27.3534815+07:00
+Длительность выполнения (execution_duration) [measured/engine, опционально]: PT3M5S
 Время человека, по факту (human_time_reported) [reported/human, опционально]: не отслеживалось
 
 Branch: `work/docs-maintainer-01/batch-closure-0071`
 Baseline SHA: `4705f92393327691f12cfb8eb89d17845b4191d3`
-PR URL: будет заполнено после PR creation
+Primary materialization commit SHA: `e2783b968f4fa79e4b551c549833ffd396a03177`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/218
+PR state: OPEN
+PR head before journal finalization: `e2783b968f4fa79e4b551c549833ffd396a03177`
+Actual PR head after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #218 и final report.
 Own mergeCommit: stamp at merge
 
 ## Closure set
@@ -37,15 +41,15 @@ Own mergeCommit: stamp at merge
 - RESULT-0071: верхний status-marker переведён в closed; append-only closure-stamp добавлен с merge-фактами PR #217.
 - INDEX: 0071 переведён в closed + PR URL без полного mergeCommit; добавлена terminal запись 0072.
 - TASK/RESULT-0072: созданы как closed-at-creation и dogfood новых execution timestamp полей.
-- Cloud bundle: будет регенерирован после INDEX changes.
+- Cloud bundle: regenerated after INDEX changes.
 
 ## Проверки
 
-- `python docs/agent-system/tools/gen_file_map.py --check`: будет выполнено.
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: будет выполнено.
-- final-state surface rescan: будет выполнено.
-- `git diff --check`: будет выполнено.
-- branch-guard: будет выполнено.
+- `python docs/agent-system/tools/gen_file_map.py --check`: exit 0.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0.
+- final-state surface rescan: 0071 closed; 0072 has no unresolved final placeholders after PR finalization; historical INDEX row 0030 contains literal `see Engine final report` as append-only history outside closure-set.
+- `git diff --check`: exit 0.
+- branch-guard: `work/docs-maintainer-01/batch-closure-0071`.
 
 ## Source Delta
 
@@ -59,8 +63,8 @@ Own mergeCommit: stamp at merge
 
 Source-reminder: не применимо (методология не менялась).
 
-Архитектору — загрузить в контекст оркестратора: будет финализировано после cloud regen; asof: будет заполнено; developer_head_sha: будет заполнено.
+Архитектору — загрузить в контекст оркестратора: 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md), 00_README.md (src: docs/agent-system/cloud/00_README.md); asof: 2026-06-23T16:10:27.3534815+07:00; developer_head_sha: e2783b968f4fa79e4b551c549833ffd396a03177.
 
 ## Передача
 
-Следующий: reviewer — consistency review closure PR; затем архитектор — merge; затем engine — огромный аудит методологии (Блок 3); release держим.
+Следующий: reviewer — consistency review PR #218; затем архитектор — merge; затем engine — огромный аудит методологии (Блок 3); release держим.
