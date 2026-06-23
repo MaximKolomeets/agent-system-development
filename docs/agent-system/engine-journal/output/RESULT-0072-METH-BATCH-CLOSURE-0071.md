@@ -1,6 +1,6 @@
 # RESULT-0072: METH-BATCH-CLOSURE-0071
 
-Статус: closed-at-creation; terminal closure; PR #218 открыт.
+Статус: closed-at-creation; terminal closure; PR #218 merged; final-state surface updated after merge.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0072-METH-BATCH-CLOSURE-0071.md`
 Режим источника задачи: attachment handoff
@@ -25,10 +25,12 @@ Branch: `work/docs-maintainer-01/batch-closure-0071`
 Baseline SHA: `4705f92393327691f12cfb8eb89d17845b4191d3`
 Primary materialization commit SHA: `e2783b968f4fa79e4b551c549833ffd396a03177`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/218
-PR state: OPEN
+PR state: MERGED
 PR head before journal finalization: `e2783b968f4fa79e4b551c549833ffd396a03177`
 Actual PR head after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #218 и final report.
-Own mergeCommit: stamp at merge
+Own mergeCommit: `6a9399b6a0efde2dc4957f2b40d62c19095b2144`
+Own mergedAt: `2026-06-23T09:17:07Z`
+Own closure-stamp: PR #218 merged; RESULT closed after merge: yes; INDEX closed after merge: yes; No journal placeholders: yes.
 
 ## Closure set
 
