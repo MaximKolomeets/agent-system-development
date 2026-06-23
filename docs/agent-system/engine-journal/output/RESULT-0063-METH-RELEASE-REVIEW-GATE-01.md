@@ -78,3 +78,21 @@ Source-reminder: каноны менялись. Обновить Source-снап
 ## Передача
 
 Следующий: reviewer — проверить PR; затем архитектор — merge PR; затем engine — по обновлённому runway closure + journaled reviewer consistency-gate по release payload + release-prep; release держим до прохождения нового reviewer-gate.
+
+## Closure stamp
+
+- Closure task: `METH-BATCH-CLOSURE-0062-0063`.
+- Closure seq: `0064`.
+- Closure timestamp: `2026-06-23T09:33:34+07:00`.
+- Work PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/207
+- Work PR state: `MERGED`.
+- Work PR merged_at: `2026-06-23T02:31:58Z`.
+- Work PR merge commit SHA: `d68e83740dce8ac49e7173e6a4acafe748d70017`.
+- Work PR final head SHA before merge: `74de51b20510a541567ae770ddb8e4e381d54fce`.
+- Release PR: не применимо.
+- Sync PR: не применимо.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- Safe summary: release-review-gate canon PR #207 merged; reviewer consistency-gate canon now part of release runway.
+- Next step: merge batch-closure PR 0064, then run journaled reviewer consistency-gate over release payload; release remains blocked until that gate passes.
