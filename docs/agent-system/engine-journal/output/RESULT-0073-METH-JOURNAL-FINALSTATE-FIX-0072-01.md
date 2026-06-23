@@ -1,6 +1,6 @@
 # RESULT-0073: METH-JOURNAL-FINALSTATE-FIX-0072-01
 
-Статус: materialized; PR pending.
+Статус: ready for review; PR #220 open; terminal closure pending after merge.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0073-METH-JOURNAL-FINALSTATE-FIX-0072-01.md`
 Режим task source: attachment handoff materialized in this branch
@@ -23,9 +23,10 @@ Engine: local Codex CLI
 
 Branch: `work/docs-maintainer-01/journal-finalstate-fix-0072-01`
 Baseline SHA: `6a9399b6a0efde2dc4957f2b40d62c19095b2144`
-Primary materialization commit SHA: pending until first commit
-PR URL: pending until PR creation
-PR state: pending until PR creation
+Primary materialization commit SHA: `54a2d1fb5d0d90886b38615e4296e23f2ccae0a8`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/220
+PR state: OPEN
+Latest verified PR head SHA after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #220 и final report.
 
 ## Выполнено
 
@@ -37,13 +38,14 @@ PR state: pending until PR creation
 - TASK/RESULT-0073 созданы как journal trace этой узкой final-state fix-задачи.
 - Cloud bundle regenerated after INDEX changes.
 - Terminal-складка новой записи: 0073 несёт собственную PR-pending surface до создания/merge этого PR; это ожидаемая self-reference складка, не B1-регресс.
+- PR #220 создан после materialization commit; RESULT/INDEX 0073 финализированы фактическим PR URL/status без self-reference на финальный head.
 
 ## Проверки
 
 - `cmd /c "python docs\agent-system\tools\gen_file_map.py --check"`: exit 0.
 - `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"`: exit 0.
 - RESULT-0072 rescan (`открыт|OPEN|stamp at merge`): 0 hits.
-- INDEX 0055..0072 rescan (`own PR ... open/created/stamp at merge`, `OPEN`, `open; not merged`, `PR pending`): 0 hits.
+- INDEX 0055..0072 rescan (`own PR ... open/created/stamp at merge`, `OPEN`, `open; not merged`, temporary PR-url marker): 0 hits.
 - `git diff --check`: exit 0; EOL warnings only for generated cloud mirrors / INDEX working-copy normalization.
 - branch-guard: `work/docs-maintainer-01/journal-finalstate-fix-0072-01`.
 - B-WIN note: previous diagnostic confirmed parallel/wrapper runner hangs; this task used sequential direct `cmd /c` generated checks and recorded sequential exit codes.
@@ -64,4 +66,4 @@ Source-reminder: не применимо (методология не менял
 
 ## Передача
 
-Следующий: архитектор — merge fix-PR; затем engine — чистый перезапуск full audit; release держим.
+Следующий: архитектор — merge PR #220; затем engine — чистый перезапуск full audit; release держим.
