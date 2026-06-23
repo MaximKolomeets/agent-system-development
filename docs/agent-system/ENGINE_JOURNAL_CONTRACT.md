@@ -197,6 +197,29 @@ Methodology repository operational history не переносится.
 - риски;
 - следующий рекомендуемый шаг.
 
+## Execution timestamps
+
+Новые TASK/RESULT записи фиксируют execution-время по модели `measured/reported`:
+
+- `measured/engine` — значения, которые engine фиксирует автоматически или надежно по факту собственного запуска;
+- `reported/human` — значения, которые сообщает человек или оркестратор; они опциональны и могут оставаться пустыми.
+
+TASK должен содержать:
+
+- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`.
+
+RESULT должен содержать:
+
+- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Время окончания выполнения (execution_finished_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Длительность выполнения (execution_duration) [measured/engine, опционально]`;
+- `Время человека, по факту (human_time_reported) [reported/human, опционально]`.
+
+Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution-полями. Merge-время не дублируется в execution-полях; оно фиксируется как `merged_at` в closure-stamp `RESULT` по разделу «Closure facts authority».
+
+Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
+
 ## Правило финализации после PR
 
 `RESULT` и `INDEX` могут содержать временные placeholders только до создания PR.
@@ -394,6 +417,7 @@ Reviewer подтверждает:
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
+- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `reported/human` поля опциональны и не проверяются как обязательные;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.

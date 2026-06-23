@@ -13,6 +13,8 @@ Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
 Режим: <Agent | Ask | Manual review>
 Почему: задача выполняет review-only audit/review без исправления кода; journal PR создается всегда, а тело отчета сохраняется в repository только при `Report delivery: repository` или `chat+repository`.
+Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 
 ## Repository
 
@@ -137,6 +139,8 @@ git checkout <headRefOid>   # head SHA из `gh pr view`
 Review report и RESULT фиксируют reviewed head SHA. Если PR обновился после ревью (head SHA сменился), вердикт относится только к зафиксированному head SHA, что отмечается явно.
 
 Reviewer сверяет «Source Delta» из проверяемого PR с фактическим diff и `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`: все inventory-изменения отражены, категории соответствуют manifest, Source-рекомендации корректны, `manifest обновлён?` правдив. Для `added`/`deleted`/`renamed` inventory-файлов категории `source`, `template` или `target_generated` отсутствие manifest update является finding/blocker по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
+
+Reviewer сверяет, что новые TASK/RESULT записи содержат measured execution-поля по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Execution timestamps»: `execution_started_at` в TASK/RESULT и `execution_finished_at` в RESULT. Отсутствие этих полей в finalized записи является minor finding, но не blocker; optional `reported/human` поля не проверяются как обязательные.
 
 ## Required preflight
 
