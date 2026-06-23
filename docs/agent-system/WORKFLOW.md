@@ -59,7 +59,7 @@
 - Рабочий поток идет через ветки `work/<role>/*`.
 - Рабочая ветка создается от актуальной `developer`.
 - `developer` принимает изменения через PR из рабочих веток.
-- `developer` -> `main` выполняется только после проверки интеграционной ветки.
+- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag на release merge commit ставит человек-архитектор, не агент.
 
 ## Рабочий процесс review-only
 

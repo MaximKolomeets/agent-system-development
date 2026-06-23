@@ -218,6 +218,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если PR merged, закрыты ли RESULT/INDEX после merge?
 - [ ] Если release/sync выполнены, записаны ли release/sync факты?
 - [ ] Если journal stale, создан ли полный блок для исполнителя (engine) для docs-only closure cleanup?
+- [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Журнал исполнителя (engine)

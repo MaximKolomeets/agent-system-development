@@ -4,6 +4,8 @@
 
 Назначение: pre-release readiness snapshot для будущего release candidate `developer` -> `main`.
 
+Текущий release-tag канон находится в `docs/agent-system/BRANCH_POLICY.md`: после human merge release PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag, не пушит в `main` и не публикует GitHub Release. Для v1.0.0, если tag ещё отсутствует, human-only reminder: `v1.0.0` должен указывать на release merge commit `123a126afd812255f7d671d98169c077cf33a319`.
+
 Фактический release PR в `main` в рамках PR-2o не создается. Release выполняется только после отдельного подтверждения пользователя и повторной post-PR-2o проверки.
 
 ## Pre-PR-2o Snapshot

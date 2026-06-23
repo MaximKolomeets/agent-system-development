@@ -10,7 +10,7 @@ Repository visibility: public.
 
 ## Актуальное состояние
 
-### Standing capabilities
+### Постоянные возможности (Standing capabilities)
 
 Методология выпущена и поддерживается как reusable methodology/template repository. Этот слой описывает устойчивые возможности; он меняется только при реальном изменении методологии, а не после каждого work/release/sync PR.
 
@@ -25,7 +25,7 @@ Repository visibility: public.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
-### Current pointer
+### Текущий указатель (Current pointer)
 
 Авторитет текущего journal state: `docs/agent-system/engine-journal/INDEX.md` и соответствующие `RESULT-*` closure-stamps. Этот файл не дублирует номера work/release/sync PR как source of truth; если здесь встречается конкретный номер PR в исторической летописи ниже, он является информационной историей, а не актуальным pointer.
 
@@ -240,4 +240,4 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 
 Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.
 
-Дополнение (2026-06-23, pre-release state refresh): pre-adoption аудит и cleanup-серия завершены; journal закрыт по актуальному `engine-journal/INDEX.md` через terminal batch-closure для завершённой серии, а текущая state-refresh запись закрывается в release-prep перед release PR; generated checks подтверждены как EOL-safe/content-oriented; следующий переход — release `developer -> main` с human-readable tag, затем sync и downstream adoption на release pointer. Существующие исторические literal names в этой append-only летописи не переписывались; живые секции выше остаются нейтральными.
+Дополнение (2026-06-23, pre-release state refresh): pre-adoption аудит и cleanup-серия завершены; journal закрыт по актуальному `engine-journal/INDEX.md` через terminal batch-closure для завершённой серии, а текущая state-refresh запись закрывается в release-prep перед release PR; generated checks подтверждены как EOL-safe/content-oriented; следующий переход — release `developer -> main` с human-only annotated tag на release merge commit, затем sync и downstream adoption на release pointer. Существующие исторические literal names в этой append-only летописи не переписывались; живые секции выше остаются нейтральными.

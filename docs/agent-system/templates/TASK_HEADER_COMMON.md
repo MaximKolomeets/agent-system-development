@@ -130,6 +130,8 @@ Final report и RESULT обязаны включать блок «Source Delta»
 
 Если задача меняет любой файл, перечисленный в `ADOPTION_TRANSFER_MANIFEST.yml` → `orchestrator_context_bundle.files`, или меняет сам bundle inventory, `docs/agent-system/cloud/**` обязан быть регенерирован через `python docs/agent-system/tools/gen_cloud_bundle.py` и проверен через `python docs/agent-system/tools/gen_cloud_bundle.py --check`. Pre-release task также обязан выполнять cloud `--check`.
 
+Если generated `--check` на Windows зависает в wrapper/parallel runner без живого полезного процесса, task использует read-only sequential fallback по `ORCHESTRATOR_OPERATING_CONTRACT.md`: `cmd /c python <generator> --check`; RESULT фиксирует fallback, команду и exit code. Это правило не заменяет обычные runtime/test checks.
+
 ## Orchestrator context handoff
 
 Final report и RESULT обязаны включать строку для архитектора перед блоком

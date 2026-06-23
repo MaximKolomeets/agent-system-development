@@ -18,8 +18,9 @@
 16. Пользователь/оркестратор проверяют diff.
 17. Создается PR в `developer`.
 18. После проверки PR merge в `developer`.
-19. После накопления стабильных изменений `developer` merge в `main`.
-20. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
+19. После накопления стабильных изменений `developer` переносится в `main` только через human-merged release PR по `BRANCH_POLICY.md`.
+20. После human merge release PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag и не публикует GitHub Release.
+21. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
 
 ## Base branch warning
 

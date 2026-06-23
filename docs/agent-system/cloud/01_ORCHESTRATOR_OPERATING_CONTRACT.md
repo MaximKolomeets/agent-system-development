@@ -66,6 +66,8 @@ python docs/agent-system/tools/gen_cloud_bundle.py --check
 
 Новый генератор с режимом `--check` обязан иметь regression-проверку: EOL-only drift не должен давать ненулевой exit, но реальный content-drift в source или generated artifact обязан оставаться обнаруживаемым и приводить к ненулевому exit. Если generator emits generated-bundle paths, эти paths закрепляются в `.gitattributes` через `text eol=lf`, чтобы repository checkout был предсказуемым; это дополняет EOL-normalized compare, но не заменяет его.
 
+Windows fallback: если wrapper, parallel runner или shell-композиция для generated `--check` зависает без живого полезного процесса, это не является parity failure. Для read-only generated checks нужно выполнить sequential fallback, предпочтительно `cmd /c python <generator> --check`, и считать gate-result по exit code этой последовательной команды. RESULT обязан записать, что применён fallback, указать команду и exit code. Это правило относится только к read-only generated text checks и не переносится на произвольные runtime/test jobs.
+
 Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество numbered-файлов по per-task handoff. `cloud/00_README.md` является авторитетной картой `source path -> cloud filename`, содержит priority map, freshness stamp и upload how-to.
 
 ### Per-task footer naming
