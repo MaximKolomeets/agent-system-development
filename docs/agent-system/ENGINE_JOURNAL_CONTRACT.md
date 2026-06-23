@@ -369,6 +369,7 @@ Reviewer подтверждает:
 - release payload соответствует ровно merged-серии по `INDEX.md`, без посторонних или необъяснённых изменений;
 - `python docs/agent-system/tools/gen_file_map.py --check` и `python docs/agent-system/tools/gen_cloud_bundle.py --check` проходят на release-кандидате;
 - если на Windows wrapper/parallel runner для read-only generated `--check` завис, reviewer/engine применяет sequential fallback по `ORCHESTRATOR_OPERATING_CONTRACT.md` → «Проверки generated text artifacts: content-oriented / EOL-safe» и записывает команду + exit code в RESULT;
+- если на Windows no-output scan (`rg`/wrapper) завис без полезного процесса, reviewer/engine применяет deterministic fallback по тому же B-WIN правилу и записывает fallback-команду, exit code и смысл результата в RESULT;
 - journal закрыт сквозняком: closure-stamp есть в `RESULT`, а `INDEX` содержит closed status + PR URL по всем seq серии;
 - Source Delta и context handoff согласованы по серии;
 - release notes соответствуют фактическому payload;
