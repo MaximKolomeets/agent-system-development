@@ -1,6 +1,6 @@
 # RESULT-0063-METH-RELEASE-REVIEW-GATE-01
 
-Статус: ready for review; pending PR creation.
+Статус: ready for review.
 
 ## Summary
 
@@ -63,15 +63,16 @@ Source-reminder: каноны менялись. Обновить Source-снап
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- PR status after journal finalization: pending.
-- RESULT finalized: no, pending PR creation.
-- INDEX finalized: no, pending PR creation.
-- No journal placeholders: no, pending PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/207
+- PR status after journal finalization: OPEN; mergeable: MERGEABLE.
+- PR head after first publication: `593b8b87c21da06c25b1987a597d23443e22d266`.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Локальные действия после PR/merge
 
-- После PR creation обновить RESULT/INDEX фактическими PR URL/status и допушить follow-up commit.
+- PR #207 создан; RESULT/INDEX финализированы фактическим PR URL/status; follow-up commit допушен в тот же PR.
 - После merge PR: engine должен закрыть pre-release journal, выполнить journaled reviewer consistency-gate по release payload и продолжить release-prep; release держать до прохождения reviewer-gate.
 
 ## Передача
