@@ -68,7 +68,7 @@ Source-reminder: не применим; methodology content не менялся.
 
 ## Передача
 
-Следующий: архитектор — merge fix-PR and gate-PR #209 when acceptable; затем engine — closure оставшихся записей; затем reviewer — repeat consistency-gate; release держим до GATE PASS.
+Следующий: архитектор — merge fix-PR #210; PR #209 уже merged (`2026-06-23T03:33:47Z`); затем engine — closure оставшихся записей; затем reviewer — repeat consistency-gate; release держим до GATE PASS.
 
 ## Локальные действия после PR/merge
 
