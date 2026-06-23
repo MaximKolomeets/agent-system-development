@@ -1,6 +1,6 @@
 # RESULT-0067-METH-CLOSURE-FINALSTATE-TEMPLATE-01
 
-Статус: ready for review; RESULT/INDEX finalized after PR creation.
+Статус: closed; PR #211 merged; facts in closure-stamp.
 
 ## Кратко
 
@@ -61,3 +61,23 @@
 ## Передача
 
 Следующий: архитектор — merge PR #211; затем engine — closure записей 0065/0066/0067; затем reviewer — repeat consistency-gate; release держим до GATE PASS.
+
+## Closure stamp
+
+- Closure task: `METH-BATCH-CLOSURE-0065-0067`.
+- Closure seq: `0068`.
+- Closure timestamp: `2026-06-23T14:19:34+07:00`.
+- Work PR: #211.
+- Work PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/211.
+- Work PR status: `MERGED`.
+- Work PR merged_at: `2026-06-23T04:06:00Z`.
+- Work PR merge commit SHA: `43cbc3a59a35b2a1e7557b176fc3171dc1dab89b`.
+- Work PR final head SHA: `f2a4c3aaa3b5558e55cf8c120cfb0282643c5acc`.
+- Release PR: not applicable.
+- Sync PR: not applicable.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- Final-state surfaces cleared: yes.
+- Next step after closure: repeat reviewer consistency-gate before release.
+- Safe summary: closed by terminal batch-closure 0068; authoritative merge facts are in this RESULT closure-stamp.
