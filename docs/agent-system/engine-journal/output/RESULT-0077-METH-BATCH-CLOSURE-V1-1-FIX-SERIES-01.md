@@ -53,12 +53,12 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 
 - `cmd /c python docs\agent-system\tools\gen_file_map.py --check`: exit 0.
 - `cmd /c python docs\agent-system\tools\gen_cloud_bundle.py --check`: exit 0.
-- `git diff --check`: exit 0; standard Windows line-ending warnings only.
+- `git diff --check`: exit 0 before commit; committed-range `git diff --check origin/developer...HEAD`: exit 0.
 - INDEX <-> TASK/RESULT pairing: rows 77; first `0001`; last `0077`; missing 0; missing pairs 0.
 - seq continuity: missing 0.
 - final-state surface scan for closed class 0073-0076: INDEX rows hits 0; RESULT status/PR surface hits 0; closure-stamp headers 4.
-- placeholder scan: before PR creation 2 expected own-row URL placeholders existed in INDEX/cloud mirror; after PR creation URL placeholders are removed, own terminal fold remains open until merge.
-- sensitive filename-only/count-only scan: count 3; files only: `docs/agent-system/cloud/00_README.md`, `docs/agent-system/engine-journal/output/RESULT-0074-METH-FULL-AUDIT-2026-06-23-02.md`; matching lines were not printed.
+- placeholder scan: before PR creation 2 expected own-row URL placeholders existed in INDEX/cloud mirror; after PR creation committed-range placeholder hits 0, own terminal fold remains open until merge.
+- sensitive filename-only/count-only scan: committed-range count 4; files only: `docs/agent-system/cloud/00_README.md`, `docs/agent-system/engine-journal/input/TASK-0077-METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01.md`, `docs/agent-system/engine-journal/output/RESULT-0074-METH-FULL-AUDIT-2026-06-23-02.md`; matching lines were not printed.
 - branch-guard: `work/docs-maintainer-01/batch-closure-v1-1-fix-series-01`.
 
 ## Source Delta
