@@ -23,9 +23,11 @@ Engine: local Codex CLI
 
 Branch: `work/docs-maintainer-01/batch-closure-v1-1-fix-series-01`
 Baseline SHA: `4535ebb41e15b7752b8a611a14becf9d74d20b71`
-Primary materialization commit SHA: pending until commit
-PR URL: pending until PR creation
-PR state: pending until PR creation
+Primary materialization commit SHA: `c84d2e4c2a2440291be75f442c631a2ed0ffa8ba`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/224
+PR state: OPEN
+PR head before journal finalization: `c84d2e4c2a2440291be75f442c631a2ed0ffa8ba`
+Actual PR head after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #224.
 Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
 
 ## Closure set
@@ -55,7 +57,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - INDEX <-> TASK/RESULT pairing: rows 77; first `0001`; last `0077`; missing 0; missing pairs 0.
 - seq continuity: missing 0.
 - final-state surface scan for closed class 0073-0076: INDEX rows hits 0; RESULT status/PR surface hits 0; closure-stamp headers 4.
-- placeholder scan: 2 hits, both expected own terminal fold 0077 (`pending until PR creation` in INDEX/cloud mirror) before PR creation.
+- placeholder scan: before PR creation 2 expected own-row URL placeholders existed in INDEX/cloud mirror; after PR creation URL placeholders are removed, own terminal fold remains open until merge.
 - sensitive filename-only/count-only scan: count 3; files only: `docs/agent-system/cloud/00_README.md`, `docs/agent-system/engine-journal/output/RESULT-0074-METH-FULL-AUDIT-2026-06-23-02.md`; matching lines were not printed.
 - branch-guard: `work/docs-maintainer-01/batch-closure-v1-1-fix-series-01`.
 
@@ -78,8 +80,8 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: yes, except own PR URL/head fields pending until PR creation/finalization commit.
-- INDEX finalized: yes, except own PR URL pending until PR creation/finalization commit.
+- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #224 is merged.
+- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #224 is merged.
 - No journal placeholders except own terminal fold: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
