@@ -1,6 +1,6 @@
 # RESULT-0074: METH-FULL-AUDIT-2026-06-23-02
 
-Статус: ready for review; PR #221 open; closure pending after merge.
+Статус: closed; PR #221 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0074-METH-FULL-AUDIT-2026-06-23-02.md`
 Режим task source: attachment handoff materialized in this branch
@@ -25,8 +25,8 @@ Branch: `work/code-reviewer-01/full-audit-2026-06-23-02`
 Baseline SHA: `a51a35b8b731fc948d7f8cd79760db69af0715d4`
 Primary materialization commit SHA: `fa2184d97c084e4289d29298f3e1e3b433cd6977`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/221
-PR state: OPEN
-Latest verified PR head SHA after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #221 и final report.
+PR state: MERGED
+Latest verified PR head SHA after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #221.
 
 ## Preflight facts
 
@@ -119,7 +119,7 @@ Latest verified PR head SHA after final push: self-reference не фиксиру
 
 ## Terminal fold 0073 / #220
 
-0073 is the terminal self-reference record for PR #220. `INDEX.md` still says `open; not merged (terminal closure pending)` for #220 even though #220 is merged. This is the only current terminal fold and is explicitly allowed by this audit task as non-blocking for the occasional baseline audit. It must be closed by the next batch/per-task closure before release.
+0073 was the terminal self-reference record for PR #220 at audit time. Batch-closure 0077 closed it after PR #220 merge: INDEX now carries closed status + PR URL, and authoritative merge facts are in RESULT-0073 closure-stamp.
 
 ## Source Delta
 
@@ -145,3 +145,14 @@ Source-reminder: не применимо (методология/каноны н
 ## Передача
 
 Следующий: архитектор — решить fix-cycle по findings F-17/F-18/F-06/F-10/F-LEGACY; затем engine — fix PRs; затем batch closure 0073..0074; затем reviewer consistency-gate; затем release v1.1.0 + annotated tag.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01` / `TASK-0077`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/221
+- PR state: MERGED
+- merged_at: `2026-06-23T16:03:12Z`
+- merge_commit: `d4b71327cbbf3bb5aeabccbf9031cd7147a5c23e`
+- headRefOid: `5c2f9dff75059115f5ac0c8256c75dea33676ed4`
+- closed_after_merge: yes
+- facts_source: `gh pr view 221 --json state,mergedAt,mergeCommit,headRefOid,url`
