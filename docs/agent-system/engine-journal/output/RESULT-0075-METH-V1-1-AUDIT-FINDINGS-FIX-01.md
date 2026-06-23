@@ -44,6 +44,7 @@
 - generated fallback wording scan → sequential fallback / `cmd /c python <generator> --check` найден в 4 канонических файлах и cloud mirror.
 - Russian-first state heading scan → bare `Standing capabilities`, `Current pointer`, `Standing Workflow Loop`, `Current Focus` отсутствуют; сохранены только aliases в скобках после русских заголовков.
 - branch guard → `work/docs-maintainer-01/v1-1-audit-findings-fix-01`.
+- post-push B-WIN fallback note: параллельный wrapper финального `--check`/`rg` прохода завис без вывода и без живого полезного `python`/`rg` процесса; sequential fallback `cmd /c python docs\agent-system\tools\gen_file_map.py --check` и `cmd /c python docs\agent-system\tools\gen_cloud_bundle.py --check` выполнен отдельно, оба exit 0.
 
 ## Source Delta
 
