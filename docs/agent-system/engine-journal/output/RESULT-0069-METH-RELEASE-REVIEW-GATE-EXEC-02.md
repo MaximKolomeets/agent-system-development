@@ -46,7 +46,7 @@
 - RESULT-0055..0068: no active pre-merge top status found.
 - INDEX-0055..0068: no active pre-merge status found.
 - INDEX-0055..0068: no active own-PR-open final-state wording found.
-- `pending before/after`, `TBD after`, pending PR URL/finalization placeholders in active 0068 surfaces: 0.
+- Placeholder patterns for pre-finalization PR URL/finalization fields in active 0068 surfaces: 0.
 - Historical quotes of the previous blocker remain only inside archived RESULT narrative/fix-table and are intentionally not active status surfaces.
 
 ## Release notes composition
@@ -103,10 +103,13 @@ No blocker/major/minor findings for release-gate. Дополнительная �
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- RESULT finalized: pending after PR creation.
-- INDEX finalized: pending after PR creation.
-- No journal placeholders: pending after PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/213.
+- PR number: #213.
+- PR created_at: `2026-06-23T07:41:01Z`.
+- PR head after first publication: `d8b89d1a78ca31413ddabaf2b22b51cc40d9cc3e`.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Journal trace: always.
 - Report delivery: chat.
 
@@ -116,5 +119,5 @@ No blocker/major/minor findings for release-gate. Дополнительная �
 
 ## Локальные действия после PR/merge
 
-- Будет создан docs-only reviewer-gate PR из `work/code-reviewer-01/release-review-gate-exec-02` в `developer`.
-- После создания PR RESULT/INDEX 0069 будут финализированы без unresolved placeholders.
+- Создан docs-only reviewer-gate PR #213: https://github.com/MaximKolomeets/agent-system-development/pull/213.
+- RESULT/INDEX 0069 финализированы без unresolved placeholders.
