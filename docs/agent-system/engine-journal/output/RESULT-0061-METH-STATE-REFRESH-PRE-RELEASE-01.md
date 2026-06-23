@@ -1,6 +1,6 @@
 # RESULT-0061-METH-STATE-REFRESH-PRE-RELEASE-01
 
-Статус: ready for review; pending PR creation.
+Статус: ready for review.
 
 ## Summary
 
@@ -63,16 +63,17 @@ Source-reminder: не применимо (каноны/шаблоны/контр
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- PR status after journal finalization: pending.
-- RESULT finalized: no, pending PR creation.
-- INDEX finalized: no, pending PR creation.
-- No journal placeholders: no, pending PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/205
+- PR status after journal finalization: OPEN; mergeable: MERGEABLE.
+- PR head after first publication: `be84a247fb5db35e68e4fb6b730b19aab3f04781`.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Closure policy: 0061 remains `merged; closure-pending` after merge until release-prep closes it per-task before release PR.
 
 ## Локальные действия после PR/merge
 
-- После PR creation обновить RESULT/INDEX фактическими PR URL/status и допушить follow-up commit.
+- PR #205 создан; RESULT/INDEX финализированы фактическим PR URL/status; follow-up commit допушен в тот же PR.
 - После merge state-refresh PR следующий шаг — release-prep: закрыть 0061 per-task, подготовить release PR `developer -> main`, не мержить.
 
 ## Передача
