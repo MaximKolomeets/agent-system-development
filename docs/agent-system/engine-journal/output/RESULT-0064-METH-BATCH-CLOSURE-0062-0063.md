@@ -1,6 +1,6 @@
 # RESULT-0064-METH-BATCH-CLOSURE-0062-0063
 
-Статус: closed-at-creation; terminal batch-closure; pending PR creation.
+Статус: closed-at-creation; terminal batch-closure.
 
 ## Summary
 
@@ -34,7 +34,7 @@
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check` -> exit 0.
 - INDEX closure scan `0055..0063` -> exit 0: status columns are closed/closed-at-creation as expected.
 - RESULT closure-stamp scan `0062..0063` -> exit 0: merge commit SHA present for PR #206/#207.
-- journal placeholder scan -> pending until PR creation finalization.
+- journal placeholder scan -> exit 0 after PR creation finalization.
 - `git diff --check` -> exit 0.
 - branch guard before commit -> `work/docs-maintainer-01/batch-closure-0062-0063`.
 
@@ -58,16 +58,17 @@ Source-reminder: не применимо (методология/каноны/ш
 
 ## Journal finalization
 
-- PR URL: pending after PR creation.
-- PR status after journal finalization: pending.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/208
+- PR status after journal finalization: OPEN; mergeable: MERGEABLE.
+- PR head after first publication: `8f1d19acfa03ea5e580d61084ee7ce2841b7c6b3`.
 - Own mergeCommit: stamp at merge.
-- RESULT finalized: no, pending PR creation.
-- INDEX finalized: no, pending PR creation.
-- No journal placeholders: no, pending PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 
 ## Локальные действия после PR/merge
 
-- После PR creation обновить RESULT/INDEX фактическими PR URL/status и допушить follow-up commit.
+- PR #208 создан; RESULT/INDEX финализированы фактическим PR URL/status; follow-up commit допушен в тот же PR.
 - После merge batch-closure PR 0064 следующий шаг — journaled reviewer consistency-gate по release payload.
 
 ## Передача
