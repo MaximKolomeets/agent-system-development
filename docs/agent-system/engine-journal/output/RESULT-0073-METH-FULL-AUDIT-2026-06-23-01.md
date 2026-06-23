@@ -8,14 +8,15 @@
 - Режим task source: материализован в этой ветке (не отдельный pre-commit task-file commit).
 - Task id: `METH-FULL-AUDIT-2026-06-23-01`; Seq: `0073` (из `INDEX.md`: последний 0072 + 1; предсказанный 0073 совпал, но взят из INDEX по правилу 0018/0020).
 - Branch: `work/code-reviewer-01/full-audit-2026-06-23-01`
-- Materialization commit SHA: `pending at file materialization` (финализируется после PR).
-- PR URL / status: `pending at file materialization` (финализируется после PR).
+- Materialization commit SHA: `6055cc4d128e808a6d9d38636b970ebcd8effca3`
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/219`; PR status: `open; not merged` (closure pending — batch/release; merge выполняет человек).
+- Latest verified PR head SHA after final push: см. PR body/final report (self-reference в journal не фиксируется по `ENGINE_JOURNAL_CONTRACT.md` → «Политика PR head SHA без self-reference»).
 
 ## Execution timestamps
 
 - Время начала выполнения (execution_started_at) [measured/engine]: 2026-06-23T16:19:34+07:00
-- Время окончания выполнения (execution_finished_at) [measured/engine]: `pending at file materialization` (фиксируется перед финализацией)
-- Длительность выполнения (execution_duration) [measured/engine, опционально]:
+- Время окончания выполнения (execution_finished_at) [measured/engine]: 2026-06-23T16:30:45+07:00
+- Длительность выполнения (execution_duration) [measured/engine, опционально]: ~11 минут
 - Время человека, по факту (human_time_reported) [reported/human, опционально]:
 
 ## methodology_reference
@@ -119,12 +120,12 @@
 
 ## Подтверждения
 
-- RESULT finalized: `pending` (финализируется после PR).
-- INDEX finalized: `pending` (финализируется после PR).
-- No journal placeholders: `pending` (после финализации — yes).
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Journal trace: always.
 - Report delivery: chat.
-- Execution timestamps present: yes (`execution_started_at` measured; `execution_finished_at` фиксируется перед финализацией).
+- Execution timestamps present: yes (`execution_started_at` и `execution_finished_at` measured).
 
 ## Передача
 
