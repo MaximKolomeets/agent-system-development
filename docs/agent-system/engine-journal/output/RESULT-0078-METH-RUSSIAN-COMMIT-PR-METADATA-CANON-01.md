@@ -1,11 +1,11 @@
 # RESULT-0078: METH-RUSSIAN-COMMIT-PR-METADATA-CANON-01
 
-Статус: pending PR creation.
+Статус: ready for review; PR #225 open; closure будет выполнен отдельным batch-closure после merge.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0078-METH-RUSSIAN-COMMIT-PR-METADATA-CANON-01.md`
 Режим task source: user-provided self-contained task in chat
 Task source commit SHA: не применимо
-Task file blob SHA: не применимо до commit
+Task file blob SHA: `5512c5d9e8f9e62c3b48f51ca90bea7df5e05fa2`
 TASK file verified: yes
 Engine block/TASK was self-contained: yes
 Рекомендуемый режим исполнения присутствует: yes
@@ -17,15 +17,15 @@ No required execution context was taken only from surrounding chat: yes
 Engine: local Codex CLI
 Агент: docs-maintainer
 Время начала выполнения (execution_started_at) [measured/engine]: 2026-06-24T00:28:12.2805633+07:00
-Время окончания выполнения (execution_finished_at) [measured/engine]: pending until finalization
-Длительность выполнения (execution_duration) [measured/engine, опционально]: pending until finalization
+Время окончания выполнения (execution_finished_at) [measured/engine]: 2026-06-24T00:33:57.7840211+07:00
+Длительность выполнения (execution_duration) [measured/engine, опционально]: 00:05:45
 Время человека, по факту (human_time_reported) [reported/human, опционально]: не отслеживалось
 
 Branch: `work/docs-maintainer-01/russian-commit-pr-metadata-canon-01`
 Baseline SHA: `167472d70b4c4fa8662b752819236d28d1c35aec`
-Primary materialization commit SHA: pending until commit
-PR URL: pending until PR creation
-PR state: pending until PR creation
+Primary materialization commit SHA: `1a34f9c653b3182cd8144da89f0dfba4a2752b56`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/225
+PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `1a34f9c653b3182cd8144da89f0dfba4a2752b56`
 
 ## Выполнено
 
@@ -46,13 +46,13 @@ PR state: pending until PR creation
 
 ## Проверки
 
-- `cmd /c python docs\agent-system\tools\gen_file_map.py --check`: pending.
-- `cmd /c python docs\agent-system\tools\gen_cloud_bundle.py --check`: pending.
-- `git diff --check`: pending.
-- wording scan `commit subject|PR title|PR body|Russian-first`: pending.
-- active link-check по изменённым docs: pending.
-- placeholder scan: pending.
-- sensitive filename-only/count-only scan: pending.
+- `cmd /c "python docs\agent-system\tools\gen_file_map.py --check"`: exit 0.
+- `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"`: exit 0.
+- `git diff --check`: exit 0; Windows line-ending warnings only.
+- wording scan `commit subject|PR title|PR body|Russian-first`: `wording_hits=35`.
+- active link-check по изменённым docs: `changed_docs_link_broken=0`.
+- placeholder scan по changed scope после PR finalization: exit 0, matches 0.
+- sensitive filename-only/count-only scan: `sensitive_filename_count=0`; matching lines не печатались.
 - branch-guard: `work/docs-maintainer-01/russian-commit-pr-metadata-canon-01`.
 
 ## Source Delta
@@ -70,15 +70,15 @@ PR state: pending until PR creation
 | docs/agent-system/engine-journal/INDEX.md | modified | journal | none | n-a |
 | docs/agent-system/cloud/** | modified | generated | none | n-a |
 
-Source-reminder: обновить Source-снапшот у зарегистрированных потребителей: `<заполняется в потребляющем развёртывании по docs/agent-system/SOURCE_CONSUMERS.md>`.
+Source-reminder: обновить Source-снапшот у зарегистрированных потребителей по `docs/agent-system/SOURCE_CONSUMERS.md`, так как изменены source/template-каноны.
 
-Архитектору — загрузить в контекст оркестратора: 01_ORCHESTRATOR_OPERATING_CONTRACT.md (src: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md), 02_ORCHESTRATOR_RESPONSE_STANDARD.md (src: docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md), 03_TASK_HEADER_COMMON.md (src: docs/agent-system/templates/TASK_HEADER_COMMON.md), 05_ENGINE_JOURNAL_CONTRACT.md (src: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md), 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md); asof: pending until cloud regen; developer_head_sha: `167472d70b4c4fa8662b752819236d28d1c35aec`.
+Архитектору — загрузить в контекст оркестратора: 01_ORCHESTRATOR_OPERATING_CONTRACT.md (src: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md), 02_ORCHESTRATOR_RESPONSE_STANDARD.md (src: docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md), 03_TASK_HEADER_COMMON.md (src: docs/agent-system/templates/TASK_HEADER_COMMON.md), 05_ENGINE_JOURNAL_CONTRACT.md (src: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md), 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md); asof: `2026-06-24T00:24:19+07:00`; developer_head_sha: `167472d70b4c4fa8662b752819236d28d1c35aec`.
 
 ## Подтверждения
 
-- RESULT finalized: pending.
-- INDEX finalized: pending.
-- No journal placeholders: pending.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
