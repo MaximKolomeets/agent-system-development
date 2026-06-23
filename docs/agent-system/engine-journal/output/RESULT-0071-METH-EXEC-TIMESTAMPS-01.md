@@ -1,6 +1,6 @@
 # RESULT-0071: METH-EXEC-TIMESTAMPS-01
 
-Статус: in progress; PR будет создан после проверок и финализации journal.
+Статус: ready for review; PR #217 открыт.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0071-METH-EXEC-TIMESTAMPS-01.md`
 Режим источника задачи: chat/attachment handoff
@@ -17,15 +17,18 @@ No required execution context was taken only from surrounding chat: yes
 Engine: local Codex CLI
 Агент: docs-maintainer
 Время начала выполнения (execution_started_at) [measured/engine]: 2026-06-23T15:44:39.0659334+07:00
-Время окончания выполнения (execution_finished_at) [measured/engine]: будет заполнено перед финальным push
-Длительность выполнения (execution_duration) [measured/engine, опционально]: будет заполнено перед финальным push
+Время окончания выполнения (execution_finished_at) [measured/engine]: 2026-06-23T15:51:10.7337738+07:00
+Длительность выполнения (execution_duration) [measured/engine, опционально]: PT6M32S
 Время человека, по факту (human_time_reported) [reported/human, опционально]: не сообщалось
 
 Branch: `work/docs-maintainer-01/exec-timestamps-01`
 Baseline SHA: `1f7a2c41ce97001a18f563fec7bd2e7cf72e7238`
-Commit SHA: будет заполнено после commit
-PR URL: будет заполнено после PR creation
-Статус финализации: in progress
+Primary materialization commit SHA: `dc5c4e7be9e0b31b06a8cfc923b471637a411201`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/217
+PR state: OPEN
+PR head before journal finalization: `dc5c4e7be9e0b31b06a8cfc923b471637a411201`
+Actual PR head after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #217 и final report.
+Статус финализации: RESULT finalized; INDEX finalized; no journal placeholders.
 
 ## Выполнено
 
@@ -36,12 +39,12 @@ PR URL: будет заполнено после PR creation
 
 ## Проверки
 
-- `python docs/agent-system/tools/gen_file_map.py --check`: будет выполнено.
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: будет выполнено.
-- internal link-check: будет выполнено.
-- timestamp canon grep: будет выполнено.
-- `git diff --check`: будет выполнено.
-- branch-guard: будет выполнено.
+- `python docs/agent-system/tools/gen_file_map.py --check`: exit 0.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0.
+- active internal link-check: `broken_links 0`.
+- timestamp canon grep: exit 0; `execution_started_at`, `execution_finished_at`, `human_time_reported`, `orchestration_time_reported` найдены в каноне/контракте/шаблонах и dogfood TASK/RESULT.
+- `git diff --check`: exit 0.
+- branch-guard: `work/docs-maintainer-01/exec-timestamps-01`.
 
 ## Source Delta
 
@@ -66,8 +69,8 @@ PR URL: будет заполнено после PR creation
 
 Source-reminder: обновить Source-снапшот у зарегистрированных потребителей: `docs/agent-system/SOURCE_CONSUMERS.md`.
 
-Архитектору — загрузить в контекст оркестратора: будет финализировано после cloud regen; asof: будет заполнено; developer_head_sha: будет заполнено.
+Архитектору — загрузить в контекст оркестратора: 03_TASK_HEADER_COMMON.md (src: docs/agent-system/templates/TASK_HEADER_COMMON.md), 05_ENGINE_JOURNAL_CONTRACT.md (src: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md), 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md), 00_README.md (src: docs/agent-system/cloud/00_README.md); asof: 2026-06-23T15:51:10.7337738+07:00; developer_head_sha: dc5c4e7be9e0b31b06a8cfc923b471637a411201.
 
 ## Передача
 
-Следующий: reviewer — review PR: timestamp canon, non-retrofit/minor-finding semantics, dogfood TASK/RESULT fields, cloud/file-map checks.
+Следующий: reviewer — review PR #217: timestamp canon, non-retrofit/minor-finding semantics, dogfood TASK/RESULT fields, cloud/file-map checks. Затем архитектор — merge; затем engine — batch-closure перед release; затем полный methodology audit валидирует новые time fields.
