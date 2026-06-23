@@ -10,13 +10,13 @@
 4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy.
 5. Повторять work/review/merge до завершения текущей серии.
 6. Перед release выполнить pre-release batch-closure для всех merged-but-unclosed journal entries.
-7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check`, state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
+7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
 8. Человек-архитектор мержит release PR `developer -> main`; после release выполняется sync `main -> developer`.
 9. Повторить цикл от актуального `developer`.
 
 ## Current Focus
 
-Текущий фокус: production readiness / verification readiness. Ближайшая серия — завершить active fix-cycle, закрыть journal batch перед release, затем перейти к downstream adoption / реальному verification-проекту по `docs/agent-system/templates/ADOPTION_PROMPT.md` с `methodology_reference` на release commit/tag.
+Текущий фокус: release runway перед downstream adoption. Pre-adoption аудит, cleanup-серия и terminal batch-closure завершены по актуальному `engine-journal/INDEX.md`; текущая state-refresh запись закрывается в release-prep перед release PR; оба generated-check зелёные. Следующий порядок: архитектор мержит state-refresh PR; затем engine выполняет release-prep (закрывает текущую journal-запись per-task и готовит release PR `developer -> main`, не мержит); затем архитектор мержит release PR и ставит human-readable tag; затем engine выполняет sync `main -> developer`, чистку веток и downstream adoption на release pointer.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
 

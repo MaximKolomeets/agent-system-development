@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-22
+Дата: 2026-06-23
 
 Проект: Создание агентской системы
 
@@ -20,6 +20,7 @@ Repository visibility: public.
 - Closure-facts authority закреплён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL.
 - `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
+- Проверки generated text artifacts являются content-oriented и EOL-safe на Windows: `gen_file_map.py --check` и `gen_cloud_bundle.py --check` входят в release-gate; freshness metadata в generated bundle является информационной, а gate проверяет содержательный parity.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
@@ -30,7 +31,7 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: production readiness / verification readiness. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
+Текущий фокус: release runway перед downstream adoption. По актуальному `engine-journal/INDEX.md` pre-adoption аудит, cleanup-серия и terminal batch-closure завершены; текущая state-refresh запись закрывается per-task в release-prep перед release PR. Release-gate checks зелёные. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
@@ -238,3 +239,5 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 Предыдущий release/sync шаг после PR #154/#155 выполнен более поздним release cycle; актуальный следующий шаг зафиксирован в начале файла.
 
 Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.
+
+Дополнение (2026-06-23, pre-release state refresh): pre-adoption аудит и cleanup-серия завершены; journal закрыт по актуальному `engine-journal/INDEX.md` через terminal batch-closure для завершённой серии, а текущая state-refresh запись закрывается в release-prep перед release PR; generated checks подтверждены как EOL-safe/content-oriented; следующий переход — release `developer -> main` с human-readable tag, затем sync и downstream adoption на release pointer. Существующие исторические literal names в этой append-only летописи не переписывались; живые секции выше остаются нейтральными.
