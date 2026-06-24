@@ -1,6 +1,6 @@
 # TASK-0097: METH-JOURNAL-FINALSTATE-FIX-0095-V1-2-01
 
-Статус: in progress; PR pending.
+Статус: terminal-fold accepted pending own PR merge; PR #246.
 
 Роль: docs-maintainer.
 Исполнитель: на усмотрение архитектора.
@@ -26,6 +26,7 @@ Reasoning effort: средний.
 - Baseline `developer` / `origin/developer`: `049710cd675c72142aa02ffd8f51004802c3b3e6`
 - PR #244: `MERGED`; merge commit `02e770f139223e3cfae602369d06064dc1cfaba8`; merged_at `2026-06-24T15:37:33Z`
 - PR #245: `MERGED`; merge commit `049710cd675c72142aa02ffd8f51004802c3b3e6`; merged_at `2026-06-24T15:58:13Z`
+- Own PR: https://github.com/MaximKolomeets/agent-system-development/pull/246
 - Фактический seq из INDEX: `0097`
 
 ## Scope
