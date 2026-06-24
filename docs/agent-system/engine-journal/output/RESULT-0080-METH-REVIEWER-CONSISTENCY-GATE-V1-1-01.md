@@ -1,6 +1,6 @@
 # RESULT-0080: METH-REVIEWER-CONSISTENCY-GATE-V1-1-01
 
-Статус: ready for review; PR #227 open; closure будет выполнен отдельным batch-closure после merge.
+Статус: closed after merge; PR #227 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0080-METH-REVIEWER-CONSISTENCY-GATE-V1-1-01.md`
 Режим task source: attachment handoff + user-provided supplement in chat
@@ -25,7 +25,9 @@ Branch: `work/code-reviewer-01/reviewer-consistency-gate-v1-1-01`
 Baseline SHA: `1b3e28485aaacdd4889cbd4e9bef9c22584b8f54`
 Primary materialization commit SHA: `58ce14452624e352b545b1d828a931adfcb23677`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/227
-PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `58ce14452624e352b545b1d828a931adfcb23677`
+PR state: MERGED; head before journal finalization: `58ce14452624e352b545b1d828a931adfcb23677`
+Merge commit SHA: `0eb86f1ba6caa318b770dd4c7f9d8ca20ab6eeb0`
+Merged at: `2026-06-24T04:31:47Z`
 
 ## Verdict
 
@@ -98,3 +100,16 @@ Source-reminder: не применимо (reviewer gate не менял мето
 ## Передача
 
 Следующий: архитектор — review/merge reviewer PR; затем engine — release-prep; затем human release PR merge; затем human annotated tag v1.1.0 на release merge commit.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0080-REVIEWER-GATE-01` / `TASK-0081`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/227
+- PR state: MERGED
+- merged_at: `2026-06-24T04:31:47Z`
+- merge_commit: `0eb86f1ba6caa318b770dd4c7f9d8ca20ab6eeb0`
+- headRefOid: `5fddacb265124cece944a0a6a5533a438a07e144`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 227 --json state,mergedAt,mergeCommit,headRefOid,url`
