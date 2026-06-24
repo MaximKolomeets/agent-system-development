@@ -1,6 +1,6 @@
 # RESULT-0088: METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #237.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0088-METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01.md`
 
@@ -12,7 +12,7 @@
 - release tag: `v1.1.0`
 - release commit: `8c21a45bf189432afcdabfb164f85d175271df74`
 - work branch: `work/docs-maintainer-01/downstream-adoption-dry-run-v1-1-0-01`
-- PR: pending until creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/237
 
 ## Target repository
 
@@ -212,8 +212,8 @@ No blocker was found that prevents a real target adoption task.
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
+- RESULT finalized: yes, PR #237 URL recorded.
+- INDEX finalized: yes, PR #237 URL recorded.
 - Journal trace: TASK/RESULT/INDEX.
 - execution timestamps present: yes.
 

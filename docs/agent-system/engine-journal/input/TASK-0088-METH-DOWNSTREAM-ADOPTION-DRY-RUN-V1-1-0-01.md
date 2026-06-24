@@ -1,6 +1,6 @@
 # TASK-0088: METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #237.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0088-METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01.md`
 
