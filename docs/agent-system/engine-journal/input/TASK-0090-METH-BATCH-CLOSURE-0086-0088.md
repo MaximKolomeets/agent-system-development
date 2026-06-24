@@ -1,12 +1,12 @@
 # TASK-0090: METH-BATCH-CLOSURE-0086-0088
 
-Статус: closed-at-creation; terminal closure; PR pending.
+Статус: closed-at-creation; terminal closure; PR #239.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0090-METH-BATCH-CLOSURE-0086-0088.md`
 
 ## Задача
 
-Закрыть merged-but-unclosed journal entries 0086, 0087 и 0088 после merge PR #235, #236 и #237; очистить stale final-state surfaces (`ready for review` / `PR open`) в targeted RESULT/INDEX; создать terminal closure trace 0090.
+Закрыть merged-but-unclosed journal entries 0086, 0087 и 0088 после merge PR #235, #236 и #237; очистить stale final-state surfaces в targeted RESULT/INDEX без буквального сохранения pre-merge markers; создать terminal closure trace 0090.
 
 ## Режим
 

@@ -1,6 +1,6 @@
 # RESULT-0090: METH-BATCH-CLOSURE-0086-0088
 
-Статус: closed-at-creation; terminal closure; PR pending.
+Статус: closed-at-creation; terminal closure; PR #239.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0090-METH-BATCH-CLOSURE-0086-0088.md`
 
@@ -11,7 +11,7 @@
 - baseline `origin/developer`: `6ad7cb7c194822c803d041b1cd3de39f210ed353`
 - baseline `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - work branch: `work/docs-maintainer-01/batch-closure-0086-0088`
-- PR: pending until creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/239
 - own terminal fold: accepted terminal closure surface; own merge facts are not embedded before merge.
 
 ## Claim-протокол
@@ -56,8 +56,8 @@ PR #238 / seq 0089 уже merged и занял INDEX до старта этой 
 - `python docs/agent-system/tools/gen_file_map.py --check`: exit 0, sequential.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0, sequential.
 - final-state rescan for 0086/0087/0088: stale hits 0; closure-stamps 3.
-- INDEX stale surface scan: only own terminal `PR pending` surface remains for 0090; 0089 is `merged; closure pending` and outside this closure-set.
-- branch guard before commit: pending final check.
+- INDEX stale surface scan: no stale final-state surfaces in 0086-0088; 0089 is `merged; closure pending` and outside this closure-set; 0090 is an accepted terminal closure surface with PR #239.
+- branch guard before commit: yes, `work/docs-maintainer-01/batch-closure-0086-0088`.
 
 ## Source Delta
 
@@ -80,9 +80,9 @@ Source-reminder: не применимо; методологические ка�
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
-- No journal placeholders: pending.
+- RESULT finalized: yes, PR #239 recorded.
+- INDEX finalized: yes, PR #239 recorded.
+- No journal placeholders: yes.
 - execution_finished_at present in own RESULT: yes.
 
 ## Передача
