@@ -1,6 +1,6 @@
 # TASK-0092: METH-EXEC-FIELD-NAME-CANON-01
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #241.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0092-METH-EXEC-FIELD-NAME-CANON-01.md`
 
