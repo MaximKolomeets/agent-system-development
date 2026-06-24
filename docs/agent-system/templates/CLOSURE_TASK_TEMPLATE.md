@@ -19,7 +19,7 @@ Reasoning effort: низкий
 ## Режим
 
 closure-only, docs-only, branch-guard.
-Terminal: да. Эта closure-задача не требует собственной follow-up closure, если она закрывает последний PR перед release или выполняется как explicit closure gate.
+Terminal: да. Собственная closure-запись после merge становится lifecycle-only `terminal-fold accepted`; она не требует собственной follow-up closure только ради own terminal fold.
 
 ## Ветки
 
@@ -71,7 +71,7 @@ docs/agent-system/engine-journal/INDEX.md
   - next step after closure.
 - В строке INDEX <seq> обновить только status + PR URL и safe one-line summary; optional mergedAt date допустима для навигации. Полный merge commit SHA в INDEX не дублировать: авторитетные merge-факты находятся в RESULT closure-stamp.
 - Снять stale `open`, `not merged`, `ready for review`, `PR open`, `draft open`, `pending at file materialization`, `see Engine final report`, если они относятся к final status закрываемой записи.
-- Очистить final-state surfaces: верхний status-marker закрываемого RESULT привести к closed-статусу, согласованному с closure-stamp; для terminal `closed-at-creation` записи заменить `own PR ... open` в INDEX summary на merged-факт собственного PR после merge, без self-reference на собственный head SHA.
+- Очистить final-state surfaces: верхний status-marker закрываемого RESULT привести к closed-статусу, согласованному с closure-stamp; для lifecycle-only terminal записи использовать `terminal-fold accepted; PR URL authoritative; not release/reviewer blocker`, без self-reference на собственный head SHA и без следующей closure-задачи только ради own terminal fold.
 - Historical task/result content не переписывать произвольно.
 
 ## Проверки

@@ -290,7 +290,7 @@ Default-режим закрытия journal после merge рабочего PR
 
 Следующий work PR той же фазы не должен останавливаться только из-за незакрытой предыдущей journal-записи. Executor и reviewer фиксируют это как `closure pending`/batch-context, но не считают blocker для обычного следующего work PR.
 
-Перед release `developer -> main` обязателен один closure-only проход по всем merged-but-unclosed seq. Release запрещён, пока journal не закрыт полностью: все seq, входящие в release, должны иметь closure-stamp в `RESULT` и закрытый status + PR URL в `INDEX`.
+Перед release `developer -> main` обязателен один closure-only проход по всем merged-but-unclosed substantive seq. Release запрещён, пока journal не закрыт полностью: все substantive seq, входящие в release, должны иметь closure-stamp в `RESULT` и закрытый status + PR URL в `INDEX`; lifecycle-only `terminal-fold accepted` seq допустимы и не требуют новой closure-задачи.
 
 Per-task closure применяется только в случаях:
 
@@ -303,6 +303,34 @@ Per-task closure применяется только в случаях:
 Closure-only задача не создаёт новый TASK/RESULT для закрываемой рабочей записи. Она добавляет closure-stamp с фактами в существующий `RESULT`, обновляет в `INDEX` только status + PR URL и безопасный summary, сохраняя append-only смысл journal entry. Канонический шаблон per-task closure: `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md`.
 
 Batch-closure задача проходит по `INDEX.md`, находит все merged-but-unclosed seq в заданном диапазоне, получает факты PR из GitHub, добавляет closure-stamp в соответствующие `RESULT` и обновляет в `INDEX` только status + PR URL. Канонический шаблон batch closure: `docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md`.
+
+### Accepted terminal fold
+
+`terminal-fold accepted` — финальное lifecycle-состояние terminal-записи, а не `open`.
+
+Accepted terminal fold допустим только для lifecycle-only entries: closure, finalstate-fix, reviewer-gate trace, release-prep trace, sync/cleanup trace, если запись не несёт незакрытого содержательного payload.
+
+Правила:
+
+- `terminal-fold accepted` не считается `open`, `ready`, `closure pending` или blocker для reviewer-gate, release-prep и release-gate.
+- GitHub PR URL является authority для own merge facts terminal-записи; own merge facts не backfill'ятся рекурсивно отдельной closure-задачей.
+- Не создавать новую closure-задачу только ради `terminal-fold accepted`.
+- Ordinary substantive entries всё ещё требуют closure-stamp с merge facts в `RESULT` и status + PR URL в `INDEX`.
+- Если terminal-запись содержит содержательные незакрытые изменения source docs/templates/canons, она не может быть silently accepted и закрывается обычным closure-проходом.
+
+Search aliases for checks: `PR URL authoritative`; `not a blocker`; `do not create closure solely`.
+
+Канонический status в `INDEX`:
+
+```text
+terminal-fold accepted; PR URL authoritative; not release/reviewer blocker
+```
+
+Для собственной текущей terminal-записи до merge PR допустима формулировка:
+
+```text
+terminal-fold accepted pending own PR merge; PR URL authoritative after merge
+```
 
 ### Closure facts authority
 
@@ -334,7 +362,7 @@ Batch-closure задача проходит по `INDEX.md`, находит вс
 
 Legacy-записи, где old policy уже продублировала merge facts в `INDEX`, остаются как append-only history и не ретрофитятся.
 
-Следующие pre-merge значения являются недопустимыми final states после обязательного closure-прохода:
+Следующие pre-merge значения являются недопустимыми final states после обязательного closure-прохода, если запись не классифицирована как lifecycle-only `terminal-fold accepted`:
 
 - `PR open`;
 - `ready for review`;
@@ -344,7 +372,7 @@ Legacy-записи, где old policy уже продублировала merge
 - `open; not merged`;
 - `merged; closure pending`.
 
-Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal `closed-at-creation` summary в `INDEX` не должен после merge сохранять `own PR ... open` и заменяется merged-фактом собственного PR без self-reference на собственный head SHA. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate.
+Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой substantive записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal lifecycle-only summary в `INDEX` после merge переводится в `terminal-fold accepted`, а не порождает следующий closure PR. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate, кроме accepted terminal fold по разделу выше.
 
 Если merge commit SHA доступен в GitHub или local git history, closure должен зафиксировать его в `RESULT` closure-stamp. Отсутствие merge commit SHA в `RESULT` после обязательного closure-прохода без явного объяснения считается blocker. Отсутствие merge commit SHA в `INDEX` не является blocker.
 
