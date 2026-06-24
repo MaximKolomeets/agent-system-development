@@ -16,7 +16,7 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: post-release v1.1.0. Release PR и sync `main -> developer` выполнены; post-release journal/state фиксация закрывает release runway. Следующий порядок: reviewer/architect проверяет post-release sync PR; после merge выполнить безопасный branch cleanup при отдельном подтверждении списка веток, затем запустить downstream adoption dry run от tag `v1.1.0` / актуального `main`.
+Текущий фокус: pre-release runway к `v1.2.0`. Full audit #238 и fix-серия P0-P3 выполнены; P4 state-refresh выполняется текущей задачей. После merge P4 выполнить batch-closure фактических merged-but-unclosed substantive entries после 0088, затем reviewer consistency-gate, release-prep/release PR `developer -> main`, human-only annotated tag `v1.2.0`, sync `main -> developer`, после чего вернуться к downstream adoption / verification dry run от актуального release pointer.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
 
