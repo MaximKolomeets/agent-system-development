@@ -1,6 +1,6 @@
 # TASK-0085: METH-CREATE-RELEASE-PR-V1-1-0-01
 
-Статус: in progress.
+Статус: ready for review; PR #232 open.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0085-METH-CREATE-RELEASE-PR-V1-1-0-01.md`
 
