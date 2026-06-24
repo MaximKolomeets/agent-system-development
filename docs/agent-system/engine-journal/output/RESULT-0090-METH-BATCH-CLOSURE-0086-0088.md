@@ -49,14 +49,14 @@ Facts source:
 
 ## Scope note
 
-PR #238 / seq 0089 уже merged и занял INDEX до старта этой задачи. RESULT-0089 не входит в allowed files для `METH-BATCH-CLOSURE-0086-0088`, поэтому эта задача не закрывает 0089 и не меняет RESULT-0089. INDEX row 0089 приведена к status-only `merged; closure pending`, чтобы убрать stale `open; not merged` surface; RESULT-0089 closure-stamp остаётся отдельной pending-задачей вне scope данного closure-set.
+PR #238 / seq 0089 уже merged и занял INDEX до старта этой задачи. RESULT-0089 не входит в allowed files для `METH-BATCH-CLOSURE-0086-0088`, поэтому эта задача не закрывает 0089 и не меняет RESULT-0089. На момент RESULT-0090 запись 0089 ожидала отдельной closure-задачи вне scope данного closure-set; позднее 0089 закрыта через RESULT-0095 / PR #244 и не является текущим blocker.
 
 ## Checks
 
 - `python docs/agent-system/tools/gen_file_map.py --check`: exit 0, sequential.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0, sequential.
 - final-state rescan for 0086/0087/0088: stale hits 0; closure-stamps 3.
-- INDEX stale surface scan: no stale final-state surfaces in 0086-0088; 0089 is `merged; closure pending` and outside this closure-set; 0090 is an accepted terminal closure surface with PR #239.
+- INDEX stale surface scan: no stale final-state surfaces in 0086-0088; 0089 was outside this closure-set at the time of RESULT-0090 and is now closed by RESULT-0095 / PR #244; 0090 is an accepted terminal closure surface with PR #239.
 - branch guard before commit: yes, `work/docs-maintainer-01/batch-closure-0086-0088`.
 
 ## Source Delta
