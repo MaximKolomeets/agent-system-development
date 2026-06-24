@@ -1,6 +1,6 @@
 # RESULT-0096: METH-REVIEWER-CONSISTENCY-GATE-V1-2-01
 
-Статус: ready for review; PR #245.
+Статус: closed; PR #245 merged; facts in final-state stamp.
 
 ## Execution timestamps
 
@@ -12,7 +12,7 @@
 - `developer` / `origin/developer`: `02e770f139223e3cfae602369d06064dc1cfaba8`
 - `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - PR #244: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/244`; merged_at `2026-06-24T15:37:33Z`; mergeCommit `02e770f139223e3cfae602369d06064dc1cfaba8`; headRefOid `f75fa9b46d08ecb67ad06933f4afa089b3c689f0`.
-- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/245`; state `OPEN`; base/head `developer` <- `work/code-reviewer-01/reviewer-consistency-gate-v1-2-01`; headRefOid before journal finalization `ed406c9ae785014675615e40724a1b700e3b6077`; mergeable `MERGEABLE`.
+- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/245`; state `MERGED`; merged_at `2026-06-24T15:58:13Z`; mergeCommit `049710cd675c72142aa02ffd8f51004802c3b3e6`; base/head `developer` <- `work/code-reviewer-01/reviewer-consistency-gate-v1-2-01`; headRefOid before journal finalization `ed406c9ae785014675615e40724a1b700e3b6077`; final headRefOid `fd66c632aa11feb042f22277cbdeaf7dba365219`.
 - Tags: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`; `v1.0.0` -> `123a126afd812255f7d671d98169c077cf33a319`.
 
 ## Verdict
@@ -69,6 +69,19 @@ Release-prep `v1.2.0` запускать нельзя до narrow journal-only f
 | --- | --- | --- | --- | --- |
 | blocker | B-01 | `docs/agent-system/engine-journal/INDEX.md`; `docs/agent-system/engine-journal/output/RESULT-0095-METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01.md` | PR #244 is merged, but seq 0095 remains `ready for review; PR #244` and is not marked as accepted lifecycle terminal fold. This violates reviewer gate expectation: no merged-but-unclosed substantive/latest final-state surfaces before release-prep. | Narrow journal-only final-state fix: update 0095 final-state to an accepted terminal fold or closed/facts-in-RESULT according to current canon, regenerate cloud, then rerun reviewer consistency-gate. |
 | major | M-01 | `docs/agent-system/engine-journal/output/RESULT-0090-METH-BATCH-CLOSURE-0086-0088.md` | Accepted terminal RESULT-0090 still contains historical `0089 ... closure pending` wording, while 0089 is now closed by 0095. It is not a separate release blocker if B-01 is fixed by a final-state cleanup, but should be neutralized in the same narrow journal-only pass to keep stale-surface scans clean. | Include RESULT-0090 wording cleanup in the same journal-only fix if allowed; do not change source docs. |
+
+## Final-state stamp
+
+- finalized_by: `METH-JOURNAL-FINALSTATE-FIX-0096-V1-2-01` / `TASK-0099`
+- blocker_source: PR #247 repeat reviewer consistency-gate found seq 0096 / PR #245 merged-but-unclosed.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/245
+- PR state: MERGED
+- merged_at: `2026-06-24T15:58:13Z`
+- merge_commit: `049710cd675c72142aa02ffd8f51004802c3b3e6`
+- headRefOid: `fd66c632aa11feb042f22277cbdeaf7dba365219`
+- RESULT finalized after merge: yes
+- INDEX finalized after merge: yes
+- facts_source: `gh pr view 245 --json state,mergedAt,mergeCommit,headRefOid,url`
 
 ## Source Delta
 
