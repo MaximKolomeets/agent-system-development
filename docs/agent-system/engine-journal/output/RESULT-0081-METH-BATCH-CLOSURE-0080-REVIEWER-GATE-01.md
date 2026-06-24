@@ -1,6 +1,6 @@
 # RESULT-0081: METH-BATCH-CLOSURE-0080-REVIEWER-GATE-01
 
-Статус: terminal closure/open until own PR merge; expected terminal fold for this closure PR.
+Статус: closed; PR #228 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0081-METH-BATCH-CLOSURE-0080-REVIEWER-GATE-01.md`
 Режим task source: attachment handoff
@@ -25,8 +25,9 @@ Branch: `work/docs-maintainer-01/batch-closure-0080-reviewer-gate-01`
 Baseline SHA: `0eb86f1ba6caa318b770dd4c7f9d8ca20ab6eeb0`
 Primary materialization commit SHA: `463d1d8d87fdf0ee40cad29d0a4edc38f1f19b33`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/228
-PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `463d1d8d87fdf0ee40cad29d0a4edc38f1f19b33`
-Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
+PR state: MERGED
+Latest verified PR head SHA after final push: `4e89ccb15874a2f6a024772e53175a898a4b7a8c`
+Own mergeCommit: `234ff5de5fea27475fe44e7b36f90099626b8af2`
 
 ## Closure set
 
@@ -41,7 +42,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - RESULT-0080 received append-only closure-stamp with PR URL, merged_at, mergeCommit, headRefOid and facts source.
 - RESULT-0080 top final-state marker and PR state were updated from pre-merge wording to closed/merged wording.
 - INDEX row 0080 moved to `closed; PR #227 merged; facts in RESULT`, with PR URL and without full `mergeCommit`.
-- TASK/RESULT-0081 created as the terminal closure trace. Its own PR facts remain the expected terminal fold until this closure PR is merged.
+- TASK/RESULT-0081 created as the terminal closure trace; its own PR #228 merge facts are now stamped by RESULT-0082.
 - Cloud bundle regenerated after INDEX changes.
 
 ## Проверки
@@ -51,7 +52,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - `git diff --check origin/developer...HEAD`: exit 0.
 - INDEX pairing / seq continuity: rows 81; first `0001`; last `0081`; missing 0; missing pairs 0.
 - final-state surface scan for 0080: INDEX stale hits 0; RESULT stale hits 0; closure-stamp headers 1.
-- placeholder scan after PR finalization: committed-range hits 0; own terminal fold remains expected until PR #228 merge.
+- placeholder scan after PR finalization: committed-range hits 0; own terminal fold moved to RESULT-0082 as the latest expected final-state fix fold.
 - sensitive filename-only/count-only scan: committed-range count 0; matching lines were not printed.
 - branch-guard: `work/docs-maintainer-01/batch-closure-0080-reviewer-gate-01`.
 
@@ -71,12 +72,26 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #228 is merged.
-- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #228 is merged.
-- No journal placeholders except own terminal fold: yes.
+- RESULT finalized: yes, with own PR URL/state/head and merge facts from PR #228.
+- INDEX finalized: yes, own status closed after PR #228 merge.
+- No journal placeholders: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
 ## Передача
 
-Следующий: архитектор — review/merge closure PR; затем engine — release-prep v1.1.0.
+Следующий: engine — release-prep v1.1.0 после merge final-state fix для 0081.
+
+## Closure stamp
+
+- closed_by: `METH-JOURNAL-FINALSTATE-FIX-0081-01` / `TASK-0082`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/228
+- PR state: MERGED
+- merged_at: `2026-06-24T04:39:22Z`
+- merge_commit: `234ff5de5fea27475fe44e7b36f90099626b8af2`
+- headRefOid: `4e89ccb15874a2f6a024772e53175a898a4b7a8c`
+- closed_after_merge: yes
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 228 --json state,mergedAt,mergeCommit,headRefOid,url`
