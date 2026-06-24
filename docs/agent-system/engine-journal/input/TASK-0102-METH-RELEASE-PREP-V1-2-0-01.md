@@ -1,10 +1,11 @@
 # TASK-0102: METH-RELEASE-PREP-V1-2-0-01
 
-Статус: выполняется.
+Статус: ready for review; PR #251.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-25T00:29:31.9828175+07:00`
+- execution_finished_at: `2026-06-25T00:33:18.4574905+07:00`
 
 ## Задача
 
@@ -38,4 +39,4 @@
 
 ## Передача
 
-Следующий: docs-maintainer — завершить release-prep PR; затем архитектор — review/merge; затем engine — создать release PR `developer -> main`.
+Следующий: архитектор — review/merge PR #251; затем engine — создать release PR `developer -> main`.

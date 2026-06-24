@@ -1,18 +1,18 @@
 # RESULT-0102: METH-RELEASE-PREP-V1-2-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #251.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-25T00:29:31.9828175+07:00`
-- execution_finished_at: pending until finalization
+- execution_finished_at: `2026-06-25T00:33:18.4574905+07:00`
 
 ## Baseline
 
 - `developer` / `origin/developer`: `96c3e50b4f32ad13206894e4432e7d274bfc75f3`
 - `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - PR #250: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/250`; merged_at `2026-06-24T17:27:02Z`; mergeCommit `96c3e50b4f32ad13206894e4432e7d274bfc75f3`; headRefOid `d943385e445beaea361b7e74f07173721acb7a4c`.
-- Own PR: pending.
+- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/251`; state `OPEN`; base/head `developer` <- `work/docs-maintainer-01/release-prep-v1-2-0-01`; headRefOid before journal finalization `c9e780c9f0d17cd3d8f42f456f168b133be427e8`; mergeable `MERGEABLE`.
 
 ## Summary
 
@@ -39,7 +39,7 @@ Release-prep v1.2.0 подготовлен:
 | `cmd /c "python docs\agent-system\tools\gen_file_map.py --check"` | exit 0 |
 | `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"` | exit 0 |
 | `git diff --check origin/developer...HEAD` | exit 0 |
-| placeholder scan | expected pre-PR own-PR placeholders only; finalize after PR creation |
+| placeholder scan | no invalid placeholders after PR finalization |
 
 ## Backlog / future notes
 
@@ -69,9 +69,9 @@ Source-reminder: не применимо; state/history + journal + generated cl
 
 ## Confirmations
 
-- RESULT finalized: pending after PR creation.
-- INDEX finalized: pending after PR creation.
-- No invalid placeholders: pending after PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No invalid placeholders: yes.
 - Journal trace: yes, TASK/RESULT/INDEX created.
 - Execution timestamps present: yes.
 
