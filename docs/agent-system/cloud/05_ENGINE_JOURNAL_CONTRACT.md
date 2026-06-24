@@ -222,6 +222,8 @@ Reviewer не получает отдельного поля времени вн
 
 Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
 
+`execution_finished_at` является единственным каноническим именем measured-поля окончания выполнения. Вариант имени, образованный как `execution_` + `completed_at`, не является допустимым alias для новых записей; если он появляется в новой finalized TASK/RESULT вместо `execution_finished_at`, reviewer фиксирует minor finding. Старые append-only записи с таким drift-именем остаются историей и не ретрофитятся.
+
 ## Правило финализации после PR
 
 `RESULT` и `INDEX` могут содержать временные placeholders только до создания PR.
@@ -450,6 +452,7 @@ Reviewer подтверждает:
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
 - новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `reported/human` поля опциональны и не проверяются как обязательные;
+- новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.
