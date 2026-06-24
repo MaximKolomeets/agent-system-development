@@ -69,6 +69,8 @@ TASK/RESULT/INDEX files, user-facing labels, descriptions и final report дол
 
 Английский допустим только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
 
+Commit subject/body и PR title/body также должны быть Russian-first по `docs/agent-system/LANGUAGE_POLICY.md` → «Commit и PR metadata». Если нарушение commit/PR metadata language случилось и не было безопасно исправлено до push, RESULT обязан зафиксировать нарушение, причину отказа от rewrite/force-push и следующий безопасный шаг. Уже pushed/merged commits не переписываются без отдельного явного решения архитектора.
+
 Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
 
 ## Именование

@@ -16,7 +16,7 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, оркестратор готовит self-contained блок для исполнителя (engine) по этому стандарту. Если блок для исполнителя (engine) становится слишком длинным, оркестратор использует Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
 
-Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
+Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names. Commit subject/body и PR title/body тоже должны быть Russian-first: conventional prefix допустим, смысловой текст после него пишется по-русски.
 
 ## Когда применяется стандарт
 
@@ -205,6 +205,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Есть ли checks?
 - [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
+- [ ] Указан ли язык commit/PR metadata: commit subject/body и PR title/body — Russian-first, technical identifiers не переводятся, conventional prefix допустим?
 - [ ] Есть ли требования к финальному отчету?
 - [ ] Нет ли обязательных execution data вне блока?
 - [ ] Если ответ просит `engine` изменить файлы, есть ли ровно один полный блок для исполнителя (engine) для этой задачи?

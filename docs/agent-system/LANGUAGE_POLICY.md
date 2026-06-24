@@ -38,6 +38,30 @@ Target adoption/update tasks должны переносить Russian-first pol
 
 Все target-local docs/templates, созданные или обновленные из этой методологии, должны быть Russian-first. Новый target-local methodology template не должен быть преимущественно англоязычным, кроме технических identifiers и literal external names.
 
+## Commit и PR metadata
+
+Commit messages, PR titles и PR bodies также соблюдают Russian-first policy.
+
+- commit subject/body — Russian-first;
+- PR title/body — Russian-first;
+- смысловая часть commit/PR metadata должна быть на русском языке;
+- technical identifiers не переводятся: branch names, task ids, filenames, paths, commands, config keys, API names, role ids, package names, SHA values;
+- conventional prefix допускается как technical identifier, например `docs(agent-system):`, но текст после `:` должен быть Russian-first;
+- если нужен English alias для поиска, он допускается в скобках после русского смысла, но не вместо него;
+- уже pushed/merged commits не переписываются без отдельного явного решения архитектора на force-push/rewrite history.
+
+Корректные commit messages:
+
+- `docs(agent-system): закрепить русский язык для commit и PR metadata`
+- `journal(agent-system): закрыть записи 0073-0076 после merge`
+- `docs(agent-system): добавить fallback для zero-match scan на Windows`
+
+Некорректные commit messages:
+
+- `docs(agent-system): add zero-match scan fallback`
+- `docs(agent-system): batch closure for v1.1 fix series`
+- `fix docs after review`
+
 ## Комментарии в файлах
 
 В scripts, workflows, config-like files, code и technical examples комментарии пишутся на русском языке, если комментарии нужны.
