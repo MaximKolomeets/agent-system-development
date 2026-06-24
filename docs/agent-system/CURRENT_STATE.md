@@ -31,7 +31,7 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release runway v1.1.0 перед downstream adoption. По актуальному `engine-journal/INDEX.md` все содержательные записи закрыты; последняя lifecycle-only terminal fold `0083` является accepted terminal fold и не блокирует release/reviewer gate. Release-prep обновляет `RELEASE_READINESS.md`, подтверждает generated checks и готовит следующий шаг: после merge этой записи создать release PR `developer -> main`. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
+Текущий фокус: post-release v1.1.0 и подготовка downstream adoption dry run. Release PR `developer -> main` merged, annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен через PR. Post-release sync entry фиксирует эти факты в journal и обновляет cloud bundle; следующий содержательный шаг — downstream adoption dry run от release pointer. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
