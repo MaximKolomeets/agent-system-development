@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-24
+Дата: 2026-06-25
 
 Проект: Создание агентской системы
 
@@ -33,7 +33,7 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: pre-release runway к `v1.2.0` после full audit и fix-серии P0-P3. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon и P3 Russian-first headings; P4 state-refresh выполняется этой записью. После merge P4 следующий порядок: batch-closure фактических merged-but-unclosed substantive entries после 0088, reviewer consistency-gate, release-prep/release PR для `v1.2.0`, human-only annotated tag `v1.2.0`, sync `main -> developer`. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+Текущий фокус: release-prep к `v1.2.0` после full audit и fix-серии P0-P4. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon, P3 Russian-first headings и P4 state-refresh. Batch-closure и reviewer consistency-gate завершены; reviewer verdict — `READY for release-prep v1.2.0`. Эта release-prep запись доводит state/release snapshots до состояния `ready for release PR after merge`. Следующий шаг после merge release-prep PR: отдельной задачей создать release PR `developer -> main` для `v1.2.0`; release PR мержит только человек-архитектор, затем человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, после чего выполняется sync `main -> developer` и переход к target implementation repository dry run. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 

@@ -1,15 +1,15 @@
 # RELEASE_READINESS
 
-Дата проверки: 2026-06-24
+Дата проверки: 2026-06-25
 
-Назначение: pre-release snapshot для runway к `v1.2.0` после full audit #238 и fix-серии P0-P4. Это не release approval само по себе: финальный release-gate выполняется после merge P4, batch-closure и reviewer consistency-gate.
+Назначение: release-prep snapshot для `v1.2.0` после full audit, fix-серии P0-P4, batch-closure и reviewer consistency-gate. Это готовит следующий отдельный release PR `developer -> main`; агент не создаёт release PR в этой задаче.
 
 ## Release Candidate
 
 - Source branch: `developer`
 - Target branch: `main`
 - `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
-- `origin/developer`: `d3a447e16b9cbed6fdd48c973976529a33bd5a61`
+- `origin/developer`: `96c3e50b4f32ad13206894e4432e7d274bfc75f3`
 - Latest release tag: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`
 - Historical tag `v1.0.0`: present -> `123a126afd812255f7d671d98169c077cf33a319`
 - Next intended release tag: `v1.2.0`, human-only annotated tag after release PR merge.
@@ -23,31 +23,30 @@
 - PR #240 P1 methodology reference tag schema: `MERGED`; `source_tag` / `release_tag` are present as optional fields while `source_commit` remains required.
 - PR #241 P2 execution finish field canon: `MERGED`; new measured finish field is `execution_finished_at`.
 - PR #242 P3 headings Russian-first batch: `MERGED`; descriptive headings in active adopter-facing docs were aligned.
-- P4 state-refresh: this task updates `CURRENT_STATE.md`, `NEXT_STEPS.md`, this snapshot and cloud bundle.
+- P4 state-refresh: `MERGED`; state docs and cloud bundle updated for v1.2 runway.
+- Batch-closure/final-state fixes after P4: completed; substantive entries `0095`, `0096`, `0098` are closed with facts in RESULT; lifecycle-only terminal folds `0099`, `0100` are accepted and not blockers.
+- Reviewer consistency-gate PR #250: `MERGED`; verdict `READY for release-prep v1.2.0`.
 - State-level n-01: live/current vendor/tool literal is not present; the remaining literal is in append-only historical prose and is not a live blocker.
 
 ## Journal Gate
 
-Before release `v1.2.0`, run a dedicated batch-closure after P4 merge. Expected substantive merged-but-unclosed entries to include:
+Journal gate for release-prep is clean:
 
-- `0089` / PR #238, full audit closure-stamp pending.
-- `0091` / PR #240, P1 closure pending.
-- `0092` / PR #241, P2 closure pending.
-- `0093` / PR #242, P3 closure pending.
-- P4 state-refresh entry after its PR is merged.
+- INDEX continuity / TASK-RESULT pairing confirmed by reviewer gate.
+- `0095`, `0096`, `0098` are closed with final-state facts in RESULT.
+- `0099`, `0100` are lifecycle-only accepted terminal folds and are not substantive blockers.
+- Reviewer gate PR #250 returned `READY for release-prep v1.2.0`.
 
-Lifecycle-only terminal fold `0090` is accepted terminal closure for P0 and is not a substantive blocker by itself. Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md` and corresponding `RESULT-*` files.
+The current release-prep entry remains open until this PR is reviewed/merged; after merge, release PR creation is the next separate task. Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md` and corresponding `RESULT-*` files.
 
 ## Generated Gates
 
-To be re-run after this PR is finalized:
-
-- `python docs/agent-system/tools/gen_file_map.py --check`
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`
+- `python docs/agent-system/tools/gen_file_map.py --check`: required for this PR.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: required for this PR.
 
 ## Release Payload Summary
 
-Current diff `origin/main...origin/developer` contains 40 tracked paths before this P4 branch. Payload class remains public methodology docs/templates/journal/cloud generated artifacts; no runtime, secret or private downstream payload is expected.
+Current diff `origin/main...origin/developer` contains 56 tracked paths before this release-prep branch. Payload class remains public methodology docs/templates/journal/cloud generated artifacts; forbidden/runtime/private payload scan is expected to stay zero.
 
 Key changes since `v1.1.0`:
 
@@ -56,6 +55,8 @@ Key changes since `v1.1.0`:
 - P2 `execution_finished_at` canon for new TASK/RESULT.
 - P3 Russian-first descriptive headings in active adopter-facing docs.
 - P4 state-refresh and cloud bundle regeneration.
+- Batch-closure and final-state cleanup for release-gate journal consistency.
+- Reviewer consistency-gate returning `READY for release-prep v1.2.0`.
 
 ## Safety Scans
 
@@ -65,12 +66,13 @@ Key changes since `v1.1.0`:
 
 ## Release Recommendation
 
-Рекомендация: `NOT READY YET; continue runway`. После merge P4 выполнить batch-closure для merged-but-unclosed substantive entries после 0088, затем reviewer consistency-gate. Если gate clean и оба generated checks проходят, подготовить release PR `developer -> main` для `v1.2.0`; после human merge архитектор ставит annotated tag `v1.2.0`.
+Рекомендация: `READY FOR RELEASE PR AFTER MERGE OF THIS RELEASE-PREP PR`. После merge текущего release-prep PR отдельной задачей создать release PR `developer -> main` для `v1.2.0`. Агент не мержит release PR, не пушит в `main`, не создаёт tag и не публикует GitHub Release. После human merge архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, затем выполняется sync `main -> developer`.
 
 ## Next Step
 
-1. Review/merge P4 state-refresh PR.
-2. Выполнить batch-closure для фактических merged-but-unclosed substantive entries после 0088.
-3. Выполнить reviewer consistency-gate.
-4. Подготовить release-prep/release PR `developer -> main` для `v1.2.0`.
-5. После human merge поставить annotated tag `v1.2.0`, затем sync `main -> developer`.
+1. Review/merge текущий release-prep PR.
+2. Отдельной задачей создать release PR `developer -> main` для `v1.2.0`.
+3. Человек-архитектор мержит release PR.
+4. Человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`.
+5. Engine выполняет sync `main -> developer`.
+6. Перейти к target implementation repository dry run от актуального release pointer.
