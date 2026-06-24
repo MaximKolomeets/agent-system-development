@@ -1,10 +1,11 @@
 # TASK-0101: METH-REVIEWER-CONSISTENCY-GATE-V1-2-03
 
-Статус: выполняется.
+Статус: ready for review; PR #250.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-24T23:57:06.1085294+07:00`
+- execution_finished_at: `2026-06-24T23:59:51.0858615+07:00`
 
 ## Задача
 
@@ -34,4 +35,4 @@
 
 ## Передача
 
-Следующий: code-reviewer — завершить consistency-gate и открыть PR с journal trace; затем архитектор — review/merge; затем engine — release-prep v1.2.0, если verdict READY.
+Следующий: архитектор — review/merge PR #250; затем engine — release-prep v1.2.0.
