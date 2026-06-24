@@ -1,6 +1,6 @@
 # RESULT-0094: METH-V1-2-P4-STATE-REFRESH-01
 
-Статус: ready for review; PR #243.
+Статус: closed; PR #243 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0094-METH-V1-2-P4-STATE-REFRESH-01.md`
 
@@ -45,11 +45,11 @@
 
 Следующая batch-closure должна закрыть фактические merged-but-unclosed substantive entries после merge P4. На момент P4 preflight это:
 
-- `0089` / PR #238, full audit closure-stamp pending.
-- `0091` / PR #240, P1 closure pending.
-- `0092` / PR #241, P2 closure pending.
-- `0093` / PR #242, P3 closure pending.
-- `0094` / P4, после merge этого PR.
+- `0089` / PR #238, full audit closure required before reviewer consistency-gate.
+- `0091` / PR #240, P1 closure required before reviewer consistency-gate.
+- `0092` / PR #241, P2 closure required before reviewer consistency-gate.
+- `0093` / PR #242, P3 closure required before reviewer consistency-gate.
+- `0094` / PR #243, P4 closure required after merge.
 
 `0090` является lifecycle-only accepted terminal closure для P0 и не является substantive blocker by itself.
 
@@ -93,3 +93,16 @@ Source-reminder: inventory/source не менялись; state docs относя
 ## Передача
 
 Следующий: reviewer — review PR #243; затем архитектор — merge; затем engine — batch closure по фактическим merged-but-unclosed substantive entries после 0088; затем reviewer consistency-gate; затем release v1.2.0 + annotated tag.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01` / `TASK-0095`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/243
+- PR state: MERGED
+- merged_at: `2026-06-24T15:11:53Z`
+- merge_commit: `11501961c0ee7747ae14afdf3e162b479176ce33`
+- headRefOid: `df5ab079768897e78af4e5d22f92b95e60e841ec`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 243 --json state,mergedAt,mergeCommit,headRefOid,url`

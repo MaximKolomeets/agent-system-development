@@ -1,6 +1,6 @@
 # RESULT-0092: METH-EXEC-FIELD-NAME-CANON-01
 
-Статус: ready for review; PR #241.
+Статус: closed; PR #241 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0092-METH-EXEC-FIELD-NAME-CANON-01.md`
 
@@ -69,3 +69,16 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 ## Передача
 
 Следующий: архитектор — merge; затем engine — P3 (headings).
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01` / `TASK-0095`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/241
+- PR state: MERGED
+- merged_at: `2026-06-24T14:16:29Z`
+- merge_commit: `ae2e10eff524ea77e6dfc67122c59c527729b3cd`
+- headRefOid: `965f1fb0a6ad08a4b620839c52c4b8cb7b0f72d8`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 241 --json state,mergedAt,mergeCommit,headRefOid,url`

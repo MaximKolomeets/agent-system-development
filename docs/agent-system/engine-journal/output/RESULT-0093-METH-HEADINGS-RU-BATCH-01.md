@@ -1,6 +1,6 @@
 # RESULT-0093: METH-HEADINGS-RU-BATCH-01
 
-Статус: ready for review; PR #242.
+Статус: closed; PR #242 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0093-METH-HEADINGS-RU-BATCH-01.md`
 
@@ -80,3 +80,16 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 ## Передача
 
 Следующий: reviewer — проверить PR #242; затем архитектор — merge; затем engine — P4 state-refresh (n-01 + m-03-нота); затем reviewer-gate; затем release v1.2.0 + tag.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01` / `TASK-0095`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/242
+- PR state: MERGED
+- merged_at: `2026-06-24T14:33:35Z`
+- merge_commit: `d3a447e16b9cbed6fdd48c973976529a33bd5a61`
+- headRefOid: `e1ce7b7e00ab5ca297d95413f0c997b01c3579ee`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 242 --json state,mergedAt,mergeCommit,headRefOid,url`
