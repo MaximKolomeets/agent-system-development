@@ -1,6 +1,6 @@
 # TASK-0084: METH-RELEASE-PREP-V1-1-0-01
 
-Статус: in progress.
+Статус: ready for review; PR #231 open.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0084-METH-RELEASE-PREP-V1-1-0-01.md`
 
