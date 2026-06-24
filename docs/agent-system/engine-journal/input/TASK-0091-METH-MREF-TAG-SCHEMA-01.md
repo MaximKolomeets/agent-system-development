@@ -1,6 +1,6 @@
 # TASK-0091: METH-MREF-TAG-SCHEMA-01
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #240.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0091-METH-MREF-TAG-SCHEMA-01.md`
 
