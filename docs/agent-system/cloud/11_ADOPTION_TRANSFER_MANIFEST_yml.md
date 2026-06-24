@@ -11,7 +11,11 @@ methodology_reference_required: true
 methodology_reference_schema:
   repository: MaximKolomeets/agent-system-development
   source_branch: developer
+  # Обязательно: воспроизводимый anchor; tag не заменяет commit SHA.
   source_commit: "<commit-sha>"
+  # Опционально: human-readable pointers; можно опустить или оставить пустыми, если тега нет.
+  source_tag: "<optional annotated tag on source_commit>"
+  release_tag: "<optional release tag>"
   checked_at: "<ISO-8601 timestamp>"
   reference_type: commit
   notes: "<short Russian note>"
