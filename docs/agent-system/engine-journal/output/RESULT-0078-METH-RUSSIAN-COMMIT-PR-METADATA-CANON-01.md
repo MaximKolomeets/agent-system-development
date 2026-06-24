@@ -1,6 +1,6 @@
 # RESULT-0078: METH-RUSSIAN-COMMIT-PR-METADATA-CANON-01
 
-Статус: ready for review; PR #225 open; closure будет выполнен отдельным batch-closure после merge.
+Статус: closed after merge; PR #225 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0078-METH-RUSSIAN-COMMIT-PR-METADATA-CANON-01.md`
 Режим task source: user-provided self-contained task in chat
@@ -25,7 +25,9 @@ Branch: `work/docs-maintainer-01/russian-commit-pr-metadata-canon-01`
 Baseline SHA: `167472d70b4c4fa8662b752819236d28d1c35aec`
 Primary materialization commit SHA: `1a34f9c653b3182cd8144da89f0dfba4a2752b56`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/225
-PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `1a34f9c653b3182cd8144da89f0dfba4a2752b56`
+PR state: MERGED; head before journal finalization: `1a34f9c653b3182cd8144da89f0dfba4a2752b56`
+Merge commit SHA: `3a5d68677a343339a57b8610157094fa29ee1f8f`
+Merged at: `2026-06-24T01:25:58Z`
 
 ## Выполнено
 
@@ -85,3 +87,16 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 ## Передача
 
 Следующий: архитектор — review/merge PR; затем engine — batch-closure должна включить 0078 тоже.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0077-0078-01` / `TASK-0079`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/225
+- PR state: MERGED
+- merged_at: `2026-06-24T01:25:58Z`
+- merge_commit: `3a5d68677a343339a57b8610157094fa29ee1f8f`
+- headRefOid: `6498f368d4c6e948191d2647928b2a303b313399`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 225 --json state,mergedAt,mergeCommit,headRefOid,url`

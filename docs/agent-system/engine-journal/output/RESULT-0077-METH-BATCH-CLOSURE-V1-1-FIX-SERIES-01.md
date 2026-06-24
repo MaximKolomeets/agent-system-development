@@ -1,6 +1,6 @@
 # RESULT-0077: METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01
 
-Статус: terminal closure/open until own PR merge; expected terminal fold for this closure PR.
+Статус: closed after merge; PR #224 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0077-METH-BATCH-CLOSURE-V1-1-FIX-SERIES-01.md`
 Режим task source: attachment handoff
@@ -25,10 +25,11 @@ Branch: `work/docs-maintainer-01/batch-closure-v1-1-fix-series-01`
 Baseline SHA: `4535ebb41e15b7752b8a611a14becf9d74d20b71`
 Primary materialization commit SHA: `c84d2e4c2a2440291be75f442c631a2ed0ffa8ba`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/224
-PR state: OPEN
+PR state: MERGED
 PR head before journal finalization: `c84d2e4c2a2440291be75f442c631a2ed0ffa8ba`
 Actual PR head after final push: self-reference не фиксируется внутри этого commit; см. GitHub PR #224.
-Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
+Own mergeCommit: `167472d70b4c4fa8662b752819236d28d1c35aec`
+Merged at: `2026-06-23T17:24:20Z`
 
 ## Closure set
 
@@ -80,8 +81,8 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #224 is merged.
-- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #224 is merged.
+- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts stamped by `METH-BATCH-CLOSURE-0077-0078-01` / `TASK-0079`.
+- INDEX finalized: yes, with own PR URL; own status closed by `METH-BATCH-CLOSURE-0077-0078-01` / `TASK-0079`.
 - No journal placeholders except own terminal fold: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
@@ -89,3 +90,16 @@ Source-reminder: не применимо (методология не менял
 ## Передача
 
 Следующий: reviewer — consistency-gate closure PR, сверить RESULT-stamps 0073-0076 vs gh facts, INDEX status+PR URL without mergeCommit, terminal fold 0077, generated checks and cloud mirror; затем архитектор — merge; затем engine — reviewer consistency-gate/release-prep; затем human-only release/tag v1.1.0.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0077-0078-01` / `TASK-0079`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/224
+- PR state: MERGED
+- merged_at: `2026-06-23T17:24:20Z`
+- merge_commit: `167472d70b4c4fa8662b752819236d28d1c35aec`
+- headRefOid: `26988bf29c71ef5e54c4121c46f96f5073e43645`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 224 --json state,mergedAt,mergeCommit,headRefOid,url`
