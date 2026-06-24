@@ -14,7 +14,7 @@
 - PR: `https://github.com/MaximKolomeets/agent-system-development/pull/231`
 - PR state: `OPEN`
 - PR base/head: `developer` <- `work/docs-maintainer-01/release-prep-v1-1-0-01`
-- PR head SHA at finalization: `26b184a2edfccde25b9e9655184b18891bfa6976`
+- PR head SHA before journal finalization commit: `26b184a2edfccde25b9e9655184b18891bfa6976`
 
 ## Что сделано
 
