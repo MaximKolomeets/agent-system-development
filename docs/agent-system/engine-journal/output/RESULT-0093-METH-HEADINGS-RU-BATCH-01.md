@@ -1,17 +1,18 @@
 # RESULT-0093: METH-HEADINGS-RU-BATCH-01
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #242.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0093-METH-HEADINGS-RU-BATCH-01.md`
 
 ## Execution
 
 - execution_started_at measured: `2026-06-24T21:20:40.7489268+07:00`
-- execution_finished_at measured: pending until final checks.
+- execution_finished_at measured: `2026-06-24T21:28:00.6969742+07:00`
 - baseline `developer` / `origin/developer`: `ae2e10eff524ea77e6dfc67122c59c527729b3cd`
 - baseline `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - work branch: `work/docs-maintainer-01/headings-ru-batch-01`
-- PR: pending until creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/242
+- PR state at finalization: `OPEN`; base/head: `developer` <- `work/docs-maintainer-01/headings-ru-batch-01`; head SHA: `dfe321ef28143e3830b10f9e689a910b6cf1ee91`; mergeable: `MERGEABLE`.
 
 ## Preflight
 
@@ -71,11 +72,11 @@ Source-reminder: обновить Source-снапшот у зарегистри�
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
-- No journal placeholders: PR URL fields pending until PR creation; will be finalized in follow-up commit before review.
-- execution_finished_at present in own RESULT: pending.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes.
+- execution_finished_at present in own RESULT: yes.
 
 ## Передача
 
-Следующий: архитектор — merge; затем engine — P4 state-refresh (n-01 + m-03-нота); затем reviewer-gate; затем release v1.2.0 + tag.
+Следующий: reviewer — проверить PR #242; затем архитектор — merge; затем engine — P4 state-refresh (n-01 + m-03-нота); затем reviewer-gate; затем release v1.2.0 + tag.
