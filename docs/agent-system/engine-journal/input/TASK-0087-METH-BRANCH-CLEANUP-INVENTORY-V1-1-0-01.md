@@ -1,6 +1,6 @@
 # TASK-0087: METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #236.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0087-METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01.md`
 

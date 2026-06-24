@@ -1,6 +1,6 @@
 # RESULT-0087: METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #236.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0087-METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01.md`
 
@@ -11,7 +11,7 @@
 - baseline `origin/developer`: `e2edeafffc8fd9fe9cdccdde76c3837786b92c18`
 - baseline `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - work branch: `work/docs-maintainer-01/branch-cleanup-inventory-v1-1-0-01`
-- PR: pending until creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/236
 
 ## Preflight
 
@@ -135,8 +135,8 @@ git push origin --delete work/docs-maintainer-01/v1-1-audit-findings-fix-01
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
+- RESULT finalized: yes, PR #236 URL recorded.
+- INDEX finalized: yes, PR #236 URL recorded.
 - Journal trace: TASK/RESULT/INDEX.
 - execution timestamps present: yes.
 
