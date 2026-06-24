@@ -1,6 +1,6 @@
 # TASK-0098: METH-REVIEWER-CONSISTENCY-GATE-V1-2-02
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #247.
 
 Роль: code-reviewer.
 Исполнитель: на усмотрение архитектора.
@@ -27,6 +27,7 @@ Reasoning effort: высокий.
 - Baseline `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - PR #245: `MERGED`; merge commit `049710cd675c72142aa02ffd8f51004802c3b3e6`; merged_at `2026-06-24T15:58:13Z`
 - PR #246: `MERGED`; merge commit `7fcb583ec210b127aec9b4729cadc8ff1e52085c`; merged_at `2026-06-24T16:11:09Z`
+- Own PR: https://github.com/MaximKolomeets/agent-system-development/pull/247
 - Tags: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`; `v1.0.0` -> `123a126afd812255f7d671d98169c077cf33a319`
 
 ## Scope
@@ -46,4 +47,4 @@ Reasoning effort: высокий.
 
 ## Передача
 
-Следующий: архитектор — review/merge reviewer PR; затем engine — follow-up fix если verdict BLOCKED, или release-prep v1.2.0 если verdict READY.
+Следующий: архитектор — review/merge PR #247; затем engine — narrow journal-only final-state fix for 0096; затем повторить reviewer consistency-gate v1.2.0.
