@@ -16,7 +16,7 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Если задача является только status/check/cleanup, применяется Operational Fast Lane. Если задача меняет файлы, создает PR или требует воспроизводимого scope, оркестратор готовит self-contained блок для исполнителя (engine) по этому стандарту. Если блок для исполнителя (engine) становится слишком длинным, оркестратор использует Task File Handoff Mode по `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`.
 
-Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
+Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names. Commit subject/body и PR title/body тоже должны быть Russian-first: conventional prefix допустим, смысловой текст после него пишется по-русски.
 
 ## Когда применяется стандарт
 
@@ -205,6 +205,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Есть ли checks?
 - [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
+- [ ] Указан ли язык commit/PR metadata: commit subject/body и PR title/body — Russian-first, technical identifiers не переводятся, conventional prefix допустим?
 - [ ] Есть ли требования к финальному отчету?
 - [ ] Нет ли обязательных execution data вне блока?
 - [ ] Если ответ просит `engine` изменить файлы, есть ли ровно один полный блок для исполнителя (engine) для этой задачи?
@@ -215,9 +216,12 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Остался ли английский только в технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names?
 - [ ] Нет ли англоязычных служебных заголовков, если для них есть русская формулировка?
 - [ ] Если пользователь сообщил о merge/release/sync, проверены ли GitHub state и journal state?
-- [ ] Если PR merged, закрыты ли RESULT/INDEX после merge?
+- [ ] Если PR merged, закрыты ли RESULT/INDEX после merge или это lifecycle-only `terminal-fold accepted`?
 - [ ] Если release/sync выполнены, записаны ли release/sync факты?
-- [ ] Если journal stale, создан ли полный блок для исполнителя (engine) для docs-only closure cleanup?
+- [ ] Если journal stale, отличён ли blocker `open/merged-but-unclosed substantive entry` от accepted terminal fold?
+- [ ] Если найден только accepted terminal fold, не создаётся ли новая closure-задача только ради него?
+- [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
+- [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Журнал исполнителя (engine)
@@ -257,9 +261,9 @@ Final report `engine` должен подтверждать:
 
 Любой ответ оркестратора после сообщения пользователя о merge/release/sync должен разделять GitHub PR state и target journal RESULT/INDEX state.
 
-GitHub merge сам по себе не закрывает lifecycle задачи, если target journal stale. В batch-policy stale journal может быть допустимым промежуточным состоянием `merged; closure pending`, но release остаётся запрещён до полного closure journal.
+GitHub merge сам по себе не закрывает substantive lifecycle задачи, если target journal stale. В batch-policy stale journal может быть допустимым промежуточным состоянием `merged; closure pending`, но release остаётся запрещён до closure всех substantive entries. Lifecycle-only `terminal-fold accepted` является финальным допустимым состоянием и не blocker.
 
-Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием, оркестратор должен дать self-contained блок для per-task closure. В обычной серии work PR оркестратор явно передаёт closure в batch перед release.
+Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием, оркестратор должен дать self-contained блок для per-task closure только для substantive stale entries. Не выдавать новую closure-задачу только ради accepted terminal fold. В обычной серии work PR оркестратор явно передаёт closure в batch перед release.
 
 ## Локальные действия после PR/merge
 
@@ -319,9 +323,9 @@ Operational Fast Lane используется для простых status chec
 
 Если GitHub connector доступен, оркестратор сам проверяет PR/open/merged/branch state и не просит пользователя присылать длинные логи при чистом результате.
 
-Post-merge checks в Operational Fast Lane должны включать journal closure state: рабочий PR merged, release PR merged при наличии, sync PR merged при наличии, stale work branches очищены или отмечены, `RESULT` и `INDEX` не остались в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`.
+Post-merge checks в Operational Fast Lane должны включать journal closure state: рабочий PR merged, release PR merged при наличии, sync PR merged при наличии, stale work branches очищены или отмечены, `RESULT` и `INDEX` не остались в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`, кроме lifecycle-only `terminal-fold accepted`.
 
-Если пользователь пишет `готово` после merge, release или sync, оркестратор должен проверить target journal entries. Если `RESULT` или `INDEX` stale, оркестратор не должен считать цикл закрытым: нужно запросить у `engine` docs-only journal-closure cleanup task с фактическими merge данными.
+Если пользователь пишет `готово` после merge, release или sync, оркестратор должен проверить target journal entries. Если substantive `RESULT` или `INDEX` stale, оркестратор не должен считать цикл закрытым: нужно запросить у `engine` docs-only journal-closure cleanup task с фактическими merge данными. Если остался только accepted terminal fold, не запускать новую closure-задачу только ради него.
 
 Длинный блок для исполнителя (engine) нужен только для задач, которые меняют файлы, создают PR, выполняют adoption/bootstrap или требуют полного воспроизводимого scope.
 

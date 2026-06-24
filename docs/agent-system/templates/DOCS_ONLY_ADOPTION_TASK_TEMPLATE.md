@@ -13,6 +13,8 @@ Reasoning effort: <низкий | средний | высокий>
 Запуск: <Local only | Cloud allowed | Hybrid>
 Режим: <Agent | Ask | Manual review>
 Почему: <краткое обоснование выбора режима и reasoning effort>
+Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 ```
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
@@ -20,6 +22,7 @@ Reasoning effort: <низкий | средний | высокий>
 ## Рекомендуемый режим исполнения
 
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
+Заполнить execution-время по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Execution timestamps»: measured `execution_started_at` обязательно для TASK; `orchestration_time_reported` опционально.
 
 ## Verified Baseline
 

@@ -17,9 +17,10 @@ https://github.com/MaximKolomeets/agent-system-development
 Работай по Operational Fast Lane для проверок/cleanup.
 Если Fast Lane/status review выявил необходимость менять файлы, PR body, journal или branch state через commit/push, остановить Fast Lane и дать полный self-contained блок для исполнителя (engine).
 GitHub состояние проверяй сам, если connector доступен.
-Если пользователь сообщает, что merge/release/sync выполнены, проверь GitHub PR state и target journal state. Если RESULT/INDEX остались в pre-merge state, lifecycle не закрыт: дай полный self-contained блок для исполнителя (engine) на docs-only journal closure cleanup.
+Если пользователь сообщает, что merge/release/sync выполнены, проверь GitHub PR state и target journal state. Если substantive RESULT/INDEX остались в pre-merge state, lifecycle не закрыт: дай полный self-contained блок для исполнителя (engine) на docs-only journal closure cleanup. Lifecycle-only `terminal-fold accepted` не считать blocker и не порождать новую closure-задачу только ради него.
 Задачи для исполнителя (engine) оформляй через self-contained block и engine-journal.
 Блоки для исполнителя (engine) писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
+Commit messages и PR title/body тоже Russian-first; technical identifiers не переводятся, conventional prefix вроде `docs(agent-system):` допустим.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.
 Не читать `.env`.
 Не менять `main`/`developer` напрямую.
@@ -65,6 +66,10 @@ python docs/agent-system/tools/gen_cloud_bundle.py --check
 Любой generated text artifact и связанный с ним режим `--check` должны сравнивать содержимое, а не байтовую форму checkout. Перед сравнением text-content нормализует `CRLF`, `CR` и `LF` к единому `LF`, чтобы Windows checkout и `core.autocrlf` не создавали false drift при отсутствии реального изменения content.
 
 Новый генератор с режимом `--check` обязан иметь regression-проверку: EOL-only drift не должен давать ненулевой exit, но реальный content-drift в source или generated artifact обязан оставаться обнаруживаемым и приводить к ненулевому exit. Если generator emits generated-bundle paths, эти paths закрепляются в `.gitattributes` через `text eol=lf`, чтобы repository checkout был предсказуемым; это дополняет EOL-normalized compare, но не заменяет его.
+
+Windows fallback: если wrapper, parallel runner или shell-композиция для generated `--check` зависает без живого полезного процесса, это не является parity failure. Для read-only generated checks нужно выполнить sequential fallback, предпочтительно `cmd /c python <generator> --check`, и считать gate-result по exit code этой последовательной команды. RESULT обязан записать, что применён fallback, указать команду и exit code. Это правило относится только к read-only generated text checks и не переносится на произвольные runtime/test jobs.
+
+Zero-match/no-output scan fallback: на Windows read-only scans/checks не должны полагаться только на wrapper/parallel `rg`, если он зависает без вывода и без живого полезного процесса. Такой hang не является содержательной scan-находкой и не считается самостоятельным FAIL. Нужно повторить scan последовательным deterministic способом с явным exit code: `Select-String`, PowerShell script, Python script/one-liner или другая простая sequential command. RESULT обязан записать fallback-команду, exit code и смысл результата: zero matches подтверждены или matches найдены. Правило относится к read-only scans/checks вроде placeholder scan, sensitive filename-only/count-only scan, heading scan, wording scan и vendor scan; sensitive matches не печатать построчно, использовать filename-only или count-only.
 
 Архитектор загружает `docs/agent-system/cloud/` целиком, если лимит интерфейса позволяет, или изменённое подмножество numbered-файлов по per-task handoff. `cloud/00_README.md` является авторитетной картой `source path -> cloud filename`, содержит priority map, freshness stamp и upload how-to.
 

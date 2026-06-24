@@ -28,9 +28,13 @@ Engine:
 
 Агент:
 
-Начато:
+Время начала выполнения (execution_started_at) [measured/engine]:
 
-Завершено:
+Время окончания выполнения (execution_finished_at) [measured/engine]:
+
+Длительность выполнения (execution_duration) [measured/engine, опционально]:
+
+Время человека, по факту (human_time_reported) [reported/human, опционально]:
 
 Branch:
 

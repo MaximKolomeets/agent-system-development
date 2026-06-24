@@ -69,6 +69,8 @@ TASK/RESULT/INDEX files, user-facing labels, descriptions и final report дол
 
 Английский допустим только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
 
+Commit subject/body и PR title/body также должны быть Russian-first по `docs/agent-system/LANGUAGE_POLICY.md` → «Commit и PR metadata». Если нарушение commit/PR metadata language случилось и не было безопасно исправлено до push, RESULT обязан зафиксировать нарушение, причину отказа от rewrite/force-push и следующий безопасный шаг. Уже pushed/merged commits не переписываются без отдельного явного решения архитектора.
+
 Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
 
 ## Именование
@@ -197,6 +199,29 @@ Methodology repository operational history не переносится.
 - риски;
 - следующий рекомендуемый шаг.
 
+## Execution timestamps
+
+Новые TASK/RESULT записи фиксируют execution-время по модели `measured/reported`:
+
+- `measured/engine` — значения, которые engine фиксирует автоматически или надежно по факту собственного запуска;
+- `reported/human` — значения, которые сообщает человек или оркестратор; они опциональны и могут оставаться пустыми.
+
+TASK должен содержать:
+
+- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`.
+
+RESULT должен содержать:
+
+- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Время окончания выполнения (execution_finished_at) [measured/engine]` в формате ISO 8601 с timezone;
+- `Длительность выполнения (execution_duration) [measured/engine, опционально]`;
+- `Время человека, по факту (human_time_reported) [reported/human, опционально]`.
+
+Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution-полями. Merge-время не дублируется в execution-полях; оно фиксируется как `merged_at` в closure-stamp `RESULT` по разделу «Closure facts authority».
+
+Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
+
 ## Правило финализации после PR
 
 `RESULT` и `INDEX` могут содержать временные placeholders только до создания PR.
@@ -265,7 +290,7 @@ Default-режим закрытия journal после merge рабочего PR
 
 Следующий work PR той же фазы не должен останавливаться только из-за незакрытой предыдущей journal-записи. Executor и reviewer фиксируют это как `closure pending`/batch-context, но не считают blocker для обычного следующего work PR.
 
-Перед release `developer -> main` обязателен один closure-only проход по всем merged-but-unclosed seq. Release запрещён, пока journal не закрыт полностью: все seq, входящие в release, должны иметь closure-stamp в `RESULT` и закрытый status + PR URL в `INDEX`.
+Перед release `developer -> main` обязателен один closure-only проход по всем merged-but-unclosed substantive seq. Release запрещён, пока journal не закрыт полностью: все substantive seq, входящие в release, должны иметь closure-stamp в `RESULT` и закрытый status + PR URL в `INDEX`; lifecycle-only `terminal-fold accepted` seq допустимы и не требуют новой closure-задачи.
 
 Per-task closure применяется только в случаях:
 
@@ -278,6 +303,34 @@ Per-task closure применяется только в случаях:
 Closure-only задача не создаёт новый TASK/RESULT для закрываемой рабочей записи. Она добавляет closure-stamp с фактами в существующий `RESULT`, обновляет в `INDEX` только status + PR URL и безопасный summary, сохраняя append-only смысл journal entry. Канонический шаблон per-task closure: `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md`.
 
 Batch-closure задача проходит по `INDEX.md`, находит все merged-but-unclosed seq в заданном диапазоне, получает факты PR из GitHub, добавляет closure-stamp в соответствующие `RESULT` и обновляет в `INDEX` только status + PR URL. Канонический шаблон batch closure: `docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md`.
+
+### Accepted terminal fold
+
+`terminal-fold accepted` — финальное lifecycle-состояние terminal-записи, а не `open`.
+
+Accepted terminal fold допустим только для lifecycle-only entries: closure, finalstate-fix, reviewer-gate trace, release-prep trace, sync/cleanup trace, если запись не несёт незакрытого содержательного payload.
+
+Правила:
+
+- `terminal-fold accepted` не считается `open`, `ready`, `closure pending` или blocker для reviewer-gate, release-prep и release-gate.
+- GitHub PR URL является authority для own merge facts terminal-записи; own merge facts не backfill'ятся рекурсивно отдельной closure-задачей.
+- Не создавать новую closure-задачу только ради `terminal-fold accepted`.
+- Ordinary substantive entries всё ещё требуют closure-stamp с merge facts в `RESULT` и status + PR URL в `INDEX`.
+- Если terminal-запись содержит содержательные незакрытые изменения source docs/templates/canons, она не может быть silently accepted и закрывается обычным closure-проходом.
+
+Search aliases for checks: `PR URL authoritative`; `not a blocker`; `do not create closure solely`.
+
+Канонический status в `INDEX`:
+
+```text
+terminal-fold accepted; PR URL authoritative; not release/reviewer blocker
+```
+
+Для собственной текущей terminal-записи до merge PR допустима формулировка:
+
+```text
+terminal-fold accepted pending own PR merge; PR URL authoritative after merge
+```
 
 ### Closure facts authority
 
@@ -309,7 +362,7 @@ Batch-closure задача проходит по `INDEX.md`, находит вс
 
 Legacy-записи, где old policy уже продублировала merge facts в `INDEX`, остаются как append-only history и не ретрофитятся.
 
-Следующие pre-merge значения являются недопустимыми final states после обязательного closure-прохода:
+Следующие pre-merge значения являются недопустимыми final states после обязательного closure-прохода, если запись не классифицирована как lifecycle-only `terminal-fold accepted`:
 
 - `PR open`;
 - `ready for review`;
@@ -319,7 +372,7 @@ Legacy-записи, где old policy уже продублировала merge
 - `open; not merged`;
 - `merged; closure pending`.
 
-Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal `closed-at-creation` summary в `INDEX` не должен после merge сохранять `own PR ... open` и заменяется merged-фактом собственного PR без self-reference на собственный head SHA. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate.
+Closure-проход обязан не только зафиксировать факты в closure-stamp `RESULT` и status + PR URL в `INDEX`, но и убрать stale final-state поверхности закрываемой substantive записи. Верхний status-marker закрываемого `RESULT` приводится к closed-статусу, согласованному с уже добавленным closure-stamp; terminal lifecycle-only summary в `INDEX` после merge переводится в `terminal-fold accepted`, а не порождает следующий closure PR. Оставшаяся pre-merge поверхность из списка выше после обязательного closure-прохода является blocker под release/consistency gate, кроме accepted terminal fold по разделу выше.
 
 Если merge commit SHA доступен в GitHub или local git history, closure должен зафиксировать его в `RESULT` closure-stamp. Отсутствие merge commit SHA в `RESULT` после обязательного closure-прохода без явного объяснения считается blocker. Отсутствие merge commit SHA в `INDEX` не является blocker.
 
@@ -345,6 +398,8 @@ Reviewer подтверждает:
 
 - release payload соответствует ровно merged-серии по `INDEX.md`, без посторонних или необъяснённых изменений;
 - `python docs/agent-system/tools/gen_file_map.py --check` и `python docs/agent-system/tools/gen_cloud_bundle.py --check` проходят на release-кандидате;
+- если на Windows wrapper/parallel runner для read-only generated `--check` завис, reviewer/engine применяет sequential fallback по `ORCHESTRATOR_OPERATING_CONTRACT.md` → «Проверки generated text artifacts: content-oriented / EOL-safe» и записывает команду + exit code в RESULT;
+- если на Windows no-output scan (`rg`/wrapper) завис без полезного процесса, reviewer/engine применяет deterministic fallback по тому же B-WIN правилу и записывает fallback-команду, exit code и смысл результата в RESULT;
 - journal закрыт сквозняком: closure-stamp есть в `RESULT`, а `INDEX` содержит closed status + PR URL по всем seq серии;
 - Source Delta и context handoff согласованы по серии;
 - release notes соответствуют фактическому payload;
@@ -394,6 +449,7 @@ Reviewer подтверждает:
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
+- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `reported/human` поля опциональны и не проверяются как обязательные;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.

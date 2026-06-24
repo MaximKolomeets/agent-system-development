@@ -8,6 +8,10 @@
 
 Создано:
 
+Время начала выполнения (execution_started_at) [measured/engine]:
+
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]:
+
 Автор:
 
 Target repository:
@@ -60,6 +64,7 @@ Verified Baseline:
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
 - [ ] Блок «Рекомендуемый режим исполнения» включён.
+- [ ] Execution timestamps включены: `execution_started_at` заполнен; `orchestration_time_reported` заполнен или оставлен пустым как optional.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.

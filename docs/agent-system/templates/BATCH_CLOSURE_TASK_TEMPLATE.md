@@ -13,13 +13,15 @@ Reasoning effort: средний
 Запуск: Local only
 Режим: Agent
 Почему: задача сверяет GitHub merge facts с RESULT closure-stamps и закрывает только journal перед release.
+Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 
 ## Режим
 
 batch-closure-only, docs-only, branch-guard.
 Terminal: да. Запускается перед release `developer -> main`.
 
-Эта batch-closure запись является последним PR перед release и закрывается per-task после merge по `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md`.
+Собственная batch-closure запись после merge становится lifecycle-only `terminal-fold accepted`; она не порождает следующую closure-задачу только ради own terminal fold.
 
 ## Ветки
 
@@ -46,7 +48,7 @@ git rev-parse --abbrev-ref HEAD
 ## Discovery
 
 1. Прочитать `docs/agent-system/engine-journal/INDEX.md`.
-2. Найти все seq в диапазоне `<seq-range>`, где PR уже merged, но `RESULT` не содержит closure-stamp или `INDEX` не содержит закрытый status + PR URL.
+2. Найти все substantive seq в диапазоне `<seq-range>`, где PR уже merged, но `RESULT` не содержит closure-stamp или `INDEX` не содержит закрытый status + PR URL. Lifecycle-only `terminal-fold accepted` не включать в closure-set.
 3. Для каждого PR выполнить:
 
 ```powershell
@@ -85,7 +87,7 @@ docs/agent-system/engine-journal/INDEX.md
   - next step after closure.
 - В строке INDEX <seq> обновить только status + PR URL и safe one-line summary; optional mergedAt date допустима для навигации. Полный merge commit SHA в INDEX не дублировать: авторитетные merge-факты находятся в RESULT closure-stamp.
 - Снять stale `open`, `not merged`, `ready for review`, `PR open`, `draft open`, `pending at file materialization`, `see Engine final report`, если они относятся к final status закрываемой записи.
-- Очистить final-state surfaces для каждого закрываемого seq: верхний status-marker закрываемого RESULT привести к closed-статусу, согласованному с closure-stamp; terminal INDEX summary не оставлять с `own PR ... open`, а после merge собственного PR заменять на merged-факт без self-reference на собственный head SHA.
+- Очистить final-state surfaces для каждого закрываемого seq: верхний status-marker закрываемого RESULT привести к closed-статусу, согласованному с closure-stamp. Lifecycle-only terminal INDEX summary переводить в `terminal-fold accepted; PR URL authoritative; not release/reviewer blocker`, без self-reference на собственный head SHA.
 - Historical task/result content не переписывать произвольно.
 
 Для собственной batch-closure записи:
@@ -93,7 +95,8 @@ docs/agent-system/engine-journal/INDEX.md
 - seq взять из актуального INDEX на момент выполнения;
 - TASK/RESULT/INDEX создать и финализировать после PR creation;
 - RESULT перечисляет closure-set, PR facts source, baseline SHA, timestamp, проверки;
-- после merge batch-closure PR закрыть собственную запись per-task, потому что это последний PR перед release.
+- INDEX status сразу формулировать как `terminal-fold accepted pending own PR merge; PR URL authoritative after merge`;
+- после merge batch-closure PR не создавать следующую closure-задачу только ради собственной terminal fold.
 
 ## Проверки
 
@@ -115,7 +118,7 @@ rg -n "PR open|ready for review|draft open|open; not merged|merged; closure pend
 
 Completion checklist:
 
-- [ ] final-state surfaces cleared: верхние RESULT-статусы и terminal INDEX summary не содержат pre-merge/`own PR open` значений.
+- [ ] final-state surfaces cleared: верхние RESULT-статусы закрываемых substantive seq чисты; terminal lifecycle-only rows либо closed, либо `terminal-fold accepted`.
 
 ## Commit / PR
 
@@ -140,7 +143,7 @@ gh pr create --base <base-branch> --head work/<role>/batch-closure-<seq-range> -
 - remaining open seq, если есть;
 - risks;
 - Source-reminder: не применимо (методология не менялась), если задача только закрывала journal;
-- Передача: `Следующий: архитектор — merge batch-closure PR; затем engine — closure собственной batch-closure записи; затем release dev→main`.
+- Передача: `Следующий: архитектор — merge batch-closure PR; затем engine — release/reviewer gate без отдельной closure только ради accepted terminal fold`.
 
 ## STOP
 

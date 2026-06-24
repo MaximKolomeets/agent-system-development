@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-23
+Дата: 2026-06-24
 
 Проект: Создание агентской системы
 
@@ -10,7 +10,7 @@ Repository visibility: public.
 
 ## Актуальное состояние
 
-### Standing capabilities
+### Постоянные возможности (Standing capabilities)
 
 Методология выпущена и поддерживается как reusable methodology/template repository. Этот слой описывает устойчивые возможности; он меняется только при реальном изменении методологии, а не после каждого work/release/sync PR.
 
@@ -25,13 +25,13 @@ Repository visibility: public.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
-### Current pointer
+### Текущий указатель (Current pointer)
 
 Авторитет текущего journal state: `docs/agent-system/engine-journal/INDEX.md` и соответствующие `RESULT-*` closure-stamps. Этот файл не дублирует номера work/release/sync PR как source of truth; если здесь встречается конкретный номер PR в исторической летописи ниже, он является информационной историей, а не актуальным pointer.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release runway перед downstream adoption. По актуальному `engine-journal/INDEX.md` pre-adoption аудит, cleanup-серия и terminal batch-closure завершены; текущая state-refresh запись закрывается per-task в release-prep перед release PR. Release-gate checks зелёные. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
+Текущий фокус: release runway v1.1.0 перед downstream adoption. По актуальному `engine-journal/INDEX.md` все содержательные записи закрыты; последняя lifecycle-only terminal fold `0083` является accepted terminal fold и не блокирует release/reviewer gate. Release-prep обновляет `RELEASE_READINESS.md`, подтверждает generated checks и готовит следующий шаг: после merge этой записи создать release PR `developer -> main`. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
@@ -240,4 +240,4 @@ PR #154 закрыл B-01/M-01/M-02/M-03 из journal 0021. PR #155 закрыл
 
 Дополнение (`ASD-OPLAYER-001`, journal 0024): зафиксирована нейтральная трёхслойная operating-модель. Добавлены `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` (project operating layer: один изолированный проектный контекст на target repository, ролевой контракт «не коммитит/не мержит», knowledge base, правило свежести asof + developer HEAD SHA) и `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` (Cowork lane: read-only advisory консолидация, visibility-matrix как need-to-know граница, STATE_DIGEST/CONSOLIDATED_VIEW, redaction-граница, приватный control plane). `TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` расширен разделом «Три слоя управления». Решение — в `DECISION_LOG.md` (2026-06-19). Docs-only; реальные имена/матрицы/дайджесты в публичный репозиторий не добавлялись.
 
-Дополнение (2026-06-23, pre-release state refresh): pre-adoption аудит и cleanup-серия завершены; journal закрыт по актуальному `engine-journal/INDEX.md` через terminal batch-closure для завершённой серии, а текущая state-refresh запись закрывается в release-prep перед release PR; generated checks подтверждены как EOL-safe/content-oriented; следующий переход — release `developer -> main` с human-readable tag, затем sync и downstream adoption на release pointer. Существующие исторические literal names в этой append-only летописи не переписывались; живые секции выше остаются нейтральными.
+Дополнение (2026-06-23, pre-release state refresh): pre-adoption аудит и cleanup-серия завершены; journal закрыт по актуальному `engine-journal/INDEX.md` через terminal batch-closure для завершённой серии, а текущая state-refresh запись закрывается в release-prep перед release PR; generated checks подтверждены как EOL-safe/content-oriented; следующий переход — release `developer -> main` с human-only annotated tag на release merge commit, затем sync и downstream adoption на release pointer. Существующие исторические literal names в этой append-only летописи не переписывались; живые секции выше остаются нейтральными.
