@@ -1,6 +1,6 @@
 # TASK-0086: METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01
 
-Статус: in progress.
+Статус: ready for review; PR #235 open.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0086-METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01.md`
 

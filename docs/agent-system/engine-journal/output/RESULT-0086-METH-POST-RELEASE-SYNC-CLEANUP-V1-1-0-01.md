@@ -1,17 +1,20 @@
 # RESULT-0086: METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #235 open.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0086-METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01.md`
 
 ## Execution
 
 - execution_started_at measured: `2026-06-24T16:06:15.1537231+07:00`
-- execution_completed_at measured: pending until finalization
+- execution_completed_at measured: `2026-06-24T16:11:29.8315212+07:00`
 - baseline `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - baseline `origin/developer`: `7cb3a977aea28f83031ff2fc291e54f65133170b`
 - work branch: `work/docs-maintainer-01/post-release-sync-cleanup-v1-1-0-01`
-- PR: pending until creation.
+- PR: `https://github.com/MaximKolomeets/agent-system-development/pull/235`
+- PR state: `OPEN`
+- PR base/head: `developer` <- `work/docs-maintainer-01/post-release-sync-cleanup-v1-1-0-01`
+- PR head SHA before journal finalization commit: `c68af9266cda343b7732cc77fde0195f3ebbf452`
 
 ## Release Facts
 
@@ -43,7 +46,7 @@ Branch cleanup was deferred: current post-release journal PR is still open, and 
 
 - `python docs/agent-system/tools/gen_file_map.py --check`: exit 0.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0.
-- `git diff --check`: pending until finalization.
+- `git diff --check`: exit 0.
 - release PR #233: `MERGED`.
 - tag `v1.1.0` -> release merge commit: yes.
 - sync PR #234: `MERGED`.
@@ -72,9 +75,9 @@ Branch cleanup was deferred: current post-release journal PR is still open, and 
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
-- No invalid placeholders: pending until finalization.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No invalid placeholders: yes.
 - Journal trace: TASK/RESULT/INDEX.
 - execution timestamps present: yes.
 
