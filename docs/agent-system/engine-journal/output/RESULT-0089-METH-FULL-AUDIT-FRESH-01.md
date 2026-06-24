@@ -1,5 +1,7 @@
 # RESULT-0089-METH-FULL-AUDIT-FRESH-01
 
+Статус: closed; PR #238 merged; facts in closure-stamp.
+
 Ответ исполнителя (engine) по задаче `METH-FULL-AUDIT-FRESH-01`.
 
 ## Ссылки на задачу
@@ -9,7 +11,7 @@
 - Task id: `METH-FULL-AUDIT-FRESH-01`; Seq: `0089` (из ФАКТИЧЕСКОГО `INDEX.md`: last 0088 + 1; claim-протокол подтвердил, что 0089 свободен).
 - Branch: `work/code-reviewer-01/full-audit-fresh-01`
 - Materialization commit SHA: `6fb920d6da22322fc5319706f4c25c6e5e6d7846`
-- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/238`; PR status: `open; not merged` (closure pending — batch/reviewer-gate/release; merge выполняет человек).
+- PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/238`; PR status after closure: `MERGED`; merge facts are authoritative in closure-stamp below.
 - Latest verified PR head SHA after final push: см. PR body/final report (self-reference в journal не фиксируется по `ENGINE_JOURNAL_CONTRACT.md` → «Политика PR head SHA без self-reference»).
 
 ## Execution timestamps
@@ -62,7 +64,7 @@
 |---|---|---|---|
 | 1 | Governance 1–4 | ok | `BRANCH_POLICY`: rule 1 (release human-merge, 10–22, gate-order + tag step), rule 2 (39), rule 3 (47), rule 4 (54). |
 | 2 | Closure policy + producer-fix | ok | Contract: Closure facts authority (305+), final-state surface cleanup; «Accepted terminal fold» (307–332). Producer-fix в обоих closure-шаблонах. (Применение — см. п.3 backlog.) |
-| 3 | Целостность журнала | finding(major) | seq 0001–0088 непрерывны, парность 88↔88, task-id совпадают, INDEX-ссылки валидны. НО 0086/0087/0088 — merged work PR (#235/#236/#237 MERGED), а INDEX/RESULT остались в `ready for review; PR open/#NNN` (stale pre-merge surfaces). Это substantive entries (не lifecycle terminal-fold), 3 шт. > допустимой одной складки → M-01. |
+| 3 | Целостность журнала | finding(major) | seq 0001–0088 непрерывны, парность 88↔88, task-id совпадают, INDEX-ссылки валидны. НО 0086/0087/0088 — merged work PR (#235/#236/#237 MERGED), а INDEX/RESULT на момент аудита содержали pre-merge status wording. Это substantive entries (не lifecycle terminal-fold), 3 шт. > допустимой одной складки → M-01. |
 | 4 | Parity-гейты + EOL-safe | ok | `gen_file_map.py --check` EXIT 0; `gen_cloud_bundle.py --check` EXIT 0 (sequential, прямой запуск). Параллельный runner не применялся, зависаний нет. EOL-safe (`.gitattributes` + standard 0058) сохранён. |
 | 5 | Source Delta + handoff | ok | `TASK_HEADER_COMMON`: «Передача» (65), «Source Delta» (112), «Orchestrator context handoff» (143). |
 | 6 | Russian-first headings | finding(minor) | Правило есть (`LANGUAGE_POLICY` 22, неизменно) и применено к части доков (state docs — bilingual), но ~200 описательных EN-заголовков остаются в active канонах (`CI_POLICY`, `CODE_REVIEW_WORKFLOW`, `CROSS_PROJECT_CONSOLIDATION_CONTRACT` и др.) → F-06 OPEN. Оценка эвристическая (включает технические литералы); чистых нарушений >100. |
@@ -92,7 +94,7 @@
 
 ## Классификация находок и план fix-PR
 
-- **M-01 — major — closure-backlog 0086–0088.** Три merged work entry (#235/#236/#237 MERGED) остались в `ready for review; PR open/#NNN`. Это sanctioned closure-pending состояние, НО превышает допустимую одну terminal-складку и несёт stale pre-merge surfaces; **hard gate перед следующим release/reviewer-gate**. Fix-PR: batch-closure 0086–0088 (closure-stamp в RESULT, INDEX status+PR URL, очистка final-state surfaces). Роль: docs-maintainer. Не блокирует текущую работу/adoption по содержанию, но обязателен перед релизом.
+- **M-01 — major — closure-backlog 0086–0088.** Три merged work entry (#235/#236/#237 MERGED) на момент аудита имели pre-merge status wording. Это sanctioned closure backlog, НО превышает допустимую одну terminal-складку; **hard gate перед следующим release/reviewer-gate**. Fix-PR: batch-closure 0086–0088 (closure-stamp в RESULT, INDEX status+PR URL, очистка final-state surfaces). Роль: docs-maintainer. Не блокирует текущую работу/adoption по содержанию, но обязателен перед релизом.
 - **m-01 (F-06) — minor — headings backlog vs правило 0059.** Fix-PR: батч-перевод описательных EN-заголовков с сохранением технических aliases в скобках. Роль: docs-maintainer.
 - **m-02 — minor — exec field-name drift.** 0086–0088 используют `execution_completed_at` вместо канонического `execution_finished_at` (зеркалится в cloud 07). Fix-PR (forward-only, append-only history не ретрофитить): закрепить единое имя `execution_finished_at` в будущих записях; опционально добавить явную ноту в канон, что `execution_completed_at` — недопустимый синоним. Роль: docs-maintainer.
 - **m-03 — minor — v1.0.0 annotated tag отсутствует.** Human-action (engine тег не ставит): поставить `v1.0.0` на `123a126afd812255f7d671d98169c077cf33a319`. Уже предписано каноном.
@@ -150,3 +152,16 @@
 - Эта задача создаёт docs-only PR `work/code-reviewer-01/full-audit-fresh-01 -> developer`; PR мержит человек.
 - После merge: `Repository sync / checkout guard`, затем `git switch developer` + `git pull --ff-only` (HEAD == `origin/developer`); work-ветку при желании удалить.
 - Прямого push/commit в `developer`/`main` не выполнялось; рассинхрон не вносился; `.claude/*` worktree не трогался.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01` / `TASK-0095`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/238
+- PR state: MERGED
+- merged_at: `2026-06-24T13:11:27Z`
+- merge_commit: `6ad7cb7c194822c803d041b1cd3de39f210ed353`
+- headRefOid: `74dbe33c2cca252bfb90f91fe59eb7846415db35`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 238 --json state,mergedAt,mergeCommit,headRefOid,url`
