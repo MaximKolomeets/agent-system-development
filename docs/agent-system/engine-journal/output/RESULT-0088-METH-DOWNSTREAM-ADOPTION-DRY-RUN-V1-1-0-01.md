@@ -1,6 +1,6 @@
 # RESULT-0088: METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01
 
-Статус: ready for review; PR #237.
+Статус: closed; PR #237 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0088-METH-DOWNSTREAM-ADOPTION-DRY-RUN-V1-1-0-01.md`
 
@@ -220,3 +220,17 @@ No blocker was found that prevents a real target adoption task.
 ## Передача
 
 Следующий: архитектор — review/merge dry-run PR; затем engine — real target adoption task или methodology feedback fix `METH-METHODOLOGY-REFERENCE-TAG-FIELD-01`.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0086-0088` / `TASK-0090`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/237
+- PR state: MERGED
+- merged_at: `2026-06-24T11:37:36Z`
+- merge_commit: `e6be18fbb4e92f41d328474fab0a9a33fdd06903`
+- headRefOid: `2d33a338e97c769002dc7c0fbb045dd60a42b10f`
+- release/sync closure facts: n-a for this work PR closure-stamp
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 237 --json state,mergedAt,mergeCommit,headRefOid,url`

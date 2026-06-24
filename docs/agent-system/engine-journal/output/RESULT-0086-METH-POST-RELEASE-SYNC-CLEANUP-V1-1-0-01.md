@@ -1,6 +1,6 @@
 # RESULT-0086: METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01
 
-Статус: ready for review; PR #235 open.
+Статус: closed; PR #235 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0086-METH-POST-RELEASE-SYNC-CLEANUP-V1-1-0-01.md`
 
@@ -84,3 +84,17 @@ Branch cleanup was deferred: current post-release journal PR is still open, and 
 ## Передача
 
 Следующий: reviewer/architect — review/merge post-release sync PR; затем engine — dedicated branch cleanup with explicit branch list; затем engine — downstream adoption dry run от tag `v1.1.0` / актуального `main`.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0086-0088` / `TASK-0090`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/235
+- PR state: MERGED
+- merged_at: `2026-06-24T09:28:03Z`
+- merge_commit: `e2edeafffc8fd9fe9cdccdde76c3837786b92c18`
+- headRefOid: `eb6db6687ca11498ebc492b5697b232d1ec9af94`
+- release/sync closure facts: n-a for this work PR closure-stamp
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 235 --json state,mergedAt,mergeCommit,headRefOid,url`
