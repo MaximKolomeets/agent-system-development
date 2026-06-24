@@ -1,6 +1,6 @@
 # RESULT-0079: METH-BATCH-CLOSURE-0077-0078-01
 
-Статус: terminal closure/open until own PR merge; expected terminal fold for this closure PR.
+Статус: terminal-fold accepted; PR URL authoritative; not release/reviewer blocker.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0079-METH-BATCH-CLOSURE-0077-0078-01.md`
 Режим task source: attachment handoff
@@ -25,8 +25,8 @@ Branch: `work/docs-maintainer-01/batch-closure-0077-0078-01`
 Baseline SHA: `3a5d68677a343339a57b8610157094fa29ee1f8f`
 Primary materialization commit SHA: `46d654e13feaae5992fc831d9bc94cfef1dd8526`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/226
-PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `46d654e13feaae5992fc831d9bc94cfef1dd8526`
-Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
+PR state: terminal-fold accepted; PR URL authoritative after merge
+Own mergeCommit: accepted terminal fold; own merge facts are not recursively backfilled by design.
 
 ## Closure set
 
@@ -42,7 +42,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - RESULT-0077/0078 received append-only closure-stamps with PR URL, merged_at, mergeCommit, headRefOid and facts source.
 - RESULT-0077/0078 top final-state marker and PR state were updated from pre-merge wording to closed/merged wording.
 - INDEX rows 0077-0078 moved to `closed; PR #... merged; facts in RESULT`, with PR URL and without full `mergeCommit`.
-- TASK/RESULT-0079 created as the terminal closure trace. Its own PR facts remain the expected terminal fold until this closure PR is merged.
+- TASK/RESULT-0079 created as the terminal closure trace. Its own PR URL is authoritative for own merge facts under accepted terminal fold canon.
 - Cloud bundle regenerated after INDEX changes.
 
 ## Проверки
@@ -52,7 +52,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - `git diff --check origin/developer...HEAD`: exit 0.
 - INDEX pairing / seq continuity: rows 79; first `0001`; last `0079`; missing 0; missing pairs 0.
 - final-state surface scan for 0077-0078: INDEX stale hits 0; RESULT stale hits 0; closure-stamp headers 2.
-- placeholder scan after PR finalization: committed-range hits 0; own terminal fold remains expected until PR #226 merge.
+- placeholder scan after PR finalization: committed-range hits 0; own terminal fold accepted and not a release/reviewer blocker.
 - sensitive filename-only/count-only scan: committed-range count 0; matching lines were not printed.
 - branch-guard: `work/docs-maintainer-01/batch-closure-0077-0078-01`.
 
@@ -73,12 +73,21 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #226 is merged.
-- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #226 is merged.
-- No journal placeholders except own terminal fold: yes.
+- RESULT finalized: yes, with own PR URL; own merge facts are intentionally not recursively backfilled.
+- INDEX finalized: yes, with own PR URL and accepted terminal fold status.
+- No journal placeholders: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
 ## Передача
 
-Следующий: архитектор — review/merge closure PR; затем engine — заново запускает reviewer consistency-gate.
+Следующий: engine — release/reviewer gate may proceed; do not create closure solely for this accepted terminal fold.
+
+## Terminal-fold note
+
+- entry_class: lifecycle-only terminal fold
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/226
+- PR URL authoritative for own merge facts: yes
+- own merge facts recursively backfilled: no, by design
+- release/reviewer blocker: no
+- canon: `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Accepted terminal fold»

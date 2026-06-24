@@ -1,6 +1,6 @@
 # RESULT-0082: METH-JOURNAL-FINALSTATE-FIX-0081-01
 
-Статус: terminal finalstate-fix/open until own PR merge; expected terminal fold for this final-state fix PR.
+Статус: terminal-fold accepted; PR URL authoritative; not release/reviewer blocker.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0082-METH-JOURNAL-FINALSTATE-FIX-0081-01.md`
 Режим task source: attachment handoff materialized in this branch
@@ -25,8 +25,8 @@ Branch: `work/docs-maintainer-01/journal-finalstate-fix-0081-01`
 Baseline SHA: `234ff5de5fea27475fe44e7b36f90099626b8af2`
 Primary materialization commit SHA: `f2838920b9a3372cd397ca95f561880a507029e4`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/229
-PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `f2838920b9a3372cd397ca95f561880a507029e4`
-Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
+PR state: terminal-fold accepted; PR URL authoritative after merge
+Own mergeCommit: accepted terminal fold; own merge facts are not recursively backfilled by design.
 
 ## Closure set
 
@@ -42,7 +42,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - RESULT-0081 top final-state marker and PR state were updated from terminal/open wording to closed/merged wording.
 - INDEX row 0081 moved to `closed; PR #228 merged; facts in RESULT`, with PR URL and without full `mergeCommit`.
 - TASK/RESULT-0082 created as the terminal final-state fix trace.
-- `0082` is expected terminal fold and must be allowed by next release-prep as the single latest terminal finalstate-fix fold.
+- `0082` is accepted terminal fold and must be allowed by release-prep/reviewer-gate as lifecycle-only non-blocking state.
 - Cloud bundle regenerated after INDEX changes.
 
 ## Проверки
@@ -51,7 +51,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"`: exit 0.
 - `git diff --check origin/developer...HEAD`: exit 0.
 - INDEX pairing / seq continuity: rows 82; first `0001`; last `0082`; missing 0; missing pairs 0.
-- final-state surface scan for 0081 (`open until own|PR state: OPEN|Own mergeCommit: terminal|facts will be stamped|until PR #228|terminal closure/open`): exit 1 / zero matches.
+- final-state surface scan for 0081: exit 1 / zero matches.
 - placeholder scan after PR finalization (`TBD|заполнить|PLACEHOLDER|<seq>|<PR>` over RESULT-0081, RESULT-0082, INDEX): exit 1 / zero matches.
 - sensitive filename-only/count-only scan: count 4; matching lines and filenames were not printed.
 - branch-guard: `work/docs-maintainer-01/journal-finalstate-fix-0081-01`.
@@ -72,12 +72,21 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #229 is merged.
-- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #229 is merged.
-- No journal placeholders except own terminal fold: yes.
+- RESULT finalized: yes, with own PR URL; own merge facts are intentionally not recursively backfilled.
+- INDEX finalized: yes, with own PR URL and accepted terminal fold status.
+- No journal placeholders: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
 ## Передача
 
-Следующий: архитектор — review/merge final-state fix PR; затем engine — release-prep v1.1.0 с допуском одной последней terminal finalstate-fix fold.
+Следующий: engine — release-prep v1.1.0; do not create closure solely for this accepted terminal fold.
+
+## Terminal-fold note
+
+- entry_class: lifecycle-only terminal fold
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/229
+- PR URL authoritative for own merge facts: yes
+- own merge facts recursively backfilled: no, by design
+- release/reviewer blocker: no
+- canon: `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Accepted terminal fold»

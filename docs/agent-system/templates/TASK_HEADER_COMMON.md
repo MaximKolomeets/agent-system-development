@@ -94,6 +94,8 @@ Final report и RESULT обязаны заканчиваться блоком «
 
 Если batch-closure policy: после merge work-PR journal может временно оставаться pre-merge/closure-pending; это не blocker для следующего work PR той же фазы; blocker только для release / audit-review consistency-gate / явного closure-задания.
 
+Journal closed для release/reviewer gate означает: все substantive entries закрыты closure-stamp/status+PR URL, а lifecycle-only entries со статусом `terminal-fold accepted` допустимы. STOP при `open`, `ready`, `closure pending`, `stamp at merge` или merged-but-unclosed substantive entry; не STOP при `terminal-fold accepted`. Если terminal fold не lifecycle-only или содержит незакрытый содержательный payload, STOP и запросить closure/fix.
+
 Канон closure policy — `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Шаблоны closure-задач: `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md` и `docs/agent-system/templates/BATCH_CLOSURE_TASK_TEMPLATE.md`.
 
 ## Source-reminder
