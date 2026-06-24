@@ -38,7 +38,7 @@ Reasoning effort: <низкий | средний | высокий>
 
 `<роль>` - vendor-neutral роль, которой назначена задача. `<task-id>` должен связывать задачу с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
-## Engine journal
+## Журнал engine (Engine journal)
 
 Каждая engine-задача и ответ engine должны сохраняться в target repository:
 
@@ -62,7 +62,7 @@ target-specific `INDEX.md` entry.
 
 ## Режимы adoption (adoption modes)
 
-## Methodology reference
+## Методологическая ссылка (methodology_reference)
 
 Каждая target adoption/update task должна фиксировать, какая версия methodology repository использована.
 
@@ -303,7 +303,7 @@ Target repository может использовать `developer`, `develop`, `m
 
 Для нового пустого repository со стандартной схемой `main -> developer -> work/<role>/*` отсутствие `developer` является bootstrap blocker или trigger для явно разрешенного bootstrap creation step.
 
-## PowerShell and UTF-8
+## PowerShell и UTF-8
 
 Русские Markdown-файлы нужно читать в UTF-8, чтобы избежать mojibake.
 

@@ -1,12 +1,12 @@
 # CI_POLICY
 
-## Purpose
+## Назначение
 
 CI is an automatic guardrail for the public methodology repository.
 
 The first CI check blocks forbidden tracked files and paths before they can be merged. CI does not replace review, manual checks, or repository rulesets.
 
-## Forbidden tracked paths
+## Запрещённые tracked paths
 
 The repository must not track these paths:
 
@@ -22,12 +22,12 @@ The repository must not track these paths:
 - `*.tmp`
 - `*.bak`
 
-## Allowed exceptions
+## Разрешённые исключения
 
 - `.env.example` is allowed if it does not contain real secrets.
 - Documents may contain the words `token`, `password`, `secret`, and `credential` only as security rules or examples without real values.
 
-## Limitations
+## Ограничения
 
 - CI checks only tracked files.
 - CI does not analyze local untracked files.
@@ -35,14 +35,14 @@ The repository must not track these paths:
 - CI must not print secrets.
 - Secret scanning and more advanced checks can be added as separate future tasks.
 
-## GitHub Actions runtime compatibility
+## Совместимость runtime GitHub Actions
 
 - The forbidden files workflow uses `actions/checkout@v5`.
 - `actions/checkout@v5` was selected because its action metadata declares `using: node24`.
 - If GitHub Actions reports runtime deprecation warnings again, verify the upstream action metadata before changing the workflow.
 - Do not downgrade to an action runtime that produces deprecation warnings unless the user explicitly accepts the temporary risk.
 
-## Local pre-check
+## Локальная проверка перед commit
 
 Run these commands before commit or push:
 
