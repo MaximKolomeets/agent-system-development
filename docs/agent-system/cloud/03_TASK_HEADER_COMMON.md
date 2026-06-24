@@ -62,6 +62,10 @@ RESULT должен содержать:
 
 Время reviewer не записывается отдельным полем внутри work-записи: reviewer является отдельным engine-run со своим TASK/RESULT и собственными `execution_*` полями. Время merge не дублируется в execution-полях: оно фиксируется как `merged_at` в closure-stamp `RESULT` по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure facts authority».
 
+Каноническое имя поля окончания выполнения — `execution_finished_at`. Вариант имени, образованный как `execution_` + `completed_at`, не является допустимым alias и не используется в новых TASK/RESULT. Исторические append-only записи с таким drift-именем не ретрофитятся.
+
+Reviewer фиксирует minor finding, если новая finalized запись вводит неканоническое поле окончания выполнения вместо `execution_finished_at`; это не blocker и не повод переписывать исторические RESULT.
+
 ## Передача (handoff)
 
 Сквозное правило handoff для **любой** engine-задачи (development, research, review, infra, source-steward и т. д.).
