@@ -1,6 +1,6 @@
 # RESULT-0095: METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01
 
-Статус: ready for review; PR #244.
+Статус: closed; PR #244 merged; facts in final-state stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0095-METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01.md`
 
@@ -58,6 +58,18 @@
 - placeholder scan for own TASK/RESULT/INDEX: no invalid placeholders after PR finalization.
 - sensitive filename-only/count-only scan: filename_candidate_count 2; matching paths/lines not printed; candidates are policy-doc filenames, no secret content read.
 - `git diff --check origin/developer...HEAD`: exit 0.
+
+## Final-state stamp
+
+- finalized_by: `METH-JOURNAL-FINALSTATE-FIX-0095-V1-2-01` / `TASK-0097`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/244
+- PR state: MERGED
+- merged_at: `2026-06-24T15:37:33Z`
+- merge_commit: `02e770f139223e3cfae602369d06064dc1cfaba8`
+- headRefOid: `f75fa9b46d08ecb67ad06933f4afa089b3c689f0`
+- RESULT finalized after merge: yes
+- INDEX finalized after merge: yes
+- facts_source: `gh pr view 244 --json state,mergedAt,mergeCommit,headRefOid,url`
 
 ## Source Delta
 
