@@ -23,10 +23,9 @@ Engine: local Codex CLI
 
 Branch: `work/docs-maintainer-01/journal-finalstate-fix-0081-01`
 Baseline SHA: `234ff5de5fea27475fe44e7b36f90099626b8af2`
-Primary materialization commit SHA: заполнить после commit
-PR URL: заполнить после `gh pr create`
-PR state: заполнить после `gh pr create`
-Latest verified PR head SHA after final push: заполнить после финального push
+Primary materialization commit SHA: `f2838920b9a3372cd397ca95f561880a507029e4`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/229
+PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `f2838920b9a3372cd397ca95f561880a507029e4`
 Own mergeCommit: terminal fold; facts will be stamped by a later closure after this PR is merged.
 
 ## Closure set
@@ -53,7 +52,7 @@ Own mergeCommit: terminal fold; facts will be stamped by a later closure after t
 - `git diff --check origin/developer...HEAD`: exit 0.
 - INDEX pairing / seq continuity: rows 82; first `0001`; last `0082`; missing 0; missing pairs 0.
 - final-state surface scan for 0081 (`open until own|PR state: OPEN|Own mergeCommit: terminal|facts will be stamped|until PR #228|terminal closure/open`): exit 1 / zero matches.
-- placeholder scan after PR finalization: выполнить после `gh pr create` и финального RESULT/INDEX patch.
+- placeholder scan after PR finalization (`TBD|заполнить|PLACEHOLDER|<seq>|<PR>` over RESULT-0081, RESULT-0082, INDEX): exit 1 / zero matches.
 - sensitive filename-only/count-only scan: count 4; matching lines and filenames were not printed.
 - branch-guard: `work/docs-maintainer-01/journal-finalstate-fix-0081-01`.
 
@@ -73,9 +72,9 @@ Source-reminder: не применимо (методология не менял
 
 ## Подтверждения
 
-- RESULT finalized: заполнить после PR creation.
-- INDEX finalized: заполнить после PR creation.
-- No journal placeholders except own terminal fold: заполнить после PR creation.
+- RESULT finalized: yes, with own PR URL/state/head before journal finalization; own merge facts remain the expected terminal fold until PR #229 is merged.
+- INDEX finalized: yes, with own PR URL; own status remains terminal/open until PR #229 is merged.
+- No journal placeholders except own terminal fold: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
