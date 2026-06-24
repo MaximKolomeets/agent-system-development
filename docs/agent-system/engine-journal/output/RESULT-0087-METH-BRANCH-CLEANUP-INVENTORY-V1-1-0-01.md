@@ -1,6 +1,6 @@
 # RESULT-0087: METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01
 
-Статус: ready for review; PR #236.
+Статус: closed; PR #236 merged; facts in closure-stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0087-METH-BRANCH-CLEANUP-INVENTORY-V1-1-0-01.md`
 
@@ -143,3 +143,17 @@ git push origin --delete work/docs-maintainer-01/v1-1-audit-findings-fix-01
 ## Передача
 
 Следующий: архитектор — подтвердить конкретный список веток для удаления; затем engine — выполнить branch cleanup отдельной задачей без force-delete и без удаления protected branches.
+
+## Closure stamp
+
+- closed_by: `METH-BATCH-CLOSURE-0086-0088` / `TASK-0090`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/236
+- PR state: MERGED
+- merged_at: `2026-06-24T09:44:35Z`
+- merge_commit: `20ad71d73ef71370c20381b690fac7bc43cf75cb`
+- headRefOid: `0e5e039a1fc7562701b42022f0d13b90beb86c19`
+- release/sync closure facts: n-a for this work PR closure-stamp
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 236 --json state,mergedAt,mergeCommit,headRefOid,url`
