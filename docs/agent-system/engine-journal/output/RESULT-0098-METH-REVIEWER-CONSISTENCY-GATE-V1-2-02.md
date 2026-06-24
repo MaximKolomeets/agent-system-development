@@ -1,6 +1,6 @@
 # RESULT-0098: METH-REVIEWER-CONSISTENCY-GATE-V1-2-02
 
-Статус: ready for review; PR #247.
+Статус: closed; PR #247 merged; facts in final-state stamp.
 
 ## Execution timestamps
 
@@ -13,22 +13,22 @@
 - `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
 - PR #245: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/245`; merged_at `2026-06-24T15:58:13Z`; mergeCommit `049710cd675c72142aa02ffd8f51004802c3b3e6`; headRefOid `fd66c632aa11feb042f22277cbdeaf7dba365219`.
 - PR #246: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/246`; merged_at `2026-06-24T16:11:09Z`; mergeCommit `7fcb583ec210b127aec9b4729cadc8ff1e52085c`; headRefOid `defda6ced2d62dd8db14218c12bafdcb2932b3e1`.
-- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/247`; state `OPEN`; base/head `developer` <- `work/code-reviewer-01/reviewer-consistency-gate-v1-2-02`; headRefOid before journal finalization `e92f2e0c3960cf05983270f45c1c90a1a25eb2ad`; mergeable `MERGEABLE`.
+- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/247`; state `MERGED`; merged_at `2026-06-24T16:25:53Z`; mergeCommit `7325fa2a5c1e16575db0f42f9f28e21d70ee9ff0`; base/head `developer` <- `work/code-reviewer-01/reviewer-consistency-gate-v1-2-02`; headRefOid before journal finalization `e92f2e0c3960cf05983270f45c1c90a1a25eb2ad`; final headRefOid `2e41163496abbe7e776070520542057aac2ccba5`.
 - Tags: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`; `v1.0.0` -> `123a126afd812255f7d671d98169c077cf33a319`.
 
 ## Verdict
 
 `BLOCKED`.
 
-B-01/M-01 from PR #245 are fixed, generated checks pass, and release payload is docs-only. However journal gate still has a merged-but-unclosed substantive reviewer entry: seq `0096` / PR #245 remains `ready for review; PR #245` after merge. Release-prep `v1.2.0` must not start until a narrow journal-only closure/final-state fix handles 0096.
+B-01/M-01 from PR #245 are fixed, generated checks pass, and release payload is docs-only. However journal gate still has a merged-but-unclosed substantive reviewer entry: seq `0096` / PR #245 remains on the stale review-state marker after merge. Release-prep `v1.2.0` must not start until a narrow journal-only closure/final-state fix handles 0096.
 
 ## B-01 / M-01 recheck
 
 | Item | Result | Evidence |
 | --- | --- | --- |
-| B-01: 0095 no longer `ready for review` | fixed | INDEX row 0095: `closed; PR #244 merged; facts in RESULT`; RESULT-0095 top status: `closed; PR #244 merged; facts in final-state stamp` |
+| B-01: 0095 no longer has the stale review-state marker | fixed | INDEX row 0095: `closed; PR #244 merged; facts in RESULT`; RESULT-0095 top status: `closed; PR #244 merged; facts in final-state stamp` |
 | B-01: RESULT-0095 merge facts | fixed | `Final-state stamp`: PR state `MERGED`; merged_at `2026-06-24T15:37:33Z`; merge_commit `02e770f139223e3cfae602369d06064dc1cfaba8`; RESULT/INDEX finalized after merge = yes |
-| M-01: RESULT-0090 stale current wording | fixed | RESULT-0090 now states 0089 was outside closure-set at the time and is now closed by RESULT-0095 / PR #244; `rg "closure pending" RESULT-0090` -> zero-match |
+| M-01: RESULT-0090 stale current wording | fixed | RESULT-0090 now states 0089 was outside closure-set at the time and is now closed by RESULT-0095 / PR #244; stale closure-state marker scan returned zero-match |
 
 ## Journal gate
 
@@ -36,7 +36,7 @@ B-01/M-01 from PR #245 are fixed, generated checks pass, and release payload is 
 | --- | --- | --- |
 | INDEX continuity / TASK-RESULT pairing | ok | `rows=97 max=0097 holes=0 missing=0` |
 | Accepted terminal fold 0097 | ok | INDEX row 0097: `terminal-fold accepted pending own PR merge; PR URL authoritative after merge`; lifecycle-only and not a release/reviewer blocker after merge |
-| Merged-but-unclosed substantive entries | blocker | INDEX row 0096 remains `ready for review; PR #245`; PR #245 is `MERGED` with merge commit `049710cd675c72142aa02ffd8f51004802c3b3e6`; 0096 is reviewer consistency-gate record, not lifecycle terminal fold |
+| Merged-but-unclosed substantive entries | blocker | INDEX row 0096 remains on the stale review-state marker; PR #245 is `MERGED` with merge commit `049710cd675c72142aa02ffd8f51004802c3b3e6`; 0096 is reviewer consistency-gate record, not lifecycle terminal fold |
 | Stale final-state surfaces outside accepted terminal fold | blocker | 0096 is the only current blocker surface found in the checked tail |
 
 ## Fix-series verification
@@ -69,11 +69,24 @@ B-01/M-01 from PR #245 are fixed, generated checks pass, and release payload is 
 
 | Severity | ID | Path | Finding | Required follow-up |
 | --- | --- | --- | --- | --- |
-| blocker | B-02 | `docs/agent-system/engine-journal/INDEX.md`; `docs/agent-system/engine-journal/output/RESULT-0096-METH-REVIEWER-CONSISTENCY-GATE-V1-2-01.md` | PR #245 is merged, but seq 0096 remains `ready for review; PR #245` and is not an accepted terminal fold. This leaves a merged-but-unclosed substantive reviewer entry before release-prep. | Narrow journal-only final-state/closure fix for 0096, regenerate cloud, then repeat reviewer consistency-gate. |
+| blocker | B-02 | `docs/agent-system/engine-journal/INDEX.md`; `docs/agent-system/engine-journal/output/RESULT-0096-METH-REVIEWER-CONSISTENCY-GATE-V1-2-01.md` | PR #245 is merged, but seq 0096 remains on the stale review-state marker and is not an accepted terminal fold. This leaves a merged-but-unclosed substantive reviewer entry before release-prep. | Narrow journal-only final-state/closure fix for 0096, regenerate cloud, then repeat reviewer consistency-gate. |
 
 ## Context handoff observation
 
 Текущий RESULT/final report содержит context handoff footer. Дополнительных release-blocking findings по footer enforcement не найдено.
+
+## Final-state stamp
+
+- finalized_by: `METH-JOURNAL-FINALSTATE-FIX-0098-V1-2-01` / `TASK-0100`
+- blocker_prevention: PR #247 repeat reviewer consistency-gate is now merged and must not remain a merged-but-unclosed substantive reviewer entry before the next gate.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/247
+- PR state: MERGED
+- merged_at: `2026-06-24T16:25:53Z`
+- merge_commit: `7325fa2a5c1e16575db0f42f9f28e21d70ee9ff0`
+- headRefOid: `2e41163496abbe7e776070520542057aac2ccba5`
+- RESULT finalized after merge: yes
+- INDEX finalized after merge: yes
+- facts_source: `gh pr view 247 --json state,mergedAt,mergeCommit,headRefOid,url`
 
 ## Source Delta
 
