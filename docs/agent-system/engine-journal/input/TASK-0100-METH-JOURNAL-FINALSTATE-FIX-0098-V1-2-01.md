@@ -1,10 +1,11 @@
 # TASK-0100: METH-JOURNAL-FINALSTATE-FIX-0098-V1-2-01
 
-Статус: выполняется.
+Статус: ready for review; PR #249.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-24T23:38:52.0315867+07:00`
+- execution_finished_at: `2026-06-24T23:45:38.5077986+07:00`
 
 ## Задача
 
@@ -33,4 +34,4 @@
 
 ## Передача
 
-Следующий: архитектор — review/merge fix PR; затем engine — повторить reviewer consistency-gate v1.2.0.
+Следующий: архитектор — review/merge PR #249; затем engine — повторить reviewer consistency-gate v1.2.0.

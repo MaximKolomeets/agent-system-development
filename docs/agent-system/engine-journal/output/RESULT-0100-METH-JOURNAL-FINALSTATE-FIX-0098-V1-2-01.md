@@ -1,18 +1,18 @@
 # RESULT-0100: METH-JOURNAL-FINALSTATE-FIX-0098-V1-2-01
 
-Статус: terminal-fold accepted pending own PR merge; PR pending.
+Статус: terminal-fold accepted pending own PR merge; PR #249.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-24T23:38:52.0315867+07:00`
-- execution_finished_at: pending until finalization
+- execution_finished_at: `2026-06-24T23:45:38.5077986+07:00`
 
 ## Baseline
 
 - `developer` / `origin/developer`: `eaccade8f5d23cf6b530744b8844f5e62ba20acd`
 - PR #247: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/247`; merged_at `2026-06-24T16:25:53Z`; mergeCommit `7325fa2a5c1e16575db0f42f9f28e21d70ee9ff0`; headRefOid `2e41163496abbe7e776070520542057aac2ccba5`.
 - PR #248: `MERGED`; url `https://github.com/MaximKolomeets/agent-system-development/pull/248`; merged_at `2026-06-24T16:35:59Z`; mergeCommit `eaccade8f5d23cf6b530744b8844f5e62ba20acd`; headRefOid `eab5f2f88e322b1f26930dff34956c42854ec9e6`.
-- Own PR: pending.
+- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/249`; state `OPEN`; base/head `developer` <- `work/docs-maintainer-01/journal-finalstate-fix-0098-v1-2-01`; headRefOid before journal finalization `da4fa46d21af08e692ee1def2c23e70b9179271a`; mergeable `MERGEABLE`.
 
 ## Summary
 
@@ -31,7 +31,7 @@
 | `cmd /c "python docs\agent-system\tools\gen_cloud_bundle.py --check"` | exit 0 |
 | `git diff --check origin/developer...HEAD` | exit 0 |
 | `rg -n "ready for review\|PR open\|closure pending\|facts pending" RESULT-0098` | exit 1 zero-match |
-| placeholder scan | expected pre-PR own-PR placeholders only; finalize after PR creation |
+| placeholder scan | no invalid placeholders after PR finalization |
 | sensitive filename-only/count-only scan | `sensitive_filename_candidate_count=4`; matching paths/content not printed |
 
 ## Source Delta
@@ -53,9 +53,9 @@ Source-reminder: не применимо; правки только journal + ge
 
 ## Confirmations
 
-- RESULT finalized: pending after PR creation.
-- INDEX finalized: pending after PR creation.
-- No invalid placeholders: pending after PR creation.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No invalid placeholders: yes.
 - Journal trace: yes, TASK/RESULT/INDEX created.
 - Execution timestamps present: yes.
 
