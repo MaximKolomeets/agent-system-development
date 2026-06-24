@@ -23,9 +23,9 @@ Engine: local Codex CLI
 
 Branch: `work/docs-maintainer-01/terminal-fold-nonblocking-canon-01`
 Baseline SHA: `b783216cc3da08333ee7d197e1a6bab7bf544a80`
-Primary materialization commit SHA: заполнить после commit
-PR URL: заполнить после `gh pr create`
-PR state: заполнить после `gh pr create`
+Primary materialization commit SHA: `e5a95e9f95a842ad52296ce0e8fdcc88636afaaa`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/230
+PR state: OPEN; mergeable: MERGEABLE; head before journal finalization: `e5a95e9f95a842ad52296ce0e8fdcc88636afaaa`
 Own mergeCommit: terminal-fold accepted; PR URL authoritative after merge.
 
 ## Выполнено
@@ -47,7 +47,7 @@ Own mergeCommit: terminal-fold accepted; PR URL authoritative after merge.
 - wording scan (`terminal-fold accepted`, `PR URL authoritative`, `not a blocker`, `do not create closure solely`): exit 0.
 - INDEX pairing / seq continuity: rows 83; first `0001`; last `0083`; missing 0; missing pairs 0.
 - stale surface scan excluding accepted terminal fold: exit 1 / zero matches.
-- placeholder scan after PR finalization: выполнить после `gh pr create` и финального RESULT/INDEX patch.
+- placeholder scan after PR finalization (`TBD|заполнить|PLACEHOLDER|<seq>|<PR>` over RESULT-0083 and INDEX): exit 1 / zero matches.
 - sensitive filename-only/count-only scan: count 4; matching lines and filenames were not printed.
 - branch-guard: `work/docs-maintainer-01/terminal-fold-nonblocking-canon-01`.
 
@@ -75,9 +75,9 @@ Source-reminder: применимо. Канон изменён; source consumers
 
 ## Подтверждения
 
-- RESULT finalized: заполнить после PR creation.
-- INDEX finalized: заполнить после PR creation.
-- No invalid journal placeholders: заполнить после PR creation.
+- RESULT finalized: yes, with own PR URL/state/head before journal finalization.
+- INDEX finalized: yes, with own PR URL and accepted terminal fold status.
+- No invalid journal placeholders: yes.
 - Journal trace: yes.
 - Execution timestamps present: yes.
 
