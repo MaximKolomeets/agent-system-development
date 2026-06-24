@@ -16,7 +16,7 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release runway перед downstream adoption. Pre-adoption аудит, cleanup-серия и terminal batch-closure завершены по актуальному `engine-journal/INDEX.md`; текущая state-refresh запись закрывается в release-prep перед release PR; оба generated-check зелёные. Следующий порядок: архитектор мержит state-refresh PR; затем engine выполняет release-prep (закрывает текущую journal-запись per-task и готовит release PR `developer -> main`, не мержит); затем архитектор мержит release PR и ставит human-only annotated tag на release merge commit в `main`; затем engine выполняет sync `main -> developer`, чистку веток и downstream adoption на release pointer.
+Текущий фокус: release runway v1.1.0 перед downstream adoption. Содержательный journal закрыт по актуальному `engine-journal/INDEX.md`; accepted terminal fold является lifecycle-only состоянием и не требует отдельной closure-задачи. Следующий порядок: архитектор мержит release-prep PR; затем engine создаёт release PR `developer -> main` и не мержит его; затем архитектор мержит release PR и ставит human-only annotated tag `v1.1.0` на release merge commit в `main`; затем engine выполняет sync `main -> developer`, чистку веток и downstream adoption на release pointer.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
 

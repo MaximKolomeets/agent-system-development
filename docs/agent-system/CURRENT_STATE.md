@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-23
+Дата: 2026-06-24
 
 Проект: Создание агентской системы
 
@@ -31,7 +31,7 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release runway перед downstream adoption. По актуальному `engine-journal/INDEX.md` pre-adoption аудит, cleanup-серия и terminal batch-closure завершены; текущая state-refresh запись закрывается per-task в release-prep перед release PR. Release-gate checks зелёные. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
+Текущий фокус: release runway v1.1.0 перед downstream adoption. По актуальному `engine-journal/INDEX.md` все содержательные записи закрыты; последняя lifecycle-only terminal fold `0083` является accepted terminal fold и не блокирует release/reviewer gate. Release-prep обновляет `RELEASE_READINESS.md`, подтверждает generated checks и готовит следующий шаг: после merge этой записи создать release PR `developer -> main`. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
