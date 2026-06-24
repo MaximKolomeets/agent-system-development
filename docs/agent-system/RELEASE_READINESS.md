@@ -2,74 +2,75 @@
 
 Дата проверки: 2026-06-24
 
-Назначение: post-release snapshot для v1.1.0 после release PR `developer` -> `main`, annotated tag и sync `main` -> `developer`.
+Назначение: pre-release snapshot для runway к `v1.2.0` после full audit #238 и fix-серии P0-P4. Это не release approval само по себе: финальный release-gate выполняется после merge P4, batch-closure и reviewer consistency-gate.
 
 ## Release Candidate
 
 - Source branch: `developer`
 - Target branch: `main`
-- `origin/main`: `123a126afd812255f7d671d98169c077cf33a319`
-- `origin/developer`: `05b716d1d9966ce57013b206186e2e537485d6f2`
-- Release PR: `https://github.com/MaximKolomeets/agent-system-development/pull/233`.
-- Release merge commit: `8c21a45bf189432afcdabfb164f85d175271df74`.
-- Release mergedAt: `2026-06-24T08:50:43Z`.
-- Tag: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`.
-- Sync PR: `https://github.com/MaximKolomeets/agent-system-development/pull/234`.
-- Sync merge commit: `7cb3a977aea28f83031ff2fc291e54f65133170b`.
+- `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
+- `origin/developer`: `d3a447e16b9cbed6fdd48c973976529a33bd5a61`
+- Latest release tag: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`
+- Historical tag `v1.0.0`: present -> `123a126afd812255f7d671d98169c077cf33a319`
+- Next intended release tag: `v1.2.0`, human-only annotated tag after release PR merge.
 
-Агент не мержил release PR, не пушил в `main`, не создавал tag и не публиковал GitHub Release.
+Агент не мержит release PR, не пушит в `main`, не создаёт tag и не публикует GitHub Release.
+
+## Independent State Analysis
+
+- PR #238 full audit: `MERGED`.
+- PR #239 P0 batch-closure 0086-0088: `MERGED`; rows 0086-0088 are closed with facts in RESULT.
+- PR #240 P1 methodology reference tag schema: `MERGED`; `source_tag` / `release_tag` are present as optional fields while `source_commit` remains required.
+- PR #241 P2 execution finish field canon: `MERGED`; new measured finish field is `execution_finished_at`.
+- PR #242 P3 headings Russian-first batch: `MERGED`; descriptive headings in active adopter-facing docs were aligned.
+- P4 state-refresh: this task updates `CURRENT_STATE.md`, `NEXT_STEPS.md`, this snapshot and cloud bundle.
+- State-level n-01: live/current vendor/tool literal is not present; the remaining literal is in append-only historical prose and is not a live blocker.
 
 ## Journal Gate
 
-- Последняя содержательная закрытая запись перед terminal fold: `0081`.
-- Accepted terminal fold: `0079`, `0082`, `0083`.
-- Последняя terminal fold: `0083`, `terminal-fold accepted pending own PR merge; PR URL authoritative after merge`.
-- PR #230 merged: `2026-06-24T08:08:03Z`, mergeCommit `05b716d1d9966ce57013b206186e2e537485d6f2`.
+Before release `v1.2.0`, run a dedicated batch-closure after P4 merge. Expected substantive merged-but-unclosed entries to include:
 
-По канону accepted terminal fold это не blocker для release/reviewer gate: запись lifecycle-only, является последней строкой `INDEX`, явно помечена accepted terminal fold, PR URL authoritative, а все предыдущие содержательные записи закрыты.
+- `0089` / PR #238, full audit closure-stamp pending.
+- `0091` / PR #240, P1 closure pending.
+- `0092` / PR #241, P2 closure pending.
+- `0093` / PR #242, P3 closure pending.
+- P4 state-refresh entry after its PR is merged.
+
+Lifecycle-only terminal fold `0090` is accepted terminal closure for P0 and is not a substantive blocker by itself. Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md` and corresponding `RESULT-*` files.
 
 ## Generated Gates
 
-- `python docs/agent-system/tools/gen_file_map.py --check`: exit 0.
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0.
+To be re-run after this PR is finalized:
+
+- `python docs/agent-system/tools/gen_file_map.py --check`
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`
 
 ## Release Payload Summary
 
-Release diff `origin/main...origin/developer` содержит 57 tracked paths. Состав payload: methodology docs, templates, engine-journal artifacts и generated cloud bundle.
+Current diff `origin/main...origin/developer` contains 40 tracked paths before this P4 branch. Payload class remains public methodology docs/templates/journal/cloud generated artifacts; no runtime, secret or private downstream payload is expected.
 
-Ключевые изменения v1.1.0:
+Key changes since `v1.1.0`:
 
-- execution timestamp canon для TASK/RESULT и journal contract;
-- EOL-safe/content-oriented generated checks и Windows zero-match scan fallback;
-- release tag / human-only release canon;
-- reviewer consistency-gate перед release;
-- final-state / terminal lifecycle fixes для closure journal;
-- Russian-first commit/PR metadata canon;
-- accepted terminal fold canon, чтобы release-prep не запускал бесконечную closure цепочку.
+- P0 closure of post-release 0086-0088 entries.
+- P1 optional `source_tag` / `release_tag` in methodology reference.
+- P2 `execution_finished_at` canon for new TASK/RESULT.
+- P3 Russian-first descriptive headings in active adopter-facing docs.
+- P4 state-refresh and cloud bundle regeneration.
 
 ## Safety Scans
 
-- Forbidden tracked path scan по release diff: count 0.
-- Sensitive filename marker scan по release diff: count 0.
-- Runtime/secrets/private downstream payload в release diff не обнаружен.
-- Содержимое потенциально чувствительных строк не выводилось и не переносилось в snapshot.
+- Forbidden/runtime/private payload must be checked again in final release-prep.
+- Sensitive filename scan must remain filename-only/count-only; secret lines must not be printed.
+- `.env` must not be read.
 
 ## Release Recommendation
 
-Рекомендация: `RELEASED v1.1.0; ready for downstream adoption dry run after post-release sync PR merge`.
-
-Обоснование:
-
-- release PR #233 merged в `main`;
-- annotated tag `v1.1.0` указывает на release merge commit;
-- sync PR #234 merged в `developer`;
-- journal gate чистый с учётом accepted terminal fold;
-- оба generated-check проходят;
-- release payload ограничен публичной methodology/docs/templates/journal/cloud областью;
-- release PR merge и tag выполнены human-only по branch policy.
+Рекомендация: `NOT READY YET; continue runway`. После merge P4 выполнить batch-closure для merged-but-unclosed substantive entries после 0088, затем reviewer consistency-gate. Если gate clean и оба generated checks проходят, подготовить release PR `developer -> main` для `v1.2.0`; после human merge архитектор ставит annotated tag `v1.2.0`.
 
 ## Next Step
 
-1. Смержить post-release sync PR в `developer`.
-2. При отдельном подтверждении списка выполнить branch cleanup.
-3. Запустить downstream adoption dry run от tag `v1.1.0` / актуального `main`.
+1. Review/merge P4 state-refresh PR.
+2. Выполнить batch-closure для фактических merged-but-unclosed substantive entries после 0088.
+3. Выполнить reviewer consistency-gate.
+4. Подготовить release-prep/release PR `developer -> main` для `v1.2.0`.
+5. После human merge поставить annotated tag `v1.2.0`, затем sync `main -> developer`.

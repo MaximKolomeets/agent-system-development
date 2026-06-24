@@ -21,9 +21,11 @@ Repository visibility: public.
 - `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
 - Проверки generated text artifacts являются content-oriented и EOL-safe на Windows: `gen_file_map.py --check` и `gen_cloud_bundle.py --check` входят в release-gate; freshness metadata в generated bundle является информационной, а gate проверяет содержательный parity.
+- `methodology_reference` поддерживает обязательный `source_commit` и опциональные human-readable `source_tag`/`release_tag`; commit SHA остаётся reproducibility anchor.
+- Для новых TASK/RESULT каноническое measured-поле окончания выполнения — `execution_finished_at`; drift-имя `execution_completed_at` остаётся только append-only историей и не является alias для новых записей.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
-- Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
+- Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; descriptive headings в active adopter-facing docs приведены к Russian-first виду с сохранением technical literals/aliases; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
 ### Текущий указатель (Current pointer)
 
@@ -31,7 +33,9 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-release v1.1.0 и подготовка downstream adoption dry run. Release PR `developer -> main` merged, annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен через PR. Post-release sync entry фиксирует эти факты в journal и обновляет cloud bundle; следующий содержательный шаг — downstream adoption dry run от release pointer. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+Текущий фокус: pre-release runway к `v1.2.0` после full audit и fix-серии P0-P3. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon и P3 Russian-first headings; P4 state-refresh выполняется этой записью. После merge P4 следующий порядок: batch-closure фактических merged-but-unclosed substantive entries после 0088, reviewer consistency-gate, release-prep/release PR для `v1.2.0`, human-only annotated tag `v1.2.0`, sync `main -> developer`. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+
+State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
