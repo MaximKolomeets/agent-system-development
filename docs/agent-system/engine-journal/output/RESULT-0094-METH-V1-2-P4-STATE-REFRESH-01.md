@@ -27,7 +27,7 @@
 - Фактический last seq из INDEX: `0093`; собственный seq: `0094`.
 - TASK/RESULT-0094 до старта отсутствовали; open PR и local/remote branch для task-id отсутствовали.
 - `v1.1.0` tag target: `8c21a45bf189432afcdabfb164f85d175271df74`, совпадает с release merge commit.
-- `v1.0.0` tag present: `123a126afd812255f7d671d98169c077cf33a319`; прежний m-03 больше не является pending human-action.
+- `v1.0.0` tag present: `123a126afd812255f7d671d98169c077cf33a319`; прежний m-03 больше не является ожидаемым human-action.
 
 ## Что было недоделано до P4
 

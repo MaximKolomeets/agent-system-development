@@ -1,16 +1,17 @@
 # RESULT-0095: METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #244.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0095-METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01.md`
 
 ## Execution
 
 - execution_started_at measured: `2026-06-24T22:22:17.9884022+07:00`
-- execution_finished_at measured: pending until final checks.
+- execution_finished_at measured: `2026-06-24T22:29:07.3553472+07:00`
 - baseline `developer` / `origin/developer`: `11501961c0ee7747ae14afdf3e162b479176ce33`
 - work branch: `work/docs-maintainer-01/batch-closure-v1-2-fix-series-01`
-- PR: pending until creation.
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/244
+- PR state at journal-finalization start: `OPEN`; base/head: `developer` <- `work/docs-maintainer-01/batch-closure-v1-2-fix-series-01`; primary closure commit before journal-finalization: `7fcd6aa4e37b29693e297032c29752b9dba806bd`; mergeable at PR creation: `MERGEABLE`.
 
 ## Preflight
 
@@ -54,7 +55,7 @@
 - INDEX continuity / TASK-RESULT pairing: rows 95; max `0095`; holes 0; missing TASK/RESULT 0.
 - stale surface scan for closed seq 0089/0091/0092/0093/0094/0095: exit 1 zero-match.
 - accepted terminal fold scan: `0090` remains lifecycle-only accepted terminal fold; skipped as non-substantive; older accepted terminal folds remain non-blocking lifecycle rows.
-- placeholder scan for own TASK/RESULT/INDEX: only expected PR-pending fields before PR creation; finalization will replace them before review.
+- placeholder scan for own TASK/RESULT/INDEX: no invalid placeholders after PR finalization.
 - sensitive filename-only/count-only scan: filename_candidate_count 2; matching paths/lines not printed; candidates are policy-doc filenames, no secret content read.
 - `git diff --check origin/developer...HEAD`: exit 0.
 
@@ -81,12 +82,12 @@ Source-reminder: не применимо; правки только journal + ge
 
 ## Подтверждения
 
-- RESULT finalized: pending until PR creation.
-- INDEX finalized: pending until PR creation.
-- No invalid placeholders: pending.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No invalid placeholders: yes.
 - Journal trace: TASK/RESULT/INDEX.
-- execution timestamps present: pending.
+- execution timestamps present: yes.
 
 ## Передача
 
-Следующий: архитектор — review/merge batch-closure PR; затем engine — reviewer consistency-gate v1.2.0.
+Следующий: reviewer — review PR #244; затем архитектор — merge; затем engine — reviewer consistency-gate v1.2.0.

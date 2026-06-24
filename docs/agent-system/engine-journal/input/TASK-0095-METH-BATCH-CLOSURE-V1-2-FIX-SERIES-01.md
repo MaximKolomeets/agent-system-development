@@ -1,6 +1,6 @@
 # TASK-0095: METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01
 
-Статус: in progress; PR pending.
+Статус: ready for review; PR #244.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0095-METH-BATCH-CLOSURE-V1-2-FIX-SERIES-01.md`
 
@@ -13,6 +13,7 @@
 - execution_started_at measured: `2026-06-24T22:22:17.9884022+07:00`
 - baseline `developer` / `origin/developer`: `11501961c0ee7747ae14afdf3e162b479176ce33`
 - work branch: `work/docs-maintainer-01/batch-closure-v1-2-fix-series-01`
+- PR: https://github.com/MaximKolomeets/agent-system-development/pull/244
 - last seq из INDEX: `0094`
 - собственный seq: `0095`
 - PR #238-#243: все `MERGED`.
@@ -26,4 +27,4 @@
 
 ## Передача
 
-Следующий: docs-maintainer — выполнить closure-stamps, проверки, commit/push/PR и финализировать RESULT/INDEX.
+Следующий: reviewer — review PR #244; затем архитектор — merge; затем engine — reviewer consistency-gate v1.2.0.
