@@ -2,7 +2,7 @@
 
 Дата проверки: 2026-06-24
 
-Назначение: финальный release-readiness snapshot для release candidate `developer` -> `main` перед v1.1.0.
+Назначение: post-release snapshot для v1.1.0 после release PR `developer` -> `main`, annotated tag и sync `main` -> `developer`.
 
 ## Release Candidate
 
@@ -10,10 +10,14 @@
 - Target branch: `main`
 - `origin/main`: `123a126afd812255f7d671d98169c077cf33a319`
 - `origin/developer`: `05b716d1d9966ce57013b206186e2e537485d6f2`
-- Release PR: создаётся отдельным шагом после merge этой release-prep записи в `developer`.
-- Tag: после human merge release PR человек-архитектор ставит annotated tag `v1.1.0` на release merge commit в `main`.
+- Release PR: `https://github.com/MaximKolomeets/agent-system-development/pull/233`.
+- Release merge commit: `8c21a45bf189432afcdabfb164f85d175271df74`.
+- Release mergedAt: `2026-06-24T08:50:43Z`.
+- Tag: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`.
+- Sync PR: `https://github.com/MaximKolomeets/agent-system-development/pull/234`.
+- Sync merge commit: `7cb3a977aea28f83031ff2fc291e54f65133170b`.
 
-Агент не мержит release PR, не пушит в `main`, не создаёт tag и не публикует GitHub Release.
+Агент не мержил release PR, не пушил в `main`, не создавал tag и не публиковал GitHub Release.
 
 ## Journal Gate
 
@@ -52,20 +56,20 @@ Release diff `origin/main...origin/developer` содержит 57 tracked paths.
 
 ## Release Recommendation
 
-Рекомендация: `READY for release PR developer -> main after merge of this release-prep PR`.
+Рекомендация: `RELEASED v1.1.0; ready for downstream adoption dry run after post-release sync PR merge`.
 
 Обоснование:
 
-- `developer` синхронизирован с `origin/developer`;
+- release PR #233 merged в `main`;
+- annotated tag `v1.1.0` указывает на release merge commit;
+- sync PR #234 merged в `developer`;
 - journal gate чистый с учётом accepted terminal fold;
 - оба generated-check проходят;
 - release payload ограничен публичной methodology/docs/templates/journal/cloud областью;
-- release PR и tag остаются human-only действиями по branch policy.
+- release PR merge и tag выполнены human-only по branch policy.
 
 ## Next Step
 
-1. Смержить release-prep PR в `developer`.
-2. Создать release PR `developer -> main`.
-3. После review человек-архитектор мержит release PR.
-4. Человек-архитектор ставит annotated tag `v1.1.0` на release merge commit в `main`.
-5. Выполнить sync `main -> developer` и housekeeping cleanup.
+1. Смержить post-release sync PR в `developer`.
+2. При отдельном подтверждении списка выполнить branch cleanup.
+3. Запустить downstream adoption dry run от tag `v1.1.0` / актуального `main`.

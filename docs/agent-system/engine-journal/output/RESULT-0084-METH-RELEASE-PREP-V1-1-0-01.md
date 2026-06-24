@@ -1,6 +1,6 @@
 # RESULT-0084: METH-RELEASE-PREP-V1-1-0-01
 
-Статус: ready for review; PR #231 open.
+Статус: closed; PR #231 merged; facts in RESULT.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0084-METH-RELEASE-PREP-V1-1-0-01.md`
 
@@ -12,9 +12,17 @@
 - baseline `origin/developer`: `05b716d1d9966ce57013b206186e2e537485d6f2`
 - work branch: `work/docs-maintainer-01/release-prep-v1-1-0-01`
 - PR: `https://github.com/MaximKolomeets/agent-system-development/pull/231`
-- PR state: `OPEN`
+- PR state: `MERGED`
 - PR base/head: `developer` <- `work/docs-maintainer-01/release-prep-v1-1-0-01`
 - PR head SHA before journal finalization commit: `26b184a2edfccde25b9e9655184b18891bfa6976`
+
+## Closure Stamp
+
+- PR url: `https://github.com/MaximKolomeets/agent-system-development/pull/231`
+- PR state: `MERGED`
+- mergedAt: `2026-06-24T08:37:37Z`
+- mergeCommit: `e4e5ff640d4bbdb281d386f3b9fb3df8359792ed`
+- headRefOid: `8ccf175d227e3e45770a26658ad1c4f0f9e9579b`
 
 ## Что сделано
 
