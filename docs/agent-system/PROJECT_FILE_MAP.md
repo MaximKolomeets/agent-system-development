@@ -28,6 +28,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` |  |
 | `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md` |  |
 | `docs/agent-system/FILE_COMMENTING_STANDARD.md` |  |
+| `docs/agent-system/tools/check_task_ready.py` |  |
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |
 | `docs/agent-system/tools/gen_file_map.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |

@@ -25,6 +25,8 @@
 
 #### METH-CHECK-TASK-READY-01
 
+Статус: implemented by methodology task `METH-CHECK-TASK-READY-01`; запись оставлена как trace исходной roadmap-идеи.
+
 - Ввести единый ready-for-review / ready-for-push gate.
 - Будущий script: `check_task_ready.py`.
 - Агрегировать branch guard, allowed-files diff, `git diff --check`, generated checks, sensitive scans и placeholder scan.
