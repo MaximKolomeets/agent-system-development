@@ -2,7 +2,7 @@
 
 - Проверить base branch.
 - Проверить head branch.
-- Проверить, что одна задача = один PR.
+- Проверить, что одна substantive task = одна основная task branch и один итоговый PR в `developer`; внутренние `work/<role>/<task>/*` допустимы только как sub-branches и не должны быть отдельными delivery PR.
 - Проверить changed files.
 - Проверить результат GitHub Actions.
 - Проверить, что forbidden files check прошел успешно.
@@ -21,6 +21,7 @@
 - Для review-only PR проверить, что branch name role-based, not vendor-based.
 - Для review-only PR проверить, что report filename role/task based, not vendor-based.
 - Для review-only PR проверить, что reviewer не modified production code.
+- Для активного work PR проверить, что review feedback должен исправляться engine в той же task branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
 - Для review-only PR проверить, что findings categorized as Critical, Important, Optional.
 - Для review-only PR проверить, что sensitive grep output filename-only.
 - Для review-only PR проверить, что next implementation PRs proposed separately.
@@ -29,5 +30,5 @@
 - Проверить, что агентский отчет обновлен.
 - Проверить итоговый отчет исполнителя.
 - Если PR уже merged, проверить Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
-- Для обычного work PR считать `merged; closure pending` допустимым до batch-closure перед release.
-- Считать blocker, если сработал release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии или явное closure-задание, а merged PR journal остается `PR open`, `ready for review`, `draft open`, содержит `pending at file materialization`/`see Engine final report` или `RESULT` closure-stamp не фиксирует merge commit SHA после обязательного closure-прохода, когда SHA доступен. `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
+- Для обычного work PR считать `merged; closure pending` допустимым до batch-closure перед release/audit/methodology boundary; не требовать отдельный closure PR без boundary/исключения.
+- Считать blocker, если сработал release gate, audit/review consistency gate, adoption/source-update, methodology boundary, завершение/пауза серии, явное closure-задание или противоречивые journal facts, а merged PR journal остается `PR open`, `ready for review`, `draft open`, содержит `pending at file materialization`/`see Engine final report` или `RESULT` closure-stamp не фиксирует merge commit SHA после обязательного closure-прохода, когда SHA доступен. `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.

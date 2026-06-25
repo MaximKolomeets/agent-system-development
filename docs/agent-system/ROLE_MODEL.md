@@ -67,7 +67,7 @@ External reviewer не заменяет orchestrator и не принимает 
 ### Управляемый multi-agent режим (Multi-agent governed mode)
 
 - роли выполняют разные агенты, люди или tools;
-- одна задача = одна ветка = один PR;
+- одна substantive task = одна основная task branch `work/<role>/<task>` и один итоговый PR; внутренние `work/<role>/<task>/*` sub-branches допустимы только внутри той же задачи;
 - review findings превращаются в implementation work только через отдельное решение пользователя;
 - reports, TASK/RESULT/INDEX и PR body должны быть воспроизводимыми и Russian-first;
 - branch namespace остается `work/<role>/<task>`.
@@ -139,9 +139,10 @@ External reviewer не заменяет orchestrator и не принимает 
 ## Reviewer role boundary
 
 - `code-reviewer-01`, `qa-reviewer-01` и `security-reviewer-01` не implement fixes по умолчанию.
-- Reviewer roles создают reports, findings и proposed next PRs.
+- Reviewer roles создают reports, findings и proposed next PRs для standalone review-only задач.
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`).
-- Исправления выполняет `dev-implementer-01` или другая явно назначенная implementation role в отдельной задаче, ветке и PR.
+- Findings из standalone review-only задач выполняет `dev-implementer-01` или другая явно назначенная implementation role в отдельной задаче, ветке и PR.
+- Review feedback по активному work PR исправляет engine в той же task branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
 - Engine name указывается отдельно от role name и не попадает в branch namespace.
 - Reviewer role проверяет PR, branch, commit, diff или набор файлов.
 - Reviewer role не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе implementation task.

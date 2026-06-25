@@ -66,6 +66,17 @@ RESULT должен содержать:
 
 Reviewer фиксирует minor finding, если новая finalized запись вводит неканоническое поле окончания выполнения вместо `execution_finished_at`; это не blocker и не повод переписывать исторические RESULT.
 
+## Agent-owned task branch workflow
+
+Для substantive file-changing task действует модель:
+
+- основная task branch: `work/<role>/<task-id>`;
+- внутренние sub-branches: `work/<role>/<task-id>/*`, только если нужны исполнителю (engine) и только внутри той же задачи;
+- один substantive task = один итоговый PR в `developer`;
+- engine владеет task branch до `ready_for_merge`, сам выполняет микрошаги, внутренние merge sub-branches, checks и исправление review feedback, пока не сработали STOP-условия;
+- reviewer проверяет итоговый PR и оставляет comments/blockers; отдельный PR для feedback reviewer не создаёт без явного решения пользователя;
+- post-merge closure PR после обычного work PR не default: journal допускает `merged; closure pending` до batch-closure перед release/audit/methodology boundary или другим явным исключением.
+
 ## Передача (handoff)
 
 Сквозное правило handoff для **любой** engine-задачи (development, research, review, infra, source-steward и т. д.).
@@ -85,7 +96,7 @@ Final report и RESULT обязаны заканчиваться блоком «
 Для обычного work PR внутри серии:
 
 ```text
-Следующий: архитектор — merge; затем engine — следующий под-PR; journal closure — batch перед release; release держим до завершения серии и batch-closure.
+Следующий: архитектор — merge; затем engine — следующая задача или следующий шаг серии; journal closure — batch перед release/audit boundary; release держим до завершения серии и batch-closure.
 ```
 
 Для финального PR серии:
@@ -96,7 +107,7 @@ Final report и RESULT обязаны заканчиваться блоком «
 
 ## Closure-status policy
 
-Если batch-closure policy: после merge work-PR journal может временно оставаться pre-merge/closure-pending; это не blocker для следующего work PR той же фазы; blocker только для release / audit-review consistency-gate / явного closure-задания.
+Если batch-closure policy: после merge ordinary work PR journal может временно оставаться pre-merge/closure-pending; это не blocker для следующего work PR той же фазы; blocker только для release / audit-review consistency-gate / adoption/source-update / methodology boundary / явного closure-задания / противоречивых journal facts.
 
 Journal closed для release/reviewer gate означает: все substantive entries закрыты closure-stamp/status+PR URL, а lifecycle-only entries со статусом `terminal-fold accepted` допустимы. STOP при `open`, `ready`, `closure pending`, `stamp at merge` или merged-but-unclosed substantive entry; не STOP при `terminal-fold accepted`. Если terminal fold не lifecycle-only или содержит незакрытый содержательный payload, STOP и запросить closure/fix.
 

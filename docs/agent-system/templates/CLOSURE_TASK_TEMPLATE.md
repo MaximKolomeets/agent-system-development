@@ -1,6 +1,6 @@
 # CLOSURE_TASK_TEMPLATE
 
-Самодостаточный шаблон per-task closure-only задачи для закрытия одной journal-записи после merge PR.
+Самодостаточный шаблон per-task closure-only задачи для закрытия одной journal-записи после merge PR в closure-required контексте. Для ordinary work PR это не default: такие записи обычно закрываются batch-проходом перед release/audit/methodology boundary.
 
 ````text
 # Задача для docs-maintainer: closure-only journal <seq> after PR #<NNN>

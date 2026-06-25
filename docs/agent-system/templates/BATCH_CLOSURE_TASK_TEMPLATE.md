@@ -1,6 +1,6 @@
 # BATCH_CLOSURE_TASK_TEMPLATE
 
-Самодостаточный шаблон pre-release batch-closure задачи для закрытия нескольких merged-but-unclosed journal-записей одним PR.
+Самодостаточный шаблон batch-closure задачи для закрытия нескольких merged-but-unclosed journal-записей одним PR перед release/audit/methodology boundary или крупным milestone.
 
 ````text
 # Задача для docs-maintainer: pre-release batch-closure journal <seq-range>

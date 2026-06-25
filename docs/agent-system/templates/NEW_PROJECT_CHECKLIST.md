@@ -8,7 +8,7 @@
 - [ ] Forbidden paths protected.
 - [ ] `main`/`developer` policy chosen.
 - [ ] Для `standard developer workflow` ветка `developer` создана до первой рабочей ветки.
-- [ ] Если `developer` отсутствовал, bootstrap creation явно разрешен и выполнен до `work/<role>/*`.
+- [ ] Если `developer` отсутствовал, bootstrap creation явно разрешен и выполнен до первой `work/<role>/<task>`.
 - [ ] Рабочий PR в `main` запрещен для `standard developer workflow`.
 - [ ] Work branch namespace chosen.
 - [ ] `docs/` folder created.

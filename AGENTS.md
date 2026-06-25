@@ -19,19 +19,21 @@
 - В публичном методологическом репозитории запрещено упоминать конкретные внешние проекты, клиентские проекты, приватные репозитории и внутренние кодовые имена; использовать только нейтральные термины вроде `target implementation repository` или `private downstream repository`.
 - Не менять `main` напрямую. `main` обновляется только через release-PR `developer -> main`, который мержит человек-архитектор; агент может подготовить release-PR, но не мержит и не пушит в `main` (канон: `docs/agent-system/BRANCH_POLICY.md` → «Обновление main»).
 - Не менять `developer` напрямую без отдельного разрешения.
-- Перед любым commit проверять `git rev-parse --abbrev-ref HEAD`: HEAD должен быть рабочей веткой задачи `work/<role>/<task>`; коммит в `developer`/`main` запрещён даже локально (канон: `docs/agent-system/BRANCH_POLICY.md` → «Pre-commit branch guard»).
+- Перед любым commit проверять `git rev-parse --abbrev-ref HEAD`: HEAD должен быть основной рабочей веткой задачи `work/<role>/<task>` или её внутренней sub-branch `work/<role>/<task>/*`; коммит в `developer`/`main` запрещён даже локально (канон: `docs/agent-system/BRANCH_POLICY.md` → «Pre-commit branch guard»).
 - Перед любым sync / checkout / switch / pull / merge проверять repository root, remote, текущую ветку и `git status --short`; если working tree dirty — `STOP`, без `git stash`, `git reset --hard` или `git clean -fd` без отдельного решения пользователя (канон: `docs/agent-system/BRANCH_POLICY.md` → «Repository sync / checkout guard»).
 - Все изменения через отдельную ветку и Pull Request после bootstrap-этапа.
-- Одна задача = одна ветка = один PR.
+- Одна substantive task = одна основная task branch `work/<role>/<task>` и один итоговый PR в `developer`; внутренние sub-branches допустимы только как временные ветки внутри `work/<role>/<task>/*` и сливаются обратно в основную task branch до финального PR.
 - Каждый агент работает только в своем namespace веток. Запрещено пушить, менять, force-пушить или удалять ветку другого агента; передача работы — только через merged PR в `developer`, не через правку чужих веток (канон: `docs/agent-system/BRANCH_POLICY.md` → «Изоляция веток агентов»).
 - Рабочие ветки создаются от актуальной `developer` в формате `work/<role>/<task>`.
-- После bootstrap `developer` принимает изменения только через PR из `work/<role>/*`, кроме отдельного решения пользователя.
+- Engine владеет своей task branch до состояния `ready_for_merge`: выполняет правки, внутренние проверки, учет review feedback и финализацию отчета без запроса подтверждения после каждого микрошагa, пока не сработали STOP-условия.
+- После bootstrap `developer` принимает изменения только через итоговый PR из основной `work/<role>/<task>`, кроме отдельного решения пользователя.
 - Каждый агент использует свой GitHub TOKEN.
 - В solo/operator lightweight mode агент может быть logical role внутри пользовательского окружения; отдельный token per role является recommended hardening, но не blocker для docs-only локальной задачи, если пользователь явно разрешил выполнение и все изменения идут через PR.
 - В multi-agent governed mode отдельные tokens/accounts для агентов обязательны.
 - Если token separation не настроена, final report должен честно указать это как operational risk.
 - Research/Review агенты не ставят задачи development executor напрямую.
 - Review-агент проверяет PR, branch, commit, diff или набор файлов; он не чинит код, не меняет production-файлы и не выполняет задачи разработки без отдельной явно выданной задачи.
+- Review feedback по активному work PR исправляется исполнителем (engine) в той же task branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
 - Review-агент может предложить кандидаты на будущие задачи, но не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе исполнительскую задачу.
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.

@@ -194,7 +194,7 @@ Journal entries не должны оставаться в статусах `PR o
 Задача engine должна использовать безопасный branch mode selection:
 
 1. Определить, это `new empty repository bootstrap` или `existing repository adoption`.
-2. Если это `new empty repository bootstrap` и пользователь выбрал стандартный workflow `main -> developer -> work/<role>/*`:
+2. Если это `new empty repository bootstrap` и пользователь выбрал стандартный workflow `main -> developer -> work/<role>/<task>`:
    - проверить наличие `developer`;
    - если `developer` отсутствует, сначала создать `developer` от актуального `main` как явно разрешенный bootstrap-шаг или написать `STOP`, если такого разрешения нет;
    - рабочую ветку создавать только от `developer`;

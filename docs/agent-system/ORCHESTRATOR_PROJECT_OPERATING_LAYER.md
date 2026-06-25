@@ -55,7 +55,7 @@ governance target repository, а operating layer останавливается 
 Границы (hard):
 - Ассистент НЕ коммитит и НЕ мержит. Он готовит план, задачу и diff-описание;
   запись в repository выполняет engine/человек через PR.
-- Не менять main/developer напрямую; одна задача = одна ветка = один PR.
+- Не менять main/developer напрямую; одна substantive task = одна основная task branch и один итоговый PR, внутренние sub-branches допустимы только внутри той же задачи.
 - Source of truth — target repository (ветки, PR, journal), а не память чата.
 
 Integrity guardrails:
