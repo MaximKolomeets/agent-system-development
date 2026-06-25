@@ -104,6 +104,18 @@ re_review_policy:
 
 Machine-check closure не ослабляет safety gates: failed command, forbidden path, secrets-risk, conflict или превышение `max_review_cycles` всегда переводят PR в `automation:stopped-human-required`.
 
+## Единый ready-gate для task branch
+
+Перед первым push/PR, после каждого engine fix-pass и перед переводом PR в `architect:ready-to-merge` engine должен запускать read-only ready-gate:
+
+```text
+python docs/agent-system/tools/check_task_ready.py --base origin/developer
+```
+
+Инструмент агрегирует branch guard, changed files summary, `git diff --check`, условные generated checks, filename-only sensitive scan, strict added-line secret scan и placeholder scan для изменённых TASK/RESULT. Он не выполняет `fetch`, `pull`, `switch`, `merge`, `stash`, `reset` или `clean`.
+
+Для `machine-verifiable` blockers reviewer может указать эту команду как `verification_command`, если blocker покрыт её проверками. Passed output `check_task_ready.py` достаточно для machine-check closure только при отсутствии scope drift и новых blockers; `semantic`/`mixed` blockers всё равно требуют minimal reviewer re-review по изменённому blocker scope.
+
 ## Own-PR verdict fallback
 
 Если GitHub не позволяет reviewer token оставить formal `APPROVE` / `REQUEST_CHANGES` из-за ограничения own PR или author identity, это не blocker. Reviewer оставляет top-level PR comment с тем же verdict/schema, например `verdict: reviewer:approved` или `verdict: reviewer:changes-requested`, reviewed head SHA и blocker IDs. Такой comment является approve-equivalent или changes-requested-equivalent для autoloop; human merge всё равно остаётся только за архитектором.
@@ -146,6 +158,7 @@ Engine:
 - исправляет только feedback, относящийся к scope PR;
 - не открывает отдельный feedback PR;
 - закрывает blockers по IDs и фиксирует verification result для каждого `verification_command`;
+- запускает `python docs/agent-system/tools/check_task_ready.py --base origin/developer` перед возвратом PR reviewer/architect;
 - если все blockers `machine-verifiable`, все checks passed и scope не расширен, может вывести machine-check closure и `architect:ready-to-merge` без полного reviewer pass;
 - для `semantic`/`mixed` blockers возвращает PR на minimal reviewer re-review по `re_review_policy`;
 - повторно запускает checks;
@@ -174,6 +187,7 @@ git pull --ff-only origin <headRefName>
 # Engine выполняет fix-pass по feedback.
 python docs/agent-system/tools/gen_file_map.py --check
 python docs/agent-system/tools/gen_cloud_bundle.py --check
+python docs/agent-system/tools/check_task_ready.py --base origin/developer
 git diff --check
 git push
 # Orchestrator запрашивает reviewer re-review для semantic/mixed blockers

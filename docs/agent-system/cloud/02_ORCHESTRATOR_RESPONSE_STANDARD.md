@@ -222,6 +222,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если найден только accepted terminal fold, не создаётся ли новая closure-задача только ради него?
 - [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
 - [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
+- [ ] Если задача меняет файлы или готовит fix-pass/review-comment, включён ли recommended ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Журнал исполнителя (engine)
@@ -247,6 +248,14 @@ Task/result files являются append-only artifacts. Их нельзя уд
 Для substantive task блок должен явно указывать agent-owned task branch workflow: `work/<role>/<task-id>` как основная task branch, внутренние `work/<role>/<task-id>/*` только при необходимости, один итоговый PR в `developer`, review feedback исправляется в той же branch, engine не запрашивает подтверждение после каждого микрошага до STOP-условия.
 
 Если задача предполагает review/fix/re-review, блок должен явно задавать review autoloop: `max_review_cycles`, reviewer feedback только в PR агента, engine fix-pass в той же task branch, `architect:ready-to-merge` после approve-equivalent и STOP при conflict/secrets-risk/forbidden paths/failed checks/scope drift/max cycles. Feedback должен требовать blocker IDs, class `machine-verifiable | semantic | mixed`, `verification_command`, `can_engine_fix_without_architect` и `re_review_policy`; machine-only blockers закрываются passed machine-check closure, semantic/mixed blockers идут на minimal re-review. Если formal own-PR review невозможен, использовать verdict comment fallback. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
+
+Для задач, которые меняют repository files, открывают PR или выполняют engine fix-pass, блок должен рекомендовать read-only ready-gate:
+
+```text
+python docs/agent-system/tools/check_task_ready.py --base origin/developer
+```
+
+Эта команда не заменяет task-specific checks, но агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan. Для machine-verifiable blockers она может быть `verification_command`, если blocker покрыт её проверками; semantic/mixed blockers требуют reviewer re-review по канону autoloop.
 
 Final report `engine` должен подтверждать:
 

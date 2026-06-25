@@ -2,6 +2,20 @@
 
 Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
 
+## 2026-06-25 - Единый read-only ready-gate для task branch
+
+Решение:
+Добавить `docs/agent-system/tools/check_task_ready.py` как lightweight read-only gate перед push/PR/fix-pass/review-comment. Инструмент не синхронизирует repository и не меняет git state; он только агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan.
+
+Контекст:
+После перехода к agent-owned workflow и review autoloop повторяющийся шум стал возникать поздно: whitespace blockers, generated drift, forgotten cloud regen, placeholder остатки и safety scans всплывали уже на review. Нужна одна команда, которую engine может приложить к machine-verifiable blocker closure и reviewer re-review.
+
+Последствия:
+- task-specific checks остаются обязательными, ready-gate их не заменяет;
+- `check_task_ready.py` можно использовать как `verification_command` для machine-verifiable blockers, если blocker покрыт его проверками;
+- semantic/mixed blockers по-прежнему требуют reviewer re-review;
+- инструмент не выполняет `fetch`, `pull`, `switch`, `merge`, `stash`, `reset` или `clean`.
+
 ## 2026-06-25 - Structured review feedback для bounded autoloop
 
 Решение:
