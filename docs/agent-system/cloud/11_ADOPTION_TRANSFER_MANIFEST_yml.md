@@ -85,6 +85,8 @@ orchestrator_context_bundle:
       cloud_flatname: ADOPTION_TRANSFER_MANIFEST.yml
     - path: docs/agent-system/REVIEW_AUTOLOOP.md
       cloud_flatname: REVIEW_AUTOLOOP.md
+    - path: docs/agent-system/TASK_CONTRACT.md
+      cloud_flatname: TASK_CONTRACT.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -284,6 +286,7 @@ categories:
       - docs/agent-system/cloud/10_PROJECT_FILE_MAP.md
       - docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md
       - docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md
+      - docs/agent-system/cloud/13_TASK_CONTRACT.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.

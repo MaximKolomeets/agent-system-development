@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-26 - TASK_CONTRACT включён в default cloud bundle
+
+Решение:
+Добавить `docs/agent-system/TASK_CONTRACT.md` в `orchestrator_context_bundle` и публиковать его в generated cloud bundle как `13_TASK_CONTRACT.md`.
+
+Причина:
+После внедрения `task_contract` оркестратор и cloud-only контекст должны видеть сам канон контракта без отдельной ручной загрузки исходного файла. Это follow-up к frontmatter canon, а не изменение схемы.
+
+Следствия:
+- `TASK_CONTRACT.md` остаётся source-файлом и не меняется в этой задаче;
+- `validate_task_contract.py` и `check_task_ready.py` не меняются;
+- `gen_cloud_bundle.py` изменён только в `CANONICAL_BUNDLE_ORDER`, чтобы manifest и generated bundle имели единый порядок;
+- default cloud bundle сохраняет существующие номера 00–12 и добавляет `13_TASK_CONTRACT.md`.
+
 ## 2026-06-25 - Machine-readable task contract frontmatter
 
 Решение:
