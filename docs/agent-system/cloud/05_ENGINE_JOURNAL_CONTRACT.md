@@ -294,6 +294,8 @@ Default-режим закрытия journal после merge обычного р
 
 Обычная substantive task не требует отдельного closure PR сразу после merge. Engine владеет основной task branch до `ready_for_merge`, исправляет review feedback в той же branch и доводит один итоговый PR до merge-ready состояния; closure переносится в batch перед boundary.
 
+Если task проходит review autoloop, RESULT/final report фиксирует `max_review_cycles`, фактический `review_cycle_count`, последний reviewed head SHA и итоговый статус: `architect:ready-to-merge` или `automation:stopped-human-required`. GitHub PR comments/reviews остаются источником feedback, а journal не создаёт отдельную feedback-запись. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
+
 Перед release `developer -> main` обязателен один closure-only проход по всем merged-but-unclosed substantive seq. Release запрещён, пока journal не закрыт полностью: все substantive seq, входящие в release, должны иметь closure-stamp в `RESULT` и закрытый status + PR URL в `INDEX`; lifecycle-only `terminal-fold accepted` seq допустимы и не требуют новой closure-задачи.
 
 Per-task closure применяется только в случаях:

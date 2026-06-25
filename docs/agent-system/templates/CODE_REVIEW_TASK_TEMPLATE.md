@@ -126,6 +126,8 @@ Reviewer не должен исправлять production code в этой за
 Reviewer не должен запускать исполнителя (engine), менять очередь исполнителя или формулировать себе implementation task.
 Если review object — активный work PR, reviewer оставляет comments/blockers как feedback к той же task branch. Исправления выполняет engine в исходной `work/<role>/<task-id>` branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
 
+Если включён review autoloop, reviewer указывает `reviewer:approved`, `reviewer:changes-requested` или `automation:stopped-human-required`, сверяет `max_review_cycles` и не выходит за state-machine `docs/agent-system/REVIEW_AUTOLOOP.md`.
+
 ## Конвенция: review PR на GitHub по head SHA
 
 Если `Review object` = `PR`, ревью выполняется по конкретному PR на GitHub и пиннится к head SHA для воспроизводимости — через `gh`:

@@ -83,6 +83,8 @@ orchestrator_context_bundle:
       cloud_flatname: PROJECT_FILE_MAP.md
     - path: docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       cloud_flatname: ADOPTION_TRANSFER_MANIFEST.yml
+    - path: docs/agent-system/REVIEW_AUTOLOOP.md
+      cloud_flatname: REVIEW_AUTOLOOP.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -123,6 +125,7 @@ categories:
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PUBLICATION_POLICY.md
       - docs/agent-system/README.md
+      - docs/agent-system/REVIEW_AUTOLOOP.md
       - docs/agent-system/ROLE_MODEL.md
       - docs/agent-system/SECURITY_POLICY.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
@@ -171,6 +174,8 @@ categories:
       - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md
+      - docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md
+      - docs/agent-system/templates/REVIEW_AUTOLOOP_REVIEWER_PASS_TEMPLATE.md
       - docs/agent-system/templates/ROADMAP_TEMPLATE.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
@@ -274,6 +279,7 @@ categories:
       - docs/agent-system/cloud/09_ENGINE_ENTRYPOINT.md
       - docs/agent-system/cloud/10_PROJECT_FILE_MAP.md
       - docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md
+      - docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.

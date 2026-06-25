@@ -19,7 +19,9 @@ https://github.com/MaximKolomeets/agent-system-development
 GitHub состояние проверяй сам, если connector доступен.
 Если пользователь сообщает, что merge/release/sync выполнены, проверь GitHub PR state и target journal state. Для обычного work PR в batch-серии `merged; closure pending` или pre-merge status не является blocker и закрывается batch-проходом перед release/audit/methodology boundary. Если сработал release/audit/adoption/source-update/explicit closure context или journal facts противоречат GitHub, дай полный self-contained блок для исполнителя (engine) на docs-only journal closure cleanup. Lifecycle-only `terminal-fold accepted` не считать blocker и не порождать новую closure-задачу только ради него.
 Задачи для исполнителя (engine) оформляй через self-contained block и engine-journal.
-Для substantive task указывай agent-owned branch model: основная branch `work/<role>/<task-id>`, при необходимости внутренние `work/<role>/<task-id>/*`, один итоговый PR в `developer`, feedback исправляется в той же branch, engine не ждёт подтверждения после каждого микрошагa до STOP.
+Для substantive task указывай agent-owned branch model: основная branch `work/<role>/<task-id>`, при необходимости внутренние `work/<role>/<task-id>/*`, один итоговый PR в `developer`, feedback исправляется в той же branch, engine не ждёт подтверждения после каждого микрошага до STOP.
+
+Для PR review/fix цикла используй `docs/agent-system/REVIEW_AUTOLOOP.md`: reviewer feedback остаётся в PR агента, engine делает fix-pass в той же branch, цикл ограничен `max_review_cycles`, а `architect:ready-to-merge` не означает auto-merge.
 Блоки для исполнителя (engine) писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
 Commit messages и PR title/body тоже Russian-first; technical identifiers не переводятся, conventional prefix вроде `docs(agent-system):` допустим.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.

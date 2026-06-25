@@ -62,6 +62,16 @@
 - review feedback исправляется в той же task branch, после чего engine повторно запускает checks и доводит PR до `ready_for_merge`;
 - `developer` получает один итоговый PR по substantive task.
 
+### Review autoloop
+
+- Для active work PR допускается bounded autoloop: `Engine PR -> Reviewer review -> Engine fix-pass -> Reviewer re-review -> architect-ready`.
+- Reviewer оставляет feedback только в PR агента; отдельный feedback PR запрещён без явного решения пользователя.
+- Engine исправляет feedback в той же `work/<role>/<task>` branch и возвращает PR в `engine:ready-for-review`.
+- Каждая задача, использующая autoloop, задаёт `max_review_cycles`; default = `3`.
+- После approve-equivalent reviewer status PR получает `architect:ready-to-merge`; merge в `developer` всё равно выполняет только человек.
+- При conflict, secrets-risk, forbidden paths, failed checks, scope drift или превышении `max_review_cycles` automation ставит `automation:stopped-human-required` и передаёт PR человеку.
+- Канон state-machine и labels/statuses: `docs/agent-system/REVIEW_AUTOLOOP.md`.
+
 ### Pre-commit branch guard (канон, правило 3)
 
 - перед ЛЮБЫМ `git commit` агент проверяет текущую ветку: `git rev-parse --abbrev-ref HEAD`;

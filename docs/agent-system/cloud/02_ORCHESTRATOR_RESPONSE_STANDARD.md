@@ -244,7 +244,9 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Если задача может завершиться merge/release/sync, блок для исполнителя (engine) должен ссылаться на `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Для обычных work PR оркестратор планирует batch-closure перед release/audit/methodology boundary; per-task closure требует только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии, явного closure-задания или противоречивых journal facts.
 
-Для substantive task блок должен явно указывать agent-owned task branch workflow: `work/<role>/<task-id>` как основная task branch, внутренние `work/<role>/<task-id>/*` только при необходимости, один итоговый PR в `developer`, review feedback исправляется в той же branch, engine не запрашивает подтверждение после каждого микрошагa до STOP-условия.
+Для substantive task блок должен явно указывать agent-owned task branch workflow: `work/<role>/<task-id>` как основная task branch, внутренние `work/<role>/<task-id>/*` только при необходимости, один итоговый PR в `developer`, review feedback исправляется в той же branch, engine не запрашивает подтверждение после каждого микрошага до STOP-условия.
+
+Если задача предполагает review/fix/re-review, блок должен явно задавать review autoloop: `max_review_cycles`, reviewer feedback только в PR агента, engine fix-pass в той же task branch, `architect:ready-to-merge` после approve-equivalent и STOP при conflict/secrets-risk/forbidden paths/failed checks/scope drift/max cycles. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
 
 Final report `engine` должен подтверждать:
 

@@ -117,3 +117,11 @@ Matching lines и secret values не печатать.
 ### Recommendation
 
 Дать рекомендацию: `approve`, `changes required` или `hold`.
+
+### Review autoloop
+
+Для active work PR в review autoloop дополнительно указать:
+
+- `autoloop_status`: `reviewer:approved` / `reviewer:changes-requested` / `automation:stopped-human-required`;
+- `cycle`: `<current>/<max_review_cycles>`;
+- `next`: `engine fix-pass` / `architect merge` / `human decision`.
