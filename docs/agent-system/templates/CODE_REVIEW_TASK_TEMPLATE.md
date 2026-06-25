@@ -124,6 +124,9 @@ Reviewer должен:
 
 Reviewer не должен исправлять production code в этой задаче.
 Reviewer не должен запускать исполнителя (engine), менять очередь исполнителя или формулировать себе implementation task.
+Если review object — активный work PR, reviewer оставляет comments/blockers как feedback к той же task branch. Исправления выполняет engine в исходной `work/<role>/<task-id>` branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
+
+Если включён review autoloop, reviewer указывает `reviewer:approved`, `reviewer:changes-requested` или `automation:stopped-human-required`, сверяет `max_review_cycles` и не выходит за state-machine `docs/agent-system/REVIEW_AUTOLOOP.md`.
 
 ## Конвенция: review PR на GitHub по head SHA
 
@@ -374,7 +377,7 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
-Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release или другого явно указанного исключения. В closure-review reviewer сверяет merge-факты по `RESULT` closure-stamp и GitHub/local git; `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
+Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release/audit/methodology boundary; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release, adoption/source-update, противоречивых journal facts или другого явно указанного исключения. В closure-review reviewer сверяет merge-факты по `RESULT` closure-stamp и GitHub/local git; `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
 
 ## Локальные действия после PR/merge
 

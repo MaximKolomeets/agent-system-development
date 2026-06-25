@@ -52,7 +52,7 @@ work/docs-maintainer-01/pr-1d-worktree-setup
 ## Practical worktree rules
 
 - Основная папка репозитория не используется для выполнения задач агентов.
-- Каждая задача выполняется в отдельной ветке `work/<role>/<task>`.
+- Каждая substantive task выполняется в основной ветке `work/<role>/<task>`; внутренние `work/<role>/<task>/*` допустимы только как sub-branches той же задачи.
 - Каждый агент должен работать в своей worktree-папке.
 - Перед запуском engine-исполнителя всегда проверять `git branch --show-current`.
 - Перед запуском engine-исполнителя всегда проверять `git status --short`.

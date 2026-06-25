@@ -2,6 +2,43 @@
 
 Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
 
+## 2026-06-25 - Review autoloop для feedback/fix-pass внутри task branch
+
+Решение:
+Закрепить автоматизированный цикл `Engine PR -> Reviewer review -> Engine fix-pass -> Reviewer re-review -> architect-ready` как recommended workflow для active work PR. Reviewer оставляет feedback только в PR агента и не создает отдельный PR; Engine исправляет замечания в той же task branch; цикл ограничен `max_review_cycles`; после approve PR получает статус/label `architect:ready-to-merge`, но merge в `developer` остается human-only.
+
+Причина:
+После перехода на agent-owned task branch workflow нужно убрать лишние PR-цепочки вокруг review feedback, не ослабляя safety gates и не превращая reviewer comments в отдельную ветку доставки.
+
+Последствия:
+
+- reviewer feedback/fix-pass остается внутри исходного PR и task branch;
+- automation останавливается и передает PR человеку при conflict, secrets-risk, forbidden paths, failed checks или превышении `max_review_cycles`;
+- recommended labels/statuses фиксируются в `REVIEW_AUTOLOOP.md`;
+- branch protection, запрет direct push в `main`/`developer`, human-only merge и `.env`/secrets guard сохраняются;
+- impact: docs-only methodology workflow;
+- runtime impact: none;
+- downstream-specific data: none.
+
+## 2026-06-25 - Agent-owned task branch workflow вместо per-merge closure цепочки
+
+Решение:
+Перейти на быстрый agent-owned workflow для substantive задач: `main` остается stable-веткой, `developer` — integration-веткой, основная task branch имеет вид `work/<role>/<task-id>`, внутренние sub-branches допускаются только внутри `work/<role>/<task-id>/*`, а одна substantive task дает один итоговый PR в `developer`.
+
+Причина:
+Предыдущая практика превращала delivery в цепочку `task -> PR -> review -> merge -> journal closure PR -> review -> merge -> следующая маленькая task`. Safety сохранялась, но скорость падала из-за обязательного post-merge closure PR после каждого ordinary work PR.
+
+Последствия:
+
+- engine владеет своей task branch до `ready_for_merge`, выполняет микрошаги и исправляет review feedback без запроса подтверждения после каждого шага, пока не сработали STOP-условия;
+- reviewer проверяет итоговый PR, оставляет comments/blockers и не создает отдельный PR для feedback без явного решения пользователя;
+- ordinary work PR может оставаться `merged; closure pending` до batch-closure перед release/audit/methodology boundary;
+- per-task closure остается обязательным для release/audit/methodology boundary, adoption/source-update, явного closure-задания, крупного milestone и противоречивых или опасно устаревших journal facts;
+- защита `main`, запрет direct push в `developer`, `.env`/secrets guard, branch isolation, Source Delta и context handoff сохраняются;
+- impact: docs-only methodology workflow;
+- runtime impact: none;
+- downstream-specific data: none.
+
 ## 2026-06-06 - GitHub as source of truth
 
 Решение:

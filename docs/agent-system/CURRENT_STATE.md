@@ -15,8 +15,10 @@ Repository visibility: public.
 Методология выпущена и поддерживается как reusable methodology/template repository. Этот слой описывает устойчивые возможности; он меняется только при реальном изменении методологии, а не после каждого work/release/sync PR.
 
 - Governance правила 1-4 закреплены: `main` обновляется только human-merged release PR `developer -> main`, рабочие ветки изолированы в `work/<role>/<task>`, pre-commit branch-guard обязателен, repository sync/checkout guard останавливает работу на dirty tree.
+- Agent-owned task branch workflow закреплен: одна substantive task ведется в основной `work/<role>/<task-id>` branch, внутренние `work/<role>/<task-id>/*` sub-branches допустимы только внутри задачи, а `developer` получает один итоговый PR; review feedback исправляется в той же task branch до `ready_for_merge`.
+- Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
 - Operational/source/template scope деперсонализирован: канон заголовка `Задача для <роль>`, роли отделены от исполнителя, vendor/tool literals в active operational scope заменены нейтральными placeholders.
-- Batch-closure policy закреплена: обычные work PR могут оставаться open/closure-pending до pre-release batch-closure; release и audit/review consistency gates требуют закрытого journal.
+- Batch-closure policy закреплена: обычные work PR могут оставаться open/closure-pending до batch-closure перед release/audit/methodology boundary; post-merge closure PR после каждого ordinary work PR больше не является default, но release и audit/review consistency gates требуют закрытого journal.
 - Closure-facts authority закреплён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL.
 - `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
@@ -75,7 +77,8 @@ C:\Neural\worktrees\agent-system-development\docs-maintainer-01
 
 - `main` - стабильная ветка;
 - `developer` - интеграционная ветка;
-- `work/<role>/*` - рабочие ветки задач.
+- `work/<role>/<task>` - основная task branch;
+- `work/<role>/<task>/*` - внутренние sub-branches той же задачи, если нужны.
 
 После bootstrap прямые изменения в `developer` запрещены без отдельного разрешения пользователя.
 

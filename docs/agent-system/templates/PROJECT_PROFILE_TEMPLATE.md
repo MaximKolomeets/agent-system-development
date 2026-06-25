@@ -32,7 +32,8 @@
 
 - `main` - stable branch;
 - `developer` - integration branch;
-- `work/<role>/*` - task branches.
+- `work/<role>/<task>` - main task branches.
+- `work/<role>/<task>/*` - internal sub-branches for the same task, if needed.
 
 ## Roles
 

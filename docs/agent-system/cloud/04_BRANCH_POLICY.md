@@ -25,29 +25,57 @@
 ## developer
 
 - интеграционная ветка;
-- изменения только через PR из `work/<role>/*`;
+- изменения только через итоговый PR из основной `work/<role>/<task>`;
 - прямой push запрещен после bootstrap, кроме отдельного решения пользователя;
 - после merge в `main` должна быть синхронизирована с `main`.
 
-## work/<role>/*
+## work/<role>/<task-id>
 
-- рабочие ветки задач;
-- одна задача = одна ветка;
+- основная task branch агента для одной substantive task;
+- одна substantive task = одна основная task branch и один итоговый PR в `developer`;
 - ветка создается от актуальной `developer`;
-- после merge может быть удалена.
+- engine владеет task branch до состояния `ready_for_merge`, включая исправление review feedback;
+- после merge итогового PR может быть удалена.
+
+## work/<role>/<task-id>/*
+
+- внутренние temporary/sub-branches той же задачи;
+- используются только внутри namespace основной task branch, если engine нужно разложить работу на шаги;
+- сливаются обратно в `work/<role>/<task-id>` до итогового PR;
+- не открывают отдельные PR в `developer`, кроме отдельного явного решения пользователя;
+- после использования удаляются или оставляются только как локальная диагностика до cleanup.
 
 ### Изоляция веток агентов (канон, правило 2)
 
-- каждый агент действует ТОЛЬКО в своих ветках `work/<role>/<task>` своего role namespace;
+- каждый агент действует ТОЛЬКО в своих ветках `work/<role>/<task>` и внутренних `work/<role>/<task>/*` своего role namespace;
 - запрещено пушить, менять, force-пушить, переименовывать или удалять ветку другого агента (другого `work/<role>/*`);
 - агент не строит свою работу поверх чужой непримёрженной рабочей ветки без отдельного решения пользователя;
 - передача работы между агентами выполняется ТОЛЬКО через merged PR в `developer`, а не через правку чужих веток;
 - если нужна работа поверх результата другого агента, сначала его PR мержится в `developer`, затем новая ветка создаётся от актуальной `developer`.
 
+### Agent-owned task branch workflow
+
+- orchestrator и пользователь задают цель, allowed/forbidden files, checks и STOP-условия;
+- engine выполняет задачу в основной task branch и не ждет подтверждения после каждого микрошагa, пока остается в scope и не сработали STOP-условия;
+- engine может создавать внутренние sub-branches в `work/<role>/<task-id>/*`, самостоятельно сливать их обратно в task branch и продолжать работу;
+- reviewer проверяет итоговый PR, оставляет comments/blockers, но не создает отдельный PR для feedback без явного решения пользователя;
+- review feedback исправляется в той же task branch, после чего engine повторно запускает checks и доводит PR до `ready_for_merge`;
+- `developer` получает один итоговый PR по substantive task.
+
+### Review autoloop
+
+- Для active work PR допускается bounded autoloop: `Engine PR -> Reviewer review -> Engine fix-pass -> Reviewer re-review -> architect-ready`.
+- Reviewer оставляет feedback только в PR агента; отдельный feedback PR запрещён без явного решения пользователя.
+- Engine исправляет feedback в той же `work/<role>/<task>` branch и возвращает PR в `engine:ready-for-review`.
+- Каждая задача, использующая autoloop, задаёт `max_review_cycles`; default = `3`.
+- После approve-equivalent reviewer status PR получает `architect:ready-to-merge`; merge в `developer` всё равно выполняет только человек.
+- При conflict, secrets-risk, forbidden paths, failed checks, scope drift или превышении `max_review_cycles` automation ставит `automation:stopped-human-required` и передаёт PR человеку.
+- Канон state-machine и labels/statuses: `docs/agent-system/REVIEW_AUTOLOOP.md`.
+
 ### Pre-commit branch guard (канон, правило 3)
 
 - перед ЛЮБЫМ `git commit` агент проверяет текущую ветку: `git rev-parse --abbrev-ref HEAD`;
-- если HEAD не его рабочая ветка задачи `work/<role>/<task>` (особенно если это `developer` или `main`) → `STOP`, переключиться на правильную work-ветку и только потом коммитить;
+- если HEAD не его основная рабочая ветка задачи `work/<role>/<task>` и не внутренняя sub-branch `work/<role>/<task>/*` (особенно если это `developer` или `main`) → `STOP`, переключиться на правильную work-ветку и только потом коммитить;
 - прямой коммит в `developer` или `main` запрещён даже локально (не только push); локальный коммит в `developer`/`main` считается нарушением, даже если он ещё не запушен;
 - обоснование: инцидент journal 0013 — resume сессии оставил HEAD на `developer`, и коммит сначала лёг туда; remote `developer` уцелел только потому, что пушилась work-ветка. Проверка ветки перед commit предотвращает это.
 
@@ -103,7 +131,7 @@ git status --short
 - force push в `main`/`developer`;
 - прямой push агентами в `main`;
 - прямой push агентами в `developer` после bootstrap;
-- смешивать несколько независимых задач в одной ветке.
+- смешивать несколько независимых substantive tasks в одной основной task branch.
 - использовать model/vendor-specific ветки вида `<vendor-name>/*`.
 
 ## Review branch policy

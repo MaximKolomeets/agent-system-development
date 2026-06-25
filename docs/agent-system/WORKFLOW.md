@@ -9,6 +9,31 @@
 7. Пользователь принимает решение о merge.
 8. После merge обновляются `CURRENT_STATE` и `DECISION_LOG`, если нужно.
 
+## Agent-owned task branch workflow
+
+Для substantive file-changing task действует быстрый agent-owned workflow:
+
+1. Orchestrator и пользователь фиксируют цель, scope, allowed/forbidden files, checks и STOP-условия.
+2. Engine создает основную ветку `work/<role>/<task-id>` от актуальной `developer`.
+3. Engine выполняет работу end-to-end, при необходимости создавая внутренние `work/<role>/<task-id>/*` sub-branches и сливая их обратно в основную task branch.
+4. Engine не ждет подтверждения после каждого микрошагa, пока не выходит за scope и не сработали STOP-условия.
+5. Один substantive task завершается одним итоговым PR в `developer`.
+6. Reviewer проверяет итоговый PR; comments/blockers исправляются engine в той же task branch.
+7. После исправлений и повторных checks PR доводится до `ready_for_merge`.
+8. Обычный post-merge closure PR не создается автоматически; journal closure выполняется batch-проходом перед release/audit/methodology boundary или по явному исключению.
+
+## Review autoloop
+
+Для active work PR применяется bounded state-machine из `docs/agent-system/REVIEW_AUTOLOOP.md`:
+
+1. Engine открывает или обновляет PR и помечает состояние `engine:ready-for-review`.
+2. Reviewer проверяет PR и оставляет feedback только в этом PR.
+3. Если есть blockers, PR получает `reviewer:changes-requested`, а engine делает fix-pass в той же task branch.
+4. Цикл повторяется до reviewer approve или до `max_review_cycles`.
+5. После approve-equivalent PR получает `architect:ready-to-merge`.
+6. Merge в `developer` выполняет только человек-архитектор.
+7. При STOP-condition PR получает `automation:stopped-human-required` и передается человеку.
+
 ## Шаблоны отчётов и решений
 
 - Универсальный отчёт роли (не-PR работ, исследований, status-апдейтов): `docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md` (Summary, Changed files, Checks, Risks, Open questions, Next step).
@@ -24,7 +49,8 @@
 Минимальные правила остаются обязательными:
 
 - direct changes в `main`/`developer` запрещены без отдельного решения пользователя;
-- file-changing task идет через `work/<role>/<task>` и PR;
+- file-changing substantive task идет через основную `work/<role>/<task>` и один итоговый PR;
+- внутренние `work/<role>/<task>/*` допустимы только как sub-branches внутри agent-owned task branch;
 - TASK/RESULT/INDEX создаются и финализируются, если задача меняет repository files или создает PR;
 - Operational Fast Lane допускается только для read-only/status/cleanup без file edits;
 - final report содержит проверки, риски и локальный sync block после PR/merge.
@@ -37,7 +63,7 @@
 
 - явное разделение orchestrator, engine и reviewer responsibilities;
 - review-only boundary для reviewer roles;
-- отдельные implementation tasks для исправления findings;
+- отдельные implementation tasks для findings из standalone review-only задач; review feedback по активному work PR исправляется в той же task branch;
 - полный self-contained блок для исполнителя (engine) или Task File Handoff Mode;
 - воспроизводимые journal artifacts и PR metadata.
 
@@ -56,7 +82,8 @@
 ## После bootstrap
 
 - Прямые изменения в `developer` запрещены без отдельного разрешения пользователя.
-- Рабочий поток идет через ветки `work/<role>/*`.
+- Рабочий поток идет через основные task branches `work/<role>/<task>`.
+- Внутренние sub-branches `work/<role>/<task>/*` допустимы только внутри той же задачи и сливаются обратно до итогового PR.
 - Рабочая ветка создается от актуальной `developer`.
 - `developer` принимает изменения через PR из рабочих веток.
 - `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag на release merge commit ставит человек-архитектор, не агент.
@@ -77,7 +104,7 @@ Review-задача по умолчанию возвращает тело review
 
 Review-only PR содержит journal artifacts всегда; review report files и state docs добавляются только если они явно разрешены задачей.
 
-Reviewer не исправляет production code, runtime, Docker, CI, scripts или dependencies. Findings превращаются в отдельные implementation PR только после решения пользователя.
+Reviewer не исправляет production code, runtime, Docker, CI, scripts или dependencies. В активном work PR reviewer оставляет feedback, а исправления делает engine в той же task branch. Findings из standalone review-only задач превращаются в отдельные implementation PR только после решения пользователя.
 
 Reviewer не запускает исполнителя (engine), не меняет очередь исполнителя и не формулирует себе implementation task. Он может предложить кандидаты на будущие задачи, но решение принимает пользователь вместе с оркестратором.
 

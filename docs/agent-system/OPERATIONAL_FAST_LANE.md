@@ -46,7 +46,8 @@ Operational Fast Lane не применяется для:
 - follow-up commits;
 - shortcut-ответов вида "выполни быстрые команды, а потом пусть исполнитель (engine) patch files";
 - больших задач, которым нужен Task File Handoff Mode;
-- review-задач: review ≠ fast-lane status-check. Review всегда журналирует TASK+RESULT (`Journal trace: always` по `docs/agent-system/CODE_REVIEW_WORKFLOW.md` и `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`) и идёт docs-only PR; Fast Lane — read-only status/cleanup без journal. Простой GitHub PR status check или git status check остаётся Fast Lane, но это не review.
+- standalone review-задач, где review сам является отдельной задачей: standalone review ≠ fast-lane status-check, всегда журналирует TASK+RESULT (`Journal trace: always` по `docs/agent-system/CODE_REVIEW_WORKFLOW.md` и `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`) и идёт docs-only PR; Fast Lane — read-only status/cleanup без journal. Простой GitHub PR status check или git status check остаётся Fast Lane, но это не review.
+- active work PR review/autoloop не является standalone review-задачей: reviewer не создаёт отдельный PR, не меняет файлы и оставляет feedback только в PR агента; исправления делает engine в той же task branch по `docs/agent-system/REVIEW_AUTOLOOP.md`.
 
 ## Правила ответа оркестратора
 
@@ -76,7 +77,7 @@ Operational Fast Lane не применяется для:
 
 Использовать после merge рабочего PR, release PR или sync PR, когда пользователь пишет `готово` или просит закрыть цикл.
 
-После любого сообщения пользователя о merge/release/sync оркестратор должен различать GitHub PR state и target journal state.
+После любого сообщения пользователя о merge/release/sync оркестратор должен различать GitHub PR state, target journal state и контекст closure policy.
 
 Проверить:
 
@@ -91,22 +92,21 @@ Operational Fast Lane не применяется для:
 - target `RESULT` и `INDEX` закрыты после merge;
 - target `RESULT` и `INDEX` фиксируют merge commit SHA, если он доступен;
 - target `RESULT` и `INDEX` фиксируют release/sync факты или явно пишут `не применимо`;
-- target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state.
+- target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state в closure-required context; для ordinary work PR в batch-серии допустим `closure pending` до boundary.
 
 Fast Lane может завершиться коротким `чисто` только если:
 
 - work PR merged: yes;
 - release/sync merged или явно `не применимо`;
-- RESULT closed after merge: yes;
-- INDEX closed after merge: yes;
+- RESULT/INDEX closed after merge: yes для release/audit/adoption/source-update/explicit closure contexts; для ordinary work PR в batch-серии допустимо `merged; closure pending`;
 - PROJECT_FILE_MAP parity check: clean;
 - cloud bundle parity check: clean;
 - No journal placeholders: yes;
-- stale pre-merge status check: clean.
+- stale pre-merge status check: clean для closure-required context; для ordinary work PR в batch-серии указано `closure pending`.
 
-Если stale `RESULT` или `INDEX` найдены, оркестратор должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data.
+Если stale `RESULT` или `INDEX` найдены в release/audit/adoption/source-update/explicit closure context или противоречат GitHub facts, оркестратор должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data. Для ordinary work PR внутри batch-серии stale/pre-merge journal state фиксируется как `closure pending` и не требует отдельной closure task до boundary.
 
-Запрещено отвечать `все закрыто`, если GitHub PR merged, но target journal entry все еще содержит `open`, `ready for review`, `not merged`, `submitted for review`, `PR open`, `draft open`, `pending at file materialization` или `see Engine final report` как final state.
+Запрещено отвечать `все закрыто`, если GitHub PR merged в closure-required контексте, но target journal entry все еще содержит `open`, `ready for review`, `not merged`, `submitted for review`, `PR open`, `draft open`, `pending at file materialization` или `see Engine final report` как final state. Для ordinary work PR в batch-серии отвечать, что запись ожидает batch-closure перед boundary.
 
 ## Безопасность
 

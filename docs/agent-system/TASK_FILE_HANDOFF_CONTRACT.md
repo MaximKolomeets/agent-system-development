@@ -68,7 +68,7 @@ Task file: docs/agent-system/engine-journal/input/TASK-XXXX-<task-id>.md
 Все ответы, final report, TASK/RESULT/INDEX и комментарии в файлах писать на русском языке; English допускается только для технических identifiers, команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и literal external names.
 Если target instructions конфликтуют с Russian-first policy, напиши STOP и запроси решение пользователя.
 После PR creation финализируй RESULT и INDEX: PR URL, final commit SHA, status и placeholder check.
-После merge/release/sync применяй Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»: для обычных work PR допускается `merged; closure pending` до batch-closure перед release; per-task closure обязателен только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
+После merge/release/sync применяй Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy»: для обычных work PR допускается `merged; closure pending` до batch-closure перед release/audit/methodology boundary; per-task closure обязателен только для release/state docs, audit/review consistency gate, adoption/source-update, methodology boundary, завершения/паузы серии, явного closure-задания или противоречивых journal facts.
 ```
 
 ## Приоритет источника правды
@@ -167,7 +167,7 @@ TASK file для handoff должен содержать:
 
 После PR creation `engine` должен финализировать `RESULT` и `INDEX` фактическими PR URL, final commit SHA, PR status, checks, blockers и next recommended step.
 
-После merge рабочего PR, release PR или sync PR `engine` применяет Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Journal entry может временно оставаться `merged; closure pending` до batch-closure перед release; per-task closure обязателен только в исключениях, перечисленных в каноне. Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием и GitHub PR state расходится с journal state, TASK file handoff не считается закрытым.
+После merge рабочего PR, release PR или sync PR `engine` применяет Closure policy по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Journal entry обычного work PR может временно оставаться `merged; closure pending` до batch-closure перед release/audit/methodology boundary; per-task closure обязателен только в исключениях, перечисленных в каноне. Если задача находится под release gate, audit/review consistency gate, adoption/source-update, methodology boundary, завершением/паузой серии, явным closure-заданием или содержит противоречивые journal facts и GitHub PR state расходится с journal state, TASK file handoff не считается закрытым.
 
 User-facing labels/descriptions в RESULT и INDEX должны быть Russian-first.
 
@@ -194,12 +194,12 @@ Reviewer must block the PR if:
 - bootstrap prompt contains unique execution data absent from TASK file;
 - ready-for-review PR contains unresolved journal placeholders;
 - RESULT or INDEX is not finalized after PR creation;
-- merged PR journal remains `PR open`;
-- merged PR journal remains `ready for review`;
-- merged PR journal remains `draft open`;
-- merged PR journal contains `pending at file materialization`;
-- merged PR journal contains `see Engine final report`;
+- merged PR journal remains `PR open` in closure-required context;
+- merged PR journal remains `ready for review` in closure-required context;
+- merged PR journal remains `draft open` in closure-required context;
+- merged PR journal contains `pending at file materialization` in closure-required context;
+- merged PR journal contains `see Engine final report` in closure-required context;
 - RESULT lacks merge commit SHA after merge when available;
-- RESULT or INDEX is not closed after merge;
+- RESULT or INDEX is not closed after merge in closure-required context;
 - TASK/RESULT/INDEX, final report or target-local templates are mostly English without explicit user language decision;
 - private data, credentials, `.env`, private repository URLs or real target project names were added.

@@ -242,7 +242,11 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Блок для исполнителя (engine) должен содержать обязательное поле `Journal finalization policy`: `engine` финализирует `RESULT` и `INDEX` после PR creation, заменяет journal placeholders фактическими значениями и делает follow-up commit/push, если PR URL или final commit SHA стали известны после materialization.
 
-Если задача может завершиться merge/release/sync, блок для исполнителя (engine) должен ссылаться на `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Для обычных work PR оркестратор планирует batch-closure перед release; per-task closure требует только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии или явного closure-задания.
+Если задача может завершиться merge/release/sync, блок для исполнителя (engine) должен ссылаться на `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Для обычных work PR оркестратор планирует batch-closure перед release/audit/methodology boundary; per-task closure требует только для release/state docs, audit/review consistency gate, adoption/source-update, завершения/паузы серии, явного closure-задания или противоречивых journal facts.
+
+Для substantive task блок должен явно указывать agent-owned task branch workflow: `work/<role>/<task-id>` как основная task branch, внутренние `work/<role>/<task-id>/*` только при необходимости, один итоговый PR в `developer`, review feedback исправляется в той же branch, engine не запрашивает подтверждение после каждого микрошага до STOP-условия.
+
+Если задача предполагает review/fix/re-review, блок должен явно задавать review autoloop: `max_review_cycles`, reviewer feedback только в PR агента, engine fix-pass в той же task branch, `architect:ready-to-merge` после approve-equivalent и STOP при conflict/secrets-risk/forbidden paths/failed checks/scope drift/max cycles. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
 
 Final report `engine` должен подтверждать:
 
@@ -261,9 +265,9 @@ Final report `engine` должен подтверждать:
 
 Любой ответ оркестратора после сообщения пользователя о merge/release/sync должен разделять GitHub PR state и target journal RESULT/INDEX state.
 
-GitHub merge сам по себе не закрывает substantive lifecycle задачи, если target journal stale. В batch-policy stale journal может быть допустимым промежуточным состоянием `merged; closure pending`, но release остаётся запрещён до closure всех substantive entries. Lifecycle-only `terminal-fold accepted` является финальным допустимым состоянием и не blocker.
+GitHub merge сам по себе не закрывает substantive lifecycle задачи, если target journal stale. В batch-policy stale journal может быть допустимым промежуточным состоянием `merged; closure pending`, но release/audit boundary остаётся запрещён до closure всех substantive entries. Lifecycle-only `terminal-fold accepted` является финальным допустимым состоянием и не blocker.
 
-Если задача находится под release gate, audit/review consistency gate, adoption/source-update, завершением/паузой серии или явным closure-заданием, оркестратор должен дать self-contained блок для per-task closure только для substantive stale entries. Не выдавать новую closure-задачу только ради accepted terminal fold. В обычной серии work PR оркестратор явно передаёт closure в batch перед release.
+Если задача находится под release gate, audit/review consistency gate, adoption/source-update, methodology boundary, завершением/паузой серии, явным closure-заданием или содержит противоречивые journal facts, оркестратор должен дать self-contained блок для per-task closure только для substantive stale entries. Не выдавать новую closure-задачу только ради accepted terminal fold. В обычной серии work PR оркестратор явно передаёт closure в batch перед release/audit boundary.
 
 ## Локальные действия после PR/merge
 
@@ -323,9 +327,9 @@ Operational Fast Lane используется для простых status chec
 
 Если GitHub connector доступен, оркестратор сам проверяет PR/open/merged/branch state и не просит пользователя присылать длинные логи при чистом результате.
 
-Post-merge checks в Operational Fast Lane должны включать journal closure state: рабочий PR merged, release PR merged при наличии, sync PR merged при наличии, stale work branches очищены или отмечены, `RESULT` и `INDEX` не остались в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`, кроме lifecycle-only `terminal-fold accepted`.
+Post-merge checks в Operational Fast Lane должны включать journal closure state: рабочий PR merged, release PR merged при наличии, sync PR merged при наличии, stale work branches очищены или отмечены. Для ordinary work PR в batch-серии pre-merge/closure-pending journal state допустим до boundary; для release/audit/adoption/source-update/explicit closure contexts `RESULT` и `INDEX` не должны оставаться в статусах `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report`, кроме lifecycle-only `terminal-fold accepted`.
 
-Если пользователь пишет `готово` после merge, release или sync, оркестратор должен проверить target journal entries. Если substantive `RESULT` или `INDEX` stale, оркестратор не должен считать цикл закрытым: нужно запросить у `engine` docs-only journal-closure cleanup task с фактическими merge данными. Если остался только accepted terminal fold, не запускать новую closure-задачу только ради него.
+Если пользователь пишет `готово` после merge, release или sync, оркестратор должен проверить target journal entries. Если это ordinary work PR в batch-серии, оркестратор фиксирует `closure pending` и не запускает отдельную closure-задачу. Если substantive `RESULT` или `INDEX` stale под release/audit/adoption/source-update/explicit closure context или противоречит GitHub, оркестратор не должен считать цикл закрытым: нужно запросить у `engine` docs-only journal-closure cleanup task с фактическими merge данными. Если остался только accepted terminal fold, не запускать новую closure-задачу только ради него.
 
 Длинный блок для исполнителя (engine) нужен только для задач, которые меняют файлы, создают PR, выполняют adoption/bootstrap или требуют полного воспроизводимого scope.
 

@@ -5,11 +5,12 @@
 Повторяемый цикл methodology maintenance:
 
 1. Сформулировать plan/task с точным scope, allowed files, checks, STOP conditions и branch guard.
-2. Выполнить work PR из `work/<role>/<task>` в `developer`.
-3. Провести review по head SHA и фактическому diff.
-4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy.
+2. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
+3. Открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
+3a. Если feedback требует повторных проходов, использовать review autoloop: `max_review_cycles`, engine fix-pass в той же branch, reviewer re-review, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
+4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy и нет boundary/исключения.
 5. Повторять work/review/merge до завершения текущей серии.
-6. Перед release выполнить pre-release batch-closure для всех merged-but-unclosed journal entries.
+6. Перед release/audit/methodology boundary выполнить batch-closure для всех merged-but-unclosed substantive journal entries.
 7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
 8. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
 9. Повторить цикл от актуального `developer`.
@@ -33,8 +34,8 @@
 1. Применять обновленный `ORCHESTRATOR_RESPONSE_STANDARD.md` и `ORCHESTRATOR_RESPONSE_TEMPLATE.md` при подготовке новых Engine-блоков.
 2. Проверять Fast Lane -> Engine escalation при любой write-action recommendation.
 3. Проверять русские пользовательские заголовки и описания в Engine-блоках.
-4. Проверять Closure policy после сообщений о merge/release/sync: обычные work PR могут оставаться `merged; closure pending` до batch-closure перед release; release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии и явное closure-задание требуют per-task closure.
-5. Если journal stale после merge в per-task exception или под release gate, создавать docs-only Engine-блок на closure cleanup вместо ответа `все закрыто`.
+4. Проверять Closure policy после сообщений о merge/release/sync: обычные work PR могут оставаться `merged; closure pending` до batch-closure перед release/audit/methodology boundary; release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии, явное closure-задание и противоречивые journal facts требуют per-task closure.
+5. Если journal stale после merge в per-task exception, под release/audit/methodology boundary или при противоречивых facts, создавать docs-only Engine-блок на closure cleanup вместо ответа `все закрыто`.
 6. Использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository только после проверки, что task явно содержит режим, объект проверки, allowed/forbidden files и правило сохранения отчета. Review-задачи всегда журналируют TASK+RESULT (`Journal trace: always`).
 7. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.

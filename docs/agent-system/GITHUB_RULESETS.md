@@ -6,7 +6,7 @@
 - `Protect main`: Active, по ручной проверке пользователя в GitHub UI.
 - `Protect developer`: Active, по ручной проверке пользователя в GitHub UI.
 - Rulesets защищают `main` и `developer` от прямого небезопасного workflow.
-- Изменения должны идти через `work/<role>/*` -> `developer` -> `main`.
+- Изменения должны идти через основную `work/<role>/<task>` -> `developer` -> `main`; внутренние `work/<role>/<task>/*` не являются отдельными delivery PR.
 
 ## Status checks
 
