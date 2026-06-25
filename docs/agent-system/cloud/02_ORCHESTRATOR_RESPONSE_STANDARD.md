@@ -223,6 +223,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
 - [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
 - [ ] Если задача меняет файлы или готовит fix-pass/review-comment, включён ли recommended ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`?
+- [ ] Если surfaced generated/cloud EOL-only шум, указан ли read-only guard `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` и distinction между `content_changed` blocker и EOL/whitespace-only noise?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
 ## Журнал исполнителя (engine)
@@ -255,7 +256,7 @@ Task/result files являются append-only artifacts. Их нельзя уд
 python docs/agent-system/tools/check_task_ready.py --base origin/developer
 ```
 
-Эта команда не заменяет task-specific checks, но агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan. Для machine-verifiable blockers она может быть `verification_command`, если blocker покрыт её проверками; semantic/mixed blockers требуют reviewer re-review по канону autoloop.
+Эта команда не заменяет task-specific checks, но агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, generated EOL guard, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan. Для machine-verifiable blockers она может быть `verification_command`, если blocker покрыт её проверками; semantic/mixed blockers требуют reviewer re-review по канону autoloop.
 
 Final report `engine` должен подтверждать:
 

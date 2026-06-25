@@ -34,6 +34,8 @@
 
 #### METH-GENERATED-EOL-GUARD-01
 
+Статус: implemented by methodology task `METH-GENERATED-EOL-GUARD-01`; запись оставлена как trace исходной roadmap-идеи.
+
 - Развить существующий backlog item `METH-GENERATED-EOL-CANON-01` в practical tooling roadmap.
 - Будущий guard различает content diff и EOL-only diff в generated/cloud/journal artifacts.
 - Не выполнять большой renormalize без отдельного отчёта и явного решения архитектора.

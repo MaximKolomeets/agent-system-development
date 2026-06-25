@@ -75,6 +75,8 @@ class ReadyReport:
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
+    generated_eol_guard_result: str = "skipped"
+    generated_eol_guard_reason: str = ""
     forbidden_changed_paths: list[str] = field(default_factory=list)
     sensitive_filenames: list[str] = field(default_factory=list)
     strict_added_line_secret_files: list[str] = field(default_factory=list)
@@ -127,6 +129,26 @@ def run_command(args: list[str], name: str) -> CommandResult:
         errors="replace",
     )
     return CommandResult(name=name, exit_code=result.returncode, status="passed" if result.returncode == 0 else "failed")
+
+
+def run_json_command(args: list[str], name: str) -> tuple[CommandResult, dict[str, object] | None]:
+    result = subprocess.run(
+        args,
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if result.returncode != 0:
+        return CommandResult(name=name, exit_code=result.returncode, status="failed"), None
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return CommandResult(name=name, exit_code=1, status="failed"), None
+    status = str(data.get("result", "passed"))
+    return CommandResult(name=name, exit_code=result.returncode, status=status), data
 
 
 def split_lines(text: str) -> list[str]:
@@ -281,6 +303,7 @@ def add_generated_checks(report: ReadyReport) -> None:
     report.generated_checks_required = requires_generated_checks(all_paths)
     if not report.generated_checks_required:
         report.generated_checks_reason = "no generated/bundle-source files changed"
+        report.generated_eol_guard_reason = "no generated files changed"
         return
     report.generated_checks_reason = "generated/bundle-source files changed"
     checks = [
@@ -292,6 +315,20 @@ def add_generated_checks(report: ReadyReport) -> None:
         report.generated_checks.append(check)
         if check.exit_code != 0:
             report.blockers.append(f"{name} failed")
+
+    guard_check, guard_data = run_json_command(
+        ["python", "docs/agent-system/tools/generated_eol_guard.py", "--base", report.base, "--json"],
+        "generated_eol_guard.py --json",
+    )
+    report.generated_checks.append(guard_check)
+    report.generated_eol_guard_result = guard_check.status
+    report.generated_eol_guard_reason = "generated/cloud changes classified"
+    if guard_check.exit_code != 0 or guard_check.status == "blocked":
+        report.blockers.append("generated_eol_guard.py failed")
+    elif guard_check.status == "warning":
+        report.warnings.append("generated_eol_guard.py detected generated EOL/whitespace-only noise")
+    if guard_data is None:
+        report.generated_eol_guard_reason = "generated_eol_guard JSON summary unavailable"
 
 
 def add_safety_scans(report: ReadyReport) -> None:
@@ -342,6 +379,8 @@ def render_human(report: ReadyReport) -> str:
             "",
             f"generated_checks_required: {'yes' if report.generated_checks_required else 'no'}",
             f"generated_checks_reason: {report.generated_checks_reason}",
+            f"generated_eol_guard_result: {report.generated_eol_guard_result}",
+            f"generated_eol_guard_reason: {report.generated_eol_guard_reason}",
         ]
     )
     for check in report.generated_checks:
