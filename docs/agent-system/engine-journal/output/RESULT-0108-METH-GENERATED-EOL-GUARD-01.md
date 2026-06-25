@@ -45,7 +45,14 @@ JSON summary:
 
 ## Проверки
 
-Будут финализированы после полного diff, generated regen и PR creation.
+- `python docs/agent-system/tools/gen_file_map.py --check` — passed.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check` — passed.
+- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` — passed; `eol_only_changed_count: 0`, `whitespace_only_changed_count: 0`.
+- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer --json` — passed; JSON содержит counts/filenames/categories без secret values.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer` — ready; blockers `0`, warnings `0`.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json` — ready; sensitive filename count `0`, strict added-line secret value count `0`, placeholder candidates `0`.
+- `git diff --check origin/developer...HEAD` — passed.
+- EOL-only cloud side effects после regen были обнаружены guard и точечно сняты до commit; repo-wide renormalize не выполнялся.
 
 ## Source Delta
 
@@ -74,11 +81,16 @@ JSON summary:
 
 ## Journal finalization
 
-- RESULT finalized: будет обновлено после PR creation.
-- INDEX finalized: будет обновлено после PR creation.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/263
+- PR state: OPEN
+- PR base/head: developer / work/methodology-architect-01/meth-generated-eol-guard-01
+- head before journal finalization: `060d6ff56f55df4161473cb21ead3221ae50e339`
+- RESULT finalized: yes.
+- INDEX finalized: yes.
 - No journal placeholders: yes.
 - Journal trace: yes.
 - execution_started_at: `2026-06-25T23:20:51.4383472+07:00`
+- execution_finished_at: `2026-06-25T23:29:12.2096130+07:00`
 
 ## Передача
 
