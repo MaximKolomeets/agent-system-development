@@ -40,7 +40,7 @@
 
 ## Active rules
 
-- одна задача = одна ветка = один PR;
+- одна substantive task = одна основная task branch и один итоговый PR; internal sub-branches допустимы только внутри той же задачи;
 - work branches создаются от актуальной `developer`;
 - `developer` принимает изменения через PR;
 - `main` принимает стабильное состояние из `developer`;

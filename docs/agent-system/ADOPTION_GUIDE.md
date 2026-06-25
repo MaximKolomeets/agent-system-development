@@ -301,7 +301,7 @@ Target repository может использовать `developer`, `develop`, `m
 
 `main-only flow` допустим только как осознанная фактическая модель existing repository adoption. Его нельзя молча применять к новому пустому repository, если пользователь выбрал `standard developer workflow` с `developer`.
 
-Для нового пустого repository со стандартной схемой `main -> developer -> work/<role>/*` отсутствие `developer` является bootstrap blocker или trigger для явно разрешенного bootstrap creation step.
+Для нового пустого repository со стандартной схемой `main -> developer -> work/<role>/<task>` отсутствие `developer` является bootstrap blocker или trigger для явно разрешенного bootstrap creation step.
 
 ## PowerShell и UTF-8
 
@@ -369,7 +369,7 @@ GitHub является source of truth: в target repository фиксируют
 
 ### 5. Создать ветки и worktree
 
-Схема: `main`, `developer`, `work/<role>/*`. Нейтральный пример путей: `C:\Neural\repos\<target-repository-name>` и `C:\Neural\worktrees\<target-repository-name>\<role-name>`. Каждая задача — в ветке `work/<role>/<task>` от актуальной `developer`. Если target repository использует `develop` или другую модель — адаптировать branch policy, PR workflow, task templates, CI branch filters; не переименовывать ветки без решения пользователя (см. раздел «Developer vs develop» выше).
+Схема: `main`, `developer`, `work/<role>/<task>`; внутренние `work/<role>/<task>/*` допустимы только внутри той же substantive task. Нейтральный пример путей: `C:\Neural\repos\<target-repository-name>` и `C:\Neural\worktrees\<target-repository-name>\<role-name>`. Каждая задача — в основной ветке `work/<role>/<task>` от актуальной `developer`. Если target repository использует `develop` или другую модель — адаптировать branch policy, PR workflow, task templates, CI branch filters; не переименовывать ветки без решения пользователя (см. раздел «Developer vs develop» выше).
 
 ### 6. Подготовить первый bootstrap PR
 

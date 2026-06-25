@@ -99,9 +99,9 @@ Matching lines и secret values не печатать.
 
 ### Journal closure
 
-Если PR уже merged, проверить `RESULT` и `INDEX`: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
+Если PR уже merged, сначала классифицировать контекст. Для обычного work PR в batch-серии `merged; closure pending` допустим до release/audit/methodology boundary и не требует отдельного closure PR. Для release/audit/adoption/source-update/explicit closure contexts проверить `RESULT` и `INDEX`: PR status `merged`, merge commit SHA, release/sync PR данные при наличии, `RESULT closed after merge: yes`, `INDEX closed after merge: yes`, `No journal placeholders: yes`.
 
-Блокирующие замечания:
+Блокирующие замечания для closure-required контекста:
 
 - merged PR journal остается `PR open`;
 - merged PR journal остается `ready for review`;

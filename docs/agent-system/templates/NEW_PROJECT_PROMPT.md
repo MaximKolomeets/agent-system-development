@@ -143,7 +143,7 @@ Local target path:
 - не упоминать конкретные внешние проекты, приватные репозитории или внутренние кодовые имена;
 - использовать только нейтральные термины: target implementation repository, private downstream repository, private implementation repository, example project;
 - конкретный инструмент-исполнитель описывать как engine;
-- одна задача = одна ветка = один PR;
+- одна substantive task = одна основная task branch и один итоговый PR; internal sub-branches допустимы только внутри той же задачи;
 - пользователь принимает финальные решения.
 
 Мое описание проекта:
