@@ -16,6 +16,8 @@ Head before journal finalization: `4da65a514babc3fad21188f097316973be7678d6`.
 
 Fix-pass started from reviewed head: `c6b3827407bc4341256875b4ebb169a2274d7fe5`.
 
+Fix-pass implementation commit: `6739020361bb2b0540813e9d59c22512b3515782`.
+
 ## Выполнено
 
 - Добавлен канон `docs/agent-system/REVIEW_AUTOLOOP.md` со state-machine, recommended labels/statuses, `max_review_cycles`, STOP-условиями и local orchestrator/self-hosted runner flow.
