@@ -1,6 +1,6 @@
 # TASK-0103: METH-CREATE-RELEASE-PR-V1-2-0-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #252 open.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0103-METH-CREATE-RELEASE-PR-V1-2-0-01.md`
 
