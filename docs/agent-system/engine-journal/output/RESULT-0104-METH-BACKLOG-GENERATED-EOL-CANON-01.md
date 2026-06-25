@@ -1,19 +1,20 @@
 # RESULT-0104: METH-BACKLOG-GENERATED-EOL-CANON-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #255 open.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0104-METH-BACKLOG-GENERATED-EOL-CANON-01.md`
 
 ## Execution
 
 - execution_started_at measured: `2026-06-25T09:04:12.9489700+07:00`
-- execution_finished_at measured: `2026-06-25T09:05:51.8851503+07:00`
+- execution_finished_at measured: `2026-06-25T09:08:04.6794459+07:00`
 - baseline `developer` / `origin/developer`: `06a7c49a369ff468dba1369d7ec333a656d61bae`
 - work branch: `work/docs-maintainer-01/backlog-generated-eol-canon-01`
-- PR: pending.
-- PR state: pending.
+- PR: `https://github.com/MaximKolomeets/agent-system-development/pull/255`
+- PR state: `OPEN`
 - PR base/head: `developer` <- `work/docs-maintainer-01/backlog-generated-eol-canon-01`
-- PR head SHA before journal finalization commit: pending.
+- PR head SHA before journal finalization commit: `270e758f14fc77211f5f7e43523db9b0e1140689`
+- PR mergeable: `MERGEABLE`
 
 ## Что добавлено
 
@@ -56,9 +57,9 @@
 
 ## Подтверждения
 
-- RESULT finalized: pending PR finalization.
-- INDEX finalized: pending PR finalization.
-- No invalid placeholders: pending PR finalization.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No invalid placeholders: yes.
 - Journal trace: TASK/RESULT/INDEX.
 - execution timestamps present: yes.
 

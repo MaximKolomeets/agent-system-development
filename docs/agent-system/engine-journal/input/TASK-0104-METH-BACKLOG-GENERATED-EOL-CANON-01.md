@@ -1,6 +1,6 @@
 # TASK-0104: METH-BACKLOG-GENERATED-EOL-CANON-01
 
-Статус: ready for review; PR pending.
+Статус: ready for review; PR #255 open.
 
 Связанный RESULT file: `docs/agent-system/engine-journal/output/RESULT-0104-METH-BACKLOG-GENERATED-EOL-CANON-01.md`
 
