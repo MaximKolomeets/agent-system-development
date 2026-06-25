@@ -2,10 +2,10 @@
 
 ## Режим
 
-Роль: reviewer  
-Режим: review-only  
-Branch/PR: active work PR  
-Правки файлов: запрещены  
+Роль: reviewer
+Режим: review-only
+Branch/PR: active work PR
+Правки файлов: запрещены
 
 ## Входные данные
 

@@ -2,10 +2,10 @@
 
 ## Режим
 
-Роль: engine  
-Режим: fix-pass in active work PR  
-Branch: `work/<role>/<task>`  
-Новый PR: запрещён  
+Роль: engine
+Режим: fix-pass in active work PR
+Branch: `work/<role>/<task>`
+Новый PR: запрещён
 
 ## Входные данные
 

@@ -4,10 +4,10 @@ execution_started_at: `2026-06-25T18:01:37.0029226+07:00`
 
 ## Режим
 
-Роль: methodology-architect-01  
-Исполнитель: на усмотрение архитектора  
-Reasoning effort: высокий  
-Запуск: Local only  
+Роль: methodology-architect-01
+Исполнитель: на усмотрение архитектора
+Reasoning effort: высокий
+Запуск: Local only
 Режим: Agent
 
 ## Цель
@@ -50,4 +50,3 @@ Reasoning effort: высокий
 - `git diff --check`
 - Scan по `max_review_cycles`, `architect:ready-to-merge`, `automation:stopped-human-required`.
 - Filename/count-only sensitive scan без вывода matching secret values.
-
