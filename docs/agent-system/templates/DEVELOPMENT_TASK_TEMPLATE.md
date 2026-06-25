@@ -15,6 +15,12 @@
 
 Ниже — секции, специфичные для задачи разработки.
 
+## Machine-readable task_contract
+
+Для development/write-action задач добавить в начало TASK file fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. Prose остаётся human explanation; если contract и prose конфликтуют, `engine` пишет `STOP`.
+
+Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`.
+
 ## Task ID
 
 Указать идентификатор задачи.

@@ -16,6 +16,51 @@ Reasoning effort: <низкий | средний | высокий>
 Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
 Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
 
+```yaml
+task_contract:
+  version: 1
+  task_id: <task-id>
+  role: <reviewer-role>
+  mode: review_only
+  execution_mode: local_only
+  repository:
+    full_name: <owner/repository>
+    local_path: <local-path>
+    base_branch: developer
+    working_branch: work/<reviewer-role>/<task-id>
+  scope:
+    allowed_files:
+      - docs/agent-system/engine-journal/input/TASK-<seq>-<task-id>.md
+      - docs/agent-system/engine-journal/output/RESULT-<seq>-<task-id>.md
+      - docs/agent-system/engine-journal/INDEX.md
+    forbidden_files:
+      - .env
+      - .env.*
+      - data/**
+      - runtime/**
+      - dist/**
+      - backups/**
+      - exports/**
+  policies:
+    journal: required
+    cloud_regen: if_bundle_source_changed
+    generated_checks: conditional
+    review: scoped_semantic
+    merge: human_only
+    closure_pr: false
+  checks:
+    required:
+      - python docs/agent-system/tools/check_task_ready.py --base origin/developer
+      - git diff --check origin/developer...HEAD
+  stop_conditions:
+    - dirty_tree_before_start
+    - changed_file_outside_allowlist
+    - forbidden_path_changed
+    - secret_or_env_risk
+```
+
+Если `task_contract` и prose ниже конфликтуют, reviewer/engine пишет `STOP`; contract является source of truth для mode/scope/checks/STOP.
+
 ## Repository
 
 Repository:

@@ -1,5 +1,9 @@
 # ORCHESTRATOR_OPERATING_CONTRACT
 
+## Machine-readable task contract
+
+Для write-action/substantive Engine-блоков оркестратор добавляет fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. Contract является source of truth для mode/scope/checks/STOP, prose остаётся human explanation. Fast Lane без write-action, PR и journal trace может идти без `task_contract`.
+
 > Adapter layer: этот документ описывает применение роли `orchestrator` через любой chat-интерфейс по выбору архитектора. Canonical role boundaries находятся в `ROLE_MODEL.md`, `WORKFLOW.md` и `ENGINE_ENTRYPOINT.md`. Название файла не разрешает использовать имя продукта или инструмента как role name, branch namespace, task id или report filename.
 
 ## Назначение
