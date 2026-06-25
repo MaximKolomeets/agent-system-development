@@ -1,71 +1,78 @@
 # RELEASE_READINESS
 
-Дата проверки: 2026-06-24
+Дата проверки: 2026-06-25
 
-Назначение: финальный release-readiness snapshot для release candidate `developer` -> `main` перед v1.1.0.
+Назначение: release-prep snapshot для `v1.2.0` после full audit, fix-серии P0-P4, batch-closure и reviewer consistency-gate. Это готовит следующий отдельный release PR `developer -> main`; агент не создаёт release PR в этой задаче.
 
 ## Release Candidate
 
 - Source branch: `developer`
 - Target branch: `main`
-- `origin/main`: `123a126afd812255f7d671d98169c077cf33a319`
-- `origin/developer`: `05b716d1d9966ce57013b206186e2e537485d6f2`
-- Release PR: создаётся отдельным шагом после merge этой release-prep записи в `developer`.
-- Tag: после human merge release PR человек-архитектор ставит annotated tag `v1.1.0` на release merge commit в `main`.
+- `origin/main`: `8c21a45bf189432afcdabfb164f85d175271df74`
+- `origin/developer`: `96c3e50b4f32ad13206894e4432e7d274bfc75f3`
+- Latest release tag: `v1.1.0` -> `8c21a45bf189432afcdabfb164f85d175271df74`
+- Historical tag `v1.0.0`: present -> `123a126afd812255f7d671d98169c077cf33a319`
+- Next intended release tag: `v1.2.0`, human-only annotated tag after release PR merge.
 
 Агент не мержит release PR, не пушит в `main`, не создаёт tag и не публикует GitHub Release.
 
+## Independent State Analysis
+
+- PR #238 full audit: `MERGED`.
+- PR #239 P0 batch-closure 0086-0088: `MERGED`; rows 0086-0088 are closed with facts in RESULT.
+- PR #240 P1 methodology reference tag schema: `MERGED`; `source_tag` / `release_tag` are present as optional fields while `source_commit` remains required.
+- PR #241 P2 execution finish field canon: `MERGED`; new measured finish field is `execution_finished_at`.
+- PR #242 P3 headings Russian-first batch: `MERGED`; descriptive headings in active adopter-facing docs were aligned.
+- P4 state-refresh: `MERGED`; state docs and cloud bundle updated for v1.2 runway.
+- Batch-closure/final-state fixes after P4: completed; substantive entries `0095`, `0096`, `0098` are closed with facts in RESULT; lifecycle-only terminal folds `0099`, `0100` are accepted and not blockers.
+- Reviewer consistency-gate PR #250: `MERGED`; verdict `READY for release-prep v1.2.0`.
+- State-level n-01: live/current vendor/tool literal is not present; the remaining literal is in append-only historical prose and is not a live blocker.
+
 ## Journal Gate
 
-- Последняя содержательная закрытая запись перед terminal fold: `0081`.
-- Accepted terminal fold: `0079`, `0082`, `0083`.
-- Последняя terminal fold: `0083`, `terminal-fold accepted pending own PR merge; PR URL authoritative after merge`.
-- PR #230 merged: `2026-06-24T08:08:03Z`, mergeCommit `05b716d1d9966ce57013b206186e2e537485d6f2`.
+Journal gate for release-prep is clean:
 
-По канону accepted terminal fold это не blocker для release/reviewer gate: запись lifecycle-only, является последней строкой `INDEX`, явно помечена accepted terminal fold, PR URL authoritative, а все предыдущие содержательные записи закрыты.
+- INDEX continuity / TASK-RESULT pairing confirmed by reviewer gate.
+- `0095`, `0096`, `0098` are closed with final-state facts in RESULT.
+- `0099`, `0100` are lifecycle-only accepted terminal folds and are not substantive blockers.
+- Reviewer gate PR #250 returned `READY for release-prep v1.2.0`.
+
+The current release-prep entry remains open until this PR is reviewed/merged; after merge, release PR creation is the next separate task. Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md` and corresponding `RESULT-*` files.
 
 ## Generated Gates
 
-- `python docs/agent-system/tools/gen_file_map.py --check`: exit 0.
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: exit 0.
+- `python docs/agent-system/tools/gen_file_map.py --check`: required for this PR.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: required for this PR.
 
 ## Release Payload Summary
 
-Release diff `origin/main...origin/developer` содержит 57 tracked paths. Состав payload: methodology docs, templates, engine-journal artifacts и generated cloud bundle.
+Current diff `origin/main...origin/developer` contains 56 tracked paths before this release-prep branch. Payload class remains public methodology docs/templates/journal/cloud generated artifacts; forbidden/runtime/private payload scan is expected to stay zero.
 
-Ключевые изменения v1.1.0:
+Key changes since `v1.1.0`:
 
-- execution timestamp canon для TASK/RESULT и journal contract;
-- EOL-safe/content-oriented generated checks и Windows zero-match scan fallback;
-- release tag / human-only release canon;
-- reviewer consistency-gate перед release;
-- final-state / terminal lifecycle fixes для closure journal;
-- Russian-first commit/PR metadata canon;
-- accepted terminal fold canon, чтобы release-prep не запускал бесконечную closure цепочку.
+- P0 closure of post-release 0086-0088 entries.
+- P1 optional `source_tag` / `release_tag` in methodology reference.
+- P2 `execution_finished_at` canon for new TASK/RESULT.
+- P3 Russian-first descriptive headings in active adopter-facing docs.
+- P4 state-refresh and cloud bundle regeneration.
+- Batch-closure and final-state cleanup for release-gate journal consistency.
+- Reviewer consistency-gate returning `READY for release-prep v1.2.0`.
 
 ## Safety Scans
 
-- Forbidden tracked path scan по release diff: count 0.
-- Sensitive filename marker scan по release diff: count 0.
-- Runtime/secrets/private downstream payload в release diff не обнаружен.
-- Содержимое потенциально чувствительных строк не выводилось и не переносилось в snapshot.
+- Forbidden/runtime/private payload must be checked again in final release-prep.
+- Sensitive filename scan must remain filename-only/count-only; secret lines must not be printed.
+- `.env` must not be read.
 
 ## Release Recommendation
 
-Рекомендация: `READY for release PR developer -> main after merge of this release-prep PR`.
-
-Обоснование:
-
-- `developer` синхронизирован с `origin/developer`;
-- journal gate чистый с учётом accepted terminal fold;
-- оба generated-check проходят;
-- release payload ограничен публичной methodology/docs/templates/journal/cloud областью;
-- release PR и tag остаются human-only действиями по branch policy.
+Рекомендация: `READY FOR RELEASE PR AFTER MERGE OF THIS RELEASE-PREP PR`. После merge текущего release-prep PR отдельной задачей создать release PR `developer -> main` для `v1.2.0`. Агент не мержит release PR, не пушит в `main`, не создаёт tag и не публикует GitHub Release. После human merge архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, затем выполняется sync `main -> developer`.
 
 ## Next Step
 
-1. Смержить release-prep PR в `developer`.
-2. Создать release PR `developer -> main`.
-3. После review человек-архитектор мержит release PR.
-4. Человек-архитектор ставит annotated tag `v1.1.0` на release merge commit в `main`.
-5. Выполнить sync `main -> developer` и housekeeping cleanup.
+1. Review/merge текущий release-prep PR.
+2. Отдельной задачей создать release PR `developer -> main` для `v1.2.0`.
+3. Человек-архитектор мержит release PR.
+4. Человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`.
+5. Engine выполняет sync `main -> developer`.
+6. Перейти к target implementation repository dry run от актуального release pointer.

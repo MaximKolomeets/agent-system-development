@@ -31,12 +31,16 @@ methodology_reference:
   repository: MaximKolomeets/agent-system-development
   source_branch: developer
   source_commit: <commit-sha>
+  source_tag: <optional annotated tag on source_commit>
+  release_tag: <optional release tag>
   checked_at: <ISO-8601 timestamp>
   reference_type: commit
   notes: <short Russian note>
 ```
 
-`source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. Release tag на `main` разрешён как дополнительный human-readable pointer рядом с commit SHA; он не заменяет обязательный `source_commit` как reproducibility anchor.
+`source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. `source_tag` и `release_tag` являются опциональными human-readable pointers рядом с commit SHA; они не заменяют обязательный `source_commit` как reproducibility anchor. Если tag отсутствует, эти поля можно опустить или оставить пустыми; это не finding.
+
+Машиночитаемая копия схемы находится в `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` → `methodology_reference_schema` и должна сохранять ту же обязательность `source_commit` и опциональность tag-полей.
 
 Места включения блока:
 

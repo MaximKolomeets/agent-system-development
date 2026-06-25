@@ -47,7 +47,7 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 
 На этом шаге важно отделить желаемый результат от non-goals и заранее указать, какие данные нельзя хранить в repository.
 
-## 2. Заполнить project profile
+## 2. Заполнить профиль проекта (project profile)
 
 Использовать шаблон:
 

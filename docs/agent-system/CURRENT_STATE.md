@@ -1,6 +1,6 @@
 # CURRENT_STATE
 
-Дата: 2026-06-24
+Дата: 2026-06-25
 
 Проект: Создание агентской системы
 
@@ -21,9 +21,11 @@ Repository visibility: public.
 - `ADOPTION_TRANSFER_MANIFEST.yml` является авторитетным manifest с категориями `source`, `template`, `target_generated`, `history_state`, `journal`, `scaffold`, `generated`.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
 - Проверки generated text artifacts являются content-oriented и EOL-safe на Windows: `gen_file_map.py --check` и `gen_cloud_bundle.py --check` входят в release-gate; freshness metadata в generated bundle является информационной, а gate проверяет содержательный parity.
+- `methodology_reference` поддерживает обязательный `source_commit` и опциональные human-readable `source_tag`/`release_tag`; commit SHA остаётся reproducibility anchor.
+- Для новых TASK/RESULT каноническое measured-поле окончания выполнения — `execution_finished_at`; drift-имя `execution_completed_at` остаётся только append-only историей и не является alias для новых записей.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
-- Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
+- Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; descriptive headings в active adopter-facing docs приведены к Russian-first виду с сохранением technical literals/aliases; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 
 ### Текущий указатель (Current pointer)
 
@@ -31,7 +33,9 @@ Repository visibility: public.
 
 Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release runway v1.1.0 перед downstream adoption. По актуальному `engine-journal/INDEX.md` все содержательные записи закрыты; последняя lifecycle-only terminal fold `0083` является accepted terminal fold и не блокирует release/reviewer gate. Release-prep обновляет `RELEASE_READINESS.md`, подтверждает generated checks и готовит следующий шаг: после merge этой записи создать release PR `developer -> main`. Ближайший цикл держится в `NEXT_STEPS.md`; точные task/PR факты брать из `engine-journal/INDEX.md`.
+Текущий фокус: release-prep к `v1.2.0` после full audit и fix-серии P0-P4. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon, P3 Russian-first headings и P4 state-refresh. Batch-closure и reviewer consistency-gate завершены; reviewer verdict — `READY for release-prep v1.2.0`. Эта release-prep запись доводит state/release snapshots до состояния `ready for release PR after merge`. Следующий шаг после merge release-prep PR: отдельной задачей создать release PR `developer -> main` для `v1.2.0`; release PR мержит только человек-архитектор, затем человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, после чего выполняется sync `main -> developer` и переход к target implementation repository dry run. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+
+State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
 Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
 
