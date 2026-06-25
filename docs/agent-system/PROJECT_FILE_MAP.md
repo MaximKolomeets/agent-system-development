@@ -153,3 +153,4 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/09_ENGINE_ENTRYPOINT.md` |  |
 | `docs/agent-system/cloud/10_PROJECT_FILE_MAP.md` |  |
 | `docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md` |  |
+| `docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md` |  |
