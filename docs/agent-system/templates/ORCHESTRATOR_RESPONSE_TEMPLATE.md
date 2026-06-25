@@ -1,5 +1,11 @@
 # ORCHESTRATOR_RESPONSE_TEMPLATE
 
+## Machine-readable task_contract
+
+Если ответ содержит блок для исполнителя (engine), который меняет repository files, создаёт PR или описывает substantive/tooling/docs-only/review/fix-pass/release/adoption task, в начало блока нужно добавить fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`.
+
+Fast Lane/status check без write-action, PR и journal trace может идти без `task_contract`. Если `task_contract` присутствует и конфликтует с prose, engine должен написать `STOP` и запросить решение архитектора.
+
 ## Назначение
 
 Этот template задает copy/paste-ready структуру ответа оркестратора, если ответ содержит задачу для `engine`.

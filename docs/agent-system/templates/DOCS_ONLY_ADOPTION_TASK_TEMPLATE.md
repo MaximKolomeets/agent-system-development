@@ -24,6 +24,12 @@ Reasoning effort: <низкий | средний | высокий>
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и why / почему.
 Заполнить execution-время по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Execution timestamps»: measured `execution_started_at` обязательно для TASK; `orchestration_time_reported` опционально.
 
+## Machine-readable task_contract
+
+Docs-only adoption/source-update задачи должны включать fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`, потому что они меняют repository files и требуют воспроизводимых allowed/forbidden files, checks и STOP conditions.
+
+Если `task_contract` присутствует, он является источником истины для mode/scope/checks/STOP, а prose остаётся human explanation. Конфликт contract/prose означает `STOP`.
+
 ## Verified Baseline
 
 - Repository:

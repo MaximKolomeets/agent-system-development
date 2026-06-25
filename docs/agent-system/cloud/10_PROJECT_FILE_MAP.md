@@ -32,6 +32,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |
 | `docs/agent-system/tools/gen_file_map.py` |  |
 | `docs/agent-system/tools/generated_eol_guard.py` |  |
+| `docs/agent-system/tools/validate_task_contract.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
@@ -50,6 +51,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ROLE_MODEL.md` |  |
 | `docs/agent-system/SECURITY_POLICY.md` |  |
 | `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` |  |
+| `docs/agent-system/TASK_CONTRACT.md` |  |
 | `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md` |  |
 | `docs/agent-system/WORKFLOW.md` |  |
 | `docs/agent-system/WORKTREE_GUIDE.md` |  |

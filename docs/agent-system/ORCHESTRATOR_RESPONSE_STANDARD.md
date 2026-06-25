@@ -18,6 +18,10 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names. Commit subject/body и PR title/body тоже должны быть Russian-first: conventional prefix допустим, смысловой текст после него пишется по-русски.
 
+Новые блоки для исполнителя (engine), которые меняют repository files, создают PR или описывают substantive/tooling/docs-only/review/fix-pass/release/adoption task, должны включать fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. В нём явно фиксируются mode, execution_mode, repository, working_branch, allowed_files, forbidden_files, policies, required checks и STOP conditions. Маленькая Fast Lane проверка без write-action, PR и journal trace может идти без `task_contract`.
+
+Если `task_contract` присутствует, он является source of truth для mode/scope/checks/STOP, а prose остаётся human explanation. Если contract и prose конфликтуют, orchestrator должен направить engine на `STOP` и запрос решения архитектора, а не выбирать одну из версий молча.
+
 ## Когда применяется стандарт
 
 Стандарт применяется, когда оркестратор:
@@ -206,6 +210,8 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
 - [ ] Указан ли язык commit/PR metadata: commit subject/body и PR title/body — Russian-first, technical identifiers не переводятся, conventional prefix допустим?
+- [ ] Если задача меняет файлы, создаёт PR или выполняет substantive/tooling/docs-only/review/fix-pass/release/adoption flow, есть ли fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`?
+- [ ] Если `task_contract` есть, совпадают ли его mode/scope/checks/STOP с prose; при конфликте указан ли `STOP`?
 - [ ] Есть ли требования к финальному отчету?
 - [ ] Нет ли обязательных execution data вне блока?
 - [ ] Если ответ просит `engine` изменить файлы, есть ли ровно один полный блок для исполнителя (engine) для этой задачи?

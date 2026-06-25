@@ -422,7 +422,10 @@ def build_report(base: str) -> ReadyReport:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Read-only task ready gate for agent-system methodology work.")
+    parser = argparse.ArgumentParser(
+        description="Read-only task ready gate for agent-system methodology work.",
+        epilog="For task-level contract validation, run: python docs/agent-system/tools/validate_task_contract.py <task-file>",
+    )
     parser.add_argument("--base", default="origin/developer", help="Diff base ref for committed changes.")
     parser.add_argument("--strict", action="store_true", help="Treat warnings as non-ready.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON summary.")

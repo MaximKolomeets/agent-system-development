@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-25 - Machine-readable task contract frontmatter
+
+Решение:
+Закрепить `task_contract` как preferred fenced YAML frontmatter для новых write-action Engine-задач. Contract фиксирует mode, execution_mode, repository, working_branch, allowed/forbidden files, policies, required checks и STOP conditions; prose остаётся human explanation. Если contract и prose конфликтуют, engine пишет `STOP`.
+
+Причина:
+После перехода к agent-owned workflow, review autoloop и ready-gate повторяющиеся ошибки чаще связаны не с prose, а с машинно проверяемыми границами задачи: scope, branch, checks, cloud policy и STOP conditions. Нужен компактный machine-readable слой без большого workflow engine.
+
+Следствия:
+- `docs/agent-system/TASK_CONTRACT.md` является каноном формата;
+- `docs/agent-system/tools/validate_task_contract.py` выполняет lightweight read-only validation;
+- новые task templates и orchestrator response rules рекомендуют `task_contract` для write-action/substantive задач;
+- Fast Lane проверки без write-action и PR не обязаны иметь `task_contract`.
+
 ## 2026-06-25 - Generated EOL guard для cloud/generated шума
 
 Решение:
