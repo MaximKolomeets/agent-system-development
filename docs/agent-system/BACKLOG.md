@@ -38,6 +38,8 @@
 
 #### METH-REVIEW-FEEDBACK-SCHEMA-01
 
+Статус: implemented by methodology task `METH-REVIEW-FEEDBACK-SCHEMA-01`; запись оставлена как trace исходной roadmap-идеи.
+
 - Стандартизировать blocker IDs: `B-01`, `B-02`, ...
 - Задать reviewer output schema и engine fix-pass protocol.
 - Разделить machine-verifiable blockers и semantic blockers.

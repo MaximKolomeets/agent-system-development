@@ -246,7 +246,7 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Для substantive task блок должен явно указывать agent-owned task branch workflow: `work/<role>/<task-id>` как основная task branch, внутренние `work/<role>/<task-id>/*` только при необходимости, один итоговый PR в `developer`, review feedback исправляется в той же branch, engine не запрашивает подтверждение после каждого микрошага до STOP-условия.
 
-Если задача предполагает review/fix/re-review, блок должен явно задавать review autoloop: `max_review_cycles`, reviewer feedback только в PR агента, engine fix-pass в той же task branch, `architect:ready-to-merge` после approve-equivalent и STOP при conflict/secrets-risk/forbidden paths/failed checks/scope drift/max cycles. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
+Если задача предполагает review/fix/re-review, блок должен явно задавать review autoloop: `max_review_cycles`, reviewer feedback только в PR агента, engine fix-pass в той же task branch, `architect:ready-to-merge` после approve-equivalent и STOP при conflict/secrets-risk/forbidden paths/failed checks/scope drift/max cycles. Feedback должен требовать blocker IDs, class `machine-verifiable | semantic | mixed`, `verification_command`, `can_engine_fix_without_architect` и `re_review_policy`; machine-only blockers закрываются passed machine-check closure, semantic/mixed blockers идут на minimal re-review. Если formal own-PR review невозможен, использовать verdict comment fallback. Канон: `docs/agent-system/REVIEW_AUTOLOOP.md`.
 
 Final report `engine` должен подтверждать:
 
