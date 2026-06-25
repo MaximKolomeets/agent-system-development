@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-25 - Generated EOL guard для cloud/generated шума
+
+Решение:
+Добавить `docs/agent-system/tools/generated_eol_guard.py` как read-only guard, который различает `content_changed`, `eol_only_changed` и `whitespace_only_changed` для generated/cloud artifacts и интегрируется в `check_task_ready.py` при generated/bundle-source diff.
+
+Контекст:
+На Windows после `gen_cloud_bundle.py` периодически возникал EOL-only шум: содержательно менялись только ожидаемые generated files, но Git мог показывать дополнительные cloud Markdown files как modified. Это создавало лишние reviewer cycles и ручные откаты.
+
+Последствия:
+- `content_changed` в generated artifact без соответствующего source/bundle изменения остаётся blocker;
+- EOL/whitespace-only generated noise можно закрывать machine-verifiable evidence без полного semantic re-review;
+- guard не выполняет state-changing git commands и не делает repo-wide renormalize;
+- большой EOL renormalize остаётся отдельной scoped future task.
+
 Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
 
 ## 2026-06-25 - Единый read-only ready-gate для task branch

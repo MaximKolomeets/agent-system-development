@@ -112,7 +112,9 @@ Machine-check closure не ослабляет safety gates: failed command, forb
 python docs/agent-system/tools/check_task_ready.py --base origin/developer
 ```
 
-Инструмент агрегирует branch guard, changed files summary, `git diff --check`, условные generated checks, filename-only sensitive scan, strict added-line secret scan и placeholder scan для изменённых TASK/RESULT. Он не выполняет `fetch`, `pull`, `switch`, `merge`, `stash`, `reset` или `clean`.
+Инструмент агрегирует branch guard, changed files summary, `git diff --check`, условные generated checks, generated EOL guard, filename-only sensitive scan, strict added-line secret scan и placeholder scan для изменённых TASK/RESULT. Он не выполняет `fetch`, `pull`, `switch`, `merge`, `stash`, `reset` или `clean`.
+
+Для generated/cloud шума machine-verifiable команда `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` различает `content_changed`, `eol_only_changed` и `whitespace_only_changed` без изменения git state. `eol_only_changed` / `whitespace_only_changed` можно закрывать как machine-check evidence или точечно откатывать только в рамках разрешённого scope; `content_changed` в generated artifact без соответствующего source/bundle изменения остаётся blocker и требует регенерации или reviewer re-review по изменённому scope.
 
 Для `machine-verifiable` blockers reviewer может указать эту команду как `verification_command`, если blocker покрыт её проверками. Passed output `check_task_ready.py` достаточно для machine-check closure только при отсутствии scope drift и новых blockers; `semantic`/`mixed` blockers всё равно требуют minimal reviewer re-review по изменённому blocker scope.
 
