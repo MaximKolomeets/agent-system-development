@@ -48,6 +48,7 @@ Operational Fast Lane не применяется для:
 - больших задач, которым нужен Task File Handoff Mode;
 - standalone review-задач, где review сам является отдельной задачей: standalone review ≠ fast-lane status-check, всегда журналирует TASK+RESULT (`Journal trace: always` по `docs/agent-system/CODE_REVIEW_WORKFLOW.md` и `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`) и идёт docs-only PR; Fast Lane — read-only status/cleanup без journal. Простой GitHub PR status check или git status check остаётся Fast Lane, но это не review.
 - active work PR review/autoloop не является standalone review-задачей: reviewer не создаёт отдельный PR, не меняет файлы и оставляет feedback только в PR агента; исправления делает engine в той же task branch по `docs/agent-system/REVIEW_AUTOLOOP.md`.
+- В active work PR autoloop machine-verifiable blockers закрываются через reviewer `verification_command` и engine fix-pass report; если checks прошли и scope не расширен, full reviewer pass не нужен. Semantic/mixed blockers требуют minimal reviewer re-review по changed blocker scope.
 
 ## Правила ответа оркестратора
 

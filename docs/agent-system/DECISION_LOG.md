@@ -2,6 +2,20 @@
 
 Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
 
+## 2026-06-25 - Structured review feedback для bounded autoloop
+
+Решение:
+Закрепить reviewer feedback schema для active work PR autoloop: каждый blocker получает стабильный ID `B-01`..., class `machine-verifiable | semantic | mixed`, `verification_command`, `can_engine_fix_without_architect`, fix scope и `re_review_policy`. Engine fix-pass закрывает blockers по IDs в той же task branch и возвращает структурированный report с результатами команд. Fully passed machine-verifiable blockers могут закрываться machine-check closure без полного reviewer pass; semantic/mixed blockers требуют minimal reviewer re-review по changed blocker scope. Если GitHub запрещает formal own-PR review, reviewer оставляет verdict comment; это не blocker и не означает auto-merge.
+
+Контекст:
+После внедрения agent-owned workflow и review autoloop самым частым шумом стали лишние re-review циклы для machine-only blockers, неструктурированный feedback и ограничение GitHub на formal review собственных PR.
+
+Последствия:
+- reviewer feedback становится исполнимым без повторного уточнения у архитектора;
+- engine fix-pass не расширяет scope и закрывает конкретные blocker IDs;
+- full re-review нужен только при semantic/mixed blockers, scope drift, failed checks или safety STOP;
+- human merge в `developer` остаётся обязательным.
+
 ## 2026-06-25 - Review autoloop для feedback/fix-pass внутри task branch
 
 Решение:
