@@ -1,0 +1,61 @@
+# RESULT-0105 — AGENT-REVIEW-AUTOLOOP-01
+
+execution_started_at: `2026-06-25T18:01:37.0029226+07:00`
+execution_finished_at: `pending until PR finalization`
+
+## Summary
+
+Статус: in progress. PR URL будет проставлен после `gh pr create`.
+
+Baseline `developer`: `d3aa1d5b3b93bccaf7cda38b4e7230fc5b92d7a0`.
+
+Ветка: `work/methodology-architect-01/agent-review-autoloop-01`.
+
+## Выполнено
+
+- Добавлен канон `docs/agent-system/REVIEW_AUTOLOOP.md` со state-machine, recommended labels/statuses, `max_review_cycles`, STOP-условиями и local orchestrator/self-hosted runner flow.
+- Добавлены шаблоны reviewer pass и engine fix-pass.
+- Обновлены branch/workflow/journal/orchestrator/review каноны так, чтобы reviewer feedback оставался в PR агента, а engine исправлял feedback в той же task branch.
+- Зафиксировано архитектурное решение в `DECISION_LOG.md`.
+- Новые source/template файлы зарегистрированы в `ADOPTION_TRANSFER_MANIFEST.yml`.
+
+## Checks
+
+Будут финализированы после генерации artifacts и PR finalization.
+
+## Source Delta
+
+| Путь | Действие | Категория | Source-рекомендация | manifest обновлён? |
+|---|---|---|---|---|
+| `docs/agent-system/REVIEW_AUTOLOOP.md` | added | source | add | yes |
+| `docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md` | added | template | add | yes |
+| `docs/agent-system/templates/REVIEW_AUTOLOOP_REVIEWER_PASS_TEMPLATE.md` | added | template | add | yes |
+| `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | modified | source | update | n-a |
+| `docs/agent-system/PROJECT_FILE_MAP.md` | modified | generated | none | n-a |
+| `docs/agent-system/BRANCH_POLICY.md` | modified | source | update | n-a |
+| `docs/agent-system/WORKFLOW.md` | modified | source | update | n-a |
+| `docs/agent-system/templates/TASK_HEADER_COMMON.md` | modified | template | update | n-a |
+| `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` | modified | source | update | n-a |
+| `docs/agent-system/PR_WORKFLOW.md` | modified | source | update | n-a |
+| `docs/agent-system/CODE_REVIEW_WORKFLOW.md` | modified | source | update | n-a |
+| `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` | modified | source | update | n-a |
+| `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` | modified | source | update | n-a |
+| `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` | modified | source | update | n-a |
+| `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md` | modified | template | update | n-a |
+| `docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md` | modified | template | update | n-a |
+| `docs/agent-system/CURRENT_STATE.md` | modified | history_state | none | n-a |
+| `docs/agent-system/NEXT_STEPS.md` | modified | history_state | none | n-a |
+| `docs/agent-system/DECISION_LOG.md` | modified | history_state | none | n-a |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/input/TASK-0105-AGENT-REVIEW-AUTOLOOP-01.md` | added | journal | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0105-AGENT-REVIEW-AUTOLOOP-01.md` | added | journal | none | n-a |
+| `docs/agent-system/cloud/**` | modified | generated | none | n-a |
+
+## Context handoff
+
+Архитектору — загрузить в контекст оркестратора из `docs/agent-system/cloud/`: `01_ORCHESTRATOR_OPERATING_CONTRACT.md` (src: `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`), `02_ORCHESTRATOR_RESPONSE_STANDARD.md` (src: `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`), `03_TASK_HEADER_COMMON.md` (src: `docs/agent-system/templates/TASK_HEADER_COMMON.md`), `04_BRANCH_POLICY.md` (src: `docs/agent-system/BRANCH_POLICY.md`), `05_ENGINE_JOURNAL_CONTRACT.md` (src: `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`), `06_CURRENT_STATE.md` (src: `docs/agent-system/CURRENT_STATE.md`), `07_ENGINE_JOURNAL_INDEX.md` (src: `docs/agent-system/engine-journal/INDEX.md`), `08_NEXT_STEPS.md` (src: `docs/agent-system/NEXT_STEPS.md`), `10_PROJECT_FILE_MAP.md` (src: `docs/agent-system/PROJECT_FILE_MAP.md`), `11_ADOPTION_TRANSFER_MANIFEST_yml.md` (src: `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`). `REVIEW_AUTOLOOP.md` и новые templates фиксируются в Source Delta; они не входят в текущий orchestrator_context_bundle. asof: `pending until cloud regen`; developer_head_sha: `pending until PR finalization`.
+
+## Передача
+
+Следующий: reviewer — проверить, что review autoloop не создаёт отдельный reviewer PR, engine fix-pass остаётся в той же branch, `max_review_cycles` и STOP-условия закреплены, а human-only merge/safety gates не ослаблены.
+

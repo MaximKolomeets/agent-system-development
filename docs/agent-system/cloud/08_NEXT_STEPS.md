@@ -7,6 +7,7 @@
 1. Сформулировать plan/task с точным scope, allowed files, checks, STOP conditions и branch guard.
 2. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
 3. Открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
+3a. Если feedback требует повторных проходов, использовать review autoloop: `max_review_cycles`, engine fix-pass в той же branch, reviewer re-review, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
 4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy и нет boundary/исключения.
 5. Повторять work/review/merge до завершения текущей серии.
 6. Перед release/audit/methodology boundary выполнить batch-closure для всех merged-but-unclosed substantive journal entries.

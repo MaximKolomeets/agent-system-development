@@ -22,6 +22,18 @@
 7. После исправлений и повторных checks PR доводится до `ready_for_merge`.
 8. Обычный post-merge closure PR не создается автоматически; journal closure выполняется batch-проходом перед release/audit/methodology boundary или по явному исключению.
 
+## Review autoloop
+
+Для active work PR применяется bounded state-machine из `docs/agent-system/REVIEW_AUTOLOOP.md`:
+
+1. Engine открывает или обновляет PR и помечает состояние `engine:ready-for-review`.
+2. Reviewer проверяет PR и оставляет feedback только в этом PR.
+3. Если есть blockers, PR получает `reviewer:changes-requested`, а engine делает fix-pass в той же task branch.
+4. Цикл повторяется до reviewer approve или до `max_review_cycles`.
+5. После approve-equivalent PR получает `architect:ready-to-merge`.
+6. Merge в `developer` выполняет только человек-архитектор.
+7. При STOP-condition PR получает `automation:stopped-human-required` и передается человеку.
+
 ## Шаблоны отчётов и решений
 
 - Универсальный отчёт роли (не-PR работ, исследований, status-апдейтов): `docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md` (Summary, Changed files, Checks, Risks, Open questions, Next step).

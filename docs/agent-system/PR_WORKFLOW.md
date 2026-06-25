@@ -25,6 +25,18 @@
 23. После human merge release PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag и не публикует GitHub Release.
 24. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
 
+## Review autoloop
+
+Если reviewer оставил blockers/actionable feedback в active work PR:
+
+1. Не создавать отдельный feedback PR.
+2. Engine выполняет fix-pass в той же task branch.
+3. Повторно запускает checks и generated checks.
+4. Возвращает PR в `engine:ready-for-review`.
+5. Reviewer делает re-review.
+6. Цикл ограничен `max_review_cycles` по `docs/agent-system/REVIEW_AUTOLOOP.md`.
+7. После approve-equivalent PR помечается `architect:ready-to-merge`; merge остаётся human-only.
+
 ## Base branch warning
 
 - Для рабочих веток base branch должен быть `developer`.

@@ -307,6 +307,8 @@ Findings не исправляются внутри standalone review-only task.
 
 Если reviewer проверяет активный work PR, comments/blockers являются review feedback к этой же task branch: исправления делает engine в `work/<role>/<task-id>`, после чего PR повторно проверяется. Reviewer не создает отдельный PR для такого feedback без явного решения пользователя.
 
+Для повторных проверок active work PR используется review autoloop из `docs/agent-system/REVIEW_AUTOLOOP.md`: reviewer оставляет `reviewer:changes-requested` или `reviewer:approved`, engine делает fix-pass в той же branch, цикл ограничен `max_review_cycles`, а после approve-equivalent PR получает `architect:ready-to-merge`. Formal GitHub approval может быть заменён approve-equivalent comment, если token не имеет права approve собственного PR; это фиксируется в PR.
+
 Для каждого finding reviewer может предложить next PR:
 
 ```text

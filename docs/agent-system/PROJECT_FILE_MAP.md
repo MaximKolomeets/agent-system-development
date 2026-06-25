@@ -44,6 +44,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` |  |
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
 | `docs/agent-system/README.md` |  |
+| `docs/agent-system/REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/ROLE_MODEL.md` |  |
 | `docs/agent-system/SECURITY_POLICY.md` |  |
 | `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` |  |
@@ -79,6 +80,8 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md` |  |
+| `docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md` |  |
+| `docs/agent-system/templates/REVIEW_AUTOLOOP_REVIEWER_PASS_TEMPLATE.md` |  |
 | `docs/agent-system/templates/ROADMAP_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` |  |
