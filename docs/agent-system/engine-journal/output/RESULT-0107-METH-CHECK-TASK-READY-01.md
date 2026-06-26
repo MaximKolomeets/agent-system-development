@@ -1,5 +1,7 @@
 # RESULT-0107 — METH-CHECK-TASK-READY-01
 
+Статус: closed; PR #262 merged; facts in final-state stamp.
+
 execution_started_at: `2026-06-25T22:49:31.8634180+07:00`
 execution_finished_at: `2026-06-25T22:57:30.3323316+07:00`
 
@@ -97,3 +99,18 @@ result: ready
 ## Передача
 
 Следующий: reviewer — проверить PR (tool read-only, checks покрывают заявленный ready-gate, secret output отсутствует, generated parity clean, canon docs согласованы); затем архитектор — human merge в `developer`.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/262
+- PR state: MERGED
+- merged_at: `2026-06-25T16:08:42Z`
+- merge_commit: `33b39dddbbc4340735227103f18f103bff5ab5aa`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 262 --json state,mergedAt,mergeCommit,url`

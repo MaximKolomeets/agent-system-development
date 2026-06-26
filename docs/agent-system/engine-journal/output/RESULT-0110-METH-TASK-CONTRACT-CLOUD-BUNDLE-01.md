@@ -1,5 +1,7 @@
 # RESULT-0110-METH-TASK-CONTRACT-CLOUD-BUNDLE-01
 
+Статус: closed; PR #265 merged; facts in final-state stamp.
+
 ## Статус
 
 Готово к review на ветке `work/methodology-architect-01/meth-task-contract-cloud-bundle-01`.
@@ -77,3 +79,18 @@
 ## Передача
 
 Следующий: methodology-reviewer-01 — machine-only/generated parity review PR; затем архитектор — human merge; batch-closure — перед следующим release/audit boundary.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/265
+- PR state: MERGED
+- merged_at: `2026-06-26T00:14:09Z`
+- merge_commit: `619c97e97ad5ab4410a380e7bab0063cd32cfcda`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 265 --json state,mergedAt,mergeCommit,url`

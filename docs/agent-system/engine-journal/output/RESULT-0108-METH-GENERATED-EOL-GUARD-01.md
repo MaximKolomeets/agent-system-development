@@ -1,5 +1,7 @@
 # RESULT-0108-METH-GENERATED-EOL-GUARD-01
 
+Статус: closed; PR #263 merged; facts in final-state stamp.
+
 ## Итог
 
 Добавлен read-only `generated_eol_guard.py`, который классифицирует generated/cloud diff как `content_changed`, `eol_only_changed`, `whitespace_only_changed`, `binary_or_unreadable` или `not_checked`. Guard не меняет git state, не читает `.env`, не печатает содержимое diff и использует только read-only git inspection commands.
@@ -95,3 +97,18 @@ JSON summary:
 ## Передача
 
 Следующий: methodology-reviewer-01 — проверить PR на read-only guard behavior, generated/content drift classification, integration with `check_task_ready.py`, generated parity checks и отсутствие repo-wide EOL normalization.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/263
+- PR state: MERGED
+- merged_at: `2026-06-25T16:41:51Z`
+- merge_commit: `e8a98a17e67f5c63d14ff2a148625bd1b2234245`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 263 --json state,mergedAt,mergeCommit,url`

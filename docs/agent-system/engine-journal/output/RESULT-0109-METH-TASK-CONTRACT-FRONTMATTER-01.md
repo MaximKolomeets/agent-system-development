@@ -1,5 +1,7 @@
 # RESULT-0109-METH-TASK-CONTRACT-FRONTMATTER-01
 
+Статус: closed; PR #264 merged; facts in final-state stamp.
+
 ## Статус
 
 Готово к review на ветке `work/methodology-architect-01/meth-task-contract-frontmatter-01`.
@@ -77,3 +79,18 @@
 ## Передача
 
 Следующий: methodology-reviewer-01 — review PR по scope `task_contract`/validator/templates/generated parity; затем архитектор — human merge; batch-closure — перед следующим release/audit boundary.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/264
+- PR state: MERGED
+- merged_at: `2026-06-25T17:23:35Z`
+- merge_commit: `d1c4d6bfe2bc8cd92b8bc07e55c46f07400053b0`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 264 --json state,mergedAt,mergeCommit,url`
