@@ -149,6 +149,7 @@ Source-reminder: не применимо.
 
 ## 12. Локальные действия после PR/merge
 
+- Own work-PR: #266 (`work/code-reviewer-01/full-audit-fresh-02 -> developer`, docs-only, НЕ мержить автоматически).
 - После merge work-PR `developer`: эта запись 0111 остаётся closure-pending до ближайшего batch/reviewer-gate/release (своя terminal-поверхность закроется следующим проходом).
 - В основном дереве вернуть `developer` и `git pull --ff-only`; рабочую ветку `work/code-reviewer-01/full-audit-fresh-02` удалить после merge.
 - Тег/релиз — только человек-архитектор (F-03).
