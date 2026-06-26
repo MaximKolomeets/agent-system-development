@@ -1,5 +1,9 @@
 # ORCHESTRATOR_OPERATING_CONTRACT
 
+## Machine-readable task contract
+
+Для write-action/substantive Engine-блоков оркестратор добавляет fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. Contract является source of truth для mode/scope/checks/STOP, prose остаётся human explanation. Fast Lane без write-action, PR и journal trace может идти без `task_contract`.
+
 > Adapter layer: этот документ описывает применение роли `orchestrator` через любой chat-интерфейс по выбору архитектора. Canonical role boundaries находятся в `ROLE_MODEL.md`, `WORKFLOW.md` и `ENGINE_ENTRYPOINT.md`. Название файла не разрешает использовать имя продукта или инструмента как role name, branch namespace, task id или report filename.
 
 ## Назначение
@@ -21,7 +25,7 @@ GitHub состояние проверяй сам, если connector досту
 Задачи для исполнителя (engine) оформляй через self-contained block и engine-journal.
 Для substantive task указывай agent-owned branch model: основная branch `work/<role>/<task-id>`, при необходимости внутренние `work/<role>/<task-id>/*`, один итоговый PR в `developer`, feedback исправляется в той же branch, engine не ждёт подтверждения после каждого микрошага до STOP.
 
-Для PR review/fix цикла используй `docs/agent-system/REVIEW_AUTOLOOP.md`: reviewer feedback остаётся в PR агента, engine делает fix-pass в той же branch, цикл ограничен `max_review_cycles`, а `architect:ready-to-merge` не означает auto-merge.
+Для PR review/fix цикла используй `docs/agent-system/REVIEW_AUTOLOOP.md`: reviewer feedback остаётся в PR агента, engine делает fix-pass в той же branch, цикл ограничен `max_review_cycles`, а `architect:ready-to-merge` не означает auto-merge. Reviewer feedback должен иметь blocker IDs, class `machine-verifiable | semantic | mixed`, `verification_command` и `can_engine_fix_without_architect`; machine-only blockers можно закрыть passed machine-check closure, semantic/mixed blockers требуют minimal re-review. Если GitHub запрещает formal own-PR review, reviewer оставляет verdict comment в PR; это не blocker.
 Блоки для исполнителя (engine) писать по Russian-first policy: русские заголовки и описания, английский только для технических identifiers, команд, путей, branch names, filenames, config keys, API names и literal names.
 Commit messages и PR title/body тоже Russian-first; technical identifiers не переводятся, conventional prefix вроде `docs(agent-system):` допустим.
 Для длинных задач не забивать context window: использовать Task File Handoff Mode через GitHub TASK file.

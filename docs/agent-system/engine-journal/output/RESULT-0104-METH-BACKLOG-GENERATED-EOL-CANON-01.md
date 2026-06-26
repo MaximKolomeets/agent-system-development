@@ -1,6 +1,6 @@
 # RESULT-0104: METH-BACKLOG-GENERATED-EOL-CANON-01
 
-Статус: ready for review; PR #255 open.
+Статус: closed; PR #255 merged; facts in final-state stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0104-METH-BACKLOG-GENERATED-EOL-CANON-01.md`
 
@@ -66,3 +66,18 @@
 ## Передача
 
 Следующий: архитектор — review/merge backlog-only PR; затем перейти к target implementation repository.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/255
+- PR state: MERGED
+- merged_at: `2026-06-25T02:19:15Z`
+- merge_commit: `2e97f3e5f072376fed854a4a5c8ac6b116e59362`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 255 --json state,mergedAt,mergeCommit,url`

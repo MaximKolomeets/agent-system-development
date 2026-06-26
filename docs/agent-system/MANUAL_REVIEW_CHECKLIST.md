@@ -23,6 +23,7 @@
 - Для review-only PR проверить, что reviewer не modified production code.
 - Для активного work PR проверить, что review feedback должен исправляться engine в той же task branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.
 - Если включён review autoloop, проверить `max_review_cycles`, текущий cycle count, статус `engine:ready-for-review` / `reviewer:changes-requested` / `architect:ready-to-merge`, и что STOP-условия из `docs/agent-system/REVIEW_AUTOLOOP.md` не нарушены.
+- Для review autoloop проверить, что blockers имеют IDs `B-01`..., class `machine-verifiable | semantic | mixed`, `verification_command`, `can_engine_fix_without_architect`, `required_fix_scope` и `re_review_policy`; machine-only blockers можно закрывать machine-check closure, semantic/mixed требуют minimal re-review.
 - Для review-only PR проверить, что findings categorized as Critical, Important, Optional.
 - Для review-only PR проверить, что sensitive grep output filename-only.
 - Для review-only PR проверить, что next implementation PRs proposed separately.

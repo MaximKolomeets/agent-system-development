@@ -31,6 +31,7 @@ Reviewer оставляет feedback только в PR агента:
 - `reviewer:approved` + `architect:ready-to-merge`, если blockers нет;
 - `reviewer:changes-requested`, если есть blockers/actionable feedback;
 - `automation:stopped-human-required`, если сработал STOP.
+- Если GitHub не позволяет formal review из-за own-PR / author limitation, оставить top-level PR comment с тем же `verdict`, `reviewed_head_sha` и blocker IDs; это approve-equivalent / changes-requested-equivalent для autoloop.
 
 ## STOP-условия
 
@@ -43,14 +44,38 @@ Reviewer оставляет feedback только в PR агента:
 
 ## Формат verdict
 
-```text
+```yaml
 verdict: reviewer:approved | reviewer:changes-requested | automation:stopped-human-required
 reviewed_head_sha: <sha>
 cycle: <current>/<max>
-blockers:
-- <none | blocker list>
+blocking_findings:
+  - id: B-01
+    class: machine-verifiable | semantic | mixed
+    title: <короткое имя blocker>
+    evidence: <файл/строка/команда/наблюдение>
+    required_change: <что нужно изменить>
+    verification_command: <команда или explicit manual check>
+    can_engine_fix_without_architect: yes | no
 non_blocking_notes:
-- <none | note list>
+  - id: N-01
+    title: <короткое имя note>
+    recommendation: <что улучшить>
+required_fix_scope:
+  - <разрешённые файлы/область fix-pass>
+commands_to_rerun:
+  - <command>
+re_review_policy:
+  scope: none | machine_check_only | changed_blockers_only | full
+  reason: <почему этого достаточно>
+own_pr_review_limitation:
+  applies: yes | no
+  fallback_comment_url: <url-or-n-a>
 next:
-- architect merge | engine fix-pass | human decision
+  - architect merge | engine fix-pass | human decision
 ```
+
+Правила классов:
+
+- `machine-verifiable`: закрывается указанной `verification_command`; при passed command и unchanged scope допускается `machine_check_only` без полного re-review.
+- `semantic`: требует reviewer re-review по changed blocker scope.
+- `mixed`: machine-часть закрывается командами, но semantic часть требует re-review.

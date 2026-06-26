@@ -1,6 +1,6 @@
 # RESULT-0103: METH-CREATE-RELEASE-PR-V1-2-0-01
 
-Статус: ready for review; PR #252 open.
+Статус: closed; PR #252 merged; facts in final-state stamp.
 
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0103-METH-CREATE-RELEASE-PR-V1-2-0-01.md`
 
@@ -86,3 +86,18 @@ Runtime/secrets/private downstream data по filename-only/count-only прове
 ## Передача
 
 Следующий: архитектор — review/merge journal trace PR; затем engine — создать release PR `developer` -> `main`; затем архитектор — human merge release PR и annotated tag `v1.2.0`; затем engine — sync `main` -> `developer`; затем переход в target implementation repository.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/252
+- PR state: MERGED
+- merged_at: `2026-06-25T01:45:17Z`
+- merge_commit: `c4f0ea19de077da0f3233980e627268801082574`
+- release PR #253 merged at `2026-06-25T01:49:45Z`; sync PR #254 merged at `2026-06-25T01:52:00Z`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 252 --json state,mergedAt,mergeCommit,url`

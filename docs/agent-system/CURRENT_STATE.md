@@ -1,6 +1,10 @@
 # CURRENT_STATE
 
-Дата: 2026-06-25
+## Machine-readable task contract
+
+Текущее состояние методологии включает preferred `task_contract` frontmatter для новых write-action Engine-задач. Канон: `docs/agent-system/TASK_CONTRACT.md`; lightweight read-only validator: `docs/agent-system/tools/validate_task_contract.py`. Prose остаётся human explanation, а `task_contract` является source of truth для mode/scope/checks/STOP; конфликт contract/prose означает `STOP`. `TASK_CONTRACT.md` входит в default cloud/orchestrator bundle как `13_TASK_CONTRACT.md`.
+
+Дата: 2026-06-26
 
 Проект: Создание агентской системы
 
@@ -16,7 +20,9 @@ Repository visibility: public.
 
 - Governance правила 1-4 закреплены: `main` обновляется только human-merged release PR `developer -> main`, рабочие ветки изолированы в `work/<role>/<task>`, pre-commit branch-guard обязателен, repository sync/checkout guard останавливает работу на dirty tree.
 - Agent-owned task branch workflow закреплен: одна substantive task ведется в основной `work/<role>/<task-id>` branch, внутренние `work/<role>/<task-id>/*` sub-branches допустимы только внутри задачи, а `developer` получает один итоговый PR; review feedback исправляется в той же task branch до `ready_for_merge`.
-- Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
+- Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, blockers имеют IDs/classes/verification commands, machine-only blockers закрываются machine-check closure, semantic/mixed blockers требуют minimal re-review, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
+- Lightweight task readiness gate добавлен как read-only tooling: `docs/agent-system/tools/check_task_ready.py` агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan перед push/PR/fix-pass/review-comment.
+- Generated EOL guard добавлен как read-only tooling: `docs/agent-system/tools/generated_eol_guard.py` классифицирует generated/cloud изменения как `content_changed`, `eol_only_changed` или `whitespace_only_changed`, а `check_task_ready.py` вызывает его условно при generated/bundle-source diff.
 - Operational/source/template scope деперсонализирован: канон заголовка `Задача для <роль>`, роли отделены от исполнителя, vendor/tool literals в active operational scope заменены нейтральными placeholders.
 - Batch-closure policy закреплена: обычные work PR могут оставаться open/closure-pending до batch-closure перед release/audit/methodology boundary; post-merge closure PR после каждого ordinary work PR больше не является default, но release и audit/review consistency gates требуют закрытого journal.
 - Closure-facts authority закреплён: merge-факты авторитетны в `RESULT` closure-stamp, `INDEX` несёт status + PR URL.
@@ -33,9 +39,9 @@ Repository visibility: public.
 
 Авторитет текущего journal state: `docs/agent-system/engine-journal/INDEX.md` и соответствующие `RESULT-*` closure-stamps. Этот файл не дублирует номера work/release/sync PR как source of truth; если здесь встречается конкретный номер PR в исторической летописи ниже, он является информационной историей, а не актуальным pointer.
 
-Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
+Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep к `v1.2.0` после full audit и fix-серии P0-P4. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon, P3 Russian-first headings и P4 state-refresh. Batch-closure и reviewer consistency-gate завершены; reviewer verdict — `READY for release-prep v1.2.0`. Эта release-prep запись доводит state/release snapshots до состояния `ready for release PR after merge`. Следующий шаг после merge release-prep PR: отдельной задачей создать release PR `developer -> main` для `v1.2.0`; release PR мержит только человек-архитектор, затем человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, после чего выполняется sync `main -> developer` и переход к target implementation repository dry run. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+Текущий фокус: финальная cleanup-closure/state-refresh перед заморозкой методологии и переходом к target implementation repository. Release `v1.2.0` выпущен через PR #253, annotated tag `v1.2.0` указывает на release merge commit, sync `main -> developer` выполнен через PR #254; затем `main` дополнительно ушёл вперёд через PR #258 и был синхронизирован обратно через PR #259. Запись 0112 закрывает накопленный lifecycle-долг 0097/0099/0100 и 0101-0111, очищает stale final-state surfaces и подтверждает, что release-prep к `v1.2.0` больше не является текущим фокусом. F-03 остаётся pending human-action: тег на текущий `main` не ставился; если архитектор считает payload PR #258 отдельным release, annotated tag ставит только человек. Следующий фокус после merge cleanup PR — downstream/verification работа от актуального release pointer в облегчённом режиме. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 

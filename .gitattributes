@@ -1,1 +1,6 @@
 docs/agent-system/cloud/** text eol=lf
+docs/agent-system/PROJECT_FILE_MAP.md text eol=lf
+docs/agent-system/engine-journal/*.md text eol=lf
+docs/agent-system/engine-journal/**/*.md text eol=lf
+docs/agent-system/templates/*.md text eol=lf
+docs/agent-system/tools/*.py text eol=lf

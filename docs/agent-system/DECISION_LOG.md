@@ -1,6 +1,76 @@
 # DECISION_LOG
 
+## 2026-06-26 - TASK_CONTRACT включён в default cloud bundle
+
+Решение:
+Добавить `docs/agent-system/TASK_CONTRACT.md` в `orchestrator_context_bundle` и публиковать его в generated cloud bundle как `13_TASK_CONTRACT.md`.
+
+Причина:
+После внедрения `task_contract` оркестратор и cloud-only контекст должны видеть сам канон контракта без отдельной ручной загрузки исходного файла. Это follow-up к frontmatter canon, а не изменение схемы.
+
+Следствия:
+- `TASK_CONTRACT.md` остаётся source-файлом и не меняется в этой задаче;
+- `validate_task_contract.py` и `check_task_ready.py` не меняются;
+- `gen_cloud_bundle.py` изменён только в `CANONICAL_BUNDLE_ORDER`, чтобы manifest и generated bundle имели единый порядок;
+- default cloud bundle сохраняет существующие номера 00–12 и добавляет `13_TASK_CONTRACT.md`.
+
+## 2026-06-25 - Machine-readable task contract frontmatter
+
+Решение:
+Закрепить `task_contract` как preferred fenced YAML frontmatter для новых write-action Engine-задач. Contract фиксирует mode, execution_mode, repository, working_branch, allowed/forbidden files, policies, required checks и STOP conditions; prose остаётся human explanation. Если contract и prose конфликтуют, engine пишет `STOP`.
+
+Причина:
+После перехода к agent-owned workflow, review autoloop и ready-gate повторяющиеся ошибки чаще связаны не с prose, а с машинно проверяемыми границами задачи: scope, branch, checks, cloud policy и STOP conditions. Нужен компактный machine-readable слой без большого workflow engine.
+
+Следствия:
+- `docs/agent-system/TASK_CONTRACT.md` является каноном формата;
+- `docs/agent-system/tools/validate_task_contract.py` выполняет lightweight read-only validation;
+- новые task templates и orchestrator response rules рекомендуют `task_contract` для write-action/substantive задач;
+- Fast Lane проверки без write-action и PR не обязаны иметь `task_contract`.
+
+## 2026-06-25 - Generated EOL guard для cloud/generated шума
+
+Решение:
+Добавить `docs/agent-system/tools/generated_eol_guard.py` как read-only guard, который различает `content_changed`, `eol_only_changed` и `whitespace_only_changed` для generated/cloud artifacts и интегрируется в `check_task_ready.py` при generated/bundle-source diff.
+
+Контекст:
+На Windows после `gen_cloud_bundle.py` периодически возникал EOL-only шум: содержательно менялись только ожидаемые generated files, но Git мог показывать дополнительные cloud Markdown files как modified. Это создавало лишние reviewer cycles и ручные откаты.
+
+Последствия:
+- `content_changed` в generated artifact без соответствующего source/bundle изменения остаётся blocker;
+- EOL/whitespace-only generated noise можно закрывать machine-verifiable evidence без полного semantic re-review;
+- guard не выполняет state-changing git commands и не делает repo-wide renormalize;
+- большой EOL renormalize остаётся отдельной scoped future task.
+
 Формат новой записи: см. `docs/agent-system/templates/DECISION_TEMPLATE.md` (Date, Decision, Context, Options considered, Reason, Consequences, Follow-up actions). Этот файл append-only: исторические записи не переписывать.
+
+## 2026-06-25 - Единый read-only ready-gate для task branch
+
+Решение:
+Добавить `docs/agent-system/tools/check_task_ready.py` как lightweight read-only gate перед push/PR/fix-pass/review-comment. Инструмент не синхронизирует repository и не меняет git state; он только агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan.
+
+Контекст:
+После перехода к agent-owned workflow и review autoloop повторяющийся шум стал возникать поздно: whitespace blockers, generated drift, forgotten cloud regen, placeholder остатки и safety scans всплывали уже на review. Нужна одна команда, которую engine может приложить к machine-verifiable blocker closure и reviewer re-review.
+
+Последствия:
+- task-specific checks остаются обязательными, ready-gate их не заменяет;
+- `check_task_ready.py` можно использовать как `verification_command` для machine-verifiable blockers, если blocker покрыт его проверками;
+- semantic/mixed blockers по-прежнему требуют reviewer re-review;
+- инструмент не выполняет `fetch`, `pull`, `switch`, `merge`, `stash`, `reset` или `clean`.
+
+## 2026-06-25 - Structured review feedback для bounded autoloop
+
+Решение:
+Закрепить reviewer feedback schema для active work PR autoloop: каждый blocker получает стабильный ID `B-01`..., class `machine-verifiable | semantic | mixed`, `verification_command`, `can_engine_fix_without_architect`, fix scope и `re_review_policy`. Engine fix-pass закрывает blockers по IDs в той же task branch и возвращает структурированный report с результатами команд. Fully passed machine-verifiable blockers могут закрываться machine-check closure без полного reviewer pass; semantic/mixed blockers требуют minimal reviewer re-review по changed blocker scope. Если GitHub запрещает formal own-PR review, reviewer оставляет verdict comment; это не blocker и не означает auto-merge.
+
+Контекст:
+После внедрения agent-owned workflow и review autoloop самым частым шумом стали лишние re-review циклы для machine-only blockers, неструктурированный feedback и ограничение GitHub на formal review собственных PR.
+
+Последствия:
+- reviewer feedback становится исполнимым без повторного уточнения у архитектора;
+- engine fix-pass не расширяет scope и закрывает конкретные blocker IDs;
+- full re-review нужен только при semantic/mixed blockers, scope drift, failed checks или safety STOP;
+- human merge в `developer` остаётся обязательным.
 
 ## 2026-06-25 - Review autoloop для feedback/fix-pass внутри task branch
 

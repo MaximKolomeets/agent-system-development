@@ -23,6 +23,60 @@ Reasoning effort: <низкий | средний | высокий>
 
 Header role-agnostic: указывается **роль** (функция в методологии), а не имя конкретного инструмента/модели. Каноническая форма заголовка — `Задача для <роль>: <task-id>`; manifest-правило `mandatory_engine_task_header` должно трактовать `<роль>` как vendor-neutral функцию в методологии. Конкретного **исполнителя** (tool/model/human) назначает архитектор; в task header он не фиксируется (`Исполнитель: на усмотрение архитектора`). Различение роли и исполнителя — канон `docs/agent-system/ROLE_MODEL.md` → «Роль vs исполнитель».
 
+## Machine-readable task contract
+
+Для новых задач, которые меняют repository files, создают commit/push/PR, выполняют tooling/docs-only/review/fix-pass/release/adoption flow, task block или TASK file должен содержать fenced YAML block `task_contract` по канону `docs/agent-system/TASK_CONTRACT.md`.
+
+`task_contract` не заменяет prose: prose объясняет цель и контекст, а machine-readable block является источником истины для mode, execution_mode, repository, working_branch, allowed_files, forbidden_files, policies, checks и STOP conditions. Если `task_contract` и prose противоречат друг другу, `engine` пишет `STOP` и запрашивает решение архитектора.
+
+Минимальный skeleton:
+
+```yaml
+task_contract:
+  version: 1
+  task_id: <task-id>
+  role: <роль>
+  mode: agent
+  execution_mode: local_only
+  repository:
+    full_name: <owner/repository>
+    local_path: <local-path>
+    base_branch: developer
+    working_branch: work/<role>/<task-id>
+  scope:
+    allowed_files:
+      - <allowed path>
+    forbidden_files:
+      - .env
+      - .env.*
+      - data/**
+      - runtime/**
+      - dist/**
+      - backups/**
+      - exports/**
+  policies:
+    journal: required
+    cloud_regen: if_bundle_source_changed
+    generated_checks: conditional
+    review: scoped_semantic
+    merge: human_only
+    closure_pr: false
+  checks:
+    required:
+      - python docs/agent-system/tools/check_task_ready.py --base origin/developer
+  stop_conditions:
+    - dirty_tree_before_start
+    - changed_file_outside_allowlist
+    - forbidden_path_changed
+    - secret_or_env_risk
+```
+
+Перед push/PR для TASK file с contract рекомендуется выполнить:
+
+```text
+python docs/agent-system/tools/validate_task_contract.py <task-file>
+```
+
 ## Russian-first
 
 Все ответы, final report, TASK/RESULT/INDEX, target-local docs/templates и комментарии в файлах писать на русском языке. Английский допустим только для command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и code identifiers.

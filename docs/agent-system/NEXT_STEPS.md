@@ -1,13 +1,18 @@
 # NEXT_STEPS
 
+## Machine-readable task contract
+
+Для новых write-action Engine-задач, docs-only PR, tooling task, review/fix-pass с branch changes и release/adoption flow добавлять `task_contract` по `docs/agent-system/TASK_CONTRACT.md`; перед PR по возможности запускать `python docs/agent-system/tools/validate_task_contract.py <task-file>`. Для cloud handoff канон контракта доступен в default bundle как `13_TASK_CONTRACT.md`.
+
 ## Постоянный рабочий цикл (Standing Workflow Loop)
 
 Повторяемый цикл methodology maintenance:
 
 1. Сформулировать plan/task с точным scope, allowed files, checks, STOP conditions и branch guard.
 2. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
-3. Открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
-3a. Если feedback требует повторных проходов, использовать review autoloop: `max_review_cycles`, engine fix-pass в той же branch, reviewer re-review, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
+3. Перед push/PR запустить `python docs/agent-system/tools/check_task_ready.py --base origin/developer`, затем открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
+3a. Если feedback требует повторных проходов, использовать review autoloop: blocker IDs/classes, `verification_command`, engine fix-pass в той же branch, machine-check closure для fully passed machine-verifiable blockers, minimal reviewer re-review для semantic/mixed blockers, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
+3b. Если surfaced generated/cloud EOL-only шум, использовать `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift исправлять регенерацией/source fix, EOL/whitespace-only noise закрывать как machine-verifiable evidence или отдельным scoped EOL task.
 4. После merge оставить work-journal entry open/closure-pending, если действует batch-policy и нет boundary/исключения.
 5. Повторять work/review/merge до завершения текущей серии.
 6. Перед release/audit/methodology boundary выполнить batch-closure для всех merged-but-unclosed substantive journal entries.
@@ -17,9 +22,9 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release-prep к `v1.2.0`. Full audit и fix-серия P0-P4 выполнены; batch-closure и reviewer consistency-gate завершены, reviewer verdict — `READY for release-prep v1.2.0`. После merge текущего release-prep PR следующий шаг выполняется отдельной задачей: создать release PR `developer -> main` для `v1.2.0`. Дальше только человек-архитектор мержит release PR и ставит human-only annotated tag `v1.2.0` на release merge commit в `main`; затем engine выполняет sync `main -> developer`, после чего команда переходит к downstream adoption / verification dry run от актуального release pointer.
+Текущий фокус: закрыть cleanup PR `METH-CLEANUP-CLOSURE-STATE-01`, затем заморозить методологию для перехода к target implementation repository. `v1.2.0` уже выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254. После этого `main` ушёл вперёд через PR #258 и синхронизирован обратно через PR #259; F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится. После merge cleanup PR следующий основной шаг — downstream/verification работа в облегчённом режиме, не release-prep к `v1.2.0`. F-04/F-05 и русификация remote PR metadata остаются backlog.
 
-Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
+Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
@@ -27,7 +32,7 @@
 - **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны; `ADOPTION_PROMPT.md` список «engine should find» обновлён на `ADOPTION_GUIDE.md`.
 - **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и English wording там, где это не нарушает Russian-first policy; это не blocker для adoption.
 - **Operating layer (`ASD-OPLAYER-001`, journal 0024)**: добавлены нейтральные контракты `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` и `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`, governance pack template расширен разделом «Три слоя управления». Опционально: при downstream adoption включать эти контракты в target governance pack как optional-файлы; реальные visibility-matrix и дайджесты держать в приватном control plane, не в публичном репозитории.
-- **Future methodology simplification**: после `v1.2.0` отдельно рассмотреть lifecycle simplification, context handoff footer enforcement, GitHub PR state as authority, journal gate automation и adoption feedback loop automation. Это future backlog, не часть release-prep и не blocker для `v1.2.0`.
+- **Future methodology simplification**: после `v1.2.0` отдельно рассмотреть lifecycle simplification, context handoff footer enforcement, remote PR state as authority, journal gate automation и adoption feedback loop automation. Это future backlog, не часть release-prep и не blocker для `v1.2.0`.
 
 ## Текущие операционные правила
 

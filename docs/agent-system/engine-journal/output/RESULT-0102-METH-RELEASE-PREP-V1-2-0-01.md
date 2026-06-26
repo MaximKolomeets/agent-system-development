@@ -1,6 +1,6 @@
 # RESULT-0102: METH-RELEASE-PREP-V1-2-0-01
 
-Статус: ready for review; PR #251.
+Статус: closed; PR #251 merged; facts in final-state stamp.
 
 ## Execution timestamps
 
@@ -78,3 +78,18 @@ Source-reminder: не применимо; state/history + journal + generated cl
 ## Передача
 
 Следующий: архитектор — review/merge release-prep PR; затем engine — создать release PR `developer -> main`; затем архитектор — human merge release PR; затем архитектор — annotated tag `v1.2.0`; затем engine — sync `main -> developer`; затем переход в target implementation repository.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/251
+- PR state: MERGED
+- merged_at: `2026-06-25T01:32:26Z`
+- merge_commit: `6213ab21bab31a736aee389f6509a2254769fcab`
+- release PR #253 merged at `2026-06-25T01:49:45Z`; sync PR #254 merged at `2026-06-25T01:52:00Z`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 251 --json state,mergedAt,mergeCommit,url`
