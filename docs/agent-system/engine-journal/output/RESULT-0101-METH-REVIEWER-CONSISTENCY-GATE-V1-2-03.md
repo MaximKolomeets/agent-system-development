@@ -1,6 +1,6 @@
 # RESULT-0101: METH-REVIEWER-CONSISTENCY-GATE-V1-2-03
 
-Статус: ready for review; PR #250.
+Статус: closed; PR #250 merged; facts in final-state stamp.
 
 ## Execution timestamps
 
@@ -111,3 +111,18 @@ Source-reminder: не применимо; review-only journal trace + generated 
 ## Передача
 
 Следующий: архитектор — review/merge reviewer PR; затем engine — release-prep v1.2.0.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/250
+- PR state: MERGED
+- merged_at: `2026-06-24T17:27:02Z`
+- merge_commit: `96c3e50b4f32ad13206894e4432e7d274bfc75f3`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 250 --json state,mergedAt,mergeCommit,url`

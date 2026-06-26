@@ -22,9 +22,9 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release-prep к `v1.2.0`. Full audit и fix-серия P0-P4 выполнены; batch-closure и reviewer consistency-gate завершены, reviewer verdict — `READY for release-prep v1.2.0`. После merge текущего release-prep PR следующий шаг выполняется отдельной задачей: создать release PR `developer -> main` для `v1.2.0`. Дальше только человек-архитектор мержит release PR и ставит human-only annotated tag `v1.2.0` на release merge commit в `main`; затем engine выполняет sync `main -> developer`, после чего команда переходит к downstream adoption / verification dry run от актуального release pointer.
+Текущий фокус: закрыть cleanup PR `METH-CLEANUP-CLOSURE-STATE-01`, затем заморозить методологию для перехода к target implementation repository. `v1.2.0` уже выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254. После этого `main` ушёл вперёд через PR #258 и синхронизирован обратно через PR #259; F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится. После merge cleanup PR следующий основной шаг — downstream/verification работа в облегчённом режиме, не release-prep к `v1.2.0`. F-04/F-05 и русификация remote PR metadata остаются backlog.
 
-Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: GitHub `main`/tags и release/sync facts в journal.
+Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
@@ -32,7 +32,7 @@
 - **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны; `ADOPTION_PROMPT.md` список «engine should find» обновлён на `ADOPTION_GUIDE.md`.
 - **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и English wording там, где это не нарушает Russian-first policy; это не blocker для adoption.
 - **Operating layer (`ASD-OPLAYER-001`, journal 0024)**: добавлены нейтральные контракты `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` и `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`, governance pack template расширен разделом «Три слоя управления». Опционально: при downstream adoption включать эти контракты в target governance pack как optional-файлы; реальные visibility-matrix и дайджесты держать в приватном control plane, не в публичном репозитории.
-- **Future methodology simplification**: после `v1.2.0` отдельно рассмотреть lifecycle simplification, context handoff footer enforcement, GitHub PR state as authority, journal gate automation и adoption feedback loop automation. Это future backlog, не часть release-prep и не blocker для `v1.2.0`.
+- **Future methodology simplification**: после `v1.2.0` отдельно рассмотреть lifecycle simplification, context handoff footer enforcement, remote PR state as authority, journal gate automation и adoption feedback loop automation. Это future backlog, не часть release-prep и не blocker для `v1.2.0`.
 
 ## Текущие операционные правила
 

@@ -4,7 +4,7 @@
 
 Текущее состояние методологии включает preferred `task_contract` frontmatter для новых write-action Engine-задач. Канон: `docs/agent-system/TASK_CONTRACT.md`; lightweight read-only validator: `docs/agent-system/tools/validate_task_contract.py`. Prose остаётся human explanation, а `task_contract` является source of truth для mode/scope/checks/STOP; конфликт contract/prose означает `STOP`. `TASK_CONTRACT.md` входит в default cloud/orchestrator bundle как `13_TASK_CONTRACT.md`.
 
-Дата: 2026-06-25
+Дата: 2026-06-26
 
 Проект: Создание агентской системы
 
@@ -39,9 +39,9 @@ Repository visibility: public.
 
 Авторитет текущего journal state: `docs/agent-system/engine-journal/INDEX.md` и соответствующие `RESULT-*` closure-stamps. Этот файл не дублирует номера work/release/sync PR как source of truth; если здесь встречается конкретный номер PR в исторической летописи ниже, он является информационной историей, а не актуальным pointer.
 
-Latest release определяется состоянием веток/tags в GitHub (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
+Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep к `v1.2.0` после full audit и fix-серии P0-P4. Release `v1.1.0` завершён: annotated tag `v1.1.0` указывает на release merge commit в `main`, sync `main -> developer` выполнен. Post-v1.1.0 fix-серия закрыла P0 batch-closure 0086-0088, P1 `source_tag`/`release_tag`, P2 `execution_finished_at` canon, P3 Russian-first headings и P4 state-refresh. Batch-closure и reviewer consistency-gate завершены; reviewer verdict — `READY for release-prep v1.2.0`. Эта release-prep запись доводит state/release snapshots до состояния `ready for release PR after merge`. Следующий шаг после merge release-prep PR: отдельной задачей создать release PR `developer -> main` для `v1.2.0`; release PR мержит только человек-архитектор, затем человек-архитектор ставит annotated tag `v1.2.0` на release merge commit в `main`, после чего выполняется sync `main -> developer` и переход к target implementation repository dry run. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+Текущий фокус: финальная cleanup-closure/state-refresh перед заморозкой методологии и переходом к target implementation repository. Release `v1.2.0` выпущен через PR #253, annotated tag `v1.2.0` указывает на release merge commit, sync `main -> developer` выполнен через PR #254; затем `main` дополнительно ушёл вперёд через PR #258 и был синхронизирован обратно через PR #259. Запись 0112 закрывает накопленный lifecycle-долг 0097/0099/0100 и 0101-0111, очищает stale final-state surfaces и подтверждает, что release-prep к `v1.2.0` больше не является текущим фокусом. F-03 остаётся pending human-action: тег на текущий `main` не ставился; если архитектор считает payload PR #258 отдельным release, annotated tag ставит только человек. Следующий фокус после merge cleanup PR — downstream/verification работа от актуального release pointer в облегчённом режиме. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 

@@ -1,6 +1,6 @@
 # RESULT-0097: METH-JOURNAL-FINALSTATE-FIX-0095-V1-2-01
 
-Статус: terminal-fold accepted pending own PR merge; PR #246.
+Статус: closed; PR #246 merged; facts in final-state stamp.
 
 ## Execution timestamps
 
@@ -62,3 +62,18 @@
 ## Передача
 
 Следующий: архитектор — review/merge fix PR; затем engine — повторить reviewer consistency-gate v1.2.0.
+
+
+## Final-state stamp
+
+- finalized_by: `METH-CLEANUP-CLOSURE-STATE-01` / `TASK-0112`
+- closure_scope: batch cleanup before methodology freeze and transition to target implementation repository.
+- Work PR: https://github.com/MaximKolomeets/agent-system-development/pull/246
+- PR state: MERGED
+- merged_at: `2026-06-24T16:11:09Z`
+- merge_commit: `7fcb583ec210b127aec9b4729cadc8ff1e52085c`
+- release/sync: н/п
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes
+- No journal placeholders: yes
+- facts_source: `gh pr view 246 --json state,mergedAt,mergeCommit,url`
