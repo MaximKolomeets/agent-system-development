@@ -157,6 +157,7 @@
 2. `METH-CHECK-TASK-READY-01`
 3. `METH-GENERATED-EOL-GUARD-01`
 4. `METH-TASK-CONTRACT-FRONTMATTER-01` — реализовано в текущей методологической серии: добавлен `TASK_CONTRACT.md`, lightweight validator `validate_task_contract.py` и template/orchestrator integration для новых write-action Engine-задач.
+5. `METH-TASK-CONTRACT-CLOUD-BUNDLE-01` — реализовано как follow-up: `TASK_CONTRACT.md` включён в default cloud/orchestrator bundle отдельным numbered-файлом `13_TASK_CONTRACT.md` без изменения схемы контракта и validator logic.
 
 Почему такой порядок:
 - сначала убрать лишние reviewer cycles;
