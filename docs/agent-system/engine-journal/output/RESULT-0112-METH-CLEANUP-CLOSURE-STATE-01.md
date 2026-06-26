@@ -1,17 +1,17 @@
 # RESULT-0112: METH-CLEANUP-CLOSURE-STATE-01
 
-Статус: closed-at-creation; terminal closure; own PR pending creation.
+Статус: closed-at-creation; terminal closure; PR #267; accepted terminal fold.
 
 ## Execution timestamps
 
 - execution_started_at: `2026-06-26T22:28:19.3380056+07:00`
-- execution_finished_at: `pending until finalization`
+- execution_finished_at: `2026-06-26T22:40:51.1428726+07:00`
 
 ## Baseline
 
 - `developer` / `origin/developer`: `4604032fc28e28f3caa21a1433f24cfcdb76e376`
 - Work branch: `work/docs-maintainer-01/cleanup-closure-state-01`
-- Own PR: pending creation after first push.
+- Own PR: `https://github.com/MaximKolomeets/agent-system-development/pull/267`; base/head `developer` <- `work/docs-maintainer-01/cleanup-closure-state-01`.
 - Verification source: `gh` + local git.
 
 ## Closure facts
@@ -53,7 +53,17 @@ No records in the closure set remained open by fact: PR #246/#248/#249/#250/#251
 
 ## Checks
 
-To be finalized after generation, validation, PR creation and final RESULT/INDEX update.
+| Check | Result |
+| --- | --- |
+| `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` | exit 1 by design because expected content drift exists in source+generated files; `eol_only_changed_count=0` after restoring 7 EOL-only cloud files; generated content changes limited to `00/06/07/08` mirrors. |
+| `python docs/agent-system/tools/gen_file_map.py --check` | exit 0 |
+| `python docs/agent-system/tools/gen_cloud_bundle.py --check` | exit 0 |
+| final-state surface scan | exit 0; `index_bad_count=0`, `result_bad_count=0` for 0097/0099/0100 and 0101-0111 |
+| INDEX/TASK/RESULT pairing | rows 112; max `0112`; holes 0; missing 0 |
+| changed-file placeholder scan | no invalid placeholders after PR finalization |
+| `git diff --check` | exit 0; PowerShell reported LF-to-CRLF working-copy warnings for state docs only |
+
+Runner: checks were run sequentially, no parallel runner hang observed.
 
 ## Source Delta
 
@@ -69,12 +79,16 @@ To be finalized after generation, validation, PR creation and final RESULT/INDEX
 
 Source-reminder: не применимо; контент-каноны не менялись.
 
+## Context handoff
+
+Архитектору — загрузить в контекст оркестратора: `06_CURRENT_STATE.md`, `08_NEXT_STEPS.md`, `07_ENGINE_JOURNAL_INDEX.md`, `00_README.md`; asof: `2026-06-26T22:40:51.1428726+07:00`; developer_head_sha: `4604032fc28e28f3caa21a1433f24cfcdb76e376`.
+
 ## Подтверждения
 
-- RESULT finalized: pending until PR finalization.
-- INDEX finalized: pending until PR finalization.
-- No journal placeholders: pending until PR finalization.
+- RESULT finalized: yes.
+- INDEX finalized: yes.
+- No journal placeholders: yes; own terminal fold is accepted by task policy.
 
 ## Передача
 
-Следующий: docs-maintainer — создать PR, затем финализировать RESULT/INDEX без placeholders.
+Следующий: архитектор — review/merge cleanup PR; затем при необходимости поставить human-only annotated tag на текущий `main` для F-03; затем перейти к target implementation repository verification в облегчённом режиме. F-04/F-05 и русификация remote PR metadata остаются backlog.
