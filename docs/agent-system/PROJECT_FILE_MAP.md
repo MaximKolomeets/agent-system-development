@@ -50,7 +50,9 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/ROLE_MODEL.md` |  |
 | `docs/agent-system/SECURITY_POLICY.md` |  |
+| `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
 | `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` |  |
+| `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/TASK_CONTRACT.md` |  |
 | `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md` |  |
 | `docs/agent-system/WORKFLOW.md` |  |
@@ -159,3 +161,5 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md` |  |
 | `docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/cloud/13_TASK_CONTRACT.md` |  |
+| `docs/agent-system/cloud/14_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
+| `docs/agent-system/cloud/15_LANGUAGE_POLICY.md` |  |

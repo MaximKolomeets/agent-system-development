@@ -43,6 +43,13 @@ task_contract:
     local_path: <local-path>
     base_branch: developer
     working_branch: work/<role>/<task-id>
+  methodology_reference:
+    repository_full_name: MaximKolomeets/agent-system-development
+    local_path: C:\neural\repos\agent-system-development
+    ref: origin/main
+    stable_only: true
+    source_commit: <origin/main commit sha>
+    checked_at: <ISO-8601 timestamp>
   scope:
     allowed_files:
       - <allowed path>
@@ -61,6 +68,7 @@ task_contract:
     review: scoped_semantic
     merge: human_only
     closure_pr: false
+    language: russian_first
   checks:
     required:
       - python docs/agent-system/tools/check_task_ready.py --base origin/developer
@@ -84,6 +92,10 @@ python docs/agent-system/tools/validate_task_contract.py <task-file>
 ## Commit/push/PR metadata language
 
 Commit subject/body, PR title и PR body должны быть Russian-first. Technical identifiers разрешены: branch names, task ids, filenames, paths, commands, config keys, API names, role ids, package names и SHA values не переводятся. Conventional prefix вроде `docs(agent-system):` разрешён как technical identifier, но смысловая часть после `:` должна быть Russian-first. Уже pushed/merged commits не переписываются и не force-push без отдельного явного решения архитектора; если нарушение metadata-language обнаружено после push и безопасно не исправлено, RESULT фиксирует нарушение и правило применяется со следующего commit.
+
+## Stable methodology reference
+
+Для target/downstream/adoption задач `methodology_reference` указывает на stable methodology source: `origin/main` / `main`, release tag или явно заданный published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для downstream. Dirty `agent-system-development/developer` или `work/*` не блокирует target task, если stable reference доступен и читается. Канон: `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`.
 
 ## Рекомендуемый режим исполнения
 

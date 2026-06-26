@@ -27,6 +27,14 @@ task_contract:
     base_branch: developer
     working_branch: work/methodology-architect-01/meth-task-contract-frontmatter-01
 
+  methodology_reference:
+    repository_full_name: MaximKolomeets/agent-system-development
+    local_path: C:\neural\repos\agent-system-development
+    ref: origin/main
+    stable_only: true
+    source_commit: <origin/main commit sha>
+    checked_at: <ISO-8601 timestamp>
+
   scope:
     allowed_files:
       - docs/agent-system/TASK_CONTRACT.md
@@ -49,6 +57,7 @@ task_contract:
     review: scoped_semantic
     merge: human_only
     closure_pr: false
+    language: russian_first
 
   checks:
     required:
@@ -138,6 +147,21 @@ task_contract:
 - `false`
 - `boundary_only`
 
+`policies.language`:
+
+- `russian_first`
+- `english_allowed`
+- `task_defined`
+
+`methodology_reference.ref` для downstream/adoption задач:
+
+- `origin/main`
+- `main`
+- release tag, если он явно указан архитектором;
+- `published_source_snapshot`, если архитектор явно указал snapshot.
+
+`developer`, `origin/developer`, `work/*` и open PR branches не являются stable methodology reference для downstream/adoption задач.
+
 ## Policy checks
 
 Минимальная policy validation:
@@ -148,6 +172,10 @@ task_contract:
 - `scope.forbidden_files` должен включать `.env` или `.env.*`;
 - `policies.merge` для substantive/write-action задач должен быть `human_only`;
 - `checks.required` должен включать `python docs/agent-system/tools/check_task_ready.py --base origin/developer` или явное объяснение в prose, почему ready-gate не применим.
+- `policies.language` для новых Russian-first задач должен быть `russian_first`;
+- если `methodology_reference.stable_only: true`, `methodology_reference.ref` должен быть `origin/main`, `main`, явно указанным release tag или `published_source_snapshot`;
+- если `methodology_reference.stable_only: true`, должны быть заполнены `source_commit` и `checked_at`;
+- `methodology_reference.stable_only: false` допустим для задач, которые меняют сам methodology repository, но не для downstream/adoption задач без явного решения архитектора.
 
 ## Validator
 

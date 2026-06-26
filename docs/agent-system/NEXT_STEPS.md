@@ -22,15 +22,15 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: закрыть cleanup PR `METH-CLEANUP-CLOSURE-STATE-01`, затем заморозить методологию для перехода к target implementation repository. `v1.2.0` уже выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254. После этого `main` ушёл вперёд через PR #258 и синхронизирован обратно через PR #259; F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится. После merge cleanup PR следующий основной шаг — downstream/verification работа в облегчённом режиме, не release-prep к `v1.2.0`. F-04/F-05 и русификация remote PR metadata остаются backlog.
+Текущий фокус: завершить `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01`, затем после merge в `developer` подготовить human-only продвижение `developer -> main`, чтобы downstream проекты, читающие `origin/main`, увидели stable-reference и Russian-first GitHub-facing policy. Cleanup PR #267 уже смержен. `v1.2.0` выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
 - **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.
-- **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны; `ADOPTION_PROMPT.md` список «engine should find» обновлён на `ADOPTION_GUIDE.md`.
-- **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и English wording там, где это не нарушает Russian-first policy; это не blocker для adoption.
+- **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, старый `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны. Новый `TARGET_REPOSITORY_ADOPTION_GUIDE.md` из `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` является live stable-reference entrypoint, не старой redirect-заглушкой.
+- **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и historical English wording там, где это не нарушает Russian-first policy и не требует rewrite history; это не blocker для adoption.
 - **Operating layer (`ASD-OPLAYER-001`, journal 0024)**: добавлены нейтральные контракты `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` и `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`, governance pack template расширен разделом «Три слоя управления». Опционально: при downstream adoption включать эти контракты в target governance pack как optional-файлы; реальные visibility-matrix и дайджесты держать в приватном control plane, не в публичном репозитории.
 - **Future methodology simplification**: после `v1.2.0` отдельно рассмотреть lifecycle simplification, context handoff footer enforcement, remote PR state as authority, journal gate automation и adoption feedback loop automation. Это future backlog, не часть release-prep и не blocker для `v1.2.0`.
 
@@ -42,6 +42,7 @@
 4. Проверять Closure policy после сообщений о merge/release/sync: обычные work PR могут оставаться `merged; closure pending` до batch-closure перед release/audit/methodology boundary; release gate, audit/review consistency gate, adoption/source-update, завершение/пауза серии, явное closure-задание и противоречивые journal facts требуют per-task closure.
 5. Если journal stale после merge в per-task exception, под release/audit/methodology boundary или при противоречивых facts, создавать docs-only Engine-блок на closure cleanup вместо ответа `все закрыто`.
 6. Использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository только после проверки, что task явно содержит режим, объект проверки, allowed/forbidden files и правило сохранения отчета. Review-задачи всегда журналируют TASK+RESULT (`Journal trace: always`).
-7. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
+7. При следующем target repository dry run читать methodology repository только из stable reference `origin/main` / `main`, release tag или явно заданного snapshot; dirty `developer`/`work/*` не считать blocker при доступном stable ref.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
-9. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.
+9. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
+10. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.

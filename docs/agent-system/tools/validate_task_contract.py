@@ -39,8 +39,11 @@ ENUMS = {
     "policies.review": {"scoped_semantic", "scoped_technical_safety", "machine_only", "full_review", "not_required"},
     "policies.merge": {"human_only", "not_applicable"},
     "policies.closure_pr": {"true", "false", "boundary_only", True, False},
+    "policies.language": {"russian_first", "english_allowed", "task_defined"},
 }
 FORBIDDEN_TASK_FILENAMES = {".env"}
+STABLE_METHODOLOGY_REFS = {"origin/main", "main", "published_source_snapshot"}
+FORBIDDEN_DOWNSTREAM_REFS = {"developer", "origin/developer"}
 
 
 @dataclass
@@ -202,6 +205,54 @@ def is_non_empty(value: Any) -> bool:
     return str(value).strip() != ""
 
 
+def is_true(value: Any) -> bool:
+    return value is True or str(value).strip().lower() == "true"
+
+
+def is_release_tag(value: str) -> bool:
+    return bool(re.fullmatch(r"v\d+\.\d+\.\d+(?:[-+][A-Za-z0-9_.-]+)?", value))
+
+
+def is_forbidden_downstream_ref(value: str) -> bool:
+    return value in FORBIDDEN_DOWNSTREAM_REFS or value.startswith("work/") or value.startswith("origin/work/")
+
+
+def validate_methodology_reference(contract: dict[str, Any], report: ValidationReport) -> None:
+    reference = get_path(contract, "methodology_reference")
+    if reference is None:
+        return
+    if not isinstance(reference, dict):
+        report.blockers.append("methodology_reference must be a mapping")
+        return
+
+    ref = str(get_path(contract, "methodology_reference.ref") or "").strip()
+    stable_only = get_path(contract, "methodology_reference.stable_only")
+    stable_required = is_true(stable_only)
+    repository_full_name = str(get_path(contract, "repository.full_name") or "").strip()
+    reference_repository = str(get_path(contract, "methodology_reference.repository_full_name") or "").strip()
+    methodology_repository_task = (
+        repository_full_name == "MaximKolomeets/agent-system-development"
+        and reference_repository == "MaximKolomeets/agent-system-development"
+    )
+    if not ref:
+        report.blockers.append("methodology_reference.ref is required when methodology_reference is present")
+        return
+
+    if stable_only is None:
+        report.warnings.append("methodology_reference.stable_only should be set explicitly")
+
+    if stable_required and not (ref in STABLE_METHODOLOGY_REFS or is_release_tag(ref)):
+        report.blockers.append("methodology_reference.ref must use origin/main, main, release tag or published_source_snapshot when stable_only is true")
+    elif is_forbidden_downstream_ref(ref) and not methodology_repository_task:
+        report.warnings.append("methodology_reference uses non-stable ref; this is allowed only for methodology repository tasks")
+
+    if stable_required:
+        if not is_non_empty(get_path(contract, "methodology_reference.source_commit")):
+            report.blockers.append("methodology_reference.source_commit is required when stable_only is true")
+        if not is_non_empty(get_path(contract, "methodology_reference.checked_at")):
+            report.blockers.append("methodology_reference.checked_at is required when stable_only is true")
+
+
 def validate_contract(data: dict[str, Any], task_file: Path) -> ValidationReport:
     contract = data.get("task_contract")
     report = ValidationReport(task_file=str(task_file))
@@ -263,6 +314,8 @@ def validate_contract(data: dict[str, Any], task_file: Path) -> ValidationReport
         report.blockers.extend(scope_errors)
     else:
         report.scope_policy = "passed"
+
+    validate_methodology_reference(contract, report)
 
     required_checks = get_path(contract, "checks.required")
     if not isinstance(required_checks, list):

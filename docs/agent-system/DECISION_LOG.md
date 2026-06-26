@@ -1,5 +1,22 @@
 # DECISION_LOG
 
+## 2026-06-26 - Stable main reference и Russian-first GitHub-facing policy
+
+Решение:
+Для target/downstream задач stable methodology reference по умолчанию `origin/main` / `main`. Release tag или published Source/cloud snapshot используются только по явному решению архитектора. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для downstream.
+
+GitHub-facing artifacts - commit messages, PR title/body, review summaries, verdict comments и final reports - соблюдают Russian-first policy. English допускается только для technical identifiers, commands, paths, filenames, branch names, config keys, API names, package names, machine-readable status values и literal external names.
+
+Причина:
+Downstream работа должна читать стабильную, опубликованную методологию и не останавливаться из-за незавершенной local/PR работы в methodology repository. Одновременно пользовательские и GitHub-facing surfaces должны оставаться русскоязычными, чтобы policy не терялась между TASK/RESULT, PR и review.
+
+Последствия:
+- downstream/adoption task фиксирует `methodology_reference.ref: origin/main`, `stable_only: true`, `source_commit` и `checked_at`;
+- dirty `agent-system-development/developer` или `work/*` не является STOP, если stable ref читается;
+- после merge policy PR в `developer` архитектор должен отдельно продвинуть `developer -> main`, иначе downstream, читающий `origin/main`, не увидит новые правила;
+- reviewer проверяет stable reference и Russian-first GitHub-facing metadata как scope gate;
+- runtime, Docker, CI, branch protection и private downstream data не затрагиваются.
+
 ## 2026-06-26 - TASK_CONTRACT включён в default cloud bundle
 
 Решение:

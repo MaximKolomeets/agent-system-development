@@ -34,6 +34,7 @@ Repository visibility: public.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; descriptive headings в active adopter-facing docs приведены к Russian-first виду с сохранением technical literals/aliases; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
+- Stable methodology reference для target/downstream задач закреплён: по умолчанию `origin/main` / `main`; `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются downstream source of truth. GitHub-facing artifacts, PR title/body, commit messages, review summaries и final reports соблюдают Russian-first policy.
 
 ### Текущий указатель (Current pointer)
 
@@ -41,7 +42,7 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: финальная cleanup-closure/state-refresh перед заморозкой методологии и переходом к target implementation repository. Release `v1.2.0` выпущен через PR #253, annotated tag `v1.2.0` указывает на release merge commit, sync `main -> developer` выполнен через PR #254; затем `main` дополнительно ушёл вперёд через PR #258 и был синхронизирован обратно через PR #259. Запись 0112 закрывает накопленный lifecycle-долг 0097/0099/0100 и 0101-0111, очищает stale final-state surfaces и подтверждает, что release-prep к `v1.2.0` больше не является текущим фокусом. F-03 остаётся pending human-action: тег на текущий `main` не ставился; если архитектор считает payload PR #258 отдельным release, annotated tag ставит только человек. Следующий фокус после merge cleanup PR — downstream/verification работа от актуального release pointer в облегчённом режиме. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
+Текущий фокус: задача `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` закрепляет stable `main` reference и Russian-first GitHub-facing policy перед downstream/verification работой. Cleanup PR #267 уже смержен в `developer`; release `v1.2.0` выпущен через PR #253 и tag `v1.2.0`, sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action: тег на текущий `main` не ставился; если архитектор считает payload PR #258 отдельным release, annotated tag ставит только человек. После merge этой policy-задачи архитектор должен продвинуть `developer -> main`, иначе downstream задачи, корректно читающие `origin/main`, не увидят новые правила. Точные task/PR факты брать из `engine-journal/INDEX.md` и `RESULT-*` closure/release stamps.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
@@ -57,6 +58,8 @@ State-level n-01 по live/current vendor literal перепроверен: в l
 - **C6 (0005)** — review-задачи теперь всегда журналируют TASK+RESULT (`Journal trace: always`); `Report delivery: chat` относится только к телу отчёта.
 
 Накопленные redirect-заглушки очищены в `METH-BACKLOG-POLISH`: 6 history-only заглушек удалены, живые ссылки перенаправлены на каноны; `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлена заглушкой для внешних bookmark. Политика «broken-ссылки в append-only истории допустимы» зафиксирована в `DECISION_LOG.md`.
+
+В `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` путь `TARGET_REPOSITORY_ADOPTION_GUIDE.md` создан заново как живой короткий stable-reference entrypoint; это не возврат старой redirect-заглушки, удаленной в `METH-BACKLOG-POLISH`.
 
 Bootstrap перенесен в `main` через PR #1. PR-1b перенесен в `main` через PR #2. Public repository и Active rulesets status зафиксированы через PR-1c.
 
