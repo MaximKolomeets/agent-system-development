@@ -29,8 +29,9 @@ Branch: `work/<role>/<task>`
 8. Обновить RESULT/final report, если task ведёт journal.
 9. Сохранить Russian-first для commit/PR metadata, PR comments, RESULT/final report и review/fix-pass summary.
 10. Не менять downstream `methodology_reference` на `developer`, `work/*`, dirty local methodology tree или open methodology PR branch.
-11. Push в ту же task branch.
-12. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
+11. Не создавать отдельный post-merge closure PR для ordinary PR; RESULT/final report фиксирует PR URL, reviewed head SHA и `architect:ready-to-merge`, а merge facts после human merge берутся из GitHub PR metadata.
+12. Push в ту же task branch.
+13. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
 
 ## STOP-условия
 

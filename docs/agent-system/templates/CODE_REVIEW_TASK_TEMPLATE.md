@@ -48,6 +48,8 @@ task_contract:
     review: scoped_semantic
     merge: human_only
     closure_pr: false
+    post_merge_closure: not_required
+    boundary_reconciliation: release_or_audit_only
     language: russian_first
   checks:
     required:
@@ -427,7 +429,7 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
-Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release/audit/methodology boundary; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release, adoption/source-update, противоречивых journal facts или другого явно указанного исключения. В closure-review reviewer сверяет merge-факты по `RESULT` closure-stamp и GitHub/local git; `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
+Журнал финализируется после создания PR. Для ordinary review/docs-only PR после merge не создавать отдельный closure PR: отсутствие merge commit SHA / `merged_at` в RESULT не является blocker, если PR URL, reviewed head SHA и `architect_ready` / `human_merge_allowed` зафиксированы. GitHub PR metadata является source of truth для merge facts. Boundary reconciliation выполняется только перед release/audit boundary, при explicit architect request или для batch reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 
 ## Локальные действия после PR/merge
 

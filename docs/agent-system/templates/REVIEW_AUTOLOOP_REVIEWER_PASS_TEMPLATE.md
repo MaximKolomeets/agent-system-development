@@ -25,6 +25,7 @@ Branch/PR: active work PR
 6. PR title/body, commit metadata, review summary и journal/final report соблюдают Russian-first policy.
 7. Если PR меняет downstream/adoption/source-update правила, `methodology_reference` использует stable ref `origin/main` / `main`, release tag или явно заданный snapshot, а не `developer`/`work/*`.
 8. `max_review_cycles` не превышен.
+9. Reviewer не требует post-merge RESULT/INDEX closure для ordinary PR: PR URL, reviewed head SHA и `architect:ready-to-merge` достаточны до human merge; после merge source of truth для merge facts — GitHub PR metadata.
 
 ## Вывод в PR
 
@@ -42,6 +43,7 @@ Reviewer оставляет feedback только в PR агента:
 - scope drift;
 - Russian-first metadata/report violation в ready-for-review PR;
 - downstream stable methodology reference подменён на `developer`, `work/*` или open methodology PR branch;
+- ordinary PR ошибочно требует отдельный post-merge closure PR как blocker;
 - нужен architecture/product/security decision;
 - превышен `max_review_cycles`;
 - PR head SHA не совпал.
