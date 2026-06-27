@@ -22,7 +22,7 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`, чтобы ordinary PR больше не создавали cleanup-closure-state долг. После merge обычного PR оркестратор синхронизирует `developer` и переходит к следующей задаче; boundary reconciliation откладывается до release/audit boundary или explicit architect request. Cleanup PR #267 уже смержен. `v1.2.0` выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится.
+Текущий фокус: завершить `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`, чтобы ready-gate блокировал headers `Authorization` независимо от auth-схемы и не печатал matching values. После merge hotfix человек-архитектор продвигает patch source (`v1.3.1` или current `main` commit) и обновляет affected target implementation repository PR от нового stable source. Cleanup PR #267 уже смержен. `v1.2.0` выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 

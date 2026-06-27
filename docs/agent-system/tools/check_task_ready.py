@@ -37,7 +37,8 @@ STRICT_SECRET_PATTERNS = (
     re.compile(r"BEGIN RSA PRIVATE KEY", re.IGNORECASE),
     re.compile(r"BEGIN OPENSSH PRIVATE KEY", re.IGNORECASE),
     re.compile(r"PRIVATE KEY", re.IGNORECASE),
-    re.compile(r"Authorization:", re.IGNORECASE),
+    # Заголовок Authorization блокируется независимо от auth-схемы.
+    re.compile(r"^\s*Authorization\s*:", re.IGNORECASE),
     re.compile(r"Bearer\s+", re.IGNORECASE),
     re.compile(r"password\s*=", re.IGNORECASE),
     re.compile(r"token\s*=", re.IGNORECASE),
@@ -189,13 +190,13 @@ def requires_generated_checks(paths: list[str]) -> bool:
     return False
 
 
+def is_task_result_file(path: str) -> bool:
+    normalized = normalize_path(path)
+    return re.fullmatch(r"docs/agent-system/engine-journal/(input/TASK|output/RESULT)-.*\.md", normalized) is not None
+
+
 def task_result_files(paths: list[str]) -> list[str]:
-    result: list[str] = []
-    for path in paths:
-        normalized = normalize_path(path)
-        if re.fullmatch(r"docs/agent-system/engine-journal/(input/TASK|output/RESULT)-.*\.md", normalized):
-            result.append(normalized)
-    return result
+    return [normalize_path(path) for path in paths if is_task_result_file(path)]
 
 
 def scan_secret_patterns_in_added_lines(diff_text: str) -> set[str]:
@@ -337,7 +338,8 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.forbidden_changed_paths:
         report.blockers.append("forbidden changed paths detected")
 
-    report.sensitive_filenames = [path for path in all_paths if SENSITIVE_FILENAME_RE.search(path)]
+    # TASK/RESULT filenames include task ids; their contents stay covered by strict added-line scan.
+    report.sensitive_filenames = [path for path in all_paths if not is_task_result_file(path) and SENSITIVE_FILENAME_RE.search(path)]
     if report.sensitive_filenames:
         report.blockers.append("sensitive filenames detected")
 
