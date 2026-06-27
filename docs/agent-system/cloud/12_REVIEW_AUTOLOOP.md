@@ -8,6 +8,12 @@ Review autoloop описывает ограниченный автоматизи
 Engine PR -> Reviewer review -> Engine fix-pass -> Reviewer re-review -> architect-ready
 ```
 
+Для ordinary PR итоговый lifecycle выглядит так:
+
+```text
+Engine PR -> Reviewer approve -> architect-ready -> human merge
+```
+
 Цель цикла - снять мелкие review-замечания без отдельного feedback PR и без ручного подтверждения каждого микрошага, сохранив все safety gates.
 
 ## Область применения
@@ -33,6 +39,8 @@ Autoloop применим только к active work PR в основной tas
 | `reviewer:approved` | Reviewer | Blockers нет, checks зелёные | `architect:ready-to-merge` |
 | `architect:ready-to-merge` | Architect | Reviewer approve-equivalent получен | Human merge в `developer` или human hold |
 | `automation:stopped-human-required` | Любая сторона | STOP-condition или превышен лимит циклов | Architect decision |
+
+`architect:ready-to-merge` является terminal state для ordinary PR с точки зрения engine/reviewer. После human merge не запускать automatic closure PR, не требовать re-review, не открывать cleanup PR и не считать `RESULT/INDEX` open/ready surfaces долгом, если запись содержит PR URL, reviewed head SHA и `architect:ready-to-merge` / `human_merge_allowed`. GitHub PR metadata является source of truth для `merged_at`, merge commit SHA, PR state и PR URL.
 
 ## Рекомендуемые labels/statuses
 

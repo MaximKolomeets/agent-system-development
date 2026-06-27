@@ -53,7 +53,7 @@
 
 Описать проверки перед отчетом.
 
-Если задача создает PR, release PR или sync PR, проверки должны включать Closure policy для RESULT/INDEX: batch-closure перед release по умолчанию, per-task только для исключений из `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
+Если задача создает ordinary PR, проверки должны включать Closure policy для RESULT/INDEX: ordinary terminal state (`architect_ready` / `human_merge_allowed`), PR URL и reviewed head SHA зафиксированы, отдельный post-merge closure PR не требуется. Для release/audit boundary или explicit architect request указывать boundary reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 
 ## Ожидаемый отчет
 
@@ -63,4 +63,4 @@
 
 Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
 
-Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, статус Closure policy для RESULT/INDEX: `closed`, `closure pending until batch before release` или `not applicable`.
+Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), PR URL и reviewed head SHA. Для ordinary PR merge commit SHA / `merged_at` берутся из GitHub PR metadata и не обязаны backfill'иться в RESULT. Для release/audit boundary или explicit architect request отчет отдельно фиксирует boundary reconciliation status: `boundary_closed`, `required`, `not_required` или `explicit_architect_request`.

@@ -57,6 +57,8 @@ task_contract:
     review: scoped_semantic
     merge: human_only
     closure_pr: false
+    post_merge_closure: not_required
+    boundary_reconciliation: release_or_audit_only
     language: russian_first
 
   checks:
@@ -146,6 +148,26 @@ task_contract:
 - `true`
 - `false`
 - `boundary_only`
+
+`policies.post_merge_closure`:
+
+- `not_required`
+- `required`
+- `boundary_only`
+
+`policies.boundary_reconciliation`:
+
+- `release_or_audit_only`
+- `explicit_architect_request`
+- `not_required`
+
+Для ordinary task PR default:
+
+```yaml
+policies:
+  post_merge_closure: not_required
+  boundary_reconciliation: release_or_audit_only
+```
 
 `policies.language`:
 

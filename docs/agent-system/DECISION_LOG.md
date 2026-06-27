@@ -1,5 +1,22 @@
 # DECISION_LOG
 
+## 2026-06-27 - Ordinary PR без обязательного post-merge closure
+
+Решение:
+Обычный task PR считается завершённым на ordinary terminal state: reviewer approve/approve-equivalent, `architect_ready` / `human_merge_allowed`, PR URL и reviewed head SHA зафиксированы. После human merge отдельная правка `RESULT/INDEX` для каждого ordinary PR не требуется.
+
+GitHub PR metadata является source of truth для post-merge facts: PR state, `merged_at`, merge commit SHA и PR URL. Post-merge closure stamp в `RESULT/INDEX` нужен только перед release/audit boundary, при explicit architect request или для batch reconciliation.
+
+Причина:
+Engine завершает task branch до human merge, а merge выполняет человек. Требование вписывать `merged_at` и merge commit SHA в каждую ordinary journal entry после merge неизбежно создавало второй PR или batch cleanup после обычной работы.
+
+Последствия:
+- ordinary PR больше не создаёт cleanup-closure-state debt;
+- reviewer не требует merge SHA/`merged_at` в `RESULT` ordinary PR как blocker;
+- orchestrator после merge ordinary PR синхронизирует `developer` и переходит к следующей задаче, а не предлагает closure PR;
+- boundary reconciliation остаётся доступной перед release/audit или по явному запросу архитектора;
+- old RESULT/INDEX entries не переписываются ради нового канона.
+
 ## 2026-06-26 - Stable main reference и Russian-first GitHub-facing policy
 
 Решение:
