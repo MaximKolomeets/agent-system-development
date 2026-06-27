@@ -30,12 +30,20 @@ Docs-only adoption/source-update задачи должны включать fenc
 
 Если `task_contract` присутствует, он является источником истины для mode/scope/checks/STOP, а prose остаётся human explanation. Конфликт contract/prose означает `STOP`.
 
+Для ordinary PR default policies:
+
+```yaml
+policies:
+  post_merge_closure: not_required
+  boundary_reconciliation: release_or_audit_only
+```
+
 ## Verified Baseline
 
 - Repository:
 - Local path, если применимо:
 - Methodology repository:
-- Methodology source branch:
+- Methodology stable reference:
 - Methodology source commit:
 - Methodology checked at:
 - Base branch:
@@ -94,15 +102,18 @@ Docs-only adoption/source-update задачи должны включать fenc
 
 ```yaml
 methodology_reference:
-  repository: MaximKolomeets/agent-system-development
-  source_branch: <developer или явно заданная branch>
-  source_commit: <commit-sha>
+  repository_full_name: MaximKolomeets/agent-system-development
+  local_path: C:\neural\repos\agent-system-development
+  ref: origin/main
+  stable_only: true
+  source_commit: <origin/main commit sha>
   checked_at: <ISO-8601 timestamp>
-  reference_type: commit
   notes: <short Russian note>
 ```
 
-`source_commit` обязателен. Если commit SHA получить нельзя, docs-only adoption нельзя считать ready-for-review.
+`source_commit` и `checked_at` обязательны. Если stable reference `origin/main`, явно заданный release tag или published snapshot прочитать нельзя, docs-only adoption нельзя считать ready-for-review.
+
+Для чтения методологии в downstream task не выполнять `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для target repository. Dirty methodology worktree не является STOP, если stable reference читается.
 
 Governance docs target repository должны быть приведены к единому языку. Для русскоязычного target repository по умолчанию используется русский язык.
 
@@ -156,7 +167,7 @@ Requires explicit user approval: <yes/no>
 
 Engine journal scope является target-specific: скопировать или создать scaffold/templates при необходимости, но не копировать methodology repository operational history. Target task/result entries являются append-only после создания.
 
-Docs-only adoption/source-update является per-task closure exception по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». После merge рабочего PR, release PR или sync PR target `RESULT` и `INDEX` закрываются по Closure policy; для обычных work PR вне adoption/source-update действует batch-closure перед release.
+Docs-only adoption/source-update не является автоматическим post-merge closure exception для каждого ordinary PR. После merge ordinary PR отсутствие merge commit SHA / `merged_at` в RESULT не является blocker, если PR URL, reviewed head SHA и `architect_ready` / `human_merge_allowed` зафиксированы; GitHub PR metadata является source of truth для merge facts. Boundary reconciliation выполняется только перед release/audit boundary, при explicit architect request или для batch reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 
 Governance pack files разрешены только как docs-only artifacts:
 
@@ -244,14 +255,14 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, что governance state files переписаны по фактам target repository
 - проверить, что reusable templates не смешаны с target-specific state files
 - проверить, что engine journal structure создана и task/result files не содержат private data
-- проверить, что шаг Closure policy есть для RESULT/INDEX (`adoption/source-update` — per-task closure exception)
+- проверить, что Closure policy для RESULT/INDEX указана: ordinary PR `post_merge_closure: not_required`, boundary reconciliation только release/audit/explicit request
 - проверить, что materialized governance files адаптированы под target repository
 - проверить Governance Review Checklist из `PROJECT_CONSTITUTION.md`
 - проверить language consistency governance docs
 - проверить Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если они входят в scope
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
-- проверить, что `methodology_reference` есть в audit/adoption artifacts и содержит source commit SHA
+- проверить, что `methodology_reference` есть в audit/adoption artifacts, содержит `ref: origin/main` или явно заданный stable ref, `stable_only: true`, source commit SHA и checked_at
 - проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 
 ## Final report
@@ -273,7 +284,7 @@ Governance pack files разрешены только как docs-only artifacts
 - methodology reference;
 - engine journal files;
 - Source Delta present: yes/no;
-- проверка Closure policy (`adoption/source-update` — per-task closure exception);
+- проверка Closure policy: ordinary PR не требует отдельный post-merge closure PR; boundary reconciliation только release/audit/explicit request;
 - files where comments are not applicable and why;
 - risks;
 - Methodology feedback;

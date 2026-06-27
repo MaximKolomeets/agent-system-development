@@ -110,9 +110,11 @@
 
 ## Свежесть методологии
 
-- [ ] Оркестратор проверил актуальный `agent-system-development` перед подготовкой engine task.
-- [ ] Исполнитель (engine) синхронизировал или свежо прочитал `agent-system-development` перед применением methodology.
-- [ ] If sync/check was impossible, the limitation is stated in the report.
+- [ ] Оркестратор проверил stable methodology reference перед подготовкой engine task: `origin/main` / `main`, release tag или явно заданный snapshot.
+- [ ] `methodology_reference` содержит `ref`, `stable_only: true`, `source_commit` и `checked_at`.
+- [ ] Исполнитель (engine) не использовал `developer`, `work/*`, dirty local methodology tree или open methodology PR branch как source of truth для downstream.
+- [ ] Для чтения methodology repository не выполнялись `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository.
+- [ ] If stable reference check was impossible, the limitation is stated in the report and task stopped before source substitution.
 - [ ] Methodology feedback is neutral and does not reveal private data.
 
 ## Согласованность transfer manifest
@@ -141,6 +143,8 @@
 
 - [ ] `ADOPTION_TRANSFER_MANIFEST.yml` применен как transfer map.
 - [ ] Local `AGENTS.md` target repository имеет приоритет.
+- [ ] Russian-first policy перенесена в target `AGENTS.md` или эквивалентные target instructions, если scope менял инструкции.
+- [ ] PR title/body, commit message, TASK/RESULT/INDEX, final report и review summary Russian-first.
 - [ ] Ссылки на methodology repository не раскрывают private data.
 - [ ] Final report содержит Methodology feedback.
 - [ ] Methodology feedback сформулирован нейтрально.

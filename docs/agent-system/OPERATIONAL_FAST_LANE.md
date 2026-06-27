@@ -32,6 +32,8 @@ Operational Fast Lane применяется для:
 - проверка отсутствия open PRs;
 - verify work branch is clean.
 
+Fast Lane не создаёт post-merge journal closure для ordinary PR.
+
 ## Когда не применять
 
 Operational Fast Lane не применяется для:
@@ -51,6 +53,7 @@ Operational Fast Lane не применяется для:
 - В active work PR autoloop machine-verifiable blockers закрываются через reviewer `verification_command` и engine fix-pass report; если checks прошли и scope не расширен, full reviewer pass не нужен. Semantic/mixed blockers требуют minimal reviewer re-review по changed blocker scope.
 - Перед завершением PR/fix-pass/ready-to-merge engine запускает read-only ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`; Fast Lane может принимать его passed output как machine-verifiable evidence, но не превращает Fast Lane в write-action task.
 - Если Fast Lane/status check видит generated/cloud EOL-only шум, сначала использовать read-only `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift остаётся blocker, а EOL/whitespace-only noise не требует полного reviewer pass без других изменений.
+- Для downstream/target status checks methodology reference проверяется по stable ref `origin/main` / `main`, release tag или явно заданному snapshot. Dirty `agent-system-development/developer` или `work/*` не является blocker сам по себе. Fast Lane не выполняет `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в methodology repository ради чтения downstream reference.
 
 ## Правила ответа оркестратора
 
@@ -86,31 +89,33 @@ Operational Fast Lane не применяется для:
 
 - рабочий PR имеет status `merged`;
 - рабочий PR имеет merge commit SHA и `merged_at`, если эти данные доступны;
+- для ordinary PR GitHub PR metadata является source of truth для merge facts;
 - release PR merged, если release в `main` выполнялся;
 - release PR имеет URL/status/merge commit SHA/`merged_at`, если release выполнялся;
 - `python docs/agent-system/tools/gen_file_map.py --check` проходит перед release readiness verdict;
 - sync PR merged, если выполнялся sync `main -> developer`;
 - sync PR имеет URL/status/merge commit SHA/`merged_at`, если sync выполнялся;
 - stale work branches удалены или явно оставлены по причине;
-- target `RESULT` и `INDEX` закрыты после merge;
-- target `RESULT` и `INDEX` фиксируют merge commit SHA, если он доступен;
-- target `RESULT` и `INDEX` фиксируют release/sync факты или явно пишут `не применимо`;
-- target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state в closure-required context; для ordinary work PR в batch-серии допустим `closure pending` до boundary.
+- ordinary `RESULT` и `INDEX` имеют PR URL, reviewed head SHA и `architect_ready` / `human_merge_allowed` до merge, если проверяется ordinary PR;
+- target `RESULT` и `INDEX` закрыты после merge только для release/audit/explicit boundary reconciliation contexts;
+- target `RESULT` и `INDEX` фиксируют merge commit SHA только если boundary reconciliation выполняется и SHA доступен;
+- target `RESULT` и `INDEX` фиксируют release/sync факты или явно пишут `не применимо` только в boundary/release context;
+- target `RESULT` и `INDEX` не содержат `PR open`, `ready for review`, `draft open`, `pending at file materialization` или `see Engine final report` как final state в release/audit/explicit boundary reconciliation context.
 
 Fast Lane может завершиться коротким `чисто` только если:
 
 - work PR merged: yes;
 - release/sync merged или явно `не применимо`;
-- RESULT/INDEX closed after merge: yes для release/audit/adoption/source-update/explicit closure contexts; для ordinary work PR в batch-серии допустимо `merged; closure pending`;
+- RESULT/INDEX closed after merge: yes для release/audit/explicit boundary reconciliation contexts; для ordinary PR достаточно PR URL + reviewed head SHA + `architect_ready` / `human_merge_allowed`, а merge facts читаются из GitHub;
 - PROJECT_FILE_MAP parity check: clean;
 - cloud bundle parity check: clean;
 - task ready-gate: clean, если проверяется active work PR или fix-pass;
 - No journal placeholders: yes;
-- stale pre-merge status check: clean для closure-required context; для ordinary work PR в batch-серии указано `closure pending`.
+- stale pre-merge status check: clean для boundary reconciliation context; для ordinary PR отдельный closure PR не требуется.
 
-Если stale `RESULT` или `INDEX` найдены в release/audit/adoption/source-update/explicit closure context или противоречат GitHub facts, оркестратор должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only journal-closure task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data. Для ordinary work PR внутри batch-серии stale/pre-merge journal state фиксируется как `closure pending` и не требует отдельной closure task до boundary.
+Если stale `RESULT` или `INDEX` найдены в release/audit/explicit boundary reconciliation context или противоречат GitHub facts внутри такого scope, оркестратор должен остановить Fast Lane как read-only/cleanup-only путь и создать отдельную docs-only reconciliation task для `engine`. Такая task должна менять только target journal artifacts и безопасные index/status поля, без runtime, Docker, CI, secrets или private data. Для ordinary PR absence of merge SHA/`merged_at` в `RESULT` не требует отдельной closure task.
 
-Запрещено отвечать `все закрыто`, если GitHub PR merged в closure-required контексте, но target journal entry все еще содержит `open`, `ready for review`, `not merged`, `submitted for review`, `PR open`, `draft open`, `pending at file materialization` или `see Engine final report` как final state. Для ordinary work PR в batch-серии отвечать, что запись ожидает batch-closure перед boundary.
+Запрещено отвечать `все закрыто`, если GitHub PR merged в release/audit/explicit boundary reconciliation context, но target journal entry все еще содержит `open`, `ready for review`, `not merged`, `submitted for review`, `PR open`, `draft open`, `pending at file materialization` или `see Engine final report` как final state. Для ordinary PR отвечать, что цикл закрыт на ordinary terminal state, а post-merge facts находятся в GitHub PR metadata.
 
 ## Безопасность
 

@@ -1,5 +1,39 @@
 # DECISION_LOG
 
+## 2026-06-27 - Ordinary PR без обязательного post-merge closure
+
+Решение:
+Обычный task PR считается завершённым на ordinary terminal state: reviewer approve/approve-equivalent, `architect_ready` / `human_merge_allowed`, PR URL и reviewed head SHA зафиксированы. После human merge отдельная правка `RESULT/INDEX` для каждого ordinary PR не требуется.
+
+GitHub PR metadata является source of truth для post-merge facts: PR state, `merged_at`, merge commit SHA и PR URL. Post-merge closure stamp в `RESULT/INDEX` нужен только перед release/audit boundary, при explicit architect request или для batch reconciliation.
+
+Причина:
+Engine завершает task branch до human merge, а merge выполняет человек. Требование вписывать `merged_at` и merge commit SHA в каждую ordinary journal entry после merge неизбежно создавало второй PR или batch cleanup после обычной работы.
+
+Последствия:
+- ordinary PR больше не создаёт cleanup-closure-state debt;
+- reviewer не требует merge SHA/`merged_at` в `RESULT` ordinary PR как blocker;
+- orchestrator после merge ordinary PR синхронизирует `developer` и переходит к следующей задаче, а не предлагает closure PR;
+- boundary reconciliation остаётся доступной перед release/audit или по явному запросу архитектора;
+- old RESULT/INDEX entries не переписываются ради нового канона.
+
+## 2026-06-26 - Stable main reference и Russian-first GitHub-facing policy
+
+Решение:
+Для target/downstream задач stable methodology reference по умолчанию `origin/main` / `main`. Release tag или published Source/cloud snapshot используются только по явному решению архитектора. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для downstream.
+
+GitHub-facing artifacts - commit messages, PR title/body, review summaries, verdict comments и final reports - соблюдают Russian-first policy. English допускается только для technical identifiers, commands, paths, filenames, branch names, config keys, API names, package names, machine-readable status values и literal external names.
+
+Причина:
+Downstream работа должна читать стабильную, опубликованную методологию и не останавливаться из-за незавершенной local/PR работы в methodology repository. Одновременно пользовательские и GitHub-facing surfaces должны оставаться русскоязычными, чтобы policy не терялась между TASK/RESULT, PR и review.
+
+Последствия:
+- downstream/adoption task фиксирует `methodology_reference.ref: origin/main`, `stable_only: true`, `source_commit` и `checked_at`;
+- dirty `agent-system-development/developer` или `work/*` не является STOP, если stable ref читается;
+- после merge policy PR в `developer` архитектор должен отдельно продвинуть `developer -> main`, иначе downstream, читающий `origin/main`, не увидит новые правила;
+- reviewer проверяет stable reference и Russian-first GitHub-facing metadata как scope gate;
+- runtime, Docker, CI, branch protection и private downstream data не затрагиваются.
+
 ## 2026-06-26 - TASK_CONTRACT включён в default cloud bundle
 
 Решение:

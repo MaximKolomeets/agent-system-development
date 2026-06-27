@@ -7,7 +7,9 @@
 - Add pre-push hook.
 - Prepare private downstream repository transfer/adaptation prompt.
 - Подготовить checklists для агентов.
-- Future methodology simplification после release `v1.2.0`: lifecycle simplification, context handoff footer enforcement, GitHub PR state as authority, journal gate automation, adoption feedback loop automation. Не реализовывать в release-prep; рассматривать отдельными scoped задачами.
+- Выполнено в `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`: lifecycle simplification для ordinary PR и GitHub PR metadata как source of truth для merge facts.
+- Future methodology simplification после release `v1.2.0`: context handoff footer enforcement, journal gate automation, adoption feedback loop automation. Не реализовывать в release-prep; рассматривать отдельными scoped задачами.
+- После merge `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01`: human-only release PR `developer -> main`, чтобы stable `origin/main` включал новую downstream policy. Это не выполняется engine в этой задаче.
 
 ## Post-autoloop automation roadmap
 

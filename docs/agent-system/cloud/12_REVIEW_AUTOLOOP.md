@@ -8,6 +8,12 @@ Review autoloop описывает ограниченный автоматизи
 Engine PR -> Reviewer review -> Engine fix-pass -> Reviewer re-review -> architect-ready
 ```
 
+Для ordinary PR итоговый lifecycle выглядит так:
+
+```text
+Engine PR -> Reviewer approve -> architect-ready -> human merge
+```
+
 Цель цикла - снять мелкие review-замечания без отдельного feedback PR и без ручного подтверждения каждого микрошага, сохранив все safety gates.
 
 ## Область применения
@@ -33,6 +39,8 @@ Autoloop применим только к active work PR в основной tas
 | `reviewer:approved` | Reviewer | Blockers нет, checks зелёные | `architect:ready-to-merge` |
 | `architect:ready-to-merge` | Architect | Reviewer approve-equivalent получен | Human merge в `developer` или human hold |
 | `automation:stopped-human-required` | Любая сторона | STOP-condition или превышен лимит циклов | Architect decision |
+
+`architect:ready-to-merge` является terminal state для ordinary PR с точки зрения engine/reviewer. После human merge не запускать automatic closure PR, не требовать re-review, не открывать cleanup PR и не считать `RESULT/INDEX` open/ready surfaces долгом, если запись содержит PR URL, reviewed head SHA и `architect:ready-to-merge` / `human_merge_allowed`. GitHub PR metadata является source of truth для `merged_at`, merge commit SHA, PR state и PR URL.
 
 ## Рекомендуемые labels/statuses
 
@@ -118,6 +126,12 @@ python docs/agent-system/tools/check_task_ready.py --base origin/developer
 
 Для `machine-verifiable` blockers reviewer может указать эту команду как `verification_command`, если blocker покрыт её проверками. Passed output `check_task_ready.py` достаточно для machine-check closure только при отсутствии scope drift и новых blockers; `semantic`/`mixed` blockers всё равно требуют minimal reviewer re-review по изменённому blocker scope.
 
+## Language и stable-reference gates
+
+Reviewer проверяет Russian-first для PR title/body, commit subject/body, review summary, RESULT/final report и verdict comments. Ready-for-review PR с преимущественно англоязычной GitHub-facing metadata без явного разрешения архитектора получает blocker.
+
+Если PR затрагивает downstream/adoption/source-update правила, reviewer проверяет `methodology_reference`: stable downstream source - `origin/main` / `main`, явно заданный release tag или published snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch являются blocker как downstream source of truth. Dirty methodology worktree сам по себе не является blocker для downstream task, если stable reference читается.
+
 ## Own-PR verdict fallback
 
 Если GitHub не позволяет reviewer token оставить formal `APPROVE` / `REQUEST_CHANGES` из-за ограничения own PR или author identity, это не blocker. Reviewer оставляет top-level PR comment с тем же verdict/schema, например `verdict: reviewer:approved` или `verdict: reviewer:changes-requested`, reviewed head SHA и blocker IDs. Такой comment является approve-equivalent или changes-requested-equivalent для autoloop; human merge всё равно остаётся только за архитектором.
@@ -145,6 +159,7 @@ Reviewer:
 - оставляет feedback только в PR агента;
 - не создаёт отдельный PR для feedback;
 - классифицирует feedback как blocker/non-blocking по схеме `B-01`/`machine-verifiable|semantic|mixed`;
+- проверяет Russian-first GitHub-facing metadata и stable methodology reference, если они применимы к scope;
 - указывает `verification_command`, `can_engine_fix_without_architect` и `re_review_policy` для каждого blocker или группы blockers;
 - указывает, можно ли продолжать autoloop;
 - при blockers использует статус/comment `reviewer:changes-requested`;
@@ -160,6 +175,7 @@ Engine:
 - исправляет только feedback, относящийся к scope PR;
 - не открывает отдельный feedback PR;
 - закрывает blockers по IDs и фиксирует verification result для каждого `verification_command`;
+- сохраняет Russian-first для GitHub-facing metadata и не подменяет downstream stable reference на `developer`/`work/*`;
 - запускает `python docs/agent-system/tools/check_task_ready.py --base origin/developer` перед возвратом PR reviewer/architect;
 - если все blockers `machine-verifiable`, все checks passed и scope не расширен, может вывести machine-check closure и `architect:ready-to-merge` без полного reviewer pass;
 - для `semantic`/`mixed` blockers возвращает PR на minimal reviewer re-review по `re_review_policy`;

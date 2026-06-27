@@ -1,5 +1,13 @@
 # NEW_PROJECT_ONBOARDING_GUIDE
 
+## Stable methodology reference
+
+Новый target/downstream project читает methodology repository из stable reference: `origin/main` / `main`, явно заданный release tag или published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для onboarding.
+
+Dirty рабочая ветка в `agent-system-development` не блокирует onboarding, если stable reference доступен. Для чтения методологии не выполнять `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository.
+
+Все onboarding TASK/RESULT/INDEX, final report, PR title/body, commit message и target-local docs/templates пишутся по Russian-first policy.
+
 ## Назначение
 
 Этот документ помогает пользователю запустить новый проект через lifecycle и templates из `agent-system-development`.

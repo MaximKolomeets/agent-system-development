@@ -48,6 +48,9 @@ task_contract:
     review: scoped_semantic
     merge: human_only
     closure_pr: false
+    post_merge_closure: not_required
+    boundary_reconciliation: release_or_audit_only
+    language: russian_first
   checks:
     required:
       - python docs/agent-system/tools/check_task_ready.py --base origin/developer
@@ -153,6 +156,8 @@ Final report, review report, TASK/RESULT/INDEX и target-local docs/templates п
 
 English допустим только для code identifiers, commands, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names.
 
+Commit subject/body, PR title/body, review summary и PR verdict/comment также должны быть Russian-first. Conventional prefix вроде `docs(agent-system):` допустим, но смысловой текст после `:` пишется по-русски.
+
 ## Goal
 
 Провести review repository и создать review report.
@@ -187,6 +192,8 @@ git checkout <headRefOid>   # head SHA из `gh pr view`
 Review report и RESULT фиксируют reviewed head SHA. Если PR обновился после ревью (head SHA сменился), вердикт относится только к зафиксированному head SHA, что отмечается явно.
 
 Reviewer сверяет «Source Delta» из проверяемого PR с фактическим diff и `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`: все inventory-изменения отражены, категории соответствуют manifest, Source-рекомендации корректны, `manifest обновлён?` правдив. Для `added`/`deleted`/`renamed` inventory-файлов категории `source`, `template` или `target_generated` отсутствие manifest update является finding/blocker по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
+
+Если review object связан с downstream/adoption/source-update, reviewer проверяет `methodology_reference`: stable ref должен быть `origin/main` / `main`, явно заданный release tag или published snapshot; `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не допускаются как source of truth без явного решения архитектора.
 
 Reviewer сверяет, что новые TASK/RESULT записи содержат measured execution-поля по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Execution timestamps»: `execution_started_at` в TASK/RESULT и `execution_finished_at` в RESULT. Отсутствие этих полей в finalized записи является minor finding, но не blocker; optional `reported/human` поля не проверяются как обязательные.
 
@@ -422,7 +429,7 @@ Head: work/<reviewer-role>/<task-id>
 Title: <review task title>
 ```
 
-Журнал финализируется после создания PR. После merge closure выполняется по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`: default — batch перед release/audit/methodology boundary; per-task — только для explicit closure gate, release/audit consistency gate, финального PR перед release, adoption/source-update, противоречивых journal facts или другого явно указанного исключения. В closure-review reviewer сверяет merge-факты по `RESULT` closure-stamp и GitHub/local git; `INDEX` проверяется как status + PR URL и не обязан содержать полный merge commit SHA.
+Журнал финализируется после создания PR. Для ordinary review/docs-only PR после merge не создавать отдельный closure PR: отсутствие merge commit SHA / `merged_at` в RESULT не является blocker, если PR URL, reviewed head SHA и `architect_ready` / `human_merge_allowed` зафиксированы. GitHub PR metadata является source of truth для merge facts. Boundary reconciliation выполняется только перед release/audit boundary, при explicit architect request или для batch reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`.
 
 ## Локальные действия после PR/merge
 
@@ -443,6 +450,8 @@ Title: <review task title>
 - vendor-specific naming check result;
 - reviewed head SHA, если Review object = PR;
 - Source Delta review result: сверка с diff/manifest, findings по категориям, рекомендациям и manifest flag;
+- language policy result: Russian-first для report, journal, commit/PR metadata и review summary;
+- methodology reference result, если review связан с downstream/adoption/source-update;
 - risks;
 - next step;
 - Передача — блок `Следующий: <роль> — <что делает>` и batch-friendly формулировка, если применимо (канон `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача»);

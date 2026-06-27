@@ -27,8 +27,11 @@ Branch: `work/<role>/<task>`
 6. Не менять forbidden paths и не читать `.env`.
 7. Запустить `verification_command` для каждого blocker, task checks и generated checks, если затронуты docs/generated artifacts.
 8. Обновить RESULT/final report, если task ведёт journal.
-9. Push в ту же task branch.
-10. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
+9. Сохранить Russian-first для commit/PR metadata, PR comments, RESULT/final report и review/fix-pass summary.
+10. Не менять downstream `methodology_reference` на `developer`, `work/*`, dirty local methodology tree или open methodology PR branch.
+11. Не создавать отдельный post-merge closure PR для ordinary PR; RESULT/final report фиксирует PR URL, reviewed head SHA и `architect:ready-to-merge`, а merge facts после human merge берутся из GitHub PR metadata.
+12. Push в ту же task branch.
+13. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
 
 ## STOP-условия
 
@@ -37,6 +40,7 @@ Branch: `work/<role>/<task>`
 - secrets-risk или forbidden paths;
 - failed checks после fix-pass;
 - generated drift не сходится;
+- Russian-first или stable methodology reference blocker не закрыт;
 - требуется force-push/rewrite;
 - превышен `max_review_cycles`;
 - reviewer или architect запросил human decision.

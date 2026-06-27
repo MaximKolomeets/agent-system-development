@@ -19,7 +19,7 @@
 
 Для development/write-action задач добавить в начало TASK file fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. Prose остаётся human explanation; если contract и prose конфликтуют, `engine` пишет `STOP`.
 
-Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`.
+Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`. Для downstream/target задач дополнительно указать `methodology_reference` со stable ref `origin/main` и `policies.language: russian_first`. Для задач, которые меняют сам methodology repository, допустим `methodology_reference.stable_only: false`.
 
 ## Task ID
 
@@ -53,14 +53,14 @@
 
 Описать проверки перед отчетом.
 
-Если задача создает PR, release PR или sync PR, проверки должны включать Closure policy для RESULT/INDEX: batch-closure перед release по умолчанию, per-task только для исключений из `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
+Если задача создает ordinary PR, проверки должны включать Closure policy для RESULT/INDEX: ordinary terminal state (`architect_ready` / `human_merge_allowed`), PR URL и reviewed head SHA зафиксированы, отдельный post-merge closure PR не требуется. Для release/audit boundary или explicit architect request указывать boundary reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 
 ## Ожидаемый отчет
 
 Описать формат итогового отчета.
 
-Отчет должен быть на русском языке и содержать language policy result.
+Отчет должен быть на русском языке и содержать language policy result, включая статус commit/PR metadata и review/final-report language.
 
 Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
 
-Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), merge commit SHA, release PR URL/status/merge commit SHA при наличии, sync PR URL/status/merge commit SHA при наличии, статус Closure policy для RESULT/INDEX: `closed`, `closure pending until batch before release` или `not applicable`.
+Если PR был merged, отчет должен содержать статус PR после review (`PR status after review`), PR URL и reviewed head SHA. Для ordinary PR merge commit SHA / `merged_at` берутся из GitHub PR metadata и не обязаны backfill'иться в RESULT. Для release/audit boundary или explicit architect request отчет отдельно фиксирует boundary reconciliation status: `boundary_closed`, `required`, `not_required` или `explicit_architect_request`.
