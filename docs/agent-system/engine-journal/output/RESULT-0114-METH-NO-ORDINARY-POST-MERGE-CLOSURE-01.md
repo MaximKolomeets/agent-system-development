@@ -28,9 +28,11 @@ Base: `developer`
 
 Baseline `origin/developer`: `6a346ce841f3195c10593c1983342a906211c263`
 
-PR URL: будет зафиксирован после создания PR.
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/271
 
-Final head SHA: будет зафиксирован после финального push.
+Head before PR URL finalization commit: `cfc7afa5de9fe35d04ecf77b62f0117be8d7b12e`
+
+Actual PR head SHA after final push: см. GitHub PR metadata и финальный отчет; SHA не встраивается в тот же commit из-за self-reference loop по `ENGINE_JOURNAL_CONTRACT.md`.
 
 Reviewed head SHA: не применимо до reviewer pass.
 
