@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-27 - Strict Authorization header guard в ready-gate
+
+Решение:
+`check_task_ready.py` блокирует добавленные headers `Authorization` как sensitive risk независимо от auth-схемы и регистра имени header. Вывод ready-gate остаётся count-only / filename-only / category-only: matching values не печатаются в human output и JSON.
+
+Причина:
+Во время adoption PR target implementation repository найден P1 safety-defect: нестандартная auth-схема могла не попасть в strict added-line scan. Для public methodology repository безопаснее выбрать строгий вариант и блокировать весь header, чем пытаться различать реальные values и placeholders.
+
+Последствия:
+- `Authorization` header с любой auth-схемой считается blocker в added-line scan;
+- placeholder allowlist для этого header не является обязательной частью hotfix;
+- `.env`, runtime, CI, branch protection и target implementation repository не меняются;
+- downstream stable source должен быть обновлен после human merge/release hotfix.
+
 ## 2026-06-27 - Ordinary PR без обязательного post-merge closure
 
 Решение:
