@@ -39,6 +39,8 @@ CANONICAL_BUNDLE_ORDER = [
     "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml",
     "docs/agent-system/REVIEW_AUTOLOOP.md",
     "docs/agent-system/TASK_CONTRACT.md",
+    "docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md",
+    "docs/agent-system/LANGUAGE_POLICY.md",
 ]
 
 

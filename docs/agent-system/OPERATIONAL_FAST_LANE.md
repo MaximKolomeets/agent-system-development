@@ -51,6 +51,7 @@ Operational Fast Lane не применяется для:
 - В active work PR autoloop machine-verifiable blockers закрываются через reviewer `verification_command` и engine fix-pass report; если checks прошли и scope не расширен, full reviewer pass не нужен. Semantic/mixed blockers требуют minimal reviewer re-review по changed blocker scope.
 - Перед завершением PR/fix-pass/ready-to-merge engine запускает read-only ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`; Fast Lane может принимать его passed output как machine-verifiable evidence, но не превращает Fast Lane в write-action task.
 - Если Fast Lane/status check видит generated/cloud EOL-only шум, сначала использовать read-only `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift остаётся blocker, а EOL/whitespace-only noise не требует полного reviewer pass без других изменений.
+- Для downstream/target status checks methodology reference проверяется по stable ref `origin/main` / `main`, release tag или явно заданному snapshot. Dirty `agent-system-development/developer` или `work/*` не является blocker сам по себе. Fast Lane не выполняет `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в methodology repository ради чтения downstream reference.
 
 ## Правила ответа оркестратора
 

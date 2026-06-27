@@ -6,6 +6,8 @@ Target project governance pack - это обязательный набор до
 
 `agent-system-development` хранит только reusable methodology/templates. Project-specific state downstream-проектов не хранится в public methodology repository и создается заново в каждом target repository.
 
+Target repository должен фиксировать stable methodology reference: `origin/main` / `main`, явно заданный release tag или published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для target governance pack.
+
 ## Зачем нужен governance pack
 
 Governance pack нужен, чтобы:
@@ -102,6 +104,8 @@ Governance templates в methodology repository являются reusable sources
 Materialized target governance files всегда требуют target adaptation. `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `BACKLOG.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, `PROJECT_GUARDRAILS.md` и `ENGINE_REGISTRY.md` не копируются verbatim и пишутся по фактам target repository.
 
 Project-specific state живет только в target repository.
+
+Target governance files пишутся по Russian-first policy. Commit messages, PR title/body, review summaries, final reports и TASK/RESULT/INDEX также должны быть Russian-first; English допускается только для technical identifiers, commands, paths, filenames, branch names, config keys, API names, package names, machine-readable status values и literal external names.
 
 Нужно переписать под target repository:
 

@@ -35,7 +35,7 @@ Docs-only adoption/source-update задачи должны включать fenc
 - Repository:
 - Local path, если применимо:
 - Methodology repository:
-- Methodology source branch:
+- Methodology stable reference:
 - Methodology source commit:
 - Methodology checked at:
 - Base branch:
@@ -94,15 +94,18 @@ Docs-only adoption/source-update задачи должны включать fenc
 
 ```yaml
 methodology_reference:
-  repository: MaximKolomeets/agent-system-development
-  source_branch: <developer или явно заданная branch>
-  source_commit: <commit-sha>
+  repository_full_name: MaximKolomeets/agent-system-development
+  local_path: C:\neural\repos\agent-system-development
+  ref: origin/main
+  stable_only: true
+  source_commit: <origin/main commit sha>
   checked_at: <ISO-8601 timestamp>
-  reference_type: commit
   notes: <short Russian note>
 ```
 
-`source_commit` обязателен. Если commit SHA получить нельзя, docs-only adoption нельзя считать ready-for-review.
+`source_commit` и `checked_at` обязательны. Если stable reference `origin/main`, явно заданный release tag или published snapshot прочитать нельзя, docs-only adoption нельзя считать ready-for-review.
+
+Для чтения методологии в downstream task не выполнять `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для target repository. Dirty methodology worktree не является STOP, если stable reference читается.
 
 Governance docs target repository должны быть приведены к единому языку. Для русскоязычного target repository по умолчанию используется русский язык.
 
@@ -251,7 +254,7 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если они входят в scope
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
-- проверить, что `methodology_reference` есть в audit/adoption artifacts и содержит source commit SHA
+- проверить, что `methodology_reference` есть в audit/adoption artifacts, содержит `ref: origin/main` или явно заданный stable ref, `stable_only: true`, source commit SHA и checked_at
 - проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 
 ## Final report

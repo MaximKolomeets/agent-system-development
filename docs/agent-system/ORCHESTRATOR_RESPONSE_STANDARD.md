@@ -18,6 +18,8 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Во всех блоках для исполнителя (engine) действует `docs/agent-system/LANGUAGE_POLICY.md`: `engine` должен писать final report, TASK/RESULT/INDEX fields и descriptions на русском языке, кроме технических identifiers, commands, paths, filenames, branch names, config keys, API names, package names, vendor/tool names и literal external names. Commit subject/body и PR title/body тоже должны быть Russian-first: conventional prefix допустим, смысловой текст после него пишется по-русски.
 
+Для target/downstream задач действует `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`: methodology source по умолчанию `origin/main` / `main`; release tag или published Source/cloud snapshot используется только если архитектор явно задал это в задаче. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются source of truth для downstream.
+
 Новые блоки для исполнителя (engine), которые меняют repository files, создают PR или описывают substantive/tooling/docs-only/review/fix-pass/release/adoption task, должны включать fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. В нём явно фиксируются mode, execution_mode, repository, working_branch, allowed_files, forbidden_files, policies, required checks и STOP conditions. Маленькая Fast Lane проверка без write-action, PR и journal trace может идти без `task_contract`.
 
 Если `task_contract` присутствует, он является source of truth для mode/scope/checks/STOP, а prose остаётся human explanation. Если contract и prose конфликтуют, orchestrator должен направить engine на `STOP` и запрос решения архитектора, а не выбирать одну из версий молча.
@@ -84,6 +86,7 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 - проверки;
 - STOP-условия;
 - Russian-first policy и допустимые исключения для технических identifiers;
+- stable methodology reference, если задача применяет methodology repository к target/downstream project;
 - политика journal finalization;
 - режим task source, если используется Task File Handoff Mode;
 - политика commit, push и PR;
@@ -210,6 +213,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
 - [ ] Указан ли язык commit/PR metadata: commit subject/body и PR title/body — Russian-first, technical identifiers не переводятся, conventional prefix допустим?
+- [ ] Для target/downstream задачи указан ли stable `methodology_reference`: `origin/main` / `main`, release tag или явно заданный snapshot, без `developer`/`work/*`?
 - [ ] Если задача меняет файлы, создаёт PR или выполняет substantive/tooling/docs-only/review/fix-pass/release/adoption flow, есть ли fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`?
 - [ ] Если `task_contract` есть, совпадают ли его mode/scope/checks/STOP с prose; при конфликте указан ли `STOP`?
 - [ ] Есть ли требования к финальному отчету?
@@ -363,17 +367,33 @@ Post-merge checks в Operational Fast Lane должны включать journal
 
 Например, задача для target repository и задача для methodology repository должны быть разными блоками для исполнителя (engine). Нельзя делать один блок для исполнителя (engine) неполным из-за того, что часть данных находится в другом блоке.
 
-## Проверка актуального methodology repository
+## Stable methodology reference для target/downstream
 
-Перед формированием задачи для target repository оркестратор должен обратиться к актуальному `agent-system-development`, проверить изменения и использовать текущую версию методологии.
+Перед формированием задачи для target repository оркестратор должен проверить stable methodology reference, а не текущую рабочую ветку разработки методологии. По умолчанию это `origin/main` / `main`.
 
-Если проверить актуальность невозможно, оркестратор должен явно сказать это пользователю и включить в блок для исполнителя (engine) обязательный preflight для `git fetch --all --prune` и `git pull --ff-only` там, где это безопасно.
+Если `origin/main` недоступен или нужный файл в stable reference не читается, оркестратор должен явно сказать это пользователю и включить в блок для исполнителя (engine) `STOP` до выбора другого source. Если архитектор явно указал release tag или published Source/cloud snapshot, task использует именно его.
 
-В новых проектных чатах проверка актуальности methodology repository выполняется после применения `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` и до постановки задачи для исполнителя (engine) в target repository.
+Downstream task не должна выполнять `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository ради чтения методологии. `git fetch --all --prune` допустим как read-refresh, если task permits network/sync. Dirty `agent-system-development/developer` или dirty `work/*` не является STOP для target task, если stable reference читается.
+
+В `task_contract` для downstream/adoption задач фиксировать:
+
+```yaml
+methodology_reference:
+  repository_full_name: MaximKolomeets/agent-system-development
+  local_path: C:\neural\repos\agent-system-development
+  ref: origin/main
+  stable_only: true
+  source_commit: <origin/main commit sha>
+  checked_at: <ISO-8601 timestamp>
+```
+
+После merge methodology PR в `developer` новые правила не видны downstream задачам, которые корректно читают `origin/main`; архитектор должен отдельно продвинуть `developer -> main`, если политика нужна downstream.
 
 ## Синхронизация methodology repository перед выполнением
 
-Любой `engine`, который применяет или изменяет methodology repository, должен перед изменениями синхронизировать локальную копию `agent-system-development` с GitHub.
+Любой `engine`, который меняет methodology repository, должен перед изменениями синхронизировать локальную копию `agent-system-development` с GitHub.
+
+`engine`, который только применяет методологию к target/downstream repository, читает stable reference по разделу выше и не переключает рабочую methodology ветку.
 
 Если working tree не чистый, `engine` должен написать `STOP` и не перетирать локальные изменения.
 

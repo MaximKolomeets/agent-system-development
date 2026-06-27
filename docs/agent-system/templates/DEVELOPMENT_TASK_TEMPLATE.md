@@ -19,7 +19,7 @@
 
 Для development/write-action задач добавить в начало TASK file fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. Prose остаётся human explanation; если contract и prose конфликтуют, `engine` пишет `STOP`.
 
-Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`.
+Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`. Для downstream/target задач дополнительно указать `methodology_reference` со stable ref `origin/main` и `policies.language: russian_first`. Для задач, которые меняют сам methodology repository, допустим `methodology_reference.stable_only: false`.
 
 ## Task ID
 
@@ -59,7 +59,7 @@
 
 Описать формат итогового отчета.
 
-Отчет должен быть на русском языке и содержать language policy result.
+Отчет должен быть на русском языке и содержать language policy result, включая статус commit/PR metadata и review/final-report language.
 
 Отчёт обязан заканчиваться блоком «Передача» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Передача» (`Следующий: <роль> — <что делает>`). Если задача меняла методологию/каноны — применить Source-reminder по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source-reminder».
 
