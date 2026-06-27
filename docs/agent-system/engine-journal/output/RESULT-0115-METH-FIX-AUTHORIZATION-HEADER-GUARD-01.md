@@ -1,13 +1,21 @@
 # RESULT-0115 - METH-FIX-AUTHORIZATION-HEADER-GUARD-01
 
 Время начала выполнения (execution_started_at) [measured/engine]: 2026-06-27T12:36:45.8658724+07:00
-Время окончания выполнения (execution_finished_at) [measured/engine]: будет зафиксировано финализацией после создания PR
-Длительность выполнения (execution_duration) [measured/engine, опционально]: будет зафиксирована финализацией после создания PR
+Время окончания выполнения (execution_finished_at) [measured/engine]: 2026-06-27T12:47:10.3534087+07:00
+Длительность выполнения (execution_duration) [measured/engine, опционально]: около 10 минут от journal materialization до первичной PR finalization
 Время человека, по факту (human_time_reported) [reported/human, опционально]: не указано
 
 ## Итог
 
-Статус: in progress for PR creation.
+status: completed
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/273
+head_sha: см. GitHub PR metadata и финальный отчет; exact final SHA не встраивается в тот же commit из-за self-reference loop.
+reviewed_head_sha: reviewer должен использовать финальный PR head SHA из GitHub PR metadata и финального отчета.
+terminal_state: architect_ready
+post_merge_closure_required: false
+merge_facts_source: github_pr_metadata
+started_at: 2026-06-27T12:36:45.8658724+07:00
+finished_at: 2026-06-27T12:47:10.3534087+07:00
 
 Ready-gate усилен для strict added-line scan: правило header `Authorization` теперь матчится как имя заголовка с optional whitespace перед separator и с case-insensitive режимом. Проверка не зависит от auth-схемы и продолжает выводить только file/count/category, без matching values.
 
@@ -19,17 +27,21 @@ Base: `developer`
 
 Baseline `origin/developer`: `3a458946a11bb82112ba412ef315e2f5a1ce15db`
 
-PR URL: будет добавлен финализацией после создания PR.
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/273
 
-Head before PR URL finalization commit: будет добавлен финализацией после создания PR.
+Head before PR URL finalization commit: `db70dedbb1237dc29f3709efbf4de7eb385847d9`
+
+Actual PR head SHA after final push: см. GitHub PR metadata и финальный отчет; SHA не встраивается в тот же commit из-за self-reference loop по `ENGINE_JOURNAL_CONTRACT.md`.
 
 Reviewed head SHA: reviewer должен использовать финальный PR head SHA из GitHub PR metadata и финального отчета.
 
 ## Что изменено
 
 - `check_task_ready.py`: strict pattern для header `Authorization` сделан header-oriented и case-insensitive без зависимости от auth-схемы.
-- Journal 0115 создан для task/result trace.
-- State docs обновляются минимально, чтобы зафиксировать P1 safety hotfix.
+- `check_task_ready.py`: structured TASK/RESULT journal filenames исключены из sensitive filename false-positive, потому task id может описывать safety-тему; content scan для этих файлов остаётся активным.
+- Journal 0115 создан и финализирован до `architect_ready`.
+- State docs обновлены минимально, чтобы зафиксировать P1 safety hotfix.
+- Cloud bundle regenerated только для `CURRENT_STATE`, `NEXT_STEPS` и `INDEX`.
 
 ## Targeted smoke
 
@@ -41,16 +53,26 @@ Reviewed head SHA: reviewer должен использовать финальн
 
 ## Проверки
 
-Будут зафиксированы финализацией после выполнения обязательных checks.
+- `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0115-METH-FIX-AUTHORIZATION-HEADER-GUARD-01.md`: passed.
+- `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0115-METH-FIX-AUTHORIZATION-HEADER-GUARD-01.md --json`: passed.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: ready; blockers 0; warnings 0.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: ready; blockers 0; warnings 0.
+- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`: passed; blockers 0; warnings 0.
+- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer --json`: passed; blockers 0; warnings 0.
+- `python docs/agent-system/tools/gen_file_map.py --check`: passed.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
+- `git diff --check origin/developer...HEAD`: passed.
+- `git diff --cached --check`: passed before commit.
 
 ## Safety
 
-- forbidden changed paths: будет зафиксировано финализацией.
-- sensitive filenames: будет зафиксировано финализацией.
-- strict added-line secret values: будет зафиксировано финализацией.
+- forbidden changed paths: 0.
+- sensitive filenames: 0.
+- strict added-line secret values: 0.
 - `.env` read: no.
 - verification changed: no.
 - product/runtime/CI/branch protection changes: no.
+- matching values printed: no.
 
 ## Source Delta
 
@@ -64,8 +86,9 @@ Reviewed head SHA: reviewer должен использовать финальн
 | `docs/agent-system/engine-journal/input/TASK-0115-METH-FIX-AUTHORIZATION-HEADER-GUARD-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/output/RESULT-0115-METH-FIX-AUTHORIZATION-HEADER-GUARD-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
-| `docs/agent-system/PROJECT_FILE_MAP.md` | conditional | generated_index | none | n-a |
-| `docs/agent-system/cloud/**` | conditional | generated | none | n-a |
+| `docs/agent-system/cloud/06_CURRENT_STATE.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/08_NEXT_STEPS.md` | modified | generated | none | n-a |
 
 ## Context handoff
 
@@ -83,4 +106,4 @@ Scoped technical safety review:
 
 ## Передача
 
-Следующий: methodology-architect-01 — финализировать RESULT/INDEX после создания PR, затем передать reviewer на scoped technical safety review.
+Следующий: reviewer — scoped technical safety review PR #273.
