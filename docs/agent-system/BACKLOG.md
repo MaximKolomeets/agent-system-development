@@ -10,6 +10,7 @@
 - Выполнено в `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`: lifecycle simplification для ordinary PR и GitHub PR metadata как source of truth для merge facts.
 - Future methodology simplification после release `v1.2.0`: context handoff footer enforcement, journal gate automation, adoption feedback loop automation. Не реализовывать в release-prep; рассматривать отдельными scoped задачами.
 - После merge `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01`: human-only release PR `developer -> main`, чтобы stable `origin/main` включал новую downstream policy. Это не выполняется engine в этой задаче.
+- Выполняется в `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`: P1 safety hotfix для ready-gate, чтобы headers `Authorization` блокировались независимо от auth-схемы и matching values не выводились.
 
 ## Post-autoloop automation roadmap
 
