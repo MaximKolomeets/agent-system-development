@@ -489,6 +489,7 @@ Reviewer подтверждает:
 - новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
+- ready-for-review PR соблюдает `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`: finalized TASK/RESULT/INDEX не содержат deferred finalization markers текущей задачи;
 - если это обычный work PR, status `architect_ready` / `human_merge_allowed` допустим как ordinary terminal state; post-merge closure stamp не требуется до boundary reconciliation или explicit architect request;
 - TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal external names.
 

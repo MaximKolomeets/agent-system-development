@@ -1,5 +1,20 @@
 # DECISION_LOG
 
+## 2026-06-29 - Semantic completeness gates закреплены как pre-PR слой
+
+Решение:
+Добавить reusable semantic completeness gates, journal finalization policy и acceptance/spec completeness pattern как обязательные ссылки для docs/journal/templates/tooling задач. Ready-gate расширен минимальной category для deferred finalization markers в changed TASK/RESULT files без печати matching values.
+
+Причина:
+Sanitized downstream feedback показал повторяющийся класс semantic/mixed дефектов: технические checks могут быть зелёными, но RESULT, PR body, state docs, acceptance spec, blocker matrix, fixture plan и boundary docs могут противоречить фактическому diff или выполненным checks.
+
+Последствия:
+- `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`, `METH-JOURNAL-FINALIZATION-PHRASES-01` и `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01` объединены в одну methodology hardening task;
+- `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` остаётся отдельной future task для sanitized feedback report;
+- ready-gate остаётся lightweight и не становится NLP/semantic parser;
+- output safety сохраняется: counts, filenames и category без matching values;
+- runtime, Docker, CI, branch protection, release/tag/version и target repository не меняются.
+
 ## 2026-06-28 - Downstream semantic completeness feedback принят как backlog input
 
 Решение:

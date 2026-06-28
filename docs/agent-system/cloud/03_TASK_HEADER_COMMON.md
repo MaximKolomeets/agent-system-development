@@ -289,6 +289,9 @@ Orchestrator context handoff».
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.
 - [ ] Forbidden files are included.
+- [ ] Semantic completeness checklist выполнен по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: RESULT/PR body/state docs/boundary docs согласованы с diff и фактически выполненными checks.
+- [ ] Если задача создаёт acceptance spec, blocker matrix, fixture plan, contract tests или generator scaffold, применён `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
+- [ ] Finalized TASK/RESULT/INDEX соблюдают `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
 - [ ] Checks are included.
 - [ ] STOP conditions are included.
 - [ ] Final report requirements are included.
