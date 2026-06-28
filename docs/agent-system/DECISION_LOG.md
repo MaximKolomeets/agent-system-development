@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-28 - Downstream semantic completeness feedback принят как backlog input
+
+Решение:
+Sanitized downstream semantic completeness feedback from a target implementation repository dry-run accepted as methodology backlog input. Initial PR records backlog only; implementation requires separate explicit tasks.
+
+Причина:
+Повторяющиеся reviewer замечания класса semantic completeness показывают, что одних технических gates недостаточно: перед PR нужны будущие проверки согласованности RESULT, acceptance spec, matrix, fixture plan и boundary docs.
+
+Последствия:
+- backlog entry фиксирует future task candidates для checklist/tooling/pattern/report;
+- checklist/tooling в этом PR не реализуются;
+- private target data и target-specific details не переносятся в reusable methodology;
+- runtime, Docker, CI, release/tag/version и target repository не меняются.
+
 ## 2026-06-27 - Strict Authorization header guard в ready-gate
 
 Решение:

@@ -28,6 +28,14 @@
 
 ## Опциональный backlog (на усмотрение архитектора)
 
+- **Downstream semantic completeness gates**: по результатам sanitized downstream dry-run в target implementation repository добавить future methodology hardening для Pre-PR semantic completeness checks. Цель — снизить количество fixup-циклов, когда технические gates зелёные, но reviewer находит логические несостыковки между RESULT, acceptance spec, matrix, fixture plan и boundary docs.
+  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: добавить Pre-PR semantic completeness checklist для Engine-задач.
+  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: расширить journal finalization policy/checklist на deferred placeholders: `to be run after final edits`, `pending`, `TBD`, `will be recorded later`, `after PR creation`, `after push`, `pending final head`.
+  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: добавить pattern для acceptance/spec/matrix/fixture задач: blocker code -> scenario id -> fixture id -> expected status -> expected blocker.
+  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: подготовить sanitized methodology feedback report по downstream-серии без private data и без переноса target-specific деталей в reusable methodology.
+  - Status: backlog only; not implemented in this PR.
+  - Priority: medium-high.
+  - Reason: reduces repeated fixup cycles in target repositories.
 - **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.
 - **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, старый `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны. Новый `TARGET_REPOSITORY_ADOPTION_GUIDE.md` из `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` является live stable-reference entrypoint, не старой redirect-заглушкой.
 - **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и historical English wording там, где это не нарушает Russian-first policy и не требует rewrite history; это не blocker для adoption.
