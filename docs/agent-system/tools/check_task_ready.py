@@ -54,6 +54,20 @@ PLACEHOLDER_PATTERNS = (
     re.compile(r"<timestamp>", re.IGNORECASE),
     re.compile(r"\bpending\b", re.IGNORECASE),
 )
+DEFERRED_FINALIZATION_PATTERNS = (
+    re.compile(r"\bto\s+be\s+run\s+after\s+final\s+edits\b", re.IGNORECASE),
+    re.compile(r"\bpending\b", re.IGNORECASE),
+    re.compile(r"\bTBD\b", re.IGNORECASE),
+    re.compile(r"\bwill\s+be\s+recorded\s+later\b", re.IGNORECASE),
+    re.compile(r"\bafter\s+PR\s+creation\b", re.IGNORECASE),
+    re.compile(r"\bafter\s+push\b", re.IGNORECASE),
+    re.compile(r"\bpending\s+final\s+head\b", re.IGNORECASE),
+    re.compile(r"\bpending\s+PR\s+URL\b", re.IGNORECASE),
+    re.compile(r"\bpending\s+checks\b", re.IGNORECASE),
+    re.compile(r"\bplaceholder\b", re.IGNORECASE),
+    re.compile(r"\bnot\s+run\s+yet\b", re.IGNORECASE),
+    re.compile(r"\bto\s+be\s+updated\b", re.IGNORECASE),
+)
 
 
 @dataclass
@@ -82,6 +96,7 @@ class ReadyReport:
     sensitive_filenames: list[str] = field(default_factory=list)
     strict_added_line_secret_files: list[str] = field(default_factory=list)
     placeholder_candidates: list[str] = field(default_factory=list)
+    deferred_finalization_placeholders: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -101,6 +116,7 @@ class ReadyReport:
         data["sensitive_filenames_count"] = len(self.sensitive_filenames)
         data["strict_added_line_secret_value_count"] = len(self.strict_added_line_secret_files)
         data["placeholder_candidates_count"] = len(self.placeholder_candidates)
+        data["deferred_finalization_placeholder_count"] = len(self.deferred_finalization_placeholders)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -250,6 +266,21 @@ def scan_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
+def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
+    flagged: list[str] = []
+    for path in task_result_files(paths):
+        full_path = ROOT / path
+        if not full_path.is_file():
+            continue
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        for line in text.splitlines():
+            stripped = line.strip()
+            if any(pattern.search(stripped) for pattern in DEFERRED_FINALIZATION_PATTERNS):
+                flagged.append(path)
+                break
+    return sorted(set(flagged))
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -354,6 +385,10 @@ def add_safety_scans(report: ReadyReport) -> None:
     elif report.placeholder_candidates:
         report.warnings.append("placeholder candidates detected in changed TASK/RESULT")
 
+    report.deferred_finalization_placeholders = scan_deferred_finalization_placeholders(all_paths)
+    if report.deferred_finalization_placeholders:
+        report.blockers.append("deferred finalization placeholders detected in changed TASK/RESULT")
+
 
 def render_human(report: ReadyReport) -> str:
     lines = [
@@ -394,6 +429,7 @@ def render_human(report: ReadyReport) -> str:
             f"sensitive_filenames_count: {len(report.sensitive_filenames)}",
             f"strict_added_line_secret_value_count: {len(report.strict_added_line_secret_files)}",
             f"placeholder_candidates_count: {len(report.placeholder_candidates)}",
+            f"deferred_finalization_placeholder_count: {len(report.deferred_finalization_placeholders)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -408,6 +444,10 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("warnings:")
         lines.extend(f"- {item}" for item in report.warnings)
+    if report.deferred_finalization_placeholders:
+        lines.append("")
+        lines.append("deferred_finalization_placeholder_files:")
+        lines.extend(f"- {path}" for path in report.deferred_finalization_placeholders)
     return "\n".join(lines) + "\n"
 
 

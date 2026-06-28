@@ -233,6 +233,9 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если generated `--check` на Windows завис в wrapper/parallel runner, указан ли read-only sequential fallback (`cmd /c python <generator> --check`) и требование записать команду + exit code в RESULT?
 - [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
 - [ ] Если задача меняет файлы или готовит fix-pass/review-comment, включён ли recommended ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`?
+- [ ] Если задача меняет docs/journal/templates/tooling, включён ли semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`?
+- [ ] Если задача создаёт acceptance spec, blocker matrix, fixture plan, contract tests или generator scaffold, указан ли pattern `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`?
+- [ ] Если задача финализирует journal, указана ли политика `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`: finalized TASK/RESULT/INDEX без deferred finalization markers?
 - [ ] Если surfaced generated/cloud EOL-only шум, указан ли read-only guard `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` и distinction между `content_changed` blocker и EOL/whitespace-only noise?
 - [ ] Если что-то осталось вне блока, блок переписан до ответа пользователю.
 
@@ -252,7 +255,7 @@ Task/result files являются append-only artifacts. Их нельзя уд
 
 Если задача создается до materialization task file, блок для исполнителя (engine) должен содержать `Engine task file` и `Expected engine result file`, чтобы `engine` создал оба artifacts в рамках разрешенного scope.
 
-Блок для исполнителя (engine) должен содержать обязательное поле `Journal finalization policy`: `engine` финализирует `RESULT` и `INDEX` после PR creation, заменяет journal placeholders фактическими значениями и делает follow-up commit/push, если PR URL или final commit SHA стали известны после materialization.
+Блок для исполнителя (engine) должен содержать обязательное поле `Journal finalization policy`: `engine` финализирует `RESULT` и `INDEX` после PR creation, заменяет journal placeholders фактическими значениями и делает follow-up commit/push, если PR URL или final commit SHA стали известны после materialization. Finalized journal surface должен соблюдать `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
 
 Если задача может завершиться merge/release/sync, блок для исполнителя (engine) должен ссылаться на `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy». Для ordinary PR оркестратор фиксирует ordinary terminal state (`architect_ready` / `human_merge_allowed`) и не планирует отдельный closure PR после human merge. GitHub PR metadata является source of truth для `merged_at`, merge commit SHA, PR state и PR URL. Boundary reconciliation требуется только перед release/audit boundary, при explicit architect request, для batch reconciliation или при противоречивых facts внутри такого scope.
 

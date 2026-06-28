@@ -19,6 +19,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `README.md` |  |
 | `docs/agent-system/ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
+| `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
@@ -35,6 +36,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/validate_task_contract.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
+| `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` |  |
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
 | `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` |  |
 | `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md` |  |
@@ -50,6 +52,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/ROLE_MODEL.md` |  |
 | `docs/agent-system/SECURITY_POLICY.md` |  |
+| `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` |  |
 | `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
 | `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` |  |
 | `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` |  |
@@ -161,5 +164,8 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md` |  |
 | `docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/cloud/13_TASK_CONTRACT.md` |  |
-| `docs/agent-system/cloud/14_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
-| `docs/agent-system/cloud/15_LANGUAGE_POLICY.md` |  |
+| `docs/agent-system/cloud/14_SEMANTIC_COMPLETENESS_GATES.md` |  |
+| `docs/agent-system/cloud/15_JOURNAL_FINALIZATION_POLICY.md` |  |
+| `docs/agent-system/cloud/16_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
+| `docs/agent-system/cloud/17_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
+| `docs/agent-system/cloud/18_LANGUAGE_POLICY.md` |  |

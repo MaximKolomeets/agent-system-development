@@ -29,11 +29,11 @@
 ## Опциональный backlog (на усмотрение архитектора)
 
 - **Downstream semantic completeness gates**: по результатам sanitized downstream dry-run в target implementation repository добавить future methodology hardening для Pre-PR semantic completeness checks. Цель — снизить количество fixup-циклов, когда технические gates зелёные, но reviewer находит логические несостыковки между RESULT, acceptance spec, matrix, fixture plan и boundary docs.
-  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: добавить Pre-PR semantic completeness checklist для Engine-задач.
-  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: расширить journal finalization policy/checklist на deferred placeholders: `to be run after final edits`, `pending`, `TBD`, `will be recorded later`, `after PR creation`, `after push`, `pending final head`.
-  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: добавить pattern для acceptance/spec/matrix/fixture задач: blocker code -> scenario id -> fixture id -> expected status -> expected blocker.
+  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через reusable semantic completeness gates.
+  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через journal finalization policy и ready-gate category.
+  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через acceptance/spec completeness pattern.
   - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: подготовить sanitized methodology feedback report по downstream-серии без private data и без переноса target-specific деталей в reusable methodology.
-  - Status: backlog only; not implemented in this PR.
+  - Status: первые три пункта закрыты текущим methodology hardening PR; sanitized feedback report остаётся отдельной future task.
   - Priority: medium-high.
   - Reason: reduces repeated fixup cycles in target repositories.
 - **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.

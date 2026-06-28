@@ -450,6 +450,7 @@ Title: <review task title>
 - vendor-specific naming check result;
 - reviewed head SHA, если Review object = PR;
 - Source Delta review result: сверка с diff/manifest, findings по категориям, рекомендациям и manifest flag;
+- Semantic completeness review result по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: PR body, RESULT, state docs, boundary docs и фактический diff согласованы; mismatches классифицированы как `semantic` или `mixed`;
 - language policy result: Russian-first для report, journal, commit/PR metadata и review summary;
 - methodology reference result, если review связан с downstream/adoption/source-update;
 - risks;
