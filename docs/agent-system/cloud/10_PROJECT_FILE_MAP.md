@@ -25,6 +25,8 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
 | `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` |  |
 | `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` |  |
+| `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` |  |
+| `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` |  |
 | `docs/agent-system/ENGINE_ENTRYPOINT.md` |  |
 | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` |  |
 | `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md` |  |
@@ -167,5 +169,7 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/14_SEMANTIC_COMPLETENESS_GATES.md` |  |
 | `docs/agent-system/cloud/15_JOURNAL_FINALIZATION_POLICY.md` |  |
 | `docs/agent-system/cloud/16_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
-| `docs/agent-system/cloud/17_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
-| `docs/agent-system/cloud/18_LANGUAGE_POLICY.md` |  |
+| `docs/agent-system/cloud/17_DOWNSTREAM_FEEDBACK_LOOP.md` |  |
+| `docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` |  |
+| `docs/agent-system/cloud/19_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
+| `docs/agent-system/cloud/20_LANGUAGE_POLICY.md` |  |

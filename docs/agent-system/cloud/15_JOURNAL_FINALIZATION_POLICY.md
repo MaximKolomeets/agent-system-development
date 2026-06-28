@@ -52,6 +52,9 @@ Deferred placeholder - это текст, который говорит, что 
 
 Reviewer считает blocker:
 
+- Finalized TASK/RESULT/INDEX переносят downstream feedback без sanitization checkpoint по `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`;
+- Finalized RESULT утверждает, что target repository уже получил methodology change до `main`, release tag или published snapshot;
+
 - finalized RESULT содержит deferred placeholder текущей задачи;
 - INDEX row текущей задачи оставлен как незавершённый pre-review surface;
 - PR body обещает обновить checks/head/URL позже;

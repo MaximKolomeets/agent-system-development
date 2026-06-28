@@ -1,5 +1,20 @@
 # DECISION_LOG
 
+## 2026-06-29 - Sanitized downstream feedback loop закреплён как reusable boundary
+
+Контекст:
+После downstream dry-run в backlog/state уже был neutral feedback item про необходимость замкнуть feedback loop без private downstream details и без превращения target repository в source of truth для methodology.
+
+Решение:
+Принять sanitized downstream feedback loop как reusable methodology boundary: feedback сначала проходит sanitization checkpoint, затем classification и backlog grouping, а reusable changes идут только через `agent-system-development` и PR в `developer`. Target repositories получают изменения только после `main`, release tag или published Source/cloud snapshot. `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` закрывается как sanitized/reusable variant через `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`.
+
+Последствия:
+
+- private downstream details, real data, `.env`, credentials, matching secret/header values и target-specific branch/worktree state не переносятся в public methodology;
+- methodology task по sanitized feedback не читает target repository без explicit scope;
+- ordinary post-merge closure PR не требуется;
+- boundary reconciliation остаётся release/audit/explicit-request step;
+- следующий рекомендуемый boundary после scoped review и merge: release candidate `v1.4.0`.
 ## 2026-06-29 - Semantic completeness gates закреплены как pre-PR слой
 
 Решение:
