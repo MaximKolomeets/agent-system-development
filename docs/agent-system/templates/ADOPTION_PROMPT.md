@@ -68,10 +68,11 @@ https://github.com/MaximKolomeets/agent-system-development
 2. Изучи актуальный `agent-system-development` как reusable methodology/template repository.
 3. Не вноси изменения в файлы сам.
 4. Сначала подготовь задачу для engine.
-5. Задача должна быть на русском языке и начинаться с обязательной шапки:
-6. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
-7. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
-8. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
+5. Перед задачей для engine определи adoption recommendation Variant A/B/C или STOP по `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`.
+6. Задача должна быть на русском языке и начинаться с обязательной шапки:
+7. Все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах должны быть на русском языке. Английский допустим только для команд, путей, branch names, filenames, config keys, API names, package names, vendor/tool names и code identifiers.
+8. Если target instructions конфликтуют с Russian-first policy, включи в задачу для исполнителя (engine) STOP-условие и требование запросить решение пользователя.
+9. Включи в задачу для исполнителя (engine) Closure policy: adoption/source-update является per-task closure exception, поэтому после merge/release/sync RESULT/INDEX закрываются по канону; для обычных work PR вне adoption/source-update действует batch-closure перед release.
 
 Задача для <роль>: <task-id>
 

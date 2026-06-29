@@ -82,6 +82,8 @@ policies:
 
 `docs-only adoption`
 
+Перед подтверждением режима выполнить `docs/agent-system/TARGET_ADOPTION_DETECTOR.md` и зафиксировать Variant A/B/C или STOP. Dirty target tree, unstable methodology source, private data risk или риск overwrite target-specific journal/history/state означают STOP до docs-only adoption.
+
 ## Base branch
 
 `<main/developer/develop according to target repository>`

@@ -7,6 +7,7 @@
 - source snapshot drift — `docs/agent-system/source/README.md`;
 - feedback и его sanitization — `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`;
 - governance pack и project constitution — `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`, `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
+- adoption mode detector — `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`.
 
 Пункты ниже сохранены полностью как проверяемый список.
 
@@ -133,6 +134,10 @@
 
 ## Режим adoption (adoption mode)
 
+- [ ] Перед adoption выполнен `TARGET_ADOPTION_DETECTOR`.
+- [ ] Detector выбрал Variant A/B/C или STOP с reasons и required preconditions.
+- [ ] Dirty target tree, private data risk или unstable methodology source приводят к STOP.
+- [ ] Target-specific journal/history/state не перезаписываются.
 - [ ] Выбран режим `audit-only`, `docs-only adoption` или `runtime adoption`.
 - [ ] Для первого dry run выбран `audit-only`, если пользователь не решил иначе.
 - [ ] Minimal first PR создает только `docs/agent-system/ADOPTION_AUDIT.md`.

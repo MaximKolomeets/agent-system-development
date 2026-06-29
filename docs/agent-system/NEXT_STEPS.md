@@ -22,7 +22,7 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-RELEASE-GATE-READY-MODE-01`. Предыдущая попытка `METH-RELEASE-V1-4-0-01` остановилась до release PR creation: обычный ready-gate на `developer` против `origin/main` сработал как work-branch gate и дополнительно нашёл deferred-marker wording в `RESULT-0116`. После merge текущего tooling/docs fix следующий рекомендуемый шаг - повторить `METH-RELEASE-V1-4-0-01`; release/tag/merge и target repository adoption до этого не выполняются.
+Текущий фокус: завершить `METH-TARGET-ADOPTION-DETECTOR-01`. Задача добавляет reusable detector policy/spec для выбора Variant A/B/C или STOP перед real target adoption/source-update от stable source `v1.4.0`/`main`/tag. После merge следующий рекомендуемый шаг - применить detector policy перед первым adoption в target implementation repository; target repositories, private downstream data, runtime/Docker/CI, branch protection, release/tag/merge в этой задаче не выполняются.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
@@ -51,6 +51,7 @@
 5. Если journal stale внутри release/audit/explicit boundary reconciliation scope или противоречит GitHub facts в этом scope, создавать docs-only Engine-блок на reconciliation вместо ответа `все закрыто`.
 6. Использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository только после проверки, что task явно содержит режим, объект проверки, allowed/forbidden files и правило сохранения отчета. Review-задачи всегда журналируют TASK+RESULT (`Journal trace: always`).
 7. При следующем target repository dry run читать methodology repository только из stable reference `origin/main` / `main`, release tag или явно заданного snapshot; dirty `developer`/`work/*` не считать blocker при доступном stable ref.
+7a. Перед target adoption/source-update применять `TARGET_ADOPTION_DETECTOR.md`: Variant A/B/C или STOP; dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific journal/history/state означают STOP.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
 9. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
 10. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.

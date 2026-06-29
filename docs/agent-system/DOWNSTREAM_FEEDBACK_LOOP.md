@@ -136,6 +136,7 @@ Adoption into target repositories выполняется отдельной down
 
 Adoption task:
 
+- сначала определяет Variant A/B/C или STOP по `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`;
 - фиксирует stable methodology reference;
 - не использует `developer`, `work/*`, dirty local methodology tree или open methodology PR branch как downstream source of truth;
 - адаптирует target-local docs по target facts;

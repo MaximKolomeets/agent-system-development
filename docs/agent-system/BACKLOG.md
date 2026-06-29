@@ -100,9 +100,12 @@
 
 #### METH-TARGET-ADOPTION-DETECTOR-01
 
-- Будущий script определяет adoption mode.
-- Проверяет наличие `docs/agent-system`, engine journal, branch model, dirty tree и methodology reference.
-- Выдаёт Variant A/B/C recommendation с причинами.
+Статус: implemented as reusable methodology policy/spec by `METH-TARGET-ADOPTION-DETECTOR-01`; возможный future script допустим только отдельной tooling task.
+
+- Detector policy определяет adoption mode Variant A/B/C или STOP.
+- Проверяет наличие `docs/agent-system`, engine journal, branch model, dirty tree и stable methodology reference.
+- Выдаёт Variant A/B/C recommendation с причинами, preconditions, allowed next task и forbidden actions.
+- Dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific history дают STOP.
 
 #### METH-PUBLIC-REPO-PRIVATE-DATA-GUARD-01
 
