@@ -8,9 +8,11 @@ PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/278
 
 branch: `work/methodology-architect-01/meth-downstream-feedback-loop-sanitized-01`
 
-head_sha: `c180427e0e13fde26eab796bae4cc21842327006`
+pre_finalization_head_sha: `c180427e0e13fde26eab796bae4cc21842327006`
 
-reviewed_head_sha: `c180427e0e13fde26eab796bae4cc21842327006`
+final_pr_head_sha: GitHub PR metadata after final push; not duplicated in committed RESULT to avoid stale self-referential SHA.
+
+reviewed_head_sha: GitHub PR metadata after final push; not duplicated in committed RESULT to avoid stale self-referential SHA.
 
 terminal_state: architect_ready
 
