@@ -4,7 +4,7 @@
 
 status: completed
 
-pr_url_source: github_pr_metadata
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/282
 
 branch: `work/methodology-architect-01/meth-target-adoption-detector-01`
 
