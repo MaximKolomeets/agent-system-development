@@ -21,6 +21,8 @@
 
 Минимум: `version`, `task_id`, `role`, `mode`, `execution_mode`, `repository.*`, `scope.allowed_files`, `scope.forbidden_files`, `policies.*`, `checks.required`, `stop_conditions`. Для downstream/target задач дополнительно указать `methodology_reference` со stable ref `origin/main` и `policies.language: russian_first`. Для задач, которые меняют сам methodology repository, допустим `methodology_reference.stable_only: false`.
 
+Применить `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: задача должна иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review перед PR, PR body quality check и blocker-ID based fix-pass policy.
+
 ## Task ID
 
 Указать идентификатор задачи.

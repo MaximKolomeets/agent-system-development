@@ -22,6 +22,8 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Перед формированием adoption/source-update task оркестратор применяет `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`: выбирает Variant A/B/C или STOP, не читает private data, не перезаписывает target-specific journal/history/state и требует stable methodology source.
 
+Перед формированием file-changing task оркестратор применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: включает Definition of Ready, проверяемые acceptance criteria, self-review before PR, PR body quality check, expected reviewer mode и blocker-ID based fix-pass.
+
 Новые блоки для исполнителя (engine), которые меняют repository files, создают PR или описывают substantive/tooling/docs-only/review/fix-pass/release/adoption task, должны включать fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. В нём явно фиксируются mode, execution_mode, repository, working_branch, allowed_files, forbidden_files, policies, required checks и STOP conditions. Маленькая Fast Lane проверка без write-action, PR и journal trace может идти без `task_contract`.
 
 Если `task_contract` присутствует, он является source of truth для mode/scope/checks/STOP, а prose остаётся human explanation. Если contract и prose конфликтуют, orchestrator должен направить engine на `STOP` и запрос решения архитектора, а не выбирать одну из версий молча.

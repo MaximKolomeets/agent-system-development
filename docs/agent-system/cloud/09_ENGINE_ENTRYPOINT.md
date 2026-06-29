@@ -12,6 +12,8 @@ Entrypoint нужен, чтобы короткий prompt пользовател
 
 После adoption все project-specific артефакты ведутся в target repository. В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR.
 
+Перед открытием любого file-changing PR `engine` применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: проверяет Definition of Ready, acceptance criteria, self-review before PR, PR body quality и blocker-ID based fix-pass policy.
+
 ## Role boundary
 
 `orchestrator` формирует задачу и помогает пользователю принять решение. `engine` выполняет конкретный repository scope. `reviewer` проверяет объект review и не исправляет найденные проблемы без отдельного `fix-allowed` задания.
