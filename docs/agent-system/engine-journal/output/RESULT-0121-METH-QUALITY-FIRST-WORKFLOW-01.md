@@ -4,7 +4,7 @@
 
 status: completed
 
-pr_url_source: github_pr_metadata
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/284
 
 branch: `work/methodology-architect-01/meth-quality-first-workflow-01`
 
@@ -12,7 +12,7 @@ head_sha_source: github_pr_metadata
 
 reviewed_head_sha_source: github_pr_metadata
 
-pre_finalization_head_source: git_history
+pre_finalization_head_sha: 9110925dec6be382904684afba3ca775d129c126
 
 terminal_state: architect_ready
 
