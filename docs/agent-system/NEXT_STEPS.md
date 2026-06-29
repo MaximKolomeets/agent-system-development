@@ -16,13 +16,13 @@
 4. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 5. Повторять work/review/merge до завершения текущей серии.
 6. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
+7. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
 8. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
 9. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`, чтобы downstream feedback loop и sanitization policy стали reusable methodology docs без private downstream details и без target repository access. После merge и scoped review следующий рекомендуемый boundary - release candidate `v1.4.0`; target repositories не применяют эти изменения до `main`, release tag или published Source/cloud snapshot.
+Текущий фокус: завершить `METH-RELEASE-GATE-READY-MODE-01`. Предыдущая попытка `METH-RELEASE-V1-4-0-01` остановилась до release PR creation: обычный ready-gate на `developer` против `origin/main` сработал как work-branch gate и дополнительно нашёл deferred-marker wording в `RESULT-0116`. После merge текущего tooling/docs fix следующий рекомендуемый шаг - повторить `METH-RELEASE-V1-4-0-01`; release/tag/merge и target repository adoption до этого не выполняются.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 

@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-29 - Release-boundary mode для ready-gate
+
+Контекст:
+Попытка подготовить release PR `developer -> main` для `v1.4.0` была остановлена до PR creation. Обычный `check_task_ready.py --base origin/main` запускался на `developer` и корректно применил work-branch-only blockers (`protected branch changes`, `changed files outside work/* branch`), а также нашёл deferred-marker wording в `RESULT-0116`.
+
+Решение:
+Добавить явный opt-in `--release-boundary` для `check_task_ready.py`, разрешённый только для пары `current_branch = developer` и `base = origin/main`. В этом режиме подавляются только blockers про protected branch/work branch, чтобы release payload `developer -> main` можно было проверить до открытия release PR. Forbidden paths, sensitive filenames, strict added-line secret scan, deferred finalization placeholder scan, `git diff --check` и conditional generated checks остаются активными. `RESULT-0116` переводится на finalized source/policy-семантику: `pr_head_source`, `reviewed_head_source`, `final_pr_head_policy`, `pre_finalization_head_sha`.
+
+Последствия:
+- default ready-gate для обычных work branches не ослабляется;
+- release-boundary mode не разрешён для `main` или произвольных branches;
+- release PR, merge и tag не создаются этой задачей;
+- следующий шаг после merge текущего PR - повторить `METH-RELEASE-V1-4-0-01`.
+
 ## 2026-06-29 - Sanitized downstream feedback loop закреплён как reusable boundary
 
 Контекст:

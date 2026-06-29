@@ -40,6 +40,17 @@ Deferred placeholder - это текст, который говорит, что 
 - историческая append-only запись, если она фиксирует старый дефект и не является active surface текущего PR;
 - reviewer finding, где фраза цитируется как запрещённый пример без secret/sensitive value.
 
+## Head SHA и self-reference loop
+
+В finalized RESULT нельзя записывать описательный placeholder в поля `head_sha`, `reviewed_head_sha` или `final_head_sha`. Если точный final PR head SHA невозможно встроить в тот же committed RESULT из-за self-reference loop, RESULT должен использовать явную source/policy-семантику:
+
+- `pr_head_source: github_pr_metadata`;
+- `reviewed_head_source: github_pr_metadata`;
+- `final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop`;
+- `pre_finalization_head_sha: <sha>`, если нужно сохранить исторический commit до финализации PR surface.
+
+Такая запись не считается deferred placeholder, если она оформлена как постоянное policy/source-поле и не обещает дописать значение позже. Нельзя оставлять формулировки вида `pending`, `after push`, `to be updated` или аналогичные в active RESULT/INDEX.
+
 ## Как исправляет engine
 
 1. Создать TASK/RESULT/INDEX с фактическими полями, которые известны до PR.

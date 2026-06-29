@@ -82,6 +82,7 @@ class ReadyReport:
     repo_root: str = ""
     branch: str = ""
     base: str = ""
+    release_boundary_mode: bool = False
     changed_files: list[str] = field(default_factory=list)
     staged_files: list[str] = field(default_factory=list)
     unstaged_files: list[str] = field(default_factory=list)
@@ -310,9 +311,9 @@ def add_changed_files(report: ReadyReport) -> None:
     report.untracked_files = unique_sorted(git_lines(["ls-files", "--others", "--exclude-standard"], report, "cannot list untracked files"))
 
     has_changes = any((report.changed_files, report.unstaged_files, report.staged_files, report.untracked_files))
-    if has_changes and report.branch in {"main", "developer"}:
+    if has_changes and report.branch in {"main", "developer"} and not report.release_boundary_mode:
         report.blockers.append("changed files on protected branch")
-    if has_changes and not report.branch.startswith("work/"):
+    if has_changes and not report.branch.startswith("work/") and not report.release_boundary_mode:
         report.blockers.append("changed files outside work/* branch")
 
 
@@ -397,6 +398,7 @@ def render_human(report: ReadyReport) -> str:
         f"repo_root: {report.repo_root}",
         f"branch: {report.branch}",
         f"base: {report.base}",
+        f"release_boundary_mode: {str(report.release_boundary_mode).lower()}",
         "",
         f"changed_files_count: {len(report.changed_files)}",
         f"staged_files_count: {len(report.staged_files)}",
@@ -451,11 +453,16 @@ def render_human(report: ReadyReport) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_report(base: str) -> ReadyReport:
+def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
     report = ReadyReport(base=base)
     add_repository_guard(report)
     if not report.repo_root:
         return report
+    if release_boundary:
+        if report.branch == "developer" and base == "origin/main":
+            report.release_boundary_mode = True
+        else:
+            report.blockers.append("release boundary mode supports only developer -> origin/main")
     add_changed_files(report)
     add_diff_checks(report)
     add_generated_checks(report)
@@ -469,11 +476,16 @@ def main(argv: list[str] | None = None) -> int:
         epilog="For task-level contract validation, run: python docs/agent-system/tools/validate_task_contract.py <task-file>",
     )
     parser.add_argument("--base", default="origin/developer", help="Diff base ref for committed changes.")
+    parser.add_argument(
+        "--release-boundary",
+        action="store_true",
+        help="Allow the developer -> origin/main release gate to run without work-branch blockers.",
+    )
     parser.add_argument("--strict", action="store_true", help="Treat warnings as non-ready.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON summary.")
     args = parser.parse_args(argv)
 
-    report = build_report(args.base)
+    report = build_report(args.base, release_boundary=args.release_boundary)
     if args.json:
         print(json.dumps(report.to_json_dict(), ensure_ascii=False, indent=2, sort_keys=True))
     else:
