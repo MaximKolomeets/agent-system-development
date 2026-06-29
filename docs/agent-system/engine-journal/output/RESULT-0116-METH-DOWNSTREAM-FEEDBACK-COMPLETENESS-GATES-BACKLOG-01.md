@@ -9,8 +9,10 @@
 
 status: completed
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/276
-head_sha: см. GitHub PR metadata и финальный отчёт; exact final SHA не встраивается в тот же commit из-за self-reference loop.
-head_before_pr_url_finalization: 6513917c49b9b5727ba15619cc3395303b364608
+pr_head_source: github_pr_metadata
+reviewed_head_source: github_pr_metadata
+final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
+pre_finalization_head_sha: 6513917c49b9b5727ba15619cc3395303b364608
 terminal_state: architect_ready
 post_merge_closure_required: false
 merge_facts_source: github_pr_metadata
@@ -42,7 +44,7 @@ PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/276
 - `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0116-METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-BACKLOG-01.md`: passed.
 - `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0116-METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-BACKLOG-01.md --json`: valid; blockers 0; warnings 0.
 - `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: ready; blockers 0; warnings 0.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: ready; strict_added_line_secret_value_count 0; placeholder_candidates_count 0.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: ready; strict_added_line_secret_value_count 0; journal marker candidates 0.
 - `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`: passed.
 - `python docs/agent-system/tools/gen_file_map.py --check`: passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
@@ -54,7 +56,7 @@ PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/276
 - forbidden changed paths: 0.
 - sensitive filenames: 0.
 - strict added-line secret values: 0.
-- placeholder candidates in TASK/RESULT: 0.
+- journal marker candidates in TASK/RESULT: 0.
 - `.env` read: no.
 - target repository changed: no.
 - tools/tests/runtime/CI/branch protection/release/tag/version changes: no.

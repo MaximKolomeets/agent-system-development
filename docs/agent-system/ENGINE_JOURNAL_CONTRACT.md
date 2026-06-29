@@ -201,6 +201,17 @@ Methodology repository operational history не переносится.
 - риски;
 - следующий рекомендуемый шаг.
 
+### Head SHA без self-reference loop
+
+В finalized RESULT поля `head_sha`, `reviewed_head_sha` и `final_head_sha` допустимы только когда в них записан точный SHA, а не текстовое обещание дописать значение. Если final PR head SHA меняется самим follow-up commit и не может быть встроен в этот же commit, RESULT использует явную source/policy-семантику:
+
+- `pr_head_source: github_pr_metadata`;
+- `reviewed_head_source: github_pr_metadata`;
+- `final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop`;
+- `pre_finalization_head_sha: <sha>`, если нужен исторический head до финализации.
+
+Такой формат считается finalized, потому что GitHub PR metadata является источником факта, а RESULT не обещает будущую ручную подстановку SHA.
+
 ## Execution timestamps
 
 Новые TASK/RESULT записи фиксируют execution-время по модели `measured/reported`:
