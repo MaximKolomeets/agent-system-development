@@ -56,6 +56,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/SECURITY_POLICY.md` |  |
 | `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` |  |
 | `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
+| `docs/agent-system/TARGET_ADOPTION_DETECTOR.md` |  |
 | `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` |  |
 | `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/TASK_CONTRACT.md` |  |

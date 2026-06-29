@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-29 - Target adoption detector закреплён перед real adoption
+
+Контекст:
+После release boundary `v1.4.0` следующий риск находится не в самом переносе файлов, а в выборе режима target adoption: clean new adoption, update existing methodology layer или partial/broken/adversarial state требуют разных задач и разных STOP-условий.
+
+Решение:
+Добавить reusable `TARGET_ADOPTION_DETECTOR.md`, который до target adoption/source-update выбирает Variant A/B/C или STOP. Detector требует clean target tree, stable methodology source (`main`, release tag или published snapshot), сохранение target-specific journal/history/state и запрет private data reads. Adoption от methodology `developer`, `work/*`, dirty local methodology tree или open methodology PR branch запрещён как source of truth.
+
+Последствия:
+- real target repositories не читаются и не меняются в methodology task;
+- dirty target tree, unstable source, private data risk и overwrite target history дают STOP;
+- downstream/adoption docs и templates получают короткую ссылку на detector вместо дублирования полного алгоритма;
+- следующий шаг после merge - использовать detector policy перед первым real project adoption от stable source.
+
 ## 2026-06-29 - Release-boundary mode для ready-gate
 
 Контекст:

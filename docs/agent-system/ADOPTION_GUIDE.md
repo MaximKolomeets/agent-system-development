@@ -62,6 +62,8 @@ target-specific `INDEX.md` entry.
 
 ## Режимы adoption (adoption modes)
 
+Перед выбором режима выполнить `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`: определить Variant A/B/C или STOP, подтвердить clean target tree, stable methodology source (`main`, release tag или published snapshot) и отсутствие риска overwrite target-specific journal/history/state. Detector не читает private data и не разрешает adoption от methodology `developer` или `work/*`.
+
 ## Методологическая ссылка (methodology_reference)
 
 Каждая target adoption/update task должна фиксировать, какая версия methodology repository использована.
