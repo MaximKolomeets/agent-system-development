@@ -93,6 +93,10 @@ orchestrator_context_bundle:
       cloud_flatname: JOURNAL_FINALIZATION_POLICY.md
     - path: docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
       cloud_flatname: ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
+    - path: docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md
+      cloud_flatname: DOWNSTREAM_FEEDBACK_LOOP.md
+    - path: docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
+      cloud_flatname: DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
     - path: docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md
       cloud_flatname: STABLE_METHODOLOGY_REFERENCE_POLICY.md
     - path: docs/agent-system/LANGUAGE_POLICY.md
@@ -118,6 +122,8 @@ categories:
       - docs/agent-system/CODE_REVIEW_WORKFLOW.md
       - docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
+      - docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md
+      - docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
@@ -305,8 +311,10 @@ categories:
       - docs/agent-system/cloud/14_SEMANTIC_COMPLETENESS_GATES.md
       - docs/agent-system/cloud/15_JOURNAL_FINALIZATION_POLICY.md
       - docs/agent-system/cloud/16_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
-      - docs/agent-system/cloud/17_STABLE_METHODOLOGY_REFERENCE_POLICY.md
-      - docs/agent-system/cloud/18_LANGUAGE_POLICY.md
+      - docs/agent-system/cloud/17_DOWNSTREAM_FEEDBACK_LOOP.md
+      - docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
+      - docs/agent-system/cloud/19_STABLE_METHODOLOGY_REFERENCE_POLICY.md
+      - docs/agent-system/cloud/20_LANGUAGE_POLICY.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.

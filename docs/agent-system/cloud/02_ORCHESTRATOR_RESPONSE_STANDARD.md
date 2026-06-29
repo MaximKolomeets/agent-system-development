@@ -412,6 +412,8 @@ methodology_reference:
 
 Этот блок должен быть нейтральным и не должен раскрывать private downstream data, private repository URL, client data, customer data, credentials или internal code names.
 
+Перед созданием methodology task feedback должен пройти `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`, а reusable loop описывается по `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md`. Methodology task не читает target repository, если это прямо не разрешено scope; target adoption не заявляется до `main`, release tag или published Source/cloud snapshot.
+
 В final report target repository такой вывод фиксируется как `Methodology repository improvement request`.
 
 ## Сводка audit

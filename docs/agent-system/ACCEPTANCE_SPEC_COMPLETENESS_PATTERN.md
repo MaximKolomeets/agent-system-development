@@ -22,6 +22,7 @@ scenario_id -> blocker_code -> fixture_id -> expected_status -> expected_blocker
 
 ## Правила сценариев
 
+- Downstream feedback для acceptance/spec gaps переносится только как sanitized reusable pattern по `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md`; private target details, real protocols и real data запрещены.
 - Каждый `BLOCKED` scenario должен иметь `blocker_code`.
 - Каждый `blocker_code` должен иметь хотя бы один scenario или быть явно помечен как reserved.
 - `PASS` и `FAIL` scenarios не должны требовать `blocker_code`.
@@ -52,6 +53,7 @@ scenario_id -> blocker_code -> fixture_id -> expected_status -> expected_blocker
 
 ## Review checklist
 
+- Feedback-origin examples sanitized: нет target-specific/private details, real protocols, real measurements, `.env` values или matching secret/header values.
 - Есть mapping `scenario_id -> blocker_code -> fixture_id -> expected_status -> expected_blocker`.
 - Все `BLOCKED` scenarios имеют blocker.
 - Все blockers имеют scenario coverage или reserved status.

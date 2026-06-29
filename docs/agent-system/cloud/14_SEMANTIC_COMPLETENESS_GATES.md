@@ -12,6 +12,7 @@ Semantic completeness gates - это обязательный pre-PR слой п
 
 ## Universal semantic checks
 
+- Downstream feedback items должны ссылаться на `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` и проходить sanitization checkpoint по `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` до попадания в backlog, TASK, RESULT или PR body.
 - RESULT не должен обещать checks, которые не запускались.
 - RESULT не должен содержать deferred placeholders или обещания дописать факты позже.
 - PR body не должен утверждать, что создано поведение, которого нет в diff.
@@ -80,6 +81,7 @@ Semantic completeness gates - это обязательный pre-PR слой п
 
 ## STOP conditions
 
+- Downstream feedback содержит target-specific/private details или утверждает target adoption до `main`/tag release.
 STOP и не открывать ready-for-review PR, если:
 
 - RESULT обещает checks, которые не запускались;

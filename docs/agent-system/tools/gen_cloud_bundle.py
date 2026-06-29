@@ -42,6 +42,8 @@ CANONICAL_BUNDLE_ORDER = [
     "docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md",
     "docs/agent-system/JOURNAL_FINALIZATION_POLICY.md",
     "docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md",
+    "docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md",
+    "docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md",
     "docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md",
     "docs/agent-system/LANGUAGE_POLICY.md",
 ]

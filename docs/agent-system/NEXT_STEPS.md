@@ -22,7 +22,7 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`, чтобы ready-gate блокировал headers `Authorization` независимо от auth-схемы и не печатал matching values. После merge hotfix человек-архитектор продвигает patch source (`v1.3.1` или current `main` commit) и обновляет affected target implementation repository PR от нового stable source. Cleanup PR #267 уже смержен. `v1.2.0` выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится.
+Текущий фокус: завершить `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`, чтобы downstream feedback loop и sanitization policy стали reusable methodology docs без private downstream details и без target repository access. После merge и scoped review следующий рекомендуемый boundary - release candidate `v1.4.0`; target repositories не применяют эти изменения до `main`, release tag или published Source/cloud snapshot.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
@@ -32,7 +32,7 @@
   - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через reusable semantic completeness gates.
   - `METH-JOURNAL-FINALIZATION-PHRASES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через journal finalization policy и ready-gate category.
   - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через acceptance/spec completeness pattern.
-  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: подготовить sanitized methodology feedback report по downstream-серии без private data и без переноса target-specific деталей в reusable methodology.
+  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: закрыто в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01` как sanitized/reusable variant через `DOWNSTREAM_FEEDBACK_LOOP.md` и `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; target-specific/private details не переносились.
   - Status: первые три пункта закрыты текущим methodology hardening PR; sanitized feedback report остаётся отдельной future task.
   - Priority: medium-high.
   - Reason: reduces repeated fixup cycles in target repositories.

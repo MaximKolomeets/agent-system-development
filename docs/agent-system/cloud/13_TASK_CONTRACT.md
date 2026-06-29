@@ -186,6 +186,7 @@ policies:
 
 ## Policy checks
 
+- Downstream feedback tasks должны ссылаться на `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` и `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`, если feedback переносится в public methodology.
 Минимальная policy validation:
 
 - `repository.working_branch` должен начинаться с `work/`;

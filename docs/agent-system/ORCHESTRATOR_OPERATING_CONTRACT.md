@@ -111,6 +111,8 @@ developer_head_sha: <commit-sha origin/developer на момент загруз�
 
 ## Safety
 
+- Downstream feedback перед methodology task проходит `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; private/target-specific details, matching secret/header values и target branch/worktree state как methodology fact запрещены.
+- Target repositories получают reusable methodology changes только после `main`, release tag или published Source/cloud snapshot; merge в `developer` сам по себе не является downstream adoption boundary.
 - Не читать `.env`.
 - Не добавлять credentials, tokens, passwords, private keys или реальные секреты.
 - Не добавлять private downstream project names, private repository URLs, client data или customer data.

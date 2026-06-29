@@ -304,6 +304,8 @@ docker-compose.yml
 scripts/**
 ```
 
+Если review object связан с downstream feedback, reviewer дополнительно проверяет `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` и `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`: private/target-specific leakage, target adoption до stable release boundary и чтение target repository без explicit scope являются blocker.
+
 ## Naming rules
 
 Запрещено использовать vendor/tool names в:

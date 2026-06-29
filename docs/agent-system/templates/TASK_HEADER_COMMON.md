@@ -99,6 +99,8 @@ Commit subject/body, PR title и PR body должны быть Russian-first. Te
 
 Для target/downstream/adoption задач `methodology_reference` указывает на stable methodology source: `origin/main` / `main`, release tag или явно заданный published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для downstream. Dirty `agent-system-development/developer` или `work/*` не блокирует target task, если stable reference доступен и читается. Канон: `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`.
 
+Downstream feedback tasks перед переносом в public methodology проходят `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` и оформляются по `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md`. Target-specific details не переносятся в active methodology docs; methodology task не читает target repository без explicit scope.
+
 ## Рекомендуемый режим исполнения
 
 Заполнить блок `Рекомендуемый режим исполнения` в mandatory header: роль / функция, исполнитель (на усмотрение архитектора), reasoning effort (низкий | средний | высокий), launch mode / запуск, execution mode / режим и почему / why this mode is required.
