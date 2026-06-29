@@ -24,9 +24,10 @@ Branch/PR: active work PR
 5. Review feedback относится к этой task branch.
 6. PR title/body, commit metadata, review summary и journal/final report соблюдают Russian-first policy.
 7. Если PR меняет downstream/adoption/source-update правила, `methodology_reference` использует stable ref `origin/main` / `main`, release tag или явно заданный snapshot, а не `developer`/`work/*`.
-8. `max_review_cycles` не превышен.
-9. Reviewer не требует post-merge RESULT/INDEX closure для ordinary PR: PR URL, reviewed head SHA и `architect:ready-to-merge` достаточны до human merge; после merge source of truth для merge facts — GitHub PR metadata.
-10. Semantic completeness по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: PR body, RESULT, state docs, boundary docs и diff не противоречат друг другу; acceptance/spec scope сверяется по `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
+8. PR соответствует `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: acceptance criteria проверяемые, self-review before PR не формальный, PR body чистый, fix-pass policy привязана к blocker IDs.
+9. `max_review_cycles` не превышен.
+10. Reviewer не требует post-merge RESULT/INDEX closure для ordinary PR: PR URL, reviewed head SHA и `architect:ready-to-merge` достаточны до human merge; после merge source of truth для merge facts — GitHub PR metadata.
+11. Semantic completeness по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: PR body, RESULT, state docs, boundary docs и diff не противоречат друг другу; acceptance/spec scope сверяется по `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
 
 ## Вывод в PR
 

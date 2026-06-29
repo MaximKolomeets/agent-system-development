@@ -144,12 +144,14 @@ categories:
       - docs/agent-system/PR_WORKFLOW.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PUBLICATION_POLICY.md
+      - docs/agent-system/QUALITY_FIRST_WORKFLOW.md
       - docs/agent-system/README.md
       - docs/agent-system/REVIEW_AUTOLOOP.md
       - docs/agent-system/ROLE_MODEL.md
       - docs/agent-system/SECURITY_POLICY.md
       - docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md
       - docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md
+      - docs/agent-system/TARGET_ADOPTION_DETECTOR.md
       - docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md
       - docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
       - docs/agent-system/TASK_CONTRACT.md

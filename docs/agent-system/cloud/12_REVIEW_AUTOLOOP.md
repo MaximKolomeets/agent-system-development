@@ -16,6 +16,8 @@ Engine PR -> Reviewer approve -> architect-ready -> human merge
 
 Цель цикла - снять мелкие review-замечания без отдельного feedback PR и без ручного подтверждения каждого микрошага, сохранив все safety gates.
 
+Перед первым ready-for-review PR engine применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: task должен иметь acceptance criteria, engine выполняет self-review before PR, PR body проходит quality check, а fix-pass закрывает blocker IDs вместо общего cleanup.
+
 ## Область применения
 
 Autoloop применим только к active work PR в основной task branch `work/<role>/<task>`.

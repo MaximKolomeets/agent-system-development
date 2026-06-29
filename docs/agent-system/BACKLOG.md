@@ -13,6 +13,7 @@
 - Выполняется в `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`: P1 safety hotfix для ready-gate, чтобы headers `Authorization` блокировались независимо от auth-схемы и matching values не выводились.
 - Выполнено в `METH-SEMANTIC-COMPLETENESS-GATES-01`: объединены `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`, `METH-JOURNAL-FINALIZATION-PHRASES-01` и `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`; feedback-loop item был оставлен для отдельной sanitized methodology task.
 - Выполнено в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`: `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` закрыта как sanitized/reusable variant; downstream feedback loop и sanitization policy описаны без private downstream details, target repository access и target adoption до stable release boundary.
+- Выполнено в `METH-QUALITY-FIRST-WORKFLOW-01`: implemented quality-first workflow; он consolidates STOP-or-ACT, decision cache, PR body/reviewer quality expectations и blocker-ID based fix-pass в один pre-PR workflow.
 
 ## Post-autoloop automation roadmap
 
@@ -100,9 +101,12 @@
 
 #### METH-TARGET-ADOPTION-DETECTOR-01
 
-- Будущий script определяет adoption mode.
-- Проверяет наличие `docs/agent-system`, engine journal, branch model, dirty tree и methodology reference.
-- Выдаёт Variant A/B/C recommendation с причинами.
+Статус: implemented as reusable methodology policy/spec by `METH-TARGET-ADOPTION-DETECTOR-01`; возможный future script допустим только отдельной tooling task.
+
+- Detector policy определяет adoption mode Variant A/B/C или STOP.
+- Проверяет наличие `docs/agent-system`, engine journal, branch model, dirty tree и stable methodology reference.
+- Выдаёт Variant A/B/C recommendation с причинами, preconditions, allowed next task и forbidden actions.
+- Dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific history дают STOP.
 
 #### METH-PUBLIC-REPO-PRIVATE-DATA-GUARD-01
 

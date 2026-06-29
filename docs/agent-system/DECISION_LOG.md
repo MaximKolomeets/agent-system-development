@@ -1,5 +1,33 @@
 # DECISION_LOG
 
+## 2026-06-29 - Quality-first workflow обязателен перед PR
+
+Контекст:
+Повторяющийся шум в review возникает, когда PR открывается до self-review: reviewer ловит очевидные недочёты, PR body artifacts, incomplete acceptance criteria или fix-pass без blocker IDs.
+
+Решение:
+Добавить reusable `QUALITY_FIRST_WORKFLOW.md` и короткие ссылки в task/orchestrator/review templates. Новые file-changing задачи должны иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review before PR, PR body quality check и blocker-ID based fix-pass. Missing acceptance criteria или failed self-review означает STOP до PR, кроме простых консультационных задач без write-action.
+
+Последствия:
+- reviewer focus смещается на смысловые риски, scope safety и реальность self-review;
+- STOP-or-ACT и decision cache закреплены без ослабления safety;
+- target repositories не читаются и не меняются этой methodology task;
+- после merge задача должна войти в existing release PR #283 для patch release `v1.4.1`; новый release PR не открывать.
+
+## 2026-06-29 - Target adoption detector закреплён перед real adoption
+
+Контекст:
+После release boundary `v1.4.0` следующий риск находится не в самом переносе файлов, а в выборе режима target adoption: clean new adoption, update existing methodology layer или partial/broken/adversarial state требуют разных задач и разных STOP-условий.
+
+Решение:
+Добавить reusable `TARGET_ADOPTION_DETECTOR.md`, который до target adoption/source-update выбирает Variant A/B/C или STOP. Detector требует clean target tree, stable methodology source (`main`, release tag или published snapshot), сохранение target-specific journal/history/state и запрет private data reads. Adoption от methodology `developer`, `work/*`, dirty local methodology tree или open methodology PR branch запрещён как source of truth.
+
+Последствия:
+- real target repositories не читаются и не меняются в methodology task;
+- dirty target tree, unstable source, private data risk и overwrite target history дают STOP;
+- downstream/adoption docs и templates получают короткую ссылку на detector вместо дублирования полного алгоритма;
+- следующий шаг после merge - использовать detector policy перед первым real project adoption от stable source.
+
 ## 2026-06-29 - Release-boundary mode для ready-gate
 
 Контекст:

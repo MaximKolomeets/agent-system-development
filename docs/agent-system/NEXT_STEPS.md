@@ -9,20 +9,21 @@
 Повторяемый цикл methodology maintenance:
 
 1. Сформулировать plan/task с точным scope, allowed files, checks, STOP conditions и branch guard.
-2. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
-3. Перед push/PR запустить `python docs/agent-system/tools/check_task_ready.py --base origin/developer`, затем открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
-3a. Если feedback требует повторных проходов, использовать review autoloop: blocker IDs/classes, `verification_command`, engine fix-pass в той же branch, machine-check closure для fully passed machine-verifiable blockers, minimal reviewer re-review для semantic/mixed blockers, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
-3b. Если surfaced generated/cloud EOL-only шум, использовать `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift исправлять регенерацией/source fix, EOL/whitespace-only noise закрывать как machine-verifiable evidence или отдельным scoped EOL task.
-4. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
-5. Повторять work/review/merge до завершения текущей серии.
-6. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-7. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
-8. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
-9. Повторить цикл от актуального `developer`.
+2. Применить `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: Definition of Ready, проверяемые acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass policy.
+3. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
+4. Перед push/PR запустить `python docs/agent-system/tools/check_task_ready.py --base origin/developer`, затем открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
+4a. Если feedback требует повторных проходов, использовать review autoloop: blocker IDs/classes, `verification_command`, engine fix-pass в той же branch, machine-check closure для fully passed machine-verifiable blockers, minimal reviewer re-review для semantic/mixed blockers, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
+4b. Если surfaced generated/cloud EOL-only шум, использовать `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift исправлять регенерацией/source fix, EOL/whitespace-only noise закрывать как machine-verifiable evidence или отдельным scoped EOL task.
+5. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
+6. Повторять work/review/merge до завершения текущей серии.
+7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
+8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
+9. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
+10. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-RELEASE-GATE-READY-MODE-01`. Предыдущая попытка `METH-RELEASE-V1-4-0-01` остановилась до release PR creation: обычный ready-gate на `developer` против `origin/main` сработал как work-branch gate и дополнительно нашёл deferred-marker wording в `RESULT-0116`. После merge текущего tooling/docs fix следующий рекомендуемый шаг - повторить `METH-RELEASE-V1-4-0-01`; release/tag/merge и target repository adoption до этого не выполняются.
+Текущий фокус: завершить `METH-QUALITY-FIRST-WORKFLOW-01`. Задача добавляет quality-first workflow перед broader target adoption: Definition of Ready, acceptance criteria, self-review before PR, PR body quality и blocker-ID based fix-pass. После merge этой задачи existing release PR #283 обновится через `head=developer` и станет patch release `v1.4.1` payload вместе с `TARGET_ADOPTION_DETECTOR`; новый release PR не открывать и PR #283 не мержить агентом.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
@@ -51,6 +52,8 @@
 5. Если journal stale внутри release/audit/explicit boundary reconciliation scope или противоречит GitHub facts в этом scope, создавать docs-only Engine-блок на reconciliation вместо ответа `все закрыто`.
 6. Использовать `CODE_REVIEW_TASK_TEMPLATE.md` для первого безопасного review target implementation repository только после проверки, что task явно содержит режим, объект проверки, allowed/forbidden files и правило сохранения отчета. Review-задачи всегда журналируют TASK+RESULT (`Journal trace: always`).
 7. При следующем target repository dry run читать methodology repository только из stable reference `origin/main` / `main`, release tag или явно заданного snapshot; dirty `developer`/`work/*` не считать blocker при доступном stable ref.
+7a. Перед target adoption/source-update применять `TARGET_ADOPTION_DETECTOR.md`: Variant A/B/C или STOP; dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific journal/history/state означают STOP.
+7b. Перед file-changing PR применять `QUALITY_FIRST_WORKFLOW.md`: missing acceptance criteria или failed self-review означают STOP до PR.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
 9. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
 10. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.

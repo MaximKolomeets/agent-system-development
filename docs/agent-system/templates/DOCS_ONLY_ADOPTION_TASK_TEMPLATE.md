@@ -30,6 +30,8 @@ Docs-only adoption/source-update задачи должны включать fenc
 
 Если `task_contract` присутствует, он является источником истины для mode/scope/checks/STOP, а prose остаётся human explanation. Конфликт contract/prose означает `STOP`.
 
+Docs-only adoption/source-update task также применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: проверяемые acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass обязательны до открытия PR.
+
 Для ordinary PR default policies:
 
 ```yaml
@@ -81,6 +83,8 @@ policies:
 ## Adoption mode
 
 `docs-only adoption`
+
+Перед подтверждением режима выполнить `docs/agent-system/TARGET_ADOPTION_DETECTOR.md` и зафиксировать Variant A/B/C или STOP. Dirty target tree, unstable methodology source, private data risk или риск overwrite target-specific journal/history/state означают STOP до docs-only adoption.
 
 ## Base branch
 

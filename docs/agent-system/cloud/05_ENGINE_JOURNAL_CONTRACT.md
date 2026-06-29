@@ -133,6 +133,8 @@ RESULT обязан включать строку `Архитектору — з
 
 Если TASK file содержит fenced YAML block `task_contract`, он является source of truth для mode/scope/checks/STOP по `docs/agent-system/TASK_CONTRACT.md`. RESULT должен фиксировать результат `validate_task_contract.py`, если validation запускалась. Если нарушение task contract или commit/PR metadata language случилось и его нельзя безопасно исправить до push без rewrite/force-push, RESULT фиксирует нарушение, причину и следующий безопасный шаг; уже pushed/merged history не переписывается без отдельного явного решения архитектора.
 
+Для новых file-changing задач RESULT должен включать `self_review_before_pr` по `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: acceptance criteria, diff scope, generated artifacts, journal finalization, PR body quality и safety checked. Если self-review не прошёл, PR не открывать.
+
 ## Безопасность
 
 Engine journal хранится в GitHub и считается публичным, если repository public.

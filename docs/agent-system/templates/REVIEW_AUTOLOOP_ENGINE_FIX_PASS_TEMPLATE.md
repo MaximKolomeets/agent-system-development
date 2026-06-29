@@ -24,15 +24,16 @@ Branch: `work/<role>/<task>`
 3. Подтянуть head branch fast-forward.
 4. Исправить только feedback внутри scope PR.
 5. Закрыть blockers по IDs и не смешивать unrelated cleanup.
-6. Не менять forbidden paths и не читать `.env`.
-7. Запустить `verification_command` для каждого blocker, task checks и generated checks, если затронуты docs/generated artifacts.
-8. Обновить RESULT/final report, если task ведёт journal.
-9. Сохранить Russian-first для commit/PR metadata, PR comments, RESULT/final report и review/fix-pass summary.
-10. Не менять downstream `methodology_reference` на `developer`, `work/*`, dirty local methodology tree или open methodology PR branch.
-11. Не создавать отдельный post-merge closure PR для ordinary PR; RESULT/final report фиксирует PR URL, reviewed head SHA и `architect:ready-to-merge`, а merge facts после human merge берутся из GitHub PR metadata.
-12. Push в ту же task branch.
-13. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
-14. Если feedback связан с semantic completeness, закрыть конкретные blocker IDs по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`; не расширять fix-pass до full methodology audit.
+6. Применить `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: сверить acceptance criteria, self-review before PR/fix-pass, PR body quality и safety summary.
+7. Не менять forbidden paths и не читать `.env`.
+8. Запустить `verification_command` для каждого blocker, task checks и generated checks, если затронуты docs/generated artifacts.
+9. Обновить RESULT/final report, если task ведёт journal.
+10. Сохранить Russian-first для commit/PR metadata, PR comments, RESULT/final report и review/fix-pass summary.
+11. Не менять downstream `methodology_reference` на `developer`, `work/*`, dirty local methodology tree или open methodology PR branch.
+12. Не создавать отдельный post-merge closure PR для ordinary PR; RESULT/final report фиксирует PR URL, reviewed head SHA и `architect:ready-to-merge`, а merge facts после human merge берутся из GitHub PR metadata.
+13. Push в ту же task branch.
+14. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
+15. Если feedback связан с semantic completeness, закрыть конкретные blocker IDs по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`; не расширять fix-pass до full methodology audit.
 
 ## STOP-условия
 
