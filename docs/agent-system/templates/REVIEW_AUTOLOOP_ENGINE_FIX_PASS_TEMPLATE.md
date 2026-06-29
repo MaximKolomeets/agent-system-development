@@ -32,6 +32,7 @@ Branch: `work/<role>/<task>`
 11. Не создавать отдельный post-merge closure PR для ordinary PR; RESULT/final report фиксирует PR URL, reviewed head SHA и `architect:ready-to-merge`, а merge facts после human merge берутся из GitHub PR metadata.
 12. Push в ту же task branch.
 13. Вернуть PR в `engine:ready-for-review` для semantic/mixed re-review или `architect:ready-to-merge` для fully passed machine-check closure.
+14. Если feedback связан с semantic completeness, закрыть конкретные blocker IDs по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`; не расширять fix-pass до full methodology audit.
 
 ## STOP-условия
 
@@ -72,3 +73,4 @@ next:
 ```
 
 Если все fixed blockers имеют class `machine-verifiable`, все `verification_command` и checks прошли, changed files не вышли за `required_fix_scope`, а reviewer не требовал explicit re-review, engine может поставить `status: architect:ready-to-merge`, `requires_reviewer_rereview: no`, `rereview_scope: machine_check_only`. Для `semantic` и `mixed` blockers всегда нужен reviewer re-review по `changed_blockers_only` или более широкому scope, заданному reviewer.
+Finalized RESULT/fix-pass report должен соблюдать `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`, а acceptance/spec fixes - `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.

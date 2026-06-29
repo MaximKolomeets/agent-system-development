@@ -185,6 +185,12 @@ Engine:
 
 Шаблон: `docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md`.
 
+## Semantic completeness blockers
+
+Reviewer может классифицировать semantic completeness mismatch по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` как `semantic` или `mixed` blocker. Типовые примеры: RESULT обещает checks, которые не запускались; PR body описывает implementation, отсутствующую в diff; docs-only PR включает tests/tools/code; acceptance spec, blocker matrix и fixture plan расходятся по scenario/blocker/fixture/status mapping; finalized journal surface нарушает `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
+
+Downstream feedback blockers reviewer проверяет по `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` и `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`: target-specific/private leakage, target adoption до stable release boundary или чтение target repository без explicit scope являются `semantic` либо `mixed` blocker.
+
 ## Локальный orchestrator / self-hosted runner flow
 
 Минимальный local orchestrator flow:

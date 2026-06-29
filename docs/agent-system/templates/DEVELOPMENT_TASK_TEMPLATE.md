@@ -55,6 +55,8 @@
 
 Если задача создает ordinary PR, проверки должны включать Closure policy для RESULT/INDEX: ordinary terminal state (`architect_ready` / `human_merge_allowed`), PR URL и reviewed head SHA зафиксированы, отдельный post-merge closure PR не требуется. Для release/audit boundary или explicit architect request указывать boundary reconciliation по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Closure policy».
 
+Добавить semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: RESULT и PR body не обещают checks/implementation вне фактического diff; docs-only scope не включает tests/tools/code; state docs не объявляют future task как started. Для acceptance/spec/generator задач применять `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`. Finalized journal surface проверять по `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
+
 ## Ожидаемый отчет
 
 Описать формат итогового отчета.

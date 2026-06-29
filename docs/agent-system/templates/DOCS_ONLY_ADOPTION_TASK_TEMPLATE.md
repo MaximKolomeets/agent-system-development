@@ -264,6 +264,9 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить, где комментарии не применимы из-за формата файла
 - проверить, что `methodology_reference` есть в audit/adoption artifacts, содержит `ref: origin/main` или явно заданный stable ref, `stable_only: true`, source commit SHA и checked_at
 - проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
+- проверить semantic completeness по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: docs-only diff не включает tests/tools/code/runtime, PR body и RESULT не обещают implementation вне docs diff
+- если scope включает acceptance spec/blocker matrix/fixture plan, применить `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`
+- проверить finalized TASK/RESULT/INDEX по `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`
 
 ## Final report
 

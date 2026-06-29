@@ -1,5 +1,63 @@
 # DECISION_LOG
 
+## 2026-06-29 - Release-boundary mode для ready-gate
+
+Контекст:
+Попытка подготовить release PR `developer -> main` для `v1.4.0` была остановлена до PR creation. Обычный `check_task_ready.py --base origin/main` запускался на `developer` и корректно применил work-branch-only blockers (`protected branch changes`, `changed files outside work/* branch`), а также нашёл deferred-marker wording в `RESULT-0116`.
+
+Решение:
+Добавить явный opt-in `--release-boundary` для `check_task_ready.py`, разрешённый только для пары `current_branch = developer` и `base = origin/main`. В этом режиме подавляются только blockers про protected branch/work branch, чтобы release payload `developer -> main` можно было проверить до открытия release PR. Forbidden paths, sensitive filenames, strict added-line secret scan, deferred finalization placeholder scan, `git diff --check` и conditional generated checks остаются активными. `RESULT-0116` переводится на finalized source/policy-семантику: `pr_head_source`, `reviewed_head_source`, `final_pr_head_policy`, `pre_finalization_head_sha`.
+
+Последствия:
+- default ready-gate для обычных work branches не ослабляется;
+- release-boundary mode не разрешён для `main` или произвольных branches;
+- release PR, merge и tag не создаются этой задачей;
+- следующий шаг после merge текущего PR - повторить `METH-RELEASE-V1-4-0-01`.
+
+## 2026-06-29 - Sanitized downstream feedback loop закреплён как reusable boundary
+
+Контекст:
+После downstream dry-run в backlog/state уже был neutral feedback item про необходимость замкнуть feedback loop без private downstream details и без превращения target repository в source of truth для methodology.
+
+Решение:
+Принять sanitized downstream feedback loop как reusable methodology boundary: feedback сначала проходит sanitization checkpoint, затем classification и backlog grouping, а reusable changes идут только через `agent-system-development` и PR в `developer`. Target repositories получают изменения только после `main`, release tag или published Source/cloud snapshot. `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` закрывается как sanitized/reusable variant через `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`.
+
+Последствия:
+
+- private downstream details, real data, `.env`, credentials, matching secret/header values и target-specific branch/worktree state не переносятся в public methodology;
+- methodology task по sanitized feedback не читает target repository без explicit scope;
+- ordinary post-merge closure PR не требуется;
+- boundary reconciliation остаётся release/audit/explicit-request step;
+- следующий рекомендуемый boundary после scoped review и merge: release candidate `v1.4.0`.
+## 2026-06-29 - Semantic completeness gates закреплены как pre-PR слой
+
+Решение:
+Добавить reusable semantic completeness gates, journal finalization policy и acceptance/spec completeness pattern как обязательные ссылки для docs/journal/templates/tooling задач. Ready-gate расширен минимальной category для deferred finalization markers в changed TASK/RESULT files без печати matching values.
+
+Причина:
+Sanitized downstream feedback показал повторяющийся класс semantic/mixed дефектов: технические checks могут быть зелёными, но RESULT, PR body, state docs, acceptance spec, blocker matrix, fixture plan и boundary docs могут противоречить фактическому diff или выполненным checks.
+
+Последствия:
+- `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`, `METH-JOURNAL-FINALIZATION-PHRASES-01` и `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01` объединены в одну methodology hardening task;
+- `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` остаётся отдельной future task для sanitized feedback report;
+- ready-gate остаётся lightweight и не становится NLP/semantic parser;
+- output safety сохраняется: counts, filenames и category без matching values;
+- runtime, Docker, CI, branch protection, release/tag/version и target repository не меняются.
+
+## 2026-06-28 - Downstream semantic completeness feedback принят как backlog input
+
+Решение:
+Sanitized downstream semantic completeness feedback from a target implementation repository dry-run accepted as methodology backlog input. Initial PR records backlog only; implementation requires separate explicit tasks.
+
+Причина:
+Повторяющиеся reviewer замечания класса semantic completeness показывают, что одних технических gates недостаточно: перед PR нужны будущие проверки согласованности RESULT, acceptance spec, matrix, fixture plan и boundary docs.
+
+Последствия:
+- backlog entry фиксирует future task candidates для checklist/tooling/pattern/report;
+- checklist/tooling в этом PR не реализуются;
+- private target data и target-specific details не переносятся в reusable methodology;
+- runtime, Docker, CI, release/tag/version и target repository не меняются.
+
 ## 2026-06-27 - Strict Authorization header guard в ready-gate
 
 Решение:

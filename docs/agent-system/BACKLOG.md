@@ -11,6 +11,8 @@
 - Future methodology simplification после release `v1.2.0`: context handoff footer enforcement, journal gate automation, adoption feedback loop automation. Не реализовывать в release-prep; рассматривать отдельными scoped задачами.
 - После merge `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01`: human-only release PR `developer -> main`, чтобы stable `origin/main` включал новую downstream policy. Это не выполняется engine в этой задаче.
 - Выполняется в `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`: P1 safety hotfix для ready-gate, чтобы headers `Authorization` блокировались независимо от auth-схемы и matching values не выводились.
+- Выполнено в `METH-SEMANTIC-COMPLETENESS-GATES-01`: объединены `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`, `METH-JOURNAL-FINALIZATION-PHRASES-01` и `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`; feedback-loop item был оставлен для отдельной sanitized methodology task.
+- Выполнено в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`: `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` закрыта как sanitized/reusable variant; downstream feedback loop и sanitization policy описаны без private downstream details, target repository access и target adoption до stable release boundary.
 
 ## Post-autoloop automation roadmap
 

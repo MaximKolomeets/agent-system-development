@@ -16,18 +16,26 @@
 4. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 5. Повторять work/review/merge до завершения текущей серии.
 6. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-7. Выполнить release-gate: journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
+7. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
 8. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
 9. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`, чтобы ready-gate блокировал headers `Authorization` независимо от auth-схемы и не печатал matching values. После merge hotfix человек-архитектор продвигает patch source (`v1.3.1` или current `main` commit) и обновляет affected target implementation repository PR от нового stable source. Cleanup PR #267 уже смержен. `v1.2.0` выпущен через PR #253 и tag `v1.2.0`; sync `main -> developer` выполнен через PR #254, последующий post-release advance `main` синхронизирован через PR #259. F-03 остаётся pending human-action, тег на текущий `main` в этой задаче не ставится.
+Текущий фокус: завершить `METH-RELEASE-GATE-READY-MODE-01`. Предыдущая попытка `METH-RELEASE-V1-4-0-01` остановилась до release PR creation: обычный ready-gate на `developer` против `origin/main` сработал как work-branch gate и дополнительно нашёл deferred-marker wording в `RESULT-0116`. После merge текущего tooling/docs fix следующий рекомендуемый шаг - повторить `METH-RELEASE-V1-4-0-01`; release/tag/merge и target repository adoption до этого не выполняются.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
+- **Downstream semantic completeness gates**: по результатам sanitized downstream dry-run в target implementation repository добавить future methodology hardening для Pre-PR semantic completeness checks. Цель — снизить количество fixup-циклов, когда технические gates зелёные, но reviewer находит логические несостыковки между RESULT, acceptance spec, matrix, fixture plan и boundary docs.
+  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через reusable semantic completeness gates.
+  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через journal finalization policy и ready-gate category.
+  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через acceptance/spec completeness pattern.
+  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: закрыто в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01` как sanitized/reusable variant через `DOWNSTREAM_FEEDBACK_LOOP.md` и `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; target-specific/private details не переносились.
+  - Status: первые три пункта закрыты текущим methodology hardening PR; sanitized feedback report остаётся отдельной future task.
+  - Priority: medium-high.
+  - Reason: reduces repeated fixup cycles in target repositories.
 - **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.
 - **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, старый `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны. Новый `TARGET_REPOSITORY_ADOPTION_GUIDE.md` из `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` является live stable-reference entrypoint, не старой redirect-заглушкой.
 - **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и historical English wording там, где это не нарушает Russian-first policy и не требует rewrite history; это не blocker для adoption.

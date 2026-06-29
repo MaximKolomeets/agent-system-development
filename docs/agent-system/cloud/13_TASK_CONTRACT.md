@@ -186,6 +186,7 @@ policies:
 
 ## Policy checks
 
+- Downstream feedback tasks должны ссылаться на `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` и `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`, если feedback переносится в public methodology.
 Минимальная policy validation:
 
 - `repository.working_branch` должен начинаться с `work/`;
@@ -194,6 +195,9 @@ policies:
 - `scope.forbidden_files` должен включать `.env` или `.env.*`;
 - `policies.merge` для substantive/write-action задач должен быть `human_only`;
 - `checks.required` должен включать `python docs/agent-system/tools/check_task_ready.py --base origin/developer` или явное объяснение в prose, почему ready-gate не применим.
+- Для docs/journal/templates/tooling задач prose или TASK должен требовать semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`.
+- Acceptance/spec tasks должны ссылаться на `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
+- Journal-finalization tasks должны ссылаться на `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
 - `policies.language` для новых Russian-first задач должен быть `russian_first`;
 - если `methodology_reference.stable_only: true`, `methodology_reference.ref` должен быть `origin/main`, `main`, явно указанным release tag или `published_source_snapshot`;
 - если `methodology_reference.stable_only: true`, должны быть заполнены `source_commit` и `checked_at`;
