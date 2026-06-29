@@ -50,6 +50,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/PR_WORKFLOW.md` |  |
 | `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` |  |
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
+| `docs/agent-system/QUALITY_FIRST_WORKFLOW.md` |  |
 | `docs/agent-system/README.md` |  |
 | `docs/agent-system/REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/ROLE_MODEL.md` |  |

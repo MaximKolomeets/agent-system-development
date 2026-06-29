@@ -1,5 +1,19 @@
 # DECISION_LOG
 
+## 2026-06-29 - Quality-first workflow обязателен перед PR
+
+Контекст:
+Повторяющийся шум в review возникает, когда PR открывается до self-review: reviewer ловит очевидные недочёты, PR body artifacts, incomplete acceptance criteria или fix-pass без blocker IDs.
+
+Решение:
+Добавить reusable `QUALITY_FIRST_WORKFLOW.md` и короткие ссылки в task/orchestrator/review templates. Новые file-changing задачи должны иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review before PR, PR body quality check и blocker-ID based fix-pass. Missing acceptance criteria или failed self-review означает STOP до PR, кроме простых консультационных задач без write-action.
+
+Последствия:
+- reviewer focus смещается на смысловые риски, scope safety и реальность self-review;
+- STOP-or-ACT и decision cache закреплены без ослабления safety;
+- target repositories не читаются и не меняются этой methodology task;
+- после merge задача должна войти в existing release PR #283 для patch release `v1.4.1`; новый release PR не открывать.
+
 ## 2026-06-29 - Target adoption detector закреплён перед real adoption
 
 Контекст:
