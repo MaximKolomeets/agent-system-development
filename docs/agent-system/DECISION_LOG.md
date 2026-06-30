@@ -563,7 +563,7 @@ GitHub Actions показывает warning о deprecated Node.js 20 actions. П
 
 Последствия:
 
-- первый безопасный результат adoption - только `docs/agent-system/ADOPTION_AUDIT.md`;
+- первый безопасный результат adoption - только `docs/agent-system/ADOPTION_AUDIT.md` (target-local; канон-шаблон: `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`);
 - `CURRENT_STATE.md`, `NEXT_STEPS.md` и `DECISION_LOG.md` нельзя копировать verbatim;
 - branch model, worktree paths, current state, visibility и CI branch filters адаптируются под target repository;
 - runtime adoption отделяется от документационного bootstrap и требует отдельного архитектурного решения;
@@ -647,7 +647,7 @@ Target repository должен до implementation PR фиксировать mis
 - canonical prompt хранится в `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md`;
 - README, adoption guide, engine entrypoint и short prompt ссылаются на новый prompt;
 - Оркестратор в target project chat готовит задачу для engine, но не меняет файлы сам;
-- первая задача engine создает только `docs/agent-system/ADOPTION_AUDIT.md`;
+- первая задача engine создает только `docs/agent-system/ADOPTION_AUDIT.md` (target-local; канон-шаблон: `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`);
 - full docs-only adoption и governance pack применяются отдельным PR после audit.
 
 ## 2026-06-10 - Unified ChatGPT response, methodology freshness and commenting standard
