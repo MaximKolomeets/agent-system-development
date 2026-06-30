@@ -34,7 +34,7 @@ task_contract:
       - exports/**
       - credentials
       - tokens
-      - private keys
+      - access key material
       - real passwords
       - private repository URLs
       - private downstream project names
