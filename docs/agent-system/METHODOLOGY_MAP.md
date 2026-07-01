@@ -30,12 +30,17 @@ Core/Reference; этот файл дает полный каталог по ка
 - `DECISION_LOG.md` - журнал решений methodology repository.
 - `TARGET_PROJECT_GOVERNANCE_PACK.md` - состав governance pack для target
   repository.
+- `CONTROL_MATRIX_PATTERN.md` - паттерн traceability matrix для связи
+  policy-инвариантов с реализацией, тестами, CI-gates, stage, fail-mode и
+  владельцем.
 
 Когда применять: при изменении authority/scope/governance, adoption pack или
-архитектурных решений.
+архитектурных решений; `CONTROL_MATRIX_PATTERN.md` применять для Stage 2+
+target repositories или когда принят MIR-01.
 
 Граница: "почему/что разрешено" живет здесь; "как выполнять шаги" живет в
-workflow-документах.
+workflow-документах; "что считается done и чем проверяется" живет в control
+matrix, не в prose policy-дубликатах.
 
 ### 3. Ветки, workflow, PR и worktree
 
