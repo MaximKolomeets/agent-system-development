@@ -4,7 +4,7 @@
 
 Текущее состояние методологии включает preferred `task_contract` frontmatter для новых write-action Engine-задач. Канон: `docs/agent-system/TASK_CONTRACT.md`; lightweight read-only validator: `docs/agent-system/tools/validate_task_contract.py`. Prose остаётся human explanation, а `task_contract` является source of truth для mode/scope/checks/STOP; конфликт contract/prose означает `STOP`. `TASK_CONTRACT.md` входит в default cloud/orchestrator bundle как `13_TASK_CONTRACT.md`.
 
-Дата: 2026-06-26
+Дата: 2026-07-01
 
 Проект: Создание агентской системы
 
@@ -47,11 +47,24 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: `METH-QUALITY-FIRST-WORKFLOW-01` добавляет mandatory quality-first workflow перед broader target adoption: новые задачи требуют acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass. Target repositories не читались и не менялись; private downstream details, runtime, Docker, CI, branch protection, release/tag/merge не выполнялись. Следующий шаг после merge этой задачи: использовать existing release PR #283 как patch release `v1.4.1` payload для target adoption detector и quality-first workflow; новый release PR не открывать.
+Текущий фокус: release-prep `v1.5.0` после merge PR #286-#294. `origin/main` и
+latest tag `v1.4.1` указывают на `1cad3af985fa48e7b0ca3358420d2cc5094b7ad6`;
+`origin/developer` указывает на `4ed2662b5345798e99197fa14137e8154d946209`.
+Journal 0122-0129 закрыт batch-closure PR #294; latest row перед release-prep:
+`0130`. Target repositories не читались и не менялись; private downstream details,
+runtime, Docker, CI, branch protection, release/tag/merge не выполнялись.
+Следующий шаг после merge release-prep PR: отдельной задачей создать release PR
+`developer -> main` для `v1.5.0`; merge release PR, tag `v1.5.0` и sync выполняются
+по human/Engine split из `RELEASE_READINESS.md`.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: консолидация методологии (`RESULT-0004`, `METH-CONSOLIDATION-PLAN-01`) завершена — все execution-PR C1–C6 смержены в `developer`. До неё methodology hardening task `METH-OPERABILITY-01` была завершена и merged, проведён `REVIEW-INITIAL-01` (review-only) и consistency-проход `METH-CONSISTENCY-01`.
+Текущий этап: pre-release runway `v1.5.0`. Содержательный payload после `v1.4.1`
+включает EOL-нормализацию, xref/reading-list hygiene, `METHODOLOGY_MAP`,
+CONTROL_MATRIX, EXTERNAL_REVIEW_LEDGER, THREAT_MODEL, governance-паттерны и
+commit-message enforcement. После release/tag/sync следующим крупным шагом является
+Блок B: methodology-update для target implementation repository от stable release
+pointer `v1.5.0`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

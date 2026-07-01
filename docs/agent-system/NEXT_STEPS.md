@@ -23,9 +23,18 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: завершить `METH-QUALITY-FIRST-WORKFLOW-01`. Задача добавляет quality-first workflow перед broader target adoption: Definition of Ready, acceptance criteria, self-review before PR, PR body quality и blocker-ID based fix-pass. После merge этой задачи existing release PR #283 обновится через `head=developer` и станет patch release `v1.4.1` payload вместе с `TARGET_ADOPTION_DETECTOR`; новый release PR не открывать и PR #283 не мержить агентом.
+Текущий фокус: release-prep `v1.5.0` после merge PR #286-#294. Release-prep PR
+обновляет `RELEASE_READINESS.md`, state docs, journal entry `0131` и generated
+cloud bundle. После merge этого PR отдельной задачей создать release PR
+`developer -> main` для `v1.5.0`; agent не мержит release PR, не пушит `main`, не
+создаёт tag и не публикует GitHub Release.
 
-Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer: `docs/agent-system/engine-journal/INDEX.md`; latest release: remote `main`/tags и release/sync facts в journal.
+Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer:
+`docs/agent-system/engine-journal/INDEX.md`; latest release перед этим release-prep:
+`v1.4.1`; next intended release tag: `v1.5.0`.
+
+После релиза: перейти к Блоку B — methodology-update для target implementation
+repository от stable release pointer `v1.5.0`.
 
 ## Опциональный backlog (на усмотрение архитектора)
 
