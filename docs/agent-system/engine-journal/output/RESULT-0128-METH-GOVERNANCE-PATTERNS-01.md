@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #292 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/292
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `bb4e94af75aafa5483bbc1c3f0df39d2ab566a83`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -85,6 +85,27 @@ execution_finished_at: `2026-07-01T11:17:48.1039303+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/292`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `docs(agent-system): добавить governance-паттерны методологии`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-governance-patterns-01`.
+- reviewed_head_sha: `70413c34afdc4d6481c1010c9098fe0b1f279ff5`.
+- merged_at: `2026-07-01T04:25:05Z`.
+- merge_commit: `17c8f2453efb286d1db5827809f5a1dba69fdef8`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 
