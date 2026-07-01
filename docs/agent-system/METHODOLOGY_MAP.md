@@ -33,14 +33,24 @@ Core/Reference; этот файл дает полный каталог по ка
 - `CONTROL_MATRIX_PATTERN.md` - паттерн traceability matrix для связи
   policy-инвариантов с реализацией, тестами, CI-gates, stage, fail-mode и
   владельцем.
+- `POLICY_STATUS_PATTERN.md` - паттерн target-local статусов политик
+  (`canonical`/`proposed`/`draft`) и alignment "политика vs фактическая стадия
+  repository".
+- `ERROR_CATALOG_PATTERN.md` - паттерн стабильного словаря error/blocker codes,
+  согласованного с acceptance/spec цепочкой.
+- `DECISION_NOTE_GUIDE.md` - правило выбора между строкой в `DECISION_LOG.md` и
+  отдельной decision note, включая Level 3/4 owner approval.
 
 Когда применять: при изменении authority/scope/governance, adoption pack или
 архитектурных решений; `CONTROL_MATRIX_PATTERN.md` применять для Stage 2+
-target repositories или когда принят MIR-01.
+target repositories или когда принят MIR-01; `POLICY_STATUS_PATTERN.md` и
+`ERROR_CATALOG_PATTERN.md` применять, когда target repository нужно явно
+развести статус политики, blocker codes и фактическую готовность.
 
 Граница: "почему/что разрешено" живет здесь; "как выполнять шаги" живет в
 workflow-документах; "что считается done и чем проверяется" живет в control
-matrix, не в prose policy-дубликатах.
+matrix и error catalog, не в prose policy-дубликатах. Крупные Level 3/4 решения
+оформляются по `DECISION_NOTE_GUIDE.md`, а не прячутся только в PR body.
 
 ### 3. Ветки, workflow, PR и worktree
 
@@ -246,6 +256,9 @@ target repository создает собственное состояние по 
 | Шаблоны | `docs/architecture/templates/` или `docs/agent-system/templates/` |
 | Synthetic fixtures | `fixtures/` |
 | Control traceability (если принят MIR-01) | `docs/agent-system/CONTROL_MATRIX.md` |
+| Статусы политик и repo alignment | `docs/agent-system/POLICY_STATUS.md` |
+| Стабильные error/blocker codes | `docs/agent-system/ERROR_CATALOG.md` |
+| Крупные decision notes | `docs/agent-system/decisions/` или target-local ADR каталог |
 
 Правило: один тип - один canonical каталог; не плодить параллельные дома.
 

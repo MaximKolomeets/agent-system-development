@@ -1,5 +1,32 @@
 # DECISION_LOG
 
+## 2026-07-01 - Governance patterns для policy status, error catalog и decision notes
+
+Контекст:
+После серии MIR-hardening документов остались три повторяющихся governance шва:
+статус политики не всегда был явно согласован с фактической стадией repository,
+blocking/error codes могли расходиться между acceptance spec и review/gate
+отчетами, а крупные решения не имели ясной границы между строкой в
+`DECISION_LOG.md` и отдельной decision note.
+
+Решение:
+Добавить reusable `POLICY_STATUS_PATTERN.md`, `ERROR_CATALOG_PATTERN.md`,
+`templates/ERROR_CATALOG_TEMPLATE.md` и `DECISION_NOTE_GUIDE.md`.
+`POLICY_STATUS_PATTERN.md` фиксирует канонические статусы политики и обязательный
+alignment "политика vs repo-state". `ERROR_CATALOG_PATTERN.md` задает
+стабильные blocker/error codes, согласованные с
+`ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`. `DECISION_NOTE_GUIDE.md` задает,
+когда достаточно строки в `DECISION_LOG.md`, а когда нужна отдельная decision
+note и явное Level 3/4 owner approval.
+
+Последствия:
+- target repositories могут материализовать `POLICY_STATUS.md` и
+  `ERROR_CATALOG.md` как target-local governance artifacts;
+- обычные scoped PR не обязаны создавать отдельные decision notes;
+- Level 3/4 решения нельзя помечать `accepted` до явного owner approval;
+- target-specific policy status, real error cases и private data не переносятся
+  в public methodology repository.
+
 ## 2026-06-29 - Quality-first workflow обязателен перед PR
 
 Контекст:

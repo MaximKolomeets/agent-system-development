@@ -122,12 +122,14 @@ categories:
       - docs/agent-system/CODE_REVIEW_WORKFLOW.md
       - docs/agent-system/CONTROL_MATRIX_PATTERN.md
       - docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md
+      - docs/agent-system/DECISION_NOTE_GUIDE.md
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
       - docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md
       - docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+      - docs/agent-system/ERROR_CATALOG_PATTERN.md
       - docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md
       - docs/agent-system/FILE_COMMENTING_STANDARD.md
       - docs/agent-system/tools/check_task_ready.py
@@ -147,6 +149,7 @@ categories:
       - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
       - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
+      - docs/agent-system/POLICY_STATUS_PATTERN.md
       - docs/agent-system/PR_WORKFLOW.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PUBLICATION_POLICY.md
@@ -198,6 +201,7 @@ categories:
       - docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+      - docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md
       - docs/agent-system/templates/EXTERNAL_REVIEW_LEDGER_TEMPLATE.md
       - docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md
       - docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md
@@ -251,6 +255,13 @@ categories:
         source_templates:
           - docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md
           - docs/agent-system/CONTROL_MATRIX_PATTERN.md
+      - path: docs/agent-system/POLICY_STATUS.md
+        source_templates:
+          - docs/agent-system/POLICY_STATUS_PATTERN.md
+      - path: docs/agent-system/ERROR_CATALOG.md
+        source_templates:
+          - docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md
+          - docs/agent-system/ERROR_CATALOG_PATTERN.md
       - path: docs/agent-system/THREAT_MODEL.md
         source_templates:
           - docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md
