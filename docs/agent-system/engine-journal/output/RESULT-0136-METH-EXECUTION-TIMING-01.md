@@ -4,7 +4,7 @@
 
 status: completed
 
-pr_url: local_pre_publication
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/302
 
 branch: `work/methodology-architect-01/meth-mir-14-execution-timing-01`
 
@@ -14,13 +14,13 @@ actual_seq_rule: `INDEX last seq 0135 + 1`
 
 task_source_commit_sha: `867082c089ab16c4fea094ee697db0e10082f5ca`
 
-pr_head_source: local_pre_publication
+pr_head_source: github_pr_metadata
 
-reviewed_head_source: local_pre_publication
+reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: local_ready
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -28,9 +28,9 @@ merge_facts_source: github_pr_metadata
 
 execution_started_at: `2026-07-02T00:56:28.4158553+07:00`
 
-execution_finished_at: `2026-07-02T01:06:27.6715014+07:00`
+execution_finished_at: `2026-07-02T01:09:14.4496748+07:00`
 
-execution_duration: `PT9M59S`
+execution_duration: `PT12M46S`
 
 ## Что изменено
 
