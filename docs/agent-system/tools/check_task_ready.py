@@ -83,6 +83,7 @@ class ReadyReport:
     branch: str = ""
     base: str = ""
     release_boundary_mode: bool = False
+    commit_message_cutoff_ref: str = ""
     changed_files: list[str] = field(default_factory=list)
     staged_files: list[str] = field(default_factory=list)
     unstaged_files: list[str] = field(default_factory=list)
@@ -333,11 +334,24 @@ def add_diff_checks(report: ReadyReport) -> None:
             report.blockers.append(f"{name} failed")
 
 
-def add_commit_message_checks(report: ReadyReport) -> None:
-    check = run_command(
-        ["python", "docs/agent-system/tools/validate_commit_message.py", "--base", report.base],
-        f"validate_commit_message.py --base {report.base}",
-    )
+def add_commit_message_checks(report: ReadyReport, cutoff_ref: str = "") -> None:
+    report.commit_message_cutoff_ref = cutoff_ref
+    if report.release_boundary_mode and not cutoff_ref:
+        report.commit_message_checks.append(
+            CommandResult(
+                name="validate_commit_message.py skipped for release boundary",
+                exit_code=0,
+                status="skipped_release_boundary",
+            )
+        )
+        return
+
+    args = ["python", "docs/agent-system/tools/validate_commit_message.py", "--base", report.base]
+    name = f"validate_commit_message.py --base {report.base}"
+    if cutoff_ref:
+        args.extend(["--cutoff-ref", cutoff_ref])
+        name = f"{name} --cutoff-ref {cutoff_ref}"
+    check = run_command(args, name)
     report.commit_message_checks.append(check)
     if check.exit_code != 0:
         report.blockers.append("validate_commit_message.py failed")
@@ -411,6 +425,7 @@ def render_human(report: ReadyReport) -> str:
         f"branch: {report.branch}",
         f"base: {report.base}",
         f"release_boundary_mode: {str(report.release_boundary_mode).lower()}",
+        f"commit_message_cutoff_ref: {report.commit_message_cutoff_ref or '<none>'}",
         "",
         f"changed_files_count: {len(report.changed_files)}",
         f"staged_files_count: {len(report.staged_files)}",
@@ -467,7 +482,11 @@ def render_human(report: ReadyReport) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
+def build_report(
+    base: str,
+    release_boundary: bool = False,
+    commit_message_cutoff_ref: str = "",
+) -> ReadyReport:
     report = ReadyReport(base=base)
     add_repository_guard(report)
     if not report.repo_root:
@@ -479,7 +498,7 @@ def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
             report.blockers.append("release boundary mode supports only developer -> origin/main")
     add_changed_files(report)
     add_diff_checks(report)
-    add_commit_message_checks(report)
+    add_commit_message_checks(report, commit_message_cutoff_ref)
     add_generated_checks(report)
     add_safety_scans(report)
     return report
@@ -496,11 +515,20 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Allow the developer -> origin/main release gate to run without work-branch blockers.",
     )
+    parser.add_argument(
+        "--commit-message-cutoff-ref",
+        default="",
+        help="When release-boundary commit metadata validation is desired, validate only commits after this ref.",
+    )
     parser.add_argument("--strict", action="store_true", help="Treat warnings as non-ready.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON summary.")
     args = parser.parse_args(argv)
 
-    report = build_report(args.base, release_boundary=args.release_boundary)
+    report = build_report(
+        args.base,
+        release_boundary=args.release_boundary,
+        commit_message_cutoff_ref=args.commit_message_cutoff_ref,
+    )
     if args.json:
         print(json.dumps(report.to_json_dict(), ensure_ascii=False, indent=2, sort_keys=True))
     else:

@@ -44,6 +44,8 @@ class ValidationReport:
     base: str = ""
     config_path: str = ""
     allowed_scopes: list[str] = field(default_factory=list)
+    skip_merges: bool = True
+    cutoff_ref: str = ""
     commits_checked: list[str] = field(default_factory=list)
     violations: list[CommitViolation] = field(default_factory=list)
 
@@ -216,17 +218,34 @@ def add_config_errors(report: ValidationReport, errors: list[str]) -> None:
         report.violations.append(CommitViolation(ref="<config>", codes=errors))
 
 
+def build_rev_list_args(base: str, skip_merges: bool, cutoff_ref: str = "") -> list[str]:
+    args = ["rev-list", "--reverse"]
+    if skip_merges:
+        args.append("--no-merges")
+    if cutoff_ref:
+        return [*args, "HEAD", "--not", base, cutoff_ref]
+    return [*args, f"{base}..HEAD"]
+
+
 def validate_range(
     base: str,
     allowed_scopes: list[str],
     config_path: Path,
     config_errors: list[str],
+    skip_merges: bool,
+    cutoff_ref: str = "",
 ) -> ValidationReport:
-    report = ValidationReport(base=base, config_path=str(config_path), allowed_scopes=allowed_scopes)
+    report = ValidationReport(
+        base=base,
+        config_path=str(config_path),
+        allowed_scopes=allowed_scopes,
+        skip_merges=skip_merges,
+        cutoff_ref=cutoff_ref,
+    )
     add_config_errors(report, config_errors)
     if config_errors:
         return report
-    rev_list = run_git(["rev-list", "--reverse", f"{base}..HEAD"])
+    rev_list = run_git(build_rev_list_args(base, skip_merges, cutoff_ref))
     if rev_list.returncode != 0:
         report.violations.append(CommitViolation(ref="<range>", codes=["RANGE_UNREADABLE"]))
         return report
@@ -248,7 +267,12 @@ def validate_single(
     config_path: Path,
     config_errors: list[str],
 ) -> ValidationReport:
-    report = ValidationReport(base=base, config_path=str(config_path), allowed_scopes=allowed_scopes)
+    report = ValidationReport(
+        base=base,
+        config_path=str(config_path),
+        allowed_scopes=allowed_scopes,
+        skip_merges=True,
+    )
     add_config_errors(report, config_errors)
     report.commits_checked = [ref]
     if config_errors:
@@ -276,6 +300,8 @@ def render_human(report: ValidationReport) -> str:
         f"base: {report.base}",
         f"config_path: {report.config_path}",
         f"allowed_scopes: {', '.join(report.allowed_scopes)}",
+        f"skip_merges: {str(report.skip_merges).lower()}",
+        f"cutoff_ref: {report.cutoff_ref or '<none>'}",
         f"commits_checked_count: {len(report.commits_checked)}",
         f"violations_count: {len(report.violations)}",
         f"result: {report.result}",
@@ -305,6 +331,16 @@ def main() -> int:
         default=[],
         help="Additional allowed conventional-commit scope; can be repeated.",
     )
+    parser.add_argument(
+        "--include-merges",
+        action="store_true",
+        help="Validate merge commits too; default skips merges with git rev-list --no-merges.",
+    )
+    parser.add_argument(
+        "--cutoff-ref",
+        default="",
+        help="Exclude commits reachable from this ref, e.g. a release tag before commit-message gate.",
+    )
     parser.add_argument("--message-file", type=Path, help="Validate one message file instead of git range.")
     parser.add_argument("--message-text", help=r"Validate one message string; '\n' is converted to newline.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON summary.")
@@ -326,7 +362,14 @@ def main() -> int:
             config_errors,
         )
     else:
-        report = validate_range(args.base, allowed_scopes, config_path, config_errors)
+        report = validate_range(
+            args.base,
+            allowed_scopes,
+            config_path,
+            config_errors,
+            skip_merges=not args.include_merges,
+            cutoff_ref=args.cutoff_ref,
+        )
     if args.json:
         print(json.dumps(report.to_json_dict(), ensure_ascii=False, indent=2, sort_keys=True))
     else:
