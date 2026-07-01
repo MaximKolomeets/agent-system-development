@@ -128,6 +128,7 @@ categories:
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+      - docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md
       - docs/agent-system/FILE_COMMENTING_STANDARD.md
       - docs/agent-system/tools/check_task_ready.py
       - docs/agent-system/tools/gen_cloud_bundle.py
@@ -197,6 +198,7 @@ categories:
       - docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md
       - docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
       - docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md
+      - docs/agent-system/templates/EXTERNAL_REVIEW_LEDGER_TEMPLATE.md
       - docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md
       - docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md
       - docs/agent-system/templates/NEW_PROJECT_PROMPT.md
