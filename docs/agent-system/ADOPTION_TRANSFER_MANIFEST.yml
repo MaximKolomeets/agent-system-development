@@ -214,6 +214,7 @@ categories:
       - docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md
       - docs/agent-system/templates/REVIEW_AUTOLOOP_REVIEWER_PASS_TEMPLATE.md
       - docs/agent-system/templates/ROADMAP_TEMPLATE.md
+      - docs/agent-system/templates/SUPERSEDED_BANNER.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
       - docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md

@@ -9,6 +9,7 @@ import re
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
+from datetime import date
 from pathlib import Path
 
 
@@ -23,6 +24,7 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/CURRENT_STATE.md",
     "docs/agent-system/NEXT_STEPS.md",
     "docs/agent-system/ENGINE_ENTRYPOINT.md",
+    "docs/agent-system/LANGUAGE_POLICY.md",
     "docs/agent-system/REVIEW_AUTOLOOP.md",
     "docs/agent-system/engine-journal/INDEX.md",
 }
@@ -68,6 +70,13 @@ DEFERRED_FINALIZATION_PATTERNS = (
     re.compile(r"\bnot\s+run\s+yet\b", re.IGNORECASE),
     re.compile(r"\bto\s+be\s+updated\b", re.IGNORECASE),
 )
+SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
+SUPERSEDED_TAG_RE = re.compile(
+    r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
+)
+SUPERSEDED_TAG_ANY_RE = re.compile(r"<!--\s*SUPERSEDED_BY\s*:", re.IGNORECASE)
+SUPERSEDED_STATUS_RE = re.compile(r"^\s*(?:status|Статус)\s*:\s*`?superseded`?\s*$", re.IGNORECASE)
+VISIBLE_SUPERSEDED_RE = re.compile(r"замен[её]н|superseded", re.IGNORECASE)
 
 
 @dataclass
@@ -101,6 +110,7 @@ class ReadyReport:
     strict_added_line_secret_files: list[str] = field(default_factory=list)
     placeholder_candidates: list[str] = field(default_factory=list)
     deferred_finalization_placeholders: list[str] = field(default_factory=list)
+    superseded_banner_warnings: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -123,6 +133,7 @@ class ReadyReport:
         data["strict_added_line_secret_value_count"] = len(self.strict_added_line_secret_files)
         data["placeholder_candidates_count"] = len(self.placeholder_candidates)
         data["deferred_finalization_placeholder_count"] = len(self.deferred_finalization_placeholders)
+        data["superseded_banner_warnings_count"] = len(self.superseded_banner_warnings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -287,6 +298,66 @@ def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
+def validate_superseded_banner_text(path: str, text: str) -> list[str]:
+    normalized = normalize_path(path)
+    if normalized == SUPERSEDED_TEMPLATE_PATH:
+        return []
+
+    lines = text.splitlines()
+    visible_source_lines: list[tuple[int, str]] = []
+    in_fence = False
+    for line_number, line in enumerate(lines, start=1):
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            visible_source_lines.append((line_number, line))
+
+    tag_lines: list[int] = []
+    full_matches: list[re.Match[str]] = []
+    warnings: list[str] = []
+    for line_number, line in visible_source_lines:
+        if SUPERSEDED_TAG_ANY_RE.search(line):
+            tag_lines.append(line_number)
+        full_matches.extend(SUPERSEDED_TAG_RE.finditer(line))
+
+    has_superseded_status = any(SUPERSEDED_STATUS_RE.search(line) for _, line in visible_source_lines)
+    if not tag_lines and not has_superseded_status:
+        return []
+
+    if tag_lines and not full_matches:
+        return [f"{normalized}:{tag_lines[0]}: SUPERSEDED_TAG_INVALID"]
+    if has_superseded_status and not full_matches:
+        return [f"{normalized}:1: SUPERSEDED_TAG_MISSING"]
+
+    for match in full_matches:
+        try:
+            date.fromisoformat(match.group("date"))
+        except ValueError:
+            warnings.append(f"{normalized}:1: SUPERSEDED_DATE_INVALID")
+
+    visible_lines = [line for _, line in visible_source_lines if not line.strip().startswith("<!--")]
+    if not any(VISIBLE_SUPERSEDED_RE.search(line) for line in visible_lines):
+        warnings.append(f"{normalized}:1: SUPERSEDED_VISIBLE_LINE_MISSING")
+    return warnings
+
+
+def scan_superseded_banners(paths: list[str]) -> list[str]:
+    warnings: list[str] = []
+    for path in unique_sorted(paths):
+        normalized = normalize_path(path)
+        if is_task_result_file(normalized):
+            continue
+        if not normalized.endswith(".md"):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        warnings.extend(validate_superseded_banner_text(normalized, text))
+    return sorted(set(warnings))
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -428,6 +499,10 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.deferred_finalization_placeholders:
         report.blockers.append("deferred finalization placeholders detected in changed TASK/RESULT")
 
+    report.superseded_banner_warnings = scan_superseded_banners(all_paths)
+    if report.superseded_banner_warnings:
+        report.warnings.append("superseded banner advisory warnings detected")
+
 
 def render_human(report: ReadyReport) -> str:
     lines = [
@@ -475,6 +550,7 @@ def render_human(report: ReadyReport) -> str:
             f"strict_added_line_secret_value_count: {len(report.strict_added_line_secret_files)}",
             f"placeholder_candidates_count: {len(report.placeholder_candidates)}",
             f"deferred_finalization_placeholder_count: {len(report.deferred_finalization_placeholders)}",
+            f"superseded_banner_warnings_count: {len(report.superseded_banner_warnings)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -493,6 +569,10 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("deferred_finalization_placeholder_files:")
         lines.extend(f"- {path}" for path in report.deferred_finalization_placeholders)
+    if report.superseded_banner_warnings:
+        lines.append("")
+        lines.append("superseded_banner_warnings:")
+        lines.extend(f"- {item}" for item in report.superseded_banner_warnings)
     return "\n".join(lines) + "\n"
 
 

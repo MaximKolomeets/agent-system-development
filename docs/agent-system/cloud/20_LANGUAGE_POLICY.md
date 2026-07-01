@@ -98,6 +98,21 @@ commit subject и не должен раскрывать private downstream proj
 
 Если формат файла не поддерживает комментарии, пояснение добавляется в соседнюю документацию или schema descriptions.
 
+## Баннер superseded-документа
+
+Если документ заменён новым canonical source, но остаётся в repository ради
+истории, внешних bookmarks или inbound links, использовать шаблон
+`docs/agent-system/templates/SUPERSEDED_BANNER.md`.
+
+Machine-readable строка остаётся technical literal и не переводится:
+
+```markdown
+<!-- SUPERSEDED_BY: <file>; PR: <n>; DATE: <YYYY-MM-DD> -->
+```
+
+Сразу рядом должна быть видимая Russian-first строка для читателя. HTML comment
+не заменяет пользовательское пояснение, потому что скрыт в rendered Markdown.
+
 ## Проверки review
 
 Перед PR review нужно проверить:
