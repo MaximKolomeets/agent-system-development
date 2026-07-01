@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #293 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/293
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `24e6895322fed8019f36107114274e2bbdb476ba`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -92,6 +92,27 @@ execution_finished_at: `2026-07-01T11:34:15.3361901+07:00`
 - GitHub Actions workflow changed: no.
 - merged history rewritten: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/293`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `feat(agent-system): внедрить enforcement формата commit message`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-commit-metadata-enforcement-01`.
+- reviewed_head_sha: `016a96193f6bd51fc57f53def0a2e12045d9f943`.
+- merged_at: `2026-07-01T04:43:56Z`.
+- merge_commit: `b25a9fd953f788fb5c0a1eb9b35ab4469c88c4ff`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 

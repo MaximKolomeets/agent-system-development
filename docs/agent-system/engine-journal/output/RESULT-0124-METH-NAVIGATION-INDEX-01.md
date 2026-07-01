@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #288 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/288
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `8a2af63a87f40218c5a113400f3bd8b611816961`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -82,6 +82,27 @@ execution_finished_at: `2026-07-01T08:09:07.4122541+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/288`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `docs(agent-system): добавить навигатор METHODOLOGY_MAP`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/docs-maintainer-01/meth-navigation-index-01`.
+- reviewed_head_sha: `8e1288e08a5909509eec0f48dd539c45df4c1390`.
+- merged_at: `2026-07-01T01:21:11Z`.
+- merge_commit: `a2e20f332b64503e82c251dedd5cc6c9cf5bb1c7`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 

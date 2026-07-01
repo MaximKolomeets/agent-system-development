@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #286 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/286
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `7c6d80106a8b4736c3735cea4bb1cdfbbc5c8e0e`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -80,6 +80,27 @@ execution_finished_at: `2026-07-01T00:24:35.8200679+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/286`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `chore: нормализовать EOL policy`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/docs-maintainer-01/meth-eol-normalization-01`.
+- reviewed_head_sha: `1eabb22c54450a939cd2d9f08c0aa66cbf7a3b2a`.
+- merged_at: `2026-06-30T17:40:43Z`.
+- merge_commit: `c7241f6a9065711d13439483384427b68ad0732e`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 

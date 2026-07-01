@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #290 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/290
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `c1355438efb24bad9b9971d90fcf01e1592e004c`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -84,6 +84,27 @@ execution_finished_at: `2026-07-01T08:55:33.9375605+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/290`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `docs(agent-system): добавить паттерн EXTERNAL_REVIEW_LEDGER`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-external-review-ledger-01`.
+- reviewed_head_sha: `7bae761f3d88005f78bd3667980b2ffdb1e8b399`.
+- merged_at: `2026-07-01T03:54:41Z`.
+- merge_commit: `cdf7e4bf8783febda23020e711b1467b89636de8`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 

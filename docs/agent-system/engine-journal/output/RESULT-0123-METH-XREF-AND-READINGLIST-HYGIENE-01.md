@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #287 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/287
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `488cb970d5304544eb3bad21126c99eb4100ebfd`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -83,6 +83,27 @@ execution_finished_at: `2026-07-01T00:53:11.8960509+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/287`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `docs: унифицировать target-local xref`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/docs-maintainer-01/meth-xref-and-readinglist-hygiene-01`.
+- reviewed_head_sha: `d11056ed0dd0b7cbf2a72cb23c60069dab24bac0`.
+- merged_at: `2026-07-01T00:53:23Z`.
+- merge_commit: `1d54a88a43e2d2c76fc89ab6619d36d7adccf59e`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 

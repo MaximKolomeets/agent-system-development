@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #291 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/291
 
@@ -26,7 +26,7 @@ final_pr_head_policy: final PR head SHA is not embedded in the same committed RE
 
 pre_finalization_head_sha: `0762237503549399f0b7a22a5eb6854090939d17`
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge
 
 post_merge_closure_required: false
 
@@ -83,6 +83,27 @@ execution_finished_at: `2026-07-01T11:02:18.6803158+07:00`
 - runtime/Docker/CI changed: no.
 - branch protection changed: no.
 - release/tag/merge created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.0.
+- closure_task: `METH-BATCH-CLOSURE-0122-0129-V1-5-0-01`.
+- closure_seq: `0130`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/291`.
+- work_pr_state: `MERGED`.
+- work_pr_title: `docs(agent-system): добавить THREAT_MODEL_TEMPLATE`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-threat-model-template-01`.
+- reviewed_head_sha: `8b512e56aeeac529df6d3dc7cd245bea07f3ce87`.
+- merged_at: `2026-07-01T04:07:56Z`.
+- merge_commit: `9c9a76aa9cd8a6265fb1fbde7673fbfc0ae5a925`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep может стартовать только после merge batch-closure PR и решения по актуальному latest tag.
 
 ## Source Delta
 
