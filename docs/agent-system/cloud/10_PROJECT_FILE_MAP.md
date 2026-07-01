@@ -105,6 +105,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` |  |
 | `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TASK_HEADER_COMMON.md` |  |
+| `docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md` |  |
 
 ## target_generated
 
@@ -120,6 +121,7 @@ Target files generated or written from source/templates. Эти пути НЕ я
 | `docs/agent-system/PROJECT_GUARDRAILS.md` |  |
 | `docs/agent-system/ENGINE_REGISTRY.md` |  |
 | `docs/agent-system/CONTROL_MATRIX.md` |  |
+| `docs/agent-system/THREAT_MODEL.md` |  |
 | `docs/agent-system/ADOPTION_AUDIT.md` |  |
 
 ## history_state
