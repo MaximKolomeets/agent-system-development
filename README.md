@@ -36,6 +36,8 @@ Source snapshot считается пригодным для работы тол
 
 Граница: **Core** — «нужно всегда» (обязательный контекст любого чата/задачи); **Reference** — «нужно по типу задачи» (подключается, когда задача затрагивает соответствующую область). Обоснование границы — `docs/agent-system/engine-journal/output/RESULT-0004-METH-CONSOLIDATION-PLAN-01-consolidation-plan.md` §5.
 
+Полный каталог методологии по категориям, назначению и границам: [`docs/agent-system/METHODOLOGY_MAP.md`](docs/agent-system/METHODOLOGY_MAP.md).
+
 ### Core (читать всегда, 10 файлов)
 
 1. [`AGENTS.md`](AGENTS.md) (root)
@@ -95,6 +97,7 @@ Templates, journal и навигационный индекс:
 
 - `docs/agent-system/templates/**` (шаблоны задач, отчётов, governance pack, prompts)
 - `docs/agent-system/engine-journal/**` (`docs/agent-system/engine-journal/README.md`, `docs/agent-system/engine-journal/INDEX.md`, `templates/`, `input/`, `output/`)
+- `docs/agent-system/METHODOLOGY_MAP.md` (полный каталог методологии: назначение, когда применять, границы)
 - `docs/agent-system/source/SOURCE_agent_system_index.md` (навигационный индекс; ссылается на этот reading-list)
 
 ## Роль репозитория

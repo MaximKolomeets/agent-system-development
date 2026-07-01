@@ -139,6 +139,7 @@ categories:
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
+      - docs/agent-system/METHODOLOGY_MAP.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/OPERATIONAL_FAST_LANE.md
       - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
