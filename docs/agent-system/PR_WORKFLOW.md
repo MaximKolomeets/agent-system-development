@@ -12,18 +12,19 @@
 10. Перед commit/push/PR исполнитель проверяет, что commit messages, PR title и PR body соблюдают Russian-first policy: conventional prefix вроде `docs(agent-system):` допустим, но смысловой текст после `:` пишется на русском; technical identifiers не переводятся.
 11. Если commit еще не push, message можно безопасно исправить через `git commit --amend`.
 12. Если commit уже push, force-push/rewrite history запрещён без явного решения архитектора; нарушение фиксируется в RESULT/PR body, а правило применяется со следующего commit.
-13. Исполнитель делает commit и push.
-14. Дождаться GitHub Actions CI.
-15. Если CI failed - не мержить PR.
-16. Исправить нарушения и review feedback в той же основной task branch, если STOP-условия не требуют остановки.
-17. Повторить push.
-18. Review выполняется только после успешного CI или после осознанного решения пользователя.
-19. Пользователь/оркестратор проверяют diff.
-20. Создается один итоговый PR в `developer` по substantive task; внутренние sub-branches не являются самостоятельными delivery PR.
-21. После проверки PR merge в `developer`.
-22. После накопления стабильных изменений `developer` переносится в `main` только через human-merged release PR по `BRANCH_POLICY.md`.
-23. После human merge release PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag и не публикует GitHub Release.
-24. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
+13. Если PR заменяет документ, который остаётся в repository ради истории, внешних bookmarks или inbound links, в начало заменяемого файла добавляется баннер по `docs/agent-system/templates/SUPERSEDED_BANNER.md`: machine-readable comment `SUPERSEDED_BY` и видимая строка для читателя.
+14. Исполнитель делает commit и push.
+15. Дождаться GitHub Actions CI.
+16. Если CI failed - не мержить PR.
+17. Исправить нарушения и review feedback в той же основной task branch, если STOP-условия не требуют остановки.
+18. Повторить push.
+19. Review выполняется только после успешного CI или после осознанного решения пользователя.
+20. Пользователь/оркестратор проверяют diff.
+21. Создается один итоговый PR в `developer` по substantive task; внутренние sub-branches не являются самостоятельными delivery PR.
+22. После проверки PR merge в `developer`.
+23. После накопления стабильных изменений `developer` переносится в `main` только через human-merged release PR по `BRANCH_POLICY.md`.
+24. После human merge release PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag и не публикует GitHub Release.
+25. После merge обновляются `CURRENT_STATE`, `DECISION_LOG`, `NEXT_STEPS`.
 
 ## Review autoloop
 

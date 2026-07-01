@@ -59,9 +59,12 @@ matrix и error catalog, не в prose policy-дубликатах. Крупны
 - `PR_WORKFLOW.md` - оформление и проведение PR.
 - `WORKTREE_GUIDE.md` - worktree-операции.
 - `OPERATIONAL_FAST_LANE.md` - упрощенный трек для мелких/read-only задач.
+- `templates/SUPERSEDED_BANNER.md` - machine-readable и visible banner для
+  документов, заменённых новым canonical source.
 
 Когда применять: при создании ветки, sync/checkout/pull/merge guard, подготовке
-PR или выборе full workflow vs Operational Fast Lane.
+PR, пометке superseded-документов или выборе full workflow vs Operational Fast
+Lane.
 
 Граница: ветки и изоляция -> `BRANCH_POLICY.md`; последовательность шагов ->
 `WORKFLOW.md`; механика PR -> `PR_WORKFLOW.md`. Не повторять правила веток в
@@ -223,7 +226,8 @@ generated parity checks, cloud context handoff и выборе stable reference.
 - `RELEASE_READINESS.md` - готовность к release.
 - `STAGE_2_COMPLETION_CHECKLIST.md` - завершение stage 2.
 - `LANGUAGE_POLICY.md` - Russian-first policy и допустимый English для technical
-  identifiers.
+  identifiers, включая visible text для superseded banner рядом с machine-readable
+  comment.
 
 Когда применять: перед release boundary, stage completion, state refresh и при
 проверке языка docs/TASK/RESULT/INDEX/PR metadata.
