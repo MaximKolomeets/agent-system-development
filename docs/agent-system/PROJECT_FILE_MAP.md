@@ -23,6 +23,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
+| `docs/agent-system/CONTROL_MATRIX_PATTERN.md` |  |
 | `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` |  |
 | `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` |  |
 | `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` |  |
@@ -81,6 +82,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md` |  |
 | `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md` |  |
+| `docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DECISION_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` |  |
@@ -115,6 +117,7 @@ Target files generated or written from source/templates. Эти пути НЕ я
 | `DECISIONS.md` |  |
 | `docs/agent-system/PROJECT_GUARDRAILS.md` |  |
 | `docs/agent-system/ENGINE_REGISTRY.md` |  |
+| `docs/agent-system/CONTROL_MATRIX.md` |  |
 | `docs/agent-system/ADOPTION_AUDIT.md` |  |
 
 ## history_state
