@@ -88,6 +88,7 @@ class ReadyReport:
     unstaged_files: list[str] = field(default_factory=list)
     untracked_files: list[str] = field(default_factory=list)
     diff_checks: list[CommandResult] = field(default_factory=list)
+    commit_message_checks: list[CommandResult] = field(default_factory=list)
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
@@ -108,6 +109,7 @@ class ReadyReport:
     def to_json_dict(self) -> dict[str, object]:
         data = asdict(self)
         data["diff_checks"] = [asdict(item) for item in self.diff_checks]
+        data["commit_message_checks"] = [asdict(item) for item in self.commit_message_checks]
         data["generated_checks"] = [asdict(item) for item in self.generated_checks]
         data["changed_files_count"] = len(self.changed_files)
         data["staged_files_count"] = len(self.staged_files)
@@ -331,6 +333,16 @@ def add_diff_checks(report: ReadyReport) -> None:
             report.blockers.append(f"{name} failed")
 
 
+def add_commit_message_checks(report: ReadyReport) -> None:
+    check = run_command(
+        ["python", "docs/agent-system/tools/validate_commit_message.py", "--base", report.base],
+        f"validate_commit_message.py --base {report.base}",
+    )
+    report.commit_message_checks.append(check)
+    if check.exit_code != 0:
+        report.blockers.append("validate_commit_message.py failed")
+
+
 def add_generated_checks(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
     report.generated_checks_required = requires_generated_checks(all_paths)
@@ -413,6 +425,8 @@ def render_human(report: ReadyReport) -> str:
     lines.append("")
     for check in report.diff_checks:
         lines.append(f"{check.name}: {check.status}")
+    for check in report.commit_message_checks:
+        lines.append(f"{check.name}: {check.status}")
     lines.extend(
         [
             "",
@@ -465,6 +479,7 @@ def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
             report.blockers.append("release boundary mode supports only developer -> origin/main")
     add_changed_files(report)
     add_diff_checks(report)
+    add_commit_message_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
     return report
