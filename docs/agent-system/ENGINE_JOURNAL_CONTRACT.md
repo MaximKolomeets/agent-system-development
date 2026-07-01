@@ -69,7 +69,7 @@ TASK/RESULT/INDEX files, user-facing labels, descriptions и final report дол
 
 Английский допустим только для technical identifiers, command names, flags, paths, filenames, branch names, config keys, API names, package names, vendor/tool names, SHA values и literal external names.
 
-Commit subject/body и PR title/body также должны быть Russian-first по `docs/agent-system/LANGUAGE_POLICY.md` → «Commit и PR metadata». Если нарушение commit/PR metadata language случилось и не было безопасно исправлено до push, RESULT обязан зафиксировать нарушение, причину отказа от rewrite/force-push и следующий безопасный шаг. Уже pushed/merged commits не переписываются без отдельного явного решения архитектора.
+Commit subject/body и PR title/body также должны быть Russian-first по `docs/agent-system/LANGUAGE_POLICY.md` → «Commit и PR metadata». Перед push/PR `engine` запускает `python docs/agent-system/tools/validate_commit_message.py --base origin/developer` или получает тот же check через ready-gate. Если нарушение commit/PR metadata language случилось и не было безопасно исправлено до push, RESULT обязан зафиксировать нарушение, причину отказа от rewrite/force-push и следующий безопасный шаг. Уже pushed/merged commits не переписываются без отдельного явного решения архитектора.
 
 Если target instructions конфликтуют с Russian-first policy, `engine` должен написать `STOP` и запросить решение пользователя, кроме случая явного разрешения пользователя на другой язык.
 
@@ -131,7 +131,7 @@ RESULT обязан включать строку `Архитектору — з
 
 Если TASK file, bootstrap prompt, branch или source SHA конфликтуют, `engine` должен написать `STOP` и не выполнять задачу.
 
-Если TASK file содержит fenced YAML block `task_contract`, он является source of truth для mode/scope/checks/STOP по `docs/agent-system/TASK_CONTRACT.md`. RESULT должен фиксировать результат `validate_task_contract.py`, если validation запускалась. Если нарушение task contract или commit/PR metadata language случилось и его нельзя безопасно исправить до push без rewrite/force-push, RESULT фиксирует нарушение, причину и следующий безопасный шаг; уже pushed/merged history не переписывается без отдельного явного решения архитектора.
+Если TASK file содержит fenced YAML block `task_contract`, он является source of truth для mode/scope/checks/STOP по `docs/agent-system/TASK_CONTRACT.md`. RESULT должен фиксировать результат `validate_task_contract.py`, если validation запускалась, и результат `validate_commit_message.py` для work PR. Если нарушение task contract или commit/PR metadata language случилось и его нельзя безопасно исправить до push без rewrite/force-push, RESULT фиксирует нарушение, причину и следующий безопасный шаг; уже pushed/merged history не переписывается без отдельного явного решения архитектора.
 
 Для новых file-changing задач RESULT должен включать `self_review_before_pr` по `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: acceptance criteria, diff scope, generated artifacts, journal finalization, PR body quality и safety checked. Если self-review не прошёл, PR не открывать.
 

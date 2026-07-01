@@ -97,6 +97,28 @@ python docs/agent-system/tools/validate_task_contract.py <task-file>
 
 Commit subject/body, PR title и PR body должны быть Russian-first. Technical identifiers разрешены: branch names, task ids, filenames, paths, commands, config keys, API names, role ids, package names и SHA values не переводятся. Conventional prefix вроде `docs(agent-system):` разрешён как technical identifier, но смысловая часть после `:` должна быть Russian-first. Уже pushed/merged commits не переписываются и не force-push без отдельного явного решения архитектора; если нарушение metadata-language обнаружено после push и безопасно не исправлено, RESULT фиксирует нарушение и правило применяется со следующего commit.
 
+Обязательное поле для file-changing task:
+
+```text
+Commit message:
+<тип>(agent-system): <русское описание>
+
+Journal seq: <INDEX last+1>.
+
+- <краткий пункт изменения>;
+- <краткий пункт проверок или generated/journal scope>.
+
+Refs: PR #<n>
+```
+
+Финализирующий journal-only commit использует форму:
+
+```text
+journal(agent-system): финализировать записи <seq> после PR creation
+```
+
+Перед push/PR выполнить `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`.
+
 ## Stable methodology reference
 
 Для target/downstream/adoption задач `methodology_reference` указывает на stable methodology source: `origin/main` / `main`, release tag или явно заданный published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для downstream. Dirty `agent-system-development/developer` или `work/*` не блокирует target task, если stable reference доступен и читается. Канон: `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`.
