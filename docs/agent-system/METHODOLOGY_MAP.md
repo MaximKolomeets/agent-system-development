@@ -205,6 +205,8 @@ generated parity checks, cloud context handoff и выборе stable reference.
 - `tools/check_task_ready.py` - интегральный readiness gate.
 - `tools/validate_commit_message.py` - read-only gate формата commit metadata
   по `LANGUAGE_POLICY`.
+- `tools/validate_id_references.py` - read-only gate целостности methodology
+  ID references.
 - `tools/gen_cloud_bundle.py` - генерация/check cloud bundle.
 - `tools/gen_file_map.py` - генерация/check `PROJECT_FILE_MAP.md`.
 - `tools/generated_eol_guard.py` - классификация generated/cloud EOL/whitespace

@@ -90,6 +90,7 @@ class ReadyReport:
     untracked_files: list[str] = field(default_factory=list)
     diff_checks: list[CommandResult] = field(default_factory=list)
     commit_message_checks: list[CommandResult] = field(default_factory=list)
+    id_reference_checks: list[CommandResult] = field(default_factory=list)
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
@@ -111,6 +112,7 @@ class ReadyReport:
         data = asdict(self)
         data["diff_checks"] = [asdict(item) for item in self.diff_checks]
         data["commit_message_checks"] = [asdict(item) for item in self.commit_message_checks]
+        data["id_reference_checks"] = [asdict(item) for item in self.id_reference_checks]
         data["generated_checks"] = [asdict(item) for item in self.generated_checks]
         data["changed_files_count"] = len(self.changed_files)
         data["staged_files_count"] = len(self.staged_files)
@@ -390,6 +392,16 @@ def add_generated_checks(report: ReadyReport) -> None:
         report.generated_eol_guard_reason = "generated_eol_guard JSON summary unavailable"
 
 
+def add_id_reference_checks(report: ReadyReport) -> None:
+    check = run_command(
+        ["python", "docs/agent-system/tools/validate_id_references.py"],
+        "validate_id_references.py",
+    )
+    report.id_reference_checks.append(check)
+    if check.exit_code != 0:
+        report.blockers.append("validate_id_references.py failed")
+
+
 def add_safety_scans(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
     report.forbidden_changed_paths = [path for path in all_paths if is_forbidden_path(path)]
@@ -441,6 +453,8 @@ def render_human(report: ReadyReport) -> str:
     for check in report.diff_checks:
         lines.append(f"{check.name}: {check.status}")
     for check in report.commit_message_checks:
+        lines.append(f"{check.name}: {check.status}")
+    for check in report.id_reference_checks:
         lines.append(f"{check.name}: {check.status}")
     lines.extend(
         [
@@ -499,6 +513,7 @@ def build_report(
     add_changed_files(report)
     add_diff_checks(report)
     add_commit_message_checks(report, commit_message_cutoff_ref)
+    add_id_reference_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
     return report
