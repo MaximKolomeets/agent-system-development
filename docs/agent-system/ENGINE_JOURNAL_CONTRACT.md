@@ -233,6 +233,20 @@ RESULT должен содержать:
 - `Длительность выполнения (execution_duration) [measured/engine, опционально]`;
 - `Время человека, по факту (human_time_reported) [reported/human, опционально]`.
 
+Дисциплина фиксации времени:
+
+- `execution_started_at` фиксируется в начале engine-run до содержательных чтений,
+  правок, проверок и repository-mutating действий;
+- зафиксированное `execution_started_at` сохраняется в TASK как measured факт и
+  при финализации RESULT переносится без пересчета и перезаписи;
+- `execution_finished_at` фиксируется в конце выполнения, после финальных
+  проверок и перед финальным отчетом;
+- `execution_duration` вычисляется из `execution_started_at` и
+  `execution_finished_at`, а не вводится как независимое ручное значение;
+- если `execution_started_at` равен `execution_finished_at` или длительность
+  выглядит нереалистично короткой для задачи с содержательным diff, reviewer или
+  ready-gate фиксирует advisory finding `unreliable execution timing`.
+
 Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution-полями. Merge-время не дублируется в execution-полях. Для ordinary PR source of truth по `merged_at` и merge commit SHA — GitHub PR metadata; closure-stamp в `RESULT` добавляется только при boundary reconciliation или explicit architect request по разделу «GitHub merge facts authority».
 
 Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
@@ -498,7 +512,7 @@ Reviewer подтверждает:
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
-- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `reported/human` поля опциональны и не проверяются как обязательные;
+- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `execution_started_at` фиксируется до содержательной работы и переносится из TASK в RESULT без перезаписи; равные start/finish или нереалистично короткая длительность при содержательном diff являются advisory finding `unreliable execution timing`. `reported/human` поля опциональны и не проверяются как обязательные;
 - новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;

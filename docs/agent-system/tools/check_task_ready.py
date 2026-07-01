@@ -9,7 +9,7 @@ import re
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 
@@ -77,6 +77,9 @@ SUPERSEDED_TAG_RE = re.compile(
 SUPERSEDED_TAG_ANY_RE = re.compile(r"<!--\s*SUPERSEDED_BY\s*:", re.IGNORECASE)
 SUPERSEDED_STATUS_RE = re.compile(r"^\s*(?:status|Статус)\s*:\s*`?superseded`?\s*$", re.IGNORECASE)
 VISIBLE_SUPERSEDED_RE = re.compile(r"замен[её]н|superseded", re.IGNORECASE)
+EXECUTION_STARTED_RE = re.compile(r"^\s*execution_started_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
+EXECUTION_FINISHED_RE = re.compile(r"^\s*execution_finished_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
+MIN_EXECUTION_DURATION_SECONDS = 60
 
 
 @dataclass
@@ -111,6 +114,7 @@ class ReadyReport:
     placeholder_candidates: list[str] = field(default_factory=list)
     deferred_finalization_placeholders: list[str] = field(default_factory=list)
     superseded_banner_warnings: list[str] = field(default_factory=list)
+    execution_timing_warnings: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -134,6 +138,7 @@ class ReadyReport:
         data["placeholder_candidates_count"] = len(self.placeholder_candidates)
         data["deferred_finalization_placeholder_count"] = len(self.deferred_finalization_placeholders)
         data["superseded_banner_warnings_count"] = len(self.superseded_banner_warnings)
+        data["execution_timing_warnings_count"] = len(self.execution_timing_warnings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -358,6 +363,67 @@ def scan_superseded_banners(paths: list[str]) -> list[str]:
     return sorted(set(warnings))
 
 
+def is_generated_or_journal_path(path: str) -> bool:
+    normalized = normalize_path(path)
+    if normalized.startswith("docs/agent-system/cloud/"):
+        return True
+    if normalized.startswith("docs/agent-system/engine-journal/"):
+        return True
+    return normalized == "docs/agent-system/PROJECT_FILE_MAP.md"
+
+
+def has_substantive_changes(paths: list[str]) -> bool:
+    return any(not is_generated_or_journal_path(path) for path in unique_sorted(paths))
+
+
+def parse_execution_timestamp(value: str) -> datetime:
+    normalized = value.strip()
+    if normalized.endswith("Z"):
+        normalized = f"{normalized[:-1]}+00:00"
+    return datetime.fromisoformat(normalized)
+
+
+def validate_execution_timing_text(path: str, text: str, substantive_changes: bool) -> list[str]:
+    normalized = normalize_path(path)
+    if not substantive_changes:
+        return []
+    if not re.fullmatch(r"docs/agent-system/engine-journal/output/RESULT-.*\.md", normalized):
+        return []
+
+    started_match = EXECUTION_STARTED_RE.search(text)
+    finished_match = EXECUTION_FINISHED_RE.search(text)
+    if not started_match or not finished_match:
+        return []
+
+    try:
+        started_at = parse_execution_timestamp(started_match.group(1))
+        finished_at = parse_execution_timestamp(finished_match.group(1))
+    except ValueError:
+        return [f"{normalized}:1: EXECUTION_TIMING_UNPARSEABLE"]
+
+    duration_seconds = (finished_at - started_at).total_seconds()
+    if duration_seconds < MIN_EXECUTION_DURATION_SECONDS:
+        rounded = int(duration_seconds)
+        return [f"{normalized}:1: UNRELIABLE_EXECUTION_TIMING duration_seconds={rounded}"]
+    return []
+
+
+def scan_execution_timing(paths: list[str]) -> list[str]:
+    all_paths = unique_sorted(paths)
+    substantive_changes = has_substantive_changes(all_paths)
+    warnings: list[str] = []
+    for path in task_result_files(all_paths):
+        normalized = normalize_path(path)
+        if not normalized.startswith("docs/agent-system/engine-journal/output/RESULT-"):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        warnings.extend(validate_execution_timing_text(normalized, text, substantive_changes))
+    return sorted(set(warnings))
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -503,6 +569,10 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.superseded_banner_warnings:
         report.warnings.append("superseded banner advisory warnings detected")
 
+    report.execution_timing_warnings = scan_execution_timing(all_paths)
+    if report.execution_timing_warnings:
+        report.warnings.append("unreliable execution timing advisory warnings detected")
+
 
 def render_human(report: ReadyReport) -> str:
     lines = [
@@ -551,6 +621,7 @@ def render_human(report: ReadyReport) -> str:
             f"placeholder_candidates_count: {len(report.placeholder_candidates)}",
             f"deferred_finalization_placeholder_count: {len(report.deferred_finalization_placeholders)}",
             f"superseded_banner_warnings_count: {len(report.superseded_banner_warnings)}",
+            f"execution_timing_warnings_count: {len(report.execution_timing_warnings)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -573,6 +644,10 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("superseded_banner_warnings:")
         lines.extend(f"- {item}" for item in report.superseded_banner_warnings)
+    if report.execution_timing_warnings:
+        lines.append("")
+        lines.append("execution_timing_warnings:")
+        lines.extend(f"- {item}" for item in report.execution_timing_warnings)
     return "\n".join(lines) + "\n"
 
 
