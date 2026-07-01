@@ -89,17 +89,21 @@ PR или выборе full workflow vs Operational Fast Lane.
   self-review.
 - `CODE_REVIEW_WORKFLOW.md` - процесс review.
 - `REVIEW_AUTOLOOP.md` - ограниченный reviewer/engine fix-pass.
+- `EXTERNAL_REVIEW_LEDGER_PATTERN.md` - consolidation ledger для повторных
+  external human review rounds и anti-loop/diminishing-returns stop.
 - `MANUAL_REVIEW_CHECKLIST.md` - чек-лист ручного review.
 - `SEMANTIC_COMPLETENESS_GATES.md` - семантическая полнота docs/spec.
 - `ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` - цепочка
   `scenario -> blocker -> fixture -> status` для acceptance/spec.
 
-Когда применять: перед PR, при review, при fix-pass и при проверке, что spec
-имеет проверяемую acceptance-цепочку.
+Когда применять: перед PR, при review, при fix-pass, при множественных external
+human review rounds и при проверке, что spec имеет проверяемую
+acceptance-цепочку.
 
 Граница: "готовность до PR" -> `QUALITY_FIRST_WORKFLOW.md`; "как review" ->
-`CODE_REVIEW_WORKFLOW.md`; "цикл feedback" -> `REVIEW_AUTOLOOP.md`; "полнота
-spec" -> `SEMANTIC_COMPLETENESS_GATES.md` и
+`CODE_REVIEW_WORKFLOW.md`; "active PR feedback cycle" ->
+`REVIEW_AUTOLOOP.md`; "много внешних мнений до финализации" ->
+`EXTERNAL_REVIEW_LEDGER_PATTERN.md`; "полнота spec" -> `SEMANTIC_COMPLETENESS_GATES.md` и
 `ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
 
 ### 7. Оркестрация и формат ответа

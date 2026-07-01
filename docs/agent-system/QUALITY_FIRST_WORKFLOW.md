@@ -8,6 +8,12 @@
 
 Workflow не заменяет `TASK_CONTRACT`, `REVIEW_AUTOLOOP`, `SEMANTIC_COMPLETENESS_GATES`, `JOURNAL_FINALIZATION_POLICY` и readiness tooling. Он связывает их в pre-PR quality gate.
 
+Workflow также не заменяет `EXTERNAL_REVIEW_LEDGER_PATTERN.md`. Если один
+документ или решение проходит много external human review rounds, ledger
+консолидирует `applied`/`deferred`/`rejected` предложения и фиксирует anti-loop
+/ diminishing-returns stop, чтобы quality-first не превращался в бесконечную
+полировку.
+
 ## Quality bar перед началом задачи
 
 Перед началом file-changing задачи engine проверяет:
@@ -104,6 +110,10 @@ Reviewer проверяет:
 ## Fix-pass policy
 
 Если reviewer нашёл blocker, engine fix-pass закрывает конкретные blocker IDs, а не делает общий cleanup.
+
+Если замечание пришло из external review ledger и уже имеет disposition
+`applied`, `deferred` или `rejected`, оно не должно повторно превращаться в
+blocker без новой critical category из `EXTERNAL_REVIEW_LEDGER_PATTERN.md`.
 
 Формат:
 
