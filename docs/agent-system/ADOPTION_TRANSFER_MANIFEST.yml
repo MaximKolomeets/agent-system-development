@@ -212,6 +212,7 @@ categories:
       - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
       - docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
       - docs/agent-system/templates/TASK_HEADER_COMMON.md
+      - docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md
 
   target_generated:
     description: >
@@ -247,6 +248,10 @@ categories:
         source_templates:
           - docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md
           - docs/agent-system/CONTROL_MATRIX_PATTERN.md
+      - path: docs/agent-system/THREAT_MODEL.md
+        source_templates:
+          - docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md
+          - docs/agent-system/SECURITY_POLICY.md
       - path: docs/agent-system/ADOPTION_AUDIT.md
         source_templates:
           - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
