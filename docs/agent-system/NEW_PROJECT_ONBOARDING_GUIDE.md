@@ -121,8 +121,8 @@ docs/agent-system/agents/
 - `docs/agent-system/NEXT_STEPS.md`;
 - `docs/agent-system/BACKLOG.md`;
 - `docs/agent-system/DECISION_LOG.md`;
-- `docs/agent-system/PROJECT_GUARDRAILS.md`;
-- `docs/agent-system/ENGINE_REGISTRY.md`.
+- `docs/agent-system/PROJECT_GUARDRAILS.md` (target-local; канон-шаблон: `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`);
+- `docs/agent-system/ENGINE_REGISTRY.md` (target-local; канон-шаблон: `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`).
 
 Использовать шаблоны:
 

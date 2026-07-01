@@ -2,7 +2,7 @@
 
 ## Назначение
 
-Этот файл - короткий вход для adoption target implementation repository. Полный рабочий маршрут остается в `docs/agent-system/ADOPTION_GUIDE.md`, `docs/agent-system/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`, `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`.
+Этот файл - короткий вход для adoption target implementation repository. Полный рабочий маршрут остается в `docs/agent-system/ADOPTION_GUIDE.md`, `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`, `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`.
 
 ## Stable methodology reference
 
