@@ -23,18 +23,23 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
+| `docs/agent-system/CONTROL_MATRIX_PATTERN.md` |  |
 | `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` |  |
+| `docs/agent-system/DECISION_NOTE_GUIDE.md` |  |
 | `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` |  |
 | `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` |  |
 | `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` |  |
 | `docs/agent-system/ENGINE_ENTRYPOINT.md` |  |
 | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` |  |
 | `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md` |  |
+| `docs/agent-system/ERROR_CATALOG_PATTERN.md` |  |
+| `docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md` |  |
 | `docs/agent-system/FILE_COMMENTING_STANDARD.md` |  |
 | `docs/agent-system/tools/check_task_ready.py` |  |
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |
 | `docs/agent-system/tools/gen_file_map.py` |  |
 | `docs/agent-system/tools/generated_eol_guard.py` |  |
+| `docs/agent-system/tools/validate_commit_message.py` |  |
 | `docs/agent-system/tools/validate_task_contract.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
@@ -42,11 +47,13 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
 | `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` |  |
 | `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md` |  |
+| `docs/agent-system/METHODOLOGY_MAP.md` |  |
 | `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` |  |
 | `docs/agent-system/OPERATIONAL_FAST_LANE.md` |  |
 | `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` |  |
 | `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` |  |
 | `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` |  |
+| `docs/agent-system/POLICY_STATUS_PATTERN.md` |  |
 | `docs/agent-system/PR_WORKFLOW.md` |  |
 | `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` |  |
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
@@ -80,10 +87,13 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/CLOSURE_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/CODE_REVIEW_REPORT_TEMPLATE.md` |  |
 | `docs/agent-system/templates/CODE_REVIEW_TASK_TEMPLATE.md` |  |
+| `docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DECISION_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DEVELOPMENT_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md` |  |
+| `docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md` |  |
+| `docs/agent-system/templates/EXTERNAL_REVIEW_LEDGER_TEMPLATE.md` |  |
 | `docs/agent-system/templates/NEW_PROJECT_CHECKLIST.md` |  |
 | `docs/agent-system/templates/NEW_PROJECT_HANDOFF_TEMPLATE.md` |  |
 | `docs/agent-system/templates/NEW_PROJECT_PROMPT.md` |  |
@@ -100,6 +110,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` |  |
 | `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TASK_HEADER_COMMON.md` |  |
+| `docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md` |  |
 
 ## target_generated
 
@@ -114,6 +125,10 @@ Target files generated or written from source/templates. Эти пути НЕ я
 | `DECISIONS.md` |  |
 | `docs/agent-system/PROJECT_GUARDRAILS.md` |  |
 | `docs/agent-system/ENGINE_REGISTRY.md` |  |
+| `docs/agent-system/CONTROL_MATRIX.md` |  |
+| `docs/agent-system/POLICY_STATUS.md` |  |
+| `docs/agent-system/ERROR_CATALOG.md` |  |
+| `docs/agent-system/THREAT_MODEL.md` |  |
 | `docs/agent-system/ADOPTION_AUDIT.md` |  |
 
 ## history_state

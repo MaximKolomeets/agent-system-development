@@ -6,6 +6,12 @@ CI is an automatic guardrail for the public methodology repository.
 
 The first CI check blocks forbidden tracked files and paths before they can be merged. CI does not replace review, manual checks, or repository rulesets.
 
+Commit metadata enforcement является обязательным gate для будущих work PR:
+локально его выполняет `python docs/agent-system/tools/validate_commit_message.py
+--base origin/developer`, а при включении GitHub Actions check должен называться
+`ci/commit-message`. Check читает только git commit metadata, не читает diff и
+не печатает содержимое changed files.
+
 ## Запрещённые tracked paths
 
 The repository must not track these paths:
@@ -48,6 +54,10 @@ Run these commands before commit or push:
 
 ```bash
 git status --short
+```
+
+```bash
+python docs/agent-system/tools/validate_commit_message.py --base origin/developer
 ```
 
 ```bash

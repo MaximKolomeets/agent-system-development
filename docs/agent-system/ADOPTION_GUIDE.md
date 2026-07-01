@@ -117,7 +117,7 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 первый безопасный dry run.
 
 Результат:
-только `docs/agent-system/ADOPTION_AUDIT.md` и связанные engine journal artifacts.
+только `docs/agent-system/ADOPTION_AUDIT.md` (target-local; канон-шаблон: `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`) и связанные engine journal artifacts.
 
 Task template:
 
@@ -323,7 +323,7 @@ Get-Content -Encoding UTF8 -Raw .\docs\agent-system\CURRENT_STATE.md
 Minimal first PR должен создавать только:
 
 ```text
-docs/agent-system/ADOPTION_AUDIT.md
+docs/agent-system/ADOPTION_AUDIT.md (target-local; канон-шаблон: docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md)
 docs/agent-system/engine-journal/**
 ```
 
@@ -375,7 +375,7 @@ GitHub является source of truth: в target repository фиксируют
 
 ### 6. Подготовить первый bootstrap PR
 
-Первый PR маленький и проверяемый (например: `README.md`, `AGENTS.md`, `.gitignore`, минимальный `docs/agent-system`, templates; без рабочих данных). Bootstrap PR не смешивается с implementation PR. Minimal first PR после короткого adoption prompt создаёт только `docs/agent-system/ADOPTION_AUDIT.md` и `docs/agent-system/engine-journal/**` (см. «Minimal first PR» выше). Полный docs-only bootstrap — только после audit, engine journal result и Methodology feedback.
+Первый PR маленький и проверяемый (например: `README.md`, `AGENTS.md`, `.gitignore`, минимальный `docs/agent-system`, templates; без рабочих данных). Bootstrap PR не смешивается с implementation PR. Minimal first PR после короткого adoption prompt создаёт только `docs/agent-system/ADOPTION_AUDIT.md` (target-local; канон-шаблон: `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`) и `docs/agent-system/engine-journal/**` (см. «Minimal first PR» выше). Полный docs-only bootstrap — только после audit, engine journal result и Methodology feedback.
 
 ### 7. Проверить forbidden files
 

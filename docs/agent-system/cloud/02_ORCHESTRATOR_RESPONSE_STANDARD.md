@@ -217,6 +217,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Есть ли STOP-условия?
 - [ ] Есть ли commit/push/PR policy, если задача создает изменения?
 - [ ] Указан ли язык commit/PR metadata: commit subject/body и PR title/body — Russian-first, technical identifiers не переводятся, conventional prefix допустим?
+- [ ] Commit message указан по канону `LANGUAGE_POLICY`: conventional-scope `<тип>(agent-system):`, текст после `:` на русском, пустая строка перед телом, тело переносится около 72 символов и пунктами списка, строки `Journal seq:` и `Refs: PR #<n>`; финализирующий коммит — `journal(agent-system): ...`.
 - [ ] Для target/downstream задачи указан ли stable `methodology_reference`: `origin/main` / `main`, release tag или явно заданный snapshot, без `developer`/`work/*`?
 - [ ] Если задача меняет файлы, создаёт PR или выполняет substantive/tooling/docs-only/review/fix-pass/release/adoption flow, есть ли fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`?
 - [ ] Если `task_contract` есть, совпадают ли его mode/scope/checks/STOP с prose; при конфликте указан ли `STOP`?

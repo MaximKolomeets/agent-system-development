@@ -140,7 +140,7 @@
 - [ ] Target-specific journal/history/state не перезаписываются.
 - [ ] Выбран режим `audit-only`, `docs-only adoption` или `runtime adoption`.
 - [ ] Для первого dry run выбран `audit-only`, если пользователь не решил иначе.
-- [ ] Minimal first PR создает только `docs/agent-system/ADOPTION_AUDIT.md`.
+- [ ] Minimal first PR создает только `docs/agent-system/ADOPTION_AUDIT.md` (target-local; канон-шаблон: `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`).
 - [ ] Docs-only adoption не содержит runtime changes.
 - [ ] Runtime adoption имеет отдельное архитектурное решение, ветку и PR.
 

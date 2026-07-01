@@ -240,6 +240,13 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 
 Sensitive grep result должен быть filename-only. Matching lines не печатать.
 
+Перед approve reviewer проверяет commit metadata: `python
+docs/agent-system/tools/validate_commit_message.py --base origin/developer`
+должен проходить, а commit subject/body должны соблюдать `LANGUAGE_POLICY`:
+conventional-scope `<тип>(agent-system):`, русская смысловая часть после `:`,
+пустая строка перед телом, тело около 72 символов и строки `Journal seq:` /
+`Refs: PR #<n>`.
+
 Reviewer может запускать tests/linters только если:
 
 - они описаны в README/RUNBOOK/package scripts;
