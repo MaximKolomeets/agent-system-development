@@ -4,7 +4,9 @@
 
 status: completed
 
-pr_url: not_created_yet
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/308
+
+pr_created_at: `2026-07-02T09:53:44Z`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-3-time-cost-accounting`
 
@@ -16,11 +18,13 @@ task_source_commit_sha: `9fc59150f508f4846fef2b34d9738f49b81e7fb2`
 
 pr_head_source: github_pr_metadata
 
+pr_head_before_journal_finalization: `33cfe6ccfb69fc9940002102adf10e3d66073c48`
+
 reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review_not_pushed
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -28,11 +32,11 @@ merge_facts_source: github_pr_metadata
 
 execution_started_at: `2026-07-02T16:32:32.7623677+07:00`
 
-execution_finished_at: `2026-07-02T16:48:34.8795359+07:00`
+execution_finished_at: `2026-07-02T16:54:02.5378760+07:00`
 
-execution_duration: `PT16M02S`
+execution_duration: `PT21M30S`
 
-time_spent: `20m`
+time_spent: `25m`
 
 actor_type: agent
 
@@ -65,7 +69,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - `check_task_ready.py` получил required accounting fields gate для новых
   RESULT и lightweight token/cost calculator.
 - `engine-journal/INDEX.md` получил колонку `Time`; legacy rows помечены
-  `legacy/advisory`, row 0140 содержит `20m`.
+  `legacy/advisory`, row 0140 содержит `25m`.
 - `ADOPTION_TRANSFER_MANIFEST.yml`, `PROJECT_FILE_MAP.md`, cloud bundle и
   `gen_cloud_bundle.py` синхронизированы с новыми source files.
 - `AGENTS.md` уточняет обязанность обновлять RESULT с time/cost accounting.
@@ -76,7 +80,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - diff_scope_checked: yes
 - generated_artifacts_checked: yes
 - journal_finalization_checked: yes
-- pr_body_quality_checked: not_created_yet
+- pr_body_quality_checked: yes
 - safety_checked: yes
 - accounting_fields_checked: yes
 
@@ -91,10 +95,11 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`: passed; generated/cloud changes classified.
 - `python docs/agent-system/tools/gen_file_map.py --check`: passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
+- `gh pr view 308 --repo MaximKolomeets/agent-system-development --json number,url,state,isDraft,headRefName,baseRefName,headRefOid,title,createdAt`: passed; PR open; draft: false; head `33cfe6ccfb69fc9940002102adf10e3d66073c48`.
 
 ## Accounting
 
-- time_spent: `20m`.
+- time_spent: `25m`.
 - actor_type: `agent`.
 - human_time_reported: `not_applicable`.
 - input_tokens: `not_available`.
