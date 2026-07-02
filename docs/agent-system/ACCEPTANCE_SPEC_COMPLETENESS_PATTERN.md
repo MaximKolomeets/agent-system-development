@@ -38,6 +38,34 @@ scenario_id -> blocker_code -> fixture_id -> expected_status -> expected_blocker
 - `expected_blocker` должен совпадать с `blocker_code` сценария или быть объяснён как derived blocker.
 - Fixture plan может быть future plan, но тогда PR/RESULT не должны утверждать, что fixture files или tests созданы.
 
+## Human UAT Checklist
+
+Если acceptance spec описывает user-facing/UI/API/CLI/business-facing behavior,
+задача должна генерировать Human UAT Checklist по
+`docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md`.
+
+Минимальная связь:
+
+```text
+scenario_id -> uat_id -> human_action -> expected_behavior -> evidence -> owner_verdict
+```
+
+Правила:
+
+- каждый business-facing scenario получает `uat_id` или явное объяснение, почему
+  UAT не применим;
+- UI scenarios описываются как button-click/tap/keyboard steps и expected visible
+  result;
+- API/CLI scenarios описываются как safe request/command и expected sanitized
+  output/status;
+- visual acceptance фиксирует, что owner/PO проверяет поведение глазами, включая
+  layout, readable text, loading/empty/error states и responsive viewports, если
+  применимо;
+- `owner_verdict` может быть `accepted`, `accepted_with_known_limitations`,
+  `rejected` или `not_applicable`;
+- release PR в `main` не получает approval без Human UAT Checklist или
+  `not_applicable` reason.
+
 ## Правила blocker matrix
 
 - Matrix перечисляет все active blocker codes или явно помечает reserved codes.
@@ -61,4 +89,6 @@ scenario_id -> blocker_code -> fixture_id -> expected_status -> expected_blocker
 - `PASS`/`FAIL` fixtures не требуют blocker.
 - `BLOCKED` fixtures имеют expected blocker.
 - Real data boundary явно запрещает private/real data.
+- Human UAT Checklist создан для business-facing scenarios или есть явный
+  `not_applicable` reason.
 - PR body и RESULT не обещают tests/fixtures/generator, если они не созданы в diff.
