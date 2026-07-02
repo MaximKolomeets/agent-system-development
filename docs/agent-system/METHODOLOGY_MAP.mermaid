@@ -29,6 +29,8 @@ flowchart TB
   HUMANGATE["HUMAN_GATE_POLICY.md<br/>human-only actions"]
   UAT["UAT_WORKFLOW.md<br/>business acceptance gate"]
   UATCHECK["BUSINESS_ACCEPTANCE_CHECKLIST.md<br/>Human UAT Checklist"]
+  HOTFIX["HOTFIX_AND_ROLLBACK_POLICY.md<br/>hotfix, revert, rollback to tag"]
+  DR["DISASTER_RECOVERY.md<br/>repo/GitHub/token/tag recovery"]
   BRANCH["BRANCH_POLICY.md"]
   WORKFLOW["WORKFLOW.md"]
   READINESS["RELEASE_READINESS.md"]
@@ -72,10 +74,18 @@ flowchart TB
   MAP --> RELEASEAUTH
   MAP --> HUMANGATE
   MAP --> UAT
+  MAP --> HOTFIX
+  MAP --> DR
   RELEASEAUTH --> HUMANGATE
   UAT --> UATCHECK
   UAT --> RELEASEAUTH
   UATCHECK --> SEMANTIC
+  HOTFIX --> RELEASEAUTH
+  HOTFIX --> HUMANGATE
+  HOTFIX --> BRANCH
+  HOTFIX --> WORKFLOW
+  DR --> HOTFIX
+  DR --> RELEASEAUTH
   RELEASEAUTH --> BRANCH
   RELEASEAUTH --> WORKFLOW
   RELEASEAUTH --> READINESS

@@ -24,6 +24,24 @@
 - для v1.0.0, если annotated tag ещё отсутствует, человек-архитектор должен поставить `v1.0.0` на release merge commit `123a126afd812255f7d671d98169c077cf33a319`; это human-only действие и не выполняется engine;
 - агент не делает merge release-PR даже при наличии прав; решение о переносе в `main` принимает человек.
 
+### Rollback и hotfix branches
+
+Emergency rollback/hotfix выполняется по `docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md`
+и `docs/agent-system/DISASTER_RECOVERY.md`.
+
+- canonical emergency branch: `work/hotfix/<issue>`;
+- ветка создается от `origin/main`, если PR должен исправить stable `main`;
+- основной rollback-механизм: `git revert <bad-commit-sha>` или
+  `git revert -m 1 <bad-merge-sha>` для merge commit;
+- rollback до tag `vX.Y.Z` готовится как rollback PR с revert-коммитами от
+  текущего `main`, а не как silent reset protected branch;
+- expedited review допустим, но review/check/evidence не пропускаются;
+- merge hotfix/rollback PR в `main`, force move branch, tag creation,
+  publication и sync decision выполняет только человек по
+  `RELEASE_AUTHORITY_POLICY.md` и `HUMAN_GATE_POLICY.md`;
+- RESULT hotfix/rollback/recovery фиксирует actor, action и evidence; без этих
+  полей rollback RESULT не считается finalized.
+
 ## developer
 
 - интеграционная ветка;
@@ -78,6 +96,9 @@
 
 - перед ЛЮБЫМ `git commit` агент проверяет текущую ветку: `git rev-parse --abbrev-ref HEAD`;
 - если HEAD не его основная рабочая ветка задачи `work/<role>/<task>` и не внутренняя sub-branch `work/<role>/<task>/*` (особенно если это `developer` или `main`) → `STOP`, переключиться на правильную work-ветку и только потом коммитить;
+- исключение для emergency: documented hotfix/rollback task может коммитить в
+  `work/hotfix/<issue>`, если branch создана по
+  `HOTFIX_AND_ROLLBACK_POLICY.md` и task/RESULT явно фиксируют human gate;
 - прямой коммит в `developer` или `main` запрещён даже локально (не только push); локальный коммит в `developer`/`main` считается нарушением, даже если он ещё не запушен;
 - обоснование: инцидент journal 0013 — resume сессии оставил HEAD на `developer`, и коммит сначала лёг туда; remote `developer` уцелел только потому, что пушилась work-ветка. Проверка ветки перед commit предотвращает это.
 
