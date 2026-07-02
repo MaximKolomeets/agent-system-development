@@ -4,7 +4,7 @@
 
 status: completed
 
-pr_url: not_created_yet
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/306
 
 branch: `work/docs-maintainer-01/meth-v1-5-2-pr-1-state-refresh`
 
@@ -14,17 +14,21 @@ actual_seq_rule: `INDEX last seq 0137 + 1`
 
 task_source_commit_sha: `2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`
 
-pr_head_source: to_be_filled_after_pr_creation
+pr_head_source: github_pr_metadata
 
-reviewed_head_source: to_be_filled_after_review
+reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review_not_pushed
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
 merge_facts_source: github_pr_metadata
+
+pr_created_at: `2026-07-02T08:50:18Z`
+
+pr_head_before_journal_finalization: `6fd42d0648defa6aab056afe4b33bf525f4ac33c`
 
 execution_started_at: `2026-07-02T15:33:24.0768470+07:00`
 
@@ -52,14 +56,14 @@ execution_duration: `PT14M21S`
 - diff_scope_checked: yes
 - generated_artifacts_checked: yes
 - journal_finalization_checked: yes
-- pr_body_quality_checked: to_be_filled_after_pr_creation
+- pr_body_quality_checked: yes
 - safety_checked: yes
 
 ## Checks
 
 - `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0138-METH-POST-RELEASE-STATE-REFRESH-V1-5-2-PR1-01.md`: passed.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: passed; `blockers_count: 0`; `warnings_count: 1` before timestamp finalization.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: passed; `blockers_count: 0`; `warnings_count: 1` before timestamp finalization.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: passed; `blockers_count: 0`; `warnings_count: 0`.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: passed; `blockers_count: 0`; `warnings_count: 0`.
 - `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`: passed; content changes limited to generated `PROJECT_FILE_MAP.md` and cloud mirrors; EOL-only count 0.
 - `python docs/agent-system/tools/gen_file_map.py --check`: passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
