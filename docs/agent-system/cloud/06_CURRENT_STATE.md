@@ -51,33 +51,35 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-release state/status refresh после публикации `v1.5.1` и sync
-`main -> developer`. Release-prep PR #303 merged в `developer` at
-`2026-07-02T02:11:11Z`, release PR #304 (`developer -> main`) merged at
-`2026-07-02T06:46:16Z`, sync PR #305 (`main -> developer`) merged at
-`2026-07-02T06:48:28Z`.
+Текущий фокус: release-prep `v1.5.2` после выполнения hardening series PR-1..15
+/ H1..H16 и merge batch-closure PR #322. Release-prep готовит evidence и
+state-refresh для будущего release PR `developer -> main`, но не выполняет
+human-only release action.
 
 `origin/main` указывает на release merge commit
 `2467edd8488a51d74483e8095e4887c0f512dfcd`; annotated tag `v1.5.1` указывает на
-тот же commit. `origin/developer` указывает на sync merge commit
-`2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`. Latest release tag: `v1.5.1`.
+тот же commit. `origin/developer` указывает на кандидатный release-prep boundary
+commit после merge PR #322: `97e874883afbe3ac38ccd815d48f63ca964c5737`.
+Latest release tag: `v1.5.1`; next planned tag: `v1.5.2`.
 
-Следующий методологический фокус: серия hardening PR для релиза `v1.5.2` по
-H1-H16. До публикации `v1.5.2` downstream/source-update задачи используют stable
-pointer `origin/main` / tag `v1.5.1`, а не `developer` или `work/*`.
+Серия hardening PR для релиза `v1.5.2` по H1-H16 выполнена и включена в
+release payload: PR #306-#309 и #311-#321. До публикации `v1.5.2`
+downstream/source-update задачи используют stable pointer `origin/main` / tag
+`v1.5.1`, а не `developer` или `work/*`.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
-`2026-07-02T15:33:24+07:00` через GitHub Rulesets API. `Protect main` и
+`2026-07-03T00:42:55+07:00` через GitHub Rulesets API. `Protect main` и
 `Protect developer` active; deletion и non-fast-forward запрещены, pull request
 rule включён, required status checks в ruleset не заданы.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: `v1.5.1` published/synced. Содержательный payload после `v1.5.0`
-включил configurable commit-message scopes, release-boundary hardening,
-ID-reference integrity gate, superseded banner standard и execution timing
-discipline. Следующий релизный boundary: `v1.5.2` после выполнения запланированной
-серии methodology hardening PR.
+Текущий этап: release-prep `v1.5.2`. Содержательный payload после `v1.5.1`
+включает P1 hardening (state/journal/time/source/navigation/release authority/UAT/
+rollback), P2 management lifecycle (safe-scan lint, management layer, private
+control plane, MIR ledger, policy invariants, agent initiative, journal archive)
+и cross-project lifecycle guidance. Следующий шаг после merge этого release-prep
+PR: human-controlled release PR `developer -> main` для `v1.5.2`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

@@ -24,9 +24,9 @@ reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: closed_after_merge_boundary_reconciliation
 
-post_merge_closure_required: false
+post_merge_closure_required: satisfied_by_boundary_reconciliation
 
 merge_facts_source: github_pr_metadata
 
@@ -182,3 +182,26 @@ consumers after merge/release publication according to `docs/agent-system/SOURCE
 Следующий: methodology-reviewer-01 — scoped review PR-4/H4; затем архитектор —
 human merge; затем methodology-architect-01 — PR-5/H5: навигация & discovery.
 Source-consumer registry относится к H8/PR-11 и не входит в следующий PR.
+
+## Boundary closure stamp: release-prep v1.5.2
+
+- closure_task: `METH-RELEASE-PREP-V1-5-2-01`
+- closure_reason: release-boundary reconciliation before `v1.5.2`
+- work_pr: https://github.com/MaximKolomeets/agent-system-development/pull/309
+- work_pr_status: `MERGED`
+- work_pr_merged_at: `2026-07-02T10:29:51Z`
+- work_pr_merge_commit_sha: `4818b553beaa5b426334404696507c48e95d0d22`
+- work_pr_head_sha: `4e686e605569cec9c5532df6ce61caeacf123dd9`
+- github_facts_source: `gh pr view 309 --json number,state,mergedAt,mergeCommit,headRefOid`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes, by release-prep row 0154
+- No journal placeholders: yes
+- release_pr_status: `not_applicable`
+- sync_pr_status: `not_applicable`
+- actor: `methodology-architect-01`
+- evidence: GitHub PR metadata and local release-prep diff
+
+## Передача после boundary reconciliation
+
+Следующий: methodology-reviewer-01 - проверить release-prep v1.5.2; затем
+архитектор - human merge release-prep PR в `developer`.
