@@ -167,6 +167,7 @@ categories:
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
       - docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
+      - docs/agent-system/JOURNAL_ARCHIVING_POLICY.md
       - docs/agent-system/JOURNAL_FINALIZATION_POLICY.md
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
@@ -351,9 +352,9 @@ categories:
 
   journal:
     description: >
-      Engine journal scaffold and operational history. Target repository получает
-      структуру/шаблоны, но не копирует operational rows или TASK/RESULT history
-      methodology repository.
+      Engine journal scaffold and active operational history. Target repository
+      получает структуру/шаблоны, но не копирует operational rows или
+      TASK/RESULT history methodology repository.
     journal_transfer_mode: scaffold_only
     methodology_repository_operational_history:
       allowed: true
@@ -369,12 +370,30 @@ categories:
         methodology lifecycle, не содержат private/secrets, являются Russian-first
         и не копируются verbatim в target repository.
     files:
-      - docs/agent-system/engine-journal/**
+      - docs/agent-system/engine-journal/README.md
+      - docs/agent-system/engine-journal/INDEX.md
+      - docs/agent-system/engine-journal/input/**
+      - docs/agent-system/engine-journal/output/**
+      - docs/agent-system/engine-journal/templates/**
     target_copy_policy:
       - docs/agent-system/engine-journal/README.md можно использовать как scaffold.
       - docs/agent-system/engine-journal/templates/** можно использовать как scaffold templates.
       - docs/agent-system/engine-journal/INDEX.md в target создается как target-specific index; operational rows methodology repository не копируются.
       - docs/agent-system/engine-journal/input/** и output/** из methodology repository не копируются как target history.
+      - docs/agent-system/engine-journal/archive/** не копируется в target repository.
+
+  journal_archive:
+    description: >
+      Archived engine journal epochs. Archive хранит старые finalized RESULT
+      после release-boundary и не входит в default context bundle.
+    context_bundle: excluded
+    transferable: false
+    files:
+      - docs/agent-system/engine-journal/archive/**
+    rules:
+      - Archive создается только отдельным post-release archive PR по JOURNAL_ARCHIVING_POLICY.md.
+      - Archive files не включаются в orchestrator_context_bundle и docs/agent-system/cloud/**.
+      - Target repositories создают собственные archive epochs; methodology archive не копируется verbatim.
 
   scaffold:
     description: >
@@ -498,6 +517,12 @@ rules:
       operational rows methodology repository. Methodology repository
       operational history не переносится. Реальные task/result files
       создаются только в target repository.
+  - id: journal_archive_excluded_from_context
+    text: >
+      Journal archive epochs находятся в
+      docs/agent-system/engine-journal/archive/vX.Y.Z/ и не входят в
+      orchestrator_context_bundle; active INDEX содержит только summary и ссылки
+      на archive index.
   - id: post_merge_journal_closure
     text: >
       Target repository должен поддерживать Closure policy по

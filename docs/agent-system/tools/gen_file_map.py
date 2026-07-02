@@ -20,6 +20,7 @@ CATEGORY_ORDER = [
     "target_generated",
     "history_state",
     "journal",
+    "journal_archive",
     "scaffold",
     "generated",
 ]

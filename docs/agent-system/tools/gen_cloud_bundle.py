@@ -15,6 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 MANIFEST = ROOT / "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml"
 README_NAME = "00_README.md"
+JOURNAL_ARCHIVE_PREFIX = "docs/agent-system/engine-journal/archive/"
 README_INFORMATIONAL_LINE_PATTERNS = (
     (r"(?m)^- asof: `[^`\n]*`$", "- asof: `<informational>`"),
     (r"(?m)^- developer_head_sha: `[^`\n]*`$", "- developer_head_sha: `<informational>`"),
@@ -183,6 +184,7 @@ def parse_manifest_categories(text: str) -> dict[str, str]:
         "target_generated",
         "history_state",
         "journal",
+        "journal_archive",
         "scaffold",
         "generated",
     }
@@ -252,6 +254,8 @@ def validate_bundle(config: BundleConfig) -> list[str]:
     seen: dict[str, str] = {}
     for expected_priority, entry in enumerate(config.files, start=1):
         source = ROOT / entry.path
+        if entry.path.startswith(JOURNAL_ARCHIVE_PREFIX):
+            errors.append(f"Journal archive path must not be in cloud bundle: {entry.path}")
         if entry.priority != expected_priority:
             errors.append(f"Priority gap: expected {expected_priority:02d}, got {entry.priority:02d} for {entry.path}")
         if not source.is_file():
@@ -310,6 +314,7 @@ def render_readme(config: BundleConfig, asof: str, developer_head_sha: str) -> b
         "- Все файлы бандла имеют расширение `.md`, чтобы проходить upload-ограничения cloud-оркестратора.",
         "- Нумерация задаёт приоритет: при лимите ниже полного бандла загружать первые N файлов по имени.",
         "- Non-md источники завернуты в fenced-блок с языком исходного формата.",
+        "- Архивные journal epochs (`engine-journal/archive/**`) не входят в context bundle; использовать active `INDEX.md` summary и archive links.",
         "- Проверка drift: `python docs/agent-system/tools/gen_cloud_bundle.py --check`.",
         "",
         "## Приоритетная карта",

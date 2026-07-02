@@ -23,6 +23,7 @@ flowchart TB
   TASKCONTRACT["TASK_CONTRACT.md"]
   JOURNAL["ENGINE_JOURNAL_CONTRACT.md"]
   FINALIZE["JOURNAL_FINALIZATION_POLICY.md"]
+  ARCHIVE["JOURNAL_ARCHIVING_POLICY.md<br/>Journal Epoch archive"]
   READY["tools/check_task_ready.py"]
   POLICYINV["POLICY_INVARIANTS.md<br/>cross-policy invariants"]
   POLICYCHECK["tools/validate_policy_invariants.py<br/>invariants and self-test gate"]
@@ -85,6 +86,7 @@ flowchart TB
   ENTRY --> JOURNAL
   TASKCONTRACT --> READY
   JOURNAL --> FINALIZE
+  JOURNAL --> ARCHIVE
   FINALIZE --> READY
   POLICYINV --> POLICYCHECK
   POLICYCHECK --> READY
@@ -107,6 +109,7 @@ flowchart TB
   SEMANTIC --> READY
 
   MAP --> RELEASEAUTH
+  MAP --> ARCHIVE
   MAP --> POLICYINV
   MAP --> HUMANGATE
   MAP --> UAT
@@ -133,4 +136,5 @@ flowchart TB
   MANIFEST --> POLICYCHECK
   GENMAP --> FILEMAP
   GENCLOUD --> CLOUD
+  ARCHIVE --> GENCLOUD
   EOL --> CLOUD
