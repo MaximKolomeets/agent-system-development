@@ -145,7 +145,7 @@ Requires explicit user approval: <yes/no>
 ## Inputs
 
 - `docs/agent-system/ADOPTION_AUDIT.md` from target repository;
-- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository;
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository as discovery map;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` from template repository;
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` from template repository;
 - `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` from template repository;
@@ -242,7 +242,8 @@ Governance pack files разрешены только как docs-only artifacts
 - выполнить repository self-discovery;
 - проверить clean worktree;
 - прочитать local instructions;
-- применить transfer manifest;
+- применить `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map для source,
+  template, target-generated, journal scaffold/history и generated files;
 - применить downstream checklist;
 - применить governance pack template, если он в scope;
 - создать или адаптировать `PROJECT_CONSTITUTION.md`, если governance pack в scope;

@@ -222,6 +222,13 @@ Acceptance criteria:
 docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
 ```
 
+Для discovery `engine` сначала читает manifest и его categories, а затем
+подключает trigger-specific overlays по root `README.md` и
+`docs/agent-system/METHODOLOGY_MAP.md` → `Mandatory overlays by trigger`.
+Adoption docs не должны поддерживать отдельный полный inventory файлов рядом с
+manifest: при изменении состава файлов обновляется manifest, а
+`PROJECT_FILE_MAP.md` и `cloud/**` регенерируются.
+
 Manifest делит файлы на текущие categories:
 
 - `source` - reusable/canonical/operational methodology files; проверять наличие в source checkout и адаптировать target-facing policy по target facts;

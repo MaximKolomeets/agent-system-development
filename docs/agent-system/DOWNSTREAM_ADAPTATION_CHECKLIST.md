@@ -8,6 +8,10 @@
 - feedback и его sanitization — `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`;
 - governance pack и project constitution — `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`, `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 - adoption mode detector — `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`.
+- discovery/inventory source/template/target-generated/journal/generated files —
+  `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`; trigger-specific overlays
+  — root `README.md` и `docs/agent-system/METHODOLOGY_MAP.md` →
+  `Mandatory overlays by trigger`.
 
 Пункты ниже сохранены полностью как проверяемый список.
 
@@ -123,6 +127,8 @@
 
 - [ ] Transfer manifest не содержит противоречий между reusable templates и target-adapted files.
 - [ ] Reusable source templates отделены от materialized target files.
+- [ ] Adoption task использует `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map, а не отдельный ручной список файлов.
+- [ ] Если trigger требует overlays, они выбраны по `Mandatory overlays by trigger` в root `README.md` и `METHODOLOGY_MAP.md`.
 
 ## Безопасность (security)
 

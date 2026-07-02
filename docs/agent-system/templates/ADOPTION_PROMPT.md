@@ -96,6 +96,9 @@ Reasoning effort: <низкий | средний | высокий>
 4. Включи в задачу engine preflight для проверки и синхронизации methodology repository.
 5. Требуй, чтобы engine зафиксировал `methodology_reference` с repository,
    `source_ref`, source commit SHA, checked_at и reference_type.
+6. Перед отправкой блока для исполнителя (engine) проверь его по
+   `docs/agent-system/tools/orchestrator_checklist.py`, если блок сохранён в
+   файл или буфер; если tool неприменим, явно укажи причину.
 
 Формат ответа оркестратора:
 
@@ -275,20 +278,17 @@ git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|парол
 
 ## Как должен действовать engine
 
-`engine` должен сам найти в template repository:
+`engine` должен сам найти в template repository минимальные anchors:
 
 - `docs/agent-system/ENGINE_ENTRYPOINT.md`;
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`;
-- `docs/agent-system/ADOPTION_GUIDE.md` (включая раздел «Пошаговый existing-repo adoption»);
-- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`;
-- `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
-- `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`;
-- `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`;
-- `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md`;
-- `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`;
-- `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`;
-- `docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
-- `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`.
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`.
+
+Дальше `engine` определяет применимые source/template/target-generated/journal
+и generated files по `ADOPTION_TRANSFER_MANIFEST.yml`, а trigger-specific
+overlays — по таблице `Mandatory overlays by trigger` в root `README.md` и
+`docs/agent-system/METHODOLOGY_MAP.md`. Adoption prompt не должен поддерживать
+отдельный длинный список файлов рядом с manifest.
 
 После этого `engine` выполняет repository self-discovery в текущем target repository и читает локальные инструкции.
 

@@ -40,6 +40,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |
 | `docs/agent-system/tools/gen_file_map.py` |  |
 | `docs/agent-system/tools/generated_eol_guard.py` |  |
+| `docs/agent-system/tools/orchestrator_checklist.py` |  |
 | `docs/agent-system/tools/validate_commit_message.py` |  |
 | `docs/agent-system/tools/validate_id_references.py` |  |
 | `docs/agent-system/tools/validate_task_contract.py` |  |
@@ -51,6 +52,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/METRICS.md` |  |
 | `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md` |  |
 | `docs/agent-system/METHODOLOGY_MAP.md` |  |
+| `docs/agent-system/METHODOLOGY_MAP.mermaid` |  |
 | `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` |  |
 | `docs/agent-system/OPERATIONAL_FAST_LANE.md` |  |
 | `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` |  |
@@ -200,3 +202,4 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/21_TIME_ACCOUNTING_POLICY.md` |  |
 | `docs/agent-system/cloud/22_COST_TRACKING_POLICY.md` |  |
 | `docs/agent-system/cloud/23_METRICS.md` |  |
+| `docs/agent-system/cloud/24_METHODOLOGY_MAP.md` |  |
