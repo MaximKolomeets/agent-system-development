@@ -19,6 +19,7 @@
 - adoption modes;
 - transfer manifest;
 - downstream adaptation checklist;
+- private control-plane templates и MIR lifecycle ledger;
 - target project governance pack;
 - project constitution framework;
 - шаблоны задач, отчетов и review;
