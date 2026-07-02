@@ -180,4 +180,5 @@ consumers after merge/release publication according to `docs/agent-system/SOURCE
 ## Передача
 
 Следующий: methodology-reviewer-01 — scoped review PR-4/H4; затем архитектор —
-human merge; затем methodology-architect-01 — PR-5/H5 source-consumer reminder.
+human merge; затем methodology-architect-01 — PR-5/H5: навигация & discovery.
+Source-consumer registry относится к H8/PR-11 и не входит в следующий PR.
