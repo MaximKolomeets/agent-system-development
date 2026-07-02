@@ -9,6 +9,7 @@ import re
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
+from datetime import date, datetime
 from pathlib import Path
 
 
@@ -23,6 +24,7 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/CURRENT_STATE.md",
     "docs/agent-system/NEXT_STEPS.md",
     "docs/agent-system/ENGINE_ENTRYPOINT.md",
+    "docs/agent-system/LANGUAGE_POLICY.md",
     "docs/agent-system/REVIEW_AUTOLOOP.md",
     "docs/agent-system/engine-journal/INDEX.md",
 }
@@ -68,6 +70,16 @@ DEFERRED_FINALIZATION_PATTERNS = (
     re.compile(r"\bnot\s+run\s+yet\b", re.IGNORECASE),
     re.compile(r"\bto\s+be\s+updated\b", re.IGNORECASE),
 )
+SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
+SUPERSEDED_TAG_RE = re.compile(
+    r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
+)
+SUPERSEDED_TAG_ANY_RE = re.compile(r"<!--\s*SUPERSEDED_BY\s*:", re.IGNORECASE)
+SUPERSEDED_STATUS_RE = re.compile(r"^\s*(?:status|Статус)\s*:\s*`?superseded`?\s*$", re.IGNORECASE)
+VISIBLE_SUPERSEDED_RE = re.compile(r"замен[её]н|superseded", re.IGNORECASE)
+EXECUTION_STARTED_RE = re.compile(r"^\s*execution_started_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
+EXECUTION_FINISHED_RE = re.compile(r"^\s*execution_finished_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
+MIN_EXECUTION_DURATION_SECONDS = 60
 
 
 @dataclass
@@ -83,12 +95,14 @@ class ReadyReport:
     branch: str = ""
     base: str = ""
     release_boundary_mode: bool = False
+    commit_message_cutoff_ref: str = ""
     changed_files: list[str] = field(default_factory=list)
     staged_files: list[str] = field(default_factory=list)
     unstaged_files: list[str] = field(default_factory=list)
     untracked_files: list[str] = field(default_factory=list)
     diff_checks: list[CommandResult] = field(default_factory=list)
     commit_message_checks: list[CommandResult] = field(default_factory=list)
+    id_reference_checks: list[CommandResult] = field(default_factory=list)
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
@@ -99,6 +113,8 @@ class ReadyReport:
     strict_added_line_secret_files: list[str] = field(default_factory=list)
     placeholder_candidates: list[str] = field(default_factory=list)
     deferred_finalization_placeholders: list[str] = field(default_factory=list)
+    superseded_banner_warnings: list[str] = field(default_factory=list)
+    execution_timing_warnings: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -110,6 +126,7 @@ class ReadyReport:
         data = asdict(self)
         data["diff_checks"] = [asdict(item) for item in self.diff_checks]
         data["commit_message_checks"] = [asdict(item) for item in self.commit_message_checks]
+        data["id_reference_checks"] = [asdict(item) for item in self.id_reference_checks]
         data["generated_checks"] = [asdict(item) for item in self.generated_checks]
         data["changed_files_count"] = len(self.changed_files)
         data["staged_files_count"] = len(self.staged_files)
@@ -120,6 +137,8 @@ class ReadyReport:
         data["strict_added_line_secret_value_count"] = len(self.strict_added_line_secret_files)
         data["placeholder_candidates_count"] = len(self.placeholder_candidates)
         data["deferred_finalization_placeholder_count"] = len(self.deferred_finalization_placeholders)
+        data["superseded_banner_warnings_count"] = len(self.superseded_banner_warnings)
+        data["execution_timing_warnings_count"] = len(self.execution_timing_warnings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -284,6 +303,127 @@ def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
+def validate_superseded_banner_text(path: str, text: str) -> list[str]:
+    normalized = normalize_path(path)
+    if normalized == SUPERSEDED_TEMPLATE_PATH:
+        return []
+
+    lines = text.splitlines()
+    visible_source_lines: list[tuple[int, str]] = []
+    in_fence = False
+    for line_number, line in enumerate(lines, start=1):
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            visible_source_lines.append((line_number, line))
+
+    tag_lines: list[int] = []
+    full_matches: list[re.Match[str]] = []
+    warnings: list[str] = []
+    for line_number, line in visible_source_lines:
+        if SUPERSEDED_TAG_ANY_RE.search(line):
+            tag_lines.append(line_number)
+        full_matches.extend(SUPERSEDED_TAG_RE.finditer(line))
+
+    has_superseded_status = any(SUPERSEDED_STATUS_RE.search(line) for _, line in visible_source_lines)
+    if not tag_lines and not has_superseded_status:
+        return []
+
+    if tag_lines and not full_matches:
+        return [f"{normalized}:{tag_lines[0]}: SUPERSEDED_TAG_INVALID"]
+    if has_superseded_status and not full_matches:
+        return [f"{normalized}:1: SUPERSEDED_TAG_MISSING"]
+
+    for match in full_matches:
+        try:
+            date.fromisoformat(match.group("date"))
+        except ValueError:
+            warnings.append(f"{normalized}:1: SUPERSEDED_DATE_INVALID")
+
+    visible_lines = [line for _, line in visible_source_lines if not line.strip().startswith("<!--")]
+    if not any(VISIBLE_SUPERSEDED_RE.search(line) for line in visible_lines):
+        warnings.append(f"{normalized}:1: SUPERSEDED_VISIBLE_LINE_MISSING")
+    return warnings
+
+
+def scan_superseded_banners(paths: list[str]) -> list[str]:
+    warnings: list[str] = []
+    for path in unique_sorted(paths):
+        normalized = normalize_path(path)
+        if is_task_result_file(normalized):
+            continue
+        if not normalized.endswith(".md"):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        warnings.extend(validate_superseded_banner_text(normalized, text))
+    return sorted(set(warnings))
+
+
+def is_generated_or_journal_path(path: str) -> bool:
+    normalized = normalize_path(path)
+    if normalized.startswith("docs/agent-system/cloud/"):
+        return True
+    if normalized.startswith("docs/agent-system/engine-journal/"):
+        return True
+    return normalized == "docs/agent-system/PROJECT_FILE_MAP.md"
+
+
+def has_substantive_changes(paths: list[str]) -> bool:
+    return any(not is_generated_or_journal_path(path) for path in unique_sorted(paths))
+
+
+def parse_execution_timestamp(value: str) -> datetime:
+    normalized = value.strip()
+    if normalized.endswith("Z"):
+        normalized = f"{normalized[:-1]}+00:00"
+    return datetime.fromisoformat(normalized)
+
+
+def validate_execution_timing_text(path: str, text: str, substantive_changes: bool) -> list[str]:
+    normalized = normalize_path(path)
+    if not substantive_changes:
+        return []
+    if not re.fullmatch(r"docs/agent-system/engine-journal/output/RESULT-.*\.md", normalized):
+        return []
+
+    started_match = EXECUTION_STARTED_RE.search(text)
+    finished_match = EXECUTION_FINISHED_RE.search(text)
+    if not started_match or not finished_match:
+        return []
+
+    try:
+        started_at = parse_execution_timestamp(started_match.group(1))
+        finished_at = parse_execution_timestamp(finished_match.group(1))
+    except ValueError:
+        return [f"{normalized}:1: EXECUTION_TIMING_UNPARSEABLE"]
+
+    duration_seconds = (finished_at - started_at).total_seconds()
+    if duration_seconds < MIN_EXECUTION_DURATION_SECONDS:
+        rounded = int(duration_seconds)
+        return [f"{normalized}:1: UNRELIABLE_EXECUTION_TIMING duration_seconds={rounded}"]
+    return []
+
+
+def scan_execution_timing(paths: list[str]) -> list[str]:
+    all_paths = unique_sorted(paths)
+    substantive_changes = has_substantive_changes(all_paths)
+    warnings: list[str] = []
+    for path in task_result_files(all_paths):
+        normalized = normalize_path(path)
+        if not normalized.startswith("docs/agent-system/engine-journal/output/RESULT-"):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        warnings.extend(validate_execution_timing_text(normalized, text, substantive_changes))
+    return sorted(set(warnings))
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -333,11 +473,24 @@ def add_diff_checks(report: ReadyReport) -> None:
             report.blockers.append(f"{name} failed")
 
 
-def add_commit_message_checks(report: ReadyReport) -> None:
-    check = run_command(
-        ["python", "docs/agent-system/tools/validate_commit_message.py", "--base", report.base],
-        f"validate_commit_message.py --base {report.base}",
-    )
+def add_commit_message_checks(report: ReadyReport, cutoff_ref: str = "") -> None:
+    report.commit_message_cutoff_ref = cutoff_ref
+    if report.release_boundary_mode and not cutoff_ref:
+        report.commit_message_checks.append(
+            CommandResult(
+                name="validate_commit_message.py skipped for release boundary",
+                exit_code=0,
+                status="skipped_release_boundary",
+            )
+        )
+        return
+
+    args = ["python", "docs/agent-system/tools/validate_commit_message.py", "--base", report.base]
+    name = f"validate_commit_message.py --base {report.base}"
+    if cutoff_ref:
+        args.extend(["--cutoff-ref", cutoff_ref])
+        name = f"{name} --cutoff-ref {cutoff_ref}"
+    check = run_command(args, name)
     report.commit_message_checks.append(check)
     if check.exit_code != 0:
         report.blockers.append("validate_commit_message.py failed")
@@ -376,6 +529,16 @@ def add_generated_checks(report: ReadyReport) -> None:
         report.generated_eol_guard_reason = "generated_eol_guard JSON summary unavailable"
 
 
+def add_id_reference_checks(report: ReadyReport) -> None:
+    check = run_command(
+        ["python", "docs/agent-system/tools/validate_id_references.py"],
+        "validate_id_references.py",
+    )
+    report.id_reference_checks.append(check)
+    if check.exit_code != 0:
+        report.blockers.append("validate_id_references.py failed")
+
+
 def add_safety_scans(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
     report.forbidden_changed_paths = [path for path in all_paths if is_forbidden_path(path)]
@@ -402,6 +565,14 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.deferred_finalization_placeholders:
         report.blockers.append("deferred finalization placeholders detected in changed TASK/RESULT")
 
+    report.superseded_banner_warnings = scan_superseded_banners(all_paths)
+    if report.superseded_banner_warnings:
+        report.warnings.append("superseded banner advisory warnings detected")
+
+    report.execution_timing_warnings = scan_execution_timing(all_paths)
+    if report.execution_timing_warnings:
+        report.warnings.append("unreliable execution timing advisory warnings detected")
+
 
 def render_human(report: ReadyReport) -> str:
     lines = [
@@ -411,6 +582,7 @@ def render_human(report: ReadyReport) -> str:
         f"branch: {report.branch}",
         f"base: {report.base}",
         f"release_boundary_mode: {str(report.release_boundary_mode).lower()}",
+        f"commit_message_cutoff_ref: {report.commit_message_cutoff_ref or '<none>'}",
         "",
         f"changed_files_count: {len(report.changed_files)}",
         f"staged_files_count: {len(report.staged_files)}",
@@ -426,6 +598,8 @@ def render_human(report: ReadyReport) -> str:
     for check in report.diff_checks:
         lines.append(f"{check.name}: {check.status}")
     for check in report.commit_message_checks:
+        lines.append(f"{check.name}: {check.status}")
+    for check in report.id_reference_checks:
         lines.append(f"{check.name}: {check.status}")
     lines.extend(
         [
@@ -446,6 +620,8 @@ def render_human(report: ReadyReport) -> str:
             f"strict_added_line_secret_value_count: {len(report.strict_added_line_secret_files)}",
             f"placeholder_candidates_count: {len(report.placeholder_candidates)}",
             f"deferred_finalization_placeholder_count: {len(report.deferred_finalization_placeholders)}",
+            f"superseded_banner_warnings_count: {len(report.superseded_banner_warnings)}",
+            f"execution_timing_warnings_count: {len(report.execution_timing_warnings)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -464,10 +640,22 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("deferred_finalization_placeholder_files:")
         lines.extend(f"- {path}" for path in report.deferred_finalization_placeholders)
+    if report.superseded_banner_warnings:
+        lines.append("")
+        lines.append("superseded_banner_warnings:")
+        lines.extend(f"- {item}" for item in report.superseded_banner_warnings)
+    if report.execution_timing_warnings:
+        lines.append("")
+        lines.append("execution_timing_warnings:")
+        lines.extend(f"- {item}" for item in report.execution_timing_warnings)
     return "\n".join(lines) + "\n"
 
 
-def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
+def build_report(
+    base: str,
+    release_boundary: bool = False,
+    commit_message_cutoff_ref: str = "",
+) -> ReadyReport:
     report = ReadyReport(base=base)
     add_repository_guard(report)
     if not report.repo_root:
@@ -479,7 +667,8 @@ def build_report(base: str, release_boundary: bool = False) -> ReadyReport:
             report.blockers.append("release boundary mode supports only developer -> origin/main")
     add_changed_files(report)
     add_diff_checks(report)
-    add_commit_message_checks(report)
+    add_commit_message_checks(report, commit_message_cutoff_ref)
+    add_id_reference_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
     return report
@@ -496,11 +685,20 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Allow the developer -> origin/main release gate to run without work-branch blockers.",
     )
+    parser.add_argument(
+        "--commit-message-cutoff-ref",
+        default="",
+        help="When release-boundary commit metadata validation is desired, validate only commits after this ref.",
+    )
     parser.add_argument("--strict", action="store_true", help="Treat warnings as non-ready.")
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON summary.")
     args = parser.parse_args(argv)
 
-    report = build_report(args.base, release_boundary=args.release_boundary)
+    report = build_report(
+        args.base,
+        release_boundary=args.release_boundary,
+        commit_message_cutoff_ref=args.commit_message_cutoff_ref,
+    )
     if args.json:
         print(json.dumps(report.to_json_dict(), ensure_ascii=False, indent=2, sort_keys=True))
     else:

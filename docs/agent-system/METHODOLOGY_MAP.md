@@ -59,9 +59,12 @@ matrix и error catalog, не в prose policy-дубликатах. Крупны
 - `PR_WORKFLOW.md` - оформление и проведение PR.
 - `WORKTREE_GUIDE.md` - worktree-операции.
 - `OPERATIONAL_FAST_LANE.md` - упрощенный трек для мелких/read-only задач.
+- `templates/SUPERSEDED_BANNER.md` - machine-readable и visible banner для
+  документов, заменённых новым canonical source.
 
 Когда применять: при создании ветки, sync/checkout/pull/merge guard, подготовке
-PR или выборе full workflow vs Operational Fast Lane.
+PR, пометке superseded-документов или выборе full workflow vs Operational Fast
+Lane.
 
 Граница: ветки и изоляция -> `BRANCH_POLICY.md`; последовательность шагов ->
 `WORKFLOW.md`; механика PR -> `PR_WORKFLOW.md`. Не повторять правила веток в
@@ -91,7 +94,10 @@ PR или выборе full workflow vs Operational Fast Lane.
 
 Граница: контракт задачи -> `TASK_CONTRACT.md`; запись хода и итогов ->
 `ENGINE_JOURNAL_CONTRACT.md` и `JOURNAL_FINALIZATION_POLICY.md`; handoff-файл ->
-`TASK_FILE_HANDOFF_CONTRACT.md`.
+`TASK_FILE_HANDOFF_CONTRACT.md`. Дисциплина measured execution timestamps
+(`execution_started_at`, `execution_finished_at`, `execution_duration`) живёт в
+`ENGINE_JOURNAL_CONTRACT.md`; entrypoint и orchestrator contract только
+напоминают первый шаг engine.
 
 ### 6. Ревью, качество и полнота
 
@@ -205,6 +211,8 @@ generated parity checks, cloud context handoff и выборе stable reference.
 - `tools/check_task_ready.py` - интегральный readiness gate.
 - `tools/validate_commit_message.py` - read-only gate формата commit metadata
   по `LANGUAGE_POLICY`.
+- `tools/validate_id_references.py` - read-only gate целостности methodology
+  ID references.
 - `tools/gen_cloud_bundle.py` - генерация/check cloud bundle.
 - `tools/gen_file_map.py` - генерация/check `PROJECT_FILE_MAP.md`.
 - `tools/generated_eol_guard.py` - классификация generated/cloud EOL/whitespace
@@ -221,7 +229,8 @@ generated parity checks, cloud context handoff и выборе stable reference.
 - `RELEASE_READINESS.md` - готовность к release.
 - `STAGE_2_COMPLETION_CHECKLIST.md` - завершение stage 2.
 - `LANGUAGE_POLICY.md` - Russian-first policy и допустимый English для technical
-  identifiers.
+  identifiers, включая visible text для superseded banner рядом с machine-readable
+  comment.
 
 Когда применять: перед release boundary, stage completion, state refresh и при
 проверке языка docs/TASK/RESULT/INDEX/PR metadata.

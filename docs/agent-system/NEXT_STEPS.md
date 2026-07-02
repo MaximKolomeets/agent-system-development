@@ -18,23 +18,24 @@
 6. Повторять work/review/merge до завершения текущей серии.
 7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
 8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
-9. Человек-архитектор мержит release PR `developer -> main`, затем ставит human-only annotated tag на release merge commit в `main`; после release выполняется sync `main -> developer`.
+9. Человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; после release выполняется sync `main -> developer`.
 10. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release-prep `v1.5.0` после merge PR #286-#294. Release-prep PR
-обновляет `RELEASE_READINESS.md`, state docs, journal entry `0131` и generated
-cloud bundle. После merge этого PR отдельной задачей создать release PR
-`developer -> main` для `v1.5.0`; agent не мержит release PR, не пушит `main`, не
-создаёт tag и не публикует GitHub Release.
+Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. Release-prep PR
+обновляет `RELEASE_READINESS.md`, state docs, boundary reconciliation для
+journal 0132-0136, journal entry `0137` и generated cloud bundle. После merge
+этого PR отдельной задачей создать release PR `developer -> main` для `v1.5.1`;
+release PR merge remains human-only, прямой push в `main` запрещён, GitHub
+Release не публикуется.
 
 Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer:
 `docs/agent-system/engine-journal/INDEX.md`; latest release перед этим release-prep:
-`v1.4.1`; next intended release tag: `v1.5.0`.
+`v1.5.0`; next intended release tag: `v1.5.1`.
 
-После релиза: перейти к Блоку B — methodology-update для target implementation
-repository от stable release pointer `v1.5.0`.
+После релиза: перейти к methodology-update для target implementation repository
+от stable release pointer `v1.5.1`.
 
 ## Опциональный backlog (на усмотрение архитектора)
 

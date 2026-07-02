@@ -4,7 +4,7 @@
 
 Текущее состояние методологии включает preferred `task_contract` frontmatter для новых write-action Engine-задач. Канон: `docs/agent-system/TASK_CONTRACT.md`; lightweight read-only validator: `docs/agent-system/tools/validate_task_contract.py`. Prose остаётся human explanation, а `task_contract` является source of truth для mode/scope/checks/STOP; конфликт contract/prose означает `STOP`. `TASK_CONTRACT.md` входит в default cloud/orchestrator bundle как `13_TASK_CONTRACT.md`.
 
-Дата: 2026-07-01
+Дата: 2026-07-02
 
 Проект: Создание агентской системы
 
@@ -22,7 +22,7 @@ Repository visibility: public.
 - Agent-owned task branch workflow закреплен: одна substantive task ведется в основной `work/<role>/<task-id>` branch, внутренние `work/<role>/<task-id>/*` sub-branches допустимы только внутри задачи, а `developer` получает один итоговый PR; review feedback исправляется в той же task branch до `ready_for_merge`.
 - Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, blockers имеют IDs/classes/verification commands, machine-only blockers закрываются machine-check closure, semantic/mixed blockers требуют minimal re-review, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
 - Quality-first workflow закреплён как pre-PR gate: новые file-changing задачи должны иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review before PR, PR body quality check и blocker-ID based fix-pass по `QUALITY_FIRST_WORKFLOW.md`.
-- Lightweight task readiness gate добавлен как read-only tooling: `docs/agent-system/tools/check_task_ready.py` агрегирует branch guard, changed files summary, `git diff --check`, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan перед push/PR/fix-pass/review-comment. Для release boundary `developer -> origin/main` доступен явный opt-in `--release-boundary`, который снимает только work-branch/protected-branch blockers и сохраняет forbidden paths, sensitive filenames, strict secret scan, deferred placeholder scan, diff checks и generated checks.
+- Lightweight task readiness gate добавлен как read-only tooling: `docs/agent-system/tools/check_task_ready.py` агрегирует branch guard, changed files summary, `git diff --check`, commit metadata check, ID reference integrity check, superseded banner advisory check, execution timing advisory check, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan перед push/PR/fix-pass/review-comment. Для release boundary `developer -> origin/main` доступен явный opt-in `--release-boundary`, который снимает только work-branch/protected-branch blockers и сохраняет forbidden paths, sensitive filenames, strict secret scan, deferred placeholder scan, diff checks, ID reference integrity check, superseded banner advisory check, execution timing advisory check и generated checks.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
@@ -35,11 +35,14 @@ Repository visibility: public.
 - `PROJECT_FILE_MAP.md` генерируется из manifest через `docs/agent-system/tools/gen_file_map.py`; `--check` входит в release-gate/fast-lane parity.
 - Проверки generated text artifacts являются content-oriented и EOL-safe на Windows: `gen_file_map.py --check` и `gen_cloud_bundle.py --check` входят в release-gate; freshness metadata в generated bundle является информационной, а gate проверяет содержательный parity.
 - `methodology_reference` поддерживает обязательный `source_commit` и опциональные human-readable `source_tag`/`release_tag`; commit SHA остаётся reproducibility anchor.
-- Для новых TASK/RESULT каноническое measured-поле окончания выполнения — `execution_finished_at`; drift-имя `execution_completed_at` остаётся только append-only историей и не является alias для новых записей.
+- Для новых TASK/RESULT каноническое measured-поле окончания выполнения — `execution_finished_at`; drift-имя `execution_completed_at` остаётся только append-only историей и не является alias для новых записей. `execution_started_at` фиксируется в начале engine-run, сохраняется в TASK и не перезаписывается при финализации RESULT; равные start/finish или нереалистично короткая длительность при содержательном diff подсвечиваются advisory finding.
 - Source Delta является обязательным standing output в final report, `RESULT` и review-gate.
 - Architect -> Orchestrator context handoff закреплён: bundle определяется в manifest, `docs/agent-system/cloud/**` является generated staging folder, `gen_cloud_bundle.py --check` проверяет content-parity, а `asof`/`developer_head_sha` в `cloud/00_README.md` информационные.
 - Adoption templates синхронизированы с актуальными категориями manifest и Source Delta; descriptive headings в active adopter-facing docs приведены к Russian-first виду с сохранением technical literals/aliases; active audit/editorial ниты закрываются отдельными fix-cycle задачами без переписывания append-only history.
 - Stable methodology reference для target/downstream задач закреплён: по умолчанию `origin/main` / `main`; `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не являются downstream source of truth. GitHub-facing artifacts, PR title/body, commit messages, review summaries и final reports соблюдают Russian-first policy.
+- Superseded-документы получают единый machine-readable banner `SUPERSEDED_BY` и
+  видимую Russian-first строку по `docs/agent-system/templates/SUPERSEDED_BANNER.md`;
+  ready-gate подсвечивает malformed/missing banner как advisory warning.
 
 ### Текущий указатель (Current pointer)
 
@@ -47,24 +50,24 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep `v1.5.0` после merge PR #286-#294. `origin/main` и
-latest tag `v1.4.1` указывают на `1cad3af985fa48e7b0ca3358420d2cc5094b7ad6`;
-`origin/developer` указывает на `4ed2662b5345798e99197fa14137e8154d946209`.
-Journal 0122-0129 закрыт batch-closure PR #294; latest row перед release-prep:
-`0130`. Target repositories не читались и не менялись; private downstream details,
-runtime, Docker, CI, branch protection, release/tag/merge не выполнялись.
-Следующий шаг после merge release-prep PR: отдельной задачей создать release PR
-`developer -> main` для `v1.5.0`; merge release PR, tag `v1.5.0` и sync выполняются
-по human/Engine split из `RELEASE_READINESS.md`.
+Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. `origin/main`
+указывает на `170ec8e23981f7a379db843ea67314b5cb47ef7c`; latest tag `v1.5.0`.
+`origin/developer` указывает на `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
+MIR-11, MIR-10, MIR-12, MIR-13 и MIR-14 смержены в `developer` через PR #298-#302.
+Release-prep `v1.5.1` обновляет `RELEASE_READINESS.md`, state docs, journal
+boundary reconciliation для 0132-0136, новую row 0137 и generated cloud bundle.
+Target repositories не читались и не менялись; private downstream details,
+runtime, Docker, CI, branch protection, release/tag/merge в этой задаче не
+выполнялись.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: pre-release runway `v1.5.0`. Содержательный payload после `v1.4.1`
-включает EOL-нормализацию, xref/reading-list hygiene, `METHODOLOGY_MAP`,
-CONTROL_MATRIX, EXTERNAL_REVIEW_LEDGER, THREAT_MODEL, governance-паттерны и
-commit-message enforcement. После release/tag/sync следующим крупным шагом является
-Блок B: methodology-update для target implementation repository от stable release
-pointer `v1.5.0`.
+Текущий этап: release-prep `v1.5.1`. Содержательный payload после `v1.5.0`
+включает configurable commit-message scopes, release-boundary hardening,
+ID-reference integrity gate, superseded banner standard и execution timing
+discipline. После merge release-prep PR следующим шагом является release PR
+`developer -> main`, annotated tag `v1.5.1` on release merge commit и sync
+`main -> developer`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

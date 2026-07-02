@@ -137,6 +137,7 @@ categories:
       - docs/agent-system/tools/gen_file_map.py
       - docs/agent-system/tools/generated_eol_guard.py
       - docs/agent-system/tools/validate_commit_message.py
+      - docs/agent-system/tools/validate_id_references.py
       - docs/agent-system/tools/validate_task_contract.py
       - docs/agent-system/GITHUB_RULESETS.md
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
@@ -216,6 +217,7 @@ categories:
       - docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md
       - docs/agent-system/templates/REVIEW_AUTOLOOP_REVIEWER_PASS_TEMPLATE.md
       - docs/agent-system/templates/ROADMAP_TEMPLATE.md
+      - docs/agent-system/templates/SUPERSEDED_BANNER.md
       - docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md
       - docs/agent-system/templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md
       - docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md

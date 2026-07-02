@@ -52,9 +52,35 @@ Commit messages, PR titles, PR bodies, review summaries, PR comments с верд
 - если нужен English alias для поиска, он допускается в скобках после русского смысла, но не вместо него;
 - уже pushed/merged commits не переписываются без отдельного явного решения архитектора на force-push/rewrite history.
 
+### Разрешенные commit scope
+
+`validate_commit_message.py` читает разрешенные conventional-commit scope из
+`commit_metadata.allowed_scopes` в этом файле. Если блок отсутствует, tool
+использует безопасный default `[agent-system]`.
+
+```yaml
+commit_metadata:
+  allowed_scopes:
+    - agent-system
+```
+
+Target repositories должны расширять этот список собственным нейтральным
+scope, не удаляя `agent-system`, например:
+
+```yaml
+commit_metadata:
+  allowed_scopes:
+    - agent-system
+    - verification
+```
+
+Scope является technical identifier: он не переводится, пишется стабильно в
+commit subject и не должен раскрывать private downstream project names.
+
 Корректные commit messages:
 
 - `docs(agent-system): закрепить русский язык для commit и PR metadata`
+- `docs(verification): обновить target-local методологию`
 - `journal(agent-system): закрыть записи 0073-0076 после merge`
 - `docs(agent-system): добавить fallback для zero-match scan на Windows`
 
@@ -71,6 +97,21 @@ Commit messages, PR titles, PR bodies, review summaries, PR comments с верд
 Команды, flags, paths, identifiers, config keys и API names не переводятся.
 
 Если формат файла не поддерживает комментарии, пояснение добавляется в соседнюю документацию или schema descriptions.
+
+## Баннер superseded-документа
+
+Если документ заменён новым canonical source, но остаётся в repository ради
+истории, внешних bookmarks или inbound links, использовать шаблон
+`docs/agent-system/templates/SUPERSEDED_BANNER.md`.
+
+Machine-readable строка остаётся technical literal и не переводится:
+
+```markdown
+<!-- SUPERSEDED_BY: <file>; PR: <n>; DATE: <YYYY-MM-DD> -->
+```
+
+Сразу рядом должна быть видимая Russian-first строка для читателя. HTML comment
+не заменяет пользовательское пояснение, потому что скрыт в rendered Markdown.
 
 ## Проверки review
 
