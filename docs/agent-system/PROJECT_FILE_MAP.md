@@ -20,6 +20,8 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
 | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
+| `docs/agent-system/ARCHITECT_COCKPIT.md` |  |
+| `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` |  |
 | `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md` |  |
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
@@ -59,6 +61,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/METHODOLOGY_MAP.md` |  |
 | `docs/agent-system/METHODOLOGY_MAP.mermaid` |  |
 | `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` |  |
+| `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md` |  |
 | `docs/agent-system/OPERATIONAL_FAST_LANE.md` |  |
 | `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` |  |
 | `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` |  |
@@ -114,6 +117,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md` |  |
+| `docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md` |  |
 | `docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md` |  |
 | `docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md` |  |
@@ -135,6 +139,7 @@ Target files generated or written from source/templates. Эти пути НЕ я
 | --- | --- |
 | `PROJECT_CONSTITUTION.md` |  |
 | `PROJECT_DASHBOARD.md` |  |
+| `PROJECT_OPERATOR_DASHBOARD.md` |  |
 | `ROADMAP.md` |  |
 | `RUNBOOK.md` |  |
 | `DECISIONS.md` |  |

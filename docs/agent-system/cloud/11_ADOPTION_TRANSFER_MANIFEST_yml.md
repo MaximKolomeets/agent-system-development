@@ -133,6 +133,8 @@ categories:
       - docs/agent-system/ADOPTION_GUIDE.md
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       - docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
+      - docs/agent-system/ARCHITECT_COCKPIT.md
+      - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/CI_POLICY.md
@@ -172,6 +174,7 @@ categories:
       - docs/agent-system/METHODOLOGY_MAP.md
       - docs/agent-system/METHODOLOGY_MAP.mermaid
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+      - docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md
       - docs/agent-system/OPERATIONAL_FAST_LANE.md
       - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
@@ -203,10 +206,13 @@ categories:
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
+      - docs/agent-system/ARCHITECT_COCKPIT.md
+      - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
       - docs/agent-system/DISASTER_RECOVERY.md
       - docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
+      - docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md
       - docs/agent-system/PR_WORKFLOW.md
       - docs/agent-system/PUBLICATION_POLICY.md
       - docs/agent-system/RELEASE_AUTHORITY_POLICY.md
@@ -246,6 +252,7 @@ categories:
       - docs/agent-system/templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+      - docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md
       - docs/agent-system/templates/PROJECT_PROFILE_TEMPLATE.md
       - docs/agent-system/templates/REVIEW_AUTOLOOP_ENGINE_FIX_PASS_TEMPLATE.md
@@ -272,6 +279,10 @@ categories:
       - path: PROJECT_DASHBOARD.md
         source_templates:
           - docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md
+      - path: PROJECT_OPERATOR_DASHBOARD.md
+        source_templates:
+          - docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md
+          - docs/agent-system/ARCHITECT_COCKPIT.md
       - path: ROADMAP.md
         source_templates:
           - docs/agent-system/templates/ROADMAP_TEMPLATE.md

@@ -17,23 +17,23 @@
 - `<out-of-scope direction>`;
 - new products before explicit approval;
 - new platforms before explicit approval;
-- paid SaaS dependencies before explicit approval;
-- production infrastructure before explicit approval;
-- large architecture rewrites before explicit approval;
-- integrations outside approved roadmap;
-- new services before explicit approval;
-- new business directions before explicit approval;
-- runtime or infrastructure changes outside approved stage.
+- paid SaaS dependencies только после explicit approval;
+- production infrastructure только после explicit approval;
+- large architecture rewrites только после explicit approval;
+- integrations вне approved roadmap;
+- new services только после explicit approval;
+- new business directions только после explicit approval;
+- runtime or infrastructure changes вне approved stage.
 
 ## Архитектурные принципы (Architectural Principles)
 
 - `<target architectural principle>`;
-- Local-first, if confirmed for this project;
-- docs-first before implementation;
-- no microservices before approved stage;
-- no Kubernetes before approved stage;
-- no paid external dependency without explicit approval;
-- no runtime adoption without separate architecture decision.
+- Local-first, если confirmed for this project;
+- docs-first перед implementation;
+- no microservices до approved stage;
+- no Kubernetes до approved stage;
+- no paid external dependency без explicit approval;
+- no runtime adoption без separate architecture decision.
 
 ## Текущая стратегическая цель (Current Strategic Goal)
 
@@ -47,19 +47,29 @@
 
 ## Полномочия агентов (Agent Authority)
 
-Agent roles and engine mapping are defined in:
+Agent roles и engine mapping определяются в:
 
 ```text
 docs/agent-system/ENGINE_REGISTRY.md
 ```
 
-`ENGINE_REGISTRY.md` must include an Agent Authority Matrix.
+`ENGINE_REGISTRY.md` должен включать Agent Authority Matrix.
 
 ## Матрица полномочий агентов (Agent Authority Matrix)
 
 | Agent role | Allowed scope | Forbidden scope | Requires approval |
 |---|---|---|---|
 | `<роль>` | `<paths or responsibilities>` | `<paths or responsibilities>` | `<approval conditions>` |
+
+## Архитектор/owner
+
+Архитектор или owner проекта может не быть программистом.
+
+Он утверждает **что** и **зачем**: mission, priority, scope, acceptance,
+business risk, Level 3/4 decisions и human-only actions.
+
+Executor/reviewer отвечают за проверяемое **как** внутри утвержденного scope:
+implementation details, checks, evidence и risk summary.
 
 ## Уровни полномочий решений (Decision Authority Levels)
 
@@ -70,7 +80,7 @@ docs/agent-system/ENGINE_REGISTRY.md
 | Level 3 | Architecture | `<architecture change>` | explicit user approval |
 | Level 4 | Project Strategy | `<strategy change>` | explicit user approval |
 
-Level 3+ decisions require explicit user approval before changes.
+Level 3+ decisions требуют explicit user approval до изменений.
 
 ## Контроль расширения scope (Scope Expansion Control)
 
@@ -80,17 +90,17 @@ Minor scope expansion
 Major scope expansion
 ```
 
-Major scope expansion is forbidden without explicit user decision.
+Major scope expansion запрещен без explicit user decision.
 
 ## Чеклист governance-review (Governance Review Checklist)
 
-- [ ] Change matches `Project Mission`.
-- [ ] Change matches `Current Strategic Goal`.
-- [ ] Change does not violate `Out Of Scope`.
-- [ ] Change does not alter architecture level without authority.
-- [ ] Level 3+ decisions have explicit user approval.
-- [ ] Major scope expansion was stopped before changes and sent to user decision.
-- [ ] `ENGINE_REGISTRY.md` Agent Authority Matrix remains current.
+- [ ] Change соответствует `Project Mission`.
+- [ ] Change соответствует `Current Strategic Goal`.
+- [ ] Change не нарушает `Out Of Scope`.
+- [ ] Change не меняет architecture level без authority.
+- [ ] Level 3+ decisions имеют explicit user approval.
+- [ ] Major scope expansion остановлен до изменений и отправлен на user decision.
+- [ ] `ENGINE_REGISTRY.md` Agent Authority Matrix остается current.
 
 ## STOP-условия (Stop Conditions)
 
@@ -103,8 +113,8 @@ Major scope expansion is forbidden without explicit user decision.
 
 ## Правила обновления (Update Rules)
 
-- update after mission changes;
-- update after strategic goal changes;
-- update after architecture principles changes;
-- update after agent authority changes;
-- update after Level 3+ decisions.
+- update после mission changes;
+- update после strategic goal changes;
+- update после architecture principles changes;
+- update после agent authority changes;
+- update после Level 3+ decisions.
