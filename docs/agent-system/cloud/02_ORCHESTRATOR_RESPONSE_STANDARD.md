@@ -28,6 +28,12 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Если `task_contract` присутствует, он является source of truth для mode/scope/checks/STOP, а prose остаётся human explanation. Если contract и prose конфликтуют, orchestrator должен направить engine на `STOP` и запрос решения архитектора, а не выбирать одну из версий молча.
 
+File-changing engine-блоки должны требовать accounting-поля по
+`docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+`docs/agent-system/COST_TRACKING_POLICY.md`: `time_spent`, `actor_type`, `role`,
+`time_source`, `time_report_confidence`, `human_time_reported` при human/hybrid
+участии, token/cost fields и колонку `Time` в `INDEX.md`.
+
 ## Когда применяется стандарт
 
 Стандарт применяется, когда оркестратор:
@@ -95,6 +101,7 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 - режим task source, если используется Task File Handoff Mode;
 - политика commit, push и PR;
 - требования к final report;
+- требования к time/cost accounting в TASK/RESULT/INDEX;
 - дополнительные ограничения безопасности.
 
 Все эти данные должны быть внутри блока для исполнителя (engine), если без них `engine` не сможет корректно выполнить задачу.
@@ -220,6 +227,10 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Commit message указан по канону `LANGUAGE_POLICY`: conventional-scope `<тип>(agent-system):`, текст после `:` на русском, пустая строка перед телом, тело переносится около 72 символов и пунктами списка, строки `Journal seq:` и `Refs: PR #<n>`; финализирующий коммит — `journal(agent-system): ...`.
 - [ ] Для target/downstream задачи указан ли stable `methodology_reference`: `origin/main` / `main`, release tag или явно заданный snapshot, без `developer`/`work/*`?
 - [ ] Если задача меняет файлы, создаёт PR или выполняет substantive/tooling/docs-only/review/fix-pass/release/adoption flow, есть ли fenced YAML `task_contract` по `docs/agent-system/TASK_CONTRACT.md`?
+- [ ] Требует ли блок от engine заполнить accounting fields по
+  `TIME_ACCOUNTING_POLICY.md` и `COST_TRACKING_POLICY.md`, включая `time_spent`,
+  `human_time_reported` при human/hybrid участии, token/cost fields и колонку
+  `Time` в `INDEX.md`?
 - [ ] Если `task_contract` есть, совпадают ли его mode/scope/checks/STOP с prose; при конфликте указан ли `STOP`?
 - [ ] Есть ли требования к финальному отчету?
 - [ ] Нет ли обязательных execution data вне блока?

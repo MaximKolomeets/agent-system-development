@@ -69,6 +69,9 @@ Engine / handoff / orchestrator interface:
 
 - `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`
 - `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md`
+- `docs/agent-system/TIME_ACCOUNTING_POLICY.md`
+- `docs/agent-system/COST_TRACKING_POLICY.md`
+- `docs/agent-system/METRICS.md`
 - `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`
 - `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
 - `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md`

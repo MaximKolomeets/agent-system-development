@@ -28,7 +28,23 @@ Journal RESULT создаётся отдельным файлом в `docs/agent
 
 Перечислить tests/linters/checks, которые не запускались, и причину.
 
-## 5. Найденные проблемы
+## 5. Учет времени и стоимости
+
+- time_spent:
+- actor_type:
+- human_time_reported:
+- input_tokens:
+- output_tokens:
+- ai_cost_estimate:
+- human_cost_estimate:
+- total_task_cost:
+- resource_cost:
+
+Для `review-only` task reviewer заполняет эти поля в journal RESULT; тело review
+report может дублировать краткую сводку, если `Report delivery` включает
+repository.
+
+## 6. Найденные проблемы
 
 ### Критично
 
@@ -42,21 +58,21 @@ Journal RESULT создаётся отдельным файлом в `docs/agent
 
 - Нет findings.
 
-## 6. Security / forbidden files risks
+## 7. Security / forbidden files risks
 
 Описать observations по forbidden paths, `.env` policy, credentials/tokens/passwords и sensitive grep filename-only result.
 
 Matching lines и secret values не печатать.
 
-## 7. Несоответствия документации и фактического состояния
+## 8. Несоответствия документации и фактического состояния
 
 Описать расхождения между docs/templates/workflow и фактическим состоянием repository.
 
-## 8. Рекомендации
+## 9. Рекомендации
 
 Перечислить рекомендации без внесения code fixes.
 
-## 9. Кандидаты на будущие задачи исполнителя (engine)
+## 10. Кандидаты на будущие задачи исполнителя (engine)
 
 Для каждого candidate указать:
 
@@ -67,7 +83,7 @@ Matching lines и secret values не печатать.
 
 Это только кандидаты. Reviewer не запускает исполнителя (engine), не меняет очередь исполнителя и не ставит себе implementation task.
 
-## 10. Итоговый вывод
+## 11. Итоговый вывод
 
 Кратко указать итог: `approve`, `changes required`, `hold` или другой явный вывод, соответствующий задаче.
 

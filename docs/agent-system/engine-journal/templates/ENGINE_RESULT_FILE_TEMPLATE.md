@@ -35,6 +35,27 @@ Engine:
 Длительность выполнения (execution_duration) [measured/engine, опционально]:
 
 Время человека, по факту (human_time_reported) [reported/human, опционально]:
+time_spent:
+
+actor_type:
+
+role:
+
+time_source:
+
+time_report_confidence:
+
+input_tokens:
+
+output_tokens:
+
+ai_cost_estimate:
+
+human_cost_estimate:
+
+total_task_cost:
+
+resource_cost:
 
 Branch:
 
@@ -111,6 +132,13 @@ Closure blockers:
 Принятые решения:
 
 Риски:
+
+Учет времени и стоимости:
+
+- time_spent:
+- human_time_reported:
+- token/cost source:
+- calculator summary:
 
 Blockers:
 

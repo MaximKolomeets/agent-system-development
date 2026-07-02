@@ -24,6 +24,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/CI_POLICY.md` |  |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
 | `docs/agent-system/CONTROL_MATRIX_PATTERN.md` |  |
+| `docs/agent-system/COST_TRACKING_POLICY.md` |  |
 | `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` |  |
 | `docs/agent-system/DECISION_NOTE_GUIDE.md` |  |
 | `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` |  |
@@ -47,6 +48,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` |  |
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
 | `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` |  |
+| `docs/agent-system/METRICS.md` |  |
 | `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md` |  |
 | `docs/agent-system/METHODOLOGY_MAP.md` |  |
 | `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` |  |
@@ -70,6 +72,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/TASK_CONTRACT.md` |  |
 | `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md` |  |
+| `docs/agent-system/TIME_ACCOUNTING_POLICY.md` |  |
 | `docs/agent-system/WORKFLOW.md` |  |
 | `docs/agent-system/WORKTREE_GUIDE.md` |  |
 
@@ -113,6 +116,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | `docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TASK_HEADER_COMMON.md` |  |
 | `docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md` |  |
+| `docs/agent-system/templates/TIME_LEDGER_TEMPLATE.md` |  |
 
 ## target_generated
 
@@ -193,3 +197,6 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` |  |
 | `docs/agent-system/cloud/19_STABLE_METHODOLOGY_REFERENCE_POLICY.md` |  |
 | `docs/agent-system/cloud/20_LANGUAGE_POLICY.md` |  |
+| `docs/agent-system/cloud/21_TIME_ACCOUNTING_POLICY.md` |  |
+| `docs/agent-system/cloud/22_COST_TRACKING_POLICY.md` |  |
+| `docs/agent-system/cloud/23_METRICS.md` |  |

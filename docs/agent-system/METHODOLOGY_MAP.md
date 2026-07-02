@@ -88,6 +88,11 @@ Lane.
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md` - самоопределение доступных входов.
 - `ENGINE_JOURNAL_CONTRACT.md` - формат journal: TASK/RESULT/INDEX.
 - `JOURNAL_FINALIZATION_POLICY.md` - финализация journal и готовность PR.
+- `TIME_ACCOUNTING_POLICY.md` - обязательный учет времени для новых RESULT,
+  колонка `Time` в INDEX и rollup per PR/release/project.
+- `COST_TRACKING_POLICY.md` - token/cost fields, calculator и cost rollup.
+- `METRICS.md` - reusable process metrics для времени, review cycles, blockers,
+  token/cost и saved time estimate.
 
 Когда применять: для любой задачи, которая меняет repository files, создает PR
 или обновляет engine-journal.
@@ -96,8 +101,9 @@ Lane.
 `ENGINE_JOURNAL_CONTRACT.md` и `JOURNAL_FINALIZATION_POLICY.md`; handoff-файл ->
 `TASK_FILE_HANDOFF_CONTRACT.md`. Дисциплина measured execution timestamps
 (`execution_started_at`, `execution_finished_at`, `execution_duration`) живёт в
-`ENGINE_JOURNAL_CONTRACT.md`; entrypoint и orchestrator contract только
-напоминают первый шаг engine.
+`ENGINE_JOURNAL_CONTRACT.md`; учет времени -> `TIME_ACCOUNTING_POLICY.md`;
+стоимость -> `COST_TRACKING_POLICY.md`; метрики -> `METRICS.md`; entrypoint и
+orchestrator contract только напоминают первый шаг engine.
 
 ### 6. Ревью, качество и полнота
 

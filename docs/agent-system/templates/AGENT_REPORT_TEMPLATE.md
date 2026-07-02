@@ -1,25 +1,37 @@
 # AGENT_REPORT_TEMPLATE
 
-## Summary
+## Кратко
 
 Кратко описать выполненную работу.
 
-## Changed files
+## Измененные файлы
 
 Перечислить измененные файлы.
 
-## Checks
+## Проверки
 
 Указать выполненные проверки и результат.
 
-## Risks
+## Учет времени и стоимости
+
+- time_spent:
+- actor_type:
+- human_time_reported:
+- input_tokens:
+- output_tokens:
+- ai_cost_estimate:
+- human_cost_estimate:
+- total_task_cost:
+- resource_cost:
+
+## Риски
 
 Описать оставшиеся риски.
 
-## Open questions
+## Открытые вопросы
 
 Перечислить открытые вопросы.
 
-## Next step proposal
+## Следующий шаг
 
 Предложить следующий шаг.

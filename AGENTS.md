@@ -38,7 +38,13 @@
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.
 - Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены ветки вида `<vendor-name>/*` и файлы вида `docs/<VENDOR-NAME>_REVIEW.md`.
-- После задачи агент обязан обновить свой отчет.
+- После задачи агент обязан обновить свой отчет/RESULT с учетом
+  `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+  `docs/agent-system/COST_TRACKING_POLICY.md`: новые finalized RESULT должны
+  содержать `execution_*`, `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence`, `human_time_reported` при human/hybrid участии, а
+  также token/cost поля; отсутствие required accounting fields в новом
+  finalized RESULT является blocker, legacy-записи остаются advisory.
 - После архитектурного решения обновляется `docs/agent-system/DECISION_LOG.md`.
 - После изменения состояния проекта обновляется `docs/agent-system/CURRENT_STATE.md`.
 - Любой engine, применяющий этот repository как template repository для другого проекта, должен начинать с `docs/agent-system/ENGINE_ENTRYPOINT.md` и `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.

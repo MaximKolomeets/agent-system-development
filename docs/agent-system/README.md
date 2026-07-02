@@ -33,5 +33,7 @@ GitHub остается основным источником правды. Sour
 - `templates/PROJECT_DASHBOARD_TEMPLATE.md` - dashboard проекта.
 - `templates/ROADMAP_TEMPLATE.md` - roadmap проекта.
 - `templates/BACKLOG_TEMPLATE.md` - backlog задач.
+- `templates/TIME_LEDGER_TEMPLATE.md` - rollup времени, token/cost и metrics
+  по PR/release/project.
 - `templates/PROJECT_GUARDRAILS_TEMPLATE.md` - project guardrails и stop conditions.
 - `templates/ENGINE_REGISTRY_TEMPLATE.md` - registry ролей и engines.

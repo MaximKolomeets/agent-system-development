@@ -98,6 +98,12 @@ orchestrator_context_bundle:
       cloud_flatname: STABLE_METHODOLOGY_REFERENCE_POLICY.md
     - path: docs/agent-system/LANGUAGE_POLICY.md
       cloud_flatname: LANGUAGE_POLICY.md
+    - path: docs/agent-system/TIME_ACCOUNTING_POLICY.md
+      cloud_flatname: TIME_ACCOUNTING_POLICY.md
+    - path: docs/agent-system/COST_TRACKING_POLICY.md
+      cloud_flatname: COST_TRACKING_POLICY.md
+    - path: docs/agent-system/METRICS.md
+      cloud_flatname: METRICS.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -118,6 +124,7 @@ categories:
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/CODE_REVIEW_WORKFLOW.md
       - docs/agent-system/CONTROL_MATRIX_PATTERN.md
+      - docs/agent-system/COST_TRACKING_POLICY.md
       - docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md
       - docs/agent-system/DECISION_NOTE_GUIDE.md
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
@@ -141,6 +148,7 @@ categories:
       - docs/agent-system/JOURNAL_FINALIZATION_POLICY.md
       - docs/agent-system/LANGUAGE_POLICY.md
       - docs/agent-system/MANUAL_REVIEW_CHECKLIST.md
+      - docs/agent-system/METRICS.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/METHODOLOGY_MAP.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
@@ -164,6 +172,7 @@ categories:
       - docs/agent-system/TARGET_REPOSITORY_ADOPTION_GUIDE.md
       - docs/agent-system/TASK_CONTRACT.md
       - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
+      - docs/agent-system/TIME_ACCOUNTING_POLICY.md
       - docs/agent-system/WORKFLOW.md
       - docs/agent-system/WORKTREE_GUIDE.md
     target_adaptation_required:
@@ -220,6 +229,7 @@ categories:
       - docs/agent-system/templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md
       - docs/agent-system/templates/TASK_HEADER_COMMON.md
       - docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md
+      - docs/agent-system/templates/TIME_LEDGER_TEMPLATE.md
 
   target_generated:
     description: >
@@ -357,6 +367,9 @@ categories:
       - docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
       - docs/agent-system/cloud/19_STABLE_METHODOLOGY_REFERENCE_POLICY.md
       - docs/agent-system/cloud/20_LANGUAGE_POLICY.md
+      - docs/agent-system/cloud/21_TIME_ACCOUNTING_POLICY.md
+      - docs/agent-system/cloud/22_COST_TRACKING_POLICY.md
+      - docs/agent-system/cloud/23_METRICS.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.
