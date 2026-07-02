@@ -6,7 +6,8 @@
 4. Исполнитель работает в своей ветке.
 5. Исполнитель обновляет отчет.
 6. Проверяющий агент делает review.
-7. Пользователь принимает решение о merge.
+7. Пользователь принимает решение о merge; human-only actions проходят через
+   `HUMAN_GATE_POLICY.md`.
 8. После merge обновляются `CURRENT_STATE` и `DECISION_LOG`, если нужно.
 
 ## Agent-owned task branch workflow
@@ -86,7 +87,31 @@
 - Внутренние sub-branches `work/<role>/<task>/*` допустимы только внутри той же задачи и сливаются обратно до итогового PR.
 - Рабочая ветка создается от актуальной `developer`.
 - `developer` принимает изменения через PR из рабочих веток.
-- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag на release merge commit ставит человек-архитектор, не агент.
+- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag, publication и sync decision выполняет человек по `RELEASE_AUTHORITY_POLICY.md`, не агент.
+
+## Release authority и human gate
+
+Release-sensitive действия выполняются по `docs/agent-system/RELEASE_AUTHORITY_POLICY.md`
+и `docs/agent-system/HUMAN_GATE_POLICY.md`.
+
+Агент может:
+
+- подготовить release/sync PR;
+- собрать checks и evidence summary;
+- обновить docs/journal в разрешенном scope;
+- после human action выполнить read-only verification, если это входит в задачу.
+
+Агент не выполняет сам:
+
+- merge в `main`;
+- создание annotated release tag;
+- GitHub Release / public publication;
+- финальный sync `main -> developer`;
+- branch protection/rulesets, CI/CD, prod-secrets, mission/strategy, удаление
+  данных, финансы и rollback decision.
+
+Если `RESULT` утверждает, что release-sensitive действие выполнено, он фиксирует
+actor, action и evidence по `RELEASE_AUTHORITY_POLICY.md`.
 
 ## Рабочий процесс review-only
 

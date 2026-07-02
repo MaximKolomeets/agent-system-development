@@ -46,6 +46,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/validate_task_contract.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
+| `docs/agent-system/HUMAN_GATE_POLICY.md` |  |
 | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` |  |
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
 | `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` |  |
@@ -64,6 +65,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
 | `docs/agent-system/QUALITY_FIRST_WORKFLOW.md` |  |
 | `docs/agent-system/README.md` |  |
+| `docs/agent-system/RELEASE_AUTHORITY_POLICY.md` |  |
 | `docs/agent-system/REVIEW_AUTOLOOP.md` |  |
 | `docs/agent-system/ROLE_MODEL.md` |  |
 | `docs/agent-system/SECURITY_POLICY.md` |  |
