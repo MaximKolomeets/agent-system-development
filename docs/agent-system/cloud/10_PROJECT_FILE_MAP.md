@@ -55,6 +55,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
 | `docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md` |  |
 | `docs/agent-system/HUMAN_GATE_POLICY.md` |  |
+| `docs/agent-system/JOURNAL_ARCHIVING_POLICY.md` |  |
 | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` |  |
 | `docs/agent-system/LANGUAGE_POLICY.md` |  |
 | `docs/agent-system/MANUAL_REVIEW_CHECKLIST.md` |  |
@@ -177,11 +178,23 @@ Target files generated or written from source/templates. Эти пути НЕ я
 
 ## journal
 
-Engine journal scaffold and operational history. Target repository получает структуру/шаблоны, но не копирует operational rows или TASK/RESULT history methodology repository.
+Engine journal scaffold and active operational history. Target repository получает структуру/шаблоны, но не копирует operational rows или TASK/RESULT history methodology repository.
 
 | path | description from manifest |
 | --- | --- |
-| `docs/agent-system/engine-journal/**` |  |
+| `docs/agent-system/engine-journal/README.md` |  |
+| `docs/agent-system/engine-journal/INDEX.md` |  |
+| `docs/agent-system/engine-journal/input/**` |  |
+| `docs/agent-system/engine-journal/output/**` |  |
+| `docs/agent-system/engine-journal/templates/**` |  |
+
+## journal_archive
+
+Archived engine journal epochs. Archive хранит старые finalized RESULT после release-boundary и не входит в default context bundle.
+
+| path | description from manifest |
+| --- | --- |
+| `docs/agent-system/engine-journal/archive/**` |  |
 
 ## scaffold
 

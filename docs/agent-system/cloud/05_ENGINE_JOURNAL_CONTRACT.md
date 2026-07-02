@@ -31,6 +31,7 @@ docs/agent-system/engine-journal/
 docs/agent-system/engine-journal/
   README.md
   INDEX.md
+  archive/
   input/
   output/
   templates/
@@ -119,6 +120,34 @@ Task/result files нельзя удалять, перезаписывать ил
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
+## Journal Epoch и архивирование
+
+Канон архивирования — `docs/agent-system/JOURNAL_ARCHIVING_POLICY.md`.
+
+`Journal Epoch` — release-boundary интервал журнала, закрытый release
+`vX.Y.Z`. После release, tag, sync и batch closure старые finalized RESULT могут
+быть перемещены отдельным post-release archive PR:
+
+```text
+docs/agent-system/engine-journal/output/RESULT-....
+docs/agent-system/engine-journal/archive/vX.Y.Z/RESULT-....
+```
+
+Это controlled exception к active journal surface, а не удаление истории:
+
+- перенос выполняется только через `git mv`;
+- archive RESULT остаются tracked files и доступны через GitHub;
+- active `INDEX.md` оставляет epoch summary и ссылки на
+  `engine-journal/archive/vX.Y.Z/INDEX.md`;
+- open, ready-for-review, closure-pending, blocked или STOP RESULT не
+  архивируются;
+- archive files не входят в `orchestrator_context_bundle` и не генерируются в
+  `docs/agent-system/cloud/**`.
+
+Фактическое архивирование старых RESULT не выполняется обычным feature PR. Оно
+делается отдельным post-release archive PR, когда release boundary известен и
+архитектор подтвердил, что active journal стал слишком тяжелым для контекста.
+
 ## Режим Task File Handoff
 
 TASK file может быть создан до выполнения как отдельный task-file-only commit в target repository.
@@ -174,9 +203,9 @@ Target repository journal хранит project-specific task/result history вн
 
 Target adoption использует `journal_transfer_mode: scaffold_only`: переносит
 структуру, README, templates и формат `INDEX.md`, но не переносит operational
-rows или TASK/RESULT files из methodology repository. Если target уже содержит
-свой journal, adoption/update сохраняет target-specific history и не затирает её
-историей source methodology.
+rows, TASK/RESULT files или archive epochs из methodology repository. Если target
+уже содержит свой journal, adoption/update сохраняет target-specific history и
+не затирает её историей source methodology.
 
 Первый adoption/audit PR должен создавать или обновлять:
 
@@ -202,6 +231,9 @@ adoption/audit task создает target-specific task/result files и target-s
 repository.
 
 Methodology repository operational history не переносится.
+
+Archive epochs methodology repository не переносится. Target repository создает
+собственные archive epochs только по своей target-specific истории.
 
 ## Обязательные ссылки
 

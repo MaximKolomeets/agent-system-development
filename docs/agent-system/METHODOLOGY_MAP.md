@@ -26,7 +26,7 @@ generated файлов проверяется по `ADOPTION_TRANSFER_MANIFEST.y
 | Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md`, `AGENT_INITIATIVE_PROTOCOL.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch; вне-scope proposals уходят на triage. |
 | Агент заметил вне-scope improvement/risk | `AGENT_INITIATIVE_PROTOCOL.md`, `templates/AGENT_PROPOSAL_TEMPLATE.md`, `BACKLOG.md`, `METHODOLOGY_IMPROVEMENT_LEDGER.md` | RESULT/final report фиксирует proposal; architect/orchestrator решает disposition до backlog/MIR или отдельной task. |
 | Архитектор не программист или нужна management handoff | `NON_TECHNICAL_ARCHITECT_GUIDE.md`, `ARCHITECT_COCKPIT.md`, `ARCHITECT_HANDOFF_PACK.md`, `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` | Управлять через mission/scope/priority, yes/no dashboard и handoff pack; не плодить отдельные dossier/protocol/checklist docs. |
-| Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `UAT_WORKFLOW.md`, `BUSINESS_ACCEPTANCE_CHECKLIST.md`, `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md` | Agent готовит checks/evidence/UAT checklist; owner/PO проходит business acceptance; merge/tag/publish/sync/rollback выполняет человек. |
+| Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `UAT_WORKFLOW.md`, `BUSINESS_ACCEPTANCE_CHECKLIST.md`, `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md`, `JOURNAL_ARCHIVING_POLICY.md` | Agent готовит checks/evidence/UAT checklist; owner/PO проходит business acceptance; merge/tag/publish/sync/rollback выполняет человек; archive старых RESULT выполняется только post-release PR. |
 | Hotfix, rollback или disaster recovery | `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `BRANCH_POLICY.md`, `WORKFLOW.md` | Agent готовит `work/hotfix/<issue>`, revert PR, checks и evidence; owner/architect принимает rollback decision и мержит в `main`. |
 
 ## Категории
@@ -139,6 +139,8 @@ protocol и checklist handoff не разносить в отдельные фа
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md` - самоопределение доступных входов.
 - `ENGINE_JOURNAL_CONTRACT.md` - формат journal: TASK/RESULT/INDEX.
 - `JOURNAL_FINALIZATION_POLICY.md` - финализация journal и готовность PR.
+- `JOURNAL_ARCHIVING_POLICY.md` - release-boundary Journal Epoch и архивирование
+  старых finalized RESULT вне context bundle.
 - `AGENT_INITIATIVE_PROTOCOL.md` - mandatory feedback/proposal channel для
   вне-scope наблюдений агента.
 - `TIME_ACCOUNTING_POLICY.md` - обязательный учет времени для новых RESULT,
@@ -154,8 +156,9 @@ protocol и checklist handoff не разносить в отдельные фа
 `ENGINE_JOURNAL_CONTRACT.md` и `JOURNAL_FINALIZATION_POLICY.md`; handoff-файл ->
 `TASK_FILE_HANDOFF_CONTRACT.md`. Дисциплина measured execution timestamps
 (`execution_started_at`, `execution_finished_at`, `execution_duration`) живёт в
-`ENGINE_JOURNAL_CONTRACT.md`; учет времени -> `TIME_ACCOUNTING_POLICY.md`;
-стоимость -> `COST_TRACKING_POLICY.md`; mandatory feedback/proposal sections ->
+`ENGINE_JOURNAL_CONTRACT.md`; archive epochs -> `JOURNAL_ARCHIVING_POLICY.md`;
+учет времени -> `TIME_ACCOUNTING_POLICY.md`; стоимость ->
+`COST_TRACKING_POLICY.md`; mandatory feedback/proposal sections ->
 `AGENT_INITIATIVE_PROTOCOL.md`; метрики -> `METRICS.md`; entrypoint и
 orchestrator contract только напоминают первый шаг engine.
 
@@ -287,13 +290,15 @@ private control plane templates, а не public methodology repository.
 - `PROJECT_FILE_MAP.md` - генерируемая карта из manifest (не править руками).
 - `STABLE_METHODOLOGY_REFERENCE_POLICY.md` - стабильная ссылка на методологию.
 - `cloud/**` - генерируемый bundle для облачного оркестратора.
+- `engine-journal/archive/**` - archive epochs; не входят в context bundle и не
+  копируются в target repository.
 
 Когда применять: при добавлении/удалении source/template files, adoption transfer,
 generated parity checks, cloud context handoff и выборе stable reference.
 
 Граница: source-set меняется через manifest; `PROJECT_FILE_MAP.md` и `cloud/**`
-регенерируются штатными tools; stable downstream reference по умолчанию не
-указывает на `developer`/`work/*`.
+регенерируются штатными tools; archive epochs остаются вне cloud bundle; stable
+downstream reference по умолчанию не указывает на `developer`/`work/*`.
 
 ### 12. Проверочные инструменты
 
@@ -305,8 +310,10 @@ generated parity checks, cloud context handoff и выборе stable reference.
   ID references.
 - `tools/validate_policy_invariants.py` - read-only gate сквозных policy
   invariants, manifest source paths и local Markdown links.
-- `tools/gen_cloud_bundle.py` - генерация/check cloud bundle.
-- `tools/gen_file_map.py` - генерация/check `PROJECT_FILE_MAP.md`.
+- `tools/gen_cloud_bundle.py` - генерация/check cloud bundle и запрет archive
+  paths в context bundle.
+- `tools/gen_file_map.py` - генерация/check `PROJECT_FILE_MAP.md`, включая
+  отдельную category `journal_archive`.
 - `tools/generated_eol_guard.py` - классификация generated/cloud EOL/whitespace
   noise vs content change.
 - `tools/orchestrator_checklist.py` - pre-send sanity-check self-contained
