@@ -4,7 +4,7 @@
 
 status: completed
 
-pr_url: local_pre_publication
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/303
 
 branch: `work/methodology-architect-01/meth-release-prep-v1-5-1-01`
 
@@ -14,13 +14,13 @@ actual_seq_rule: `INDEX last seq 0136 + 1`
 
 task_source_commit_sha: `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`
 
-pr_head_source: local_pre_publication
+pr_head_source: github_pr_metadata
 
-reviewed_head_source: local_pre_publication
+reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: local_ready
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -28,9 +28,9 @@ merge_facts_source: github_pr_metadata
 
 execution_started_at: `2026-07-02T08:39:33.9080104+07:00`
 
-execution_finished_at: `2026-07-02T08:49:30.5639770+07:00`
+execution_finished_at: `2026-07-02T08:52:47.6355615+07:00`
 
-execution_duration: `PT9M57S`
+execution_duration: `PT13M14S`
 
 ## Что изменено
 
