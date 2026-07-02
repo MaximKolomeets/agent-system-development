@@ -1,19 +1,44 @@
 # BACKLOG
 
-- Выполнено: bootstrap agent-system repository.
-- Configure GitHub rulesets.
-- Create local worktrees.
-- Add CI forbidden files check.
-- Add pre-push hook.
-- Prepare private downstream repository transfer/adaptation prompt.
-- Подготовить checklists для агентов.
-- Выполнено в `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`: lifecycle simplification для ordinary PR и GitHub PR metadata как source of truth для merge facts.
-- Future methodology simplification после release `v1.2.0`: context handoff footer enforcement, journal gate automation, adoption feedback loop automation. Не реализовывать в release-prep; рассматривать отдельными scoped задачами.
-- После merge `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01`: human-only release PR `developer -> main`, чтобы stable `origin/main` включал новую downstream policy. Это не выполняется engine в этой задаче.
-- Выполняется в `METH-FIX-AUTHORIZATION-HEADER-GUARD-01`: P1 safety hotfix для ready-gate, чтобы headers `Authorization` блокировались независимо от auth-схемы и matching values не выводились.
-- Выполнено в `METH-SEMANTIC-COMPLETENESS-GATES-01`: объединены `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`, `METH-JOURNAL-FINALIZATION-PHRASES-01` и `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`; feedback-loop item был оставлен для отдельной sanitized methodology task.
-- Выполнено в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01`: `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01` закрыта как sanitized/reusable variant; downstream feedback loop и sanitization policy описаны без private downstream details, target repository access и target adoption до stable release boundary.
-- Выполнено в `METH-QUALITY-FIRST-WORKFLOW-01`: implemented quality-first workflow; он consolidates STOP-or-ACT, decision cache, PR body/reviewer quality expectations и blocker-ID based fix-pass в один pre-PR workflow.
+Этот файл хранит будущие задачи и отложенные идеи. Выполненные пункты остаются в
+`engine-journal/INDEX.md`, `RESULT-*`, `CURRENT_STATE.md` historical section и
+GitHub PR metadata, а не в live backlog.
+
+## Methodology hardening v1.5.2
+
+Статус: future queue / выполнять отдельными scoped PR в `developer` после
+актуального PR-1/H1 state refresh.
+
+- PR-2/H2: journal history scope clarity.
+- PR-3/H3: time and cost accounting hard-gate, включая token/cost fields,
+  `TIME_ACCOUNTING_POLICY.md`, `COST_TRACKING_POLICY.md`, ledger/metrics и
+  ready-gate enforcement.
+- PR-4/H4: stable-reference schema sync (`source_ref`, `reference_type`,
+  separate methodology development base).
+- PR-5/H5: mandatory overlays by trigger, manifest-driven discovery,
+  `METHODOLOGY_MAP.mermaid` и `tools/orchestrator_checklist.py`.
+- PR-6/H9: release authority and human-gate policy.
+- PR-7/H13: business acceptance / UAT gate.
+- PR-8/H14: hotfix, rollback and disaster recovery.
+- PR-9/H6: safe-scan and Russian-first lint.
+- PR-10/H7: management layer, non-technical architect guide, handoff/cockpit.
+- PR-11/H8+H10: private control-plane templates and MIR lifecycle ledger.
+- PR-12/H11: policy invariants and self-test gate.
+- PR-13/H12: agent initiative protocol and mandatory methodology feedback.
+- PR-14/H15: journal archiving and memory hygiene.
+- PR-15/H16: lifecycle and cross-project dependency policies.
+
+## Future methodology simplification
+
+- Context handoff footer enforcement.
+- Journal gate automation.
+- Adoption feedback loop automation.
+- Optional vendor/public metadata hygiene and historical English wording cleanup
+  там, где это не нарушает append-only history и Russian-first policy.
+- Optional inclusion of operating-layer contracts in target governance packs:
+  `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` and
+  `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`; реальные visibility matrix и digest
+  держать только в private control plane.
 
 ## Post-autoloop automation roadmap
 

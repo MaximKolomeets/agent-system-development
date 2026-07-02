@@ -32,6 +32,42 @@ execution_finished_at: `2026-07-02T08:52:47.6355615+07:00`
 
 execution_duration: `PT13M14S`
 
+## Закрытие после release/sync
+
+Work PR status: `MERGED`
+
+Work PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/303
+
+Work PR merge commit SHA: `e3c4210dade210f20b573196ed0d9da64961dc75`
+
+Work PR merged_at: `2026-07-02T02:11:11Z`
+
+Release PR status: `MERGED`
+
+Release PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/304
+
+Release PR merge commit SHA: `2467edd8488a51d74483e8095e4887c0f512dfcd`
+
+Release PR merged_at: `2026-07-02T06:46:16Z`
+
+Release tag: `v1.5.1`
+
+Release tag target: `2467edd8488a51d74483e8095e4887c0f512dfcd`
+
+Sync PR status: `MERGED`
+
+Sync PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/305
+
+Sync PR merge commit SHA: `2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`
+
+Sync PR merged_at: `2026-07-02T06:48:28Z`
+
+RESULT closed after merge/release/sync: yes
+
+INDEX closed after merge/release/sync: yes
+
+No journal placeholders: yes
+
 ## Что изменено
 
 - `RELEASE_READINESS.md` обновлён под release-prep `v1.5.1`: candidate SHAs,

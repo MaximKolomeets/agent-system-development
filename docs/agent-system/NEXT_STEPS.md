@@ -23,35 +23,32 @@
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. Release-prep PR
-обновляет `RELEASE_READINESS.md`, state docs, boundary reconciliation для
-journal 0132-0136, journal entry `0137` и generated cloud bundle. После merge
-этого PR отдельной задачей создать release PR `developer -> main` для `v1.5.1`;
-release PR merge remains human-only, прямой push в `main` запрещён, GitHub
-Release не публикуется.
+`v1.5.1` опубликован и синхронизирован: release-prep PR #303, release PR #304,
+annotated tag `v1.5.1` и sync PR #305 подтверждены. Этот файл больше не ставит
+задачу создать release PR для `v1.5.1`.
 
-Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer:
-`docs/agent-system/engine-journal/INDEX.md`; latest release перед этим release-prep:
-`v1.5.0`; next intended release tag: `v1.5.1`.
+Ближайший рабочий шаг: завершить PR-1/H1 state/status refresh для `v1.5.2`
+hardening series, затем после human merge перейти к PR-2/H2 (`Journal history
+scope clarity`). До публикации `v1.5.2` target adoption/source-update задачи
+используют stable pointer `origin/main` / tag `v1.5.1`.
 
-После релиза: перейти к methodology-update для target implementation repository
-от stable release pointer `v1.5.1`.
+Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
+`RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
+`docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
+`docs/agent-system/RULESET_STATUS.md`.
 
-## Опциональный backlog (на усмотрение архитектора)
+## Ближайшая очередь v1.5.2
 
-- **Downstream semantic completeness gates**: по результатам sanitized downstream dry-run в target implementation repository добавить future methodology hardening для Pre-PR semantic completeness checks. Цель — снизить количество fixup-циклов, когда технические gates зелёные, но reviewer находит логические несостыковки между RESULT, acceptance spec, matrix, fixture plan и boundary docs.
-  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через reusable semantic completeness gates.
-  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через journal finalization policy и ready-gate category.
-  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через acceptance/spec completeness pattern.
-  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: закрыто в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01` как sanitized/reusable variant через `DOWNSTREAM_FEEDBACK_LOOP.md` и `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; target-specific/private details не переносились.
-  - Status: первые три пункта закрыты текущим methodology hardening PR; sanitized feedback report остаётся отдельной future task.
-  - Priority: medium-high.
-  - Reason: reduces repeated fixup cycles in target repositories.
-- **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.
-- **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, старый `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны. Новый `TARGET_REPOSITORY_ADOPTION_GUIDE.md` из `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` является live stable-reference entrypoint, не старой redirect-заглушкой.
-- **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и historical English wording там, где это не нарушает Russian-first policy и не требует rewrite history; это не blocker для adoption.
-- **Operating layer (`ASD-OPLAYER-001`, journal 0024)**: добавлены нейтральные контракты `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` и `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`, governance pack template расширен разделом «Три слоя управления». Опционально: при downstream adoption включать эти контракты в target governance pack как optional-файлы; реальные visibility-matrix и дайджесты держать в приватном control plane, не в публичном репозитории.
-- **Future methodology simplification**: lifecycle simplification и remote PR state as authority реализованы в `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`; context handoff footer enforcement, journal gate automation и adoption feedback loop automation остаются future backlog и не являются blocker.
+1. PR-1/H1: post-release state/status refresh, `BACKLOG`/`NEXT_STEPS` split,
+   ruleset status, cloud regeneration.
+2. PR-2/H2: journal history scope clarity.
+3. PR-3/H3: time and cost accounting hard-gate.
+4. PR-4/H4: stable-reference schema sync.
+5. PR-5/H5: navigation/discovery overlays and checklist tooling.
+6. PR-6/H9, PR-7/H13, PR-8/H14: release authority, UAT gate, hotfix/rollback.
+
+Полная future-очередь и менее срочные P2/P3 items живут в `BACKLOG.md`, чтобы
+`NEXT_STEPS.md` оставался списком ближайших действий.
 
 ## Текущие операционные правила
 
