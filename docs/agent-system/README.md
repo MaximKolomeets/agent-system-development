@@ -20,6 +20,7 @@
 - transfer manifest;
 - downstream adaptation checklist;
 - private control-plane templates и MIR lifecycle ledger;
+- policy invariants и self-test ready-gate;
 - target project governance pack;
 - project constitution framework;
 - шаблоны задач, отчетов и review;

@@ -1,5 +1,27 @@
 # DECISION_LOG
 
+## 2026-07-02 - Policy-invariants self-test входит в ready-gate
+
+Контекст:
+После появления отдельных политик для release authority, human gate, time/cost
+accounting, stable source reference, privacy и target adoption стало недостаточно
+проверять только branch/files/ID refs/placeholders. Риск сместился в смысловые
+contradictions между policy-документами и в drift canonical paths.
+
+Решение:
+Добавить `POLICY_INVARIANTS.md` как компактный список сквозных invariants и
+`docs/agent-system/tools/validate_policy_invariants.py` как read-only self-test.
+`check_task_ready.py` запускает validator на каждом ordinary work PR. Проверка
+остаётся lightweight: она ищет обязательные markers, проверяет source/template/
+generated paths из manifest, проверяет local Markdown links и не печатает
+matching lines или values.
+
+Последствия:
+- policy changes должны проходить invariant gate до PR;
+- target-generated paths в manifest не считаются missing source files;
+- semantic review всё ещё нужен, validator не заменяет reviewer;
+- реальные private consumers и private rollout state не попадают в public repo.
+
 ## 2026-07-01 - Governance patterns для policy status, error catalog и decision notes
 
 Контекст:
