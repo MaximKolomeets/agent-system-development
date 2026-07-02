@@ -44,6 +44,13 @@ ENUMS = {
 FORBIDDEN_TASK_FILENAMES = {".env"}
 STABLE_METHODOLOGY_REFS = {"origin/main", "main", "published_source_snapshot"}
 FORBIDDEN_DOWNSTREAM_REFS = {"developer", "origin/developer"}
+ALLOWED_REFERENCE_TYPES = {
+    "stable_branch_head",
+    "stable_release_tag",
+    "published_source_snapshot",
+    "stable_release_commit",
+    "methodology_development",
+}
 
 
 @dataclass
@@ -225,9 +232,12 @@ def validate_methodology_reference(contract: dict[str, Any], report: ValidationR
         report.blockers.append("methodology_reference must be a mapping")
         return
 
-    ref = str(get_path(contract, "methodology_reference.ref") or "").strip()
+    source_ref = str(get_path(contract, "methodology_reference.source_ref") or "").strip()
+    legacy_ref = str(get_path(contract, "methodology_reference.ref") or "").strip()
+    ref = source_ref or legacy_ref
     stable_only = get_path(contract, "methodology_reference.stable_only")
     stable_required = is_true(stable_only)
+    reference_type = str(get_path(contract, "methodology_reference.reference_type") or "").strip()
     repository_full_name = str(get_path(contract, "repository.full_name") or "").strip()
     reference_repository = str(get_path(contract, "methodology_reference.repository_full_name") or "").strip()
     methodology_repository_task = (
@@ -235,22 +245,32 @@ def validate_methodology_reference(contract: dict[str, Any], report: ValidationR
         and reference_repository == "MaximKolomeets/agent-system-development"
     )
     if not ref:
-        report.blockers.append("methodology_reference.ref is required when methodology_reference is present")
+        report.blockers.append("methodology_reference.source_ref is required when methodology_reference is present")
         return
+    if legacy_ref and not source_ref:
+        report.warnings.append("methodology_reference.ref is a legacy alias; new TASK files should use source_ref")
 
     if stable_only is None:
         report.warnings.append("methodology_reference.stable_only should be set explicitly")
 
     if stable_required and not (ref in STABLE_METHODOLOGY_REFS or is_release_tag(ref)):
-        report.blockers.append("methodology_reference.ref must use origin/main, main, release tag or published_source_snapshot when stable_only is true")
+        report.blockers.append("methodology_reference.source_ref must use origin/main, main, release tag or published_source_snapshot when stable_only is true")
     elif is_forbidden_downstream_ref(ref) and not methodology_repository_task:
         report.warnings.append("methodology_reference uses non-stable ref; this is allowed only for methodology repository tasks")
+
+    if reference_type and reference_type not in ALLOWED_REFERENCE_TYPES:
+        report.blockers.append("methodology_reference.reference_type has unsupported value")
 
     if stable_required:
         if not is_non_empty(get_path(contract, "methodology_reference.source_commit")):
             report.blockers.append("methodology_reference.source_commit is required when stable_only is true")
+        if not reference_type:
+            report.blockers.append("methodology_reference.reference_type is required when stable_only is true")
         if not is_non_empty(get_path(contract, "methodology_reference.checked_at")):
             report.blockers.append("methodology_reference.checked_at is required when stable_only is true")
+    elif methodology_repository_task:
+        if not isinstance(get_path(contract, "methodology_development_base"), dict):
+            report.warnings.append("methodology_development_base should be present for methodology repository tasks")
 
 
 def validate_contract(data: dict[str, Any], task_file: Path) -> ValidationReport:
