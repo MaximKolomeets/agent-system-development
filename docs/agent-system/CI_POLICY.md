@@ -2,9 +2,10 @@
 
 ## Назначение
 
-CI is an automatic guardrail for the public methodology repository.
+CI — автоматический guardrail для public methodology repository.
 
-The first CI check blocks forbidden tracked files and paths before they can be merged. CI does not replace review, manual checks, or repository rulesets.
+Первый CI-check блокирует запрещённые tracked files и paths до merge. CI не
+заменяет review, ручные проверки или repository rulesets.
 
 Commit metadata enforcement является обязательным gate для будущих work PR:
 локально его выполняет `python docs/agent-system/tools/validate_commit_message.py
@@ -28,7 +29,7 @@ python docs/agent-system/tools/check_task_ready.py --base origin/main --release-
 
 ## Запрещённые tracked paths
 
-The repository must not track these paths:
+Repository не должен track-ить эти paths:
 
 - `.env`
 - `.env.*`, except `.env.example`
@@ -44,27 +45,31 @@ The repository must not track these paths:
 
 ## Разрешённые исключения
 
-- `.env.example` is allowed if it does not contain real secrets.
-- Documents may contain the words `token`, `password`, `secret`, and `credential` only as security rules or examples without real values.
+- `.env.example` допустим, если он не содержит реальные secrets.
+- Documents могут содержать слова `token`, `password`, `secret` и `credential`
+  только как security rules или examples без реальных значений.
 
 ## Ограничения
 
-- CI checks only tracked files.
-- CI does not analyze local untracked files.
-- CI must not read `.env` contents.
-- CI must not print secrets.
-- Secret scanning and more advanced checks can be added as separate future tasks.
+- CI проверяет только tracked files.
+- CI не анализирует local untracked files.
+- CI не должен читать содержимое `.env`.
+- CI не должен печатать secrets.
+- Secret scanning и более глубокие checks добавляются отдельными будущими задачами.
 
 ## Совместимость runtime GitHub Actions
 
-- The forbidden files workflow uses `actions/checkout@v5`.
-- `actions/checkout@v5` was selected because its action metadata declares `using: node24`.
-- If GitHub Actions reports runtime deprecation warnings again, verify the upstream action metadata before changing the workflow.
-- Do not downgrade to an action runtime that produces deprecation warnings unless the user explicitly accepts the temporary risk.
+- Forbidden-files workflow использует `actions/checkout@v5`.
+- `actions/checkout@v5` выбран потому, что его action metadata объявляет
+  `using: node24`.
+- Если GitHub Actions снова показывает runtime deprecation warnings, сначала
+  проверить upstream action metadata и только потом менять workflow.
+- Не понижать action runtime до версии с deprecation warnings без явного
+  принятия временного риска пользователем.
 
 ## Локальная проверка перед commit
 
-Run these commands before commit or push:
+Перед commit или push запускать эти commands:
 
 ```bash
 git status --short
@@ -79,7 +84,14 @@ git ls-files
 ```
 
 ```bash
-git grep -n -i "token\|password\|secret\|api_key\|apikey\|credential\|пароль\|токен"
+git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" -- .
 ```
 
-`git grep` is only a manual review aid. If a possible real secret is found, do not print it further and stop for user review.
+```bash
+git grep -I -l -i -E "token|password|secret|api_key|apikey|credential|пароль|токен" -- . | wc -l
+```
+
+Safe-scan команды выше являются только manual review aid. Они выводят только
+filenames или count; matching lines и values нельзя печатать в terminal, logs,
+journal, PR body или final report. Если найден возможный реальный secret, не
+печатать его дальше и остановиться для user review.

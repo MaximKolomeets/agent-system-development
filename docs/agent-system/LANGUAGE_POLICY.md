@@ -13,10 +13,10 @@ Policy действует для оркестратора, `engine`, reviewer, t
 English допускается только там, где перевод ухудшает точность или ломает технический смысл:
 
 - code identifiers;
-- command names, flags and terminal output literals;
-- paths, filenames and branch names;
-- API names, config keys and package names;
-- vendor/tool names and literal external names;
+- command names, flags и terminal output literals;
+- paths, filenames и branch names;
+- API names, config keys и package names;
+- vendor/tool names и literal external names;
 - repository identifiers, когда они являются техническим значением.
 
 Section headings, checklist labels и другие user-facing названия разделов пишутся на русском языке. Если англоязычный режим, protocol name или другой technical literal нужен для точности, его можно оставить как alias в скобках после русского названия, например `Лёгкий solo-operator режим (Lightweight solo-operator mode)`.
@@ -138,3 +138,22 @@ Reviewer классифицирует как minor finding:
 - отдельный английский technical alias можно заменить русским описанием без изменения смысла;
 - исторический pushed/merged commit message не Russian-first, но его нельзя безопасно исправить без rewrite history;
 - draft artifact содержит неполную формулировку, но ready-for-review state еще не заявлен.
+
+## Lightweight lint
+
+Для новых изменений действует lightweight changed-only проверка:
+
+```bash
+python docs/agent-system/tools/russian_first_lint.py --base origin/developer
+```
+
+`check_task_ready.py` запускает эту проверку для измененных active Markdown docs
+и исключает append-only journal, decision/state logs, generated cloud/source
+snapshots и literal technical regions. Findings выводятся только как
+`path:line` + код нарушения, без печати содержимого строки.
+
+Full active-docs audit допускается вручную:
+
+```bash
+python docs/agent-system/tools/russian_first_lint.py --all-active
+```
