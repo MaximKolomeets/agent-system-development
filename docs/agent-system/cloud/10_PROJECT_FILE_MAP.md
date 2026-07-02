@@ -20,6 +20,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
 | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
+| `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md` |  |
 | `docs/agent-system/ARCHITECT_COCKPIT.md` |  |
 | `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` |  |
 | `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md` |  |
@@ -102,6 +103,7 @@ Reusable source templates from methodology repository. Шаблоны сущес
 | --- | --- |
 | `docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/ADOPTION_PROMPT.md` |  |
+| `docs/agent-system/templates/AGENT_PROPOSAL_TEMPLATE.md` |  |
 | `docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md` |  |
 | `docs/agent-system/templates/AGENT_RESEARCH_TASK_TEMPLATE.md` |  |
 | `docs/agent-system/templates/BACKLOG_TEMPLATE.md` |  |

@@ -24,11 +24,13 @@ Feedback loop используется после:
 
 ## Что engine должен добавить в final report
 
-В финальном отчете по target repository `engine` должен добавить секцию:
+В любом RESULT/final report `engine` должен добавить секцию:
 
 ```text
 ## Methodology feedback
 ```
+
+Если feedback отсутствует, писать `нет`.
 
 Поля:
 
@@ -39,6 +41,16 @@ Feedback loop используется после:
 - `target_repo_conflicts` - какие конфликты с локальными правилами target repository возникли;
 - `suggested_methodology_prs` - какие PR стоит создать в `agent-system-development`;
 - `do_not_publish` - что нельзя переносить в public methodology repository.
+
+Если во время задачи появилось вне-scope предложение, `engine` дополнительно
+заполняет обязательный раздел:
+
+```text
+## Unprompted Project Proposals
+```
+
+Этот раздел ведется по `AGENT_INITIATIVE_PROTOCOL.md`; если предложений нет,
+писать `нет`.
 
 ## Что запрещено переносить
 
@@ -127,11 +139,21 @@ Lifecycle после sanitized feedback ведется в `METHODOLOGY_IMPROVEME
 Ledger хранит только public-safe MIR lifecycle facts и не заменяет private
 consumer registry/adoption matrix в private control plane.
 
+## Связь с инициативными предложениями
+
+`Methodology feedback` описывает улучшения methodology repository, замеченные в
+ходе задачи. `Unprompted Project Proposals` описывает вне-scope идеи или риски,
+которые требуют triage до превращения в задачу.
+
+Оба раздела обязательны в новых RESULT. Proposal не меняет текущий allowed scope
+и не дает reviewer role права назначать implementation task напрямую.
+
 ## Acceptance criteria
 
 Feedback loop считается соблюденным, если:
 
 - final report содержит Methodology feedback;
+- final report содержит Unprompted Project Proposals;
 - feedback не раскрывает приватные данные;
 - suggested methodology improvements сформулированы нейтрально;
 - отдельные изменения в `agent-system-development` выполняются только отдельным PR.

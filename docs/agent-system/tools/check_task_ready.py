@@ -124,6 +124,10 @@ TIME_SPENT_RE = re.compile(
 TOKEN_VALUE_RE = re.compile(r"^\d+$")
 MONEY_VALUE_RE = re.compile(r"^(?:[A-Z]{3}\s*)?[$€₽]?\s*(\d+(?:\.\d+)?)$", re.IGNORECASE)
 STOP_OR_FAILURE_RE = re.compile(r"\b(stop|failure|failed|blocked|ошибка|стоп)\b", re.IGNORECASE)
+MANDATORY_RESULT_SECTION_PATTERNS = {
+    "Methodology feedback": re.compile(r"^##\s+Methodology feedback\s*$", re.MULTILINE),
+    "Unprompted Project Proposals": re.compile(r"^##\s+Unprompted Project Proposals\s*$", re.MULTILINE),
+}
 
 
 @dataclass
@@ -164,6 +168,8 @@ class ReadyReport:
     accounting_legacy_advisory_files: list[str] = field(default_factory=list)
     accounting_field_blockers: list[str] = field(default_factory=list)
     accounting_field_warnings: list[str] = field(default_factory=list)
+    mandatory_result_section_blockers: list[str] = field(default_factory=list)
+    mandatory_result_section_warnings: list[str] = field(default_factory=list)
     cost_calculator_summary: dict[str, object] = field(default_factory=dict)
     russian_first_lint_result: str = "not_run"
     russian_first_lint_findings: list[str] = field(default_factory=list)
@@ -196,6 +202,8 @@ class ReadyReport:
         data["accounting_legacy_advisory_files_count"] = len(self.accounting_legacy_advisory_files)
         data["accounting_field_blockers_count"] = len(self.accounting_field_blockers)
         data["accounting_field_warnings_count"] = len(self.accounting_field_warnings)
+        data["mandatory_result_section_blockers_count"] = len(self.mandatory_result_section_blockers)
+        data["mandatory_result_section_warnings_count"] = len(self.mandatory_result_section_warnings)
         data["russian_first_lint_findings_count"] = len(self.russian_first_lint_findings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
@@ -684,6 +692,39 @@ def scan_accounting_fields(paths: list[str], base: str) -> tuple[list[str], list
     return sorted(new_result_files), sorted(legacy_advisory_files), sorted(set(blockers)), sorted(set(warnings)), summary
 
 
+def scan_mandatory_result_sections(paths: list[str], base: str) -> tuple[list[str], list[str]]:
+    all_paths = unique_sorted(paths)
+    statuses = diff_name_status(base)
+    untracked_results = {
+        normalize_path(path)
+        for path in git_lines(["ls-files", "--others", "--exclude-standard"], ReadyReport(), "cannot list untracked files")
+        if is_result_file(path)
+    }
+    blockers: list[str] = []
+    warnings: list[str] = []
+
+    for path in all_paths:
+        normalized = normalize_path(path)
+        if not is_result_file(normalized):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        is_new = statuses.get(normalized, "").startswith("A") or normalized in untracked_results
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        missing = [
+            section
+            for section, pattern in MANDATORY_RESULT_SECTION_PATTERNS.items()
+            if pattern.search(text) is None
+        ]
+        if not missing:
+            continue
+        target = blockers if is_new else warnings
+        target.append(f"{normalized}:1: MANDATORY_RESULT_SECTIONS_MISSING {','.join(missing)}")
+
+    return sorted(set(blockers)), sorted(set(warnings))
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -855,6 +896,15 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.accounting_field_warnings:
         report.warnings.append("accounting advisory warnings detected")
 
+    (
+        report.mandatory_result_section_blockers,
+        report.mandatory_result_section_warnings,
+    ) = scan_mandatory_result_sections(all_paths, report.base)
+    if report.mandatory_result_section_blockers:
+        report.blockers.append("mandatory RESULT feedback/proposal sections missing")
+    if report.mandatory_result_section_warnings:
+        report.warnings.append("mandatory RESULT feedback/proposal sections missing in legacy RESULT")
+
 
 def add_russian_first_lint(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
@@ -976,6 +1026,8 @@ def render_human(report: ReadyReport) -> str:
             f"accounting_legacy_advisory_files_count: {len(report.accounting_legacy_advisory_files)}",
             f"accounting_field_blockers_count: {len(report.accounting_field_blockers)}",
             f"accounting_field_warnings_count: {len(report.accounting_field_warnings)}",
+            f"mandatory_result_section_blockers_count: {len(report.mandatory_result_section_blockers)}",
+            f"mandatory_result_section_warnings_count: {len(report.mandatory_result_section_warnings)}",
             f"cost_calculator_summary: {json.dumps(report.cost_calculator_summary, ensure_ascii=False, sort_keys=True)}",
             f"russian_first_lint_result: {report.russian_first_lint_result}",
             f"russian_first_lint_findings_count: {len(report.russian_first_lint_findings)}",
@@ -1013,6 +1065,14 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("accounting_field_warnings:")
         lines.extend(f"- {item}" for item in report.accounting_field_warnings)
+    if report.mandatory_result_section_blockers:
+        lines.append("")
+        lines.append("mandatory_result_section_blockers:")
+        lines.extend(f"- {item}" for item in report.mandatory_result_section_blockers)
+    if report.mandatory_result_section_warnings:
+        lines.append("")
+        lines.append("mandatory_result_section_warnings:")
+        lines.extend(f"- {item}" for item in report.mandatory_result_section_warnings)
     if report.russian_first_lint_findings:
         lines.append("")
         lines.append("russian_first_lint_findings:")

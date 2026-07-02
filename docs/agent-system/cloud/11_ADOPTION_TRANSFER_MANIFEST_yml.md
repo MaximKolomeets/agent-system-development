@@ -135,6 +135,7 @@ categories:
       - docs/agent-system/ADOPTION_GUIDE.md
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       - docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
+      - docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md
       - docs/agent-system/ARCHITECT_COCKPIT.md
       - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
@@ -239,6 +240,7 @@ categories:
     files:
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/ADOPTION_PROMPT.md
+      - docs/agent-system/templates/AGENT_PROPOSAL_TEMPLATE.md
       - docs/agent-system/templates/AGENT_REPORT_TEMPLATE.md
       - docs/agent-system/templates/AGENT_RESEARCH_TASK_TEMPLATE.md
       - docs/agent-system/templates/BACKLOG_TEMPLATE.md
@@ -454,6 +456,11 @@ rules:
       и комментарии в файлах пишутся на русском языке. English допускается только для
       command names, flags, paths, filenames, branch names, config keys, API names,
       package names, vendor/tool names, code identifiers и literal external names.
+  - id: mandatory_methodology_feedback
+    text: >
+      Новые RESULT/final reports должны содержать `## Methodology feedback` и
+      `## Unprompted Project Proposals`; отсутствие предложений фиксируется как
+      `нет`, а вне-scope proposals проходят triage через BACKLOG или MIR ledger.
   - id: target_project_governance_pack
     text: >
       Target repository получает governance pack: dashboard, roadmap, backlog,
@@ -555,6 +562,7 @@ minimal_first_pr:
     - generated target-local templates являются Russian-first
     - methodology operational history not copied
     - final report содержит Methodology feedback
+    - final report содержит Unprompted Project Proposals
 
 docs_only_governance_pack:
   allowed_templates:

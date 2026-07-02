@@ -144,7 +144,16 @@ Blockers:
 
 Следующий рекомендуемый шаг:
 
-Methodology feedback:
+## Methodology feedback
+
+Если feedback отсутствует, написать `нет`.
+
+## Unprompted Project Proposals
+
+Если инициативных предложений нет, написать `нет`.
+
+Если предложения есть, использовать `docs/agent-system/templates/AGENT_PROPOSAL_TEMPLATE.md`
+или краткий public-safe формат из `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md`.
 
 Примечание по финализации journal:
 
