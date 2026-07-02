@@ -4,6 +4,11 @@
 
 Этот файл - короткий вход для adoption target implementation repository. Полный рабочий маршрут остается в `docs/agent-system/ADOPTION_GUIDE.md`, `docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md`, `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`.
 
+Inventory и discovery source/template/target-generated/journal files берутся из
+`docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`. Этот short guide не
+дублирует полный список переносимых файлов; он только указывает порядок и
+обязательные gates.
+
 ## Stable methodology reference
 
 Target/downstream adoption читает methodology repository только из stable reference:
@@ -19,9 +24,13 @@ Dirty рабочая ветка в `agent-system-development` не блокир�
 1. Выполнить `docs/agent-system/TARGET_ADOPTION_DETECTOR.md` и выбрать Variant A/B/C или STOP.
 2. Зафиксировать target repository, base branch, working branch и selected branch model.
 3. Прочитать stable methodology reference без `git switch/pull/checkout/reset/clean/stash` в рабочем methodology repository.
-4. Добавить в TASK/RESULT/adoption artifact блок `methodology_reference` с `ref: origin/main`, `stable_only: true`, `source_commit` и `checked_at`.
-5. Перенести Russian-first policy в target `AGENTS.md` или эквивалентные target instructions, если scope меняет такие инструкции.
-6. Материализовать только target-adapted docs: project state, branch names, governance pack и journal history не копируются verbatim из methodology repository.
+4. Применить `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map для source,
+   templates, target-generated, journal scaffold/history и generated files.
+5. Добавить в TASK/RESULT/adoption artifact блок `methodology_reference` с
+   `source_ref: origin/main`, `stable_only: true`, `source_commit`,
+   `reference_type` и `checked_at`.
+6. Перенести Russian-first policy в target `AGENTS.md` или эквивалентные target instructions, если scope меняет такие инструкции.
+7. Материализовать только target-adapted docs: project state, branch names, governance pack и journal history не копируются verbatim из methodology repository.
 
 ## Обязательные политики
 

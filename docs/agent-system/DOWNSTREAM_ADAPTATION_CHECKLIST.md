@@ -8,6 +8,10 @@
 - feedback и его sanitization — `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`;
 - governance pack и project constitution — `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`, `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 - adoption mode detector — `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`.
+- discovery/inventory source/template/target-generated/journal/generated files —
+  `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`; trigger-specific overlays
+  — root `README.md` и `docs/agent-system/METHODOLOGY_MAP.md` →
+  `Mandatory overlays by trigger`.
 
 Пункты ниже сохранены полностью как проверяемый список.
 
@@ -112,7 +116,8 @@
 ## Свежесть методологии
 
 - [ ] Оркестратор проверил stable methodology reference перед подготовкой engine task: `origin/main` / `main`, release tag или явно заданный snapshot.
-- [ ] `methodology_reference` содержит `ref`, `stable_only: true`, `source_commit` и `checked_at`.
+- [ ] `methodology_reference` содержит `source_ref`, `stable_only: true`,
+  `source_commit`, `reference_type` и `checked_at`.
 - [ ] Исполнитель (engine) не использовал `developer`, `work/*`, dirty local methodology tree или open methodology PR branch как source of truth для downstream.
 - [ ] Для чтения methodology repository не выполнялись `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository.
 - [ ] If stable reference check was impossible, the limitation is stated in the report and task stopped before source substitution.
@@ -122,6 +127,8 @@
 
 - [ ] Transfer manifest не содержит противоречий между reusable templates и target-adapted files.
 - [ ] Reusable source templates отделены от materialized target files.
+- [ ] Adoption task использует `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map, а не отдельный ручной список файлов.
+- [ ] Если trigger требует overlays, они выбраны по `Mandatory overlays by trigger` в root `README.md` и `METHODOLOGY_MAP.md`.
 
 ## Безопасность (security)
 

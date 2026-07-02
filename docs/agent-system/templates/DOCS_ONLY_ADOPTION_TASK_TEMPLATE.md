@@ -108,9 +108,10 @@ policies:
 methodology_reference:
   repository_full_name: MaximKolomeets/agent-system-development
   local_path: C:\neural\repos\agent-system-development
-  ref: origin/main
+  source_ref: origin/main
   stable_only: true
   source_commit: <origin/main commit sha>
+  reference_type: stable_branch_head
   checked_at: <ISO-8601 timestamp>
   notes: <short Russian note>
 ```
@@ -144,7 +145,7 @@ Requires explicit user approval: <yes/no>
 ## Inputs
 
 - `docs/agent-system/ADOPTION_AUDIT.md` from target repository;
-- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository;
+- `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` from template repository as discovery map;
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` from template repository;
 - `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md` from template repository;
 - `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` from template repository;
@@ -241,7 +242,8 @@ Governance pack files разрешены только как docs-only artifacts
 - выполнить repository self-discovery;
 - проверить clean worktree;
 - прочитать local instructions;
-- применить transfer manifest;
+- применить `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map для source,
+  template, target-generated, journal scaffold/history и generated files;
 - применить downstream checklist;
 - применить governance pack template, если он в scope;
 - создать или адаптировать `PROJECT_CONSTITUTION.md`, если governance pack в scope;
@@ -266,7 +268,9 @@ Governance pack files разрешены только как docs-only artifacts
 - проверить Russian-first policy в target `AGENTS.md` или эквивалентных target instructions, если они входят в scope
 - проверить, где добавлены русские комментарии для нужных строк/блоков
 - проверить, где комментарии не применимы из-за формата файла
-- проверить, что `methodology_reference` есть в audit/adoption artifacts, содержит `ref: origin/main` или явно заданный stable ref, `stable_only: true`, source commit SHA и checked_at
+- проверить, что `methodology_reference` есть в audit/adoption artifacts,
+  содержит `source_ref: origin/main` или явно заданный stable ref,
+  `stable_only: true`, source commit SHA, reference_type и checked_at
 - проверить, что final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 - проверить semantic completeness по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: docs-only diff не включает tests/tools/code/runtime, PR body и RESULT не обещают implementation вне docs diff
 - если scope включает acceptance spec/blocker matrix/fixture plan, применить `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`

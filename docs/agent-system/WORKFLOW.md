@@ -6,7 +6,8 @@
 4. Исполнитель работает в своей ветке.
 5. Исполнитель обновляет отчет.
 6. Проверяющий агент делает review.
-7. Пользователь принимает решение о merge.
+7. Пользователь принимает решение о merge; human-only actions проходят через
+   `HUMAN_GATE_POLICY.md`.
 8. После merge обновляются `CURRENT_STATE` и `DECISION_LOG`, если нужно.
 
 ## Agent-owned task branch workflow
@@ -79,6 +80,30 @@
 
 Если ответ неясен, изменение фиксируется как proposed follow-up, а не как обязательное правило.
 
+## Architect handoff
+
+Architect handoff применяется только при trigger: смена архитектора/owner,
+пауза больше одной рабочей недели, release/audit boundary, incident/hotfix,
+rollback или передача проекта в новый chat/thread.
+
+Канон: `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`.
+
+Порядок:
+
+1. Передающий architect/operator собирает safe summary: stable methodology
+   reference, source commit, current branch/PR, open boundary и risks/blockers,
+   last successful checks, human-only decisions и next safe step.
+2. Dossier, protocol и checklist ведутся в одном `ARCHITECT_HANDOFF_PACK.md`.
+   Не создавать отдельные handoff/dossier/protocol/checklist docs без явного
+   target-local решения.
+3. Принимающий architect/operator читает dossier за 30 минут, проверяет
+   dashboard и подтверждает один next safe step.
+4. Если source commit, active PR, blocker, human-only decision или next safe
+   step непонятны, handoff заканчивается `STOP: human decision required`.
+
+Для обычных мелких задач без handoff trigger этот раздел не добавляет новых
+обязательных ceremony.
+
 ## После bootstrap
 
 - Прямые изменения в `developer` запрещены без отдельного разрешения пользователя.
@@ -86,7 +111,86 @@
 - Внутренние sub-branches `work/<role>/<task>/*` допустимы только внутри той же задачи и сливаются обратно до итогового PR.
 - Рабочая ветка создается от актуальной `developer`.
 - `developer` принимает изменения через PR из рабочих веток.
-- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag на release merge commit ставит человек-архитектор, не агент.
+- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; Business Acceptance Gate проходит между стабилизацией `developer` и release PR в `main`; annotated tag, publication и sync decision выполняет человек по `RELEASE_AUTHORITY_POLICY.md`, не агент.
+
+## Business Acceptance Gate
+
+Business Acceptance Gate применяется после стабилизации `developer` и до
+approval/merge release PR `developer -> main`.
+
+Gate основан на:
+
+- `docs/agent-system/UAT_WORKFLOW.md`;
+- `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md`;
+- `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`;
+- `docs/agent-system/HUMAN_GATE_POLICY.md`;
+- `docs/agent-system/RELEASE_AUTHORITY_POLICY.md`.
+
+Порядок:
+
+1. Engine/release-prep генерирует Human UAT Checklist из acceptance scenarios.
+2. Owner/PO вручную проходит button-click, visual UI, API/CLI или
+   documentation-as-product checks.
+3. RESULT фиксирует `business_acceptance_gate`, actor, checklist reference,
+   evidence и decision.
+4. Если verdict `rejected` или checklist отсутствует без `not_applicable`
+   reason, release PR в `main` блокируется.
+
+Agent не может заменить owner/PO verdict. Для docs-only или methodology-only
+release допустим `not_applicable`, но только с причиной и safe evidence.
+
+## Hotfix, rollback и disaster recovery
+
+Hotfix/rollback применяется, когда обычный release path слишком медленный для
+incident, regression или broken stable surface. Канон: `docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md`
+и `docs/agent-system/DISASTER_RECOVERY.md`.
+
+Порядок:
+
+1. Человек-владелец/архитектор подтверждает, что нужен emergency path.
+2. Agent собирает incident facts: bad SHA, affected branch/tag, risk, доступные
+   checks и безопасное evidence.
+3. Для rollback `main` создается branch `work/hotfix/<issue>` от `origin/main`.
+4. Agent готовит revert:
+   - `git revert <bad-commit-sha>` для обычного commit;
+   - `git revert -m 1 <bad-merge-sha>` для merge commit.
+5. Если нужен rollback до tag `vX.Y.Z`, agent проверяет tag и готовит revert PR
+   от текущего `main` до ожидаемого состояния; force move `main` к tag не
+   выполняется агентом.
+6. PR проходит expedited review и доступные checks.
+7. Человек-владелец мержит hotfix/rollback PR в `main`.
+8. После merge выполняется sync/reconciliation обратно в `developer`, если это
+   нужно branch policy.
+9. RESULT фиксирует release authority actor + evidence, hotfix branch, bad SHA,
+   target tag/commit, review evidence и merge evidence.
+
+Если GitHub недоступен, tokens потеряны или local checkout сломан, применять
+`DISASTER_RECOVERY.md`: не объявлять recovery завершенным без source-of-truth
+evidence и не раскрывать credentials.
+
+## Release authority и human gate
+
+Release-sensitive действия выполняются по `docs/agent-system/RELEASE_AUTHORITY_POLICY.md`
+и `docs/agent-system/HUMAN_GATE_POLICY.md`.
+
+Агент может:
+
+- подготовить release/sync PR;
+- собрать checks и evidence summary;
+- обновить docs/journal в разрешенном scope;
+- после human action выполнить read-only verification, если это входит в задачу.
+
+Агент не выполняет сам:
+
+- merge в `main`;
+- создание annotated release tag;
+- GitHub Release / public publication;
+- финальный sync `main -> developer`;
+- branch protection/rulesets, CI/CD, prod-secrets, mission/strategy, удаление
+  данных, финансы и rollback decision.
+
+Если `RESULT` утверждает, что release-sensitive действие выполнено, он фиксирует
+actor, action и evidence по `RELEASE_AUTHORITY_POLICY.md`.
 
 ## Рабочий процесс review-only
 

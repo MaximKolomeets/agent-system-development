@@ -24,11 +24,13 @@ Feedback loop используется после:
 
 ## Что engine должен добавить в final report
 
-В финальном отчете по target repository `engine` должен добавить секцию:
+В любом RESULT/final report `engine` должен добавить секцию:
 
 ```text
 ## Methodology feedback
 ```
+
+Если feedback отсутствует, писать `нет`.
 
 Поля:
 
@@ -39,6 +41,16 @@ Feedback loop используется после:
 - `target_repo_conflicts` - какие конфликты с локальными правилами target repository возникли;
 - `suggested_methodology_prs` - какие PR стоит создать в `agent-system-development`;
 - `do_not_publish` - что нельзя переносить в public methodology repository.
+
+Если во время задачи появилось вне-scope предложение, `engine` дополнительно
+заполняет обязательный раздел:
+
+```text
+## Unprompted Project Proposals
+```
+
+Этот раздел ведется по `AGENT_INITIATIVE_PROTOCOL.md`; если предложений нет,
+писать `нет`.
 
 ## Что запрещено переносить
 
@@ -77,7 +89,10 @@ Feedback из target repository не должен автоматически м�
 3. оркестратор формирует отдельную русскоязычную задачу для `agent-system-development` с обязательной шапкой `Задача для <роль>: <task-id>`;
 4. изменения идут через отдельный PR в methodology repository;
 5. после merge methodology repository обновляется;
-6. следующий target repository dry run использует обновленную методологию.
+6. `METHODOLOGY_IMPROVEMENT_LEDGER.md` обновляет lifecycle status: MIR, PR,
+   release/snapshot и adoption category;
+7. следующий target repository dry run использует обновленную методологию только
+   после stable source: `main`, release tag или published snapshot.
 
 Шапка задачи должна указывать рекомендуемый режим запуска, engine, модель, reasoning, режим работы и причину выбора режима. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
 
@@ -120,11 +135,25 @@ Feedback из target repository не должен автоматически м�
 
 Methodology task по sanitized feedback не читает target repository, если это прямо не разрешено task scope. Dirty/open target work branches не являются blocker для methodology repository work и не фиксируются как methodology fact.
 
+Lifecycle после sanitized feedback ведется в `METHODOLOGY_IMPROVEMENT_LEDGER.md`.
+Ledger хранит только public-safe MIR lifecycle facts и не заменяет private
+consumer registry/adoption matrix в private control plane.
+
+## Связь с инициативными предложениями
+
+`Methodology feedback` описывает улучшения methodology repository, замеченные в
+ходе задачи. `Unprompted Project Proposals` описывает вне-scope идеи или риски,
+которые требуют triage до превращения в задачу.
+
+Оба раздела обязательны в новых RESULT. Proposal не меняет текущий allowed scope
+и не дает reviewer role права назначать implementation task напрямую.
+
 ## Acceptance criteria
 
 Feedback loop считается соблюденным, если:
 
 - final report содержит Methodology feedback;
+- final report содержит Unprompted Project Proposals;
 - feedback не раскрывает приватные данные;
 - suggested methodology improvements сформулированы нейтрально;
 - отдельные изменения в `agent-system-development` выполняются только отдельным PR.

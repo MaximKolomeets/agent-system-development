@@ -31,6 +31,8 @@ Governance pack нужен, чтобы:
 - фиксировать stop conditions для engine;
 - обновлять current state после значимых PR;
 - готовить handoff для нового чата или новой рабочей сессии.
+- давать не-программисту-архитектору короткий management cockpit: что можно
+  делать автоматически, где нужен human decision и какой next safe step.
 
 ## Документы проекта на root-level
 
@@ -40,6 +42,7 @@ Root-level документы помогают быстро понять про�
 - `AGENTS.md` - обязательные правила для engine;
 - `PROJECT_CONSTITUTION.md` - закон проекта: mission, success criteria, strategic goal, decision authority и scope expansion control;
 - `PROJECT_DASHBOARD.md` - короткая панель состояния проекта;
+- `PROJECT_OPERATOR_DASHBOARD.md` - короткий yes/no dashboard для merge/release/adoption/status решений;
 - `ROADMAP.md` - этапы, критерии завершения и next PR candidates;
 - `RUNBOOK.md` - повторяемые операции и проверки;
 - `DECISIONS.md` или `docs/agent-system/DECISION_LOG.md` - принятые решения.
@@ -55,6 +58,9 @@ Root-level документы помогают быстро понять про�
 - `docs/agent-system/DECISION_LOG.md`;
 - `docs/agent-system/PROJECT_GUARDRAILS.md` (target-local; канон-шаблон: `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`);
 - `docs/agent-system/ENGINE_REGISTRY.md` (target-local; канон-шаблон: `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`);
+- `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md`;
+- `docs/agent-system/ARCHITECT_COCKPIT.md`;
+- `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`;
 - `docs/agent-system/CONTROL_MATRIX.md` (target-local для Stage 2+/MIR-01; канон-шаблон: `docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md`, паттерн: `docs/agent-system/CONTROL_MATRIX_PATTERN.md`);
 - `docs/agent-system/POLICY_STATUS.md` (target-local для MIR-04; паттерн: `docs/agent-system/POLICY_STATUS_PATTERN.md`);
 - `docs/agent-system/ERROR_CATALOG.md` (target-local для MIR-05; канон-шаблон: `docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md`, паттерн: `docs/agent-system/ERROR_CATALOG_PATTERN.md`);
@@ -75,6 +81,7 @@ README.md
 AGENTS.md
 PROJECT_CONSTITUTION.md
 PROJECT_DASHBOARD.md
+PROJECT_OPERATOR_DASHBOARD.md
 ROADMAP.md
 RUNBOOK.md
 DECISIONS.md или docs/agent-system/DECISION_LOG.md
@@ -85,6 +92,9 @@ docs/agent-system/BACKLOG.md
 docs/agent-system/DECISION_LOG.md
 docs/agent-system/PROJECT_GUARDRAILS.md (target-local; канон-шаблон: docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md)
 docs/agent-system/ENGINE_REGISTRY.md (target-local; канон-шаблон: docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md)
+docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md
+docs/agent-system/ARCHITECT_COCKPIT.md
+docs/agent-system/ARCHITECT_HANDOFF_PACK.md
 docs/agent-system/CONTROL_MATRIX.md (target-local для Stage 2+/MIR-01; канон-шаблон: docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md)
 docs/agent-system/POLICY_STATUS.md (target-local для MIR-04)
 docs/agent-system/ERROR_CATALOG.md (target-local для MIR-05; канон-шаблон: docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md)
@@ -105,6 +115,7 @@ docs/agent-system/agents/
 - `docs/agent-system/templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`;
 - `docs/agent-system/templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
 - `docs/agent-system/templates/PROJECT_DASHBOARD_TEMPLATE.md`;
+- `docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md`;
 - `docs/agent-system/templates/ROADMAP_TEMPLATE.md`;
 - `docs/agent-system/templates/BACKLOG_TEMPLATE.md`;
 - `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`;
@@ -122,7 +133,7 @@ docs/agent-system/agents/
 
 Governance templates в methodology repository являются reusable sources. Они используются как reference или как основа для создания target files.
 
-Materialized target governance files всегда требуют target adaptation. `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `ROADMAP.md`, `BACKLOG.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, `PROJECT_GUARDRAILS.md` (target-local; канон-шаблон: `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`), `ENGINE_REGISTRY.md` (target-local; канон-шаблон: `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`), `CONTROL_MATRIX.md` (target-local для Stage 2+/MIR-01; канон-шаблон: `docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md`), `POLICY_STATUS.md` (target-local для MIR-04) и `ERROR_CATALOG.md` (target-local для MIR-05; канон-шаблон: `docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md`) не копируются verbatim и пишутся по фактам target repository.
+Materialized target governance files всегда требуют target adaptation. `PROJECT_CONSTITUTION.md`, `PROJECT_DASHBOARD.md`, `PROJECT_OPERATOR_DASHBOARD.md`, `ROADMAP.md`, `BACKLOG.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md`, `ARCHITECT_HANDOFF_PACK.md`, `PROJECT_GUARDRAILS.md` (target-local; канон-шаблон: `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`), `ENGINE_REGISTRY.md` (target-local; канон-шаблон: `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`), `CONTROL_MATRIX.md` (target-local для Stage 2+/MIR-01; канон-шаблон: `docs/agent-system/templates/CONTROL_MATRIX_TEMPLATE.md`), `POLICY_STATUS.md` (target-local для MIR-04) и `ERROR_CATALOG.md` (target-local для MIR-05; канон-шаблон: `docs/agent-system/templates/ERROR_CATALOG_TEMPLATE.md`) не копируются verbatim и пишутся по фактам target repository.
 
 Project-specific state живет только в target repository.
 
@@ -134,6 +145,7 @@ Target governance files пишутся по Russian-first policy. Commit message
 - `AGENTS.md`;
 - `PROJECT_CONSTITUTION.md`;
 - `PROJECT_DASHBOARD.md`;
+- `PROJECT_OPERATOR_DASHBOARD.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
 - `DECISIONS.md`;
@@ -143,6 +155,7 @@ Target governance files пишутся по Russian-first policy. Commit message
 - `docs/agent-system/DECISION_LOG.md`;
 - `docs/agent-system/PROJECT_GUARDRAILS.md` (target-local; канон-шаблон: `docs/agent-system/templates/PROJECT_GUARDRAILS_TEMPLATE.md`);
 - `docs/agent-system/ENGINE_REGISTRY.md` (target-local; канон-шаблон: `docs/agent-system/templates/ENGINE_REGISTRY_TEMPLATE.md`);
+- `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`, если используется как target-local snapshot передачи;
 - `docs/agent-system/CONTROL_MATRIX.md` (если target repository принял MIR-01 или находится на Stage 2+);
 - `docs/agent-system/POLICY_STATUS.md` (если target repository принял MIR-04);
 - `docs/agent-system/ERROR_CATALOG.md` (если target repository принял MIR-05 или acceptance spec использует reusable blocker codes);
@@ -172,6 +185,7 @@ Target governance files пишутся по Russian-first policy. Commit message
 - `docs/agent-system/DECISION_LOG.md`;
 - `PROJECT_DASHBOARD.md`;
 - agent report в `docs/agent-system/agents/<роль>/`.
+- `PROJECT_OPERATOR_DASHBOARD.md`, если изменился merge/release/adoption/status gate.
 
 ## Правило engine registry
 
@@ -216,6 +230,10 @@ Handoff для нового чата или новой рабочей сесси
 - risks;
 - важные governance docs.
 
+Для non-technical architect использовать `docs/agent-system/ARCHITECT_COCKPIT.md`
+и `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md`. Dossier, protocol и
+checklist handoff ведутся в одном `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`.
+
 Handoff не должен содержать private data, secret values, private repository URL, client data или internal code names.
 
 ## Правило engine journal
@@ -226,9 +244,9 @@ Journal связывает task file, result file, branch, PR и commit/result. 
 
 Task/result files append-only. Их нельзя удалять или перезаписывать без отдельного решения пользователя.
 
-The methodology repository provides only engine journal scaffold/templates and
-contract. Target repositories maintain their own operational history. Do not
-copy methodology operational history into target repositories.
+Methodology repository предоставляет только engine journal scaffold/templates и
+contract. Target repositories ведут собственную operational history. Не
+копировать methodology operational history в target repositories.
 
 ## Чеклист governance-review
 

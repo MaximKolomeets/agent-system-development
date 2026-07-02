@@ -43,16 +43,43 @@ Vendor/tool name не является role name. Если задача упом
 ```yaml
 methodology_reference:
   repository: MaximKolomeets/agent-system-development
-  source_branch: developer
+  source_ref: origin/main
   source_commit: <commit-sha>
   source_tag: <optional annotated tag on source_commit>
   release_tag: <optional release tag>
   checked_at: <ISO-8601 timestamp>
-  reference_type: commit
+  reference_type: stable_branch_head
   notes: <short Russian note>
 ```
 
+`source_ref` — stable pointer, который указывает на `origin/main` / `main`,
+release tag или `published_source_snapshot`. `developer`, `origin/developer`,
+`work/*`, dirty local tree и open methodology PR branch не являются stable
+`source_ref` для target/downstream задач.
+
+`reference_type` уточняет тип ссылки:
+
+- `stable_branch_head` — `source_ref: origin/main` или `main`;
+- `stable_release_tag` — `source_ref` равен release tag;
+- `published_source_snapshot` — используется опубликованный Source/cloud snapshot;
+- `stable_release_commit` — архитектор явно зафиксировал stable release commit
+  как reference boundary.
+
 `source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. `source_tag` и `release_tag` являются опциональными human-readable pointers рядом с commit SHA; они не заменяют обязательный `source_commit` как reproducibility anchor. Если tag отсутствует, эти поля можно опустить или оставить пустыми; это не finding.
+
+Если задача меняет сам methodology repository, stable `methodology_reference` не
+заменяет рабочую базу задачи. Для таких задач использовать отдельный блок:
+
+```yaml
+methodology_development_base:
+  base_branch: developer
+  working_branch: work/<role>/<task-id>
+  base_commit: <origin/developer commit sha>
+  checked_at: <ISO-8601 timestamp>
+```
+
+`methodology_development_base` нельзя переносить в target/downstream adoption как
+stable source. Это только execution base для задач по самой методологии.
 
 Машиночитаемая копия схемы находится в `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` → `methodology_reference_schema` и должна сохранять ту же обязательность `source_commit` и опциональность tag-полей.
 
@@ -221,7 +248,11 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `ORCHESTRATOR_RESPONSE_STANDARD.md`, `LANGUAGE_POLICY.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint,
+   `ENGINE_SELF_DISCOVERY_CONTRACT.md` и
+   `ADOPTION_TRANSFER_MANIFEST.yml`; дальше определить применимые source,
+   template, target-generated, journal и generated overlays через manifest
+   categories, а не через отдельный ручной список в entrypoint;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -230,12 +261,12 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 ## Обязательный порядок
 
 1. Repository self-discovery.
-2. Local instructions discovery.
-3. Template repository discovery.
-4. Adoption mode selection.
+2. Обнаружение local instructions.
+3. Обнаружение template repository.
+4. Выбор adoption mode.
 5. Safety gate.
 6. Adoption audit.
-7. Only then planned bootstrap PRs.
+7. Только после этого planned bootstrap PR.
 
 ## Самообнаружение repository
 
@@ -263,24 +294,20 @@ Self-discovery подтверждает:
 
 ## Поиск template repository
 
-После чтения локального target repository `engine` читает template repository и находит:
+После чтения локального target repository `engine` читает template repository по
+manifest-driven discovery:
 
-- `ENGINE_ENTRYPOINT.md`;
-- `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
-- `ENGINE_JOURNAL_CONTRACT.md`;
-- `TASK_FILE_HANDOFF_CONTRACT.md`;
-- `ADOPTION_GUIDE.md` (включая раздел «Пошаговый existing-repo adoption»);
-- `ADOPTION_TRANSFER_MANIFEST.yml`;
-- `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
-- `TARGET_PROJECT_GOVERNANCE_PACK.md`;
-- `PROJECT_CONSTITUTION_FRAMEWORK.md`;
-- `ORCHESTRATOR_RESPONSE_STANDARD.md`;
-- `FILE_COMMENTING_STANDARD.md`;
-- `STAGE_2_COMPLETION_CHECKLIST.md`;
-- `templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`;
-- `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`;
-- `templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
-- `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
+1. Открыть минимальные anchors:
+   `ENGINE_ENTRYPOINT.md`, `ENGINE_SELF_DISCOVERY_CONTRACT.md` и
+   `ADOPTION_TRANSFER_MANIFEST.yml`.
+2. По `ADOPTION_TRANSFER_MANIFEST.yml` определить, какие файлы относятся к
+   `source`, `template`, `target_generated`, `history_state`, `journal`,
+   `scaffold` и `generated`.
+3. По trigger задачи подключить overlays из root `README.md` и
+   `METHODOLOGY_MAP.md` → `Mandatory overlays by trigger`.
+4. Для adoption/source-update не поддерживать отдельный длинный discovery-list
+   в entrypoint: если inventory меняется, обновляется manifest, а
+   `PROJECT_FILE_MAP.md` и `cloud/**` регенерируются штатными tools.
 
 Template repository является методологической основой, а не источником для слепого копирования.
 
@@ -379,9 +406,19 @@ Adoption audit должен создать journal artifacts в target repositor
 
 ## Methodology feedback
 
-После adoption audit или target repository dry run `engine` должен предложить, что улучшить в template repository для следующей интеграции.
+Каждый RESULT/final report `engine` должен содержать раздел:
 
-Feedback должен быть нейтральным и не должен раскрывать private data target repository. Он может включать:
+```text
+## Methodology feedback
+```
+
+Если feedback отсутствует, писать `нет`.
+
+После adoption audit или target repository dry run `engine` должен предложить,
+что улучшить в template repository для следующей интеграции.
+
+Feedback должен быть нейтральным и не должен раскрывать private data target
+repository. Он может включать:
 
 - отсутствующие template docs;
 - ручные steps для автоматизации;
@@ -390,6 +427,22 @@ Feedback должен быть нейтральным и не должен ра�
 - suggested methodology PRs.
 
 Methodology feedback не должен автоматически менять methodology repository. Любое улучшение `agent-system-development` выполняется отдельной задачей, отдельной веткой и отдельным PR.
+
+## Unprompted Project Proposals
+
+Каждый RESULT/final report `engine` должен содержать раздел:
+
+```text
+## Unprompted Project Proposals
+```
+
+Если инициативных предложений нет, писать `нет`.
+
+Если agent/reviewer заметил важное вне-scope улучшение, риск или automation
+opportunity, он оформляет proposal по `AGENT_INITIATIVE_PROTOCOL.md` и не
+реализует его внутри текущей задачи без explicit allowed scope. Approved
+proposal становится `BACKLOG.md` candidate или MIR lifecycle item только после
+architect/orchestrator triage.
 
 ## Запреты
 

@@ -38,22 +38,30 @@
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`); `Report delivery` — отдельный параметр для тела отчёта (`chat` по умолчанию | `repository`). Дефолт `chat` относится только к телу отчёта и не отменяет journal trace (канон: `docs/agent-system/CODE_REVIEW_WORKFLOW.md` → «Report delivery vs Journal trace»).
 - Коммит review-отчета допустим только в отдельной ветке `work/<role>/<task>` и только для разрешенных docs-файлов.
 - Ветки, файлы и агенты не должны называться по конкретной модели или vendor; запрещены ветки вида `<vendor-name>/*` и файлы вида `docs/<VENDOR-NAME>_REVIEW.md`.
-- После задачи агент обязан обновить свой отчет.
+- После задачи агент обязан обновить свой отчет/RESULT с учетом
+  `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+  `docs/agent-system/COST_TRACKING_POLICY.md`: новые finalized RESULT должны
+  содержать `execution_*`, `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence`, `human_time_reported` при human/hybrid участии, а
+  также token/cost поля; отсутствие required accounting fields в новом
+  finalized RESULT является blocker, legacy-записи остаются advisory.
 - После архитектурного решения обновляется `docs/agent-system/DECISION_LOG.md`.
 - После изменения состояния проекта обновляется `docs/agent-system/CURRENT_STATE.md`.
 - Любой engine, применяющий этот repository как template repository для другого проекта, должен начинать с `docs/agent-system/ENGINE_ENTRYPOINT.md` и `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md`.
-- `engine`, работающий с target repository, должен в final report добавлять нейтральную секцию `Methodology feedback` с предложениями по улучшению methodology repository, не раскрывая private data.
+- Каждый новый RESULT и final report должен содержать обязательный раздел `## Methodology feedback`; если feedback отсутствует, писать `нет`.
+- Каждый новый RESULT и final report должен содержать обязательный раздел `## Unprompted Project Proposals` по `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md`; если инициативных предложений нет, писать `нет`.
+- `Methodology feedback` и `Unprompted Project Proposals` должны быть нейтральными, Russian-first и не раскрывать private data; предложения не расширяют текущий scope и становятся задачами только после triage через `BACKLOG.md` или `METHODOLOGY_IMPROVEMENT_LEDGER.md`.
 - Названия агентов не должны содержать конкретный `<vendor-name>` или другие vendor/tool names.
 - Конкретный инструмент указывается отдельно как engine.
 - Если ответ содержит задачу для engine, все данные для выполнения этой engine-задачи должны быть внутри одного самодостаточного copy/paste-блока.
 - Одна engine-задача = один полный copy/paste-блок.
 - Задачи для engine и ответы engine должны сохраняться в `docs/agent-system/engine-journal/` как task/result artifacts, если это входит в scope задачи.
 - Task/result artifacts engine journal являются append-only и не удаляются/не перезаписываются без отдельного решения пользователя.
-- Engine journal RESULT/INDEX must be finalized after PR creation; placeholders in ready-for-review PRs are blockers.
-- Engine journal TASK/RESULT/INDEX должны быть Russian-first; English сохраняется только для технических identifiers и literal external names.
-- Large Engine tasks should use Task File Handoff Mode to avoid context-window bloat.
-- Orchestrator may create only task-file-only GitHub branch/commit when explicitly authorized.
-- Engine must treat TASK file as source of truth and finalize RESULT/INDEX.
+- Engine journal RESULT/INDEX должен быть финализирован после PR creation; placeholders в ready-for-review PR являются blockers.
+- Engine journal TASK/RESULT/INDEX должны быть Russian-first; English сохраняется только для technical identifiers и literal external names.
+- Большие Engine-задачи должны использовать Task File Handoff Mode, чтобы не раздувать context window.
+- Orchestrator может создать task-file-only GitHub branch/commit только при явном разрешении.
+- Engine должен считать TASK file source of truth и финализировать RESULT/INDEX.
 - Нельзя оставлять за пределами Engine-блока команды, ограничения, проверки, allowed files, forbidden files, STOP-условия или требования к отчету, если они нужны engine.
 - Если ответ содержит ручные terminal-команды, каждая независимая ручная задача должна быть отдельным разделом и отдельным terminal block.
 - Простые проверки и cleanup выполнять через Operational Fast Lane: один ответ, один terminal block, без нового methodology PR.

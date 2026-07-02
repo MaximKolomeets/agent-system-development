@@ -17,41 +17,45 @@
 5. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 6. Повторять work/review/merge до завершения текущей серии.
 7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
-9. Человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; после release выполняется sync `main -> developer`.
+8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`, затем проверить `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, hotfix/rollback readiness по `HOTFIX_AND_ROLLBACK_POLICY.md` и Business Acceptance Gate по `UAT_WORKFLOW.md`.
+9. Owner/PO проходит Human UAT Checklist или фиксирует `not_applicable` reason; человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; publication/sync/rollback decision также human-only, а release/sync/hotfix `RESULT` фиксирует actor + evidence.
 10. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
 
-Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. Release-prep PR
-обновляет `RELEASE_READINESS.md`, state docs, boundary reconciliation для
-journal 0132-0136, journal entry `0137` и generated cloud bundle. После merge
-этого PR отдельной задачей создать release PR `developer -> main` для `v1.5.1`;
-release PR merge remains human-only, прямой push в `main` запрещён, GitHub
-Release не публикуется.
+`v1.5.1` опубликован и синхронизирован: release-prep PR #303, release PR #304,
+annotated tag `v1.5.1` и sync PR #305 подтверждены. Hardening series для
+`v1.5.2` выполнена: PR-1..15 / H1..H16 вошли в `origin/developer`, batch-closure
+PR #322 смержен.
 
-Точные task/PR факты не дублируются здесь как source of truth. Актуальный pointer:
-`docs/agent-system/engine-journal/INDEX.md`; latest release перед этим release-prep:
-`v1.5.0`; next intended release tag: `v1.5.1`.
+Ближайший рабочий шаг: review и human merge release-prep PR `v1.5.2` в
+`developer`. После этого release-manager готовит release PR `developer -> main`;
+merge release PR, annotated tag `v1.5.2`, publication и sync decision остаются
+human-only действиями. До публикации `v1.5.2` target adoption/source-update
+задачи используют stable pointer `origin/main` / tag `v1.5.1`.
 
-После релиза: перейти к methodology-update для target implementation repository
-от stable release pointer `v1.5.1`.
+Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
+`RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
+`docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
+`docs/agent-system/RULESET_STATUS.md`.
 
-## Опциональный backlog (на усмотрение архитектора)
+## Ближайшая очередь v1.5.2
 
-- **Downstream semantic completeness gates**: по результатам sanitized downstream dry-run в target implementation repository добавить future methodology hardening для Pre-PR semantic completeness checks. Цель — снизить количество fixup-циклов, когда технические gates зелёные, но reviewer находит логические несостыковки между RESULT, acceptance spec, matrix, fixture plan и boundary docs.
-  - `METH-DOWNSTREAM-FEEDBACK-COMPLETENESS-GATES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через reusable semantic completeness gates.
-  - `METH-JOURNAL-FINALIZATION-PHRASES-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через journal finalization policy и ready-gate category.
-  - `METH-ACCEPTANCE-SPEC-COMPLETENESS-PATTERN-01`: реализовано в `METH-SEMANTIC-COMPLETENESS-GATES-01` через acceptance/spec completeness pattern.
-  - `METH-DOWNSTREAM-FEEDBACK-LOOP-VERIFICATION-01`: закрыто в `METH-DOWNSTREAM-FEEDBACK-LOOP-SANITIZED-01` как sanitized/reusable variant через `DOWNSTREAM_FEEDBACK_LOOP.md` и `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; target-specific/private details не переносились.
-  - Status: первые три пункта закрыты текущим methodology hardening PR; sanitized feedback report остаётся отдельной future task.
-  - Priority: medium-high.
-  - Reason: reduces repeated fixup cycles in target repositories.
-- **Review journaling polish**: blocker по PR-C6.1 закрыт. `Journal trace: always` и `Report delivery` разведены; future polish допустим только как wording cleanup без blocker status.
-- **Чистка redirect-заглушек** — выполнено (METH-BACKLOG-POLISH): 6 history-only заглушек удалены (`SHORT_TARGET_ADOPTION_PROMPT`, `REVIEW_TEMPLATE`, `NEW_PROJECT_BOOTSTRAP_PROMPT`, `PROJECT_CHAT_START_PROMPT_TEMPLATE`, старый `TARGET_REPOSITORY_ADOPTION_GUIDE`, `PROJECT_LIFECYCLE`); `templates/TARGET_REPOSITORY_ADOPTION_CHAT_PROMPT.md` оставлен заглушкой (внешние bookmark); живые ссылки перенаправлены на каноны. Новый `TARGET_REPOSITORY_ADOPTION_GUIDE.md` из `METH-STABLE-MAIN-REFERENCE-RUSSIAN-FIRST-01` является live stable-reference entrypoint, не старой redirect-заглушкой.
-- **Optional polish**: отдельно можно рассмотреть vendor/public metadata hygiene и historical English wording там, где это не нарушает Russian-first policy и не требует rewrite history; это не blocker для adoption.
-- **Operating layer (`ASD-OPLAYER-001`, journal 0024)**: добавлены нейтральные контракты `ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` и `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`, governance pack template расширен разделом «Три слоя управления». Опционально: при downstream adoption включать эти контракты в target governance pack как optional-файлы; реальные visibility-matrix и дайджесты держать в приватном control plane, не в публичном репозитории.
-- **Future methodology simplification**: lifecycle simplification и remote PR state as authority реализованы в `METH-NO-ORDINARY-POST-MERGE-CLOSURE-01`; context handoff footer enforcement, journal gate automation и adoption feedback loop automation остаются future backlog и не являются blocker.
+1. Завершить scoped review release-prep PR `v1.5.2`.
+2. Human merge release-prep PR в `developer`.
+3. На обновлённом `developer` выполнить release-boundary ready-gate:
+   `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`.
+4. Owner/PO фиксирует Business Acceptance / Human UAT verdict или явный
+   `not_applicable` reason.
+5. Release-manager готовит release PR `developer -> main` для `v1.5.2`.
+6. Человек-архитектор выполняет merge release PR, annotated tag `v1.5.2`,
+   publication decision и sync decision по release authority/human-gate policy.
+7. После release/sync обновить journal RESULT/INDEX, `CURRENT_STATE.md`,
+   `NEXT_STEPS.md`, `RELEASE_READINESS.md`, `RULESET_STATUS.md` и regenerated
+   `docs/agent-system/cloud/**`.
+
+Future queue после `v1.5.2` живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md`
+оставался списком ближайших действий.
 
 ## Текущие операционные правила
 
@@ -65,5 +69,8 @@ Release не публикуется.
 7a. Перед target adoption/source-update применять `TARGET_ADOPTION_DETECTOR.md`: Variant A/B/C или STOP; dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific journal/history/state означают STOP.
 7b. Перед file-changing PR применять `QUALITY_FIRST_WORKFLOW.md`: missing acceptance criteria или failed self-review означают STOP до PR.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
-9. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
-10. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.
+9. Перед merge/tag/publish/sync/rollback, branch protection/rulesets, CI/CD, prod-secrets, mission/strategy, удалением данных или финансовым решением применять `HUMAN_GATE_POLICY.md`; агент готовит evidence, но человек выполняет финальное действие.
+10. Перед approval release PR в `main` применять Business Acceptance Gate: Human UAT Checklist по `BUSINESS_ACCEPTANCE_CHECKLIST.md`, owner/PO verdict и safe evidence в RESULT.
+11. При hotfix/rollback/disaster recovery применять `HOTFIX_AND_ROLLBACK_POLICY.md` и `DISASTER_RECOVERY.md`: `work/hotfix/<issue>`, revert PR, expedited review, human merge в `main`, RESULT actor + evidence.
+12. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
+13. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.

@@ -1,0 +1,151 @@
+flowchart TB
+  README["README.md<br/>Core reading-list"]
+  MAP["METHODOLOGY_MAP.md<br/>каталог и trigger overlays"]
+  MANIFEST["ADOPTION_TRANSFER_MANIFEST.yml<br/>source/template/generated inventory"]
+  FILEMAP["PROJECT_FILE_MAP.md<br/>generated inventory view"]
+  CLOUD["cloud/**<br/>generated orchestrator bundle"]
+  NONTECH["NON_TECHNICAL_ARCHITECT_GUIDE.md<br/>architect без программирования"]
+  COCKPIT["ARCHITECT_COCKPIT.md<br/>management questions"]
+  HANDOFF["ARCHITECT_HANDOFF_PACK.md<br/>dossier + protocol + checklist"]
+  OPDASH["templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md<br/>yes/no dashboard"]
+  ROLE["ROLE_MODEL.md"]
+  AGENTONBOARD["AGENT_ONBOARDING_CHECKLIST.md<br/>role onboarding"]
+  INITIATIVE["AGENT_INITIATIVE_PROTOCOL.md<br/>mandatory feedback and proposals"]
+  PROPOSALTPL["templates/AGENT_PROPOSAL_TEMPLATE.md<br/>proposal format"]
+  BACKLOG["BACKLOG.md<br/>proposal intake after triage"]
+  CONSTITUTION["PROJECT_CONSTITUTION_FRAMEWORK.md"]
+
+  ORCH["ORCHESTRATOR_RESPONSE_STANDARD.md<br/>self-contained Engine block"]
+  TASKHEADER["templates/TASK_HEADER_COMMON.md<br/>header, Source Delta, handoff"]
+  ORCHCHECK["tools/orchestrator_checklist.py<br/>pre-send block validator"]
+
+  ENTRY["ENGINE_ENTRYPOINT.md<br/>engine start and manifest-driven discovery"]
+  SELF["ENGINE_SELF_DISCOVERY_CONTRACT.md"]
+  TASKCONTRACT["TASK_CONTRACT.md"]
+  JOURNAL["ENGINE_JOURNAL_CONTRACT.md"]
+  FINALIZE["JOURNAL_FINALIZATION_POLICY.md"]
+  ARCHIVE["JOURNAL_ARCHIVING_POLICY.md<br/>Journal Epoch archive"]
+  READY["tools/check_task_ready.py"]
+  POLICYINV["POLICY_INVARIANTS.md<br/>cross-policy invariants"]
+  POLICYCHECK["tools/validate_policy_invariants.py<br/>invariants and self-test gate"]
+
+  ADOPT["ADOPTION_GUIDE.md"]
+  CLOSURE["PROJECT_CLOSURE_GUIDE.md<br/>pause, transfer, closure"]
+  DETECTOR["TARGET_ADOPTION_DETECTOR.md"]
+  CHECKLIST["DOWNSTREAM_ADAPTATION_CHECKLIST.md"]
+  STABLE["STABLE_METHODOLOGY_REFERENCE_POLICY.md"]
+  SOURCECONSUMERS["SOURCE_CONSUMERS.md<br/>scaffold-only"]
+  PRIVREG["SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md<br/>private control plane"]
+  ADOPTIONMATRIX["METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md<br/>private adoption cockpit"]
+  MIRLEDGER["METHODOLOGY_IMPROVEMENT_LEDGER.md<br/>feedback to adoption lifecycle"]
+  XCONSOL["CROSS_PROJECT_CONSOLIDATION_CONTRACT.md<br/>state digests"]
+  XDEPS["CROSS_PROJECT_DEPENDENCY_POLICY.md<br/>dependency records"]
+
+  REVIEW["CODE_REVIEW_WORKFLOW.md"]
+  AUTOLOOP["REVIEW_AUTOLOOP.md"]
+  SEMANTIC["SEMANTIC_COMPLETENESS_GATES.md"]
+
+  RELEASEAUTH["RELEASE_AUTHORITY_POLICY.md<br/>merge/tag/publish/sync authority"]
+  HUMANGATE["HUMAN_GATE_POLICY.md<br/>human-only actions"]
+  UAT["UAT_WORKFLOW.md<br/>business acceptance gate"]
+  UATCHECK["BUSINESS_ACCEPTANCE_CHECKLIST.md<br/>Human UAT Checklist"]
+  HOTFIX["HOTFIX_AND_ROLLBACK_POLICY.md<br/>hotfix, revert, rollback to tag"]
+  DR["DISASTER_RECOVERY.md<br/>repo/GitHub/token/tag recovery"]
+  BRANCH["BRANCH_POLICY.md"]
+  WORKFLOW["WORKFLOW.md"]
+  READINESS["RELEASE_READINESS.md"]
+  NEXT["NEXT_STEPS.md"]
+
+  GENMAP["tools/gen_file_map.py"]
+  GENCLOUD["tools/gen_cloud_bundle.py"]
+  EOL["tools/generated_eol_guard.py"]
+
+  README --> MAP
+  README --> NONTECH
+  README --> ORCH
+  MAP --> MANIFEST
+  MAP --> COCKPIT
+  MAP --> HANDOFF
+  MAP --> OPDASH
+  NONTECH --> COCKPIT
+  COCKPIT --> HANDOFF
+  COCKPIT --> OPDASH
+  COCKPIT --> ROLE
+  ROLE --> AGENTONBOARD
+  ROLE --> INITIATIVE
+  INITIATIVE --> PROPOSALTPL
+  INITIATIVE --> BACKLOG
+  COCKPIT --> CONSTITUTION
+  MANIFEST --> FILEMAP
+  MANIFEST --> CLOUD
+  MANIFEST --> ENTRY
+
+  ORCH --> TASKHEADER
+  ORCH --> ORCHCHECK
+  ORCH --> TASKCONTRACT
+  ORCHCHECK --> TASKCONTRACT
+
+  ENTRY --> SELF
+  ENTRY --> MANIFEST
+  ENTRY --> ADOPT
+  ENTRY --> JOURNAL
+  TASKCONTRACT --> READY
+  JOURNAL --> FINALIZE
+  JOURNAL --> ARCHIVE
+  FINALIZE --> READY
+  POLICYINV --> POLICYCHECK
+  POLICYCHECK --> READY
+
+  ADOPT --> DETECTOR
+  ADOPT --> AGENTONBOARD
+  ADOPT --> CLOSURE
+  ADOPT --> MANIFEST
+  ADOPT --> CHECKLIST
+  CHECKLIST --> STABLE
+  STABLE --> ENTRY
+  STABLE --> ADOPTIONMATRIX
+  SOURCECONSUMERS --> PRIVREG
+  PRIVREG --> ADOPTIONMATRIX
+  INITIATIVE --> MIRLEDGER
+  MIRLEDGER --> ADOPTIONMATRIX
+  XCONSOL --> XDEPS
+  XDEPS --> STABLE
+  XDEPS --> ADOPTIONMATRIX
+
+  REVIEW --> AUTOLOOP
+  REVIEW --> SEMANTIC
+  REVIEW --> INITIATIVE
+  AUTOLOOP --> READY
+  SEMANTIC --> READY
+
+  MAP --> RELEASEAUTH
+  MAP --> ARCHIVE
+  MAP --> POLICYINV
+  MAP --> HUMANGATE
+  MAP --> UAT
+  MAP --> HOTFIX
+  MAP --> DR
+  RELEASEAUTH --> HUMANGATE
+  UAT --> UATCHECK
+  UAT --> RELEASEAUTH
+  UATCHECK --> SEMANTIC
+  HOTFIX --> RELEASEAUTH
+  HOTFIX --> HUMANGATE
+  HOTFIX --> BRANCH
+  HOTFIX --> WORKFLOW
+  DR --> HOTFIX
+  DR --> RELEASEAUTH
+  WORKFLOW --> CLOSURE
+  RELEASEAUTH --> BRANCH
+  RELEASEAUTH --> WORKFLOW
+  RELEASEAUTH --> READINESS
+  HUMANGATE --> BRANCH
+  HUMANGATE --> NEXT
+
+  MANIFEST --> GENMAP
+  MANIFEST --> GENCLOUD
+  MANIFEST --> POLICYCHECK
+  GENMAP --> FILEMAP
+  GENCLOUD --> CLOUD
+  ARCHIVE --> GENCLOUD
+  EOL --> CLOUD

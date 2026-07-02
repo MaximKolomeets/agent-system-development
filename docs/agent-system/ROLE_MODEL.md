@@ -17,6 +17,31 @@
 
 Канон role-agnostic task header (`Reasoning effort`, правила «Передача» и «Source-reminder») — `docs/agent-system/templates/TASK_HEADER_COMMON.md`.
 
+## Архитектор без обязанности программировать
+
+Архитектор проекта может не быть программистом.
+
+Его зона ответственности:
+
+- mission, success criteria и current strategic goal;
+- priority и next safe step;
+- scope boundaries: что входит в задачу и что запрещено;
+- acceptance criteria и business outcome;
+- human-only решения: merge/tag/publish/sync, rollback, finance, deletion,
+  prod-secrets, branch protection/rulesets, CI/CD и strategy direction;
+- выбор, когда нужен review, handoff или STOP.
+
+Архитектор не обязан выбирать implementation details: file layout, code style,
+library internals, shell syntax или конкретный patch strategy. Эти решения
+готовит executor внутри утвержденного scope и проверяемых gates.
+
+Полезные management-layer документы:
+
+- `NON_TECHNICAL_ARCHITECT_GUIDE.md`;
+- `ARCHITECT_COCKPIT.md`;
+- `ARCHITECT_HANDOFF_PACK.md`;
+- `docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md`.
+
 ## Orchestrator
 
 - помогает пользователю выбрать режим работы: Operational Fast Lane, Engine-блок, Task File Handoff или review-only;
@@ -34,8 +59,28 @@
 - создает или обновляет TASK/RESULT/INDEX, если задача меняет repository files или создает PR;
 - пишет final report на русском языке;
 - не расширяет scope и не придумывает недостающие PR/merge facts.
+- обязан фиксировать `## Methodology feedback` и
+  `## Unprompted Project Proposals` в RESULT/final report; если предложений нет,
+  пишет `нет`, а не удаляет разделы.
 
 Engine может быть любым tool/human executor. Замена engine не меняет роль агента.
+
+## Agent initiative
+
+Любая роль имеет право и обязанность фиксировать важные вне-scope наблюдения как
+proposal по `AGENT_INITIATIVE_PROTOCOL.md`.
+
+Правило границы:
+
+- proposal не расширяет текущий allowed scope;
+- proposal не является permission на file changes;
+- proposal не назначает implementation role напрямую;
+- proposal после sanitization уходит на architect/orchestrator triage;
+- approved proposal попадает в `BACKLOG.md` как candidate или в
+  `METHODOLOGY_IMPROVEMENT_LEDGER.md` как MIR lifecycle item.
+
+Минимальный формат proposal задаёт
+`docs/agent-system/templates/AGENT_PROPOSAL_TEMPLATE.md`.
 
 ## Границы веток и main
 
@@ -49,6 +94,8 @@ Engine может быть любым tool/human executor. Замена engine �
 - проверяет PR, branch, commit, diff или набор файлов;
 - работает review-only по умолчанию;
 - пишет findings, risks, missing tests и proposed next PRs;
+- фиксирует инициативные proposals отдельно от review blockers, если заметил
+  полезное улучшение вне текущего scope;
 - не исправляет production files, runtime, Docker, CI, dependencies или architecture docs без отдельного `fix-allowed` scope;
 - не назначает сам себе implementation task.
 
@@ -80,10 +127,12 @@ External reviewer не заменяет orchestrator и не принимает 
 
 ## solution-architect-01
 
-- архитектура;
-- декомпозиция крупных задач;
-- предложения;
-- риски;
+- определяет архитектурное **что**: boundaries, trade-offs, risks, acceptance и
+  уровень решения;
+- декомпозирует крупные задачи на безопасные slices;
+- предлагает варианты и next safe step;
+- фиксирует риски и STOP-условия;
+- может быть не программистом и не обязан выбирать implementation tactics;
 - не запускает `dev-implementer-01` напрямую.
 
 ## qa-reviewer-01
@@ -117,8 +166,8 @@ External reviewer не заменяет orchestrator и не принимает 
 - актуальность документации;
 - `CURRENT_STATE`;
 - `NEXT_STEPS`;
-- Source summaries;
-- prompts for next chat.
+- Source summaries для handoff;
+- prompts для next chat.
 
 ## infra
 
@@ -140,6 +189,9 @@ External reviewer не заменяет orchestrator и не принимает 
 
 - `code-reviewer-01`, `qa-reviewer-01` и `security-reviewer-01` не implement fixes по умолчанию.
 - Reviewer roles создают reports, findings и proposed next PRs для standalone review-only задач.
+- Reviewer roles обязаны отделять текущие blockers/findings от инициативных
+  proposals: blockers проверяют review object, proposals уходят через
+  `AGENT_INITIATIVE_PROTOCOL.md` в backlog/MIR triage.
 - Review-задачи всегда журналируют TASK/RESULT/INDEX и открывают docs-only PR с journal artifacts (`Journal trace: always`).
 - Findings из standalone review-only задач выполняет `dev-implementer-01` или другая явно назначенная implementation role в отдельной задаче, ветке и PR.
 - Review feedback по активному work PR исправляет engine в той же task branch; reviewer не создает отдельный PR для feedback без явного решения пользователя.

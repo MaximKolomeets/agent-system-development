@@ -4,9 +4,9 @@ AUTO-GENERATED — не править руками; регенерироват�
 
 ## Freshness
 
-- asof: `2026-06-29T22:07:09+07:00`
-- developer_head_sha: `4cf386919f96a52747367249ea9c2e4ad64fede9`
-- file_count_including_readme: `21`
+- asof: `2026-07-02T23:58:18+07:00`
+- developer_head_sha: `da6e6a27a7b8c2129fca8304e133ac2bfe958d4c`
+- file_count_including_readme: `26`
 
 ## Контракт
 
@@ -14,6 +14,7 @@ AUTO-GENERATED — не править руками; регенерироват�
 - Все файлы бандла имеют расширение `.md`, чтобы проходить upload-ограничения cloud-оркестратора.
 - Нумерация задаёт приоритет: при лимите ниже полного бандла загружать первые N файлов по имени.
 - Non-md источники завернуты в fenced-блок с языком исходного формата.
+- Архивные journal epochs (`engine-journal/archive/**`) не входят в context bundle; использовать active `INDEX.md` summary и archive links.
 - Проверка drift: `python docs/agent-system/tools/gen_cloud_bundle.py --check`.
 
 ## Приоритетная карта
@@ -41,6 +42,11 @@ AUTO-GENERATED — не править руками; регенерироват�
 | `18` | `18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `source` |
 | `19` | `19_STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `source` |
 | `20` | `20_LANGUAGE_POLICY.md` | `docs/agent-system/LANGUAGE_POLICY.md` | `source` |
+| `21` | `21_TIME_ACCOUNTING_POLICY.md` | `docs/agent-system/TIME_ACCOUNTING_POLICY.md` | `source` |
+| `22` | `22_COST_TRACKING_POLICY.md` | `docs/agent-system/COST_TRACKING_POLICY.md` | `source` |
+| `23` | `23_METRICS.md` | `docs/agent-system/METRICS.md` | `source` |
+| `24` | `24_METHODOLOGY_MAP.md` | `docs/agent-system/METHODOLOGY_MAP.md` | `source` |
+| `25` | `25_POLICY_INVARIANTS.md` | `docs/agent-system/POLICY_INVARIANTS.md` | `source` |
 
 ## Частичная загрузка
 

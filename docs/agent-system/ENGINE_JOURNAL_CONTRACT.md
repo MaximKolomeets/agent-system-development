@@ -4,11 +4,14 @@
 
 Engine journal фиксирует воспроизводимый журнал задач для `engine` и ответов `engine`.
 
-Английский alias: reproducible engine journal.
+Английский alias для внешних ссылок: `reproducible engine journal`.
 
-Цель журнала - сделать историю проекта восстановимой по GitHub files: кто сформулировал задачу, какой `engine` ее выполнил, какая ветка и Pull Request получились, какие проверки были выполнены и какой следующий шаг рекомендован.
+Цель журнала — сделать историю проекта восстановимой по GitHub files: кто
+сформулировал задачу, какой `engine` ее выполнил, какая ветка и Pull Request
+получились, какие проверки были выполнены и какой следующий шаг рекомендован.
 
-Engine journal не заменяет Git history, Pull Request, commits или docs-maintainer reports. Он связывает их в одну читаемую цепочку:
+Engine journal не заменяет Git history, Pull Request, commits или
+docs-maintainer reports. Он связывает их в одну читаемую цепочку:
 
 ```text
 task file -> result file -> branch -> Pull Request -> commit/result
@@ -28,30 +31,36 @@ docs/agent-system/engine-journal/
 docs/agent-system/engine-journal/
   README.md
   INDEX.md
+  archive/
   input/
   output/
   templates/
 ```
 
-## Область template repository
+## Область methodology repository и target transfer
 
-`agent-system-development` is a reusable methodology/template repository.
+`agent-system-development` является reusable methodology/template repository, но
+его собственный journal имеет два разных режима.
 
-In this repository, `docs/agent-system/engine-journal/` contains only scaffold,
-contract, index, README, and reusable templates. The `input/` and `output/`
-folders are intentionally empty except `.gitkeep`.
+**Target transfer mode (`journal_transfer_mode: scaffold_only`)**: в target
+repository переносится только scaffold journal — `README.md`, структура папок,
+шаблоны `templates/**` и пустой/target-specific `INDEX.md` с тем же форматом
+таблицы. Operational rows, TASK/RESULT files, PR facts и local closure history из
+methodology repository не копируются verbatim.
 
-Real task/result files создаются в target repositories после adoption. Не
-сохранять реальную TASK/RESULT history разработки methodology в этом template
-repository и не копировать methodology operational history в target
-repositories.
+**Methodology operation mode**: когда задача меняет сам
+`agent-system-development` и engine journal явно входит в allowed files/scope,
+repository может хранить собственные TASK/RESULT/INDEX entries для
+methodology-hardening, release-prep, state-refresh, review-gate и closure tasks.
+Такая история является non-transferable operational history: она публична,
+append-only, Russian-first, не содержит private downstream data/secrets и не
+становится source/template для target repositories.
 
-Исключение: если пользователь явно назначил methodology-hardening задачу для
-самого `agent-system-development` и включил engine journal в allowed files/scope,
-эта задача может создать собственные TASK/RESULT/INDEX entries в этом
-repository. Такие entries не являются transferable template state и не должны
-копироваться в target repositories. Ветка, PR, RESULT и INDEX все равно должны
-быть Russian-first, append-only и финализированы после PR creation.
+Reviewer не должен требовать пустые `input/` и `output/` в самом
+`agent-system-development`, если существующие entries относятся к
+methodology-hardening или release/state/review lifecycle этой methodology.
+Правильная проверка — не пустота папок, а допустимый scope записей, отсутствие
+private/secrets, Russian-first и запрет копирования operational rows в target.
 
 ## Вход и выход
 
@@ -61,7 +70,8 @@ repository. Такие entries не являются transferable template state
 
 `templates/` содержит reusable templates для task/result files.
 
-Task file и result file должны иметь одинаковый sequence number и task id, чтобы их можно было сопоставить без внешнего контекста.
+Task file и result file должны иметь одинаковый sequence number и task id, чтобы
+их можно было сопоставить без внешнего контекста.
 
 ## Политика Russian-first journal
 
@@ -110,6 +120,34 @@ Task/result files нельзя удалять, перезаписывать ил
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
+## Journal Epoch и архивирование
+
+Канон архивирования — `docs/agent-system/JOURNAL_ARCHIVING_POLICY.md`.
+
+`Journal Epoch` — release-boundary интервал журнала, закрытый release
+`vX.Y.Z`. После release, tag, sync и batch closure старые finalized RESULT могут
+быть перемещены отдельным post-release archive PR:
+
+```text
+docs/agent-system/engine-journal/output/RESULT-....
+docs/agent-system/engine-journal/archive/vX.Y.Z/RESULT-....
+```
+
+Это controlled exception к active journal surface, а не удаление истории:
+
+- перенос выполняется только через `git mv`;
+- archive RESULT остаются tracked files и доступны через GitHub;
+- active `INDEX.md` оставляет epoch summary и ссылки на
+  `engine-journal/archive/vX.Y.Z/INDEX.md`;
+- open, ready-for-review, closure-pending, blocked или STOP RESULT не
+  архивируются;
+- archive files не входят в `orchestrator_context_bundle` и не генерируются в
+  `docs/agent-system/cloud/**`.
+
+Фактическое архивирование старых RESULT не выполняется обычным feature PR. Оно
+делается отдельным post-release archive PR, когда release boundary известен и
+архитектор подтвердил, что active journal стал слишком тяжелым для контекста.
+
 ## Режим Task File Handoff
 
 TASK file может быть создан до выполнения как отдельный task-file-only commit в target repository.
@@ -151,15 +189,23 @@ Engine journal хранится в GitHub и считается публичны
 - client/customer data;
 - production/runtime data;
 - secret values;
-- logs with sensitive values.
+- logs с sensitive values.
 
-Sensitive checks в journal result должны фиксировать только безопасный summary. Matching lines и secret values нельзя копировать в journal.
+Sensitive checks в journal result должны фиксировать только безопасный summary:
+filenames, counts, categories и status. Matching lines, secret values, headers,
+cookies, credentials и другие values нельзя копировать в journal.
 
 ## Adoption target repository
 
 При adoption target repository должен получить собственный `docs/agent-system/engine-journal/`.
 
 Target repository journal хранит project-specific task/result history внутри target repository, а не в public methodology repository.
+
+Target adoption использует `journal_transfer_mode: scaffold_only`: переносит
+структуру, README, templates и формат `INDEX.md`, но не переносит operational
+rows, TASK/RESULT files или archive epochs из methodology repository. Если target
+уже содержит свой journal, adoption/update сохраняет target-specific history и
+не затирает её историей source methodology.
 
 Первый adoption/audit PR должен создавать или обновлять:
 
@@ -171,7 +217,9 @@ Target repository journal хранит project-specific task/result history вн
 - task file для первой engine-задачи;
 - result file для ответа engine.
 
-Если первый шаг adoption остается `audit-only`, task/result files допускаются как journal artifacts рядом с `docs/agent-system/ADOPTION_AUDIT.md`, потому что они описывают выполнение audit, а не переносят full methodology state.
+Если первый шаг adoption остается `audit-only`, task/result files допускаются
+как journal artifacts рядом с `docs/agent-system/ADOPTION_AUDIT.md`, потому что
+они описывают выполнение audit, а не переносят full methodology state.
 
 Adoption переносит только scaffold/templates и формат `INDEX.md`. Первая target
 adoption/audit task создает target-specific task/result files и target-specific
@@ -183,6 +231,9 @@ adoption/audit task создает target-specific task/result files и target-s
 repository.
 
 Methodology repository operational history не переносится.
+
+Archive epochs methodology repository не переносится. Target repository создает
+собственные archive epochs только по своей target-specific истории.
 
 ## Обязательные ссылки
 
@@ -203,6 +254,33 @@ Methodology repository operational history не переносится.
 - риски;
 - следующий рекомендуемый шаг.
 
+## Обязательные feedback-разделы RESULT
+
+Новый finalized RESULT обязан содержать два раздела:
+
+```text
+## Methodology feedback
+## Unprompted Project Proposals
+```
+
+Правила:
+
+- если feedback или proposals отсутствуют, раздел остается в RESULT со значением
+  `нет`;
+- `Methodology feedback` фиксирует, что улучшить в методологии по итогам
+  выполнения задачи;
+- `Unprompted Project Proposals` фиксирует вне-scope идеи, риски или улучшения,
+  которые нельзя выполнять внутри текущей задачи без отдельного allowed scope;
+- предложения оформляются по `AGENT_INITIATIVE_PROTOCOL.md` и, при необходимости,
+  по `templates/AGENT_PROPOSAL_TEMPLATE.md`;
+- предложения из target repository перед переносом в public methodology
+  repository проходят sanitization по `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`;
+- proposal не является approval на implementation и попадает в `BACKLOG.md` или
+  `METHODOLOGY_IMPROVEMENT_LEDGER.md` только после architect/orchestrator triage.
+
+Ready-gate проверяет наличие этих разделов в новых RESULT. Legacy RESULT до H12
+не ретрофитятся и остаются historical/advisory.
+
 ### Head SHA без self-reference loop
 
 В finalized RESULT поля `head_sha`, `reviewed_head_sha` и `final_head_sha` допустимы только когда в них записан точный SHA, а не текстовое обещание дописать значение. Если final PR head SHA меняется самим follow-up commit и не может быть встроен в этот же commit, RESULT использует явную source/policy-семантику:
@@ -216,22 +294,34 @@ Methodology repository operational history не переносится.
 
 ## Execution timestamps
 
-Новые TASK/RESULT записи фиксируют execution-время по модели `measured/reported`:
+Новые TASK/RESULT записи фиксируют execution-время и cost accounting по модели
+`measured/reported/mixed`:
 
 - `measured/engine` — значения, которые engine фиксирует автоматически или надежно по факту собственного запуска;
-- `reported/human` — значения, которые сообщает человек или оркестратор; они опциональны и могут оставаться пустыми.
+- `reported/human` — значения, которые сообщает человек или оркестратор;
+- `mixed` — часть значений измерена, часть сообщена человеком.
 
 TASK должен содержать:
 
 - `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`.
+- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`;
+- `actor_type`, `role`, `time_source`, `time_report_confidence` для будущего
+  RESULT, если задача создаёт или меняет journal artifacts.
 
 RESULT должен содержать:
 
-- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Время окончания выполнения (execution_finished_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Длительность выполнения (execution_duration) [measured/engine, опционально]`;
-- `Время человека, по факту (human_time_reported) [reported/human, опционально]`.
+- `execution_started_at` в формате ISO 8601 с timezone;
+- `execution_finished_at` в формате ISO 8601 с timezone;
+- `execution_duration`, вычисленный из start/finish;
+- `time_spent` в коротком формате для rollup (`45m`, `2.5h`, `PT2H30M`);
+- `actor_type` (`human`, `agent`, `hybrid`);
+- `role`;
+- `time_source` (`measured`, `reported`, `mixed`);
+- `time_report_confidence` (`high`, `medium`, `low`);
+- `human_time_reported` (`duration` или `not_applicable`);
+- cost-поля по `docs/agent-system/COST_TRACKING_POLICY.md`:
+  `input_tokens`, `output_tokens`, `ai_cost_estimate`,
+  `human_cost_estimate`, `total_task_cost`, `resource_cost`.
 
 Дисциплина фиксации времени:
 
@@ -247,9 +337,17 @@ RESULT должен содержать:
   выглядит нереалистично короткой для задачи с содержательным diff, reviewer или
   ready-gate фиксирует advisory finding `unreliable execution timing`.
 
-Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution-полями. Merge-время не дублируется в execution-полях. Для ordinary PR source of truth по `merged_at` и merge commit SHA — GitHub PR metadata; closure-stamp в `RESULT` добавляется только при boundary reconciliation или explicit architect request по разделу «GitHub merge facts authority».
+Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution/accounting-полями. Merge-время не дублируется в execution-полях. Для ordinary PR source of truth по `merged_at` и merge commit SHA — GitHub PR metadata; closure-stamp в `RESULT` добавляется только при boundary reconciliation или explicit architect request по разделу «GitHub merge facts authority».
 
-Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
+Правило не ретрофитится в append-only history: старые TASK/RESULT без
+execution/accounting-полей не переписываются. Для новых finalized RESULT
+отсутствие required accounting fields является blocker. Для legacy RESULT до H3
+это advisory. Если `actor_type` равен `human` или `hybrid`, отсутствие
+`human_time_reported` является blocker, кроме STOP/failure с заполненным
+`time_report_missing_reason`.
+
+`INDEX.md` содержит колонку `Time`: новые строки заполняют её из `time_spent`,
+legacy-строки используют `legacy/advisory`.
 
 `execution_finished_at` является единственным каноническим именем measured-поля окончания выполнения. Вариант имени, образованный как `execution_` + `completed_at`, не является допустимым alias для новых записей; если он появляется в новой finalized TASK/RESULT вместо `execution_finished_at`, reviewer фиксирует minor finding. Старые append-only записи с таким drift-именем остаются историей и не ретрофитятся.
 
@@ -370,7 +468,7 @@ Accepted terminal fold допустим только для lifecycle-only entri
 - Ordinary substantive entries завершаются на ordinary terminal state; closure-stamp с merge facts нужен только при boundary reconciliation или explicit architect request.
 - Если terminal-запись содержит содержательные незакрытые изменения source docs/templates/canons, она не может быть silently accepted и закрывается обычным closure-проходом.
 
-Search aliases for checks: `PR URL authoritative`; `not a blocker`; `do not create closure solely`.
+Search aliases для checks: `PR URL authoritative`; `not a blocker`; `do not create closure solely`.
 
 Канонический status в `INDEX`:
 
@@ -419,7 +517,7 @@ Closure-stamp в `RESULT-<seq>` является append-only snapshot тольк
 - final status (`merged; RESULT closed after merge`, `closed`, `closed-at-creation` или другой статус по lifecycle записи);
 - PR number/URL;
 - optional short mergedAt date, если это помогает навигации;
-- safe one-line summary.
+- safe one-line summary на русском языке.
 
 `INDEX.md` не является источником полного `mergeCommit` и не должен дублировать полный merge commit SHA. Reviewer сверяет merge facts по GitHub PR metadata; если выполнялся обязательный boundary/explicit closure-pass, дополнительно сверяет `RESULT` closure-stamp и GitHub/local git, но не требует `mergeCommit` в `INDEX`.
 
@@ -497,10 +595,18 @@ Reviewer подтверждает:
 Для `agent-system-development` reviewer должен проверить, что:
 
 - engine journal scaffold, templates, README и contract присутствуют;
-- `input/` and `output/` are intentionally empty except `.gitkeep`;
-- `INDEX.md` объясняет, что entries заполняются target repositories;
-- real TASK/RESULT operational history не хранится в template repository;
-- private downstream data, credentials, tokens или private repository URLs не добавлены.
+- `ADOPTION_TRANSFER_MANIFEST.yml` фиксирует `journal_transfer_mode: scaffold_only`;
+- существующие operational rows/TASK/RESULT относятся к methodology-hardening,
+  release/state/review lifecycle самой methodology, а не к private downstream
+  project history;
+- operational rows/TASK/RESULT не содержат private downstream data, credentials,
+  tokens, secret values или private repository URLs;
+- TASK/RESULT/INDEX являются Russian-first, кроме technical identifiers и literal
+  external names;
+- reviewer не требует пустые `input/`/`output/` в methodology repository только
+  из-за наличия легитимной non-transferable history;
+- target adoption/update не копирует operational rows или TASK/RESULT files
+  methodology repository verbatim.
 
 ### Проверка target repository
 
@@ -512,7 +618,17 @@ Reviewer подтверждает:
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
-- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `execution_started_at` фиксируется до содержательной работы и переносится из TASK в RESULT без перезаписи; равные start/finish или нереалистично короткая длительность при содержательном diff являются advisory finding `unreliable execution timing`. `reported/human` поля опциональны и не проверяются как обязательные;
+- новые finalized RESULT содержат required accounting fields по
+  `TIME_ACCOUNTING_POLICY.md` и `COST_TRACKING_POLICY.md`: `execution_*`,
+  `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence`, `human_time_reported`, token/cost fields и
+  `resource_cost`; отсутствие этих полей в новом RESULT является blocker,
+  legacy-записи остаются advisory; равные start/finish или нереалистично
+  короткая длительность при содержательном diff остаются advisory finding
+  `unreliable execution timing`;
+- новые finalized RESULT содержат `## Methodology feedback` и
+  `## Unprompted Project Proposals`; отсутствие разделов является blocker, а
+  значение `нет` допустимо;
 - новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;

@@ -10,6 +10,12 @@ Prose остаётся обязательным для человека: цел�
 
 Для file-changing задач prose и checks должны ссылаться на `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: task ready только при Definition of Ready, проверяемых acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass policy. Missing acceptance criteria является STOP, кроме простых консультационных задач без write-action.
 
+Для file-changing задач prose/RESULT должны ссылаться на
+`docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+`docs/agent-system/COST_TRACKING_POLICY.md`: новые finalized RESULT без required
+time/cost fields являются blocker; legacy RESULT без этих полей остаются
+advisory.
+
 Для target adoption/source-update задач prose и checks должны ссылаться на `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`: сначала определить Variant A/B/C или STOP, затем формировать allowed next task. Dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific journal/history/state являются STOP.
 
 ## Формат
@@ -34,9 +40,16 @@ task_contract:
   methodology_reference:
     repository_full_name: MaximKolomeets/agent-system-development
     local_path: C:\neural\repos\agent-system-development
-    ref: origin/main
+    source_ref: origin/main
     stable_only: true
     source_commit: <origin/main commit sha>
+    reference_type: stable_branch_head
+    checked_at: <ISO-8601 timestamp>
+
+  methodology_development_base:
+    base_branch: developer
+    working_branch: work/<role>/<task-id>
+    base_commit: <origin/developer commit sha>
     checked_at: <ISO-8601 timestamp>
 
   scope:
@@ -68,6 +81,7 @@ task_contract:
   checks:
     required:
       - python docs/agent-system/tools/check_task_ready.py --base origin/developer
+      - python docs/agent-system/tools/validate_policy_invariants.py
       - python docs/agent-system/tools/gen_file_map.py --check
       - python docs/agent-system/tools/gen_cloud_bundle.py --check
       - git diff --check origin/developer...HEAD
@@ -179,7 +193,7 @@ policies:
 - `english_allowed`
 - `task_defined`
 
-`methodology_reference.ref` для downstream/adoption задач:
+`methodology_reference.source_ref` для downstream/adoption задач:
 
 - `origin/main`
 - `main`
@@ -187,6 +201,20 @@ policies:
 - `published_source_snapshot`, если архитектор явно указал snapshot.
 
 `developer`, `origin/developer`, `work/*` и open PR branches не являются stable methodology reference для downstream/adoption задач.
+
+`methodology_reference.reference_type`:
+
+- `stable_branch_head`
+- `stable_release_tag`
+- `published_source_snapshot`
+- `stable_release_commit`
+- `methodology_development`
+
+Для задач, которые меняют сам methodology repository, использовать
+`methodology_reference.stable_only: false` и отдельный блок
+`methodology_development_base` с `base_branch: developer`, `working_branch`,
+`base_commit` и `checked_at`. Этот блок описывает execution base, а не stable
+source для target/downstream adoption.
 
 ## Policy checks
 
@@ -199,12 +227,20 @@ policies:
 - `scope.forbidden_files` должен включать `.env` или `.env.*`;
 - `policies.merge` для substantive/write-action задач должен быть `human_only`;
 - `checks.required` должен включать `python docs/agent-system/tools/check_task_ready.py --base origin/developer` или явное объяснение в prose, почему ready-gate не применим.
+- Для задач, меняющих policy/manifest/source inventory, `checks.required` должен
+  включать `python docs/agent-system/tools/validate_policy_invariants.py` или
+  фиксировать, что проверка покрыта `check_task_ready.py`.
 - Для docs/journal/templates/tooling задач prose или TASK должен требовать semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`.
+- Для docs/journal/templates/tooling задач prose или TASK должен требовать
+  accounting fields по `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+  `docs/agent-system/COST_TRACKING_POLICY.md`, если задача создаёт finalized
+  RESULT.
 - Acceptance/spec tasks должны ссылаться на `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
 - Journal-finalization tasks должны ссылаться на `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
 - `policies.language` для новых Russian-first задач должен быть `russian_first`;
-- если `methodology_reference.stable_only: true`, `methodology_reference.ref` должен быть `origin/main`, `main`, явно указанным release tag или `published_source_snapshot`;
-- если `methodology_reference.stable_only: true`, должны быть заполнены `source_commit` и `checked_at`;
+- если `methodology_reference.stable_only: true`, `methodology_reference.source_ref` должен быть `origin/main`, `main`, явно указанным release tag или `published_source_snapshot`;
+- если `methodology_reference.stable_only: true`, должны быть заполнены `source_commit`, `reference_type` и `checked_at`;
+- legacy alias `methodology_reference.ref` допускается только для старых task files; новые TASK должны использовать `source_ref`;
 - `methodology_reference.stable_only: false` допустим для задач, которые меняют сам methodology repository, но не для downstream/adoption задач без явного решения архитектора.
 
 ## Validator

@@ -23,6 +23,7 @@ Repository visibility: public.
 - Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, blockers имеют IDs/classes/verification commands, machine-only blockers закрываются machine-check closure, semantic/mixed blockers требуют minimal re-review, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
 - Quality-first workflow закреплён как pre-PR gate: новые file-changing задачи должны иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review before PR, PR body quality check и blocker-ID based fix-pass по `QUALITY_FIRST_WORKFLOW.md`.
 - Lightweight task readiness gate добавлен как read-only tooling: `docs/agent-system/tools/check_task_ready.py` агрегирует branch guard, changed files summary, `git diff --check`, commit metadata check, ID reference integrity check, superseded banner advisory check, execution timing advisory check, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan перед push/PR/fix-pass/review-comment. Для release boundary `developer -> origin/main` доступен явный opt-in `--release-boundary`, который снимает только work-branch/protected-branch blockers и сохраняет forbidden paths, sensitive filenames, strict secret scan, deferred placeholder scan, diff checks, ID reference integrity check, superseded banner advisory check, execution timing advisory check и generated checks.
+- Policy-invariants self-test закреплён как часть ready-gate: `POLICY_INVARIANTS.md` задаёт сквозные invariants release/tag authority, branch model, time accounting, source reference, privacy и target adoption; `docs/agent-system/tools/validate_policy_invariants.py` проверяет markers, manifest source/template/generated paths и local Markdown links, не печатая matching lines или values.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
@@ -50,24 +51,35 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. `origin/main`
-указывает на `170ec8e23981f7a379db843ea67314b5cb47ef7c`; latest tag `v1.5.0`.
-`origin/developer` указывает на `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
-MIR-11, MIR-10, MIR-12, MIR-13 и MIR-14 смержены в `developer` через PR #298-#302.
-Release-prep `v1.5.1` обновляет `RELEASE_READINESS.md`, state docs, journal
-boundary reconciliation для 0132-0136, новую row 0137 и generated cloud bundle.
-Target repositories не читались и не менялись; private downstream details,
-runtime, Docker, CI, branch protection, release/tag/merge в этой задаче не
-выполнялись.
+Текущий фокус: release-prep `v1.5.2` после выполнения hardening series PR-1..15
+/ H1..H16 и merge batch-closure PR #322. Release-prep готовит evidence и
+state-refresh для будущего release PR `developer -> main`, но не выполняет
+human-only release action.
+
+`origin/main` указывает на release merge commit
+`2467edd8488a51d74483e8095e4887c0f512dfcd`; annotated tag `v1.5.1` указывает на
+тот же commit. `origin/developer` указывает на кандидатный release-prep boundary
+commit после merge PR #322: `97e874883afbe3ac38ccd815d48f63ca964c5737`.
+Latest release tag: `v1.5.1`; next planned tag: `v1.5.2`.
+
+Серия hardening PR для релиза `v1.5.2` по H1-H16 выполнена и включена в
+release payload: PR #306-#309 и #311-#321. До публикации `v1.5.2`
+downstream/source-update задачи используют stable pointer `origin/main` / tag
+`v1.5.1`, а не `developer` или `work/*`.
+
+Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
+`2026-07-03T00:42:55+07:00` через GitHub Rulesets API. `Protect main` и
+`Protect developer` active; deletion и non-fast-forward запрещены, pull request
+rule включён, required status checks в ruleset не заданы.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: release-prep `v1.5.1`. Содержательный payload после `v1.5.0`
-включает configurable commit-message scopes, release-boundary hardening,
-ID-reference integrity gate, superseded banner standard и execution timing
-discipline. После merge release-prep PR следующим шагом является release PR
-`developer -> main`, annotated tag `v1.5.1` on release merge commit и sync
-`main -> developer`.
+Текущий этап: release-prep `v1.5.2`. Содержательный payload после `v1.5.1`
+включает P1 hardening (state/journal/time/source/navigation/release authority/UAT/
+rollback), P2 management lifecycle (safe-scan lint, management layer, private
+control plane, MIR ledger, policy invariants, agent initiative, journal archive)
+и cross-project lifecycle guidance. Следующий шаг после merge этого release-prep
+PR: human-controlled release PR `developer -> main` для `v1.5.2`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

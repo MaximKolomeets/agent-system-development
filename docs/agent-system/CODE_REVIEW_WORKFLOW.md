@@ -74,6 +74,37 @@ Review-задачи различают два независимых понят�
 
 `Journal trace: always` совместима с режимами `review-only`, `docs-only` и `fix-allowed`: в `review-only` PR содержит только journal artefacts; в `docs-only` дополнительно может содержать report-файл; в `fix-allowed` — также явно разрешённые правки.
 
+### Journal history scope check
+
+Если reviewer проверяет `agent-system-development`, наличие operational rows и
+TASK/RESULT files в `docs/agent-system/engine-journal/` не является blocker само
+по себе. Reviewer проверяет, что эта история относится к methodology-hardening,
+release/state/review lifecycle самой methodology, является Russian-first, не
+содержит private downstream data/secrets и не переносится verbatim в target
+repositories.
+
+Если reviewer проверяет target adoption/source-update, он должен подтвердить, что
+target получает `journal_transfer_mode: scaffold_only`: scaffold, templates и
+формат `INDEX.md`, но не operational rows или TASK/RESULT history source
+methodology repository.
+
+### Time and cost accounting check
+
+Reviewer проверяет новые finalized RESULT по
+`docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+`docs/agent-system/COST_TRACKING_POLICY.md`:
+
+- `execution_started_at`, `execution_finished_at`, `execution_duration`,
+  `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence` заполнены;
+- `human_time_reported` заполнен, если `actor_type` равен `human` или `hybrid`;
+- token/cost fields присутствуют: `input_tokens`, `output_tokens`,
+  `ai_cost_estimate`, `human_cost_estimate`, `total_task_cost`,
+  `resource_cost`;
+- `INDEX.md` содержит колонку `Time`, а новая строка task содержит краткое
+  значение времени;
+- legacy RESULT до H3 без accounting fields являются advisory, не blocker.
+
 ## Режимы review task
 
 Каждая review task должна явно указать один режим:
@@ -209,6 +240,9 @@ Review-only PR может содержать только files, явно раз
 - selected branch model указан;
 - base branch определен;
 - working tree clean или пользователь явно разрешил работать с текущими изменениями;
+- если scope включает engine journal, применён journal history scope check:
+  methodology operational history не копируется в target repository, а target
+  journal остаётся target-specific;
 - forbidden tracked paths отсутствуют;
 - sensitive grep выполняется filename-only;
 - `.env` не читается.
