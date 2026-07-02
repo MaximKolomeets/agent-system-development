@@ -43,16 +43,43 @@ Vendor/tool name не является role name. Если задача упом
 ```yaml
 methodology_reference:
   repository: MaximKolomeets/agent-system-development
-  source_branch: developer
+  source_ref: origin/main
   source_commit: <commit-sha>
   source_tag: <optional annotated tag on source_commit>
   release_tag: <optional release tag>
   checked_at: <ISO-8601 timestamp>
-  reference_type: commit
+  reference_type: stable_branch_head
   notes: <short Russian note>
 ```
 
+`source_ref` — stable pointer, который указывает на `origin/main` / `main`,
+release tag или `published_source_snapshot`. `developer`, `origin/developer`,
+`work/*`, dirty local tree и open methodology PR branch не являются stable
+`source_ref` для target/downstream задач.
+
+`reference_type` уточняет тип ссылки:
+
+- `stable_branch_head` — `source_ref: origin/main` или `main`;
+- `stable_release_tag` — `source_ref` равен release tag;
+- `published_source_snapshot` — используется опубликованный Source/cloud snapshot;
+- `stable_release_commit` — архитектор явно зафиксировал stable release commit
+  как reference boundary.
+
 `source_commit` является обязательным reproducibility anchor. Для reproducibility текущим обязательным reference является commit SHA. `source_tag` и `release_tag` являются опциональными human-readable pointers рядом с commit SHA; они не заменяют обязательный `source_commit` как reproducibility anchor. Если tag отсутствует, эти поля можно опустить или оставить пустыми; это не finding.
+
+Если задача меняет сам methodology repository, stable `methodology_reference` не
+заменяет рабочую базу задачи. Для таких задач использовать отдельный блок:
+
+```yaml
+methodology_development_base:
+  base_branch: developer
+  working_branch: work/<role>/<task-id>
+  base_commit: <origin/developer commit sha>
+  checked_at: <ISO-8601 timestamp>
+```
+
+`methodology_development_base` нельзя переносить в target/downstream adoption как
+stable source. Это только execution base для задач по самой методологии.
 
 Машиночитаемая копия схемы находится в `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` → `methodology_reference_schema` и должна сохранять ту же обязательность `source_commit` и опциональность tag-полей.
 

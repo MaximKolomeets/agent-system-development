@@ -112,7 +112,8 @@
 ## Свежесть методологии
 
 - [ ] Оркестратор проверил stable methodology reference перед подготовкой engine task: `origin/main` / `main`, release tag или явно заданный snapshot.
-- [ ] `methodology_reference` содержит `ref`, `stable_only: true`, `source_commit` и `checked_at`.
+- [ ] `methodology_reference` содержит `source_ref`, `stable_only: true`,
+  `source_commit`, `reference_type` и `checked_at`.
 - [ ] Исполнитель (engine) не использовал `developer`, `work/*`, dirty local methodology tree или open methodology PR branch как source of truth для downstream.
 - [ ] Для чтения methodology repository не выполнялись `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository.
 - [ ] If stable reference check was impossible, the limitation is stated in the report and task stopped before source substitution.

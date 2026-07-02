@@ -45,19 +45,35 @@ Dirty `agent-system-development/developer`, dirty `work/*` или open methodolo
 
 ## task_contract
 
-В downstream/adoption задачах `task_contract` должен фиксировать stable reference:
+В downstream/adoption задачах `task_contract` должен фиксировать stable
+reference через `source_ref`:
 
 ```yaml
 methodology_reference:
   repository_full_name: MaximKolomeets/agent-system-development
   local_path: C:\neural\repos\agent-system-development
-  ref: origin/main
+  source_ref: origin/main
   stable_only: true
   source_commit: <origin/main commit sha или release tag commit sha>
+  reference_type: stable_branch_head
   checked_at: <ISO-8601 timestamp>
 ```
 
-Для задач, которые меняют сам methodology repository, допустимо `stable_only: false`, потому что source of truth такой задачи - указанная рабочая ветка от `developer`. Этот режим нельзя переносить в downstream task без явного решения архитектора.
+Для задач, которые меняют сам methodology repository, допустимо
+`stable_only: false`, потому что source of truth такой задачи - указанная
+рабочая ветка от `developer`. Рабочую базу таких задач нужно фиксировать
+отдельно:
+
+```yaml
+methodology_development_base:
+  base_branch: developer
+  working_branch: work/<role>/<task-id>
+  base_commit: <origin/developer commit sha>
+  checked_at: <ISO-8601 timestamp>
+```
+
+`methodology_development_base` нельзя переносить в downstream task как stable
+source без явного решения архитектора.
 
 ## Release visibility
 
@@ -69,9 +85,11 @@ Reviewer классифицирует как blocker:
 
 - downstream TASK/RESULT/adoption artifact использует `developer` или `work/*` как stable methodology reference без явного исключения;
 - downstream task требует `git switch/pull/checkout/reset/clean/stash` в methodology repository для чтения методологии;
-- `methodology_reference.stable_only: true`, но `ref` не является `origin/main`, `main`, явным release tag или явно указанным snapshot.
+- `methodology_reference.stable_only: true`, но `source_ref` не является
+  `origin/main`, `main`, явным release tag или `published_source_snapshot`.
 
 Reviewer классифицирует как minor finding:
 
 - stable reference корректен, но `source_commit` или `checked_at` оформлены неполно в неготовом draft artifact;
-- текст использует старое поле `source_branch`, но значение фактически указывает на `origin/main` и не меняет поведение.
+- текст использует старое поле `source_branch` или legacy alias `ref`, но
+  значение фактически указывает на `origin/main` и не меняет поведение.

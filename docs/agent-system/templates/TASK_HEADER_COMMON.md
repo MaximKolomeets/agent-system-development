@@ -51,9 +51,16 @@ task_contract:
   methodology_reference:
     repository_full_name: MaximKolomeets/agent-system-development
     local_path: C:\neural\repos\agent-system-development
-    ref: origin/main
+    source_ref: origin/main
     stable_only: true
     source_commit: <origin/main commit sha>
+    reference_type: stable_branch_head
+    checked_at: <ISO-8601 timestamp>
+
+  methodology_development_base:
+    base_branch: developer
+    working_branch: work/<role>/<task-id>
+    base_commit: <origin/developer commit sha>
     checked_at: <ISO-8601 timestamp>
   scope:
     allowed_files:
@@ -124,7 +131,12 @@ journal(agent-system): финализировать записи <seq> посл�
 
 ## Stable methodology reference
 
-Для target/downstream/adoption задач `methodology_reference` указывает на stable methodology source: `origin/main` / `main`, release tag или явно заданный published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для downstream. Dirty `agent-system-development/developer` или `work/*` не блокирует target task, если stable reference доступен и читается. Канон: `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`.
+Для target/downstream/adoption задач `methodology_reference.source_ref` указывает на stable methodology source: `origin/main` / `main`, release tag или явно заданный published Source/cloud snapshot. `developer`, `work/*`, dirty local methodology tree и open methodology PR branch не используются как source of truth для downstream. Dirty `agent-system-development/developer` или `work/*` не блокирует target task, если stable reference доступен и читается. Канон: `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md`.
+
+Для задач, которые меняют сам methodology repository, использовать отдельный
+`methodology_development_base` (`base_branch: developer`, `working_branch`,
+`base_commit`, `checked_at`). Не переносить этот блок в target/downstream как
+stable source.
 
 Перед target adoption/source-update задачей определить Variant A/B/C или STOP по `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`; detector не читает private data и не разрешает overwrite target-specific journal/history/state.
 

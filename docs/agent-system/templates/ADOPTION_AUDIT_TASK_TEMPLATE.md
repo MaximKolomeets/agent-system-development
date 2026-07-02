@@ -29,7 +29,7 @@ Reasoning effort: <низкий | средний | высокий>
 - Repository:
 - Local path, если применимо:
 - Methodology repository:
-- Methodology source branch:
+- Methodology source_ref:
 - Methodology source commit:
 - Methodology checked at:
 - Repository lifecycle mode:
@@ -95,10 +95,10 @@ Reasoning effort: <низкий | средний | высокий>
 ```yaml
 methodology_reference:
   repository: MaximKolomeets/agent-system-development
-  source_branch: <developer или явно заданная branch>
+  source_ref: <origin/main | release tag | published_source_snapshot>
   source_commit: <commit-sha>
   checked_at: <ISO-8601 timestamp>
-  reference_type: commit
+  reference_type: <stable_branch_head | stable_release_tag | published_source_snapshot | stable_release_commit>
   notes: <short Russian note>
 ```
 

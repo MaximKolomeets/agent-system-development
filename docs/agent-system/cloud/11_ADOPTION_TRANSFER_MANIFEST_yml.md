@@ -10,15 +10,23 @@ methodology_reference_required: true
 # Этот блок остаётся как машинная схема для adoption/audit tooling и должен совпадать с каноном.
 methodology_reference_schema:
   repository: MaximKolomeets/agent-system-development
-  source_branch: developer
+  source_ref: origin/main
   # Обязательно: воспроизводимый anchor; tag не заменяет commit SHA.
   source_commit: "<commit-sha>"
   # Опционально: human-readable pointers; можно опустить или оставить пустыми, если тега нет.
   source_tag: "<optional annotated tag on source_commit>"
   release_tag: "<optional release tag>"
   checked_at: "<ISO-8601 timestamp>"
-  reference_type: commit
+  reference_type: stable_branch_head
   notes: "<short Russian note>"
+
+methodology_development_base_schema:
+  # Только для задач, которые меняют сам methodology repository.
+  # Не использовать этот блок как stable source для target/downstream adoption.
+  base_branch: developer
+  working_branch: work/<role>/<task-id>
+  base_commit: "<origin/developer commit sha>"
+  checked_at: "<ISO-8601 timestamp>"
 
 purpose: >
   Машиночитаемый manifest для безопасного применения methodology repository
@@ -390,7 +398,7 @@ rules:
   - id: methodology_reference_required
     text: >
       Target adoption/update artifacts должны фиксировать methodology_reference
-      с repository, source branch, source commit SHA, checked_at и reference_type.
+      с repository, source_ref, source commit SHA, checked_at и reference_type.
       Commit SHA является обязательным reproducibility anchor.
   - id: methodology_repository_not_downstream_control_center
     text: >
