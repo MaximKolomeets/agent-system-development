@@ -253,14 +253,21 @@ hotfix/rollback/disaster recovery -> `HOTFIX_AND_ROLLBACK_POLICY.md` +
 - `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` - sanitization downstream
   feedback.
 - `SOURCE_CONSUMERS.md` - scaffold registry для source consumers.
+- `SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md` - generic private-control-plane
+  template для real consumers, не заполняется в public repo.
+- `METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md` - generic private adoption
+  cockpit template.
+- `METHODOLOGY_IMPROVEMENT_LEDGER.md` - public-safe lifecycle ledger для цепочки
+  `feedback -> MIR -> PR -> release -> adoption`.
 
 Когда применять: когда downstream опыт нужно вернуть в reusable methodology или
 когда methodology update нужно безопасно довести до target repositories.
 
 Граница: improvements вверх -> `METHODOLOGY_FEEDBACK_LOOP.md`; adaptation вниз
 -> `DOWNSTREAM_FEEDBACK_LOOP.md`; private/project-specific filtering ->
-`DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; реальные consumers не фиксируются в
-public methodology repository.
+`DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; MIR lifecycle ->
+`METHODOLOGY_IMPROVEMENT_LEDGER.md`; real consumers/adoption rollout state ->
+private control plane templates, а не public methodology repository.
 
 ### 11. Source, manifest, generated maps, cloud и стабильность
 

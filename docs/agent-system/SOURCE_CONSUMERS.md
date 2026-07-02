@@ -4,6 +4,11 @@ Scaffold-only реестр downstream-потребителей Source-снапш
 
 **Этот файл в обезличенной upstream-методологии (`agent-system-development`) остаётся scaffold-only: только формат и колонки.** Конкретные потребители (реальные проекты, repository, версии) перечисляются НЕ здесь, а в потребляющем развёртывании — реестр ведёт архитектор того развёртывания. Upstream-методология своих потребителей не перечисляет и не привязывается к конкретным downstream-проектам.
 
+Для private rollout tracking использовать
+`SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md` и
+`METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md` в private control plane.
+Заполненные private registries не коммитятся в public methodology repository.
+
 Используется правилом «Source-reminder» (канон — `docs/agent-system/templates/TASK_HEADER_COMMON.md`): если задача меняла методологию/каноны, исполнитель обновляет source-снапшот и в RESULT и блоке «Передача» явно перечисляет зарегистрированных потребителей из этого реестра строкой «Обновить Source-снапшот у зарегистрированных потребителей: …». В обезличенной upstream-методологии реестр пуст, поэтому строка остаётся generic-placeholder.
 
 Ответственная роль за ведение реестра и синхронизацию — `source-steward` (канон ролей — `docs/agent-system/ROLE_MODEL.md`).

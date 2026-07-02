@@ -150,6 +150,15 @@ Templates, journal и навигационный индекс:
 - `docs/agent-system/METHODOLOGY_MAP.mermaid` (визуальная карта связей)
 - `docs/agent-system/source/SOURCE_agent_system_index.md` (навигационный индекс; ссылается на этот reading-list)
 
+Feedback, MIR и private control plane:
+
+- `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`
+- `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md`
+- `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`
+- `docs/agent-system/METHODOLOGY_IMPROVEMENT_LEDGER.md`
+- `docs/agent-system/SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md`
+- `docs/agent-system/METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md`
+
 ## Роль репозитория
 
 `agent-system-development` - это переиспользуемый методологический и шаблонный репозиторий.

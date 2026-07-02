@@ -44,6 +44,21 @@ Private downstream repository должен рассматриваться как
 3. GitHub Team/Organization.
 4. Отдельный public шаблон без корпоративных данных.
 
+## Private control plane
+
+Реальные methodology consumers, private adoption matrix, rollout status,
+private update PRs, blocked reasons и owner/person names не хранятся в public
+methodology repository.
+
+В public repository допустимы только generic templates:
+
+- `SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md`;
+- `METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md`.
+
+Заполненные versions этих templates хранятся только в private control plane.
+Public reports могут содержать только sanitized aggregates: counts, categories,
+status summary и neutral private-ref ids без восстановления identity.
+
 ## Без названий внешних проектов
 
 - Не упоминать конкретные внешние проекты.
