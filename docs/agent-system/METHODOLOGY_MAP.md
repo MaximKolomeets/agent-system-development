@@ -94,7 +94,10 @@ Lane.
 
 Граница: контракт задачи -> `TASK_CONTRACT.md`; запись хода и итогов ->
 `ENGINE_JOURNAL_CONTRACT.md` и `JOURNAL_FINALIZATION_POLICY.md`; handoff-файл ->
-`TASK_FILE_HANDOFF_CONTRACT.md`.
+`TASK_FILE_HANDOFF_CONTRACT.md`. Дисциплина measured execution timestamps
+(`execution_started_at`, `execution_finished_at`, `execution_duration`) живёт в
+`ENGINE_JOURNAL_CONTRACT.md`; entrypoint и orchestrator contract только
+напоминают первый шаг engine.
 
 ### 6. Ревью, качество и полнота
 
