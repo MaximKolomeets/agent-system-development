@@ -4,7 +4,9 @@
 
 status: completed
 
-pr_url: not_created_yet
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/314
+
+pr_created_at: `2026-07-02T13:27:43Z`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-8-hotfix-rollback-dr`
 
@@ -14,13 +16,15 @@ actual_seq_rule: `INDEX last seq 0144 + 1`
 
 task_source_commit_sha: `a669e3d7f7e63b30b56ed0f80e1fe0ea908122b0`
 
-pr_head_source: not_created_yet
+pr_head_source: github_pr_metadata
+
+pr_head_before_journal_finalization: `fbd5bf7efaa128338a5d967d1bd6a2778c1b26af`
 
 reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review_not_pushed
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -28,11 +32,11 @@ merge_facts_source: github_pr_metadata
 
 execution_started_at: `2026-07-02T20:15:13.2332809+07:00`
 
-execution_finished_at: `2026-07-02T20:22:42.6238797+07:00`
+execution_finished_at: `2026-07-02T20:28:00.6813211+07:00`
 
-execution_duration: `PT7M29S`
+execution_duration: `PT12M47S`
 
-time_spent: `35m`
+time_spent: `45m`
 
 actor_type: agent
 
@@ -85,7 +89,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - diff_scope_checked: yes
 - generated_artifacts_checked: yes
 - journal_finalization_checked: yes
-- pr_body_quality_checked: not_created_yet
+- pr_body_quality_checked: yes
 - safety_checked: yes
 - accounting_fields_checked: yes
 
@@ -98,10 +102,11 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
 - `git diff --check origin/developer...HEAD`: passed.
 - `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: passed; blockers 0; warnings 0; `accounting_required_result_files_count: 1`.
+- `gh pr view 314 --json number,url,state,isDraft,headRefName,baseRefName,headRefOid,title,createdAt,mergeable`: passed; PR open, head `fbd5bf7efaa128338a5d967d1bd6a2778c1b26af`, mergeable.
 
 ## Accounting
 
-- time_spent: `35m`.
+- time_spent: `45m`.
 - actor_type: `agent`.
 - human_time_reported: `not_applicable`.
 - input_tokens: `not_available`.
