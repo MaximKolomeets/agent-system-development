@@ -298,6 +298,20 @@ categories:
       Engine journal scaffold and operational history. Target repository получает
       структуру/шаблоны, но не копирует operational rows или TASK/RESULT history
       methodology repository.
+    journal_transfer_mode: scaffold_only
+    methodology_repository_operational_history:
+      allowed: true
+      scope:
+        - methodology-hardening
+        - release-prep
+        - state-refresh
+        - review-gate
+        - closure
+      transferable: false
+      reviewer_check: >
+        Проверять не пустоту input/output, а что operational rows относятся к
+        methodology lifecycle, не содержат private/secrets, являются Russian-first
+        и не копируются verbatim в target repository.
     files:
       - docs/agent-system/engine-journal/**
     target_copy_policy:
