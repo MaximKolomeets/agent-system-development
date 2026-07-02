@@ -162,6 +162,8 @@ class ReadyReport:
     accounting_field_blockers: list[str] = field(default_factory=list)
     accounting_field_warnings: list[str] = field(default_factory=list)
     cost_calculator_summary: dict[str, object] = field(default_factory=dict)
+    russian_first_lint_result: str = "not_run"
+    russian_first_lint_findings: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -190,6 +192,7 @@ class ReadyReport:
         data["accounting_legacy_advisory_files_count"] = len(self.accounting_legacy_advisory_files)
         data["accounting_field_blockers_count"] = len(self.accounting_field_blockers)
         data["accounting_field_warnings_count"] = len(self.accounting_field_warnings)
+        data["russian_first_lint_findings_count"] = len(self.russian_first_lint_findings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -839,6 +842,72 @@ def add_safety_scans(report: ReadyReport) -> None:
         report.warnings.append("accounting advisory warnings detected")
 
 
+def add_russian_first_lint(report: ReadyReport) -> None:
+    all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
+    active_markdown_changed = [
+        path
+        for path in all_paths
+        if path.endswith(".md")
+        and not path.startswith("docs/agent-system/engine-journal/")
+        and not path.startswith("docs/agent-system/cloud/")
+        and not path.startswith("docs/agent-system/source/")
+        and path
+        not in {
+            "docs/agent-system/BACKLOG.md",
+            "docs/agent-system/CURRENT_STATE.md",
+            "docs/agent-system/DECISION_LOG.md",
+            "docs/agent-system/NEXT_STEPS.md",
+            "docs/agent-system/PROJECT_FILE_MAP.md",
+            "docs/agent-system/RELEASE_READINESS.md",
+            "docs/agent-system/RULESET_STATUS.md",
+            "docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md",
+        }
+    ]
+    if not active_markdown_changed:
+        report.russian_first_lint_result = "skipped"
+        return
+
+    script = ROOT / "docs" / "agent-system" / "tools" / "russian_first_lint.py"
+    if not script.exists():
+        report.russian_first_lint_result = "missing"
+        report.blockers.append("Russian-first lint script is missing")
+        return
+
+    result = subprocess.run(
+        [sys.executable, str(script), "--base", report.base, "--json"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        report.russian_first_lint_result = "invalid_output"
+        report.russian_first_lint_findings.append("russian_first_lint.py returned non-JSON output")
+        report.blockers.append("Russian-first lint output could not be parsed")
+        return
+
+    report.russian_first_lint_result = str(payload.get("result", "unknown"))
+    findings = payload.get("findings", [])
+    if isinstance(findings, list):
+        for finding in findings:
+            if not isinstance(finding, dict):
+                continue
+            path = str(finding.get("path", "unknown"))
+            line = str(finding.get("line", "?"))
+            code = str(finding.get("code", "RUSSIAN_FIRST_ENGLISH_PROSE"))
+            report.russian_first_lint_findings.append(f"{path}:{line}: {code}")
+
+    if report.russian_first_lint_findings:
+        report.blockers.append(
+            "Russian-first lint found English prose in changed active docs "
+            f"({len(report.russian_first_lint_findings)} filename/line-only findings)"
+        )
+
+
 def render_human(report: ReadyReport) -> str:
     lines = [
         "check_task_ready",
@@ -892,6 +961,8 @@ def render_human(report: ReadyReport) -> str:
             f"accounting_field_blockers_count: {len(report.accounting_field_blockers)}",
             f"accounting_field_warnings_count: {len(report.accounting_field_warnings)}",
             f"cost_calculator_summary: {json.dumps(report.cost_calculator_summary, ensure_ascii=False, sort_keys=True)}",
+            f"russian_first_lint_result: {report.russian_first_lint_result}",
+            f"russian_first_lint_findings_count: {len(report.russian_first_lint_findings)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -926,6 +997,10 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("accounting_field_warnings:")
         lines.extend(f"- {item}" for item in report.accounting_field_warnings)
+    if report.russian_first_lint_findings:
+        lines.append("")
+        lines.append("russian_first_lint_findings:")
+        lines.extend(f"- {item}" for item in report.russian_first_lint_findings)
     return "\n".join(lines) + "\n"
 
 
@@ -949,6 +1024,7 @@ def build_report(
     add_id_reference_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
+    add_russian_first_lint(report)
     return report
 
 

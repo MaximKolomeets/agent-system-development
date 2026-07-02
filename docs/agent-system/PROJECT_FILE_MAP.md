@@ -43,6 +43,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/gen_file_map.py` |  |
 | `docs/agent-system/tools/generated_eol_guard.py` |  |
 | `docs/agent-system/tools/orchestrator_checklist.py` |  |
+| `docs/agent-system/tools/russian_first_lint.py` |  |
 | `docs/agent-system/tools/validate_commit_message.py` |  |
 | `docs/agent-system/tools/validate_id_references.py` |  |
 | `docs/agent-system/tools/validate_task_contract.py` |  |
