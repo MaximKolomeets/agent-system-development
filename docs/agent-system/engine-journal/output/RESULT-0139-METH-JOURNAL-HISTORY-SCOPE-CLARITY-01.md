@@ -4,7 +4,9 @@
 
 status: completed
 
-pr_url: not_created_yet
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/307
+
+pr_created_at: `2026-07-02T09:10:35Z`
 
 branch: `work/docs-maintainer-01/meth-v1-5-2-pr-2-journal-scope`
 
@@ -16,11 +18,13 @@ task_source_commit_sha: `f993dba56d03682d80f757cf034616fe954f1ea4`
 
 pr_head_source: github_pr_metadata
 
+pr_head_before_journal_finalization: `3fb18c9e23dbb72d9c81931ce54c3bb54be9b92d`
+
 reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review_not_pushed
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -50,19 +54,19 @@ execution_duration: `PT3M04S`
 - diff_scope_checked: yes
 - generated_artifacts_checked: yes
 - journal_finalization_checked: yes
-- pr_body_quality_checked: not_created_yet
+- pr_body_quality_checked: yes
 - safety_checked: yes
 
 ## Checks
 
 - `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0139-METH-JOURNAL-HISTORY-SCOPE-CLARITY-01.md`: passed.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: passed; `blockers_count: 0`; `warnings_count: 1` before timestamp finalization.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`: passed; `blockers_count: 0`; `warnings_count: 1` before timestamp finalization.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`: passed after timestamp finalization; `blockers_count: 0`; `warnings_count: 0`.
 - `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`: passed via ready-gate; generated/cloud changes classified.
 - `python docs/agent-system/tools/gen_file_map.py --check`: passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
 - `git diff --check origin/developer...HEAD`: passed.
-- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`: passed before commit materialization; `commits_checked_count: 0`.
+- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`: passed after commit materialization; `commits_checked_count: 1`.
+- `gh pr view 307 --repo MaximKolomeets/agent-system-development --json number,url,state,isDraft,headRefName,baseRefName,headRefOid,title,createdAt`: passed; PR open; draft: false; head `3fb18c9e23dbb72d9c81931ce54c3bb54be9b92d`.
 
 ## Advisory findings
 
@@ -94,7 +98,6 @@ execution_duration: `PT3M04S`
 | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` | modified | source | journal scope canon update | source |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` | modified | source | reviewer check sync | source |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | modified | source | journal_transfer_mode schema | source |
-| `docs/agent-system/PROJECT_FILE_MAP.md` | modified | generated | regenerate from manifest | generated |
 | `docs/agent-system/engine-journal/input/TASK-0139-METH-JOURNAL-HISTORY-SCOPE-CLARITY-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/output/RESULT-0139-METH-JOURNAL-HISTORY-SCOPE-CLARITY-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | add row 0139 | n-a |
