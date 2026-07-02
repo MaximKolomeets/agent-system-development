@@ -23,7 +23,8 @@ generated файлов проверяется по `ADOPTION_TRANSFER_MANIFEST.y
 | Engine меняет файлы или создаёт PR | `QUALITY_FIRST_WORKFLOW.md`, `TASK_CONTRACT.md`, `JOURNAL_FINALIZATION_POLICY.md`, `POLICY_INVARIANTS.md`, `tools/check_task_ready.py`, `tools/russian_first_lint.py` | Применить acceptance/self-review, machine-readable contract, journal finalization, policy-invariants self-test, Russian-first lint и ready-gate. |
 | Меняется сама методология | `ADOPTION_TRANSFER_MANIFEST.yml`, `METHODOLOGY_MAP.md`, `POLICY_INVARIANTS.md`, `PROJECT_FILE_MAP.md`, `tools/gen_file_map.py`, `tools/gen_cloud_bundle.py`, `tools/generated_eol_guard.py`, `tools/validate_policy_invariants.py` | Manifest является source inventory; generated maps/cloud обновляются tools, не руками; policy contradictions проверяются invariant gate. |
 | Target adoption или source-update | `TARGET_ADOPTION_DETECTOR.md`, `ADOPTION_GUIDE.md`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Выбрать Variant A/B/C или STOP, читать stable methodology reference и применять manifest categories. |
-| Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch. |
+| Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md`, `AGENT_INITIATIVE_PROTOCOL.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch; вне-scope proposals уходят на triage. |
+| Агент заметил вне-scope improvement/risk | `AGENT_INITIATIVE_PROTOCOL.md`, `templates/AGENT_PROPOSAL_TEMPLATE.md`, `BACKLOG.md`, `METHODOLOGY_IMPROVEMENT_LEDGER.md` | RESULT/final report фиксирует proposal; architect/orchestrator решает disposition до backlog/MIR или отдельной task. |
 | Архитектор не программист или нужна management handoff | `NON_TECHNICAL_ARCHITECT_GUIDE.md`, `ARCHITECT_COCKPIT.md`, `ARCHITECT_HANDOFF_PACK.md`, `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` | Управлять через mission/scope/priority, yes/no dashboard и handoff pack; не плодить отдельные dossier/protocol/checklist docs. |
 | Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `UAT_WORKFLOW.md`, `BUSINESS_ACCEPTANCE_CHECKLIST.md`, `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md` | Agent готовит checks/evidence/UAT checklist; owner/PO проходит business acceptance; merge/tag/publish/sync/rollback выполняет человек. |
 | Hotfix, rollback или disaster recovery | `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `BRANCH_POLICY.md`, `WORKFLOW.md` | Agent готовит `work/hotfix/<issue>`, revert PR, checks и evidence; owner/architect принимает rollback decision и мержит в `main`. |
@@ -138,6 +139,8 @@ protocol и checklist handoff не разносить в отдельные фа
 - `ENGINE_SELF_DISCOVERY_CONTRACT.md` - самоопределение доступных входов.
 - `ENGINE_JOURNAL_CONTRACT.md` - формат journal: TASK/RESULT/INDEX.
 - `JOURNAL_FINALIZATION_POLICY.md` - финализация journal и готовность PR.
+- `AGENT_INITIATIVE_PROTOCOL.md` - mandatory feedback/proposal channel для
+  вне-scope наблюдений агента.
 - `TIME_ACCOUNTING_POLICY.md` - обязательный учет времени для новых RESULT,
   колонка `Time` в INDEX и rollup per PR/release/project.
 - `COST_TRACKING_POLICY.md` - token/cost fields, calculator и cost rollup.
@@ -152,7 +155,8 @@ protocol и checklist handoff не разносить в отдельные фа
 `TASK_FILE_HANDOFF_CONTRACT.md`. Дисциплина measured execution timestamps
 (`execution_started_at`, `execution_finished_at`, `execution_duration`) живёт в
 `ENGINE_JOURNAL_CONTRACT.md`; учет времени -> `TIME_ACCOUNTING_POLICY.md`;
-стоимость -> `COST_TRACKING_POLICY.md`; метрики -> `METRICS.md`; entrypoint и
+стоимость -> `COST_TRACKING_POLICY.md`; mandatory feedback/proposal sections ->
+`AGENT_INITIATIVE_PROTOCOL.md`; метрики -> `METRICS.md`; entrypoint и
 orchestrator contract только напоминают первый шаг engine.
 
 ### 6. Ревью, качество и полнота
@@ -249,6 +253,10 @@ hotfix/rollback/disaster recovery -> `HOTFIX_AND_ROLLBACK_POLICY.md` +
 
 ### 10. Кросс-проектный feedback и source consumers
 
+- `AGENT_INITIATIVE_PROTOCOL.md` - канал инициативных вне-scope предложений
+  агента без расширения текущей задачи.
+- `templates/AGENT_PROPOSAL_TEMPLATE.md` - формат proposal для RESULT/final
+  report и backlog/MIR triage.
 - `METHODOLOGY_FEEDBACK_LOOP.md` - improvements из target в methodology.
 - `DOWNSTREAM_FEEDBACK_LOOP.md` - adaptation loop из methodology в target.
 - `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` - sanitization downstream
@@ -261,11 +269,13 @@ hotfix/rollback/disaster recovery -> `HOTFIX_AND_ROLLBACK_POLICY.md` +
 - `METHODOLOGY_IMPROVEMENT_LEDGER.md` - public-safe lifecycle ledger для цепочки
   `feedback -> MIR -> PR -> release -> adoption`.
 
-Когда применять: когда downstream опыт нужно вернуть в reusable methodology или
-когда methodology update нужно безопасно довести до target repositories.
+Когда применять: когда downstream опыт нужно вернуть в reusable methodology,
+когда agent/reviewer заметил вне-scope improvement/risk или когда methodology
+update нужно безопасно довести до target repositories.
 
-Граница: improvements вверх -> `METHODOLOGY_FEEDBACK_LOOP.md`; adaptation вниз
--> `DOWNSTREAM_FEEDBACK_LOOP.md`; private/project-specific filtering ->
+Граница: инициативные proposals -> `AGENT_INITIATIVE_PROTOCOL.md`; improvements
+вверх -> `METHODOLOGY_FEEDBACK_LOOP.md`; adaptation вниз ->
+`DOWNSTREAM_FEEDBACK_LOOP.md`; private/project-specific filtering ->
 `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; MIR lifecycle ->
 `METHODOLOGY_IMPROVEMENT_LEDGER.md`; real consumers/adoption rollout state ->
 private control plane templates, а не public methodology repository.
@@ -287,7 +297,8 @@ generated parity checks, cloud context handoff и выборе stable reference.
 
 ### 12. Проверочные инструменты
 
-- `tools/check_task_ready.py` - интегральный readiness gate.
+- `tools/check_task_ready.py` - интегральный readiness gate, включая accounting
+  и обязательные feedback/proposal sections в новых RESULT.
 - `tools/validate_commit_message.py` - read-only gate формата commit metadata
   по `LANGUAGE_POLICY`.
 - `tools/validate_id_references.py` - read-only gate целостности methodology

@@ -4,6 +4,24 @@
 `engine-journal/INDEX.md`, `RESULT-*`, `CURRENT_STATE.md` historical section и
 GitHub PR metadata, а не в live backlog.
 
+## Agent proposal intake
+
+Инициативные предложения агентов фиксируются в RESULT/final report в разделе
+`## Unprompted Project Proposals` по `AGENT_INITIATIVE_PROTOCOL.md`.
+
+Proposal не становится backlog item автоматически. Перед добавлением сюда
+architect/orchestrator triage должен выбрать disposition, проверить privacy,
+сформулировать role-scoped task id и отделить proposal от текущего execution
+scope.
+
+Допустимые disposition:
+
+- `reject` — не добавлять в backlog;
+- `backlog_candidate` — добавить как candidate с owner role и expected branch;
+- `MIR_candidate` — вести через `METHODOLOGY_IMPROVEMENT_LEDGER.md`;
+- `immediate_separate_task` — создать отдельный TASK/branch/PR после явного
+  решения архитектора.
+
 ## Methodology hardening v1.5.2
 
 Статус: future queue / выполнять отдельными scoped PR в `developer` после

@@ -20,6 +20,7 @@
 - transfer manifest;
 - downstream adaptation checklist;
 - private control-plane templates и MIR lifecycle ledger;
+- agent initiative protocol и mandatory feedback/proposal sections;
 - policy invariants и self-test ready-gate;
 - target project governance pack;
 - project constitution framework;
@@ -31,6 +32,8 @@ GitHub остается основным источником правды. Sour
 ## Templates
 
 - `templates/ADOPTION_AUDIT_TASK_TEMPLATE.md` - задача первого safe dry run в режиме `audit-only`.
+- `templates/AGENT_PROPOSAL_TEMPLATE.md` - инициативное предложение агента для
+  backlog/MIR triage.
 - `templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md` - задача docs-only adoption после adoption audit.
 - `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` - структура governance pack для target repository.
 - `templates/PROJECT_CONSTITUTION_TEMPLATE.md` - target `PROJECT_CONSTITUTION.md` для mission, authority и scope control.

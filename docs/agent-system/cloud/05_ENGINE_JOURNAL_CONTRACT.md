@@ -222,6 +222,33 @@ Methodology repository operational history не переносится.
 - риски;
 - следующий рекомендуемый шаг.
 
+## Обязательные feedback-разделы RESULT
+
+Новый finalized RESULT обязан содержать два раздела:
+
+```text
+## Methodology feedback
+## Unprompted Project Proposals
+```
+
+Правила:
+
+- если feedback или proposals отсутствуют, раздел остается в RESULT со значением
+  `нет`;
+- `Methodology feedback` фиксирует, что улучшить в методологии по итогам
+  выполнения задачи;
+- `Unprompted Project Proposals` фиксирует вне-scope идеи, риски или улучшения,
+  которые нельзя выполнять внутри текущей задачи без отдельного allowed scope;
+- предложения оформляются по `AGENT_INITIATIVE_PROTOCOL.md` и, при необходимости,
+  по `templates/AGENT_PROPOSAL_TEMPLATE.md`;
+- предложения из target repository перед переносом в public methodology
+  repository проходят sanitization по `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`;
+- proposal не является approval на implementation и попадает в `BACKLOG.md` или
+  `METHODOLOGY_IMPROVEMENT_LEDGER.md` только после architect/orchestrator triage.
+
+Ready-gate проверяет наличие этих разделов в новых RESULT. Legacy RESULT до H12
+не ретрофитятся и остаются historical/advisory.
+
 ### Head SHA без self-reference loop
 
 В finalized RESULT поля `head_sha`, `reviewed_head_sha` и `final_head_sha` допустимы только когда в них записан точный SHA, а не текстовое обещание дописать значение. Если final PR head SHA меняется самим follow-up commit и не может быть встроен в этот же commit, RESULT использует явную source/policy-семантику:
@@ -567,6 +594,9 @@ Reviewer подтверждает:
   legacy-записи остаются advisory; равные start/finish или нереалистично
   короткая длительность при содержательном diff остаются advisory finding
   `unreliable execution timing`;
+- новые finalized RESULT содержат `## Methodology feedback` и
+  `## Unprompted Project Proposals`; отсутствие разделов является blocker, а
+  значение `нет` допустимо;
 - новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
