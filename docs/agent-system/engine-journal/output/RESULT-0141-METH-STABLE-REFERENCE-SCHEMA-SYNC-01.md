@@ -4,7 +4,9 @@
 
 status: completed
 
-pr_url: not_created_yet
+pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/309
+
+pr_created_at: `2026-07-02T10:22:56Z`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-4-stable-reference-schema`
 
@@ -16,11 +18,13 @@ task_source_commit_sha: `85f14f204b8dc77f032af096c417f9130476478c`
 
 pr_head_source: github_pr_metadata
 
+pr_head_before_journal_finalization: `c9363332001cad1a1b2d1c7e73c56112ba902a4d`
+
 reviewed_head_source: review_not_started
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review_not_pushed
+terminal_state: ready_for_review
 
 post_merge_closure_required: false
 
@@ -28,9 +32,9 @@ merge_facts_source: github_pr_metadata
 
 execution_started_at: `2026-07-02T17:13:57.3987881+07:00`
 
-execution_finished_at: `2026-07-02T17:17:26.7035708+07:00`
+execution_finished_at: `2026-07-02T17:23:18.0271148+07:00`
 
-execution_duration: `PT3M29S`
+execution_duration: `PT9M20S`
 
 time_spent: `10m`
 
@@ -78,7 +82,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - diff_scope_checked: yes
 - generated_artifacts_checked: yes
 - journal_finalization_checked: yes
-- pr_body_quality_checked: not_created_yet
+- pr_body_quality_checked: yes
 - safety_checked: yes
 - accounting_fields_checked: yes
 
@@ -91,6 +95,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - `python docs/agent-system/tools/gen_file_map.py --check`: passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`: passed.
 - `git diff --check origin/developer...HEAD`: passed.
+- `gh pr view 309 --json number,url,state,isDraft,headRefName,baseRefName,headRefOid,title,createdAt`: passed; PR open, head `c9363332001cad1a1b2d1c7e73c56112ba902a4d`.
 
 ## Accounting
 
