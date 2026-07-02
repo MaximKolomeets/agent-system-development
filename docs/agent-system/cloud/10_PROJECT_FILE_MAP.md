@@ -21,6 +21,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
 | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
 | `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md` |  |
+| `docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md` |  |
 | `docs/agent-system/ARCHITECT_COCKPIT.md` |  |
 | `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` |  |
 | `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md` |  |
@@ -30,6 +31,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/CONTROL_MATRIX_PATTERN.md` |  |
 | `docs/agent-system/COST_TRACKING_POLICY.md` |  |
 | `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` |  |
+| `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md` |  |
 | `docs/agent-system/DECISION_NOTE_GUIDE.md` |  |
 | `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md` |  |
 | `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` |  |
@@ -74,6 +76,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/POLICY_STATUS_PATTERN.md` |  |
 | `docs/agent-system/POLICY_INVARIANTS.md` |  |
 | `docs/agent-system/PR_WORKFLOW.md` |  |
+| `docs/agent-system/PROJECT_CLOSURE_GUIDE.md` |  |
 | `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` |  |
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
 | `docs/agent-system/QUALITY_FIRST_WORKFLOW.md` |  |

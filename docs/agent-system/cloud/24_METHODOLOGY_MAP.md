@@ -23,6 +23,7 @@ generated файлов проверяется по `ADOPTION_TRANSFER_MANIFEST.y
 | Engine меняет файлы или создаёт PR | `QUALITY_FIRST_WORKFLOW.md`, `TASK_CONTRACT.md`, `JOURNAL_FINALIZATION_POLICY.md`, `POLICY_INVARIANTS.md`, `tools/check_task_ready.py`, `tools/russian_first_lint.py` | Применить acceptance/self-review, machine-readable contract, journal finalization, policy-invariants self-test, Russian-first lint и ready-gate. |
 | Меняется сама методология | `ADOPTION_TRANSFER_MANIFEST.yml`, `METHODOLOGY_MAP.md`, `POLICY_INVARIANTS.md`, `PROJECT_FILE_MAP.md`, `tools/gen_file_map.py`, `tools/gen_cloud_bundle.py`, `tools/generated_eol_guard.py`, `tools/validate_policy_invariants.py` | Manifest является source inventory; generated maps/cloud обновляются tools, не руками; policy contradictions проверяются invariant gate. |
 | Target adoption или source-update | `TARGET_ADOPTION_DETECTOR.md`, `ADOPTION_GUIDE.md`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Выбрать Variant A/B/C или STOP, читать stable methodology reference и применять manifest categories. |
+| Project lifecycle, agent onboarding или cross-project dependency | `AGENT_ONBOARDING_CHECKLIST.md`, `PROJECT_CLOSURE_GUIDE.md`, `CROSS_PROJECT_DEPENDENCY_POLICY.md`, `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` | Новую роль вводить через checklist; pause/closure/transfer фиксировать closure guide; реальные dependency records и visibility matrix держать только в private control plane. |
 | Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md`, `AGENT_INITIATIVE_PROTOCOL.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch; вне-scope proposals уходят на triage. |
 | Агент заметил вне-scope improvement/risk | `AGENT_INITIATIVE_PROTOCOL.md`, `templates/AGENT_PROPOSAL_TEMPLATE.md`, `BACKLOG.md`, `METHODOLOGY_IMPROVEMENT_LEDGER.md` | RESULT/final report фиксирует proposal; architect/orchestrator решает disposition до backlog/MIR или отдельной task. |
 | Архитектор не программист или нужна management handoff | `NON_TECHNICAL_ARCHITECT_GUIDE.md`, `ARCHITECT_COCKPIT.md`, `ARCHITECT_HANDOFF_PACK.md`, `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` | Управлять через mission/scope/priority, yes/no dashboard и handoff pack; не плодить отдельные dossier/protocol/checklist docs. |
@@ -104,12 +105,16 @@ Lane.
 ### 4. Роли
 
 - `ROLE_MODEL.md` - единственный источник ролей, vendor-neutral naming и scope.
+- `AGENT_ONBOARDING_CHECKLIST.md` - checklist ввода новой роли или исполнителя
+  перед первой file-changing task.
 
 Когда применять: при формулировании task header, review boundary, handoff и
-распределении ответственности.
+распределении ответственности; onboarding checklist применять при новой роли,
+смене исполнителя или возврате проекта после паузы.
 
 Граница: имена ролей и ответственности живут только здесь; остальные документы
-ссылаются и не создают параллельный role catalog.
+ссылаются и не создают параллельный role catalog. Checklist не создает новые
+роли, а проверяет готовность роли к работе.
 
 ### 4a. Управленческий слой архитектора
 
@@ -198,25 +203,34 @@ release PR в `main`.
 - `ORCHESTRATOR_RESPONSE_STANDARD.md` - стандарт ответа оркестратора.
 - `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` - правила cross-project
   consolidation.
+- `CROSS_PROJECT_DEPENDENCY_POLICY.md` - правила dependency records,
+  stable references и breaking changes между target projects.
 
 Когда применять: при подготовке self-contained Engine-блока, handoff между
-проектами, выборе target/source boundary и формировании ответа пользователю.
+проектами, выборе target/source boundary, cross-project summary или
+dependency boundary и формировании ответа пользователю.
 
 Граница: orchestrator не становится implementer без отдельной задачи; cross-project
-consolidation не переносит private/project-specific data в public methodology.
+consolidation и dependency records не переносят private/project-specific data в
+public methodology.
 
 ### 8. Adoption и onboarding target repository
 
 - `TARGET_ADOPTION_DETECTOR.md` - выбор варианта adoption: A/B/C/STOP.
-- `ADOPTION_GUIDE.md` - полный маршрут adoption.
+- `ADOPTION_GUIDE.md` - полный маршрут adoption, включая развилку
+  `Fork vs Template vs Adoption`.
+- `AGENT_ONBOARDING_CHECKLIST.md` - readiness checklist для новой роли или
+  исполнителя в target repository.
 - `NEW_PROJECT_ONBOARDING_GUIDE.md` - onboarding нового проекта.
+- `PROJECT_CLOSURE_GUIDE.md` - closure/pause/transfer guide для target
+  repository.
 - `DOWNSTREAM_ADAPTATION_CHECKLIST.md` - чек-лист адаптации в target repository.
 - `TARGET_REPOSITORY_ADOPTION_GUIDE.md` - короткий вход и pointer на полный
   маршрут.
 
 Когда применять: перед переносом methodology в target repository, при adoption
-audit, docs-only adoption, onboarding нового проекта или проверке target-local
-адаптации.
+audit, docs-only adoption, onboarding нового проекта, вводе новой роли,
+закрытии/паузе проекта или проверке target-local адаптации.
 
 Граница: "какой вариант" -> `TARGET_ADOPTION_DETECTOR.md`; "полный маршрут" ->
 `ADOPTION_GUIDE.md`; "новый проект с нуля" ->
@@ -271,16 +285,22 @@ hotfix/rollback/disaster recovery -> `HOTFIX_AND_ROLLBACK_POLICY.md` +
   cockpit template.
 - `METHODOLOGY_IMPROVEMENT_LEDGER.md` - public-safe lifecycle ledger для цепочки
   `feedback -> MIR -> PR -> release -> adoption`.
+- `CROSS_PROJECT_DEPENDENCY_POLICY.md` - generic policy зависимостей между
+  target projects; реальные dependency records живут только в private control
+  plane.
 
 Когда применять: когда downstream опыт нужно вернуть в reusable methodology,
 когда agent/reviewer заметил вне-scope improvement/risk или когда methodology
-update нужно безопасно довести до target repositories.
+update нужно безопасно довести до target repositories; dependency policy
+применять, когда один target project зависит от release, API/schema, shared
+component, governance decision или operational status другого project.
 
 Граница: инициативные proposals -> `AGENT_INITIATIVE_PROTOCOL.md`; improvements
 вверх -> `METHODOLOGY_FEEDBACK_LOOP.md`; adaptation вниз ->
 `DOWNSTREAM_FEEDBACK_LOOP.md`; private/project-specific filtering ->
 `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`; MIR lifecycle ->
-`METHODOLOGY_IMPROVEMENT_LEDGER.md`; real consumers/adoption rollout state ->
+`METHODOLOGY_IMPROVEMENT_LEDGER.md`; dependency records ->
+`CROSS_PROJECT_DEPENDENCY_POLICY.md`; real consumers/adoption rollout state ->
 private control plane templates, а не public methodology repository.
 
 ### 11. Source, manifest, generated maps, cloud и стабильность

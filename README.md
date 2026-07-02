@@ -64,6 +64,7 @@ Core reading-list ниже остаётся обязательным базов�
 | Engine меняет файлы или создаёт PR | `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`, `docs/agent-system/TASK_CONTRACT.md`, `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`, `docs/agent-system/POLICY_INVARIANTS.md`, `docs/agent-system/tools/check_task_ready.py`, `docs/agent-system/tools/russian_first_lint.py` | Обязательны scope/checks/STOP, RESULT/INDEX finalization, policy-invariants self-test, Russian-first lint и ready-gate. |
 | Меняется сама методология | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`, `docs/agent-system/METHODOLOGY_MAP.md`, `docs/agent-system/POLICY_INVARIANTS.md`, `docs/agent-system/PROJECT_FILE_MAP.md`, `docs/agent-system/tools/generated_eol_guard.py`, `docs/agent-system/tools/validate_policy_invariants.py` | Source inventory меняется через manifest; generated artifacts регенерируются штатными tools; policy contradictions проверяются invariant gate. |
 | Target adoption или source-update | `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`, `docs/agent-system/ADOPTION_GUIDE.md`, `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Использовать stable methodology reference и manifest categories; не читать `developer` как downstream source. |
+| Project lifecycle, agent onboarding или cross-project dependency | `docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md`, `docs/agent-system/PROJECT_CLOSURE_GUIDE.md`, `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md`, `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md` | Новую роль вводить через checklist; паузу/закрытие проекта фиксировать closure guide; реальные dependency records и visibility matrix держать в private control plane. |
 | Review-only или feedback loop | `docs/agent-system/CODE_REVIEW_WORKFLOW.md`, `docs/agent-system/REVIEW_AUTOLOOP.md`, `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`, `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md` | Reviewer не становится implementer без отдельной задачи; blockers должны иметь проверяемые IDs; вне-scope proposals идут на triage, а не в текущий patch. |
 | Агент заметил вне-scope improvement/risk | `docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md`, `docs/agent-system/templates/AGENT_PROPOSAL_TEMPLATE.md`, `docs/agent-system/BACKLOG.md`, `docs/agent-system/METHODOLOGY_IMPROVEMENT_LEDGER.md` | RESULT/final report фиксирует proposal; architect/orchestrator решает disposition до backlog/MIR или отдельной task. |
 | Архитектор не программист или нужна management handoff | `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md`, `docs/agent-system/ARCHITECT_COCKPIT.md`, `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`, `docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` | Управлять через mission/scope/priority, yes/no dashboard и handoff pack; не подменять policy и не принимать implementation details без checks. |
@@ -109,6 +110,7 @@ Engine, handoff и orchestrator interface:
 - `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md`
 - `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
 - `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md`
+- `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md`
 - `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`
 - `docs/agent-system/tools/orchestrator_checklist.py`
 
@@ -123,6 +125,8 @@ Adoption:
 
 - `docs/agent-system/ADOPTION_GUIDE.md`
 - `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`
+- `docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md`
+- `docs/agent-system/PROJECT_CLOSURE_GUIDE.md`
 - `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`
 - `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`
 - `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`
@@ -162,6 +166,7 @@ Feedback, MIR и private control plane:
 - `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md`
 - `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md`
 - `docs/agent-system/METHODOLOGY_IMPROVEMENT_LEDGER.md`
+- `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md`
 - `docs/agent-system/SOURCE_CONSUMER_REGISTRY_PRIVATE_TEMPLATE.md`
 - `docs/agent-system/METHODOLOGY_ADOPTION_MATRIX_PRIVATE_TEMPLATE.md`
 
@@ -234,6 +239,12 @@ Reasoning effort: <низкий | средний | высокий>
 Жизненный цикл нового проекта (стадии 1–11) описан в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md` (вводная секция «Жизненный цикл (стадии 1–11)»).
 
 Практический onboarding guide находится в `docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md`.
+
+Checklist ввода новой роли или исполнителя находится в `docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md`.
+
+Guide закрытия, паузы или передачи проекта находится в `docs/agent-system/PROJECT_CLOSURE_GUIDE.md`.
+
+Cross-project dependency policy находится в `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md`; реальные dependency records ведутся только в private control plane.
 
 Guide для применения методологии к существующему target repository находится в `docs/agent-system/ADOPTION_GUIDE.md` (раздел «Пошаговый existing-repo adoption»).
 

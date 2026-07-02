@@ -141,9 +141,10 @@ Redaction выполняется на стороне source project ДО поп�
   значимых данных, потому что не даёт воспроизводимого audit-trail; такие данные
   остаются в target repository с journal и PR.
 
-Если задача требует записи, коммита, official/регулируемого результата или
-audit-trail — это выходит за пределы Cowork lane, и работа переводится в обычный
-engine/PR workflow target repository.
+Если задача требует записи, коммита, официального или регулируемого результата
+или воспроизводимого audit-trail, это выходит за пределы `Cowork lane`; работу
+нужно перевести в обычный `engine`/PR workflow соответствующего target
+repository.
 
 ## Приватный control plane (обязательно)
 
@@ -159,6 +160,8 @@ engine/PR workflow target repository.
 
 ## Связь с другими документами
 
+- `docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md` — правила dependency
+  records, stable references, breaking changes и private control-plane границ.
 - `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` — слой проектного
   operating контекста и правило свежести (asof + developer HEAD SHA).
 - `docs/agent-system/PUBLICATION_POLICY.md` — публикационные границы публичного

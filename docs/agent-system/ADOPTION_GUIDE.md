@@ -19,6 +19,33 @@
 
 В `agent-system-development` возвращаются только универсальные улучшения методологии через отдельные methodology PR без private data, client data, private repository URL, внутренних кодовых имен и project-specific state.
 
+## Fork vs Template vs Adoption
+
+Перед первым переносом методологии нужно выбрать режим. Эти режимы не
+взаимозаменяемы.
+
+| Режим | Когда выбирать | Что переносится | Что нельзя делать |
+| --- | --- | --- | --- |
+| Fork | Нужен намеренный derivative methodology repository с собственной историей и governance. | Git history и source files как отдельная линия развития. | Не использовать fork как быстрый способ подключить методологию к target project; не смешивать private target data с public history. |
+| Template/bootstrap | Создается новый пустой target repository. | Структура, шаблоны и target-local governance docs, адаптированные по фактам нового проекта. | Не копировать operational history, `CURRENT_STATE`, `NEXT_STEPS`, `DECISION_LOG` и engine journal rows methodology repository verbatim. |
+| Adoption | Методология применяется к уже существующему target repository. | Сначала audit-only artifact и target-specific journal, затем docs-only adoption отдельным PR. | Не начинать с bulk copy; не перетирать local instructions; не использовать `developer`/`work/*` methodology branch как stable source. |
+
+Default:
+
+- для нового пустого repository — `Template/bootstrap`;
+- для существующего repository — `Adoption` через `TARGET_ADOPTION_DETECTOR.md`;
+- для изменения самой методологии — обычный methodology PR в
+  `agent-system-development`, не target adoption;
+- `Fork` — редкий human decision, когда нужен отдельный derivative methodology
+  repository, а не подключение методологии к проекту.
+
+Обязательная фиксация:
+
+- выбранный режим записать в TASK/RESULT или adoption audit;
+- для target adoption/update указать `methodology_reference` со stable
+  `source_ref` и `source_commit`;
+- если режим неясен, `engine` пишет `STOP` и просит решение пользователя.
+
 ## Обязательная шапка task prompt
 
 Каждая задача для `engine` должна быть на русском языке и начинаться с шапки:
@@ -49,16 +76,16 @@ docs/agent-system/engine-journal/output/
 
 Journal связывает task -> result -> branch -> PR -> commit/result. Task/result files являются append-only и не должны удаляться или перезаписываться без отдельного решения пользователя.
 
-Contract:
+Контракт:
 
 ```text
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
-During adoption, transfer only the engine journal scaffold, templates, and
-contract. Do not copy methodology repository operational history. The first
-target adoption/audit task creates target-specific task/result files and the
-target-specific `INDEX.md` entry.
+Во время adoption переносить только scaffold, templates и contract engine
+journal. Operational history methodology repository не копируется. Первая
+target adoption/audit task создает target-specific task/result files и
+target-specific запись `INDEX.md`.
 
 ## Режимы adoption (adoption modes)
 
@@ -164,15 +191,16 @@ docs/agent-system/templates/DOCS_ONLY_ADOPTION_TASK_TEMPLATE.md
 - role model;
 - target project governance pack;
 - project constitution;
-- workflow docs;
-- PR workflow;
+- документы workflow;
+- документы PR workflow;
 - branch policy;
-- manual review checklist;
+- ручной review checklist;
 - templates;
-- engine journal templates and folders.
+- templates и folders engine journal.
 
-Engine journal transfer means scaffold/templates only. Existing methodology
-repository task/result history, if any, is not copied into target repositories.
+Перенос engine journal означает только scaffold/templates. Существующая
+task/result history methodology repository, если она есть, не копируется в
+target repositories.
 
 Запрещено:
 

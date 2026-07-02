@@ -136,6 +136,7 @@ categories:
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       - docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
       - docs/agent-system/AGENT_INITIATIVE_PROTOCOL.md
+      - docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md
       - docs/agent-system/ARCHITECT_COCKPIT.md
       - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
@@ -145,6 +146,7 @@ categories:
       - docs/agent-system/CONTROL_MATRIX_PATTERN.md
       - docs/agent-system/COST_TRACKING_POLICY.md
       - docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md
+      - docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md
       - docs/agent-system/DECISION_NOTE_GUIDE.md
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
       - docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md
@@ -189,6 +191,7 @@ categories:
       - docs/agent-system/POLICY_STATUS_PATTERN.md
       - docs/agent-system/POLICY_INVARIANTS.md
       - docs/agent-system/PR_WORKFLOW.md
+      - docs/agent-system/PROJECT_CLOSURE_GUIDE.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PUBLICATION_POLICY.md
       - docs/agent-system/QUALITY_FIRST_WORKFLOW.md
@@ -213,17 +216,20 @@ categories:
     target_adaptation_required:
       - AGENTS.md
       - README.md
+      - docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/ARCHITECT_COCKPIT.md
       - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
+      - docs/agent-system/CROSS_PROJECT_DEPENDENCY_POLICY.md
       - docs/agent-system/DISASTER_RECOVERY.md
       - docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md
       - docs/agent-system/PR_WORKFLOW.md
+      - docs/agent-system/PROJECT_CLOSURE_GUIDE.md
       - docs/agent-system/PUBLICATION_POLICY.md
       - docs/agent-system/RELEASE_AUTHORITY_POLICY.md
       - docs/agent-system/ROLE_MODEL.md
