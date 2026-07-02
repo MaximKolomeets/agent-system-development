@@ -6,31 +6,50 @@
 ruleset_status:
   repository: MaximKolomeets/agent-system-development
   visibility: public
-  verified_at: "2026-07-02T15:33:24+07:00"
-  verified_by_role: docs-maintainer-01
+  verified_at: "2026-07-03T00:42:55+07:00"
+  verified_by_role: methodology-architect-01
   verification_source: gh_api_rulesets
   evidence:
     command_summary:
-      - gh pr view 303 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
-      - gh pr view 304 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
-      - gh pr view 305 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - gh pr view 306 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
+      - gh pr view 307 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
+      - gh pr view 308 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
+      - gh pr view 309 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
+      - gh pr view 322 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
       - gh api repos/MaximKolomeets/agent-system-development/rulesets
+      - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353333
+      - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353368
     pr_facts:
-      release_prep_pr:
-        number: 303
+      v1_5_2_candidate:
+        base_tag: v1.5.1
+        base_commit: 2467edd8488a51d74483e8095e4887c0f512dfcd
+        candidate_ref: origin/developer
+        candidate_commit: 97e874883afbe3ac38ccd815d48f63ca964c5737
+      pr_1_h1:
+        number: 306
         state: MERGED
-        merged_at: "2026-07-02T02:11:11Z"
-        merge_commit: e3c4210dade210f20b573196ed0d9da64961dc75
-      release_pr:
-        number: 304
+        merged_at: "2026-07-02T09:00:28Z"
+        merge_commit: f993dba56d03682d80f757cf034616fe954f1ea4
+      pr_2_h2:
+        number: 307
         state: MERGED
-        merged_at: "2026-07-02T06:46:16Z"
-        merge_commit: 2467edd8488a51d74483e8095e4887c0f512dfcd
-      sync_pr:
-        number: 305
+        merged_at: "2026-07-02T09:28:36Z"
+        merge_commit: 9fc59150f508f4846fef2b34d9738f49b81e7fb2
+      pr_3_h3:
+        number: 308
         state: MERGED
-        merged_at: "2026-07-02T06:48:28Z"
-        merge_commit: 2407cd4950b05fd2bb03583f9ccb1fe84d53eac5
+        merged_at: "2026-07-02T10:07:47Z"
+        merge_commit: 85f14f204b8dc77f032af096c417f9130476478c
+      pr_4_h4:
+        number: 309
+        state: MERGED
+        merged_at: "2026-07-02T10:29:51Z"
+        merge_commit: 4818b553beaa5b426334404696507c48e95d0d22
+      batch_closure_pr:
+        number: 322
+        state: MERGED
+        merged_at: "2026-07-02T17:37:05Z"
+        merge_commit: 97e874883afbe3ac38ccd815d48f63ca964c5737
   protected_refs:
     main:
       ruleset_name: Protect main
@@ -91,5 +110,6 @@ ruleset_status:
 
 ## Передача
 
-Следующий: docs-maintainer-01 — обновлять этот snapshot перед release boundary или
-после human-only изменения rulesets.
+Следующий: methodology-reviewer-01 - проверить release-prep v1.5.2; затем
+release-manager - использовать этот snapshot как evidence перед release boundary
+или обновить его после human-only изменения rulesets.

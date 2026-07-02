@@ -24,14 +24,15 @@
 ## Текущий фокус (Current Focus)
 
 `v1.5.1` опубликован и синхронизирован: release-prep PR #303, release PR #304,
-annotated tag `v1.5.1` и sync PR #305 подтверждены. Этот файл больше не ставит
-задачу создать release PR для `v1.5.1`.
+annotated tag `v1.5.1` и sync PR #305 подтверждены. Hardening series для
+`v1.5.2` выполнена: PR-1..15 / H1..H16 вошли в `origin/developer`, batch-closure
+PR #322 смержен.
 
-Ближайший рабочий шаг: завершить PR-8/H14 Hotfix, rollback & disaster recovery
-для `v1.5.2` hardening series; затем после human merge перейти к P2:
-PR-9/H6 Safe-scan & Russian-first lint. До публикации `v1.5.2`
-target adoption/source-update задачи используют stable pointer `origin/main` /
-tag `v1.5.1`.
+Ближайший рабочий шаг: review и human merge release-prep PR `v1.5.2` в
+`developer`. После этого release-manager готовит release PR `developer -> main`;
+merge release PR, annotated tag `v1.5.2`, publication и sync decision остаются
+human-only действиями. До публикации `v1.5.2` target adoption/source-update
+задачи используют stable pointer `origin/main` / tag `v1.5.1`.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -40,21 +41,21 @@ tag `v1.5.1`.
 
 ## Ближайшая очередь v1.5.2
 
-1. PR-1/H1: post-release state/status refresh, `BACKLOG`/`NEXT_STEPS` split,
-   ruleset status, cloud regeneration.
-2. PR-2/H2: journal history scope clarity.
-3. PR-3/H3: time and cost accounting hard-gate.
-4. PR-4/H4: stable-reference schema sync.
-5. PR-5/H5: navigation/discovery overlays and checklist tooling.
-6. PR-6/H9: release authority and human-gate policy.
-7. PR-7/H13: Business acceptance / UAT gate.
-8. PR-8/H14: hotfix, rollback & disaster recovery.
+1. Завершить scoped review release-prep PR `v1.5.2`.
+2. Human merge release-prep PR в `developer`.
+3. На обновлённом `developer` выполнить release-boundary ready-gate:
+   `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`.
+4. Owner/PO фиксирует Business Acceptance / Human UAT verdict или явный
+   `not_applicable` reason.
+5. Release-manager готовит release PR `developer -> main` для `v1.5.2`.
+6. Человек-архитектор выполняет merge release PR, annotated tag `v1.5.2`,
+   publication decision и sync decision по release authority/human-gate policy.
+7. После release/sync обновить journal RESULT/INDEX, `CURRENT_STATE.md`,
+   `NEXT_STEPS.md`, `RELEASE_READINESS.md`, `RULESET_STATUS.md` и regenerated
+   `docs/agent-system/cloud/**`.
 
-После PR-8/H14 P1-blocking core считается закрытым; следующий execution item в
-P2: PR-9/H6 Safe-scan & Russian-first lint.
-
-Полная future-очередь и менее срочные P2/P3 items живут в `BACKLOG.md`, чтобы
-`NEXT_STEPS.md` оставался списком ближайших действий.
+Future queue после `v1.5.2` живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md`
+оставался списком ближайших действий.
 
 ## Текущие операционные правила
 

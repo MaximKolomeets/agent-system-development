@@ -4,7 +4,7 @@ task_id: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`
 
 seq: `0153`
 
-status: `open; готов к review`
+status: `closed after merge; boundary prerequisite reconciled`
 
 branch: `work/docs-maintainer-01/batch-closure-0142-0152-v1-5-2-01`
 
@@ -147,3 +147,26 @@ Source-reminder: не применимо; контент-каноны не ме�
 Следующий: methodology-reviewer-01 - scoped review PR #322; затем архитектор -
 human merge batch-closure PR; затем methodology-architect-01 - release-prep PR
 v1.5.2.
+
+## Boundary closure stamp: release-prep v1.5.2
+
+- closure_task: `METH-RELEASE-PREP-V1-5-2-01`
+- closure_reason: release-prep prerequisite reconciliation after PR #322 merge
+- work_pr: https://github.com/MaximKolomeets/agent-system-development/pull/322
+- work_pr_status: `MERGED`
+- work_pr_merged_at: `2026-07-02T17:37:05Z`
+- work_pr_merge_commit_sha: `97e874883afbe3ac38ccd815d48f63ca964c5737`
+- work_pr_head_sha: `1f85da710d49d785b17a15f8b5e22688f38f1e48`
+- github_facts_source: `gh pr view 322 --json number,state,mergedAt,mergeCommit,headRefOid`
+- RESULT closed after merge: yes
+- INDEX closed after merge: yes, by release-prep row 0154
+- No journal placeholders: yes
+- release_pr_status: `not_applicable`
+- sync_pr_status: `not_applicable`
+- actor: `methodology-architect-01`
+- evidence: GitHub PR metadata and local release-prep diff
+
+## Передача после boundary reconciliation
+
+Следующий: methodology-reviewer-01 - проверить release-prep v1.5.2; затем
+архитектор - human merge release-prep PR в `developer`.
