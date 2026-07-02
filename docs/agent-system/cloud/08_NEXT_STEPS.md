@@ -17,8 +17,8 @@
 5. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 6. Повторять work/review/merge до завершения текущей серии.
 7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`.
-9. Человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; после release выполняется sync `main -> developer`.
+8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`, затем проверить `RELEASE_AUTHORITY_POLICY.md` и `HUMAN_GATE_POLICY.md`.
+9. Человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; publication/sync decision также human-only, а release/sync `RESULT` фиксирует actor + evidence.
 10. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
@@ -27,10 +27,11 @@
 annotated tag `v1.5.1` и sync PR #305 подтверждены. Этот файл больше не ставит
 задачу создать release PR для `v1.5.1`.
 
-Ближайший рабочий шаг: завершить PR-1/H1 state/status refresh для `v1.5.2`
-hardening series, затем после human merge перейти к PR-2/H2 (`Journal history
-scope clarity`). До публикации `v1.5.2` target adoption/source-update задачи
-используют stable pointer `origin/main` / tag `v1.5.1`.
+Ближайший рабочий шаг: завершить PR-6/H9 release authority & human-gate policy
+для `v1.5.2` hardening series; затем после human merge перейти к PR-7/H13
+(`Business acceptance / UAT gate`). До публикации `v1.5.2`
+target adoption/source-update задачи используют stable pointer `origin/main` /
+tag `v1.5.1`.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -45,7 +46,8 @@ scope clarity`). До публикации `v1.5.2` target adoption/source-updat
 3. PR-3/H3: time and cost accounting hard-gate.
 4. PR-4/H4: stable-reference schema sync.
 5. PR-5/H5: navigation/discovery overlays and checklist tooling.
-6. PR-6/H9, PR-7/H13, PR-8/H14: release authority, UAT gate, hotfix/rollback.
+6. PR-6/H9: release authority and human-gate policy.
+7. PR-7/H13, PR-8/H14: UAT gate, hotfix/rollback.
 
 Полная future-очередь и менее срочные P2/P3 items живут в `BACKLOG.md`, чтобы
 `NEXT_STEPS.md` оставался списком ближайших действий.
@@ -62,5 +64,6 @@ scope clarity`). До публикации `v1.5.2` target adoption/source-updat
 7a. Перед target adoption/source-update применять `TARGET_ADOPTION_DETECTOR.md`: Variant A/B/C или STOP; dirty target tree, unstable methodology source, private data risk и риск overwrite target-specific journal/history/state означают STOP.
 7b. Перед file-changing PR применять `QUALITY_FIRST_WORKFLOW.md`: missing acceptance criteria или failed self-review означают STOP до PR.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
-9. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
-10. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.
+9. Перед merge/tag/publish/sync/rollback, branch protection/rulesets, CI/CD, prod-secrets, mission/strategy, удалением данных или финансовым решением применять `HUMAN_GATE_POLICY.md`; агент готовит evidence, но человек выполняет финальное действие.
+10. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
+11. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.

@@ -10,16 +10,16 @@
 ### Обновление main (канон, правило 1)
 
 - `main` обновляется ТОЛЬКО через release-PR `developer -> main`;
-- release-PR мержит человек-архитектор (пользователь), а не агент;
-- агент может ПОДГОТОВИТЬ release-PR (создать release-ветку/PR из `developer` в `main`), но НЕ мержит его и НЕ пушит в `main` напрямую;
+- release-PR мержит человек-архитектор (пользователь), а не агент; канон authority: `docs/agent-system/RELEASE_AUTHORITY_POLICY.md` и `docs/agent-system/HUMAN_GATE_POLICY.md`;
+- агент может ПОДГОТОВИТЬ release-PR (создать release-ветку/PR из `developer` в `main`), checks, release notes и evidence summary, но НЕ мержит его и НЕ пушит в `main` напрямую;
 - release-PR `developer -> main` запрещён, пока engine journal не закрыт полностью: все substantive seq, входящие в release, должны иметь closed/merged facts; lifecycle-only `terminal-fold accepted` допустим и не blocker; pre-release batch-closure обязателен по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md`;
 - release-PR `developer -> main` запрещён, если `python docs/agent-system/tools/gen_file_map.py --check` не проходит: `PROJECT_FILE_MAP.md` должен быть синхронизирован с manifest и filesystem parity;
 - release-PR `developer -> main` запрещён, если `python docs/agent-system/tools/gen_cloud_bundle.py --check` не проходит: `docs/agent-system/cloud/` должен иметь content-parity с manifest bundle и filesystem; `asof`/`developer_head_sha` в `cloud/00_README.md` информационные и не ломают gate при sync-merge без content-дрейфа; generated text checks следуют EOL-safe/content-oriented правилу из `docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md` → «Проверки generated text artifacts: content-oriented / EOL-safe»;
 - release-boundary ready-gate не должен блокировать release из-за исторической до-гейтовой commit-message debt или GitHub merge commits: `validate_commit_message.py` использует `git rev-list --no-merges`, а `check_task_ready.py --release-boundary` пропускает commit-message range check без явного `--commit-message-cutoff-ref`; обычные work PR продолжают проходить commit-message gate через `--base origin/developer`;
 - перед human merge release-PR обязателен state-refresh: `CURRENT_STATE.md` и `NEXT_STEPS.md` обновлены под фактическое состояние, `docs/agent-system/cloud/**` регенерирован, оба `--check` подтверждены в state-refresh PR;
 - release-PR `developer -> main` запрещён, пока не выполнен journaled reviewer consistency-gate по release payload: reviewer read-only по содержанию, с `Journal trace: always`, через ветку `work/<reviewer-role>/<task>` и docs-only PR в `developer`, подтверждает release payload, оба `--check`, сквозную закрытость substantive journal entries, допустимость accepted terminal fold и release notes по канону `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «Pre-release reviewer consistency-gate»;
-- порядок gate: journal closed (substantive entries closed; accepted terminal fold allowed) -> batch-closure -> `gen_file_map.py --check` -> `gen_cloud_bundle.py --check` -> state-refresh -> reviewer consistency-gate -> human merge release-PR -> human annotated release tag on the resulting `main` release merge commit;
-- после human merge release-PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag и не публикует GitHub Release. Release считается fully published только после проверки, что tag указывает на release merge commit `main`;
+- порядок gate: journal closed (substantive entries closed; accepted terminal fold allowed) -> batch-closure -> `gen_file_map.py --check` -> `gen_cloud_bundle.py --check` -> state-refresh -> reviewer consistency-gate -> human merge release-PR -> human annotated release tag on the resulting `main` release merge commit -> human-controlled publication/sync;
+- после human merge release-PR человек-архитектор ставит annotated tag на release merge commit в `main`; агент не создаёт tag, не публикует GitHub Release и не выполняет финальный sync `main -> developer` без human gate. Release считается fully published только после проверки, что tag указывает на release merge commit `main`;
 - для v1.0.0, если annotated tag ещё отсутствует, человек-архитектор должен поставить `v1.0.0` на release merge commit `123a126afd812255f7d671d98169c077cf33a319`; это human-only действие и не выполняется engine;
 - агент не делает merge release-PR даже при наличии прав; решение о переносе в `main` принимает человек.
 
@@ -28,7 +28,7 @@
 - интеграционная ветка;
 - изменения только через итоговый PR из основной `work/<role>/<task>`;
 - прямой push запрещен после bootstrap, кроме отдельного решения пользователя;
-- после merge в `main` должна быть синхронизирована с `main`.
+- после merge в `main` должна быть синхронизирована с `main`; sync decision и merge выполняются по `RELEASE_AUTHORITY_POLICY.md` и `HUMAN_GATE_POLICY.md`.
 
 ## work/<role>/<task-id>
 

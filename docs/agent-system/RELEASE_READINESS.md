@@ -63,7 +63,11 @@ For the future `v1.5.2` release boundary after PR-1..15:
 - Fresh state refresh for `CURRENT_STATE.md`, `NEXT_STEPS.md`, `RELEASE_READINESS.md`
   and `RULESET_STATUS.md`.
 - Regenerated `docs/agent-system/cloud/**`.
-- Human-only release PR merge and tag creation.
+- Human-only release PR merge, annotated tag creation, publication decision and
+  sync decision by `docs/agent-system/RELEASE_AUTHORITY_POLICY.md` and
+  `docs/agent-system/HUMAN_GATE_POLICY.md`.
+- Release/sync/boundary `RESULT` records actor, action and evidence for
+  merge/tag/publish/sync actions without secret values.
 
 ## Release Payload Summary
 

@@ -25,6 +25,13 @@ flowchart TB
   AUTOLOOP["REVIEW_AUTOLOOP.md"]
   SEMANTIC["SEMANTIC_COMPLETENESS_GATES.md"]
 
+  RELEASEAUTH["RELEASE_AUTHORITY_POLICY.md<br/>merge/tag/publish/sync authority"]
+  HUMANGATE["HUMAN_GATE_POLICY.md<br/>human-only actions"]
+  BRANCH["BRANCH_POLICY.md"]
+  WORKFLOW["WORKFLOW.md"]
+  READINESS["RELEASE_READINESS.md"]
+  NEXT["NEXT_STEPS.md"]
+
   GENMAP["tools/gen_file_map.py"]
   GENCLOUD["tools/gen_cloud_bundle.py"]
   EOL["tools/generated_eol_guard.py"]
@@ -59,6 +66,15 @@ flowchart TB
   REVIEW --> SEMANTIC
   AUTOLOOP --> READY
   SEMANTIC --> READY
+
+  MAP --> RELEASEAUTH
+  MAP --> HUMANGATE
+  RELEASEAUTH --> HUMANGATE
+  RELEASEAUTH --> BRANCH
+  RELEASEAUTH --> WORKFLOW
+  RELEASEAUTH --> READINESS
+  HUMANGATE --> BRANCH
+  HUMANGATE --> NEXT
 
   MANIFEST --> GENMAP
   MANIFEST --> GENCLOUD
