@@ -140,6 +140,8 @@ methodology_reference:
 ## Required preflight
 
 - выполнить `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
+- применить `ADOPTION_TRANSFER_MANIFEST.yml` как discovery map для source,
+  template, target-generated, journal scaffold/history и generated files;
 - прочитать local `AGENTS.md`;
 - прочитать local `README.md`;
 - прочитать local architecture/status docs, если есть;

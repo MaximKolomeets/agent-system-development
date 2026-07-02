@@ -1,0 +1,67 @@
+flowchart TB
+  README["README.md<br/>Core reading-list"]
+  MAP["METHODOLOGY_MAP.md<br/>каталог и trigger overlays"]
+  MANIFEST["ADOPTION_TRANSFER_MANIFEST.yml<br/>source/template/generated inventory"]
+  FILEMAP["PROJECT_FILE_MAP.md<br/>generated inventory view"]
+  CLOUD["cloud/**<br/>generated orchestrator bundle"]
+
+  ORCH["ORCHESTRATOR_RESPONSE_STANDARD.md<br/>self-contained Engine block"]
+  TASKHEADER["templates/TASK_HEADER_COMMON.md<br/>header, Source Delta, handoff"]
+  ORCHCHECK["tools/orchestrator_checklist.py<br/>pre-send block validator"]
+
+  ENTRY["ENGINE_ENTRYPOINT.md<br/>engine start and manifest-driven discovery"]
+  SELF["ENGINE_SELF_DISCOVERY_CONTRACT.md"]
+  TASKCONTRACT["TASK_CONTRACT.md"]
+  JOURNAL["ENGINE_JOURNAL_CONTRACT.md"]
+  FINALIZE["JOURNAL_FINALIZATION_POLICY.md"]
+  READY["tools/check_task_ready.py"]
+
+  ADOPT["ADOPTION_GUIDE.md"]
+  DETECTOR["TARGET_ADOPTION_DETECTOR.md"]
+  CHECKLIST["DOWNSTREAM_ADAPTATION_CHECKLIST.md"]
+  STABLE["STABLE_METHODOLOGY_REFERENCE_POLICY.md"]
+
+  REVIEW["CODE_REVIEW_WORKFLOW.md"]
+  AUTOLOOP["REVIEW_AUTOLOOP.md"]
+  SEMANTIC["SEMANTIC_COMPLETENESS_GATES.md"]
+
+  GENMAP["tools/gen_file_map.py"]
+  GENCLOUD["tools/gen_cloud_bundle.py"]
+  EOL["tools/generated_eol_guard.py"]
+
+  README --> MAP
+  README --> ORCH
+  MAP --> MANIFEST
+  MANIFEST --> FILEMAP
+  MANIFEST --> CLOUD
+  MANIFEST --> ENTRY
+
+  ORCH --> TASKHEADER
+  ORCH --> ORCHCHECK
+  ORCH --> TASKCONTRACT
+  ORCHCHECK --> TASKCONTRACT
+
+  ENTRY --> SELF
+  ENTRY --> MANIFEST
+  ENTRY --> ADOPT
+  ENTRY --> JOURNAL
+  TASKCONTRACT --> READY
+  JOURNAL --> FINALIZE
+  FINALIZE --> READY
+
+  ADOPT --> DETECTOR
+  ADOPT --> MANIFEST
+  ADOPT --> CHECKLIST
+  CHECKLIST --> STABLE
+  STABLE --> ENTRY
+
+  REVIEW --> AUTOLOOP
+  REVIEW --> SEMANTIC
+  AUTOLOOP --> READY
+  SEMANTIC --> READY
+
+  MANIFEST --> GENMAP
+  MANIFEST --> GENCLOUD
+  GENMAP --> FILEMAP
+  GENCLOUD --> CLOUD
+  EOL --> CLOUD

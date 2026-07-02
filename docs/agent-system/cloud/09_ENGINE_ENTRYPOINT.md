@@ -248,7 +248,11 @@ docs/agent-system/templates/ADOPTION_PROMPT.md
 
 1. определить текущий target repository;
 2. прочитать локальные инструкции target repository;
-3. найти в template repository этот entrypoint, `ENGINE_SELF_DISCOVERY_CONTRACT.md`, `ENGINE_JOURNAL_CONTRACT.md`, `TASK_FILE_HANDOFF_CONTRACT.md`, `ORCHESTRATOR_RESPONSE_STANDARD.md`, `LANGUAGE_POLICY.md`, `FILE_COMMENTING_STANDARD.md`, `ADOPTION_GUIDE.md`, `ADOPTION_TRANSFER_MANIFEST.yml`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md` и `PROJECT_CONSTITUTION_FRAMEWORK.md`;
+3. найти в template repository этот entrypoint,
+   `ENGINE_SELF_DISCOVERY_CONTRACT.md` и
+   `ADOPTION_TRANSFER_MANIFEST.yml`; дальше определить применимые source,
+   template, target-generated, journal и generated overlays через manifest
+   categories, а не через отдельный ручной список в entrypoint;
 4. выбрать adoption mode;
 5. выполнить safety gate;
 6. подготовить adoption audit;
@@ -290,24 +294,20 @@ Self-discovery подтверждает:
 
 ## Поиск template repository
 
-После чтения локального target repository `engine` читает template repository и находит:
+После чтения локального target repository `engine` читает template repository по
+manifest-driven discovery:
 
-- `ENGINE_ENTRYPOINT.md`;
-- `ENGINE_SELF_DISCOVERY_CONTRACT.md`;
-- `ENGINE_JOURNAL_CONTRACT.md`;
-- `TASK_FILE_HANDOFF_CONTRACT.md`;
-- `ADOPTION_GUIDE.md` (включая раздел «Пошаговый existing-repo adoption»);
-- `ADOPTION_TRANSFER_MANIFEST.yml`;
-- `DOWNSTREAM_ADAPTATION_CHECKLIST.md`;
-- `TARGET_PROJECT_GOVERNANCE_PACK.md`;
-- `PROJECT_CONSTITUTION_FRAMEWORK.md`;
-- `ORCHESTRATOR_RESPONSE_STANDARD.md`;
-- `FILE_COMMENTING_STANDARD.md`;
-- `STAGE_2_COMPLETION_CHECKLIST.md`;
-- `templates/ORCHESTRATOR_RESPONSE_TEMPLATE.md`;
-- `templates/TARGET_REPOSITORY_BOOTSTRAP_TASK_TEMPLATE.md`;
-- `templates/PROJECT_CONSTITUTION_TEMPLATE.md`;
-- `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md`.
+1. Открыть минимальные anchors:
+   `ENGINE_ENTRYPOINT.md`, `ENGINE_SELF_DISCOVERY_CONTRACT.md` и
+   `ADOPTION_TRANSFER_MANIFEST.yml`.
+2. По `ADOPTION_TRANSFER_MANIFEST.yml` определить, какие файлы относятся к
+   `source`, `template`, `target_generated`, `history_state`, `journal`,
+   `scaffold` и `generated`.
+3. По trigger задачи подключить overlays из root `README.md` и
+   `METHODOLOGY_MAP.md` → `Mandatory overlays by trigger`.
+4. Для adoption/source-update не поддерживать отдельный длинный discovery-list
+   в entrypoint: если inventory меняется, обновляется manifest, а
+   `PROJECT_FILE_MAP.md` и `cloud/**` регенерируются штатными tools.
 
 Template repository является методологической основой, а не источником для слепого копирования.
 

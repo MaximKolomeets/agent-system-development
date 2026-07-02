@@ -38,6 +38,23 @@ Source snapshot считается пригодным для работы тол
 
 Полный каталог методологии по категориям, назначению и границам: [`docs/agent-system/METHODOLOGY_MAP.md`](docs/agent-system/METHODOLOGY_MAP.md).
 
+### Mandatory overlays by trigger
+
+Core reading-list ниже остаётся обязательным базовым контекстом. Таблица
+добавляет trigger-specific overlays: подключать их только когда задача
+затрагивает соответствующий сценарий. Инвентарь файлов и категорий проверять по
+[`docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`](docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml),
+а не поддерживать отдельные ручные списки.
+
+| Trigger | Mandatory overlays | Граница |
+| --- | --- | --- |
+| Orchestrator готовит блок для исполнителя | `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`, `docs/agent-system/templates/TASK_HEADER_COMMON.md`, `docs/agent-system/tools/orchestrator_checklist.py` | Проверяет самодостаточность блока до отправки; не заменяет review задачи. |
+| Engine меняет файлы или создаёт PR | `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`, `docs/agent-system/TASK_CONTRACT.md`, `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`, `docs/agent-system/tools/check_task_ready.py` | Обязательны scope/checks/STOP, RESULT/INDEX finalization и ready-gate. |
+| Меняется сама методология | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`, `docs/agent-system/METHODOLOGY_MAP.md`, `docs/agent-system/PROJECT_FILE_MAP.md`, `docs/agent-system/tools/generated_eol_guard.py` | Source inventory меняется через manifest; generated artifacts регенерируются штатными tools. |
+| Target adoption или source-update | `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`, `docs/agent-system/ADOPTION_GUIDE.md`, `docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Использовать stable methodology reference и manifest categories; не читать `developer` как downstream source. |
+| Review-only или feedback loop | `docs/agent-system/CODE_REVIEW_WORKFLOW.md`, `docs/agent-system/REVIEW_AUTOLOOP.md`, `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` | Reviewer не становится implementer без отдельной задачи; blockers должны иметь проверяемые IDs. |
+| Release, state refresh или boundary reconciliation | `docs/agent-system/RELEASE_READINESS.md`, `docs/agent-system/CURRENT_STATE.md`, `docs/agent-system/NEXT_STEPS.md`, `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` | Ordinary PR не требует отдельной closure-задачи; boundary reconciliation выполняется только в release/audit/explicit contexts. |
+
 ### Core (читать всегда, 10 файлов)
 
 1. [`AGENTS.md`](AGENTS.md) (root)
@@ -76,6 +93,7 @@ Engine / handoff / orchestrator interface:
 - `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md`
 - `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md`
 - `docs/agent-system/CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`
+- `docs/agent-system/tools/orchestrator_checklist.py`
 
 Adoption:
 
@@ -101,6 +119,7 @@ Templates, journal и навигационный индекс:
 - `docs/agent-system/templates/**` (шаблоны задач, отчётов, governance pack, prompts)
 - `docs/agent-system/engine-journal/**` (`docs/agent-system/engine-journal/README.md`, `docs/agent-system/engine-journal/INDEX.md`, `templates/`, `input/`, `output/`)
 - `docs/agent-system/METHODOLOGY_MAP.md` (полный каталог методологии: назначение, когда применять, границы)
+- `docs/agent-system/METHODOLOGY_MAP.mermaid` (визуальная карта связей)
 - `docs/agent-system/source/SOURCE_agent_system_index.md` (навигационный индекс; ссылается на этот reading-list)
 
 ## Роль репозитория

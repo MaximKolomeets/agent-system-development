@@ -214,6 +214,17 @@ Read-only review может завершиться фразой "нужна от
 
 Перед отправкой блока для исполнителя (engine) оркестратор проверяет:
 
+Если блок подготовлен как отдельный файл или буфер, перед отправкой выполнить
+машинную sanity-проверку:
+
+```text
+python docs/agent-system/tools/orchestrator_checklist.py <task-block-file>
+```
+
+Эта проверка является pre-send guard для типовых пропусков в copy/paste-блоке.
+Она не заменяет semantic review, `validate_task_contract.py` и
+`check_task_ready.py`.
+
 - [ ] Можно ли выполнить задачу, скопировав только один fenced code block?
 - [ ] Есть ли внутри блока рекомендуемый режим исполнения?
 - [ ] Есть ли внутри блока Verified execution baseline или явное `not applicable`?
@@ -250,6 +261,7 @@ Read-only review может завершиться фразой "нужна от
 - [ ] Если no-output `rg`/wrapper scan на Windows завис, указан ли deterministic fallback (`Select-String`/PowerShell/Python/sequential command) и требование записать команду + exit code в RESULT без печати sensitive matches?
 - [ ] Если задача меняет файлы или готовит fix-pass/review-comment, включён ли recommended ready-gate `python docs/agent-system/tools/check_task_ready.py --base origin/developer`?
 - [ ] Если задача меняет docs/journal/templates/tooling, включён ли semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`?
+- [ ] Если блок готовился как файл или буфер, выполнен ли `tools/orchestrator_checklist.py` или явно указано, почему pre-send tool неприменим?
 - [ ] Если задача создаёт acceptance spec, blocker matrix, fixture plan, contract tests или generator scaffold, указан ли pattern `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`?
 - [ ] Если задача финализирует journal, указана ли политика `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`: finalized TASK/RESULT/INDEX без deferred finalization markers?
 - [ ] Если surfaced generated/cloud EOL-only шум, указан ли read-only guard `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer` и distinction между `content_changed` blocker и EOL/whitespace-only noise?
@@ -400,7 +412,7 @@ Downstream task не должна выполнять `git switch`, `git checkout
 methodology_reference:
   repository_full_name: MaximKolomeets/agent-system-development
   local_path: C:\neural\repos\agent-system-development
-  ref: origin/main
+  source_ref: origin/main
   stable_only: true
   source_commit: <origin/main commit sha>
   checked_at: <ISO-8601 timestamp>

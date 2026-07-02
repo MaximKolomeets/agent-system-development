@@ -115,6 +115,8 @@ orchestrator_context_bundle:
       cloud_flatname: COST_TRACKING_POLICY.md
     - path: docs/agent-system/METRICS.md
       cloud_flatname: METRICS.md
+    - path: docs/agent-system/METHODOLOGY_MAP.md
+      cloud_flatname: METHODOLOGY_MAP.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -151,6 +153,7 @@ categories:
       - docs/agent-system/tools/gen_cloud_bundle.py
       - docs/agent-system/tools/gen_file_map.py
       - docs/agent-system/tools/generated_eol_guard.py
+      - docs/agent-system/tools/orchestrator_checklist.py
       - docs/agent-system/tools/validate_commit_message.py
       - docs/agent-system/tools/validate_id_references.py
       - docs/agent-system/tools/validate_task_contract.py
@@ -162,6 +165,7 @@ categories:
       - docs/agent-system/METRICS.md
       - docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md
       - docs/agent-system/METHODOLOGY_MAP.md
+      - docs/agent-system/METHODOLOGY_MAP.mermaid
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/OPERATIONAL_FAST_LANE.md
       - docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
@@ -381,6 +385,7 @@ categories:
       - docs/agent-system/cloud/21_TIME_ACCOUNTING_POLICY.md
       - docs/agent-system/cloud/22_COST_TRACKING_POLICY.md
       - docs/agent-system/cloud/23_METRICS.md
+      - docs/agent-system/cloud/24_METHODOLOGY_MAP.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.
