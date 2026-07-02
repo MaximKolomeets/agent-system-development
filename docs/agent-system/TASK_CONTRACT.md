@@ -81,6 +81,7 @@ task_contract:
   checks:
     required:
       - python docs/agent-system/tools/check_task_ready.py --base origin/developer
+      - python docs/agent-system/tools/validate_policy_invariants.py
       - python docs/agent-system/tools/gen_file_map.py --check
       - python docs/agent-system/tools/gen_cloud_bundle.py --check
       - git diff --check origin/developer...HEAD
@@ -226,6 +227,9 @@ source для target/downstream adoption.
 - `scope.forbidden_files` должен включать `.env` или `.env.*`;
 - `policies.merge` для substantive/write-action задач должен быть `human_only`;
 - `checks.required` должен включать `python docs/agent-system/tools/check_task_ready.py --base origin/developer` или явное объяснение в prose, почему ready-gate не применим.
+- Для задач, меняющих policy/manifest/source inventory, `checks.required` должен
+  включать `python docs/agent-system/tools/validate_policy_invariants.py` или
+  фиксировать, что проверка покрыта `check_task_ready.py`.
 - Для docs/journal/templates/tooling задач prose или TASK должен требовать semantic completeness checklist по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`.
 - Для docs/journal/templates/tooling задач prose или TASK должен требовать
   accounting fields по `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и

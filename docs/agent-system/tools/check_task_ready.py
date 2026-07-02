@@ -37,7 +37,9 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/TIME_ACCOUNTING_POLICY.md",
     "docs/agent-system/COST_TRACKING_POLICY.md",
     "docs/agent-system/METRICS.md",
+    "docs/agent-system/POLICY_INVARIANTS.md",
     "docs/agent-system/engine-journal/INDEX.md",
+    "docs/agent-system/tools/validate_policy_invariants.py",
 }
 GENERATED_TRIGGER_PREFIXES = ("docs/agent-system/cloud/",)
 FORBIDDEN_SEGMENTS = {"data", "runtime", "dist", "backups", "exports", ".venv"}
@@ -145,6 +147,7 @@ class ReadyReport:
     diff_checks: list[CommandResult] = field(default_factory=list)
     commit_message_checks: list[CommandResult] = field(default_factory=list)
     id_reference_checks: list[CommandResult] = field(default_factory=list)
+    policy_invariant_checks: list[CommandResult] = field(default_factory=list)
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
@@ -176,6 +179,7 @@ class ReadyReport:
         data["diff_checks"] = [asdict(item) for item in self.diff_checks]
         data["commit_message_checks"] = [asdict(item) for item in self.commit_message_checks]
         data["id_reference_checks"] = [asdict(item) for item in self.id_reference_checks]
+        data["policy_invariant_checks"] = [asdict(item) for item in self.policy_invariant_checks]
         data["generated_checks"] = [asdict(item) for item in self.generated_checks]
         data["changed_files_count"] = len(self.changed_files)
         data["staged_files_count"] = len(self.staged_files)
@@ -795,6 +799,16 @@ def add_id_reference_checks(report: ReadyReport) -> None:
         report.blockers.append("validate_id_references.py failed")
 
 
+def add_policy_invariant_checks(report: ReadyReport) -> None:
+    check = run_command(
+        ["python", "docs/agent-system/tools/validate_policy_invariants.py"],
+        "validate_policy_invariants.py",
+    )
+    report.policy_invariant_checks.append(check)
+    if check.exit_code != 0:
+        report.blockers.append("validate_policy_invariants.py failed")
+
+
 def add_safety_scans(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
     report.forbidden_changed_paths = [path for path in all_paths if is_forbidden_path(path)]
@@ -935,6 +949,8 @@ def render_human(report: ReadyReport) -> str:
         lines.append(f"{check.name}: {check.status}")
     for check in report.id_reference_checks:
         lines.append(f"{check.name}: {check.status}")
+    for check in report.policy_invariant_checks:
+        lines.append(f"{check.name}: {check.status}")
     lines.extend(
         [
             "",
@@ -1022,6 +1038,7 @@ def build_report(
     add_diff_checks(report)
     add_commit_message_checks(report, commit_message_cutoff_ref)
     add_id_reference_checks(report)
+    add_policy_invariant_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
     add_russian_first_lint(report)

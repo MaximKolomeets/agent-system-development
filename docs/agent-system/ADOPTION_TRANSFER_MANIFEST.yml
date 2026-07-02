@@ -64,7 +64,7 @@ scope:
 orchestrator_context_bundle:
   source_canon: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md#architect-orchestrator-context-handoff
   generated_dir: docs/agent-system/cloud
-  max_files: 25
+  max_files: 26
   files:
     - path: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       cloud_flatname: ORCHESTRATOR_OPERATING_CONTRACT.md
@@ -114,6 +114,8 @@ orchestrator_context_bundle:
       cloud_flatname: METRICS.md
     - path: docs/agent-system/METHODOLOGY_MAP.md
       cloud_flatname: METHODOLOGY_MAP.md
+    - path: docs/agent-system/POLICY_INVARIANTS.md
+      cloud_flatname: POLICY_INVARIANTS.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -158,6 +160,7 @@ categories:
       - docs/agent-system/tools/russian_first_lint.py
       - docs/agent-system/tools/validate_commit_message.py
       - docs/agent-system/tools/validate_id_references.py
+      - docs/agent-system/tools/validate_policy_invariants.py
       - docs/agent-system/tools/validate_task_contract.py
       - docs/agent-system/GITHUB_RULESETS.md
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
@@ -179,6 +182,7 @@ categories:
       - docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md
       - docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md
       - docs/agent-system/POLICY_STATUS_PATTERN.md
+      - docs/agent-system/POLICY_INVARIANTS.md
       - docs/agent-system/PR_WORKFLOW.md
       - docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md
       - docs/agent-system/PUBLICATION_POLICY.md
@@ -411,6 +415,7 @@ categories:
       - docs/agent-system/cloud/22_COST_TRACKING_POLICY.md
       - docs/agent-system/cloud/23_METRICS.md
       - docs/agent-system/cloud/24_METHODOLOGY_MAP.md
+      - docs/agent-system/cloud/25_POLICY_INVARIANTS.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.

@@ -50,6 +50,7 @@ CANONICAL_BUNDLE_ORDER = [
     "docs/agent-system/COST_TRACKING_POLICY.md",
     "docs/agent-system/METRICS.md",
     "docs/agent-system/METHODOLOGY_MAP.md",
+    "docs/agent-system/POLICY_INVARIANTS.md",
 ]
 
 

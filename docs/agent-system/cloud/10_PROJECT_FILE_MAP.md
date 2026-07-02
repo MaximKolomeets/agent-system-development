@@ -48,6 +48,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/tools/russian_first_lint.py` |  |
 | `docs/agent-system/tools/validate_commit_message.py` |  |
 | `docs/agent-system/tools/validate_id_references.py` |  |
+| `docs/agent-system/tools/validate_policy_invariants.py` |  |
 | `docs/agent-system/tools/validate_task_contract.py` |  |
 | `docs/agent-system/GITHUB_RULESETS.md` |  |
 | `docs/agent-system/GITHUB_TOKEN_POLICY.md` |  |
@@ -69,6 +70,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ORCHESTRATOR_PROJECT_OPERATING_LAYER.md` |  |
 | `docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md` |  |
 | `docs/agent-system/POLICY_STATUS_PATTERN.md` |  |
+| `docs/agent-system/POLICY_INVARIANTS.md` |  |
 | `docs/agent-system/PR_WORKFLOW.md` |  |
 | `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md` |  |
 | `docs/agent-system/PUBLICATION_POLICY.md` |  |
@@ -219,3 +221,4 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/22_COST_TRACKING_POLICY.md` |  |
 | `docs/agent-system/cloud/23_METRICS.md` |  |
 | `docs/agent-system/cloud/24_METHODOLOGY_MAP.md` |  |
+| `docs/agent-system/cloud/25_POLICY_INVARIANTS.md` |  |
