@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/299
 
@@ -20,7 +20,7 @@ reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: merged_closed
 
 post_merge_closure_required: false
 
@@ -124,6 +124,18 @@ developer_head_sha: `4cf386919f96a52747367249ea9c2e4ad64fede9`.
 - Release-boundary commit-message gate должен различать ordinary work PR и
   historical release payload, иначе release может блокироваться на history, которую
   нельзя безопасно переписать.
+
+## Boundary reconciliation closure
+
+- closure_pass: `METH-RELEASE-PREP-V1-5-1-01`.
+- PR #299 state: `MERGED`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/299
+- merged_at: `2026-07-01T16:55:46Z`.
+- merge_commit_sha: `cbf57c848d8537b4ace5bc348148ba1b692d2a1b`.
+- reviewed_head_sha: `53937287f14aaa137d55ddcb0ced4462140d648e`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
 
 ## Передача
 

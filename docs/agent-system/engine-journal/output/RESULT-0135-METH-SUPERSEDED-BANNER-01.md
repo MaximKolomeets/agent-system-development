@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/301
 
@@ -20,7 +20,7 @@ reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: merged_closed
 
 post_merge_closure_required: false
 
@@ -136,6 +136,18 @@ generic methodology consumers from `docs/agent-system/SOURCE_CONSUMERS.md`.
 
 - Superseded banner check должен оставаться advisory: malformed banner важен для
   graph parsing, но не должен блокировать unrelated work PR без reviewer решения.
+
+## Boundary reconciliation closure
+
+- closure_pass: `METH-RELEASE-PREP-V1-5-1-01`.
+- PR #301 state: `MERGED`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/301
+- merged_at: `2026-07-01T17:51:52Z`.
+- merge_commit_sha: `867082c089ab16c4fea094ee697db0e10082f5ca`.
+- reviewed_head_sha: `a9cec0b31cd6810bd7de308cc3b29825bc7e8e29`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
 
 ## Передача
 

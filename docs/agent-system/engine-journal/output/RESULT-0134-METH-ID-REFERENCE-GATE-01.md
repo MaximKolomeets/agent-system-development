@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/300
 
@@ -20,7 +20,7 @@ reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: merged_closed
 
 post_merge_closure_required: false
 
@@ -125,6 +125,18 @@ generic methodology consumers from `docs/agent-system/SOURCE_CONSUMERS.md`.
 
 - ID-reference gate полезно держать lightweight и deterministic: он должен ловить
   dangling machine-readable references, но не превращаться в semantic parser.
+
+## Boundary reconciliation closure
+
+- closure_pass: `METH-RELEASE-PREP-V1-5-1-01`.
+- PR #300 state: `MERGED`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/300
+- merged_at: `2026-07-01T17:20:31Z`.
+- merge_commit_sha: `84267fa77214a394b62927ac06d2c4b8389475ef`.
+- reviewed_head_sha: `80adcf61163737a2571b8748b1d56326f87752bf`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
 
 ## Передача
 
