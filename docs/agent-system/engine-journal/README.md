@@ -19,6 +19,9 @@ Do not copy methodology operational history into target repositories.
 
 - journal append-only по умолчанию;
 - task/result files не удаляются и не перезаписываются без отдельного решения пользователя;
+- старые finalized RESULT могут переноситься в `archive/vX.Y.Z/` только
+  отдельным post-release archive PR по `JOURNAL_ARCHIVING_POLICY.md`;
+- archive files не входят в default context bundle;
 - private data, secrets, credentials, tokens, private repository URLs и production/runtime data запрещены;
 - sensitive checks фиксируются только безопасным summary без matching lines.
 

@@ -21,6 +21,7 @@
 - downstream adaptation checklist;
 - private control-plane templates и MIR lifecycle ledger;
 - agent initiative protocol и mandatory feedback/proposal sections;
+- journal archiving policy и release-boundary Journal Epoch;
 - policy invariants и self-test ready-gate;
 - target project governance pack;
 - project constitution framework;
