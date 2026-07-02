@@ -4,7 +4,7 @@ task_id: `METH-JOURNAL-ARCHIVING-H15-01`
 
 seq: `0151`
 
-status: `open; готов к review`
+status: `closed; PR #320 merged; facts in closure stamp`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-14-journal-archiving`
 
@@ -96,6 +96,26 @@ PR-14/H15 выполнен: добавлена политика архивиро
 - Draft: `false`.
 - Mergeability at finalization pre-check: `MERGEABLE`.
 - PR head before journal finalization: `dac6667ba14fdf3d3807323c106763380a27e8cb`.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.2.
+- closure_task: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`.
+- closure_seq: `0153`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/320`.
+- work_pr_state: `MERGED`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-v1-5-2-pr-14-journal-archiving`.
+- reviewed_head_sha: `787b95db5187670c224b26b27e65939152cca689`.
+- merged_at: `2026-07-02T16:58:19Z`.
+- merge_commit: `da6e6a27a7b8c2129fca8304e133ac2bfe958d4c`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep v1.5.2 может стартовать только после merge batch-closure PR.
 
 ## Source Delta
 

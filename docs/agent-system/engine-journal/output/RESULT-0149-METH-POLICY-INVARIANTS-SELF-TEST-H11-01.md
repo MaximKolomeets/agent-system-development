@@ -4,7 +4,7 @@ task_id: `METH-POLICY-INVARIANTS-SELF-TEST-H11-01`
 
 seq: `0149`
 
-status: `open; готов к review`
+status: `closed; PR #318 merged; facts in closure stamp`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-12-policy-invariants-self-test`
 
@@ -90,6 +90,26 @@ gate для методологии.
 - Draft: `false`.
 - Mergeability at finalization: `MERGEABLE`.
 - PR head before journal finalization: `d85293481a1d5b30d6434c5a52498938b8425cc8`.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.2.
+- closure_task: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`.
+- closure_seq: `0153`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/318`.
+- work_pr_state: `MERGED`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-v1-5-2-pr-12-policy-invariants-self-test`.
+- reviewed_head_sha: `dbc503763032b1fbcad0c6004428138272e0839b`.
+- merged_at: `2026-07-02T15:23:09Z`.
+- merge_commit: `9d74c9d9c329d27ba886915d7d63888c38603c46`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep v1.5.2 может стартовать только после merge batch-closure PR.
 
 ## Source Delta
 
