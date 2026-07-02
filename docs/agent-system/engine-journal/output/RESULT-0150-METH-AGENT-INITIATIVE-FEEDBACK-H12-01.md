@@ -4,7 +4,7 @@ task_id: `METH-AGENT-INITIATIVE-FEEDBACK-H12-01`
 
 seq: `0150`
 
-status: `open; готов к review`
+status: `closed; PR #319 merged; facts in closure stamp`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-13-agent-initiative-feedback`
 
@@ -98,6 +98,26 @@ feedback/proposal поверхность для новых RESULT/final reports.
 - Draft: `false`.
 - Mergeability at finalization: `MERGEABLE`.
 - PR head before journal finalization: `3255869ba7aadd1bc43a0f38da2c96353f62f2ed`.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.2.
+- closure_task: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`.
+- closure_seq: `0153`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/319`.
+- work_pr_state: `MERGED`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-v1-5-2-pr-13-agent-initiative-feedback`.
+- reviewed_head_sha: `ac6506e8310392e5ee7664a8bbe1d0ea763826aa`.
+- merged_at: `2026-07-02T15:47:58Z`.
+- merge_commit: `25b60ad8d41f42fb3e39daebb0be3757605acfc3`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep v1.5.2 может стартовать только после merge batch-closure PR.
 
 ## Source Delta
 

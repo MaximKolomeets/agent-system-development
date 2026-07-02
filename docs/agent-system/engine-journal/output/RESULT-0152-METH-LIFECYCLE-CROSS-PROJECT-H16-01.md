@@ -4,7 +4,7 @@ task_id: `METH-LIFECYCLE-CROSS-PROJECT-H16-01`
 
 seq: `0152`
 
-status: `open; готов к review`
+status: `closed; PR #321 merged; facts in closure stamp`
 
 branch: `work/methodology-architect-01/meth-v1-5-2-pr-15-lifecycle-cross-project`
 
@@ -96,6 +96,26 @@ PR-15/H16 выполнен: добавлен lifecycle/cross-project слой д
 - Draft: `false`.
 - Mergeability at finalization pre-check: `MERGEABLE`.
 - PR head before journal finalization: `bfcb6572c267ca3517ec313f7b2ae8285c6b1247`.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.2.
+- closure_task: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`.
+- closure_seq: `0153`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/321`.
+- work_pr_state: `MERGED`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-v1-5-2-pr-15-lifecycle-cross-project`.
+- reviewed_head_sha: `5aef71efac6450543016776214cd4fc17e0c4902`.
+- merged_at: `2026-07-02T17:17:51Z`.
+- merge_commit: `d102590705e404537c8072d6ce6cf6cf5bb5fee2`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep v1.5.2 может стартовать только после merge batch-closure PR.
 
 ## Source Delta
 

@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed; PR #312 merged; facts in closure stamp
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/312
 
@@ -143,6 +143,26 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 - `main` pushed: no.
 - tag created: no.
 - GitHub Release created: no.
+
+## Closure stamp
+
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- closure_scope: batch cleanup before release boundary v1.5.2.
+- closure_task: `METH-BATCH-CLOSURE-0142-0152-V1-5-2-01`.
+- closure_seq: `0153`.
+- work_pr: `https://github.com/MaximKolomeets/agent-system-development/pull/312`.
+- work_pr_state: `MERGED`.
+- work_pr_base: `developer`.
+- work_pr_head: `work/methodology-architect-01/meth-v1-5-2-pr-6-release-authority-human-gate`.
+- reviewed_head_sha: `b4b0c62135e7e3ab9f3db975e72ecf60b226921b`.
+- merged_at: `2026-07-02T11:40:37Z`.
+- merge_commit: `69696842ed93f9a85757b8887012b2c2f2ff5114`.
+- merge_facts_source: `gh pr view`.
+- release_pr: `не применимо`.
+- sync_pr: `не применимо`.
+- next step after closure: release-prep v1.5.2 может стартовать только после merge batch-closure PR.
 
 ## Source Delta
 
