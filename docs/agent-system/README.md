@@ -13,7 +13,8 @@
 - PR workflow;
 - local worktree guide;
 - GitHub rulesets recommendations;
-- hotfix, rollback and disaster recovery policy;
+- hotfix, rollback и disaster recovery policy;
+- non-technical architect guide, cockpit и handoff pack;
 - manual review checklist;
 - adoption modes;
 - transfer manifest;
@@ -32,6 +33,7 @@ GitHub остается основным источником правды. Sour
 - `templates/TARGET_PROJECT_GOVERNANCE_PACK_TEMPLATE.md` - структура governance pack для target repository.
 - `templates/PROJECT_CONSTITUTION_TEMPLATE.md` - target `PROJECT_CONSTITUTION.md` для mission, authority и scope control.
 - `templates/PROJECT_DASHBOARD_TEMPLATE.md` - dashboard проекта.
+- `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` - короткий yes/no dashboard для architect/operator.
 - `templates/ROADMAP_TEMPLATE.md` - roadmap проекта.
 - `templates/BACKLOG_TEMPLATE.md` - backlog задач.
 - `templates/TIME_LEDGER_TEMPLATE.md` - rollup времени, token/cost и metrics

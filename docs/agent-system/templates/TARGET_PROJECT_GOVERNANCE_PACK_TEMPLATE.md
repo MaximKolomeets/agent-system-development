@@ -28,6 +28,7 @@ README.md
 AGENTS.md
 PROJECT_CONSTITUTION.md
 PROJECT_DASHBOARD.md
+PROJECT_OPERATOR_DASHBOARD.md
 ROADMAP.md
 RUNBOOK.md
 DECISIONS.md
@@ -39,6 +40,9 @@ docs/agent-system/
   DECISION_LOG.md
   PROJECT_GUARDRAILS.md
   ENGINE_REGISTRY.md
+  NON_TECHNICAL_ARCHITECT_GUIDE.md
+  ARCHITECT_COCKPIT.md
+  ARCHITECT_HANDOFF_PACK.md
   engine-journal/
   BRANCH_POLICY.md
   WORKFLOW.md
@@ -58,6 +62,7 @@ docs/agent-system/
 | `AGENTS.md` | Правила для engine | адаптировать local rules |
 | `PROJECT_CONSTITUTION.md` | Закон проекта: mission, success criteria, strategic goal, authority и scope control | создать по target facts |
 | `PROJECT_DASHBOARD.md` | Краткое состояние проекта | создать по фактам |
+| `PROJECT_OPERATOR_DASHBOARD.md` | Короткий yes/no status для merge/release/adoption решений | создать по фактам |
 | `ROADMAP.md` | Этапы и критерии завершения | создать по target plan |
 | `RUNBOOK.md` | Повторяемые операции | адаптировать команды |
 | `docs/agent-system/CURRENT_STATE.md` | Текущее фактическое состояние | создать по фактам |
@@ -66,6 +71,9 @@ docs/agent-system/
 | `docs/agent-system/DECISION_LOG.md` | Решения проекта | создать по target decisions |
 | `docs/agent-system/PROJECT_GUARDRAILS.md` | Goal, non-goals, stop conditions | создать по target constraints |
 | `docs/agent-system/ENGINE_REGISTRY.md` | Роли агентов и mapping engines | адаптировать роли |
+| `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md` | Вход для архитектора без обязанности программировать | адаптировать ссылки при необходимости |
+| `docs/agent-system/ARCHITECT_COCKPIT.md` | Management cockpit: вопросы, красные флаги, safe prompts | адаптировать под target workflow |
+| `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` | Handoff dossier/protocol/checklist в одном файле | заполнять по target facts |
 | `docs/agent-system/engine-journal/` | Journal task/result artifacts | создать project-specific journal |
 | `docs/agent-system/BRANCH_POLICY.md` | Branch model | адаптировать branch names |
 | `docs/agent-system/WORKFLOW.md` | Work process | адаптировать workflow |
@@ -97,7 +105,7 @@ operating-управления; границы между ними должны 
    ролевой контракт (не коммитит/не мержит), knowledge base и правило свежести
    (`asof` + `developer` HEAD SHA). Аналог для другого ассистент-продукта —
    `ORCHESTRATOR_OPERATING_CONTRACT.md`.
-3. **Cross-project consolidation (Cowork lane)** —
+3. **Cross-project consolidation (Cowork lane)** — слой консолидации
    `CROSS_PROJECT_CONSOLIDATION_CONTRACT.md`: read-only advisory сводка поверх
    нескольких target repositories через visibility-matrix (need-to-know как
    граница), `STATE_DIGEST` и `CONSOLIDATED_VIEW`.
@@ -113,6 +121,9 @@ operating-управления; границы между ними должны 
 ## Связь state documents
 
 - `PROJECT_DASHBOARD.md` кратко показывает current goal, active PR, blockers и links.
+- `PROJECT_OPERATOR_DASHBOARD.md` показывает yes/no gates: ordinary merge,
+  release, adoption, stale state, journal blockers, missing time reports и
+  human decisions.
 - `PROJECT_CONSTITUTION.md` фиксирует mission, success criteria, out-of-scope, architectural principles, current strategic goal, authority и scope expansion control.
 - `ROADMAP.md` задает stages, completion criteria и next PR candidates.
 - `docs/agent-system/CURRENT_STATE.md` фиксирует фактическое состояние после PR.
@@ -121,17 +132,22 @@ operating-управления; границы между ними должны 
 - `docs/agent-system/DECISION_LOG.md` фиксирует decisions, reasons и consequences.
 - `docs/agent-system/PROJECT_GUARDRAILS.md` задает goal, non-goals, forbidden scope и stop conditions.
 - `docs/agent-system/ENGINE_REGISTRY.md` связывает stable agent roles с replaceable engines.
+- `docs/agent-system/NON_TECHNICAL_ARCHITECT_GUIDE.md` объясняет, как owner/architect управляет через **что**, а не **как**.
+- `docs/agent-system/ARCHITECT_COCKPIT.md` задает ежедневные/еженедельные вопросы управления.
+- `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` собирает handoff dossier, protocol и checklist в одном canonical home.
 - `docs/agent-system/engine-journal/` связывает engine task files, result files, branches, PR и commits.
 
-Engine journal in a target repository is project-specific operational history.
-Use methodology repository scaffold/templates, but do not copy methodology
-operational history or existing task/result entries.
+Engine journal в target repository является project-specific operational
+history. Использовать scaffold/templates methodology repository можно, но
+нельзя копировать operational history или существующие task/result entries из
+methodology repository.
 
 ## Файлы, специфичные для target (target-specific files)
 
 Не копировать эти файлы verbatim из methodology repository:
 
 - `PROJECT_DASHBOARD.md`;
+- `PROJECT_OPERATOR_DASHBOARD.md`;
 - `PROJECT_CONSTITUTION.md`;
 - `ROADMAP.md`;
 - `RUNBOOK.md`;
@@ -142,6 +158,7 @@ operational history or existing task/result entries.
 - `docs/agent-system/DECISION_LOG.md`;
 - `docs/agent-system/PROJECT_GUARDRAILS.md`;
 - `docs/agent-system/ENGINE_REGISTRY.md`;
+- `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`, если он заполнен target facts;
 - `docs/agent-system/engine-journal/**`;
 - `docs/agent-system/agents/**`.
 
@@ -183,6 +200,7 @@ work/<роль>/<task-id>
 Обновлять при необходимости:
 
 - `PROJECT_DASHBOARD.md`;
+- `PROJECT_OPERATOR_DASHBOARD.md`;
 - `ROADMAP.md`;
 - `docs/agent-system/BACKLOG.md`;
 - `docs/agent-system/DECISION_LOG.md`;

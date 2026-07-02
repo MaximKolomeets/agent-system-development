@@ -59,11 +59,11 @@ Architectural Principles задают ограничения, которые `en
 Универсальные примеры:
 
 - Local-first;
-- docs-first before implementation;
-- no microservices before approved stage;
-- no Kubernetes before approved stage;
-- no paid external dependency without explicit approval;
-- no runtime adoption without separate architecture decision.
+- docs-first перед implementation;
+- no microservices до approved stage;
+- no Kubernetes до approved stage;
+- no paid external dependency без explicit approval;
+- no runtime adoption без отдельного architecture decision.
 
 Principles должны быть адаптированы под target repository. Нельзя копировать project-specific principles из methodology repository или другого target repository.
 
@@ -98,6 +98,25 @@ docs/agent-system/ENGINE_REGISTRY.md (target-local; канон-шаблон: doc
 
 Agent Authority не дает engine права расширять scope задачи, менять strategic goal или обходить local instructions.
 
+## Архитектор/owner без обязанности программировать
+
+`PROJECT_CONSTITUTION.md` должен исходить из того, что архитектор или owner может
+не быть программистом.
+
+Это не снижает authority архитектора. Он утверждает:
+
+- mission и success criteria;
+- current strategic goal;
+- priority и next safe step;
+- out-of-scope и scope expansion boundary;
+- acceptance criteria;
+- Level 3/4 decisions;
+- human-only actions по `HUMAN_GATE_POLICY.md`.
+
+Архитектор не обязан утверждать implementation tactics: конкретные file edits,
+library internals, shell flags или patch strategy. Executor предлагает
+implementation plan внутри утвержденного scope, а reviewer проверяет результат.
+
 ## Human Gate
 
 Target `PROJECT_CONSTITUTION.md` должен явно ссылаться на target-local
@@ -112,7 +131,7 @@ Target `PROJECT_CONSTITUTION.md` должен явно ссылаться на t
 - mission/strategy/roadmap direction;
 - удаление данных;
 - финансовые решения;
-- rollback/hotfix final decision.
+- rollback/hotfix final decision человеком.
 
 Если target repository использует release flow, authority для merge/tag/publish/sync
 должна быть согласована с `RELEASE_AUTHORITY_POLICY.md`.
@@ -129,6 +148,10 @@ Decision Authority делится на четыре уровня:
 | Level 4 | Project Strategy | Mission, strategic goal, out-of-scope, roadmap stage или direction change | Требуется explicit user approval |
 
 Level 3+ всегда требует явного approval пользователя до изменений.
+
+Approval пользователя может быть дан не-программистом owner/architect, если он
+владеет mission/scope/priority решения. Технические details при этом должны быть
+переведены executor/reviewer в понятный risk/evidence summary.
 
 ## Контроль расширения scope (Scope Expansion Control)
 

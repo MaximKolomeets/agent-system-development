@@ -80,6 +80,30 @@
 
 Если ответ неясен, изменение фиксируется как proposed follow-up, а не как обязательное правило.
 
+## Architect handoff
+
+Architect handoff применяется только при trigger: смена архитектора/owner,
+пауза больше одной рабочей недели, release/audit boundary, incident/hotfix,
+rollback или передача проекта в новый chat/thread.
+
+Канон: `docs/agent-system/ARCHITECT_HANDOFF_PACK.md`.
+
+Порядок:
+
+1. Передающий architect/operator собирает safe summary: stable methodology
+   reference, source commit, current branch/PR, open boundary и risks/blockers,
+   last successful checks, human-only decisions и next safe step.
+2. Dossier, protocol и checklist ведутся в одном `ARCHITECT_HANDOFF_PACK.md`.
+   Не создавать отдельные handoff/dossier/protocol/checklist docs без явного
+   target-local решения.
+3. Принимающий architect/operator читает dossier за 30 минут, проверяет
+   dashboard и подтверждает один next safe step.
+4. Если source commit, active PR, blocker, human-only decision или next safe
+   step непонятны, handoff заканчивается `STOP: human decision required`.
+
+Для обычных мелких задач без handoff trigger этот раздел не добавляет новых
+обязательных ceremony.
+
 ## После bootstrap
 
 - Прямые изменения в `developer` запрещены без отдельного разрешения пользователя.

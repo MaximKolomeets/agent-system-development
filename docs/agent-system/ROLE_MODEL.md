@@ -17,6 +17,31 @@
 
 Канон role-agnostic task header (`Reasoning effort`, правила «Передача» и «Source-reminder») — `docs/agent-system/templates/TASK_HEADER_COMMON.md`.
 
+## Архитектор без обязанности программировать
+
+Архитектор проекта может не быть программистом.
+
+Его зона ответственности:
+
+- mission, success criteria и current strategic goal;
+- priority и next safe step;
+- scope boundaries: что входит в задачу и что запрещено;
+- acceptance criteria и business outcome;
+- human-only решения: merge/tag/publish/sync, rollback, finance, deletion,
+  prod-secrets, branch protection/rulesets, CI/CD и strategy direction;
+- выбор, когда нужен review, handoff или STOP.
+
+Архитектор не обязан выбирать implementation details: file layout, code style,
+library internals, shell syntax или конкретный patch strategy. Эти решения
+готовит executor внутри утвержденного scope и проверяемых gates.
+
+Полезные management-layer документы:
+
+- `NON_TECHNICAL_ARCHITECT_GUIDE.md`;
+- `ARCHITECT_COCKPIT.md`;
+- `ARCHITECT_HANDOFF_PACK.md`;
+- `docs/agent-system/templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md`.
+
 ## Orchestrator
 
 - помогает пользователю выбрать режим работы: Operational Fast Lane, Engine-блок, Task File Handoff или review-only;
@@ -80,10 +105,12 @@ External reviewer не заменяет orchestrator и не принимает 
 
 ## solution-architect-01
 
-- архитектура;
-- декомпозиция крупных задач;
-- предложения;
-- риски;
+- определяет архитектурное **что**: boundaries, trade-offs, risks, acceptance и
+  уровень решения;
+- декомпозирует крупные задачи на безопасные slices;
+- предлагает варианты и next safe step;
+- фиксирует риски и STOP-условия;
+- может быть не программистом и не обязан выбирать implementation tactics;
 - не запускает `dev-implementer-01` напрямую.
 
 ## qa-reviewer-01
@@ -117,8 +144,8 @@ External reviewer не заменяет orchestrator и не принимает 
 - актуальность документации;
 - `CURRENT_STATE`;
 - `NEXT_STEPS`;
-- Source summaries;
-- prompts for next chat.
+- Source summaries для handoff;
+- prompts для next chat.
 
 ## infra
 

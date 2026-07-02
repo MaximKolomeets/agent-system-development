@@ -24,6 +24,7 @@ generated файлов проверяется по `ADOPTION_TRANSFER_MANIFEST.y
 | Меняется сама методология | `ADOPTION_TRANSFER_MANIFEST.yml`, `METHODOLOGY_MAP.md`, `PROJECT_FILE_MAP.md`, `tools/gen_file_map.py`, `tools/gen_cloud_bundle.py`, `tools/generated_eol_guard.py` | Manifest является source inventory; generated maps/cloud обновляются tools, не руками. |
 | Target adoption или source-update | `TARGET_ADOPTION_DETECTOR.md`, `ADOPTION_GUIDE.md`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Выбрать Variant A/B/C или STOP, читать stable methodology reference и применять manifest categories. |
 | Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch. |
+| Архитектор не программист или нужна management handoff | `NON_TECHNICAL_ARCHITECT_GUIDE.md`, `ARCHITECT_COCKPIT.md`, `ARCHITECT_HANDOFF_PACK.md`, `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` | Управлять через mission/scope/priority, yes/no dashboard и handoff pack; не плодить отдельные dossier/protocol/checklist docs. |
 | Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `UAT_WORKFLOW.md`, `BUSINESS_ACCEPTANCE_CHECKLIST.md`, `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md` | Agent готовит checks/evidence/UAT checklist; owner/PO проходит business acceptance; merge/tag/publish/sync/rollback выполняет человек. |
 | Hotfix, rollback или disaster recovery | `HOTFIX_AND_ROLLBACK_POLICY.md`, `DISASTER_RECOVERY.md`, `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `BRANCH_POLICY.md`, `WORKFLOW.md` | Agent готовит `work/hotfix/<issue>`, revert PR, checks и evidence; owner/architect принимает rollback decision и мержит в `main`. |
 
@@ -108,6 +109,26 @@ Lane.
 
 Граница: имена ролей и ответственности живут только здесь; остальные документы
 ссылаются и не создают параллельный role catalog.
+
+### 4a. Управленческий слой архитектора
+
+- `NON_TECHNICAL_ARCHITECT_GUIDE.md` - минимальный путь, glossary и human vs
+  auto для архитектора без обязанности программировать.
+- `ARCHITECT_COCKPIT.md` - ежедневные/еженедельные вопросы, красные флаги и
+  safe prompts к engine.
+- `ARCHITECT_HANDOFF_PACK.md` - единый handoff pack: dossier, protocol и
+  checklist в одном canonical home.
+- `templates/PROJECT_OPERATOR_DASHBOARD_TEMPLATE.md` - короткий yes/no dashboard
+  для merge/release/adoption/status решений.
+
+Когда применять: если owner/architect не программист, при смене архитектора,
+handoff в новый chat/thread, release/adoption/audit boundary или когда нужно
+быстро понять, можно ли безопасно продолжать.
+
+Граница: management layer отвечает на "что/зачем/можно ли продолжать", но не
+дублирует implementation workflow, branch policy или release authority. Dossier,
+protocol и checklist handoff не разносить в отдельные файлы без target-local
+решения.
 
 ### 5. Задачи, контракты, engine и journal
 
