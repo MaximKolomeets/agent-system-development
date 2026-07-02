@@ -13,6 +13,7 @@
 - PR workflow;
 - local worktree guide;
 - GitHub rulesets recommendations;
+- hotfix, rollback and disaster recovery policy;
 - manual review checklist;
 - adoption modes;
 - transfer manifest;

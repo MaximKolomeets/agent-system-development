@@ -115,6 +115,35 @@ Gate основан на:
 Agent не может заменить owner/PO verdict. Для docs-only или methodology-only
 release допустим `not_applicable`, но только с причиной и safe evidence.
 
+## Hotfix, rollback и disaster recovery
+
+Hotfix/rollback применяется, когда обычный release path слишком медленный для
+incident, regression или broken stable surface. Канон: `docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md`
+и `docs/agent-system/DISASTER_RECOVERY.md`.
+
+Порядок:
+
+1. Человек-владелец/архитектор подтверждает, что нужен emergency path.
+2. Agent собирает incident facts: bad SHA, affected branch/tag, risk, доступные
+   checks и безопасное evidence.
+3. Для rollback `main` создается branch `work/hotfix/<issue>` от `origin/main`.
+4. Agent готовит revert:
+   - `git revert <bad-commit-sha>` для обычного commit;
+   - `git revert -m 1 <bad-merge-sha>` для merge commit.
+5. Если нужен rollback до tag `vX.Y.Z`, agent проверяет tag и готовит revert PR
+   от текущего `main` до ожидаемого состояния; force move `main` к tag не
+   выполняется агентом.
+6. PR проходит expedited review и доступные checks.
+7. Человек-владелец мержит hotfix/rollback PR в `main`.
+8. После merge выполняется sync/reconciliation обратно в `developer`, если это
+   нужно branch policy.
+9. RESULT фиксирует release authority actor + evidence, hotfix branch, bad SHA,
+   target tag/commit, review evidence и merge evidence.
+
+Если GitHub недоступен, tokens потеряны или local checkout сломан, применять
+`DISASTER_RECOVERY.md`: не объявлять recovery завершенным без source-of-truth
+evidence и не раскрывать credentials.
+
 ## Release authority и human gate
 
 Release-sensitive действия выполняются по `docs/agent-system/RELEASE_AUTHORITY_POLICY.md`

@@ -144,6 +144,7 @@ categories:
       - docs/agent-system/DOWNSTREAM_ADAPTATION_CHECKLIST.md
       - docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md
       - docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
+      - docs/agent-system/DISASTER_RECOVERY.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
@@ -160,6 +161,7 @@ categories:
       - docs/agent-system/tools/validate_task_contract.py
       - docs/agent-system/GITHUB_RULESETS.md
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
+      - docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
       - docs/agent-system/JOURNAL_FINALIZATION_POLICY.md
       - docs/agent-system/LANGUAGE_POLICY.md
@@ -200,6 +202,8 @@ categories:
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
+      - docs/agent-system/DISASTER_RECOVERY.md
+      - docs/agent-system/HOTFIX_AND_ROLLBACK_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
       - docs/agent-system/PR_WORKFLOW.md

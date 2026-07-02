@@ -17,8 +17,8 @@
 5. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 6. Повторять work/review/merge до завершения текущей серии.
 7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
-8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`, затем проверить `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md` и Business Acceptance Gate по `UAT_WORKFLOW.md`.
-9. Owner/PO проходит Human UAT Checklist или фиксирует `not_applicable` reason; человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; publication/sync decision также human-only, а release/sync `RESULT` фиксирует actor + evidence.
+8. Выполнить release-gate: `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary` на `developer`, journal closed, `python docs/agent-system/tools/gen_file_map.py --check`, `python docs/agent-system/tools/gen_cloud_bundle.py --check` (content-oriented / EOL-safe), state-refresh для `CURRENT_STATE.md`/`NEXT_STEPS.md` с regenerated `docs/agent-system/cloud/**`, затем проверить `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, hotfix/rollback readiness по `HOTFIX_AND_ROLLBACK_POLICY.md` и Business Acceptance Gate по `UAT_WORKFLOW.md`.
+9. Owner/PO проходит Human UAT Checklist или фиксирует `not_applicable` reason; человек-архитектор мержит release PR `developer -> main`; затем annotated tag ставится на release merge commit в `main` по активной release-инструкции; publication/sync/rollback decision также human-only, а release/sync/hotfix `RESULT` фиксирует actor + evidence.
 10. Повторить цикл от актуального `developer`.
 
 ## Текущий фокус (Current Focus)
@@ -27,9 +27,9 @@
 annotated tag `v1.5.1` и sync PR #305 подтверждены. Этот файл больше не ставит
 задачу создать release PR для `v1.5.1`.
 
-Ближайший рабочий шаг: завершить PR-7/H13 Business acceptance / UAT gate для
-`v1.5.2` hardening series; затем после human merge перейти к PR-8/H14
-(`Hotfix, rollback & disaster recovery`). До публикации `v1.5.2`
+Ближайший рабочий шаг: завершить PR-8/H14 Hotfix, rollback & disaster recovery
+для `v1.5.2` hardening series; затем после human merge перейти к P2:
+PR-9/H6 Safe-scan & Russian-first lint. До публикации `v1.5.2`
 target adoption/source-update задачи используют stable pointer `origin/main` /
 tag `v1.5.1`.
 
@@ -50,6 +50,9 @@ tag `v1.5.1`.
 7. PR-7/H13: Business acceptance / UAT gate.
 8. PR-8/H14: hotfix, rollback & disaster recovery.
 
+После PR-8/H14 P1-blocking core считается закрытым; следующий execution item в
+P2: PR-9/H6 Safe-scan & Russian-first lint.
+
 Полная future-очередь и менее срочные P2/P3 items живут в `BACKLOG.md`, чтобы
 `NEXT_STEPS.md` оставался списком ближайших действий.
 
@@ -67,5 +70,6 @@ tag `v1.5.1`.
 8. Перед любым sync/checkout/switch/pull/merge применять `Repository sync / checkout guard`: root, remote, branch и `git status --short`; dirty tree → STOP.
 9. Перед merge/tag/publish/sync/rollback, branch protection/rulesets, CI/CD, prod-secrets, mission/strategy, удалением данных или финансовым решением применять `HUMAN_GATE_POLICY.md`; агент готовит evidence, но человек выполняет финальное действие.
 10. Перед approval release PR в `main` применять Business Acceptance Gate: Human UAT Checklist по `BUSINESS_ACCEPTANCE_CHECKLIST.md`, owner/PO verdict и safe evidence в RESULT.
-11. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
-12. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.
+11. При hotfix/rollback/disaster recovery применять `HOTFIX_AND_ROLLBACK_POLICY.md` и `DISASTER_RECOVERY.md`: `work/hotfix/<issue>`, revert PR, expedited review, human merge в `main`, RESULT actor + evidence.
+12. При следующем target repository dry run фиксировать methodology feedback без private data и с sanitization checkpoint.
+13. Отдельной future task рассмотреть tags/releases для methodology versioning, если commit-based `methodology_reference` окажется недостаточным.
