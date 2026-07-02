@@ -24,7 +24,7 @@ generated файлов проверяется по `ADOPTION_TRANSFER_MANIFEST.y
 | Меняется сама методология | `ADOPTION_TRANSFER_MANIFEST.yml`, `METHODOLOGY_MAP.md`, `PROJECT_FILE_MAP.md`, `tools/gen_file_map.py`, `tools/gen_cloud_bundle.py`, `tools/generated_eol_guard.py` | Manifest является source inventory; generated maps/cloud обновляются tools, не руками. |
 | Target adoption или source-update | `TARGET_ADOPTION_DETECTOR.md`, `ADOPTION_GUIDE.md`, `DOWNSTREAM_ADAPTATION_CHECKLIST.md`, `STABLE_METHODOLOGY_REFERENCE_POLICY.md` | Выбрать Variant A/B/C или STOP, читать stable methodology reference и применять manifest categories. |
 | Review-only или feedback loop | `CODE_REVIEW_WORKFLOW.md`, `REVIEW_AUTOLOOP.md`, `SEMANTIC_COMPLETENESS_GATES.md` | Review остаётся scoped; implementation/fix-pass требует отдельного allowed scope или той же active PR branch. |
-| Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md` | Agent готовит checks/evidence; merge/tag/publish/sync/rollback и другие human-only actions выполняет человек. |
+| Release, state refresh или boundary reconciliation | `RELEASE_AUTHORITY_POLICY.md`, `HUMAN_GATE_POLICY.md`, `UAT_WORKFLOW.md`, `BUSINESS_ACCEPTANCE_CHECKLIST.md`, `RELEASE_READINESS.md`, `CURRENT_STATE.md`, `NEXT_STEPS.md`, `ENGINE_JOURNAL_CONTRACT.md` | Agent готовит checks/evidence/UAT checklist; owner/PO проходит business acceptance; merge/tag/publish/sync/rollback выполняет человек. |
 
 ## Категории
 
@@ -132,6 +132,10 @@ orchestrator contract только напоминают первый шаг engi
 
 - `QUALITY_FIRST_WORKFLOW.md` - pre-PR quality gate: DoR, acceptance и
   self-review.
+- `UAT_WORKFLOW.md` - Business Acceptance Gate: owner/PO вручную проходит
+  button-click, visual UI и API/CLI checks перед release PR.
+- `BUSINESS_ACCEPTANCE_CHECKLIST.md` - reusable Human UAT Checklist для release
+  boundary.
 - `CODE_REVIEW_WORKFLOW.md` - процесс review.
 - `REVIEW_AUTOLOOP.md` - ограниченный reviewer/engine fix-pass.
 - `EXTERNAL_REVIEW_LEDGER_PATTERN.md` - consolidation ledger для повторных
@@ -143,9 +147,11 @@ orchestrator contract только напоминают первый шаг engi
 
 Когда применять: перед PR, при review, при fix-pass, при множественных external
 human review rounds и при проверке, что spec имеет проверяемую
-acceptance-цепочку.
+acceptance-цепочку; UAT docs применять между стабилизацией `developer` и
+release PR в `main`.
 
-Граница: "готовность до PR" -> `QUALITY_FIRST_WORKFLOW.md`; "как review" ->
+Граница: "готовность до PR" -> `QUALITY_FIRST_WORKFLOW.md`; "business acceptance
+перед release" -> `UAT_WORKFLOW.md` + `BUSINESS_ACCEPTANCE_CHECKLIST.md`; "как review" ->
 `CODE_REVIEW_WORKFLOW.md`; "active PR feedback cycle" ->
 `REVIEW_AUTOLOOP.md`; "много внешних мнений до финализации" ->
 `EXTERNAL_REVIEW_LEDGER_PATTERN.md`; "полнота spec" -> `SEMANTIC_COMPLETENESS_GATES.md` и

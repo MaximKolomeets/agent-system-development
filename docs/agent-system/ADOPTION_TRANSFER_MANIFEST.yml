@@ -130,6 +130,7 @@ categories:
       - docs/agent-system/ADOPTION_GUIDE.md
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
       - docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
+      - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/CODE_REVIEW_WORKFLOW.md
@@ -187,12 +188,14 @@ categories:
       - docs/agent-system/TASK_CONTRACT.md
       - docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
       - docs/agent-system/TIME_ACCOUNTING_POLICY.md
+      - docs/agent-system/UAT_WORKFLOW.md
       - docs/agent-system/WORKFLOW.md
       - docs/agent-system/WORKTREE_GUIDE.md
     target_adaptation_required:
       - AGENTS.md
       - README.md
       - docs/agent-system/BRANCH_POLICY.md
+      - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/CI_POLICY.md
       - docs/agent-system/HUMAN_GATE_POLICY.md
       - docs/agent-system/NEW_PROJECT_ONBOARDING_GUIDE.md
@@ -200,6 +203,7 @@ categories:
       - docs/agent-system/PUBLICATION_POLICY.md
       - docs/agent-system/RELEASE_AUTHORITY_POLICY.md
       - docs/agent-system/ROLE_MODEL.md
+      - docs/agent-system/UAT_WORKFLOW.md
       - docs/agent-system/WORKFLOW.md
       - docs/agent-system/WORKTREE_GUIDE.md
     notes:

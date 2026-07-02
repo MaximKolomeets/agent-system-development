@@ -20,6 +20,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
 | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` |  |
+| `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md` |  |
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
 | `docs/agent-system/CODE_REVIEW_WORKFLOW.md` |  |
@@ -77,6 +78,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/TASK_CONTRACT.md` |  |
 | `docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md` |  |
 | `docs/agent-system/TIME_ACCOUNTING_POLICY.md` |  |
+| `docs/agent-system/UAT_WORKFLOW.md` |  |
 | `docs/agent-system/WORKFLOW.md` |  |
 | `docs/agent-system/WORKTREE_GUIDE.md` |  |
 

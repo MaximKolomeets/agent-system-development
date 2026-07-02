@@ -87,7 +87,33 @@
 - Внутренние sub-branches `work/<role>/<task>/*` допустимы только внутри той же задачи и сливаются обратно до итогового PR.
 - Рабочая ветка создается от актуальной `developer`.
 - `developer` принимает изменения через PR из рабочих веток.
-- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; annotated tag, publication и sync decision выполняет человек по `RELEASE_AUTHORITY_POLICY.md`, не агент.
+- `developer` -> `main` выполняется только через human-merged release PR после release-gate из `BRANCH_POLICY.md`; Business Acceptance Gate проходит между стабилизацией `developer` и release PR в `main`; annotated tag, publication и sync decision выполняет человек по `RELEASE_AUTHORITY_POLICY.md`, не агент.
+
+## Business Acceptance Gate
+
+Business Acceptance Gate применяется после стабилизации `developer` и до
+approval/merge release PR `developer -> main`.
+
+Gate основан на:
+
+- `docs/agent-system/UAT_WORKFLOW.md`;
+- `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md`;
+- `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`;
+- `docs/agent-system/HUMAN_GATE_POLICY.md`;
+- `docs/agent-system/RELEASE_AUTHORITY_POLICY.md`.
+
+Порядок:
+
+1. Engine/release-prep генерирует Human UAT Checklist из acceptance scenarios.
+2. Owner/PO вручную проходит button-click, visual UI, API/CLI или
+   documentation-as-product checks.
+3. RESULT фиксирует `business_acceptance_gate`, actor, checklist reference,
+   evidence и decision.
+4. Если verdict `rejected` или checklist отсутствует без `not_applicable`
+   reason, release PR в `main` блокируется.
+
+Agent не может заменить owner/PO verdict. Для docs-only или methodology-only
+release допустим `not_applicable`, но только с причиной и safe evidence.
 
 ## Release authority и human gate
 

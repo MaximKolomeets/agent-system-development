@@ -59,9 +59,11 @@ release completion без evidence.
 2. Проверить generated gates: `gen_file_map.py --check`,
    `gen_cloud_bundle.py --check`, `generated_eol_guard.py` при generated diff.
 3. Проверить `check_task_ready.py --base origin/main --release-boundary`.
-4. Проверить `HUMAN_GATE_POLICY.md`: нет ли human-only actions, которые агент
+4. Проверить Business Acceptance Gate по `UAT_WORKFLOW.md`: Human UAT Checklist
+   пройден owner/PO или помечен `not_applicable` с reason/evidence.
+5. Проверить `HUMAN_GATE_POLICY.md`: нет ли human-only actions, которые агент
    пытается выполнить сам.
-5. После human action зафиксировать evidence в соответствующем `RESULT` или
+6. После human action зафиксировать evidence в соответствующем `RESULT` или
    boundary reconciliation RESULT.
 
 Release-sensitive `RESULT` не считается завершенным, если он говорит
