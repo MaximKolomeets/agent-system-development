@@ -2,81 +2,72 @@
 
 Дата проверки: 2026-07-02
 
-Назначение: release-prep snapshot для `v1.5.1` после merge PR #298-#302.
-Это готовит следующий отдельный release PR `developer -> main`; `main`
-обновляется только через human-merged release PR.
+Назначение: post-publication snapshot для `v1.5.1`. Этот файл больше не является
+инструкцией на будущий release PR `v1.5.1`: release-prep PR #303, release PR #304,
+annotated tag `v1.5.1` и sync PR #305 уже выполнены.
 
-## Release Candidate
+## Release Status
 
-- Source branch: `developer`
-- Target branch: `main`
-- `origin/main`: `170ec8e23981f7a379db843ea67314b5cb47ef7c`
-- `origin/developer`: `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`
-- Latest release tag: `v1.5.0` -> `170ec8e23981f7a379db843ea67314b5cb47ef7c`
-- Next intended release tag: `v1.5.1`, annotated tag on the release merge commit
-  after release PR merge.
+- Status: `published/synced`.
+- Source branch: `developer`.
+- Target branch: `main`.
+- `origin/main`: `2467edd8488a51d74483e8095e4887c0f512dfcd`.
+- `origin/developer`: `2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`.
+- Latest release tag: `v1.5.1` -> `2467edd8488a51d74483e8095e4887c0f512dfcd`.
+- Previous release tag: `v1.5.0` -> `170ec8e23981f7a379db843ea67314b5cb47ef7c`.
+- Next planned methodology release: `v1.5.2` after H1-H16 hardening PR series.
 
-Release PR merge remains human-only. No direct push to `main`; no GitHub Release
-publication in this release-prep task.
+`main` обновлён human-merged release PR. Прямой push в `main` не выполнялся.
+GitHub Release publication не выполнялась в этой серии.
 
-## Independent State Analysis
+## Publication Facts
 
-- PR #298 MIR-11 configurable commit metadata scopes: `MERGED`.
-- PR #299 MIR-10 release-boundary commit-message gate hardening: `MERGED`.
-- PR #300 MIR-12 ID reference integrity gate: `MERGED`.
-- PR #301 MIR-13 superseded banner standard: `MERGED`.
-- PR #302 MIR-14 execution timing discipline: `MERGED`.
+Merge facts verified from GitHub metadata and local tag state:
 
-Merge facts verified from GitHub metadata:
-
-- PR #298 merged at `2026-07-01T16:36:05Z`, merge commit
-  `3aac7a01a1f10c06ff053be39b75168ee7fe7db8`.
-- PR #299 merged at `2026-07-01T16:55:46Z`, merge commit
-  `cbf57c848d8537b4ace5bc348148ba1b692d2a1b`.
-- PR #300 merged at `2026-07-01T17:20:31Z`, merge commit
-  `84267fa77214a394b62927ac06d2c4b8389475ef`.
-- PR #301 merged at `2026-07-01T17:51:52Z`, merge commit
-  `867082c089ab16c4fea094ee697db0e10082f5ca`.
-- PR #302 merged at `2026-07-02T01:32:48Z`, merge commit
-  `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
+- PR #303 `docs(agent-system): подготовить release v1.5.1`: `MERGED` at
+  `2026-07-02T02:11:11Z`, merge commit
+  `e3c4210dade210f20b573196ed0d9da64961dc75`.
+- PR #304 `release(agent-system): опубликовать методологию v1.5.1`: `MERGED` at
+  `2026-07-02T06:46:16Z`, merge commit
+  `2467edd8488a51d74483e8095e4887c0f512dfcd`.
+- Annotated tag `v1.5.1`: points to
+  `2467edd8488a51d74483e8095e4887c0f512dfcd`.
+- PR #305 `Sync Merge pull request #304 from MaximKolomeets/developer`: `MERGED`
+  at `2026-07-02T06:48:28Z`, merge commit
+  `2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`.
 
 ## Journal Gate
 
-Journal gate for release-prep is clean after this PR's boundary reconciliation:
-
-- INDEX continuity is intact; latest row before this release-prep task is `0136`.
-- This release-prep task uses row `0137`.
-- Rows 0132-0136 are reconciled to `closed; PR #... merged; facts in RESULT`.
-- RESULT 0132-0136 contain closure-stamps with PR state, `merged_at`, merge commit
-  and reviewed head SHA.
-- Historical `execution_started_at == execution_finished_at` in RESULT 0132/0133
-  is not rewritten; it is the motivating defect addressed by MIR-14.
-- Row 0131 belongs to the already released v1.5.0 boundary and is not part of the
-  `origin/main...origin/developer` payload for v1.5.1.
-
-The current release-prep entry remains open until this PR is reviewed/merged; after merge, release PR creation is the next separate task. Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md` and corresponding `RESULT-*` files.
+- Row 0137 (`METH-RELEASE-PREP-V1-5-1-01`) reconciled with PR #303 merge facts,
+  release PR #304 facts, tag `v1.5.1` and sync PR #305 facts.
+- Row 0138 (`METH-POST-RELEASE-STATE-REFRESH-V1-5-2-PR1-01`) records this H1
+  post-release state/status refresh.
+- Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md`
+  and corresponding `RESULT-*` files.
 
 ## Generated Gates
 
-- `python docs/agent-system/tools/gen_file_map.py --check`: required for this PR.
-- `python docs/agent-system/tools/gen_cloud_bundle.py --check`: required for this PR.
-- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`:
-  required for generated/cloud classification.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`:
-  required before push/PR.
-- `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`:
-  required on `developer`/release boundary before release PR.
-- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`:
-  required before push/PR.
+For this H1 refresh before PR:
+
+- `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0138-METH-POST-RELEASE-STATE-REFRESH-V1-5-2-PR1-01.md`.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer`.
+- `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`.
+- `python docs/agent-system/tools/gen_file_map.py --check`.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check`.
+- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`.
+- `git diff --check origin/developer...HEAD`.
+
+For the future `v1.5.2` release boundary after PR-1..15:
+
+- `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`.
+- Fresh state refresh for `CURRENT_STATE.md`, `NEXT_STEPS.md`, `RELEASE_READINESS.md`
+  and `RULESET_STATUS.md`.
+- Regenerated `docs/agent-system/cloud/**`.
+- Human-only release PR merge and tag creation.
 
 ## Release Payload Summary
 
-Current diff `origin/main...origin/developer` contains 35 tracked paths before this
-release-prep branch. Payload class remains public methodology docs/templates/journal,
-read-only tools and generated cloud artifacts; forbidden/runtime/private payload scan
-is expected to stay zero.
-
-Key changes since `v1.5.0`:
+Key changes published in `v1.5.1`:
 
 - MIR-11: configurable commit-message scopes through `LANGUAGE_POLICY.md`
   `commit_metadata.allowed_scopes`; default `[agent-system]` preserved (0132).
@@ -90,28 +81,24 @@ Key changes since `v1.5.0`:
 
 ## Safety Scans
 
-- Forbidden/runtime/private payload must be checked again in final release-prep.
-- Sensitive filename scan must remain filename-only/count-only; secret lines must not be printed.
+- Forbidden/runtime/private payload scan for the `v1.5.1` release-prep passed in
+  PR #303; future `v1.5.2` release-prep must run fresh scans.
+- Sensitive filename scan remains filename-only/count-only; secret lines must not
+  be printed.
 - `.env` must not be read.
-- Expected forbidden/runtime/private payload count: 0.
-- Target repositories are outside this release-prep scope.
+- Target repositories remain outside this H1 refresh scope.
 
 ## Release Recommendation
 
-Рекомендация: `READY FOR RELEASE PR AFTER MERGE OF THIS RELEASE-PREP PR`.
+`v1.5.1` is already published and synced. No release PR or tag action remains for
+`v1.5.1`.
 
-После merge текущего release-prep PR отдельной задачей создать release PR
-`developer -> main` для `v1.5.1`. Release PR merge remains human-only and `main`
-is not pushed directly. Annotated tag `v1.5.1` is created on the release merge
-commit after release PR merge according to the active release instruction, then
-sync `main -> developer` is performed.
+Next: execute methodology hardening series for `v1.5.2` in separate scoped PRs,
+starting with H1 state/status refresh and then H2 journal history scope clarity.
+Until `v1.5.2` is published, downstream tasks use stable pointer `origin/main` or
+tag `v1.5.1`.
 
-## Next Step
+## Передача
 
-1. Review/merge текущий release-prep PR.
-2. Отдельной задачей создать release PR `developer -> main` для `v1.5.1`.
-3. Человек-архитектор мержит release PR.
-4. Создать annotated tag `v1.5.1` на release merge commit в `main`.
-5. Выполнить sync `main -> developer`.
-6. Перейти к methodology-update для target implementation repository от stable
-   release pointer `v1.5.1`.
+Следующий: docs-maintainer-01 — завершить PR-1/H1; затем docs-maintainer-01 —
+PR-2/H2 journal history scope clarity.

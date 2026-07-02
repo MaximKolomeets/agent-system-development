@@ -50,24 +50,33 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. `origin/main`
-указывает на `170ec8e23981f7a379db843ea67314b5cb47ef7c`; latest tag `v1.5.0`.
-`origin/developer` указывает на `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
-MIR-11, MIR-10, MIR-12, MIR-13 и MIR-14 смержены в `developer` через PR #298-#302.
-Release-prep `v1.5.1` обновляет `RELEASE_READINESS.md`, state docs, journal
-boundary reconciliation для 0132-0136, новую row 0137 и generated cloud bundle.
-Target repositories не читались и не менялись; private downstream details,
-runtime, Docker, CI, branch protection, release/tag/merge в этой задаче не
-выполнялись.
+Текущий фокус: post-release state/status refresh после публикации `v1.5.1` и sync
+`main -> developer`. Release-prep PR #303 merged в `developer` at
+`2026-07-02T02:11:11Z`, release PR #304 (`developer -> main`) merged at
+`2026-07-02T06:46:16Z`, sync PR #305 (`main -> developer`) merged at
+`2026-07-02T06:48:28Z`.
+
+`origin/main` указывает на release merge commit
+`2467edd8488a51d74483e8095e4887c0f512dfcd`; annotated tag `v1.5.1` указывает на
+тот же commit. `origin/developer` указывает на sync merge commit
+`2407cd4950b05fd2bb03583f9ccb1fe84d53eac5`. Latest release tag: `v1.5.1`.
+
+Следующий методологический фокус: серия hardening PR для релиза `v1.5.2` по
+H1-H16. До публикации `v1.5.2` downstream/source-update задачи используют stable
+pointer `origin/main` / tag `v1.5.1`, а не `developer` или `work/*`.
+
+Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
+`2026-07-02T15:33:24+07:00` через GitHub Rulesets API. `Protect main` и
+`Protect developer` active; deletion и non-fast-forward запрещены, pull request
+rule включён, required status checks в ruleset не заданы.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: release-prep `v1.5.1`. Содержательный payload после `v1.5.0`
-включает configurable commit-message scopes, release-boundary hardening,
+Текущий этап: `v1.5.1` published/synced. Содержательный payload после `v1.5.0`
+включил configurable commit-message scopes, release-boundary hardening,
 ID-reference integrity gate, superseded banner standard и execution timing
-discipline. После merge release-prep PR следующим шагом является release PR
-`developer -> main`, annotated tag `v1.5.1` on release merge commit и sync
-`main -> developer`.
+discipline. Следующий релизный boundary: `v1.5.2` после выполнения запланированной
+серии methodology hardening PR.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

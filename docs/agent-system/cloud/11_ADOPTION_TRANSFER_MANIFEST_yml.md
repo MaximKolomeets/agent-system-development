@@ -289,6 +289,7 @@ categories:
       - docs/agent-system/DECISION_LOG.md
       - docs/agent-system/NEXT_STEPS.md
       - docs/agent-system/RELEASE_READINESS.md
+      - docs/agent-system/RULESET_STATUS.md
       - docs/agent-system/STAGE_2_COMPLETION_CHECKLIST.md
     rewrite_required:
       - target state files создавать заново по target facts
