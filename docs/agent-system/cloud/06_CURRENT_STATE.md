@@ -50,22 +50,24 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: patch train `v1.5.1` после release `v1.5.0`. `origin/main`
+Текущий фокус: release-prep `v1.5.1` после merge PR #298-#302. `origin/main`
 указывает на `170ec8e23981f7a379db843ea67314b5cb47ef7c`; latest tag `v1.5.0`.
-`origin/developer` указывает на `867082c089ab16c4fea094ee697db0e10082f5ca`.
-MIR-11, MIR-10, MIR-12 и MIR-13 смержены в `developer` через PR #298-#301;
-следующий methodology hardening шаг — MIR-14 execution timing discipline, затем
-release-prep `v1.5.1`. Target repositories не читались и не менялись; private
-downstream details, runtime, Docker, CI, branch protection, release/tag/merge в
-этой задаче не выполнялись.
+`origin/developer` указывает на `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
+MIR-11, MIR-10, MIR-12, MIR-13 и MIR-14 смержены в `developer` через PR #298-#302.
+Release-prep `v1.5.1` обновляет `RELEASE_READINESS.md`, state docs, journal
+boundary reconciliation для 0132-0136, новую row 0137 и generated cloud bundle.
+Target repositories не читались и не менялись; private downstream details,
+runtime, Docker, CI, branch protection, release/tag/merge в этой задаче не
+выполнялись.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: pre-release runway `v1.5.1`. Содержательный payload после `v1.5.0`
+Текущий этап: release-prep `v1.5.1`. Содержательный payload после `v1.5.0`
 включает configurable commit-message scopes, release-boundary hardening,
 ID-reference integrity gate, superseded banner standard и execution timing
-discipline. После merge patch PRs следующим шагом является release-prep `v1.5.1`,
-release PR `developer -> main`, human tag `v1.5.1` и sync `main -> developer`.
+discipline. После merge release-prep PR следующим шагом является release PR
+`developer -> main`, annotated tag `v1.5.1` on release merge commit и sync
+`main -> developer`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

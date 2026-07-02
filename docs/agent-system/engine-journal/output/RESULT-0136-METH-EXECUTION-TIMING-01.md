@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/302
 
@@ -20,7 +20,7 @@ reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: merged_closed
 
 post_merge_closure_required: false
 
@@ -135,6 +135,18 @@ generic methodology consumers from `docs/agent-system/SOURCE_CONSUMERS.md`.
 
 - Execution timing detector должен оставаться advisory: равные timestamps
   ухудшают аудит хода задачи, но сами по себе не доказывают некорректный diff.
+
+## Boundary reconciliation closure
+
+- closure_pass: `METH-RELEASE-PREP-V1-5-1-01`.
+- PR #302 state: `MERGED`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/302
+- merged_at: `2026-07-02T01:32:48Z`.
+- merge_commit_sha: `344c347fdf01a4b1e73a40bebb08fc520d0d51e8`.
+- reviewed_head_sha: `3bc672251f96525e3a5ee6fed6e9429299fcb2ed`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
 
 ## Передача
 

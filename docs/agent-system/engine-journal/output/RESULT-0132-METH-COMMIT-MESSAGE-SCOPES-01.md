@@ -2,7 +2,7 @@
 
 ## Итог
 
-status: completed
+status: closed
 
 pr_url: https://github.com/MaximKolomeets/agent-system-development/pull/298
 
@@ -20,7 +20,7 @@ reviewed_head_source: github_pr_metadata
 
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
-terminal_state: ready_for_review
+terminal_state: merged_closed
 
 post_merge_closure_required: false
 
@@ -109,6 +109,18 @@ execution_finished_at: `2026-07-01T23:18:09.4435316+07:00`
 
 - Commit metadata scope должен быть target-configurable, иначе downstream work PR
   вынуждены делать локальные расхождения с методологическим gate.
+
+## Boundary reconciliation closure
+
+- closure_pass: `METH-RELEASE-PREP-V1-5-1-01`.
+- PR #298 state: `MERGED`.
+- PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/298
+- merged_at: `2026-07-01T16:36:05Z`.
+- merge_commit_sha: `3aac7a01a1f10c06ff053be39b75168ee7fe7db8`.
+- reviewed_head_sha: `7d00a50ff71737ea2ee977988e3d1d97c59fcd75`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
 
 ## Передача
 
