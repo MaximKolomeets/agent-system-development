@@ -175,7 +175,11 @@ Release-prep `v1.5.2` подготовлен после merge PR #322:
 
 ## Невыполненные проверки и причина
 
-- `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`: не выполнялась в этой work branch; запускать после merge release-prep PR в `developer` перед release PR approval.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`:
+  выполнена после PR finalization как applicability check; результат
+  `not_applicable_on_work_branch`, потому что release-boundary mode поддерживает
+  только валидный контекст `developer -> origin/main`. Повторить после merge
+  release-prep PR в `developer` перед release PR approval.
 - Human UAT / Business Acceptance verdict: не применимо для docs-only release-prep до release PR approval.
 - GitHub release checks after merge/tag/sync: не применимо; release actions не выполнялись.
 
