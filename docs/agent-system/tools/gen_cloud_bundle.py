@@ -46,6 +46,9 @@ CANONICAL_BUNDLE_ORDER = [
     "docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md",
     "docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md",
     "docs/agent-system/LANGUAGE_POLICY.md",
+    "docs/agent-system/TIME_ACCOUNTING_POLICY.md",
+    "docs/agent-system/COST_TRACKING_POLICY.md",
+    "docs/agent-system/METRICS.md",
 ]
 
 

@@ -17,6 +17,9 @@ Reasoning effort: <низкий | средний | высокий>
 Почему: <краткое обоснование выбора режима и reasoning effort>
 Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
 Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
+actor_type: <human | agent | hybrid>
+time_source: <measured | reported | mixed>
+time_report_confidence: <high | medium | low>
 ```
 
 Задача формулируется на русском языке. `<task-id>` должен быть связан с GitHub issue, Pull Request, task id или внутренним номером работы проекта.
@@ -133,34 +136,52 @@ Downstream feedback tasks перед переносом в public methodology п
 
 В шаблоне не указываются имена инструментов/моделей. Если нужно зафиксировать фактически использованного исполнителя постфактум — делать это в RESULT, не в task header.
 
-## Execution timestamps
+## Execution accounting
 
-TASK и RESULT фиксируют два разных типа времени:
+TASK и RESULT фиксируют execution time, human time и cost accounting:
 
-- measured/engine — время, которое engine может зафиксировать автоматически или надежно по факту собственного запуска;
-- reported/human — время, которое сообщает человек или оркестратор; поле опционально и может оставаться пустым.
+- `measured` — значение зафиксировано engine/tool runtime;
+- `reported` — значение сообщил человек;
+- `mixed` — часть значения измерена, часть сообщена человеком.
 
 TASK должен содержать:
 
 ```text
 Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
 Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]: <свободное значение или пусто>
+actor_type: <human | agent | hybrid>
+role: <methodology role>
+time_source: <measured | reported | mixed>
+time_report_confidence: <high | medium | low>
 ```
 
 RESULT должен содержать:
 
 ```text
-Время начала выполнения (execution_started_at) [measured/engine]: <ISO-8601 timestamp with timezone>
-Время окончания выполнения (execution_finished_at) [measured/engine]: <ISO-8601 timestamp with timezone>
-Длительность выполнения (execution_duration) [measured/engine, опционально]: <duration>
-Время человека, по факту (human_time_reported) [reported/human, опционально]: <свободное значение или пусто>
+execution_started_at: <ISO-8601 timestamp with timezone>
+execution_finished_at: <ISO-8601 timestamp with timezone>
+execution_duration: <duration>
+time_spent: <2.5h | 45m | PT2H30M>
+actor_type: <human | agent | hybrid>
+role: <methodology role>
+time_source: <measured | reported | mixed>
+time_report_confidence: <high | medium | low>
+human_time_reported: <duration | not_applicable>
+input_tokens: <integer | not_available | not_applicable>
+output_tokens: <integer | not_available | not_applicable>
+ai_cost_estimate: <number | not_available | not_applicable>
+human_cost_estimate: <number | not_available | not_applicable>
+total_task_cost: <number | not_available | not_applicable>
+resource_cost: AI tokens: <...>; Human hours: <...>
 ```
 
 Время reviewer не записывается отдельным полем внутри work-записи: reviewer является отдельным engine-run со своим TASK/RESULT и собственными `execution_*` полями. Время merge не дублируется в execution-полях. Для ordinary PR `merged_at` и merge commit SHA берутся из GitHub PR metadata; closure-stamp `RESULT` нужен только при boundary reconciliation или explicit architect request по `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` → «GitHub merge facts authority».
 
 Каноническое имя поля окончания выполнения — `execution_finished_at`. Вариант имени, образованный как `execution_` + `completed_at`, не является допустимым alias и не используется в новых TASK/RESULT. Исторические append-only записи с таким drift-именем не ретрофитятся.
 
-Reviewer фиксирует minor finding, если новая finalized запись вводит неканоническое поле окончания выполнения вместо `execution_finished_at`; это не blocker и не повод переписывать исторические RESULT.
+Reviewer фиксирует blocker, если новый finalized RESULT не содержит required
+accounting fields по `TIME_ACCOUNTING_POLICY.md` и `COST_TRACKING_POLICY.md`.
+Legacy RESULT остаются advisory и не ретрофитятся.
 
 ## Agent-owned task branch workflow
 
@@ -308,7 +329,11 @@ Orchestrator context handoff».
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
 - [ ] Рекомендуемый режим исполнения is included (роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему); имён инструментов/моделей в шаблоне нет.
-- [ ] Execution timestamps included: TASK содержит `execution_started_at` и optional `orchestration_time_reported`; RESULT содержит `execution_started_at`, `execution_finished_at`, optional `execution_duration` и optional `human_time_reported`.
+- [ ] Execution accounting included: TASK содержит `execution_started_at`,
+  `orchestration_time_reported`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence`; RESULT содержит required time/cost fields по
+  `TIME_ACCOUNTING_POLICY.md` и `COST_TRACKING_POLICY.md`; `INDEX.md` содержит
+  колонку `Time`.
 - [ ] Требование к отчёту включает блок «Передача» (`Следующий: <роль> — <что делает>`) — канон `TASK_HEADER_COMMON` → «Передача».
 - [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот у зарегистрированных потребителей: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
 - [ ] Source Delta включён в final report и RESULT: таблица по всем затронутым файлам, категории взяты из `ADOPTION_TRANSFER_MANIFEST.yml`, Source-рекомендации и manifest flag заполнены; add/delete/rename inventory-файлов без manifest update → STOP.

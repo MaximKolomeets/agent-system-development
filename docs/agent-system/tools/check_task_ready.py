@@ -21,11 +21,22 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md",
     "docs/agent-system/BRANCH_POLICY.md",
     "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+    "docs/agent-system/templates/TASK_HEADER_COMMON.md",
     "docs/agent-system/CURRENT_STATE.md",
     "docs/agent-system/NEXT_STEPS.md",
     "docs/agent-system/ENGINE_ENTRYPOINT.md",
+    "docs/agent-system/TASK_CONTRACT.md",
+    "docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md",
+    "docs/agent-system/JOURNAL_FINALIZATION_POLICY.md",
+    "docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md",
+    "docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md",
+    "docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md",
+    "docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md",
     "docs/agent-system/LANGUAGE_POLICY.md",
     "docs/agent-system/REVIEW_AUTOLOOP.md",
+    "docs/agent-system/TIME_ACCOUNTING_POLICY.md",
+    "docs/agent-system/COST_TRACKING_POLICY.md",
+    "docs/agent-system/METRICS.md",
     "docs/agent-system/engine-journal/INDEX.md",
 }
 GENERATED_TRIGGER_PREFIXES = ("docs/agent-system/cloud/",)
@@ -80,6 +91,37 @@ VISIBLE_SUPERSEDED_RE = re.compile(r"замен[её]н|superseded", re.IGNORECA
 EXECUTION_STARTED_RE = re.compile(r"^\s*execution_started_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
 EXECUTION_FINISHED_RE = re.compile(r"^\s*execution_finished_at:\s*`?([^`\r\n]+?)`?\s*$", re.MULTILINE)
 MIN_EXECUTION_DURATION_SECONDS = 60
+ACCOUNTING_REQUIRED_RESULT_FIELDS = (
+    "execution_started_at",
+    "execution_finished_at",
+    "execution_duration",
+    "time_spent",
+    "actor_type",
+    "role",
+    "time_source",
+    "time_report_confidence",
+    "human_time_reported",
+    "input_tokens",
+    "output_tokens",
+    "ai_cost_estimate",
+    "human_cost_estimate",
+    "total_task_cost",
+    "resource_cost",
+)
+ACCOUNTING_ALLOWED_ACTOR_TYPES = {"human", "agent", "hybrid"}
+ACCOUNTING_ALLOWED_TIME_SOURCES = {"measured", "reported", "mixed"}
+ACCOUNTING_ALLOWED_CONFIDENCE = {"high", "medium", "low"}
+ACCOUNTING_EMPTY_VALUES = {"", "none", "null"}
+ACCOUNTING_UNKNOWN_VALUES = {"n/a", "na", "not_available", "unavailable", "unknown", "неизвестно", "недоступно"}
+ACCOUNTING_NOT_APPLICABLE_VALUES = {"not_applicable", "не применимо"}
+ACCOUNTING_PLACEHOLDER_RE = re.compile(r"^<.*>$|pending|tbd|todo|not_created_yet", re.IGNORECASE)
+TIME_SPENT_RE = re.compile(
+    r"^(?:PT(?=\d)(?:\d+H)?(?:\d+M)?(?:\d+S)?|\d+(?:\.\d+)?\s*(?:h|m|min|hour|hours|ч|мин)(?:\s+\d+(?:\.\d+)?\s*(?:h|m|min|hour|hours|ч|мин))?)$",
+    re.IGNORECASE,
+)
+TOKEN_VALUE_RE = re.compile(r"^\d+$")
+MONEY_VALUE_RE = re.compile(r"^(?:[A-Z]{3}\s*)?[$€₽]?\s*(\d+(?:\.\d+)?)$", re.IGNORECASE)
+STOP_OR_FAILURE_RE = re.compile(r"\b(stop|failure|failed|blocked|ошибка|стоп)\b", re.IGNORECASE)
 
 
 @dataclass
@@ -115,6 +157,11 @@ class ReadyReport:
     deferred_finalization_placeholders: list[str] = field(default_factory=list)
     superseded_banner_warnings: list[str] = field(default_factory=list)
     execution_timing_warnings: list[str] = field(default_factory=list)
+    accounting_required_result_files: list[str] = field(default_factory=list)
+    accounting_legacy_advisory_files: list[str] = field(default_factory=list)
+    accounting_field_blockers: list[str] = field(default_factory=list)
+    accounting_field_warnings: list[str] = field(default_factory=list)
+    cost_calculator_summary: dict[str, object] = field(default_factory=dict)
     blockers: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
 
@@ -139,6 +186,10 @@ class ReadyReport:
         data["deferred_finalization_placeholder_count"] = len(self.deferred_finalization_placeholders)
         data["superseded_banner_warnings_count"] = len(self.superseded_banner_warnings)
         data["execution_timing_warnings_count"] = len(self.execution_timing_warnings)
+        data["accounting_required_result_files_count"] = len(self.accounting_required_result_files)
+        data["accounting_legacy_advisory_files_count"] = len(self.accounting_legacy_advisory_files)
+        data["accounting_field_blockers_count"] = len(self.accounting_field_blockers)
+        data["accounting_field_warnings_count"] = len(self.accounting_field_warnings)
         data["blockers_count"] = len(self.blockers)
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
@@ -424,6 +475,208 @@ def scan_execution_timing(paths: list[str]) -> list[str]:
     return sorted(set(warnings))
 
 
+def diff_name_status(base: str) -> dict[str, str]:
+    result = run_git(["diff", "--name-status", f"{base}...HEAD"])
+    if result.returncode != 0:
+        return {}
+    statuses: dict[str, str] = {}
+    for line in result.stdout.splitlines():
+        if not line.strip():
+            continue
+        parts = line.split("\t")
+        status = parts[0]
+        path = parts[-1]
+        statuses[normalize_path(path)] = status
+    return statuses
+
+
+def is_result_file(path: str) -> bool:
+    normalized = normalize_path(path)
+    return re.fullmatch(r"docs/agent-system/engine-journal/output/RESULT-.*\.md", normalized) is not None
+
+
+def extract_simple_fields(text: str) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        key = key.strip()
+        if not re.fullmatch(r"[a-z][a-z0-9_]*", key):
+            continue
+        fields[key] = value.strip().strip("`").strip()
+    return fields
+
+
+def is_missing_accounting_value(value: str) -> bool:
+    normalized = value.strip().strip("`").strip()
+    if ACCOUNTING_PLACEHOLDER_RE.search(normalized):
+        return True
+    return normalized.lower() in ACCOUNTING_EMPTY_VALUES
+
+
+def parse_money(value: str) -> float | None:
+    normalized = value.strip().strip("`").strip()
+    lowered = normalized.lower()
+    if lowered in ACCOUNTING_EMPTY_VALUES or lowered in ACCOUNTING_UNKNOWN_VALUES or lowered in ACCOUNTING_NOT_APPLICABLE_VALUES:
+        return None
+    match = MONEY_VALUE_RE.fullmatch(normalized)
+    if not match:
+        return None
+    return float(match.group(1))
+
+
+def parse_token_count(value: str) -> int | None:
+    normalized = value.strip().strip("`").strip()
+    lowered = normalized.lower()
+    if lowered in ACCOUNTING_EMPTY_VALUES or lowered in ACCOUNTING_UNKNOWN_VALUES or lowered in ACCOUNTING_NOT_APPLICABLE_VALUES:
+        return None
+    if not TOKEN_VALUE_RE.fullmatch(normalized):
+        return None
+    return int(normalized)
+
+
+def has_stop_or_failure_state(fields: dict[str, str]) -> bool:
+    haystack = " ".join(
+        fields.get(name, "")
+        for name in ("status", "terminal_state", "Closure blockers", "blockers")
+    )
+    return bool(STOP_OR_FAILURE_RE.search(haystack))
+
+
+def validate_accounting_fields(path: str, text: str, hard: bool) -> tuple[list[str], list[str], dict[str, float | int]]:
+    fields = extract_simple_fields(text)
+    normalized = normalize_path(path)
+    blockers: list[str] = []
+    warnings: list[str] = []
+    metrics: dict[str, float | int] = {}
+
+    missing = [
+        field
+        for field in ACCOUNTING_REQUIRED_RESULT_FIELDS
+        if field not in fields or is_missing_accounting_value(fields[field])
+    ]
+    if missing:
+        target = blockers if hard else warnings
+        target.append(f"{normalized}:1: ACCOUNTING_FIELDS_MISSING {','.join(missing)}")
+
+    actor_type = fields.get("actor_type", "").strip().lower()
+    if actor_type and actor_type not in ACCOUNTING_ALLOWED_ACTOR_TYPES:
+        (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_ACTOR_TYPE_INVALID {actor_type}")
+
+    time_source = fields.get("time_source", "").strip().lower()
+    if time_source and time_source not in ACCOUNTING_ALLOWED_TIME_SOURCES:
+        (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_TIME_SOURCE_INVALID {time_source}")
+
+    confidence = fields.get("time_report_confidence", "").strip().lower()
+    if confidence and confidence not in ACCOUNTING_ALLOWED_CONFIDENCE:
+        (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_CONFIDENCE_INVALID {confidence}")
+
+    time_spent = fields.get("time_spent", "").strip()
+    if time_spent and not TIME_SPENT_RE.fullmatch(time_spent):
+        (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_TIME_SPENT_FORMAT_INVALID {time_spent}")
+
+    human_time = fields.get("human_time_reported", "").strip()
+    human_time_missing = (
+        not human_time
+        or is_missing_accounting_value(human_time)
+        or human_time.lower() in ACCOUNTING_NOT_APPLICABLE_VALUES
+        or human_time.lower() in ACCOUNTING_UNKNOWN_VALUES
+    )
+    if actor_type in {"human", "hybrid"} and human_time_missing:
+        if has_stop_or_failure_state(fields) and fields.get("time_report_missing_reason"):
+            warnings.append(f"{normalized}:1: ACCOUNTING_HUMAN_TIME_MISSING_WITH_REASON")
+        else:
+            (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_HUMAN_TIME_REQUIRED")
+
+    for token_field in ("input_tokens", "output_tokens"):
+        value = fields.get(token_field, "")
+        if value and parse_token_count(value) is None:
+            lowered = value.lower()
+            if lowered not in ACCOUNTING_EMPTY_VALUES and lowered not in ACCOUNTING_UNKNOWN_VALUES and lowered not in ACCOUNTING_NOT_APPLICABLE_VALUES:
+                (blockers if hard else warnings).append(f"{normalized}:1: ACCOUNTING_TOKEN_VALUE_INVALID {token_field}")
+
+    input_tokens = parse_token_count(fields.get("input_tokens", ""))
+    output_tokens = parse_token_count(fields.get("output_tokens", ""))
+    ai_cost = parse_money(fields.get("ai_cost_estimate", ""))
+    human_cost = parse_money(fields.get("human_cost_estimate", ""))
+    total_cost = parse_money(fields.get("total_task_cost", ""))
+
+    if input_tokens is not None:
+        metrics["input_tokens"] = input_tokens
+    if output_tokens is not None:
+        metrics["output_tokens"] = output_tokens
+    if ai_cost is not None:
+        metrics["ai_cost_estimate"] = ai_cost
+    if human_cost is not None:
+        metrics["human_cost_estimate"] = human_cost
+    if total_cost is not None:
+        metrics["total_task_cost"] = total_cost
+
+    # Если числовые cost-поля заполнены, проверяем арифметику на уровне RESULT.
+    if ai_cost is not None and human_cost is not None and total_cost is not None:
+        expected_total = ai_cost + human_cost
+        if abs(expected_total - total_cost) > 0.01:
+            (blockers if hard else warnings).append(
+                f"{normalized}:1: ACCOUNTING_TOTAL_COST_MISMATCH expected={expected_total:.2f} actual={total_cost:.2f}"
+            )
+
+    return blockers, warnings, metrics
+
+
+def scan_accounting_fields(paths: list[str], base: str) -> tuple[list[str], list[str], list[str], list[str], dict[str, object]]:
+    all_paths = unique_sorted(paths)
+    statuses = diff_name_status(base)
+    untracked_results = {
+        normalize_path(path)
+        for path in git_lines(["ls-files", "--others", "--exclude-standard"], ReadyReport(), "cannot list untracked files")
+        if is_result_file(path)
+    }
+    new_result_files: list[str] = []
+    legacy_advisory_files: list[str] = []
+    blockers: list[str] = []
+    warnings: list[str] = []
+    totals: dict[str, float | int] = {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "ai_cost_estimate": 0.0,
+        "human_cost_estimate": 0.0,
+        "total_task_cost": 0.0,
+    }
+    numeric_files_count = 0
+
+    for path in all_paths:
+        normalized = normalize_path(path)
+        if not is_result_file(normalized):
+            continue
+        full_path = ROOT / normalized
+        if not full_path.is_file():
+            continue
+        is_new = statuses.get(normalized, "").startswith("A") or normalized in untracked_results
+        if is_new:
+            new_result_files.append(normalized)
+        else:
+            legacy_advisory_files.append(normalized)
+        text = full_path.read_text(encoding="utf-8", errors="replace")
+        file_blockers, file_warnings, metrics = validate_accounting_fields(normalized, text, hard=is_new)
+        blockers.extend(file_blockers)
+        warnings.extend(file_warnings)
+        if metrics:
+            numeric_files_count += 1
+        for key, value in metrics.items():
+            totals[key] += value
+
+    summary: dict[str, object] = {
+        "numeric_files_count": numeric_files_count,
+        "input_tokens": int(totals["input_tokens"]),
+        "output_tokens": int(totals["output_tokens"]),
+        "ai_cost_estimate": round(float(totals["ai_cost_estimate"]), 4),
+        "human_cost_estimate": round(float(totals["human_cost_estimate"]), 4),
+        "total_task_cost": round(float(totals["total_task_cost"]), 4),
+    }
+    return sorted(new_result_files), sorted(legacy_advisory_files), sorted(set(blockers)), sorted(set(warnings)), summary
+
+
 def add_repository_guard(report: ReadyReport) -> None:
     root_result = run_git(["rev-parse", "--show-toplevel"])
     if root_result.returncode != 0:
@@ -573,6 +826,18 @@ def add_safety_scans(report: ReadyReport) -> None:
     if report.execution_timing_warnings:
         report.warnings.append("unreliable execution timing advisory warnings detected")
 
+    (
+        report.accounting_required_result_files,
+        report.accounting_legacy_advisory_files,
+        report.accounting_field_blockers,
+        report.accounting_field_warnings,
+        report.cost_calculator_summary,
+    ) = scan_accounting_fields(all_paths, report.base)
+    if report.accounting_field_blockers:
+        report.blockers.append("required accounting fields missing or invalid in new RESULT")
+    if report.accounting_field_warnings:
+        report.warnings.append("accounting advisory warnings detected")
+
 
 def render_human(report: ReadyReport) -> str:
     lines = [
@@ -622,6 +887,11 @@ def render_human(report: ReadyReport) -> str:
             f"deferred_finalization_placeholder_count: {len(report.deferred_finalization_placeholders)}",
             f"superseded_banner_warnings_count: {len(report.superseded_banner_warnings)}",
             f"execution_timing_warnings_count: {len(report.execution_timing_warnings)}",
+            f"accounting_required_result_files_count: {len(report.accounting_required_result_files)}",
+            f"accounting_legacy_advisory_files_count: {len(report.accounting_legacy_advisory_files)}",
+            f"accounting_field_blockers_count: {len(report.accounting_field_blockers)}",
+            f"accounting_field_warnings_count: {len(report.accounting_field_warnings)}",
+            f"cost_calculator_summary: {json.dumps(report.cost_calculator_summary, ensure_ascii=False, sort_keys=True)}",
             "",
             f"blockers_count: {len(report.blockers)}",
             f"warnings_count: {len(report.warnings)}",
@@ -648,6 +918,14 @@ def render_human(report: ReadyReport) -> str:
         lines.append("")
         lines.append("execution_timing_warnings:")
         lines.extend(f"- {item}" for item in report.execution_timing_warnings)
+    if report.accounting_field_blockers:
+        lines.append("")
+        lines.append("accounting_field_blockers:")
+        lines.extend(f"- {item}" for item in report.accounting_field_blockers)
+    if report.accounting_field_warnings:
+        lines.append("")
+        lines.append("accounting_field_warnings:")
+        lines.extend(f"- {item}" for item in report.accounting_field_warnings)
     return "\n".join(lines) + "\n"
 
 

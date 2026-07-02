@@ -11,6 +11,13 @@
 Время начала выполнения (execution_started_at) [measured/engine]:
 
 Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]:
+actor_type:
+
+role:
+
+time_source:
+
+time_report_confidence:
 
 Автор:
 
@@ -64,7 +71,9 @@ Verified Baseline:
 
 - [ ] This TASK/Engine block can be executed without reading surrounding chat text.
 - [ ] Блок «Рекомендуемый режим исполнения» включён.
-- [ ] Execution timestamps включены: `execution_started_at` заполнен; `orchestration_time_reported` заполнен или оставлен пустым как optional.
+- [ ] Execution accounting включен: `execution_started_at`, `actor_type`,
+  `role`, `time_source`, `time_report_confidence`; `orchestration_time_reported`
+  заполнен или оставлен пустым как optional.
 - [ ] Verified baseline is included or explicitly marked as not applicable.
 - [ ] Repository/base branch/working branch are included.
 - [ ] Allowed files are included.
@@ -162,6 +171,9 @@ Post-merge closure checklist:
 - risks;
 - result file finalized;
 - index entry finalized;
+- time_spent;
+- human_time_reported, если `actor_type` = `human` или `hybrid`;
+- token/cost fields;
 - no journal placeholders;
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;

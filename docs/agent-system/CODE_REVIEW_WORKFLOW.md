@@ -88,6 +88,23 @@ target получает `journal_transfer_mode: scaffold_only`: scaffold, templa
 формат `INDEX.md`, но не operational rows или TASK/RESULT history source
 methodology repository.
 
+### Time and cost accounting check
+
+Reviewer проверяет новые finalized RESULT по
+`docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
+`docs/agent-system/COST_TRACKING_POLICY.md`:
+
+- `execution_started_at`, `execution_finished_at`, `execution_duration`,
+  `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence` заполнены;
+- `human_time_reported` заполнен, если `actor_type` равен `human` или `hybrid`;
+- token/cost fields присутствуют: `input_tokens`, `output_tokens`,
+  `ai_cost_estimate`, `human_cost_estimate`, `total_task_cost`,
+  `resource_cost`;
+- `INDEX.md` содержит колонку `Time`, а новая строка task содержит краткое
+  значение времени;
+- legacy RESULT до H3 без accounting fields являются advisory, не blocker.
+
 ## Режимы review task
 
 Каждая review task должна явно указать один режим:

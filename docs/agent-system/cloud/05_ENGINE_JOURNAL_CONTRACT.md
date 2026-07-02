@@ -227,22 +227,34 @@ Methodology repository operational history не переносится.
 
 ## Execution timestamps
 
-Новые TASK/RESULT записи фиксируют execution-время по модели `measured/reported`:
+Новые TASK/RESULT записи фиксируют execution-время и cost accounting по модели
+`measured/reported/mixed`:
 
 - `measured/engine` — значения, которые engine фиксирует автоматически или надежно по факту собственного запуска;
-- `reported/human` — значения, которые сообщает человек или оркестратор; они опциональны и могут оставаться пустыми.
+- `reported/human` — значения, которые сообщает человек или оркестратор;
+- `mixed` — часть значений измерена, часть сообщена человеком.
 
 TASK должен содержать:
 
 - `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`.
+- `Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]`;
+- `actor_type`, `role`, `time_source`, `time_report_confidence` для будущего
+  RESULT, если задача создаёт или меняет journal artifacts.
 
 RESULT должен содержать:
 
-- `Время начала выполнения (execution_started_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Время окончания выполнения (execution_finished_at) [measured/engine]` в формате ISO 8601 с timezone;
-- `Длительность выполнения (execution_duration) [measured/engine, опционально]`;
-- `Время человека, по факту (human_time_reported) [reported/human, опционально]`.
+- `execution_started_at` в формате ISO 8601 с timezone;
+- `execution_finished_at` в формате ISO 8601 с timezone;
+- `execution_duration`, вычисленный из start/finish;
+- `time_spent` в коротком формате для rollup (`45m`, `2.5h`, `PT2H30M`);
+- `actor_type` (`human`, `agent`, `hybrid`);
+- `role`;
+- `time_source` (`measured`, `reported`, `mixed`);
+- `time_report_confidence` (`high`, `medium`, `low`);
+- `human_time_reported` (`duration` или `not_applicable`);
+- cost-поля по `docs/agent-system/COST_TRACKING_POLICY.md`:
+  `input_tokens`, `output_tokens`, `ai_cost_estimate`,
+  `human_cost_estimate`, `total_task_cost`, `resource_cost`.
 
 Дисциплина фиксации времени:
 
@@ -258,9 +270,17 @@ RESULT должен содержать:
   выглядит нереалистично короткой для задачи с содержательным diff, reviewer или
   ready-gate фиксирует advisory finding `unreliable execution timing`.
 
-Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution-полями. Merge-время не дублируется в execution-полях. Для ordinary PR source of truth по `merged_at` и merge commit SHA — GitHub PR metadata; closure-stamp в `RESULT` добавляется только при boundary reconciliation или explicit architect request по разделу «GitHub merge facts authority».
+Reviewer не получает отдельного поля времени внутри work-записи: review является отдельным engine-run со своим TASK/RESULT и собственными execution/accounting-полями. Merge-время не дублируется в execution-полях. Для ordinary PR source of truth по `merged_at` и merge commit SHA — GitHub PR metadata; closure-stamp в `RESULT` добавляется только при boundary reconciliation или explicit architect request по разделу «GitHub merge facts authority».
 
-Правило не ретрофитится в append-only history: старые TASK/RESULT без execution-полей не переписываются. В новых finalized TASK/RESULT отсутствие `execution_started_at` или `execution_finished_at` является minor finding, но не hard blocker, не release blocker и не признак invalid final-state. Отсутствие или пустота `reported/human` полей не является finding.
+Правило не ретрофитится в append-only history: старые TASK/RESULT без
+execution/accounting-полей не переписываются. Для новых finalized RESULT
+отсутствие required accounting fields является blocker. Для legacy RESULT до H3
+это advisory. Если `actor_type` равен `human` или `hybrid`, отсутствие
+`human_time_reported` является blocker, кроме STOP/failure с заполненным
+`time_report_missing_reason`.
+
+`INDEX.md` содержит колонку `Time`: новые строки заполняют её из `time_spent`,
+legacy-строки используют `legacy/advisory`.
 
 `execution_finished_at` является единственным каноническим именем measured-поля окончания выполнения. Вариант имени, образованный как `execution_` + `completed_at`, не является допустимым alias для новых записей; если он появляется в новой finalized TASK/RESULT вместо `execution_finished_at`, reviewer фиксирует minor finding. Старые append-only записи с таким drift-именем остаются историей и не ретрофитятся.
 
@@ -531,7 +551,14 @@ Reviewer подтверждает:
 - task/result files не противоречат final report;
 - RESULT содержит «Source Delta» по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md` и этот блок согласован с фактическим diff;
 - RESULT содержит context handoff по канону `docs/agent-system/templates/TASK_HEADER_COMMON.md`: numbered cloud-имена из `docs/agent-system/cloud/00_README.md`, только bundle-файлы, небандловые tooling/source-файлы не перечислены в context-load строке;
-- новые TASK/RESULT содержат measured execution-поля `execution_started_at`/`execution_finished_at`; отсутствие этих полей в finalized записи является minor finding, но не blocker. `execution_started_at` фиксируется до содержательной работы и переносится из TASK в RESULT без перезаписи; равные start/finish или нереалистично короткая длительность при содержательном diff являются advisory finding `unreliable execution timing`. `reported/human` поля опциональны и не проверяются как обязательные;
+- новые finalized RESULT содержат required accounting fields по
+  `TIME_ACCOUNTING_POLICY.md` и `COST_TRACKING_POLICY.md`: `execution_*`,
+  `time_spent`, `actor_type`, `role`, `time_source`,
+  `time_report_confidence`, `human_time_reported`, token/cost fields и
+  `resource_cost`; отсутствие этих полей в новом RESULT является blocker,
+  legacy-записи остаются advisory; равные start/finish или нереалистично
+  короткая длительность при содержательном diff остаются advisory finding
+  `unreliable execution timing`;
 - новые TASK/RESULT не используют неканоническое имя окончания выполнения, образованное как `execution_` + `completed_at`; новое появление такого поля является minor finding, исторические append-only записи не ретрофитятся;
 - branch, PR и commit references совпадают с фактическим GitHub state.
 - ready-for-review PR не содержит unresolved journal placeholders в `RESULT` или `INDEX`;
