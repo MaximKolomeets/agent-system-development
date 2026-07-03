@@ -130,6 +130,29 @@ docs/agent-system/TASK_FILE_HANDOFF_CONTRACT.md
 
 `engine` не должен завершать задачу как ready-for-review, пока `RESULT` и `INDEX` не финализированы после PR creation.
 
+## Pre-emit self-review
+
+Перед выдачей engine-блока или TASK file оркестратор выполняет короткий
+pre-emit self-review. Это тонкий контрольный слой поверх `AGENTS.md`,
+`docs/agent-system/MANUAL_REVIEW_CHECKLIST.md`, `TASK_CONTRACT.md` и
+`validate_task_contract.py`, а не отдельный параллельный checklist.
+
+Минимальный self-review перед отправкой:
+
+- язык задачи и ожидаемого отчета соответствует Russian-first policy;
+- role/branch/task id vendor-neutral и не содержат tool/vendor names;
+- scope, allowed files, forbidden files и STOP-условия перечислены внутри
+  self-contained блока, а не остаются только в surrounding chat;
+- `methodology_reference.source_commit` или `methodology_development_base.base_commit`
+  зафиксирован как commit SHA по типу задачи;
+- для write-action задач добавлен `task_contract`, а перед PR запланирован
+  запуск `python docs/agent-system/tools/validate_task_contract.py <task-file>`;
+- если target/local instructions конфликтуют с методологией, task требует `STOP`
+  до изменения файлов.
+
+Если любой пункт не проходит, оркестратор исправляет task block до отправки или
+пишет `STOP` с причиной вместо запуска engine.
+
 ## Обязательная шапка задачи
 
 Полная задача для `engine` должна быть на русском языке и начинаться с шапки:
