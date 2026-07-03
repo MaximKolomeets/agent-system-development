@@ -1,0 +1,78 @@
+name: Methodology checks
+
+on:
+  pull_request:
+    branches:
+      - developer
+  push:
+    branches:
+      - "work/**"
+
+jobs:
+  methodology-checks:
+    name: Methodology self-enforcement
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Resolve base ref
+        id: base
+        shell: bash
+        run: |
+          set -euo pipefail
+          base_ref="${GITHUB_BASE_REF:-developer}"
+          git fetch origin "${base_ref}:refs/remotes/origin/${base_ref}"
+          printf 'base=origin/%s\n' "${base_ref}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate changed TASK contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="${{ steps.base.outputs.base }}"
+          mapfile -t task_files < <(
+            git diff --name-only "${base}...HEAD" -- 'docs/agent-system/engine-journal/input/*.md' |
+            grep -E '(^|/)TASK.*\.md$' || true
+          )
+          if [[ "${#task_files[@]}" -eq 0 ]]; then
+            echo "Changed TASK files were not found."
+            exit 0
+          fi
+          for task_file in "${task_files[@]}"; do
+            python docs/agent-system/tools/validate_task_contract.py "${task_file}"
+          done
+
+      - name: Methodology ready gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/check_task_ready.py --base "${{ steps.base.outputs.base }}"
+
+      - name: Policy invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/validate_policy_invariants.py
+
+      - name: Generated artifact parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/generated_eol_guard.py --base "${{ steps.base.outputs.base }}"
+          python docs/agent-system/tools/gen_file_map.py --check
+          python docs/agent-system/tools/gen_cloud_bundle.py --check
+
+      - name: Commit language
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/check_commit_language.py --base "${{ steps.base.outputs.base }}"
+
+      - name: Journal append-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/check_journal_append_only.py --base "${{ steps.base.outputs.base }}"

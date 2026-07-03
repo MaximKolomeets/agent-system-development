@@ -7,6 +7,24 @@ CI — автоматический guardrail для public methodology reposito
 Первый CI-check блокирует запрещённые tracked files и paths до merge. CI не
 заменяет review, ручные проверки или repository rulesets.
 
+Workflow `Methodology checks` запускается на PR в `developer` и на push в
+`work/**`. Он оборачивает существующие локальные валидаторы и добавляет только
+узкие self-enforcement checks:
+
+- changed TASK files проходят `validate_task_contract.py`;
+- PR branch проходит `check_task_ready.py --base <base>`;
+- policy invariants, generated EOL guard, `gen_file_map.py --check` и
+  `gen_cloud_bundle.py --check` должны проходить без drift;
+- `check_commit_language.py` проверяет только commit metadata и только
+  человекочитаемую prose после conventional subject prefix;
+- `check_journal_append_only.py` запрещает удаление или удаление строк в уже
+  существующих TASK/RESULT journal artifacts.
+
+CI output должен оставаться filename/count/code oriented: не печатать matching
+lines, secret values, `.env` contents или private data. English identifiers,
+paths, branch names, config keys, API/package names и literal external names не
+являются нарушением Russian-first policy.
+
 Commit metadata enforcement является обязательным gate для будущих work PR:
 локально его выполняет `python docs/agent-system/tools/validate_commit_message.py
 --base origin/developer`, а при включении GitHub Actions check должен называться
@@ -85,6 +103,14 @@ git status --short
 
 ```bash
 python docs/agent-system/tools/validate_commit_message.py --base origin/developer
+```
+
+```bash
+python docs/agent-system/tools/check_commit_language.py --base origin/developer
+```
+
+```bash
+python docs/agent-system/tools/check_journal_append_only.py --base origin/developer
 ```
 
 ```bash

@@ -16,6 +16,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | path | description from manifest |
 | --- | --- |
 | `AGENTS.md` |  |
+| `.github/workflows/methodology-checks.yml` |  |
 | `README.md` |  |
 | `docs/agent-system/ADOPTION_GUIDE.md` |  |
 | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` |  |
@@ -43,6 +44,8 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ERROR_CATALOG_PATTERN.md` |  |
 | `docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md` |  |
 | `docs/agent-system/FILE_COMMENTING_STANDARD.md` |  |
+| `docs/agent-system/tools/check_commit_language.py` |  |
+| `docs/agent-system/tools/check_journal_append_only.py` |  |
 | `docs/agent-system/tools/check_task_ready.py` |  |
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |
 | `docs/agent-system/tools/gen_file_map.py` |  |
@@ -101,7 +104,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 
 ## template
 
-Reusable source templates from methodology repository. Шаблоны существуют в source checkout и могут использоваться для materialization/adaptation target files.
+Reusable source templates from methodology repository. Template file не копируется в target as-is и не инстанцируется как operational file; он служит примером структуры для target adaptation/materialization.
 
 | path | description from manifest |
 | --- | --- |
