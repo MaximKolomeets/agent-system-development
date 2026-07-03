@@ -28,6 +28,11 @@ annotated tag `v1.5.1` и sync PR #305 подтверждены. Hardening serie
 `v1.5.2` выполнена: PR-1..15 / H1..H16 вошли в `origin/developer`, batch-closure
 PR #322 смержен.
 
+Дополнительный methodology work после merge PR #326: docs-only PR
+`METH-TARGET-COMMIT-LANGUAGE-ENFORCEMENT-01` фиксирует, что target adoption
+должен включать Russian-first commit-language enforcement через существующие
+tools, а target CI создаётся как target adaptation.
+
 Ближайший рабочий шаг: review и human merge release-prep PR `v1.5.2` в
 `developer`. После этого release-manager готовит release PR `developer -> main`;
 merge release PR, annotated tag `v1.5.2`, publication и sync decision остаются

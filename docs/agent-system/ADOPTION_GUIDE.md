@@ -294,6 +294,7 @@ Checklist используется перед docs-only adoption и review, чт
 - branch model;
 - наличие `developer` или `develop`;
 - CI branch filters;
+- commit-language enforcement для Russian-first commit metadata;
 - worktree paths;
 - current state;
 - next steps;
@@ -403,6 +404,19 @@ GitHub является source of truth: в target repository фиксируют
 ### 4. Адаптировать документы
 
 Как основу можно переносить: `AGENTS.md`, README workflow-секции, branch policy, workflow, PR workflow, role model, publication policy, governance pack templates, templates. Адаптировать: project name, repository name, visibility, roles, first milestone, first PR, CI needs, branch model, worktree paths, forbidden data list, handoff text. Не переносить credentials, tokens, passwords, API keys, `.env`, клиентские/персональные данные, внутренние кодовые имена. `CURRENT_STATE.md`, `NEXT_STEPS.md`, `DECISION_LOG.md` пишутся заново по фактам target repository.
+
+### 4a. Включить commit-language enforcement
+
+Target repository должен зафиксировать Russian-first commit metadata как
+обязательный guardrail: commit subject/body пишутся на русском, English
+допустим только для identifiers, paths, commands, branch names, config keys,
+package names, API/tool names и literal external names. Для docs-only adoption
+это требование фиксируется в checklist и governance docs. При runtime/CI-adoption
+target repository заводит собственный CI-check, который переиспользует
+существующие tools methodology source set: `validate_commit_message.py`,
+`check_commit_language.py` и/или `russian_first_lint.py`. Workflow из
+`.github/**` methodology repository не копируется verbatim; target CI
+адаптируется под реальные branch filters и rulesets target repository.
 
 ### 5. Создать ветки и worktree
 

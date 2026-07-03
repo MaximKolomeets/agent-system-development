@@ -53,6 +53,22 @@ issue codes и path/category details, не matching lines и не values.
 python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary --commit-message-cutoff-ref <release-tag-or-cutoff-ref>
 ```
 
+## Target adaptation
+
+Target repository, который принимает методологию, должен включить Russian-first
+commit-language enforcement как часть своих локальных checks. Для docs-only
+adoption это фиксируется как обязательное требование и review checklist item; при
+runtime/CI-adoption target repository заводит собственный CI-check, который
+переиспользует существующие tools methodology source set:
+`validate_commit_message.py`, `check_commit_language.py` и/или
+`russian_first_lint.py`.
+
+`.github/**` methodology repository не копируется в target repository verbatim.
+Target workflow создаётся или адаптируется под фактические branch names,
+rulesets и CI-модель target repository. Output contract тот же: filename,
+count и issue-code oriented вывод, без печати commit bodies целиком, matching
+lines, secret values, `.env` contents или private data.
+
 ## Запрещённые tracked paths
 
 Repository не должен track-ить эти paths:
