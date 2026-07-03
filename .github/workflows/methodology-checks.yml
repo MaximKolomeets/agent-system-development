@@ -66,12 +66,6 @@ jobs:
           python docs/agent-system/tools/gen_file_map.py --check
           python docs/agent-system/tools/gen_cloud_bundle.py --check
 
-      - name: Commit language
-        shell: bash
-        run: |
-          set -euo pipefail
-          python docs/agent-system/tools/check_commit_language.py --base "${{ steps.base.outputs.base }}"
-
       - name: Journal append-only
         shell: bash
         run: |

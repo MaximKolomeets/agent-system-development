@@ -33,6 +33,11 @@ PR #322 смержен.
 должен включать Russian-first commit-language enforcement через существующие
 tools, а target CI создаётся как target adaptation.
 
+Следующий methodology tooling work после merge PR #327:
+`METH-COMMIT-LANGUAGE-TOOL-RECONCILE-01` сводит commit-language checks к одному
+каноническому gate `validate_commit_message.py`, переносит туда проверку
+Russian-first тела commit и удаляет duplicate tool из активного оборота.
+
 Ближайший рабочий шаг: review и human merge release-prep PR `v1.5.2` в
 `developer`. После этого release-manager готовит release PR `developer -> main`;
 merge release PR, annotated tag `v1.5.2`, publication и sync decision остаются

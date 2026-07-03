@@ -45,7 +45,7 @@
 - [ ] `WORKFLOW.md` и `PR_WORKFLOW.md` адаптированы.
 - [ ] Task templates используют реальные branch names.
 - [ ] GitHub Actions branch filters проверены.
-- [ ] Target repository включает commit-language / Russian-first enforcement на базе существующих tools: `validate_commit_message.py`, `check_commit_language.py` и/или `russian_first_lint.py`.
+- [ ] Target repository включает commit-language / Russian-first enforcement на базе существующих tools: `validate_commit_message.py` и/или `russian_first_lint.py`.
 - [ ] При runtime/CI-adoption target repository заводит собственный CI-check для commit metadata; workflow не копируется verbatim из `.github/**` methodology repository.
 
 ## Документы состояния (state documents)

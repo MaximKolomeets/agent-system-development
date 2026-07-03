@@ -29,6 +29,7 @@ ALLOWED_SUBJECT_RE = re.compile(
 )
 SCOPE_VALUE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 CYRILLIC_RE = re.compile(r"[А-Яа-яЁё]")
+LATIN_WORD_RE = re.compile(r"\b[A-Za-z][A-Za-z]{2,}\b")
 MAX_SUBJECT_LEN = 72
 MAX_BODY_LINE_LEN = 72
 
@@ -94,6 +95,46 @@ def length_exempt(line: str) -> bool:
     if re.search(r"`[^`]*(/|\\)[^`]*`", line):
         return True
     return False
+
+
+def looks_like_path_or_identifier(text: str) -> bool:
+    stripped = text.strip()
+    if not stripped:
+        return True
+    if "`" in stripped:
+        return True
+    if "://" in stripped:
+        return True
+    if "/" in stripped or "\\" in stripped:
+        return True
+    if re.fullmatch(r"[A-Za-z0-9._:@#-]+", stripped):
+        return True
+    return False
+
+
+def body_line_exempt_from_language(line: str, in_fence: bool) -> bool:
+    stripped = line.strip()
+    if in_fence or not stripped:
+        return True
+    # Списки, таблицы и заголовки часто содержат identifiers/paths; не считаем их prose.
+    if re.match(r"^(?:[-*+]|\d+\.)\s+", stripped):
+        return True
+    if stripped.startswith(("|", "#", ">")):
+        return True
+    return looks_like_path_or_identifier(stripped)
+
+
+def prose_needs_russian(text: str) -> bool:
+    stripped = text.strip()
+    if not stripped or CYRILLIC_RE.search(stripped):
+        return False
+    if looks_like_path_or_identifier(stripped):
+        return False
+    words = LATIN_WORD_RE.findall(stripped)
+    if len(words) < 4:
+        return False
+    # Узкий guard: блокируем очевидную английскую prose, не identifiers.
+    return any(marker in stripped for marker in (".", ",", ":", ";")) or len(words) >= 7
 
 
 def normalize_scope(value: str) -> str:
@@ -199,9 +240,18 @@ def validate_message(ref: str, text: str, allowed_scopes: list[str]) -> CommitVi
     if has_body(lines):
         if len(lines) < 2 or lines[1].strip():
             codes.append("BODY_MISSING_BLANK_SEPARATOR")
+        in_fence = False
         for index, line in enumerate(lines[2:], start=3):
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_fence = not in_fence
+                continue
             if len(line) > MAX_BODY_LINE_LEN and not length_exempt(line):
                 codes.append(f"BODY_LINE_TOO_LONG:{index}")
+            if body_line_exempt_from_language(line, in_fence):
+                continue
+            if prose_needs_russian(line):
+                codes.append(f"BODY_NOT_RUSSIAN_FIRST:{index}")
 
     return CommitViolation(ref=ref, codes=codes) if codes else None
 

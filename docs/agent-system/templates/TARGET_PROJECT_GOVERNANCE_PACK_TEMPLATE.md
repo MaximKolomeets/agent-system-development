@@ -191,7 +191,7 @@ API/tool names и literal external names.
 Для docs-only adoption это требование фиксируется в checklist/governance docs.
 При runtime/CI-adoption target repository заводит собственный CI-check на базе
 существующих tools methodology source set: `validate_commit_message.py`,
-`check_commit_language.py` и/или `russian_first_lint.py`. Workflow из `.github/**`
+и/или `russian_first_lint.py`. Workflow из `.github/**`
 methodology repository не копируется verbatim; target CI адаптируется под
 фактические branch filters, rulesets и CI-модель target repository.
 
