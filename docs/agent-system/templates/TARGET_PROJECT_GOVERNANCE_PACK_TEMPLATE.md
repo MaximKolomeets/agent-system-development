@@ -181,6 +181,20 @@ work/<роль>/<task-id>
 - engine выбирается для конкретной задачи и фиксируется в task header.
 - `ENGINE_REGISTRY.md` содержит Agent Authority Matrix, согласованную с `PROJECT_CONSTITUTION.md`.
 
+## Russian-first commit enforcement
+
+Target repository должен включить Russian-first commit-language enforcement как
+guardrail: commit subject/body пишутся на русском, English сохраняется только
+для identifiers, paths, commands, branch names, config keys, package names,
+API/tool names и literal external names.
+
+Для docs-only adoption это требование фиксируется в checklist/governance docs.
+При runtime/CI-adoption target repository заводит собственный CI-check на базе
+существующих tools methodology source set: `validate_commit_message.py`,
+`check_commit_language.py` и/или `russian_first_lint.py`. Workflow из `.github/**`
+methodology repository не копируется verbatim; target CI адаптируется под
+фактические branch filters, rulesets и CI-модель target repository.
+
 ## Чеклист governance-review (governance review checklist)
 
 - [ ] Изменение соответствует mission.

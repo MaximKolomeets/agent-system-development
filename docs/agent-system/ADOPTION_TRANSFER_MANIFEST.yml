@@ -58,6 +58,11 @@ scope:
       .github/workflows/methodology-checks.yml включён в source category как
       self-enforcement guardrail methodology repository.
     - >
+      Commit-language tools переносимы как source files, но target CI для
+      Russian-first commit metadata создаётся как target adaptation: `.github/**`
+      methodology repository не копируется verbatim, а workflow адаптируется под
+      реальные branch filters, rulesets и CI-модель target repository.
+    - >
       PROJECT_FILE_MAP.md строится из categories ниже; repo infrastructure вне
       methodology source set не является неучтённым canonical/operational doc.
     - >
