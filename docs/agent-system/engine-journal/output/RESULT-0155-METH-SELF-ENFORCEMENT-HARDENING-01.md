@@ -62,6 +62,8 @@ Branch: `work/methodology-architect-01/meth-self-enforcement-hardening-01`
 
 Commit SHA: `2913d2aa959ec5af50ef7165acc419a7ecd96955`
 
+Follow-up workflow fix SHA: `not_embedded_self_reference_loop`
+
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/326
 
 Статус финализации: `ready_for_review`
@@ -124,6 +126,9 @@ Self-enforcement hardening выполнен:
 - B: добавлен `.github/workflows/methodology-checks.yml`, который запускает
   существующие validators и два новых узких stdlib check script:
   `check_commit_language.py` и `check_journal_append_only.py`.
+- B2: после первого GitHub `push` run исправлен checkout branch context:
+  workflow теперь использует `ref: ${{ github.head_ref || github.ref_name }}`,
+  чтобы `check_task_ready.py` видел `work/*` branch, а не detached HEAD.
 - C: `ADOPTION_TRANSFER_MANIFEST.yml` уточняет template non-copy /
   non-instantiation policy; manifest включает новый CI/tooling surface;
   `PROJECT_FILE_MAP.md` и `docs/agent-system/cloud/**` регенерированы.
@@ -166,11 +171,13 @@ Self-enforcement hardening выполнен:
 - `git diff --check origin/developer...HEAD`: passed.
 - `git diff --check --cached`: passed before source commit.
 - `gh pr view 326 --json number,url,state,isDraft,headRefName,baseRefName,headRefOid,title,createdAt`: passed.
+- `gh run view 28658831945 --log-failed`: confirmed `push` run failure was
+  detached-HEAD branch detection; workflow checkout `ref` fixed in this branch.
 
 ## Невыполненные проверки и причина
 
-- GitHub Actions check после finalization commit ещё не запускался на момент
-  создания этого RESULT; проверить после push finalization commit.
+- GitHub Actions check после workflow checkout fix проверяется после финального
+  push этой ветки.
 
 ## Результат проверки запрещенных файлов
 
@@ -208,7 +215,8 @@ Self-enforcement hardening выполнен:
 ## Риски
 
 - Новый workflow начнёт исполняться на PR/push после merge этой ветки в GitHub
-  context; локально выполнены все equivalent commands.
+  context; локально выполнены все equivalent commands, а первый GitHub `push`
+  edge case с detached HEAD исправлен.
 - `check_journal_append_only.py` намеренно строг к удалению строк в существующих
   TASK/RESULT; будущие boundary closure должны использовать append-only stamp
   вместо переписывания старых artifacts либо отдельное утверждённое изменение
