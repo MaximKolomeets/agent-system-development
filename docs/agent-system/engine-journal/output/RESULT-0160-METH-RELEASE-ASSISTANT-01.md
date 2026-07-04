@@ -28,13 +28,13 @@ Engine: на усмотрение архитектора
 
 execution_started_at: `2026-07-04T18:57:25.9461620+07:00`
 
-execution_finished_at: `2026-07-04T19:00:31.0264180+07:00`
+execution_finished_at: `2026-07-04T19:05:23.5336057+07:00`
 
-execution_duration: `PT3M05S`
+execution_duration: `PT7M58S`
 
 human_time_reported: not_applicable
 
-time_spent: `5m`
+time_spent: `10m`
 
 actor_type: agent
 
@@ -150,7 +150,21 @@ Ready for review: yes
 
 ## Проверки
 
-Final checks фиксируются после PR metadata cleanup.
+Final checks after PR metadata cleanup:
+
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer` -
+  ready; blockers 0; warnings 0.
+- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer`
+  - valid; commits checked 2; violations 0.
+- `python docs/agent-system/tools/validate_policy_invariants.py` - valid; issues
+  0; warnings 0.
+- `python docs/agent-system/tools/gen_file_map.py --check` - passed.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check` - passed.
+- `git diff --check origin/developer...HEAD` - passed.
+- `python -c "import ast, pathlib; ast.parse(pathlib.Path('docs/agent-system/tools/release_gate.py').read_text(encoding='utf-8'))"` -
+  passed.
+- `rg -n 'run_git\(\[\"(fetch|switch|checkout|pull|merge|rebase|reset|clean|stash|tag|push)\"' docs/agent-system/tools/release_gate.py`
+  - no matches; write-git invocations absent.
 
 ## Source Delta
 
