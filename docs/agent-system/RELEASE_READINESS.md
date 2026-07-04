@@ -56,9 +56,10 @@ Merge facts verified from GitHub metadata and remote tag state:
   финализированы.
 - Row 0157: PR #328 canonical commit-language tool reconcile, RESULT/INDEX
   финализированы.
+- Rows 0155-0157: boundary-closed in this release-prep fix-pass for `v1.5.3`.
 - Row 0158: this release-prep task.
 - Исторические `RESULT` rows 0155-0157 являются append-only; этот release-prep
-  не переписывает их тело.
+  не переписывает их тело, а добавляет только boundary closure-stamps.
 - Exact status remains authoritative in `docs/agent-system/engine-journal/INDEX.md`
   and corresponding `RESULT-*` files.
 

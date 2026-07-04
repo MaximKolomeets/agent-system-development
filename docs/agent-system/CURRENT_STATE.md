@@ -76,9 +76,10 @@ Latest release tag: `v1.5.2`; next planned tag: `v1.5.3`.
 
 Payload `v1.5.3` после `v1.5.2` включает rows 0155-0157: PR #326
 self-enforcement hardening, PR #327 target commit-language enforcement и PR #328
-canonical commit-language tool reconcile. До публикации `v1.5.3`
-downstream/source-update задачи используют stable pointer `origin/main` / tag
-`v1.5.2`, а не `developer` или `work/*`.
+canonical commit-language tool reconcile. Rows 0155-0157 boundary-closed в
+release-prep fix-pass PR #329. До публикации `v1.5.3` downstream/source-update
+задачи используют stable pointer `origin/main` / tag `v1.5.2`, а не `developer`
+или `work/*`.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
 `2026-07-04T16:18:03+07:00` через GitHub Rulesets API. `Protect main` и

@@ -144,6 +144,9 @@ Release-prep evidence обновлён под `v1.5.3`:
 - `docs/agent-system/cloud/06_CURRENT_STATE.md`
 - `docs/agent-system/cloud/08_NEXT_STEPS.md`
 - `docs/agent-system/engine-journal/input/TASK-METH-RELEASE-PREP-V1-5-3-01.md`
+- `docs/agent-system/engine-journal/output/RESULT-0155-METH-SELF-ENFORCEMENT-HARDENING-01.md`
+- `docs/agent-system/engine-journal/output/RESULT-0156-METH-TARGET-COMMIT-LANGUAGE-ENFORCEMENT-01.md`
+- `docs/agent-system/engine-journal/output/RESULT-0157-METH-COMMIT-LANGUAGE-TOOL-RECONCILE-01.md`
 - `docs/agent-system/engine-journal/output/RESULT-0158-METH-RELEASE-PREP-V1-5-3-01.md`
 - `docs/agent-system/engine-journal/INDEX.md`
 - `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md`
@@ -160,8 +163,15 @@ Release-prep evidence обновлён под `v1.5.3`:
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check` - passed.
 - `git diff --check origin/developer...HEAD` - passed.
 
-Финальные checks после journal finalization должны быть повторены перед push
-финального commit; ожидаемый результат: no blockers/no warnings.
+Fix-pass checks:
+
+- `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-METH-RELEASE-PREP-V1-5-3-01.md --json` - valid.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer` - ready, blockers 0.
+- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer` - valid.
+- `python docs/agent-system/tools/validate_policy_invariants.py` - valid.
+- `python docs/agent-system/tools/gen_file_map.py --check` - passed.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check` - passed.
+- `git diff --check origin/developer...HEAD` - passed.
 
 ## Release action boundary
 
@@ -171,17 +181,47 @@ GitHub Release publication и sync `main -> developer` не выполнялис
 
 ## Исторический журнал
 
-Тело исторических RESULT 0155-0157 не изменялось. Они входят в payload
-`v1.5.3` как уже финализированные append-only journal entries.
+Историческое тело RESULT 0155-0157 не переписывалось. В RESULT 0155-0157
+append-only добавлены closure-stamps для boundary reconciliation `v1.5.3`.
 
 ## Source Delta
 
-- Source branch: `developer`.
-- Target branch для work PR: `developer`.
-- Release base: `v1.5.2` / `origin/main`.
-- Candidate branch: `origin/developer`.
-- Source commit: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`.
-- PR: https://github.com/MaximKolomeets/agent-system-development/pull/329
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+| --- | --- | --- | --- | --- |
+| `docs/agent-system/CURRENT_STATE.md` | modified | history_state | release-prep state pointer for `v1.5.3` | no |
+| `docs/agent-system/NEXT_STEPS.md` | modified | history_state | next steps for `v1.5.3` review/release boundary | no |
+| `docs/agent-system/RELEASE_READINESS.md` | modified | history_state | candidate/base/payload evidence for `v1.5.3` | no |
+| `docs/agent-system/RULESET_STATUS.md` | modified | history_state | refreshed ruleset/release evidence snapshot | no |
+| `docs/agent-system/cloud/06_CURRENT_STATE.md` | regenerated | generated | context mirror of `CURRENT_STATE.md` | no |
+| `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md` | regenerated | generated | context mirror of `engine-journal/INDEX.md` | no |
+| `docs/agent-system/cloud/08_NEXT_STEPS.md` | regenerated | generated | context mirror of `NEXT_STEPS.md` | no |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | rows 0155-0157 boundary-closed; row 0158 remains PR-open | no |
+| `docs/agent-system/engine-journal/input/TASK-METH-RELEASE-PREP-V1-5-3-01.md` | modified | journal | scope expansion for boundary closure 0155-0157 | no |
+| `docs/agent-system/engine-journal/output/RESULT-0155-METH-SELF-ENFORCEMENT-HARDENING-01.md` | appended | journal | append-only closure-stamp for release-boundary `v1.5.3` | no |
+| `docs/agent-system/engine-journal/output/RESULT-0156-METH-TARGET-COMMIT-LANGUAGE-ENFORCEMENT-01.md` | appended | journal | append-only closure-stamp for release-boundary `v1.5.3` | no |
+| `docs/agent-system/engine-journal/output/RESULT-0157-METH-COMMIT-LANGUAGE-TOOL-RECONCILE-01.md` | appended | journal | append-only closure-stamp for release-boundary `v1.5.3` | no |
+| `docs/agent-system/engine-journal/output/RESULT-0158-METH-RELEASE-PREP-V1-5-3-01.md` | modified | journal | Source Delta, checks and handoff finalized | no |
+
+Source branch: `developer`.
+
+Target branch для work PR: `developer`.
+
+Release base: `v1.5.2` / `origin/main`.
+
+Candidate branch: `origin/developer`.
+
+Source commit: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`.
+
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/329
+
+## Context handoff
+
+Архитектору — загрузить в контекст оркестратора:
+`docs/agent-system/cloud/06_CURRENT_STATE.md` (src:
+`docs/agent-system/CURRENT_STATE.md`), `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md`
+(src: `docs/agent-system/engine-journal/INDEX.md`),
+`docs/agent-system/cloud/08_NEXT_STEPS.md` (src:
+`docs/agent-system/NEXT_STEPS.md`).
 
 ## Methodology feedback
 

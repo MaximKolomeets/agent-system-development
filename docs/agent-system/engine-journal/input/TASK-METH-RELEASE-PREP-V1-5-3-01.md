@@ -50,6 +50,9 @@ task_contract:
       - docs/agent-system/PROJECT_FILE_MAP.md
       - docs/agent-system/cloud/**
       - docs/agent-system/engine-journal/**
+      - docs/agent-system/engine-journal/output/RESULT-0155-METH-SELF-ENFORCEMENT-HARDENING-01.md
+      - docs/agent-system/engine-journal/output/RESULT-0156-METH-TARGET-COMMIT-LANGUAGE-ENFORCEMENT-01.md
+      - docs/agent-system/engine-journal/output/RESULT-0157-METH-COMMIT-LANGUAGE-TOOL-RECONCILE-01.md
     forbidden_files:
       - .env
       - .env.*
@@ -61,9 +64,6 @@ task_contract:
       - AGENTS.md
       - .github/**
       - docs/agent-system/tools/**
-      - docs/agent-system/engine-journal/output/RESULT-0155-METH-SELF-ENFORCEMENT-HARDENING-01.md
-      - docs/agent-system/engine-journal/output/RESULT-0156-METH-TARGET-COMMIT-LANGUAGE-ENFORCEMENT-01.md
-      - docs/agent-system/engine-journal/output/RESULT-0157-METH-COMMIT-LANGUAGE-TOOL-RECONCILE-01.md
 
   policies:
     journal: required
@@ -123,6 +123,11 @@ task_contract:
 `task_contract.scope.allowed_files`. Release PR, merge в `main`, tag, publication
 и sync не выполняются.
 
+Архитектор разрешил scope expansion для release-boundary reconciliation rows
+0155-0157 в рамках PR #329. Разрешено только append-only добавить
+closure-stamp в RESULT 0155-0157 и обновить status/summary в INDEX. Историческое
+тело RESULT 0155-0157 не переписывать, прежние measured fields не менять.
+
 ## Acceptance criteria
 
 - `RELEASE_READINESS.md` описывает `v1.5.3`, base `v1.5.2`, candidate
@@ -131,6 +136,7 @@ task_contract:
   candidate `v1.5.3`.
 - `PROJECT_FILE_MAP.md` и `docs/agent-system/cloud/**` regenerated при drift.
 - `RESULT` и `INDEX` финализированы без placeholders.
+- Rows 0155-0157 boundary-closed for v1.5.3 release-prep scope.
 - Required checks passed.
 
 ## Передача
