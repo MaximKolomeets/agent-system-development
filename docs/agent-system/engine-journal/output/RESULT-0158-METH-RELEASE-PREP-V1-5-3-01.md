@@ -8,8 +8,6 @@
 
 Task source commit SHA: `f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe`
 
-Task file blob SHA: `not_embedded_self_reference_loop`
-
 TASK file verified: yes
 
 Engine block/TASK was self-contained: yes
@@ -60,7 +58,11 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 
 Branch: `work/release-manager-01/meth-release-prep-v1-5-3-01`
 
-Commit SHA: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`
+Materialization commit SHA: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`
+
+Current PR head source: GitHub PR metadata
+
+Current PR head before metadata cleanup: `6e477e8b107f2721364adf98d343b9ae16029ae6`
 
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/329
 
@@ -72,17 +74,22 @@ INDEX finalized: yes
 
 No unresolved journal markers: yes
 
-Follow-up finalization commit SHA: `not_embedded_self_reference_loop`
-
 Marker check: passed
 
 PR created at: `2026-07-04T09:36:15Z`
 
-Final commit SHA: `not_embedded_self_reference_loop`
-
 Final PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/329
 
 Ready for review: yes
+
+## PR head / self-reference policy
+
+Current/final PR head не встраивается в тот же committed RESULT, чтобы не
+создавать self-reference loop. Authoritative current PR head берётся из GitHub
+PR metadata. Последний verified PR head до metadata cleanup:
+`6e477e8b107f2721364adf98d343b9ae16029ae6`. После metadata cleanup финальный
+head проверяется по GitHub metadata в final report / PR metadata, а не в самом
+RESULT.
 
 ## Закрытие после merge
 
@@ -210,7 +217,7 @@ Release base: `v1.5.2` / `origin/main`.
 
 Candidate branch: `origin/developer`.
 
-Source commit: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`.
+Materialization commit: `f299f63a32930fec1a54b7798ea0c2e3a1f79af7`.
 
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/329
 

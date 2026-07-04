@@ -139,6 +139,14 @@ closure-stamp в RESULT 0155-0157 и обновить status/summary в INDEX. �
 - Rows 0155-0157 boundary-closed for v1.5.3 release-prep scope.
 - Required checks passed.
 
+## Metadata cleanup note
+
+Follow-up cleanup task: `METH-RELEASE-PREP-V1-5-3-METADATA-CLEANUP-01`.
+Цель cleanup: убрать шумовые self-reference metadata в RESULT-0158 и обновить PR
+body metadata без изменения release payload или boundary facts. Allowed scope:
+только TASK-0158, RESULT-0158 и PR #329 body metadata. Release action не
+выполнялся.
+
 ## Передача
 
 Следующий: release-manager-01 - завершить release-prep v1.5.3 и открыть PR в
