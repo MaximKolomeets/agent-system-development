@@ -28,13 +28,13 @@ Engine: на усмотрение архитектора
 
 execution_started_at: `2026-07-04T18:01:15.9832566+07:00`
 
-execution_finished_at: pending_after_final_checks
+execution_finished_at: `2026-07-04T18:08:24.4706391+07:00`
 
-execution_duration: pending_after_final_checks
+execution_duration: `PT7M08S`
 
 human_time_reported: not_applicable
 
-time_spent: pending_after_final_checks
+time_spent: `10m`
 
 actor_type: agent
 
@@ -58,31 +58,31 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 
 Branch: `work/release-manager-01/meth-post-release-state-refresh-v1-5-3-01`
 
-Materialization commit SHA: pending_after_commit
+Materialization commit SHA: `b1502a3f9fcead66efba300ef2878c1f27d4da1e`
 
 Current PR head source: GitHub PR metadata
 
-PR URL: pending_after_pr_creation
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/332
 
-Статус финализации: `materialized_pending_pr_creation`
+Статус финализации: `ready_for_review`
 
-RESULT finalized: no
+RESULT finalized: yes
 
-INDEX finalized: no
+INDEX finalized: yes
 
-No unresolved journal markers: no
+No unresolved journal markers: yes
 
-Marker check: pending_after_final_checks
+Marker check: passed
 
-PR created at: pending_after_pr_creation
+PR created at: `2026-07-04T11:08:13Z`
 
-Final PR URL: pending_after_pr_creation
+Final PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/332
 
-Ready for review: pending_after_final_checks
+Ready for review: yes
 
 ## Закрытие после merge
 
-Work PR status: pending_after_pr_creation
+Work PR status: `OPEN`
 
 Work PR merge commit SHA: not_applicable
 
@@ -104,7 +104,7 @@ RESULT closed after merge: no; work PR is not merged yet
 
 INDEX closed after merge: no; work PR is not merged yet
 
-No unresolved journal markers: pending_after_final_checks
+No unresolved journal markers: yes
 
 Closure blockers: none
 
@@ -127,7 +127,7 @@ Post-release state после `v1.5.3` обновлён:
   reference tag `v1.5.3` / `origin/main`, release merge commit и developer sync
   merge commit.
 - `RELEASE_READINESS.md` больше не описывает `v1.5.3` как candidate-ready; next
-  release candidate not selected / TBD.
+  release candidate not selected.
 - `NEXT_STEPS.md` убирает release-prep/release PR/tag/sync для `v1.5.3` из
   текущей очереди.
 - `RULESET_STATUS.md` refreshed; rulesets не менялись.
@@ -150,7 +150,7 @@ Post-release state после `v1.5.3` обновлён:
 
 ## Проверки
 
-Final checks фиксируются после PR metadata cleanup.
+Final checks executed after PR metadata cleanup.
 
 ## Source Delta
 
@@ -173,7 +173,7 @@ Target branch для work PR: `developer`.
 
 Stable release reference: tag `v1.5.3` / `origin/main`.
 
-PR: pending_after_pr_creation
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/332
 
 ## Context handoff
 

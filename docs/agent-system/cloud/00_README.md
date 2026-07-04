@@ -4,8 +4,8 @@ AUTO-GENERATED — не править руками; регенерироват�
 
 ## Freshness
 
-- asof: `2026-07-04T17:53:42+07:00`
-- developer_head_sha: `12ead1aa00797f22ad0c674b11bd23c2ba130056`
+- asof: `2026-07-02T23:58:18+07:00`
+- developer_head_sha: `da6e6a27a7b8c2129fca8304e133ac2bfe958d4c`
 - file_count_including_readme: `26`
 
 ## Контракт
