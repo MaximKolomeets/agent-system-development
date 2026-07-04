@@ -36,6 +36,11 @@ Repository visibility: public.
   canonical gate остался `validate_commit_message.py`, проверка Russian-first
   body перенесена в него, duplicate commit-language tool выведен из активного
   оборота.
+- Release assistant tooling добавлен как read-only advisor:
+  `docs/agent-system/tools/release_gate.py --version vX.Y.Z` проверяет, что
+  target tag ещё не существует, сверяет latest release tag / `origin/main`,
+  payload и generated/state gates, а также печатает human-action текст без
+  выполнения merge/tag/publish/sync.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
@@ -91,10 +96,10 @@ rule включён, required status checks в ruleset не заданы. Rulese
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: post-release completed / ready for next methodology task.
-Следующий шаг: выбрать следующий methodology-hardening backlog item или
-downstream adoption task; release-prep для `v1.5.3` больше не является текущим
-шагом.
+Текущий этап: implementation `METH-RELEASE-ASSISTANT-01` после post-release
+`v1.5.3`. Следующий шаг после merge этого PR: scoped semantic review outcome и
+human merge; затем выбрать следующий methodology-hardening backlog item или
+downstream adoption task.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 
