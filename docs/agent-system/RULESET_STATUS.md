@@ -6,50 +6,46 @@
 ruleset_status:
   repository: MaximKolomeets/agent-system-development
   visibility: public
-  verified_at: "2026-07-03T00:42:55+07:00"
-  verified_by_role: methodology-architect-01
+  verified_at: "2026-07-04T16:18:03+07:00"
+  verified_by_role: release-manager-01
   verification_source: gh_api_rulesets
   evidence:
     command_summary:
-      - gh pr view 306 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
-      - gh pr view 307 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
-      - gh pr view 308 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
-      - gh pr view 309 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title,headRefOid
-      - gh pr view 322 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - git ls-remote origin refs/tags/v1.5.3 refs/tags/v1.5.3^{}
+      - git ls-remote origin refs/tags/v1.5.2 refs/tags/v1.5.2^{} refs/tags/v1.5.1 refs/tags/v1.5.1^{}
+      - git rev-parse origin/main
+      - git rev-parse origin/developer
+      - gh pr view 326 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - gh pr view 327 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - gh pr view 328 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
       - gh api repos/MaximKolomeets/agent-system-development/rulesets
       - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353333
       - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353368
     pr_facts:
-      v1_5_2_candidate:
-        base_tag: v1.5.1
-        base_commit: 2467edd8488a51d74483e8095e4887c0f512dfcd
+      v1_5_3_candidate:
+        target_tag: v1.5.3
+        target_tag_status: absent
+        base_tag: v1.5.2
+        base_commit: 1859a0034b14eed11e9842c4589fdeddb295cc6d
+        previous_tag: v1.5.1
+        previous_commit: 2467edd8488a51d74483e8095e4887c0f512dfcd
         candidate_ref: origin/developer
-        candidate_commit: 97e874883afbe3ac38ccd815d48f63ca964c5737
-      pr_1_h1:
-        number: 306
+        candidate_commit: f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe
+      pr_0155:
+        number: 326
         state: MERGED
-        merged_at: "2026-07-02T09:00:28Z"
-        merge_commit: f993dba56d03682d80f757cf034616fe954f1ea4
-      pr_2_h2:
-        number: 307
+        merged_at: "2026-07-03T16:16:07Z"
+        merge_commit: e7f1b01582f209ff689ff199bd3597c3e5f8321f
+      pr_0156:
+        number: 327
         state: MERGED
-        merged_at: "2026-07-02T09:28:36Z"
-        merge_commit: 9fc59150f508f4846fef2b34d9738f49b81e7fb2
-      pr_3_h3:
-        number: 308
+        merged_at: "2026-07-03T16:37:37Z"
+        merge_commit: 48560317211e9e81e5d2345a3115a886659062d7
+      pr_0157:
+        number: 328
         state: MERGED
-        merged_at: "2026-07-02T10:07:47Z"
-        merge_commit: 85f14f204b8dc77f032af096c417f9130476478c
-      pr_4_h4:
-        number: 309
-        state: MERGED
-        merged_at: "2026-07-02T10:29:51Z"
-        merge_commit: 4818b553beaa5b426334404696507c48e95d0d22
-      batch_closure_pr:
-        number: 322
-        state: MERGED
-        merged_at: "2026-07-02T17:37:05Z"
-        merge_commit: 97e874883afbe3ac38ccd815d48f63ca964c5737
+        merged_at: "2026-07-04T09:00:34Z"
+        merge_commit: f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe
   protected_refs:
     main:
       ruleset_name: Protect main
@@ -110,6 +106,6 @@ ruleset_status:
 
 ## Передача
 
-Следующий: methodology-reviewer-01 - проверить release-prep v1.5.2; затем
+Следующий: methodology-reviewer-01 - проверить release-prep v1.5.3; затем
 release-manager - использовать этот snapshot как evidence перед release boundary
 или обновить его после human-only изменения rulesets.

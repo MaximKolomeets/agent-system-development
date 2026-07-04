@@ -256,3 +256,18 @@ methodology consumers according to `docs/agent-system/SOURCE_CONSUMERS.md`.
 
 Следующий: reviewer — scoped semantic review PR #327; затем архитектор —
 human merge в `developer`.
+
+## Closure stamp: release-boundary v1.5.3
+
+Append-only closure stamp added by `METH-RELEASE-PREP-V1-5-3-FIXPASS-01`.
+Historical RESULT body above was not rewritten.
+
+- Work PR status: merged
+- Work PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/327
+- Work PR merged_at: `2026-07-03T16:37:37Z`
+- Work PR merge commit SHA: `48560317211e9e81e5d2345a3115a886659062d7`
+- Release PR: not_applicable yet; `v1.5.3` release PR not created
+- Sync PR: not_applicable yet; `v1.5.3` sync not created
+- RESULT closed after merge: yes, boundary reconciliation `v1.5.3`
+- INDEX closed after merge: yes, boundary reconciliation `v1.5.3`
+- No journal placeholders: yes
