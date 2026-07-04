@@ -58,6 +58,14 @@ scope:
       .github/workflows/forbidden-files.yml намеренно вне карты: это repo-guard,
       а не methodology source file.
     - >
+      .github/workflows/methodology-checks.yml включён в source category как
+      self-enforcement guardrail methodology repository.
+    - >
+      Commit-language tools переносимы как source files, но target CI для
+      Russian-first commit metadata создаётся как target adaptation: `.github/**`
+      methodology repository не копируется verbatim, а workflow адаптируется под
+      реальные branch filters, rulesets и CI-модель target repository.
+    - >
       PROJECT_FILE_MAP.md строится из categories ниже; repo infrastructure вне
       methodology source set не является неучтённым canonical/operational doc.
     - >
@@ -131,6 +139,7 @@ categories:
       methodology repository. Все пути в этой категории должны существовать в source checkout.
     files:
       - AGENTS.md
+      - .github/workflows/methodology-checks.yml
       - README.md
       - docs/agent-system/ADOPTION_GUIDE.md
       - docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml
@@ -158,6 +167,7 @@ categories:
       - docs/agent-system/ERROR_CATALOG_PATTERN.md
       - docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md
       - docs/agent-system/FILE_COMMENTING_STANDARD.md
+      - docs/agent-system/tools/check_journal_append_only.py
       - docs/agent-system/tools/check_task_ready.py
       - docs/agent-system/tools/gen_cloud_bundle.py
       - docs/agent-system/tools/gen_file_map.py
@@ -242,8 +252,9 @@ categories:
 
   template:
     description: >
-      Reusable source templates from methodology repository. Шаблоны существуют в source
-      checkout и могут использоваться для materialization/adaptation target files.
+      Reusable source templates from methodology repository. Template file не копируется
+      в target as-is и не инстанцируется как operational file; он служит примером
+      структуры для target adaptation/materialization.
     files:
       - docs/agent-system/templates/ADOPTION_AUDIT_TASK_TEMPLATE.md
       - docs/agent-system/templates/ADOPTION_PROMPT.md

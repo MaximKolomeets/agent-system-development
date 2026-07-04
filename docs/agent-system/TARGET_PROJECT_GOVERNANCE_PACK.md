@@ -29,6 +29,7 @@ Governance pack нужен, чтобы:
   3/4 approval;
 - контролировать scope expansion;
 - фиксировать stop conditions для engine;
+- фиксировать Russian-first commit-language enforcement как target guardrail;
 - обновлять current state после значимых PR;
 - готовить handoff для нового чата или новой рабочей сессии.
 - давать не-программисту-архитектору короткий management cockpit: что можно
@@ -138,6 +139,14 @@ Materialized target governance files всегда требуют target adaptati
 Project-specific state живет только в target repository.
 
 Target governance files пишутся по Russian-first policy. Commit messages, PR title/body, review summaries, final reports и TASK/RESULT/INDEX также должны быть Russian-first; English допускается только для technical identifiers, commands, paths, filenames, branch names, config keys, API names, package names, machine-readable status values и literal external names.
+
+Commit-language enforcement является обязательным guardrail target repository.
+Docs-only adoption фиксирует это требование в checklist/governance docs, а
+runtime/CI-adoption заводит target-local CI-check на базе существующих tools
+methodology source set: `validate_commit_message.py` и/или
+`russian_first_lint.py`. `.github/**` methodology repository не копируется
+verbatim; target workflow адаптируется под реальные branch filters, rulesets и
+CI-модель target repository.
 
 Нужно переписать под target repository:
 

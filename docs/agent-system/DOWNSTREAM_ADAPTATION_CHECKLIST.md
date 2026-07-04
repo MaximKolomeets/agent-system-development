@@ -8,7 +8,7 @@
 - feedback и его sanitization — `docs/agent-system/METHODOLOGY_FEEDBACK_LOOP.md`;
 - governance pack и project constitution — `docs/agent-system/TARGET_PROJECT_GOVERNANCE_PACK.md`, `docs/agent-system/PROJECT_CONSTITUTION_FRAMEWORK.md`.
 - adoption mode detector — `docs/agent-system/TARGET_ADOPTION_DETECTOR.md`.
-- discovery/inventory source/template/target-generated/journal/generated files —
+- обнаружение и инвентаризация файлов `source`/`template`/`target_generated`/`journal`/`generated` —
   `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml`; trigger-specific overlays
   — root `README.md` и `docs/agent-system/METHODOLOGY_MAP.md` →
   `Mandatory overlays by trigger`.
@@ -45,6 +45,8 @@
 - [ ] `WORKFLOW.md` и `PR_WORKFLOW.md` адаптированы.
 - [ ] Task templates используют реальные branch names.
 - [ ] GitHub Actions branch filters проверены.
+- [ ] Target repository включает commit-language / Russian-first enforcement на базе существующих tools: `validate_commit_message.py` и/или `russian_first_lint.py`.
+- [ ] При runtime/CI-adoption target repository заводит собственный CI-check для commit metadata; workflow не копируется verbatim из `.github/**` methodology repository.
 
 ## Документы состояния (state documents)
 
@@ -86,32 +88,33 @@
 
 ## Включение external/code review
 
-- [ ] Selected reviewer role defined: `code-reviewer-01`, `qa-reviewer-01` или `security-reviewer-01`.
+- [ ] Выбрана reviewer-роль: `code-reviewer-01`, `qa-reviewer-01` или `security-reviewer-01`.
 - [ ] Имя исполнителя (engine) отделено от role name.
-- [ ] Branch namespace is `work/<role>/*`.
-- [ ] Report path is target-local.
-- [ ] Review-only scope confirmed.
-- [ ] Fixes split into separate implementation PRs.
-- [ ] No vendor-specific branches/reports.
-- [ ] Sensitive grep result is filename-only.
-- [ ] Report uses Critical, Important, Optional findings categories.
+- [ ] Branch namespace использует `work/<role>/*`.
+- [ ] Путь отчёта является target-local.
+- [ ] Review-only scope подтверждён.
+- [ ] Исправления вынесены в отдельные implementation PR.
+- [ ] Vendor-specific branches/reports отсутствуют.
+- [ ] Sensitive grep result выводится только filename-only.
+- [ ] Отчёт использует категории findings: Critical, Important, Optional.
 
 ## Языковая согласованность
 
-- [ ] Governance docs use one primary human language.
-- [ ] For Russian-language projects, governance docs are in Russian.
+- [ ] Governance docs используют один основной человеческий язык.
+- [ ] Для русскоязычных проектов governance docs написаны на русском.
 - [ ] Prompts исполнителя (engine) и agent reports написаны на русском.
-- [ ] English is preserved for paths, commands, code identifiers, config keys, package names, API names, vendor/tool names.
-- [ ] Mixed-language sections are either justified or normalized.
+- [ ] English сохраняется только для paths, commands, code identifiers, config keys, package names, API names и vendor/tool names.
+- [ ] Commit metadata target repository соблюдает Russian-first: тема и тело commit на русском; English только для identifiers, paths, commands, branch names, config keys, package names, API/tool names и literal external names.
+- [ ] Смешанные языковые sections либо обоснованы, либо нормализованы.
 
 ## Согласованность комментариев
 
-- [ ] New or changed scripts contain Russian comments for non-obvious and safety-critical lines/blocks.
-- [ ] Git, branch, push, merge, deletion, remote and security-check commands are commented.
-- [ ] Workflow/config files use comments where the format supports comments.
-- [ ] Formats that do not support comments use adjacent documentation or schema descriptions.
-- [ ] Comments explain what the line/block does and why it exists.
-- [ ] Comments do not include secrets, private data or downstream project names.
+- [ ] Новые или изменённые scripts содержат русские комментарии для неочевидных и safety-critical lines/blocks.
+- [ ] Команды Git, branch, push, merge, deletion, remote и security-check прокомментированы.
+- [ ] Workflow/config files используют комментарии там, где формат поддерживает comments.
+- [ ] Форматы без comments используют соседнюю документацию или schema descriptions.
+- [ ] Comments объясняют, что делает line/block и почему он существует.
+- [ ] Comments не содержат secrets, private data или downstream project names.
 
 ## Свежесть методологии
 
@@ -120,8 +123,8 @@
   `source_commit`, `reference_type` и `checked_at`.
 - [ ] Исполнитель (engine) не использовал `developer`, `work/*`, dirty local methodology tree или open methodology PR branch как source of truth для downstream.
 - [ ] Для чтения methodology repository не выполнялись `git switch`, `git checkout`, `git pull`, `git reset`, `git clean` или `git stash` в рабочем methodology repository.
-- [ ] If stable reference check was impossible, the limitation is stated in the report and task stopped before source substitution.
-- [ ] Methodology feedback is neutral and does not reveal private data.
+- [ ] Если stable reference check невозможен, ограничение зафиксировано в отчёте, а задача остановлена до source substitution.
+- [ ] Methodology feedback нейтрален и не раскрывает private data.
 
 ## Согласованность transfer manifest
 
@@ -157,6 +160,7 @@
 - [ ] Local `AGENTS.md` target repository имеет приоритет.
 - [ ] Russian-first policy перенесена в target `AGENTS.md` или эквивалентные target instructions, если scope менял инструкции.
 - [ ] PR title/body, commit message, TASK/RESULT/INDEX, final report и review summary Russian-first.
+- [ ] Commit-language gate включён в target checks или явно зафиксирован как runtime/CI-adoption follow-up с owner, trigger и ожидаемыми tools.
 - [ ] Ссылки на methodology repository не раскрывают private data.
 - [ ] Final report содержит Methodology feedback.
 - [ ] Methodology feedback сформулирован нейтрально.
