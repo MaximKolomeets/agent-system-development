@@ -230,6 +230,44 @@ PR: https://github.com/MaximKolomeets/agent-system-development/pull/329
 `docs/agent-system/cloud/08_NEXT_STEPS.md` (src:
 `docs/agent-system/NEXT_STEPS.md`).
 
+## Post-release closure stamp v1.5.3
+
+Append-only stamp added by `METH-POST-RELEASE-STATE-REFRESH-V1-5-3-01`
+(row 0159). Historical body above is preserved.
+
+Work PR #329:
+
+- Status: `MERGED`.
+- Merged at: `2026-07-04T10:30:12Z`.
+- Merge commit SHA: `b1c5c0354dca3a472697f96c10a65a5f5746cb2e`.
+
+Release PR #330:
+
+- Status: `MERGED`.
+- Merged at: `2026-07-04T10:47:17Z`.
+- Merge commit SHA: `f0c75a965e19b78f9c018c406680b12caaf255c1`.
+
+Annotated tag:
+
+- Tag: `v1.5.3`.
+- Peeled commit: `f0c75a965e19b78f9c018c406680b12caaf255c1`.
+
+Publication decision:
+
+- GitHub Release publication: `not_applicable / tag-only release`.
+
+Sync PR #331:
+
+- Status: `MERGED`.
+- Merged at: `2026-07-04T10:53:42Z`.
+- Merge commit SHA: `12ead1aa00797f22ad0c674b11bd23c2ba130056`.
+
+Closure:
+
+- RESULT/INDEX closure after release: yes.
+- Closure source: row 0159 post-release state refresh.
+- New release action performed by agent: no.
+
 ## Methodology feedback
 
 нет
