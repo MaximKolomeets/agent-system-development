@@ -30,9 +30,10 @@
 `12ead1aa00797f22ad0c674b11bd23c2ba130056`, а `origin/main...origin/developer`
 не имеет file delta.
 
-Ближайший рабочий шаг: выбрать следующий methodology improvement из `BACKLOG.md`
-или downstream adoption task. Release-prep/release PR/tag/sync для `v1.5.3`
-завершены и больше не являются текущей очередью.
+Ближайший рабочий шаг: завершить `METH-RELEASE-ASSISTANT-01`, который добавляет
+read-only `release_gate.py --version vX.Y.Z` для машинной проверки release
+boundary перед human-only release actions. Release-prep/release PR/tag/sync для
+`v1.5.3` завершены и больше не являются текущей очередью.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -41,7 +42,7 @@
 
 ## Ближайшая очередь после v1.5.3
 
-1. Завершить этот post-release state refresh PR в `developer`.
+1. Завершить scoped review и human merge PR `METH-RELEASE-ASSISTANT-01`.
 2. Выбрать следующий methodology-hardening backlog item или downstream adoption
    task.
 3. Для новой file-changing methodology task стартовать от актуального

@@ -159,6 +159,9 @@ scope.
 
 #### METH-RELEASE-ASSISTANT-01
 
+Статус: implemented by methodology task `METH-RELEASE-ASSISTANT-01`; запись
+оставлена как trace исходной roadmap-идеи.
+
 - Будущий `release_gate.py --version vX.Y.Z`.
 - Проверяет journal, generated artifacts, release payload, accepted terminal folds, state docs, release PR и tag status.
 - Выдаёт human action text для архитектора: что merge/tag/create вручную и что engine делать не должен.
