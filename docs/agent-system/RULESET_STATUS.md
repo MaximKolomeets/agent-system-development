@@ -6,46 +6,42 @@
 ruleset_status:
   repository: MaximKolomeets/agent-system-development
   visibility: public
-  verified_at: "2026-07-04T16:18:03+07:00"
+  verified_at: "2026-07-04T18:01:52+07:00"
   verified_by_role: release-manager-01
   verification_source: gh_api_rulesets
   evidence:
     command_summary:
-      - git ls-remote origin refs/tags/v1.5.3 refs/tags/v1.5.3^{}
-      - git ls-remote origin refs/tags/v1.5.2 refs/tags/v1.5.2^{} refs/tags/v1.5.1 refs/tags/v1.5.1^{}
+      - git fetch --all --prune --tags
       - git rev-parse origin/main
       - git rev-parse origin/developer
-      - gh pr view 326 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
-      - gh pr view 327 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
-      - gh pr view 328 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - git rev-parse v1.5.3^{commit}
+      - git diff --name-only origin/main...origin/developer
+      - gh pr view 330 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
+      - gh pr view 331 --repo MaximKolomeets/agent-system-development --json number,state,mergedAt,mergeCommit,url,headRefName,baseRefName,title
       - gh api repos/MaximKolomeets/agent-system-development/rulesets
       - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353333
       - gh api repos/MaximKolomeets/agent-system-development/rulesets/17353368
-    pr_facts:
-      v1_5_3_candidate:
-        target_tag: v1.5.3
-        target_tag_status: absent
-        base_tag: v1.5.2
-        base_commit: 1859a0034b14eed11e9842c4589fdeddb295cc6d
-        previous_tag: v1.5.1
-        previous_commit: 2467edd8488a51d74483e8095e4887c0f512dfcd
-        candidate_ref: origin/developer
-        candidate_commit: f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe
-      pr_0155:
-        number: 326
-        state: MERGED
-        merged_at: "2026-07-03T16:16:07Z"
-        merge_commit: e7f1b01582f209ff689ff199bd3597c3e5f8321f
-      pr_0156:
-        number: 327
-        state: MERGED
-        merged_at: "2026-07-03T16:37:37Z"
-        merge_commit: 48560317211e9e81e5d2345a3115a886659062d7
-      pr_0157:
-        number: 328
-        state: MERGED
-        merged_at: "2026-07-04T09:00:34Z"
-        merge_commit: f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe
+    release_facts:
+      v1_5_3:
+        release_pr:
+          number: 330
+          state: MERGED
+          merged_at: "2026-07-04T10:47:17Z"
+          merge_commit: f0c75a965e19b78f9c018c406680b12caaf255c1
+        tag:
+          name: v1.5.3
+          peeled_commit: f0c75a965e19b78f9c018c406680b12caaf255c1
+        publication:
+          github_release: not_applicable
+          mode: tag_only
+        sync_pr:
+          number: 331
+          state: MERGED
+          merged_at: "2026-07-04T10:53:42Z"
+          merge_commit: 12ead1aa00797f22ad0c674b11bd23c2ba130056
+        origin_main: f0c75a965e19b78f9c018c406680b12caaf255c1
+        origin_developer: 12ead1aa00797f22ad0c674b11bd23c2ba130056
+        main_developer_file_delta_after_sync: none
   protected_refs:
     main:
       ruleset_name: Protect main
@@ -100,12 +96,14 @@ ruleset_status:
 - Required status checks на момент проверки не заданы в rulesets; ручная проверка
   gates остаётся частью release/workflow discipline до отдельного решения
   архитектора.
+- Release PR #330, tag `v1.5.3` и sync PR #331 завершены до этой задачи;
+  rulesets не менялись.
 - Изменение rulesets является human-gate действием: агент может подготовить
   evidence/status, но не меняет branch protection/rulesets без явного решения
   человека.
 
 ## Передача
 
-Следующий: methodology-reviewer-01 - проверить release-prep v1.5.3; затем
-release-manager - использовать этот snapshot как evidence перед release boundary
-или обновить его после human-only изменения rulesets.
+Следующий: methodology architect - выбрать next methodology-hardening item или
+downstream adoption task после `v1.5.3`; перед будущей release boundary обновить
+этот snapshot при необходимости.
