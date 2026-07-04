@@ -44,7 +44,6 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ERROR_CATALOG_PATTERN.md` |  |
 | `docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md` |  |
 | `docs/agent-system/FILE_COMMENTING_STANDARD.md` |  |
-| `docs/agent-system/tools/check_commit_language.py` |  |
 | `docs/agent-system/tools/check_journal_append_only.py` |  |
 | `docs/agent-system/tools/check_task_ready.py` |  |
 | `docs/agent-system/tools/gen_cloud_bundle.py` |  |

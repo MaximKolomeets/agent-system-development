@@ -143,8 +143,8 @@ Target governance files пишутся по Russian-first policy. Commit message
 Commit-language enforcement является обязательным guardrail target repository.
 Docs-only adoption фиксирует это требование в checklist/governance docs, а
 runtime/CI-adoption заводит target-local CI-check на базе существующих tools
-methodology source set: `validate_commit_message.py`, `check_commit_language.py`
-и/или `russian_first_lint.py`. `.github/**` methodology repository не копируется
+methodology source set: `validate_commit_message.py` и/или
+`russian_first_lint.py`. `.github/**` methodology repository не копируется
 verbatim; target workflow адаптируется под реальные branch filters, rulesets и
 CI-модель target repository.
 

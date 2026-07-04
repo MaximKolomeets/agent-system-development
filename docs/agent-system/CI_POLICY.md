@@ -15,8 +15,8 @@ Workflow `Methodology checks` запускается на PR в `developer` и �
 - PR branch проходит `check_task_ready.py --base <base>`;
 - policy invariants, generated EOL guard, `gen_file_map.py --check` и
   `gen_cloud_bundle.py --check` должны проходить без drift;
-- `check_commit_language.py` проверяет только commit metadata и только
-  человекочитаемую prose после conventional subject prefix;
+- `validate_commit_message.py` проверяет commit metadata, conventional subject
+  prefix, Russian-first subject/body и длину строк тела;
 - `check_journal_append_only.py` запрещает удаление или удаление строк в уже
   существующих TASK/RESULT journal artifacts.
 
@@ -35,6 +35,9 @@ Commit metadata enforcement является обязательным gate дл�
 `git rev-list --no-merges`, чтобы generated GitHub merge commits не блокировали
 методологический gate. Для обычного work PR gate остаётся строгим: non-merge
 commit с некорректным subject/body должен давать красный результат.
+Проверка тела commit является узкой эвристикой: fenced-блоки, списки, таблицы,
+paths и identifiers пропускаются, а очевидная английская prose получает
+`BODY_NOT_RUSSIAN_FIRST`.
 
 Проверка policy-инвариантов является частью локального ready-gate:
 `check_task_ready.py` запускает `validate_policy_invariants.py`, который
@@ -60,8 +63,7 @@ commit-language enforcement как часть своих локальных chec
 adoption это фиксируется как обязательное требование и review checklist item; при
 runtime/CI-adoption target repository заводит собственный CI-check, который
 переиспользует существующие tools methodology source set:
-`validate_commit_message.py`, `check_commit_language.py` и/или
-`russian_first_lint.py`.
+`validate_commit_message.py` и/или `russian_first_lint.py`.
 
 `.github/**` methodology repository не копируется в target repository verbatim.
 Target workflow создаётся или адаптируется под фактические branch names,
@@ -119,10 +121,6 @@ git status --short
 
 ```bash
 python docs/agent-system/tools/validate_commit_message.py --base origin/developer
-```
-
-```bash
-python docs/agent-system/tools/check_commit_language.py --base origin/developer
 ```
 
 ```bash

@@ -413,8 +413,8 @@ Target repository должен зафиксировать Russian-first commit m
 package names, API/tool names и literal external names. Для docs-only adoption
 это требование фиксируется в checklist и governance docs. При runtime/CI-adoption
 target repository заводит собственный CI-check, который переиспользует
-существующие tools methodology source set: `validate_commit_message.py`,
-`check_commit_language.py` и/или `russian_first_lint.py`. Workflow из
+существующие tools methodology source set: `validate_commit_message.py`
+и/или `russian_first_lint.py`. Workflow из
 `.github/**` methodology repository не копируется verbatim; target CI
 адаптируется под реальные branch filters и rulesets target repository.
 

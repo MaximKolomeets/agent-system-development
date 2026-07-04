@@ -26,12 +26,15 @@ Repository visibility: public.
 - Policy-invariants self-test закреплён как часть ready-gate: `POLICY_INVARIANTS.md` задаёт сквозные invariants release/tag authority, branch model, time accounting, source reference, privacy и target adoption; `docs/agent-system/tools/validate_policy_invariants.py` проверяет markers, manifest source/template/generated paths и local Markdown links, не печатая matching lines или values.
 - Self-enforcement hardening после PR #326 закреплён в `developer`: pre-emit
   self-review pointer в `ENGINE_ENTRYPOINT.md`, CI workflow поверх существующих
-  validators, узкие checks для commit-language и journal append-only, а также
-  manifest annotations для template non-copy/non-instantiation.
-- Target commit-language enforcement в работе: adoption docs/policy должны
-  требовать Russian-first commit metadata guardrail в target repository с reuse
-  существующих tools, без копирования `.github/**` methodology repository
-  verbatim.
+  validators, checks для commit-language и journal append-only, а также manifest
+  annotations для template non-copy/non-instantiation.
+- Target commit-language enforcement после PR #327 закреплён в `developer`:
+  adoption docs/policy требуют Russian-first commit metadata guardrail в target
+  repository с reuse существующих tools, без копирования `.github/**`
+  methodology repository verbatim.
+- Commit-language tool reconcile в работе: canonical gate должен остаться
+  `validate_commit_message.py`; проверка Russian-first body переносится в него,
+  duplicate commit-language tool выводится из активного оборота.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
