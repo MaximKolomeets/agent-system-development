@@ -28,13 +28,13 @@ Engine: на усмотрение архитектора
 
 execution_started_at: `2026-07-04T18:01:15.9832566+07:00`
 
-execution_finished_at: `2026-07-04T18:08:24.4706391+07:00`
+execution_finished_at: `2026-07-04T18:11:58.6670918+07:00`
 
-execution_duration: `PT7M08S`
+execution_duration: `PT10M42S`
 
 human_time_reported: not_applicable
 
-time_spent: `10m`
+time_spent: `15m`
 
 actor_type: agent
 
@@ -150,7 +150,15 @@ Post-release state после `v1.5.3` обновлён:
 
 ## Проверки
 
-Final checks executed after PR metadata cleanup.
+Final checks after PR metadata cleanup:
+
+- `python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-METH-POST-RELEASE-STATE-REFRESH-V1-5-3-01.md --json` - valid.
+- `python docs/agent-system/tools/check_task_ready.py --base origin/developer` - ready; blockers 0; warnings 0.
+- `python docs/agent-system/tools/validate_commit_message.py --base origin/developer` - valid; commits checked 2; violations 0.
+- `python docs/agent-system/tools/validate_policy_invariants.py` - valid; issues 0; warnings 0.
+- `python docs/agent-system/tools/gen_file_map.py --check` - passed.
+- `python docs/agent-system/tools/gen_cloud_bundle.py --check` - passed.
+- `git diff --check origin/developer...HEAD` - passed.
 
 ## Source Delta
 
