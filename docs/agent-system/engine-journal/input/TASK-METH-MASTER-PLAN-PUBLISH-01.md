@@ -58,7 +58,7 @@ task_contract:
 
   policies:
     journal: required
-    cloud_regen: conditional
+    cloud_regen: if_bundle_source_changed
     generated_checks: required
     review: scoped_semantic
     merge: human_only
@@ -72,7 +72,7 @@ task_contract:
       - python docs/agent-system/tools/gen_file_map.py --check
       - python docs/agent-system/tools/gen_cloud_bundle.py --check
       - git diff --check origin/developer...HEAD
-      - source/master-plan byte identity check
+      - sanitized publication check: strict secret scan and Russian-first lint
 
   stop_conditions:
     - dirty_tree_before_start
@@ -87,12 +87,14 @@ task_contract:
 
 Опубликовать утверждённый мастер-план версии 1.2.1 из
 `C:\neural\repos\agent\MASTER_PLAN.md` в публичный repository path
-`docs/master-plan/MASTER_PLAN.md` без изменения содержимого, добавить запись
-из раздела 14 мастер-плана в `DECISION_LOG.md` и зафиксировать journal row 0162.
+`docs/master-plan/MASTER_PLAN.md` как sanitized public copy после решения
+архитектора о приоритете policy-совместимости и безопасности, добавить запись из
+раздела 14 мастер-плана в `DECISION_LOG.md` и зафиксировать journal row 0162.
 
 ## Acceptance criteria
 
-- `docs/master-plan/MASTER_PLAN.md` byte-identical source-файлу.
+- `docs/master-plan/MASTER_PLAN.md` опубликован как sanitized public copy без
+  secret-scan и Russian-first lint blocker.
 - В `DECISION_LOG.md` новая запись вставлена сразу после `# DECISION_LOG`.
 - Journal row 0162, TASK и RESULT финализированы без placeholders.
 - Manifest/cloud не меняются, если штатные tools не требуют обновления.
