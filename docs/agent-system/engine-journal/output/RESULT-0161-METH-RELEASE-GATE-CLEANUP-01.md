@@ -89,6 +89,8 @@ Ready for review: yes
 - O-02: `release_gate.py` читает текущую ветку read-only через `git rev-parse --abbrev-ref HEAD`.
 - O-02: на ветке не `developer` вложенный `check_task_ready.py --base origin/main --release-boundary` не создаёт blocker `RELEASE_BOUNDARY_READY_GATE_FAILED`; вместо этого добавляется warning `READY_GATE_SKIPPED_OFF_DEVELOPER`.
 - O-02: на `developer` реальный провал release-boundary ready-gate по-прежнему даёт blocker `RELEASE_BOUNDARY_READY_GATE_FAILED`.
+- Fix-pass по review: закрыты W-01 (PR body), N-01 (docstring branch-контекста),
+  N-02 (комментарий skipped-статуса), N-03 (это примечание).
 
 ## Read-only confirmation
 
@@ -124,6 +126,11 @@ Ready for review: yes
   exit 0; blockers: none; warning: `READY_GATE_SKIPPED_OFF_DEVELOPER`; blocker
   `RELEASE_BOUNDARY_READY_GATE_FAILED` отсутствует; `tag_source:
   local_refs_requires_prefetch`; `tag_precondition_text` присутствует.
+
+Примечание (N-03): путь `developer` (blocker `RELEASE_BOUNDARY_READY_GATE_FAILED`
+при реальном провале ready-gate) проверен чтением кода; smoke-тест с work-ветки
+этот путь выполнить не может. Фактическое подтверждение - при первом реальном
+release preflight на `developer`.
 
 ## Файлы
 

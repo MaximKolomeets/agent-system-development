@@ -134,7 +134,12 @@ def peeled_commit(ref: str, report: ReleaseGateReport, blocker: str) -> str:
 
 
 def current_branch(report: ReleaseGateReport) -> str:
-    """Фиксирует branch context read-only, чтобы release-boundary gate не путал контекст запуска."""
+    """Фиксирует branch context read-only, чтобы release-boundary gate не путал контекст запуска.
+
+    При detached HEAD `git rev-parse --abbrev-ref HEAD` возвращает `HEAD`. Любое значение,
+    кроме `developer` (включая `main` и detached HEAD), трактуется как off-developer контекст:
+    ready-gate пропускается с warning READY_GATE_SKIPPED_OFF_DEVELOPER, а не blocker.
+    """
     return require_stdout(run_git(["rev-parse", "--abbrev-ref", "HEAD"]), "CURRENT_BRANCH_UNAVAILABLE", report)
 
 
@@ -218,6 +223,9 @@ def run_generated_and_state_gates(report: ReleaseGateReport) -> None:
     release_boundary_args = ["--base", "origin/main", "--release-boundary"]
     release_boundary_command = " ".join([sys.executable, release_boundary_script, *release_boundary_args])
     if report.current_branch != "developer":
+        # exit_code=0 здесь условный: проверка не запускалась.
+        # Авторитетный признак пропуска - поле status="skipped_off_developer";
+        # JSON-потребители должны читать status, а не только exit_code.
         report.gate_statuses.append(
             CommandStatus(
                 command=release_boundary_command,
