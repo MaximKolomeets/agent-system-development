@@ -59,16 +59,19 @@ release completion без evidence.
    `ENGINE_JOURNAL_CONTRACT.md`.
 2. Проверить generated gates: `gen_file_map.py --check`,
    `gen_cloud_bundle.py --check`, `generated_eol_guard.py` при generated diff.
-3. Запустить read-only evidence advisor
+3. Человек или release preflight выполняет `git fetch --tags --prune`, чтобы
+   локальные `refs/tags` отражали remote tags. `release_gate.py` сам не делает
+   fetch и остаётся read-only.
+4. Запустить read-only evidence advisor
    `python docs/agent-system/tools/release_gate.py --version <next>`; этот
    инструмент не выполняет release actions, а проверяет tag boundary, base tag,
    payload и печатает human-action текст.
-4. Проверить `check_task_ready.py --base origin/main --release-boundary`.
-5. Проверить Business Acceptance Gate по `UAT_WORKFLOW.md`: Human UAT Checklist
+5. Проверить `check_task_ready.py --base origin/main --release-boundary`.
+6. Проверить Business Acceptance Gate по `UAT_WORKFLOW.md`: Human UAT Checklist
    пройден owner/PO или помечен `not_applicable` с reason/evidence.
-6. Проверить `HUMAN_GATE_POLICY.md`: нет ли human-only actions, которые агент
+7. Проверить `HUMAN_GATE_POLICY.md`: нет ли human-only actions, которые агент
    пытается выполнить сам.
-7. После human action зафиксировать evidence в соответствующем `RESULT` или
+8. После human action зафиксировать evidence в соответствующем `RESULT` или
    boundary reconciliation RESULT.
 
 Перед hotfix/rollback boundary:

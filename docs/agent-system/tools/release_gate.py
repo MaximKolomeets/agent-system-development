@@ -31,6 +31,13 @@ class CommandStatus:
 class ReleaseGateReport:
     version: str
     base: str
+    current_branch: str = ""
+    tag_source: str = "local_refs_requires_prefetch"
+    tag_precondition_text: str = (
+        "Tag-проверка читает только локальные `refs/tags`; перед запуском "
+        "выполните `git fetch --tags --prune`, иначе существующий remote-tag "
+        "может быть не виден."
+    )
     tag_exists: bool = False
     base_tag: str = ""
     base_commit: str = ""
@@ -126,6 +133,11 @@ def peeled_commit(ref: str, report: ReleaseGateReport, blocker: str) -> str:
     return require_stdout(run_git(["rev-parse", f"{ref}^{{commit}}"]), blocker, report)
 
 
+def current_branch(report: ReleaseGateReport) -> str:
+    """Фиксирует branch context read-only, чтобы release-boundary gate не путал контекст запуска."""
+    return require_stdout(run_git(["rev-parse", "--abbrev-ref", "HEAD"]), "CURRENT_BRANCH_UNAVAILABLE", report)
+
+
 def find_base_tag(version: str, tags: list[str], report: ReleaseGateReport) -> str:
     target_semver = parse_semver(version)
     if target_semver is None:
@@ -192,7 +204,6 @@ def run_generated_and_state_gates(report: ReleaseGateReport) -> None:
     checks = [
         ("docs/agent-system/tools/gen_file_map.py", ["--check"]),
         ("docs/agent-system/tools/gen_cloud_bundle.py", ["--check"]),
-        ("docs/agent-system/tools/check_task_ready.py", ["--base", "origin/main", "--release-boundary"]),
     ]
     for script, args in checks:
         status = run_python_script(script, args)
@@ -202,8 +213,29 @@ def run_generated_and_state_gates(report: ReleaseGateReport) -> None:
                 report.blockers.append("GEN_FILE_MAP_CHECK_FAILED")
             elif script.endswith("gen_cloud_bundle.py"):
                 report.blockers.append("GEN_CLOUD_BUNDLE_CHECK_FAILED")
-            else:
-                report.blockers.append("RELEASE_BOUNDARY_READY_GATE_FAILED")
+
+    release_boundary_script = "docs/agent-system/tools/check_task_ready.py"
+    release_boundary_args = ["--base", "origin/main", "--release-boundary"]
+    release_boundary_command = " ".join([sys.executable, release_boundary_script, *release_boundary_args])
+    if report.current_branch != "developer":
+        report.gate_statuses.append(
+            CommandStatus(
+                command=release_boundary_command,
+                exit_code=0,
+                status="skipped_off_developer",
+            )
+        )
+        report.warnings.append(
+            "READY_GATE_SKIPPED_OFF_DEVELOPER: release-boundary ready-gate "
+            "канонически проверяется на `developer`; текущая ветка "
+            f"`{report.current_branch or '<unknown>'}`."
+        )
+        return
+
+    status = run_python_script(release_boundary_script, release_boundary_args)
+    report.gate_statuses.append(status)
+    if status.exit_code != 0:
+        report.blockers.append("RELEASE_BOUNDARY_READY_GATE_FAILED")
 
 
 def build_human_action_text(version: str) -> list[str]:
@@ -219,6 +251,7 @@ def build_human_action_text(version: str) -> list[str]:
 def build_report(version: str, base: str) -> ReleaseGateReport:
     report = ReleaseGateReport(version=version, base=base)
     report.human_action_text = build_human_action_text(version)
+    report.current_branch = current_branch(report)
 
     tags = list_tags()
     report.tag_exists = tag_exists(version)
@@ -248,6 +281,9 @@ def print_text_report(report: ReleaseGateReport) -> None:
     print("")
     print(f"version: {report.version}")
     print(f"base: {report.base}")
+    print(f"current_branch: {report.current_branch or '<unknown>'}")
+    print(f"tag_source: {report.tag_source}")
+    print(f"tag_precondition: {report.tag_precondition_text}")
     print(f"tag_exists: {str(report.tag_exists).lower()}")
     print(f"base_tag: {report.base_tag or '<none>'}")
     print(f"base_commit: {report.base_commit or '<none>'}")
