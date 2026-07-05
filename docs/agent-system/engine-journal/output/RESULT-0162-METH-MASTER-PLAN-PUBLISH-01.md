@@ -28,13 +28,13 @@ Engine: на усмотрение архитектора
 
 execution_started_at: `2026-07-05T15:42:25.6525503+07:00`
 
-execution_finished_at: `2026-07-05T15:42:25.6525503+07:00`
+execution_finished_at: `2026-07-05T23:09:46.8330319+07:00`
 
-execution_duration: `PT10M`
+execution_duration: `PT7H27M21S`
 
 human_time_reported: not_applicable
 
-time_spent: `10m`
+time_spent: `30m`
 
 actor_type: agent
 
@@ -80,15 +80,22 @@ Ready for review: yes
 
 Опубликован утверждённый мастер-план агентной системы:
 
-- `C:\neural\repos\agent\MASTER_PLAN.md` скопирован в
-  `docs/master-plan/MASTER_PLAN.md` без изменения содержимого.
+- `C:\neural\repos\agent\MASTER_PLAN.md` использован как источник для
+  `docs/master-plan/MASTER_PLAN.md`; итоговая публикация является sanitized
+  public copy, а не byte-identical copy.
 - Первый прогон был остановлен: исходный файл был byte-identical, но содержал
   trailing whitespace и ломал обязательный `git diff --check`.
 - Решение архитектора после STOP: вариант 2, source-файл исправлен вне
   repository без waiver; trailing whitespace удалён, содержание и версия 1.2.1
   сохранены.
-- SHA256 исправленного source-файла и repository-файла совпадает:
-  `F6B2431BE1D09276D9EAED5C2BD9893BEFA5E1F37717109E652731A3E8A4FDC0`.
+- Второй прогон показал, что byte-identical copy всё ещё конфликтует с public
+  safety gates: strict secret scan и Russian-first lint.
+- Решение архитектора: приоритет у policy-совместимости и безопасности; byte
+  identity сознательно отброшена.
+- Sanitization выполнена в публикуемой копии без раскрытия значений:
+  нейтрализованы категории auth-header, bearer-auth, api-key assignment и
+  token assignment; English prose строки из блока источников переведены на
+  русский; private/client names не обнаружены.
 - В `docs/agent-system/DECISION_LOG.md` сразу после `# DECISION_LOG` вставлена
   запись из раздела `## 14. Запись для DECISION_LOG.md` мастер-плана.
 - Journal row 0162 добавлен в `docs/agent-system/engine-journal/INDEX.md`.
@@ -117,7 +124,7 @@ Cloud менялся: yes, `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md`
 - `python docs/agent-system/tools/gen_file_map.py --check` - passed.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check` - passed.
 - `git diff --check origin/developer...HEAD` - passed.
-- Byte identity check source vs `docs/master-plan/MASTER_PLAN.md` - passed.
+- Sanitized publication check: strict secret scan and Russian-first lint passed.
 
 ## Journal history
 

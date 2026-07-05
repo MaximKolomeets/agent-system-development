@@ -570,11 +570,11 @@ git ls-remote https://github.com/MaximKolomeets/agent-system-development.git HEA
 **Как делаем.** В Ubuntu:
 
 ```bash
-export DEEPSEEK_API_KEY='sk-ВАШ_КЛЮЧ'
+# задайте DEEPSEEK_API_KEY через локальное окружение или secret store
 
 curl https://api.deepseek.com/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
+  -H "<auth header with redacted model key>" \
   -d '{"model":"deepseek-v4-flash","messages":[{"role":"user","content":"Ответь одним словом: работаешь?"}]}'
 ```
 
@@ -616,12 +616,12 @@ docs/agent-system/model-profiles.md
 ```text
 MVP:
 LLM_BASE_URL = https://api.deepseek.com
-LLM_API_KEY = настоящий ключ DeepSeek
+LLM_API_KEY: redacted provider key
 LLM_MODEL = deepseek/deepseek-v4-flash
 
 Production:
 LLM_BASE_URL = https://llm-hub.example.com/v1
-LLM_API_KEY = virtual key
+LLM_API_KEY: redacted virtual key
 MODEL_PROFILE = model/cheap
 ```
 
@@ -869,9 +869,9 @@ Settings → Actions → General → Workflow permissions:
 5. Secrets:
 
 ```text
-LLM_API_KEY      = DeepSeek key в MVP или virtual key LLM Hub в production
+LLM_API_KEY      : redacted model key for MVP or virtual key through LLM Hub
 LLM_BASE_URL     = https://api.deepseek.com или LLM Hub endpoint
-PAT_TOKEN        = bot/user token
+PAT_TOKEN        : redacted bot/user token
 PAT_USERNAME     = bot/user name
 ```
 
@@ -1380,7 +1380,7 @@ openhands serve --mount-cwd
 ```text
 Agents see:
 - LLM_BASE_URL = https://llm-hub.example.com/v1
-- LLM_API_KEY = sk-virtual-agent-repo-task
+- LLM_API_KEY: redacted virtual key
 - MODEL_PROFILE = model/cheap
 
 LLM Hub stores:
@@ -1811,22 +1811,22 @@ CLAUDE.md
 
 1. OpenHands local setup: `https://docs.openhands.dev/openhands/usage/run-openhands/local-setup`
 2. OpenHands GUI server: `https://docs.openhands.dev/openhands/usage/cli/gui-server`
-3. OpenHands installation / Docker mode: `https://docs.openhands.dev/openhands/usage/cli/installation`
+3. Установка OpenHands и режим Docker: `https://docs.openhands.dev/openhands/usage/cli/installation`
 4. OpenHands troubleshooting: `https://docs.openhands.dev/openhands/usage/troubleshooting/troubleshooting`
 5. OpenHands GitHub Action: `https://docs.openhands.dev/openhands/usage/run-openhands/github-action`
 6. OpenHands Resolver README: `https://github.com/OpenHands/OpenHands/blob/main/openhands/resolver/README.md`
 7. DeepSeek pricing/docs: `https://api-docs.deepseek.com/quick_start/pricing`
 8. LiteLLM docs: `https://docs.litellm.ai/docs/`
-9. LiteLLM Docker quick start: `https://docs.litellm.ai/docs/proxy/docker_quick_start`
+9. Быстрый старт LiteLLM в Docker: `https://docs.litellm.ai/docs/proxy/docker_quick_start`
 10. LiteLLM deploy docs: `https://docs.litellm.ai/docs/proxy/deploy`
 11. LiteLLM virtual keys: `https://docs.litellm.ai/docs/proxy/virtual_keys`
 12. Qwen Code docs: `https://qwenlm.github.io/qwen-code-docs/`
 13. Codex CLI: `https://developers.openai.com/codex/cli`
 14. Codex AGENTS.md: `https://developers.openai.com/codex/guides/agents-md`
 15. Codex GitHub review: `https://developers.openai.com/codex/integrations/github`
-16. GitHub Actions workflow syntax: `https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions`
+16. Синтаксис workflow в GitHub Actions: `https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions`
 17. GitHub Actions events: `https://docs.github.com/actions/using-workflows/events-that-trigger-workflows`
-18. GitHub self-hosted runner security: `https://docs.github.com/actions/hosting-your-own-runners/adding-self-hosted-runners`
+18. Безопасность self-hosted runner в GitHub: `https://docs.github.com/actions/hosting-your-own-runners/adding-self-hosted-runners`
 19. GitLab CI YAML: `https://docs.gitlab.com/ci/yaml/`
 20. GitLab CI variables: `https://docs.gitlab.com/ci/variables/`
 21. Jenkins Pipeline / Jenkinsfile: `https://www.jenkins.io/doc/book/pipeline/jenkinsfile/`
@@ -1835,13 +1835,13 @@ CLAUDE.md
 24. GitVerse workflow syntax: `https://gitverse.ru/docs/cicd/docs/workflow/`
 25. GitVerse triggers: `https://gitverse.ru/docs/cicd/docs/triggers/`
 26. GitVerse runners: `https://gitverse.ru/docs/cicd/docs/runners/`
-27. GitVerse self-hosted runners: `https://gitverse.ru/docs/cicd/docs/runners/self-hosted/`
+27. Self-hosted runners в GitVerse: `https://gitverse.ru/docs/cicd/docs/runners/self-hosted/`
 28. GitVerse organization runners: `https://gitverse.ru/docs/cicd/docs/runners/organization-runners/`
 29. SourceCraft CI/CD concepts: `https://sourcecraft.dev/portal/docs/en/sourcecraft/concepts/ci-cd`
 30. SourceCraft CI/CD configuration: `https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/ci-cd`
-31. SourceCraft environment variables and secrets guidance: `https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/variables`
-32. SourceCraft GitHub Actions support: `https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/gh-actions`
-33. SourceCraft GitLab pipelines support: `https://sourcecraft.dev/portal/docs/en/sourcecraft/concepts/gl-pipelines`
+31. Переменные окружения и секреты в SourceCraft: `https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/variables`
+32. Поддержка GitHub Actions в SourceCraft: `https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/gh-actions`
+33. Поддержка GitLab pipelines в SourceCraft: `https://sourcecraft.dev/portal/docs/en/sourcecraft/concepts/gl-pipelines`
 34. Методология проекта: `MaximKolomeets/agent-system-development` — README, CURRENT_STATE, NEXT_STEPS, DECISION_LOG.
 
 ---
