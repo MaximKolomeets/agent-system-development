@@ -58,11 +58,11 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 
 Branch: `work/docs-maintainer-01/master-plan-01`
 
-Materialization commit SHA: `COMMIT_SHA_TO_UPDATE`
+Materialization commit SHA: `4bdfef51a6d89dae7729b0e2e2ffcd10bbe922a2`
 
 Current PR head source: GitHub PR metadata
 
-PR URL: `PR_URL_TO_UPDATE`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/335
 
 Статус финализации: `ready_for_review`
 
@@ -82,8 +82,13 @@ Ready for review: yes
 
 - `C:\neural\repos\agent\MASTER_PLAN.md` скопирован в
   `docs/master-plan/MASTER_PLAN.md` без изменения содержимого.
-- SHA256 source-файла и repository-файла совпадает:
-  `5221B4316E706DD8E491D927C6FB0FB6EC4D1499E8BCD6819FBEC0DCB8A16E3B`.
+- Первый прогон был остановлен: исходный файл был byte-identical, но содержал
+  trailing whitespace и ломал обязательный `git diff --check`.
+- Решение архитектора после STOP: вариант 2, source-файл исправлен вне
+  repository без waiver; trailing whitespace удалён, содержание и версия 1.2.1
+  сохранены.
+- SHA256 исправленного source-файла и repository-файла совпадает:
+  `F6B2431BE1D09276D9EAED5C2BD9893BEFA5E1F37717109E652731A3E8A4FDC0`.
 - В `docs/agent-system/DECISION_LOG.md` сразу после `# DECISION_LOG` вставлена
   запись из раздела `## 14. Запись для DECISION_LOG.md` мастер-плана.
 - Journal row 0162 добавлен в `docs/agent-system/engine-journal/INDEX.md`.
@@ -97,8 +102,12 @@ Ready for review: yes
 - `docs/agent-system/engine-journal/INDEX.md`
 - `docs/agent-system/engine-journal/input/TASK-METH-MASTER-PLAN-PUBLISH-01.md`
 - `docs/agent-system/engine-journal/output/RESULT-0162-METH-MASTER-PLAN-PUBLISH-01.md`
+- `docs/agent-system/cloud/**`
 
-Manifest/cloud менялись: no.
+Manifest менялся: no.
+
+Cloud менялся: yes, `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md`
+регенерирован штатным `gen_cloud_bundle.py` из-за новой строки 0162.
 
 ## Проверки
 
@@ -116,7 +125,8 @@ Finalized RESULT 0155-0161 were not changed.
 
 ## Methodology feedback
 
-нет
+Candidate-rule: external artifacts проверять на `git diff --check`-совместимость
+до открытия PR, если задача требует byte-identical copy.
 
 ## Unprompted Project Proposals
 
