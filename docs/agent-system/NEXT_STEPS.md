@@ -30,10 +30,11 @@
 `12ead1aa00797f22ad0c674b11bd23c2ba130056`, а `origin/main...origin/developer`
 не имеет file delta.
 
-Ближайший рабочий шаг: завершить `METH-RELEASE-ASSISTANT-01`, который добавляет
-read-only `release_gate.py --version vX.Y.Z` для машинной проверки release
-boundary перед human-only release actions. Release-prep/release PR/tag/sync для
-`v1.5.3` завершены и больше не являются текущей очередью.
+Ближайший рабочий шаг: завершить `METH-RELEASE-GATE-CLEANUP-01`, который закрывает
+review findings PR #333: local-tags precondition для `release_gate.py` и
+warning `READY_GATE_SKIPPED_OFF_DEVELOPER` на work-ветке вместо ready-gate
+blocker. Release-prep/release PR/tag/sync для `v1.5.3` завершены и больше не
+являются текущей очередью.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -42,7 +43,7 @@ boundary перед human-only release actions. Release-prep/release PR/tag/sync
 
 ## Ближайшая очередь после v1.5.3
 
-1. Завершить scoped review и human merge PR `METH-RELEASE-ASSISTANT-01`.
+1. Завершить scoped review и human merge PR `METH-RELEASE-GATE-CLEANUP-01`.
 2. Выбрать следующий methodology-hardening backlog item или downstream adoption
    task.
 3. Для новой file-changing methodology task стартовать от актуального

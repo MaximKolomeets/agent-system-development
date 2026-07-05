@@ -41,6 +41,11 @@ Repository visibility: public.
   target tag ещё не существует, сверяет latest release tag / `origin/main`,
   payload и generated/state gates, а также печатает human-action текст без
   выполнения merge/tag/publish/sync.
+- Release gate cleanup после review PR #333 выполняется в
+  `work/dev-implementer-01/meth-release-gate-cleanup-01`: tag-проверка должна
+  явно декларировать local `refs/tags` source и human/preflight
+  `git fetch --tags --prune`, а off-developer запуск release-boundary ready-gate
+  должен давать warning вместо blocker.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
