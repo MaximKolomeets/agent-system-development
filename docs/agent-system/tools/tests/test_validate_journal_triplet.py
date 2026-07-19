@@ -1,27 +1,38 @@
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import validate_journal_triplet as validator
 
+HEADER = "| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |"
+SEPARATOR = "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
 
-def row(seq="0163", task="METH-TEST-01", rationale=None):
-    rationale = rationale or f"rationale/RATIONALE-{seq}-{task}.md"
-    return f"| {seq} | {task} | input/TASK-{seq}-{task}.md | output/RESULT-{seq}-{task}.md | {rationale} | work/x | https://example.invalid/pr | architect_ready | 1m | test |"
-
-
-class IndexSchemaTests(unittest.TestCase):
-    def test_valid_new_triplet_mapping_passes(self):
-        text = "\n".join(["| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |", "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |", row()])
-        self.assertEqual([], validator.validate_index_schema(text))
-
-    def test_legacy_marker_passes(self):
-        self.assertEqual([], validator.validate_index_schema("| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n" + row("0001", "METH-OLD-01", "legacy/not_required")))
-
-    def test_nine_columns_blocked(self):
-        text = "| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 0001 | OLD | input/a | output/a | work/x | pr | status | 1m | note |"
-        self.assertIn("INDEX_ROW_COLUMN_COUNT_INVALID", validator.validate_index_schema(text))
-
-    def test_wrong_mapping_blocked(self):
-        self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", validator.validate_index_schema("| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n" + row(rationale="rationale/RATIONALE-0001-WRONG.md")))
+class TripletWorkflowTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(); self.root = Path(self.temp.name)
+        self.git("init"); self.git("config", "user.name", "test"); self.git("config", "user.email", "test@example.invalid")
+        self.index([]); self.git("add", "."); self.git("commit", "-m", "base"); self.base = self.git("rev-parse", "HEAD").stdout.strip()
+    def tearDown(self): self.temp.cleanup()
+    def git(self, *args): return subprocess.run(["git", *args], cwd=self.root, check=True, capture_output=True, text=True)
+    def write(self, name, text):
+        path=self.root/name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text(text, encoding="utf-8")
+    def index(self, rows): self.write("docs/agent-system/engine-journal/INDEX.md", "\n".join([HEADER, SEPARATOR, *rows])+"\n")
+    def row(self, seq="0001", task="METH-TEST-01", rationale=None):
+        rationale=rationale or f"rationale/RATIONALE-{seq}-{task}.md"
+        return f"| {seq} | {task} | input/TASK-{seq}-{task}.md | output/RESULT-{seq}-{task}.md | {rationale} | work/test | pr | review_changes_requested | 1m | test |"
+    def triplet(self, raw=True, sections=True, seq="0001", task="METH-TEST-01"):
+        root="docs/agent-system/engine-journal"; self.write(f"{root}/input/TASK-{seq}-{task}.md", f"{seq} {task}")
+        marker="raw_chain_of_thought_stored: no" if raw else ""; required="\n".join(validator.REQUIRED_RATIONALE_SECTIONS) if sections else ""
+        self.write(f"{root}/rationale/RATIONALE-{seq}-{task}.md", f"{seq} {task}\n{marker}\n{required}"); self.write(f"{root}/output/RESULT-{seq}-{task}.md", f"{seq} {task}")
+    def check(self): self.git("add", "."); self.git("commit", "-m", "head"); return [f.code for f in validator.validate(self.root, self.base).findings]
+    def test_valid_complete_triplet(self): self.triplet(); self.index([self.row()]); self.assertEqual([], self.check())
+    def test_missing_artifact(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/input/TASK-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
+    def test_wrong_index_link(self): self.triplet(); self.index([self.row(rationale="rationale/RATIONALE-0001-WRONG.md")]); self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", self.check())
+    def test_gap(self): self.triplet(seq="0002"); self.index([self.row(seq="0002")]); self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_nine_column_legacy(self): self.index(["| 0001 | OLD | input/a | output/a | branch | pr | status | 1m | note |"]); self.assertIn("INDEX_ROW_COLUMN_COUNT_INVALID", self.check())
+    def test_legacy_marker(self): self.index([self.row(task="METH-OLD-01", rationale="legacy/not_required")]); self.assertEqual([], self.check())
+    def test_raw_marker_and_sections(self): self.triplet(raw=False, sections=False); self.index([self.row()]); codes=self.check(); self.assertIn("RAW_CHAIN_OF_THOUGHT_MARKER_INVALID",codes); self.assertIn("RATIONALE_REQUIRED_SECTIONS_MISSING",codes)
+    def test_invalid_filename(self): self.write("docs/agent-system/engine-journal/rationale/RATIONALE-bad.md", "x"); self.index([]); self.assertIn("INVALID_JOURNAL_FILENAME", self.check())
