@@ -1,5 +1,22 @@
 # DECISION_LOG
 
+## 2026-07-04 — v1.2: старт с локального Docker и расширение CI Adapter до GitVerse/SourceCraft
+
+### Контекст
+Версия 1.0 описывала MVP на OpenHands + DeepSeek + GitHub Actions. Версия 1.1 расширила архитектуру до Agent Adapter, Model Adapter, CI Adapter и LLM Hub. После уточнения цели принято решение сначала попробовать систему локально через Docker на компьютере Максима, а автономные CI-контуры подключать после локального подтверждения.
+
+### Решение
+1. Первый практический запуск выполняется локально: Windows/WSL2 + Docker Desktop + OpenHands.
+2. OpenHands остаётся первым Agent Adapter.
+3. DeepSeek напрямую используется только для MVP; production должен перейти на LLM Hub / virtual keys.
+4. CI Adapter abstraction расширяется: GitHub Actions, GitLab CI, Jenkins, GitVerse CI/CD, SourceCraft CI/CD.
+5. GitVerse и SourceCraft фиксируются как будущие CI Adapter, но не блокируют локальный MVP.
+6. VM не покупается до завершения локального Docker-пилота и первой оценки ресурсов.
+7. Merge остаётся только человеческим действием.
+
+### Последствия
+`MASTER_PLAN.md` обновляется до версии 1.2. Этапы перестроены так, чтобы сначала получить результат локально, затем автоматизировать issue → PR через CI, затем при необходимости добавить LLM Hub и VM/self-hosted runner.
+
 ## 2026-07-02 - Policy-invariants self-test входит в ready-gate
 
 Контекст:
