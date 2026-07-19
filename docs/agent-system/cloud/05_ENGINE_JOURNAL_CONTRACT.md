@@ -214,7 +214,7 @@ Target repository journal хранит project-specific task/result history вн
 
 Target adoption использует `journal_transfer_mode: scaffold_only`: переносит
 структуру, README, templates и формат `INDEX.md`, но не переносит operational
-rows, TASK/RESULT files или archive epochs из methodology repository. Если target
+rows, TASK/RATIONALE/RESULT files или archive epochs из methodology repository. Если target
 уже содержит свой journal, adoption/update сохраняет target-specific history и
 не затирает её историей source methodology.
 
@@ -223,9 +223,10 @@ rows, TASK/RESULT files или archive epochs из methodology repository. Ес�
 - `docs/agent-system/engine-journal/README.md`;
 - `docs/agent-system/engine-journal/INDEX.md`;
 - `docs/agent-system/engine-journal/input/`;
+- `docs/agent-system/engine-journal/rationale/`;
 - `docs/agent-system/engine-journal/output/`;
 - `docs/agent-system/engine-journal/templates/`;
-- task file для первой engine-задачи;
+- task/RATIONALE files для первой engine-задачи;
 - result file для ответа engine.
 
 Если первый шаг adoption остается `audit-only`, task/result files допускаются

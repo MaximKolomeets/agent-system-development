@@ -375,7 +375,7 @@ categories:
     description: >
       Engine journal scaffold and active operational history. Target repository
       получает структуру/шаблоны, но не копирует operational rows или
-      TASK/RESULT history methodology repository.
+      TASK/RATIONALE/RESULT history methodology repository.
     journal_transfer_mode: scaffold_only
     methodology_repository_operational_history:
       allowed: true
@@ -394,13 +394,14 @@ categories:
       - docs/agent-system/engine-journal/README.md
       - docs/agent-system/engine-journal/INDEX.md
       - docs/agent-system/engine-journal/input/**
+      - docs/agent-system/engine-journal/rationale/**
       - docs/agent-system/engine-journal/output/**
       - docs/agent-system/engine-journal/templates/**
     target_copy_policy:
       - docs/agent-system/engine-journal/README.md можно использовать как scaffold.
       - docs/agent-system/engine-journal/templates/** можно использовать как scaffold templates.
       - docs/agent-system/engine-journal/INDEX.md в target создается как target-specific index; operational rows methodology repository не копируются.
-      - docs/agent-system/engine-journal/input/** и output/** из methodology repository не копируются как target history.
+      - docs/agent-system/engine-journal/input/**, rationale/** и output/** из methodology repository не копируются как target history.
       - docs/agent-system/engine-journal/archive/** не копируется в target repository.
 
   journal_archive:
@@ -575,9 +576,11 @@ minimal_first_pr:
     - docs/agent-system/engine-journal/README.md
     - docs/agent-system/engine-journal/INDEX.md
     - "docs/agent-system/engine-journal/input/TASK-*.md"
+    - "docs/agent-system/engine-journal/rationale/RATIONALE-*.md"
     - "docs/agent-system/engine-journal/output/RESULT-*.md"
     - docs/agent-system/engine-journal/templates/ENGINE_TASK_FILE_TEMPLATE.md
     - docs/agent-system/engine-journal/templates/ENGINE_RESULT_FILE_TEMPLATE.md
+    - docs/agent-system/engine-journal/templates/ENGINE_RATIONALE_FILE_TEMPLATE.md
   forbidden_changes:
     - runtime code
     - Docker

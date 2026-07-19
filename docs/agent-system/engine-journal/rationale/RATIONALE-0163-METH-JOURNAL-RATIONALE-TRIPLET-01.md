@@ -69,3 +69,7 @@ Task-level RATIONALE дополняет, но не заменяет `DECISION_LO
 ## Изменения после review
 
 Нет.
+
+## Review addendum
+
+Review finding: начальная migration INDEX смещала legacy mapping. Решение: явный `legacy/not_required` и schema validation. Review finding: transfer/archive lifecycle был неполным. Решение: RATIONALE включён в scaffold, target policy и archive pair. Review finding: отсутствовали regression tests. Решение: добавлен stdlib test package. raw_chain_of_thought_stored: no.

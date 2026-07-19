@@ -76,3 +76,15 @@ raw_chain_of_thought_stored: no
 ## Передача
 
 Следующий: reviewer — выполнить scoped semantic + tooling safety review PR по RATIONALE triplet; затем архитектор — принять human merge decision.
+
+## Review addendum
+
+PR #338: исправлены migration INDEX, scaffold/archive lifecycle и regression tests. Статус `architect_ready` устанавливается только после успешных локальных и GitHub Actions проверок.
+
+## Methodology feedback
+
+нет
+
+## Unprompted Project Proposals
+
+нет

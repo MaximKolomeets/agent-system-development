@@ -69,6 +69,28 @@ def index_rows(text: str) -> list[list[str]]:
     ]
 
 
+def validate_index_schema(text: str) -> list[str]:
+    lines = text.splitlines()
+    header = "| Seq | Task id | Input file | Output file | Rationale file | Branch | PR | Status | Time | Notes |"
+    separator = "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+    findings: list[str] = []
+    if header not in lines or separator not in lines:
+        findings.append("INDEX_SCHEMA_INVALID")
+    for row in index_rows(text):
+        if not row or not re.fullmatch(r"\d{4}", row[0]):
+            continue
+        if len(row) != 10:
+            findings.append("INDEX_ROW_COLUMN_COUNT_INVALID")
+            continue
+        seq, task_id, _, _, rationale = row[:5]
+        if rationale == "legacy/not_required":
+            continue
+        expected = f"rationale/RATIONALE-{seq}-{task_id}.md"
+        if rationale != expected:
+            findings.append("INDEX_RATIONALE_MAPPING_INVALID")
+    return findings
+
+
 def max_seq(text: str) -> int:
     values = []
     for row in index_rows(text):
@@ -102,6 +124,8 @@ def validate(root: Path, base: str) -> Report:
         report.checked_paths.append(path)
     report.new_entries_count = len(candidates)
     current_text = current_index.read_text(encoding="utf-8", errors="replace")
+    for code in validate_index_schema(current_text):
+        add(report, f"{PREFIX}INDEX.md", code)
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
     for (seq, task_id), files in sorted(candidates.items()):
@@ -131,10 +155,7 @@ def validate(root: Path, base: str) -> Report:
                 if any(section not in text for section in REQUIRED_RATIONALE_SECTIONS):
                     add(report, path, "RATIONALE_REQUIRED_SECTIONS_MISSING")
     for row in index_rows(current_text):
-        if len(row) == 9 and re.fullmatch(r"\d{4}", row[0]):
-            # Историческая таблица до migration сохраняется append-only.
-            continue
-        if len(row) >= 5 and re.fullmatch(r"\d{4}", row[0]) and row[0] not in {seq for seq, _ in candidates}:
+        if len(row) == 10 and re.fullmatch(r"\d{4}", row[0]) and row[0] not in {seq for seq, _ in candidates}:
             rationale = row[4]
             if rationale != "legacy/not_required" and not rationale.startswith("rationale/RATIONALE-"):
                 add(report, f"{PREFIX}INDEX.md", "LEGACY_RATIONALE_MARKER_INVALID")
