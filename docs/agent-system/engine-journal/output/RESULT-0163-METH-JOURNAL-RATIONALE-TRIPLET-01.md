@@ -42,6 +42,12 @@ Branch: `work/methodology-architect-01/meth-journal-rationale-triplet-01`
 
 Статус финализации: architect_ready после полного набора проверок.
 
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/338
+
+pr_head_source: github_pr_metadata
+
+final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
+
 raw_chain_of_thought_stored: no
 
 ## Выполнено
@@ -50,7 +56,10 @@ raw_chain_of_thought_stored: no
 
 ## Проверки
 
-Выполняются перед PR; фактические результаты фиксируются в follow-up finalization commit без deferred markers.
+`validate_journal_triplet.py`, `check_journal_append_only.py`, `check_task_ready.py`,
+`validate_policy_invariants.py`, `gen_file_map.py --check`, `gen_cloud_bundle.py --check`
+и `generated_eol_guard.py --json` прошли. `unittest discover` не запущен: каталог
+`docs/agent-system/tools/tests` отсутствует как importable start directory.
 
 ## Source Delta
 
