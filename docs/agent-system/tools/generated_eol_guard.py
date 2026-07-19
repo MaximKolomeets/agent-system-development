@@ -215,6 +215,9 @@ def parse_cloud_readme_map() -> dict[str, str]:
 
 
 def matching_source_for_generated(path: str, cloud_map: dict[str, str]) -> str:
+    # Freshness-поля cloud README зависят от base commit и допускаются без изменения manifest.
+    if path == "docs/agent-system/cloud/00_README.md":
+        return ""
     if path == "docs/agent-system/PROJECT_FILE_MAP.md":
         return "docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml"
     return cloud_map.get(path, "")

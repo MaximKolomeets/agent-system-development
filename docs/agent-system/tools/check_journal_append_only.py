@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Проверяет append-only режим для существующих TASK/RESULT journal artifacts."""
+"""Проверяет append-only режим для TASK/RATIONALE/RESULT journal artifacts."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 JOURNAL_ARTIFACT_RE = re.compile(
-    r"^docs/agent-system/engine-journal/(?:input|output)/.+\.md$"
+    r"^docs/agent-system/engine-journal/(?:input|rationale|output)/.+\.md$"
 )
 
 
@@ -106,7 +106,7 @@ def check(base: str) -> Report:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Проверяет, что существующие TASK/RESULT не переписываются и не удаляются.",
+        description="Проверяет, что существующие TASK/RATIONALE/RESULT не переписываются и не удаляются.",
     )
     parser.add_argument("--base", default="origin/developer")
     parser.add_argument("--json", action="store_true")

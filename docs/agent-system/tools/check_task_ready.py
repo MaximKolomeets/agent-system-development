@@ -21,6 +21,7 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/ORCHESTRATOR_RESPONSE_STANDARD.md",
     "docs/agent-system/BRANCH_POLICY.md",
     "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+    "docs/agent-system/JOURNAL_ARCHIVING_POLICY.md",
     "docs/agent-system/templates/TASK_HEADER_COMMON.md",
     "docs/agent-system/CURRENT_STATE.md",
     "docs/agent-system/NEXT_STEPS.md",
@@ -40,6 +41,7 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/POLICY_INVARIANTS.md",
     "docs/agent-system/engine-journal/INDEX.md",
     "docs/agent-system/tools/validate_policy_invariants.py",
+    "docs/agent-system/tools/validate_journal_triplet.py",
 }
 GENERATED_TRIGGER_PREFIXES = ("docs/agent-system/cloud/",)
 FORBIDDEN_SEGMENTS = {"data", "runtime", "dist", "backups", "exports", ".venv"}
@@ -152,6 +154,7 @@ class ReadyReport:
     commit_message_checks: list[CommandResult] = field(default_factory=list)
     id_reference_checks: list[CommandResult] = field(default_factory=list)
     policy_invariant_checks: list[CommandResult] = field(default_factory=list)
+    journal_triplet_checks: list[CommandResult] = field(default_factory=list)
     generated_checks_required: bool = False
     generated_checks_reason: str = ""
     generated_checks: list[CommandResult] = field(default_factory=list)
@@ -186,6 +189,7 @@ class ReadyReport:
         data["commit_message_checks"] = [asdict(item) for item in self.commit_message_checks]
         data["id_reference_checks"] = [asdict(item) for item in self.id_reference_checks]
         data["policy_invariant_checks"] = [asdict(item) for item in self.policy_invariant_checks]
+        data["journal_triplet_checks"] = [asdict(item) for item in self.journal_triplet_checks]
         data["generated_checks"] = [asdict(item) for item in self.generated_checks]
         data["changed_files_count"] = len(self.changed_files)
         data["staged_files_count"] = len(self.staged_files)
@@ -296,7 +300,7 @@ def requires_generated_checks(paths: list[str]) -> bool:
 
 def is_task_result_file(path: str) -> bool:
     normalized = normalize_path(path)
-    return re.fullmatch(r"docs/agent-system/engine-journal/(input/TASK|output/RESULT)-.*\.md", normalized) is not None
+    return re.fullmatch(r"docs/agent-system/engine-journal/(input/TASK|rationale/RATIONALE|output/RESULT)-.*\.md", normalized) is not None
 
 
 def task_result_files(paths: list[str]) -> list[str]:
@@ -850,6 +854,25 @@ def add_policy_invariant_checks(report: ReadyReport) -> None:
         report.blockers.append("validate_policy_invariants.py failed")
 
 
+def add_journal_triplet_checks(report: ReadyReport) -> None:
+    trigger_prefixes = (
+        "docs/agent-system/engine-journal/",
+        "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+        "docs/agent-system/TASK_CONTRACT.md",
+        "docs/agent-system/tools/validate_journal_triplet.py",
+    )
+    changed = report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files
+    if not any(normalize_path(path).startswith(trigger_prefixes) for path in changed):
+        return
+    check = run_command(
+        ["python", "docs/agent-system/tools/validate_journal_triplet.py", "--base", report.base, "--json"],
+        "validate_journal_triplet.py --json",
+    )
+    report.journal_triplet_checks.append(check)
+    if check.exit_code != 0:
+        report.blockers.append("validate_journal_triplet.py failed")
+
+
 def add_safety_scans(report: ReadyReport) -> None:
     all_paths = unique_sorted(report.changed_files + report.unstaged_files + report.staged_files + report.untracked_files)
     report.forbidden_changed_paths = [path for path in all_paths if is_forbidden_path(path)]
@@ -1001,6 +1024,8 @@ def render_human(report: ReadyReport) -> str:
         lines.append(f"{check.name}: {check.status}")
     for check in report.policy_invariant_checks:
         lines.append(f"{check.name}: {check.status}")
+    for check in report.journal_triplet_checks:
+        lines.append(f"{check.name}: {check.status}")
     lines.extend(
         [
             "",
@@ -1099,6 +1124,7 @@ def build_report(
     add_commit_message_checks(report, commit_message_cutoff_ref)
     add_id_reference_checks(report)
     add_policy_invariant_checks(report)
+    add_journal_triplet_checks(report)
     add_generated_checks(report)
     add_safety_scans(report)
     add_russian_first_lint(report)

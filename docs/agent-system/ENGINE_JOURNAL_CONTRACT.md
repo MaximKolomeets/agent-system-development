@@ -70,8 +70,16 @@ private/secrets, Russian-first и запрет копирования operationa
 
 `templates/` содержит reusable templates для task/result files.
 
-Task file и result file должны иметь одинаковый sequence number и task id, чтобы
-их можно было сопоставить без внешнего контекста.
+Новые entries образуют обязательную тройку `TASK -> RATIONALE -> RESULT`.
+Все три файла имеют одинаковые четырёхзначный sequence и task id:
+`input/TASK-<seq>-<task-id>.md`, `rationale/RATIONALE-<seq>-<task-id>.md` и
+`output/RESULT-<seq>-<task-id>.md`. Legacy entries до перехода не получают
+выдуманный backfill и в INDEX отмечаются `legacy/not_required`.
+
+`RATIONALE` — краткое проверяемое обоснование решения: вопрос, evidence,
+ограничения, варианты, выбранный путь, компромиссы, риски и условия пересмотра.
+Он не является hidden chain-of-thought, scratchpad или хранилищем системных
+инструкций. В каждом новом RATIONALE обязательно: `raw_chain_of_thought_stored: no`.
 
 ## Политика Russian-first journal
 
@@ -117,6 +125,9 @@ RESULT-0001-PR-2r-engine-journal-contract.md
 Engine journal является append-only по умолчанию.
 
 Task/result files нельзя удалять, перезаписывать или переиспользовать для другой задачи без отдельного решения пользователя.
+
+RATIONALE защищается тем же append-only правилом. После review допустимы только
+добавление correction/addendum без удаления ранее зафиксированного текста.
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
