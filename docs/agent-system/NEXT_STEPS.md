@@ -23,40 +23,36 @@
 
 ## Текущий фокус (Current Focus)
 
-`v1.5.2` опубликован: `origin/main` и remote tag `v1.5.2^{}` указывают на
-`1859a0034b14eed11e9842c4589fdeddb295cc6d`. Post-`v1.5.2` payload для
-candidate `v1.5.3` уже вошёл в `origin/developer`: PR #326 self-enforcement
-hardening, PR #327 target commit-language enforcement и PR #328 canonical
-commit-language tool reconcile.
+`v1.5.3` опубликован как tag-only release: `origin/main` и remote tag
+`v1.5.3^{}` указывают на release merge commit
+`f0c75a965e19b78f9c018c406680b12caaf255c1`. Sync PR #331 синхронизировал
+`main -> developer`; `origin/developer` указывает на
+`12ead1aa00797f22ad0c674b11bd23c2ba130056`, а `origin/main...origin/developer`
+не имеет file delta.
 
-Ближайший рабочий шаг: review и human merge release-prep PR `v1.5.3` в
-`developer`. После этого release-manager готовит release PR `developer -> main`;
-merge release PR, annotated tag `v1.5.3`, publication и sync decision остаются
-human-only действиями. До публикации `v1.5.3` target adoption/source-update
-задачи используют stable pointer `origin/main` / tag `v1.5.2`.
+Ближайший рабочий шаг: завершить `METH-RELEASE-GATE-CLEANUP-01`, который закрывает
+review findings PR #333: local-tags precondition для `release_gate.py` и
+warning `READY_GATE_SKIPPED_OFF_DEVELOPER` на work-ветке вместо ready-gate
+blocker. Release-prep/release PR/tag/sync для `v1.5.3` завершены и больше не
+являются текущей очередью.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
 `docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
 `docs/agent-system/RULESET_STATUS.md`.
 
-## Ближайшая очередь v1.5.3
+## Ближайшая очередь после v1.5.3
 
-1. Завершить scoped review release-prep PR `v1.5.3`.
-2. Human merge release-prep PR в `developer`.
-3. На обновлённом `developer` выполнить release-boundary ready-gate:
-   `python docs/agent-system/tools/check_task_ready.py --base origin/main --release-boundary`.
-4. Owner/PO фиксирует Business Acceptance / Human UAT verdict или явный
-   `not_applicable` reason.
-5. Release-manager готовит release PR `developer -> main` для `v1.5.3`.
-6. Человек-архитектор выполняет merge release PR, annotated tag `v1.5.3`,
-   publication decision и sync decision по release authority/human-gate policy.
-7. После release/sync обновить journal RESULT/INDEX, `CURRENT_STATE.md`,
-   `NEXT_STEPS.md`, `RELEASE_READINESS.md`, `RULESET_STATUS.md` и regenerated
-   `docs/agent-system/cloud/**`.
+1. Завершить scoped review и human merge PR `METH-RELEASE-GATE-CLEANUP-01`.
+2. Выбрать следующий methodology-hardening backlog item или downstream adoption
+   task.
+3. Для новой file-changing methodology task стартовать от актуального
+   `developer` в отдельной `work/<role>/<task>` branch.
+4. Для downstream/source-update задач использовать stable methodology reference:
+   tag `v1.5.3` или `origin/main`, не `developer`/`work/*`.
 
-Future queue после `v1.5.3` живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md`
-оставался списком ближайших действий.
+Future queue живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md` оставался списком
+ближайших действий.
 
 ## Текущие операционные правила
 

@@ -61,6 +61,8 @@ Ledger не является intake для raw downstream details. Raw/private f
 | `MIR-2026-001` | `operator_feedback` | self-enforcement gaps: pre-emit review, methodology CI, template annotations | `ENGINE_ENTRYPOINT.md`, CI workflow, tools, manifest/generated artifacts | `in_pr` | https://github.com/MaximKolomeets/agent-system-development/pull/326 | `none` | `not_started` | `none` |
 | `MIR-2026-002` | `operator_feedback` | target adoption must require Russian-first commit-language enforcement | adoption checklist, CI policy, adoption guide, governance pack, manifest/generated artifacts | `in_pr` | https://github.com/MaximKolomeets/agent-system-development/pull/327 | `none` | `not_started` | `none` |
 | `MIR-2026-003` | `operator_feedback` | commit-language tooling overlap must be reconciled into one canonical gate | commit-message validator, methodology CI, manifest/generated artifacts, adoption docs | `in_pr` | https://github.com/MaximKolomeets/agent-system-development/pull/328 | `none` | `not_started` | `none` |
+| `MIR-2026-004` | `operator_feedback` | release boundary near-miss: target tag may already exist before release PR | release evidence tooling, release authority policy, manifest/generated artifacts | `in_pr` | https://github.com/MaximKolomeets/agent-system-development/pull/333 | `none` | `not_started` | `none` |
+| `MIR-2026-005` | `methodology_review` | release gate must distinguish local tag precondition and off-developer ready-gate context | release evidence tooling, release authority policy | `in_pr` | https://github.com/MaximKolomeets/agent-system-development/pull/334 | `none` | `not_started` | `none` |
 
 ## Поля
 

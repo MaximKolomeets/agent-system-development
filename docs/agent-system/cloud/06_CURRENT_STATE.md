@@ -36,6 +36,16 @@ Repository visibility: public.
   canonical gate остался `validate_commit_message.py`, проверка Russian-first
   body перенесена в него, duplicate commit-language tool выведен из активного
   оборота.
+- Release assistant tooling добавлен как read-only advisor:
+  `docs/agent-system/tools/release_gate.py --version vX.Y.Z` проверяет, что
+  target tag ещё не существует, сверяет latest release tag / `origin/main`,
+  payload и generated/state gates, а также печатает human-action текст без
+  выполнения merge/tag/publish/sync.
+- Release gate cleanup после review PR #333 выполняется в
+  `work/dev-implementer-01/meth-release-gate-cleanup-01`: tag-проверка должна
+  явно декларировать local `refs/tags` source и human/preflight
+  `git fetch --tags --prune`, а off-developer запуск release-boundary ready-gate
+  должен давать warning вместо blocker.
 - Strict added-line scan блокирует headers `Authorization` независимо от auth-схемы и выводит только counts/filenames/categories, без matching values.
 - Sanitized downstream feedback loop закреплён как reusable methodology boundary: `DOWNSTREAM_FEEDBACK_LOOP.md` задаёт intake/classification/backlog/release adoption flow, `DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` задаёт forbidden content, redaction rules и reviewer checklist. Target repositories получают эти правила только после `main`, release tag или published Source/cloud snapshot.
 - Target adoption detector закреплён как reusable policy/spec: `TARGET_ADOPTION_DETECTOR.md` выбирает Variant A/B/C или STOP перед target adoption/source-update, требует clean target tree, stable methodology source и сохранение target-specific journal/history/state; detector не читает private data и не разрешает adoption от `developer`/`work/*`.
@@ -63,35 +73,38 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: release-prep `v1.5.3` после publication/tag `v1.5.2` и merge
-PR #326-#328 в `developer`. Release-prep готовит evidence и state-refresh для
-будущего release PR `developer -> main`, но не выполняет human-only release
-action.
+Текущий фокус: post-release state после publication/tag `v1.5.3`. Release PR
+#330 был human-merged в `main`, annotated tag `v1.5.3` указывает на release merge
+commit, GitHub Release publication зафиксирована как `not_applicable / tag-only`,
+sync PR #331 human-merged `main -> developer`.
 
 `origin/main` указывает на release merge commit
-`1859a0034b14eed11e9842c4589fdeddb295cc6d`; annotated tag `v1.5.2` указывает на
-тот же commit. `origin/developer` указывает на candidate `v1.5.3` после merge
-PR #328: `f10a06e2690bc8ff5c5cdb9afff893c39bee0dfe`.
-Latest release tag: `v1.5.2`; next planned tag: `v1.5.3`.
+`f0c75a965e19b78f9c018c406680b12caaf255c1`; annotated tag `v1.5.3` указывает на
+тот же commit. `origin/developer` указывает на sync merge commit
+`12ead1aa00797f22ad0c674b11bd23c2ba130056`. Latest release tag: `v1.5.3`;
+next planned tag: not selected / TBD.
+
+Stable methodology reference для downstream/source-update задач: tag `v1.5.3`
+или `origin/main` at
+`f0c75a965e19b78f9c018c406680b12caaf255c1`. `origin/developer` синхронизирован
+после release через PR #331 и не имеет file delta относительно `origin/main`.
 
 Payload `v1.5.3` после `v1.5.2` включает rows 0155-0157: PR #326
 self-enforcement hardening, PR #327 target commit-language enforcement и PR #328
-canonical commit-language tool reconcile. Rows 0155-0157 boundary-closed в
-release-prep fix-pass PR #329. До публикации `v1.5.3` downstream/source-update
-задачи используют stable pointer `origin/main` / tag `v1.5.2`, а не `developer`
-или `work/*`.
+canonical commit-language tool reconcile. Release-prep row 0158 closed после
+human release/sync фактами в row 0159.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
-`2026-07-04T16:18:03+07:00` через GitHub Rulesets API. `Protect main` и
+`2026-07-04T18:01:52+07:00` через GitHub Rulesets API. `Protect main` и
 `Protect developer` active; deletion и non-fast-forward запрещены, pull request
-rule включён, required status checks в ruleset не заданы.
+rule включён, required status checks в ruleset не заданы. Rulesets не менялись.
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: release-prep `v1.5.3`. Содержательный payload после `v1.5.2`
-включает self-enforcement hardening, target commit-language enforcement и
-canonical commit-language tool reconcile. Следующий шаг после merge этого
-release-prep PR: human-controlled release PR `developer -> main` для `v1.5.3`.
+Текущий этап: implementation `METH-RELEASE-ASSISTANT-01` после post-release
+`v1.5.3`. Следующий шаг после merge этого PR: scoped semantic review outcome и
+human merge; затем выбрать следующий methodology-hardening backlog item или
+downstream adoption task.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 
