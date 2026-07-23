@@ -73,6 +73,10 @@ raw_chain_of_thought_stored: no
 
 нет
 
+## Review addendum 03
+
+Исправлены Russian-first template и INDEX-only bypass через `INDEX_ARTIFACTS_MISSING`; status до повторного review — `ready_for_review`. Rewrite commit message разрешён: `4d241f3687df65b147146c0a4cb3e2df795d94e9` заменён `ffc6dfc4157e14805a3946aaf725d5c05607d9ab`. raw_chain_of_thought_stored: no.
+
 ## Передача
 
 Следующий: reviewer — выполнить scoped semantic + tooling safety review PR по RATIONALE triplet; затем архитектор — принять human merge decision.

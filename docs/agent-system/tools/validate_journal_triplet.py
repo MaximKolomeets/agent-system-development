@@ -126,6 +126,27 @@ def validate(root: Path, base: str) -> Report:
     current_text = current_index.read_text(encoding="utf-8", errors="replace")
     for code in validate_index_schema(current_text):
         add(report, f"{PREFIX}INDEX.md", code)
+    seen_index: set[tuple[str, str]] = set()
+    for row in index_rows(current_text):
+        if len(row) != 10 or not re.fullmatch(r"\d{4}", row[0]):
+            continue
+        key = (row[0], row[1])
+        if key in seen_index:
+            add(report, f"{PREFIX}INDEX.md", "INDEX_DUPLICATE_SEQUENCE_OR_TASK_ID")
+        seen_index.add(key)
+    base_rows = {(row[0], row[1]) for row in index_rows(base_index.stdout) if len(row) == 10 and re.fullmatch(r"\d{4}", row[0])}
+    for row in index_rows(current_text):
+        if len(row) != 10 or not re.fullmatch(r"\d{4}", row[0]) or row[4] == "legacy/not_required":
+            continue
+        seq, task_id = row[:2]
+        if (seq, task_id) in base_rows or (seq, task_id) in candidates:
+            continue
+        candidates[(seq, task_id)] = {
+            "input/TASK": f"{PREFIX}input/TASK-{seq}-{task_id}.md",
+            "rationale/RATIONALE": f"{PREFIX}rationale/RATIONALE-{seq}-{task_id}.md",
+            "output/RESULT": f"{PREFIX}output/RESULT-{seq}-{task_id}.md",
+        }
+        add(report, f"{PREFIX}INDEX.md", "INDEX_ARTIFACTS_MISSING")
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
     for (seq, task_id), files in sorted(candidates.items()):
@@ -146,6 +167,9 @@ def validate(root: Path, base: str) -> Report:
                     add(report, f"{PREFIX}INDEX.md", "INDEX_TRIPLET_LINK_MISMATCH")
                     break
         for kind, path in files.items():
+            if not (root / path).is_file():
+                add(report, path, "INDEX_ARTIFACTS_MISSING")
+                continue
             text = (root / path).read_text(encoding="utf-8", errors="replace")
             if seq not in text or task_id not in text:
                 add(report, path, "FILE_IDENTITY_MISMATCH")

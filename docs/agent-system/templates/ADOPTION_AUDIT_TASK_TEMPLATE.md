@@ -48,17 +48,17 @@ Reasoning effort: <низкий | средний | высокий>
 
 ## Проверка полноты copy/paste
 
-- [ ] This TASK/Engine block can be executed without reading surrounding chat text.
+- [ ] Этот TASK/Engine block можно выполнить без чтения окружающего chat text.
 - [ ] Блок «Рекомендуемый режим исполнения» включён.
-- [ ] Verified baseline is included or explicitly marked as not applicable.
-- [ ] Repository/base branch/working branch are included.
-- [ ] Allowed files are included.
-- [ ] Forbidden files are included.
-- [ ] Checks are included.
-- [ ] STOP conditions are included.
-- [ ] Final report requirements are included.
-- [ ] Source Delta requirement is included by reference to `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
-- [ ] No required execution context exists only in surrounding chat.
+- [ ] Verified baseline включён либо явно помечен как not applicable.
+- [ ] Repository/base branch/working branch включены.
+- [ ] Allowed files включены.
+- [ ] Forbidden files включены.
+- [ ] Checks включены.
+- [ ] STOP conditions включены.
+- [ ] Требования к final report включены.
+- [ ] Требование Source Delta задано ссылкой на `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta».
+- [ ] Весь необходимый execution context находится в этом блоке, а не только в окружающем chat text.
 
 ## Task
 
@@ -154,23 +154,23 @@ methodology_reference:
 
 ## Output
 
-Создать audit file с разделами:
+Создать audit-файл с разделами:
 
-- repository self-discovery;
-- repository lifecycle mode;
-- selected branch model;
+- self-discovery repository;
+- lifecycle mode repository;
+- выбранная branch model;
 - developer branch existence;
-- fallback-to-main allowed: yes/no with reason;
+- fallback-to-main допустим: yes/no с причиной;
 - current project state;
 - template repository summary;
 - fit analysis;
-- language consistency audit;
+- аудит language consistency;
 - список файлов с нерусскими governance descriptions;
 - рекомендация по унификации языка;
 - проверка скриптов, workflow и templates на достаточные русские комментарии для нужных строк/блоков;
-- adoption recommendation;
+- рекомендация по adoption;
 - risks;
-- open questions;
+- открытые вопросы;
 - Methodology feedback;
 - нейтральный `Methodology repository improvement request`, если audit показал, что methodology repository нужно улучшить.
 
@@ -193,10 +193,10 @@ Adoption audit является audit/consistency-gate и adoption/source-update
 
 Выполнить placeholder scan journal files. Если placeholders остались, задачу нельзя считать ready-for-review.
 
-Language consistency rule:
+Правило language consistency:
 
 - все ответы, target-local docs, TASK/RESULT/INDEX и комментарии в файлах пишутся на русском языке;
-- English allowed only for code identifiers, paths, commands, config keys, vendor/tool names, upstream package names, API names, branch names, filenames and literal external names;
+- English допустим только для code identifiers, paths, commands, config keys, vendor/tool names, upstream package names, API names, branch names, filenames и literal external names;
 - governance descriptions target repository должны быть Russian-first;
 - mixed-language sections должны быть либо оправданы, либо рекомендованы к нормализации.
 
@@ -208,25 +208,25 @@ Methodology feedback не должен включать private downstream data,
 - git branch --show-current
 - git diff --check
 - git ls-files
-- forbidden tracked paths check
-- sensitive grep filename-only
-- language consistency audit
-- commenting consistency audit
-- methodology reference present with source commit SHA
-- engine journal index/task/result consistency
+- проверка forbidden tracked paths
+- sensitive grep только filename-only
+- аудит language consistency
+- аудит commenting consistency
+- methodology reference содержит source commit SHA
+- consistency engine journal index/task/result
 - task-file-handoff metadata consistency, если режим использовался
-- engine journal placeholder scan
+- placeholder scan engine journal
 - final report и RESULT содержат Source Delta по `docs/agent-system/templates/TASK_HEADER_COMMON.md` → «Source Delta»
 - проверка Closure policy (`audit/consistency-gate` и `adoption/source-update` — per-task closure exception)
 
 ## Final report
 
-- final report на русском языке;
+- final report — на русском языке;
 - working branch;
 - repository lifecycle mode;
 - selected branch model;
 - developer branch existence;
-- fallback-to-main allowed: yes/no with reason;
+- fallback-to-main допустим: yes/no с причиной;
 - engine task file;
 - engine result file;
 - created files;
@@ -239,7 +239,7 @@ Methodology feedback не должен включать private downstream data,
 - methodology reference;
 - RESULT finalized: yes/no;
 - INDEX finalized: yes/no;
-- Source Delta present: yes/no;
+- Source Delta присутствует: yes/no;
 - No journal placeholders: yes/no;
 - статус PR после review (`PR status after review`);
 - merge commit SHA после merge, если доступен;

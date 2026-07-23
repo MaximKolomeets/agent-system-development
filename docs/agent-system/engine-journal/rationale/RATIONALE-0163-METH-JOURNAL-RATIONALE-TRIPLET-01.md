@@ -73,3 +73,7 @@ Task-level RATIONALE дополняет, но не заменяет `DECISION_LO
 ## Review addendum
 
 Review finding: начальная migration INDEX смещала legacy mapping. Решение: явный `legacy/not_required` и schema validation. Review finding: transfer/archive lifecycle был неполным. Решение: RATIONALE включён в scaffold, target policy и archive pair. Review finding: отсутствовали regression tests. Решение: добавлен stdlib test package. raw_chain_of_thought_stored: no.
+
+## Review addendum 03
+
+Russian-first template исправлен. Добавлен finding `INDEX_ARTIFACTS_MISSING` для INDEX-only entry. Regression suite использует isolated temporary Git repository и `validate(root, base)`. Разрешённый rewrite: `4d241f3687df65b147146c0a4cb3e2df795d94e9` → `ffc6dfc4157e14805a3946aaf725d5c05607d9ab`. raw_chain_of_thought_stored: no.
