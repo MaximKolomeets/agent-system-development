@@ -73,6 +73,14 @@ raw_chain_of_thought_stored: no
 
 нет
 
+## Review addendum 04
+
+Подтверждено устранение двух актуальных finding PR #338: RATIONALE включён в adoption allowlists, а legacy INDEX rows `0001–0162` используют 10 колонок с `legacy/not_required`. Regression-проверка подтверждает полный диапазон и сохранение смысловых позиций `Branch`/`PR`/`Status`/`Time`. `raw_chain_of_thought_stored: no`.
+
+## Review addendum 05
+
+EOL guard оптимизирован после подтверждённого Docker bind-mount blocker: пакетные Git-метаданные заменяют десятки per-file subprocess вызовов, а stderr-progress указывает текущий этап без изменения успешного stdout. Scan scope сохранён, `.git` не обходится через `Path`; Docker unittest: 19 tests, `OK`. `raw_chain_of_thought_stored: no`.
+
 ## Review addendum 03
 
 Исправлены Russian-first template и INDEX-only bypass через `INDEX_ARTIFACTS_MISSING`; status до повторного review — `ready_for_review`. Rewrite commit message разрешён: `4d241f3687df65b147146c0a4cb3e2df795d94e9` заменён `ffc6dfc4157e14805a3946aaf725d5c05607d9ab`. raw_chain_of_thought_stored: no.

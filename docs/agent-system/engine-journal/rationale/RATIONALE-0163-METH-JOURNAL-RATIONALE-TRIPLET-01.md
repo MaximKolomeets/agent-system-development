@@ -77,3 +77,11 @@ Review finding: начальная migration INDEX смещала legacy mapping
 ## Review addendum 03
 
 Russian-first template исправлен. Добавлен finding `INDEX_ARTIFACTS_MISSING` для INDEX-only entry. Regression suite использует isolated temporary Git repository и `validate(root, base)`. Разрешённый rewrite: `4d241f3687df65b147146c0a4cb3e2df795d94e9` → `ffc6dfc4157e14805a3946aaf725d5c05607d9ab`. raw_chain_of_thought_stored: no.
+
+## Review addendum 04
+
+Проверены два актуальных finding PR #338: adoption allowlists уже разрешают `ENGINE_RATIONALE_FILE_TEMPLATE.md` и `engine-journal/rationale/RATIONALE-*.md`; legacy rows `0001–0162` уже мигрированы в 10-колоночный формат с `legacy/not_required`. Добавлена regression-проверка реального диапазона: она подтверждает 162 строки, десять колонок и отсутствие сдвига `Branch`/`PR`/`Status`/`Time` относительно позиции после RATIONALE. raw_chain_of_thought_stored: no.
+
+## Review addendum 05
+
+Подтверждённый blocker EOL guard: повторные Git-подпроцессы на Windows Docker bind mount. Guard переведён на пакетные final-state diff metadata, сохраняет scan scope и не выполняет прямой обход `.git`; добавлено stderr-progress logging. Тесты подтверждают смешанный verdict, ограниченное число Git-вызовов, INDEX/cloud mirror и исключение `.git` из text scope. raw_chain_of_thought_stored: no.

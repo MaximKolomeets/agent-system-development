@@ -38,6 +38,15 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_duplicate_sequence(self): self.triplet(); self.index([self.row(), self.row()]); self.assertIn("INDEX_DUPLICATE_SEQUENCE_OR_TASK_ID", self.check())
     def test_nine_column_legacy(self): self.index(["| 0001 | OLD | input/a | output/a | branch | pr | status | 1m | note |"]); self.assertIn("INDEX_ROW_COLUMN_COUNT_INVALID", self.check())
     def test_legacy_marker(self): self.index([self.row(task="METH-OLD-01", rationale="legacy/not_required")]); self.assertEqual([], self.check())
+    def test_repository_legacy_rows_are_migrated(self):
+        source_index = Path(__file__).resolve().parents[2] / "engine-journal" / "INDEX.md"
+        rows = [line for line in source_index.read_text(encoding="utf-8").splitlines() if line.startswith("| 0")]
+        legacy = [line for line in rows if 1 <= int(line.split("|")[1].strip()) <= 162]
+        self.assertEqual(162, len(legacy))
+        for row in legacy:
+            cells = [cell.strip() for cell in row.strip().strip("|").split("|")]
+            self.assertEqual(10, len(cells))
+            self.assertEqual("legacy/not_required", cells[4])
     def test_missing_raw_marker(self): self.triplet(raw=False); self.index([self.row()]); self.assertIn("RAW_CHAIN_OF_THOUGHT_MARKER_INVALID", self.check())
     def test_missing_required_rationale_section(self): self.triplet(sections=False); self.index([self.row()]); self.assertIn("RATIONALE_REQUIRED_SECTIONS_MISSING", self.check())
     def test_invalid_filename(self): self.write("docs/agent-system/engine-journal/rationale/RATIONALE-bad.md", "x"); self.index([]); self.assertIn("INVALID_JOURNAL_FILENAME", self.check())

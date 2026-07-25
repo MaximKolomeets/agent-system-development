@@ -7,6 +7,7 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
@@ -80,6 +81,14 @@ class GuardReport:
         data["warnings_count"] = len(self.warnings)
         data["result"] = self.result
         return data
+
+
+@dataclass
+class ScopeMetadata:
+    """Пакетные Git-метаданные одного diff scope, чтобы не запускать Git для каждого пути."""
+
+    exact_numstat: dict[str, tuple[str, str]] = field(default_factory=dict)
+    ignore_space_numstat: dict[str, tuple[str, str]] = field(default_factory=dict)
 
 
 def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
@@ -160,8 +169,8 @@ def changed_files(base: str) -> tuple[list[str], dict[str, str]]:
                 paths_by_scope[path] = scope
     for path in changed_files_from_status():
         paths_by_scope.setdefault(normalize_path(path), "status")
-    for path in untracked_files():
-        paths_by_scope[normalize_path(path)] = "untracked"
+    # `git status --short -uall` выше уже включает untracked paths; повторный
+    # `git ls-files --others` на Windows Docker bind mount не даёт новых данных.
     return unique_sorted(list(paths_by_scope)), paths_by_scope
 
 
@@ -173,28 +182,35 @@ def diff_args_for(scope: str, base: str, path: str) -> list[str]:
     return ["diff", "--", path]
 
 
-def name_status(scope: str, base: str, path: str) -> str:
-    args = diff_args_for(scope, base, path)
-    result = run_git([args[0], "--name-status", *args[1:]])
-    if result.returncode != 0 or not result.stdout.strip():
-        return ""
-    return result.stdout.splitlines()[0].split("\t", 1)[0]
+def diff_args(scope: str, base: str) -> list[str]:
+    # Один tree-to-working-tree diff уже включает committed, staged и рабочие
+    # изменения относительно base; отдельные scope не нужны для EOL verdict.
+    return ["diff", base]
 
 
-def is_binary_diff(scope: str, base: str, path: str) -> bool:
-    args = diff_args_for(scope, base, path)
-    result = run_git([args[0], "--numstat", *args[1:]])
-    if result.returncode != 0:
-        return True
-    first = result.stdout.splitlines()[0] if result.stdout.splitlines() else ""
-    return first.startswith("-\t-")
+def parse_numstat(text: str) -> dict[str, tuple[str, str]]:
+    metadata: dict[str, tuple[str, str]] = {}
+    for line in text.splitlines():
+        cells = line.split("\t", 2)
+        if len(cells) == 3:
+            metadata[normalize_path(cells[2])] = (cells[0], cells[1])
+    return metadata
 
 
-def diff_quiet(scope: str, base: str, path: str, options: list[str] | None = None) -> int:
-    args = diff_args_for(scope, base, path)
-    options = options or []
-    result = run_git([args[0], "--quiet", *options, *args[1:]])
-    return result.returncode
+def collect_scope_metadata(scope: str, base: str) -> ScopeMetadata:
+    args = diff_args(scope, base)
+    calls = {
+        "exact_numstat": [args[0], "--numstat", *args[1:]],
+        "ignore_space_numstat": [args[0], "--numstat", "--ignore-space-at-eol", *args[1:]],
+    }
+    parsed: dict[str, dict[str, object]] = {}
+    for field_name, command in calls.items():
+        result = run_git(command)
+        if result.returncode != 0:
+            parsed[field_name] = {}
+        else:
+            parsed[field_name] = parse_numstat(result.stdout)
+    return ScopeMetadata(**parsed)
 
 
 def parse_cloud_readme_map() -> dict[str, str]:
@@ -223,7 +239,7 @@ def matching_source_for_generated(path: str, cloud_map: dict[str, str]) -> str:
     return cloud_map.get(path, "")
 
 
-def classify_file(path: str, scope: str, base: str, changed: set[str], cloud_map: dict[str, str]) -> FileResult:
+def classify_file(path: str, scope: str, changed: set[str], cloud_map: dict[str, str], metadata: ScopeMetadata) -> FileResult:
     if SENSITIVE_FILENAME_RE.search(path):
         return FileResult(path=path, scope=scope, status="", category="not_checked", reason="sensitive_filename")
     if not is_text_scope(path):
@@ -231,21 +247,16 @@ def classify_file(path: str, scope: str, base: str, changed: set[str], cloud_map
     if scope == "untracked":
         return FileResult(path=path, scope=scope, status="??", category="not_checked", reason="untracked")
 
-    status = name_status(scope, base, path)
-    if status.startswith("A") or status.startswith("D"):
-        return FileResult(path=path, scope=scope, status=status, category="not_checked", reason="added_or_deleted")
-    if is_binary_diff(scope, base, path):
+    status = ""
+    exact = metadata.exact_numstat.get(path)
+    if exact == ("-", "-"):
         return FileResult(path=path, scope=scope, status=status, category="binary_or_unreadable", reason="binary_diff")
-
-    exact = diff_quiet(scope, base, path)
-    if exact == 0:
+    if exact is None:
         # Git status can still mark files as modified when Windows line endings are the only practical noise.
         category = "eol_only_changed" if is_generated(path) and scope == "status" else "no_change"
         return FileResult(path=path, scope=scope, status=status, category=category, reason="status_only_no_text_diff")
 
-    if diff_quiet(scope, base, path, ["--ignore-cr-at-eol"]) == 0:
-        category = "eol_only_changed"
-    elif diff_quiet(scope, base, path, ["--ignore-space-at-eol"]) == 0:
+    if path not in metadata.ignore_space_numstat:
         category = "whitespace_only_changed"
     else:
         category = "content_changed"
@@ -263,11 +274,23 @@ def classify_file(path: str, scope: str, base: str, changed: set[str], cloud_map
 
 
 def build_report(base: str, strict: bool) -> GuardReport:
-    paths, scopes = changed_files(base)
+    print("generated_eol_guard: collecting batch Git metadata", file=sys.stderr)
+    metadata_by_scope = {
+        "combined": collect_scope_metadata("combined", base),
+    }
+    scopes = {path: "combined" for path in metadata_by_scope["combined"].exact_numstat}
+    for path in changed_files_from_status():
+        scopes.setdefault(normalize_path(path), "status")
+    paths = unique_sorted(list(scopes))
+    print(f"generated_eol_guard: classifying {len(paths)} paths", file=sys.stderr)
     cloud_map = parse_cloud_readme_map()
     changed = set(paths)
     report = GuardReport(base=base, changed_files=paths)
-    report.files = [classify_file(path, scopes.get(path, "committed"), base, changed, cloud_map) for path in paths]
+    report.files = [
+        classify_file(path, scope, changed, cloud_map, metadata_by_scope.get(scope, ScopeMetadata()))
+        for path in paths
+        for scope in [scopes.get(path, "committed")]
+    ]
 
     grouped: dict[str, list[str]] = {
         "content_changed": [],
