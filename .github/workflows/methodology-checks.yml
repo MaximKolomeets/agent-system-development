@@ -71,3 +71,9 @@ jobs:
         run: |
           set -euo pipefail
           python docs/agent-system/tools/check_journal_append_only.py --base "${{ steps.base.outputs.base }}"
+
+      - name: Journal triplet integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python docs/agent-system/tools/validate_journal_triplet.py --base "${{ steps.base.outputs.base }}"

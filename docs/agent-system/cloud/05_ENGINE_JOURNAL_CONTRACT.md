@@ -70,8 +70,16 @@ private/secrets, Russian-first и запрет копирования operationa
 
 `templates/` содержит reusable templates для task/result files.
 
-Task file и result file должны иметь одинаковый sequence number и task id, чтобы
-их можно было сопоставить без внешнего контекста.
+Новые entries образуют обязательную тройку `TASK -> RATIONALE -> RESULT`.
+Все три файла имеют одинаковые четырёхзначный sequence и task id:
+`input/TASK-<seq>-<task-id>.md`, `rationale/RATIONALE-<seq>-<task-id>.md` и
+`output/RESULT-<seq>-<task-id>.md`. Legacy entries до перехода не получают
+выдуманный backfill и в INDEX отмечаются `legacy/not_required`.
+
+`RATIONALE` — краткое проверяемое обоснование решения: вопрос, evidence,
+ограничения, варианты, выбранный путь, компромиссы, риски и условия пересмотра.
+Он не является hidden chain-of-thought, scratchpad или хранилищем системных
+инструкций. В каждом новом RATIONALE обязательно: `raw_chain_of_thought_stored: no`.
 
 ## Политика Russian-first journal
 
@@ -117,6 +125,9 @@ RESULT-0001-PR-2r-engine-journal-contract.md
 Engine journal является append-only по умолчанию.
 
 Task/result files нельзя удалять, перезаписывать или переиспользовать для другой задачи без отдельного решения пользователя.
+
+RATIONALE защищается тем же append-only правилом. После review допустимы только
+добавление correction/addendum без удаления ранее зафиксированного текста.
 
 Если задачу нужно уточнить, создается новый task file с новым sequence number или добавляется отдельный follow-up task. Старый task/result остается как historical record.
 
@@ -203,7 +214,7 @@ Target repository journal хранит project-specific task/result history вн
 
 Target adoption использует `journal_transfer_mode: scaffold_only`: переносит
 структуру, README, templates и формат `INDEX.md`, но не переносит operational
-rows, TASK/RESULT files или archive epochs из methodology repository. Если target
+rows, TASK/RATIONALE/RESULT files или archive epochs из methodology repository. Если target
 уже содержит свой journal, adoption/update сохраняет target-specific history и
 не затирает её историей source methodology.
 
@@ -212,9 +223,10 @@ rows, TASK/RESULT files или archive epochs из methodology repository. Ес�
 - `docs/agent-system/engine-journal/README.md`;
 - `docs/agent-system/engine-journal/INDEX.md`;
 - `docs/agent-system/engine-journal/input/`;
+- `docs/agent-system/engine-journal/rationale/`;
 - `docs/agent-system/engine-journal/output/`;
 - `docs/agent-system/engine-journal/templates/`;
-- task file для первой engine-задачи;
+- task/RATIONALE files для первой engine-задачи;
 - result file для ответа engine.
 
 Если первый шаг adoption остается `audit-only`, task/result files допускаются

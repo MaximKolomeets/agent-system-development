@@ -18,6 +18,7 @@ INVARIANT_IDS = (
     "INV-RELEASE-AUTHORITY",
     "INV-BRANCH-MODEL",
     "INV-TIME-COST-ACCOUNTING",
+    "INV-JOURNAL-TRIPLET",
     "INV-SOURCE-REFERENCE",
     "INV-PRIVACY-PUBLICATION",
     "INV-TARGET-ADOPTION",
@@ -48,6 +49,7 @@ REQUIRED_CANONICAL_FILES = (
     "docs/agent-system/tools/check_task_ready.py",
     "docs/agent-system/tools/validate_id_references.py",
     "docs/agent-system/tools/validate_policy_invariants.py",
+    "docs/agent-system/tools/validate_journal_triplet.py",
 )
 
 ACTIVE_DOC_SUFFIXES = {".md", ".yml", ".yaml", ".txt"}
@@ -99,6 +101,16 @@ class ValidationReport:
 
 
 REQUIRED_TEXT = (
+    RequiredText(
+        "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+        ("TASK -> RATIONALE -> RESULT", "raw_chain_of_thought_stored: no", "legacy/not_required"),
+        "JOURNAL_TRIPLET_MARKER_MISSING",
+    ),
+    RequiredText(
+        "docs/agent-system/tools/check_task_ready.py",
+        ("validate_journal_triplet.py",),
+        "READY_GATE_JOURNAL_TRIPLET_MARKER_MISSING",
+    ),
     RequiredText(
         "docs/agent-system/RELEASE_AUTHORITY_POLICY.md",
         ("Merge release PR `developer -> main`", "Только человек-архитектор", "release_authority_action"),

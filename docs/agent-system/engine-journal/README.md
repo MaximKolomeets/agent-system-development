@@ -1,8 +1,9 @@
 # Engine Journal
 
-In the reusable methodology/template repository this folder is scaffold only.
-`input/` and `output/` are intentionally empty except `.gitkeep`; real task and
-result files are created in target repositories after adoption.
+В target transfer mode этот каталог передаётся только как scaffold: `README.md`,
+`INDEX.md`, `input/`, `rationale/`, `output/` и templates без operational rows.
+В methodology operation mode repository хранит собственную append-only историю
+TASK/RATIONALE/RESULT; она не переносится в target repository.
 
 Do not copy methodology operational history into target repositories.
 
@@ -11,14 +12,15 @@ Do not copy methodology operational history into target repositories.
 Назначение:
 
 - сохранить входные задачи в `input/`;
+- сохранить RATIONALE в `rationale/`;
 - сохранить ответы engine в `output/`;
-- связать task -> result -> branch -> Pull Request -> commit/result;
+- связать TASK -> RATIONALE -> RESULT -> branch -> Pull Request -> commit/result;
 - дать reviewer возможность восстановить историю проекта по GitHub files.
 
 Правила:
 
 - journal append-only по умолчанию;
-- task/result files не удаляются и не перезаписываются без отдельного решения пользователя;
+- TASK/RATIONALE/RESULT files не удаляются и не перезаписываются без отдельного решения пользователя;
 - старые finalized RESULT могут переноситься в `archive/vX.Y.Z/` только
   отдельным post-release archive PR по `JOURNAL_ARCHIVING_POLICY.md`;
 - archive files не входят в default context bundle;
