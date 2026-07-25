@@ -35,6 +35,7 @@ ENUMS = {
     "mode": {"agent", "review_only", "ask", "manual"},
     "execution_mode": {"local_only", "cloud_allowed", "hybrid"},
     "policies.journal": {"required", "optional", "not_required", "batch_only"},
+    "policies.rationale": {"required", "not_required"},
     "policies.cloud_regen": {"required", "if_bundle_source_changed", "not_required"},
     "policies.review": {"scoped_semantic", "scoped_technical_safety", "machine_only", "full_review", "not_required"},
     "policies.merge": {"human_only", "not_applicable"},
@@ -303,6 +304,18 @@ def validate_contract(data: dict[str, Any], task_file: Path) -> ValidationReport
         report.blockers.append("invalid enum values: " + ", ".join(enum_errors))
     else:
         report.enum_values = "passed"
+
+    if report.version == "2":
+        rationale = get_path(contract, "policies.rationale")
+        journal = get_path(contract, "policies.journal")
+        if rationale is None:
+            report.blockers.append("policies.rationale is required for task_contract.version 2")
+        elif journal == "required" and rationale != "required":
+            report.blockers.append("policies.rationale must be required when policies.journal is required")
+        elif journal == "not_required" and rationale != "not_required":
+            report.blockers.append("policies.rationale must be not_required when policies.journal is not_required")
+    elif report.version not in {"1", "2"}:
+        report.blockers.append("task_contract.version must be 1 or 2")
 
     base_branch = str(get_path(contract, "repository.base_branch") or "")
     task_id = report.task_id.upper()

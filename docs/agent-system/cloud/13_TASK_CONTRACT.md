@@ -24,7 +24,7 @@ advisory.
 
 ```yaml
 task_contract:
-  version: 1
+  version: 2
   task_id: METH-TASK-CONTRACT-FRONTMATTER-01
   role: methodology-architect-01
   mode: agent
@@ -69,6 +69,7 @@ task_contract:
 
   policies:
     journal: required
+    rationale: required
     cloud_regen: if_bundle_source_changed
     generated_checks: conditional
     review: scoped_semantic
@@ -141,6 +142,15 @@ task_contract:
 - `optional`
 - `not_required`
 - `batch_only`
+
+Для `task_contract.version: 2` поле `policies.rationale` обязательно:
+
+- при `journal: required` — `rationale: required`;
+- для настоящей Fast Lane задачи без PR и файлов при `journal: not_required` —
+  `rationale: not_required`;
+- review task с `Journal trace: always` всегда использует `rationale: required`.
+
+`version: 1` остаётся legacy-compatible и не ретрофитится.
 
 `policies.cloud_regen`:
 

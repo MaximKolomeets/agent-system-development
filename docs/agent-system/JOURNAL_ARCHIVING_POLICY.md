@@ -35,7 +35,7 @@ closure facts неизвестны, archiving task пишет `STOP`.
 
 ## Что архивируется
 
-Архивировать можно только finalized RESULT, которые:
+Архивировать можно только finalized пары RESULT + связанный RATIONALE, которые:
 
 - относятся к закрытому release epoch;
 - имеют PR URL или explicit no-PR terminal state;
@@ -62,6 +62,8 @@ docs/agent-system/engine-journal/archive/vX.Y.Z/
 ```text
 docs/agent-system/engine-journal/output/RESULT-0150-EXAMPLE.md
 docs/agent-system/engine-journal/archive/vX.Y.Z/RESULT-0150-EXAMPLE.md
+docs/agent-system/engine-journal/rationale/RATIONALE-0150-EXAMPLE.md
+docs/agent-system/engine-journal/archive/vX.Y.Z/RATIONALE-0150-EXAMPLE.md
 ```
 
 Archive PR должен также создать:
@@ -143,7 +145,7 @@ Archive task должна остановиться, если:
 
 Archive считается корректным, если:
 
-- archived RESULT доступны в `engine-journal/archive/vX.Y.Z/`;
+- archived RESULT и связанные RATIONALE доступны в `engine-journal/archive/vX.Y.Z/`; orphan RESULT или RATIONALE запрещены;
 - archive index содержит seq range, PR links и safe summary;
 - active `INDEX.md` содержит epoch summary и ссылку на archive index;
 - cloud bundle не содержит archive files;

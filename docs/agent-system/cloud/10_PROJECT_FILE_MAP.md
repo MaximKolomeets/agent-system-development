@@ -184,13 +184,14 @@ Target files generated or written from source/templates. Эти пути НЕ я
 
 ## journal
 
-Engine journal scaffold and active operational history. Target repository получает структуру/шаблоны, но не копирует operational rows или TASK/RESULT history methodology repository.
+Engine journal scaffold and active operational history. Target repository получает структуру/шаблоны, но не копирует operational rows или TASK/RATIONALE/RESULT history methodology repository.
 
 | path | description from manifest |
 | --- | --- |
 | `docs/agent-system/engine-journal/README.md` |  |
 | `docs/agent-system/engine-journal/INDEX.md` |  |
 | `docs/agent-system/engine-journal/input/**` |  |
+| `docs/agent-system/engine-journal/rationale/**` |  |
 | `docs/agent-system/engine-journal/output/**` |  |
 | `docs/agent-system/engine-journal/templates/**` |  |
 
