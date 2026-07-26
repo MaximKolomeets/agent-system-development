@@ -4,9 +4,9 @@ AUTO-GENERATED — не править руками; регенерироват�
 
 ## Freshness
 
-- asof: `2026-07-26T17:14:08+07:00`
-- developer_head_sha: `9b3330708febedbb69e91444a877c9df740fa8f3`
-- file_count_including_readme: `26`
+- asof: `2026-07-26T21:31:57+07:00`
+- developer_head_sha: `617d9b28757fa39dd9ebf5c9d9986f5930f3c895`
+- file_count_including_readme: `27`
 
 ## Контракт
 
@@ -47,6 +47,7 @@ AUTO-GENERATED — не править руками; регенерироват�
 | `23` | `23_METRICS.md` | `docs/agent-system/METRICS.md` | `source` |
 | `24` | `24_METHODOLOGY_MAP.md` | `docs/agent-system/METHODOLOGY_MAP.md` | `source` |
 | `25` | `25_POLICY_INVARIANTS.md` | `docs/agent-system/POLICY_INVARIANTS.md` | `source` |
+| `26` | `26_EXECUTION_CONTINUATION_POLICY.md` | `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md` | `source` |
 
 ## Частичная загрузка
 
