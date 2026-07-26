@@ -5,9 +5,9 @@
 Идентификатор задачи: METH-EXECUTION-CONTINUATION-POLICY-01
 Номер sequence: 0166
 execution_started_at: 2026-07-26T17:38:11+02:00
-execution_finished_at: 2026-07-26T18:53:47.5860010+02:00
-execution_duration: PT1H15M36S
-time_spent: 1h 15m
+execution_finished_at: 2026-07-26T19:13:37.5098833+02:00
+execution_duration: PT1H35M26S
+time_spent: 1h 35m
 actor_type: agent
 role: methodology-architect-01
 time_source: measured
@@ -36,11 +36,17 @@ Docker unittest: `Ran 22 tests` — `OK`.
 ## Source Delta
 Base `origin/developer`: `617d9b28757fa39dd9ebf5c9d9986f5930f3c895`.
 Время рассчитано как разность measured `execution_started_at`
-`2026-07-26T17:38:11+02:00` и завершения journal finalization после создания PR
-`2026-07-26T18:53:47.5860010+02:00`.
+`2026-07-26T17:38:11+02:00` и завершения review fix-pass
+`2026-07-26T19:13:37.5098833+02:00`.
+
+Source-reminder: Обновить Source-снапшот у зарегистрированных потребителей:
+согласно `docs/agent-system/SOURCE_CONSUMERS.md`; в upstream-репозитории реальные
+потребители не перечисляются.
 ## Methodology feedback
 нет
 ## Unprompted Project Proposals
 нет
 ## Передача
-Следующий: reviewer — проверить scope guards.
+Следующий: reviewer — проверить scope guards и Source-reminder. Обновить
+Source-снапшот у зарегистрированных потребителей: согласно
+`docs/agent-system/SOURCE_CONSUMERS.md`.

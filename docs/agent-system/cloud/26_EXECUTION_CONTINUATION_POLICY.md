@@ -32,8 +32,13 @@ Continuation разрешён только одновременно при сл�
    exact permitted dirty paths и незавершённый шаг.
 3. `git status --short` содержит только заранее перечисленные paths; каждый path
    находится в allowed scope исходной задачи.
-4. Нет неизвестных, untracked или forbidden files, private data, destructive Git
-   actions, protected-branch changes или расширения scope.
+4. Untracked-файл допустим только как заранее перечисленный expected dirty scope:
+   он назван в continuation handoff/prompt, входит в allowed scope исходной
+   задачи, имеет понятные происхождение и назначение, не является private,
+   secret или forbidden. Неизвестные либо не перечисленные untracked-файлы
+   означают `STOP`.
+5. Нет unknown files, private data, destructive Git actions, protected-branch
+   changes или расширения scope.
 
 Без любого условия — `STOP`.
 
