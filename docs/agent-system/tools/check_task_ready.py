@@ -8,9 +8,11 @@ import json
 import re
 import subprocess
 import sys
+from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime
 from pathlib import Path
+from typing import Iterator
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -215,7 +217,46 @@ class ReadyReport:
         return data
 
 
+class GitCommandCache:
+    """Кэширует неизменяемые результаты одинаковых Git-запросов одного gate-запуска."""
+
+    def __init__(self) -> None:
+        self._results: dict[tuple[str, ...], subprocess.CompletedProcess[str]] = {}
+
+    def run(self, args: list[str]) -> subprocess.CompletedProcess[str]:
+        key = tuple(args)
+        if key not in self._results:
+            self._results[key] = subprocess.run(
+                ["git", *args],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+        return self._results[key]
+
+
+_active_git_cache: GitCommandCache | None = None
+
+
+@contextmanager
+def git_cache_session() -> Iterator[None]:
+    """Ограничивает кэш единственным запуском aggregate gate."""
+
+    global _active_git_cache
+    previous_cache = _active_git_cache
+    _active_git_cache = GitCommandCache()
+    try:
+        yield
+    finally:
+        _active_git_cache = previous_cache
+
+
 def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
+    if _active_git_cache is not None:
+        return _active_git_cache.run(args)
     return subprocess.run(
         ["git", *args],
         cwd=ROOT,
@@ -225,6 +266,12 @@ def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
         encoding="utf-8",
         errors="replace",
     )
+
+
+def progress(stage: str) -> None:
+    """Пишет наблюдаемый этап только в stderr, сохраняя JSON stdout чистым."""
+
+    print(f"check_task_ready: {stage}", file=sys.stderr, flush=True)
 
 
 def run_command(args: list[str], name: str) -> CommandResult:
@@ -1111,23 +1158,34 @@ def build_report(
     commit_message_cutoff_ref: str = "",
 ) -> ReadyReport:
     report = ReadyReport(base=base)
-    add_repository_guard(report)
-    if not report.repo_root:
-        return report
-    if release_boundary:
-        if report.branch == "developer" and base == "origin/main":
-            report.release_boundary_mode = True
-        else:
-            report.blockers.append("release boundary mode supports only developer -> origin/main")
-    add_changed_files(report)
-    add_diff_checks(report)
-    add_commit_message_checks(report, commit_message_cutoff_ref)
-    add_id_reference_checks(report)
-    add_policy_invariant_checks(report)
-    add_journal_triplet_checks(report)
-    add_generated_checks(report)
-    add_safety_scans(report)
-    add_russian_first_lint(report)
+    with git_cache_session():
+        progress("проверка репозитория")
+        add_repository_guard(report)
+        if not report.repo_root:
+            return report
+        if release_boundary:
+            if report.branch == "developer" and base == "origin/main":
+                report.release_boundary_mode = True
+            else:
+                report.blockers.append("release boundary mode supports only developer -> origin/main")
+        progress("сбор изменённых файлов")
+        add_changed_files(report)
+        progress("проверка diff")
+        add_diff_checks(report)
+        progress("проверка сообщений commit")
+        add_commit_message_checks(report, commit_message_cutoff_ref)
+        progress("проверка ID-ссылок")
+        add_id_reference_checks(report)
+        progress("проверка policy invariants")
+        add_policy_invariant_checks(report)
+        progress("проверка journal triplet")
+        add_journal_triplet_checks(report)
+        progress("проверка generated-артефактов")
+        add_generated_checks(report)
+        progress("safety scans")
+        add_safety_scans(report)
+        progress("Russian-first lint")
+        add_russian_first_lint(report)
     return report
 
 
