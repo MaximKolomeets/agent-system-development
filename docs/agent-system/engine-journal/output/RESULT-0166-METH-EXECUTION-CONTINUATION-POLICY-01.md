@@ -5,9 +5,9 @@
 Идентификатор задачи: METH-EXECUTION-CONTINUATION-POLICY-01
 Номер sequence: 0166
 execution_started_at: 2026-07-26T17:38:11+02:00
-execution_finished_at: 2026-07-26T18:38:33.3586668+02:00
-execution_duration: PT1H0M22S
-time_spent: 1h 0m
+execution_finished_at: 2026-07-26T18:53:47.5860010+02:00
+execution_duration: PT1H15M36S
+time_spent: 1h 15m
 actor_type: agent
 role: methodology-architect-01
 time_source: measured
@@ -21,7 +21,7 @@ total_task_cost: 0
 resource_cost: 0
 Branch: `work/methodology-architect-01/meth-execution-continuation-policy-01`
 Статус финализации: ready_for_review.
-PR URL: будет добавлен отдельным finalization pass после публикации рабочей ветки.
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/345
 raw_chain_of_thought_stored: no
 ## Выполнено
 Добавлены canonical policy continuation, точечные ссылки и policy-файл в
@@ -36,8 +36,8 @@ Docker unittest: `Ran 22 tests` — `OK`.
 ## Source Delta
 Base `origin/developer`: `617d9b28757fa39dd9ebf5c9d9986f5930f3c895`.
 Время рассчитано как разность measured `execution_started_at`
-`2026-07-26T17:38:11+02:00` и окончания итогового readiness
-`2026-07-26T18:38:33.3586668+02:00`.
+`2026-07-26T17:38:11+02:00` и завершения journal finalization после создания PR
+`2026-07-26T18:53:47.5860010+02:00`.
 ## Methodology feedback
 нет
 ## Unprompted Project Proposals
