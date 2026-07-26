@@ -6,7 +6,7 @@ task_contract:
   task_id: METH-READY-GATE-PERFORMANCE-01
   role: dev-implementer-01
   mode: agent
-  execution_mode: docker_first
+  execution_mode: local_only
   reasoning_effort: high
   repository:
     full_name: MaximKolomeets/agent-system-development
