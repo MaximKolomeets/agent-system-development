@@ -102,5 +102,9 @@ TASK/RATIONALE/RESULT triplet, иначе он конфликтует с обя�
 
 ## Передача
 
+Следующий: reviewer — проверить terminal execution policy и evidence readiness.
+Обновить Source-снапшот у зарегистрированных потребителей: согласно
+`docs/agent-system/SOURCE_CONSUMERS.md`.
+
 Следующий: владелец integration baseline — при следующем scoped изменении
 использовать terminal execution policy из `developer`.
