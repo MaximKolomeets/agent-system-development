@@ -203,6 +203,9 @@ Legacy RESULT остаются advisory и не ретрофитятся.
 - внутренние sub-branches: `work/<role>/<task-id>/*`, только если нужны исполнителю (engine) и только внутри той же задачи;
 - один substantive task = один итоговый PR в `developer`;
 - engine владеет task branch до `architect_ready` / `human_merge_allowed`, сам выполняет микрошаги, внутренние merge sub-branches, checks и исправление review feedback, пока не сработали STOP-условия;
+- для file-changing задачи terminal execution, adaptive scope и настоящий STOP
+  определяются `EXECUTION_CONTINUATION_POLICY.md`; recoverable scoped failure
+  engine исправляет в той же task branch до `ready_for_human_review`;
 - reviewer проверяет итоговый PR и оставляет comments/blockers; отдельный PR для feedback reviewer не создаёт без явного решения пользователя;
 - post-merge closure PR после обычного work PR запрещён как default: ordinary PR закрывается на `architect_ready` / `human_merge_allowed`, GitHub PR metadata является source of truth для merge facts, а boundary reconciliation откладывается до release/audit boundary или explicit architect request.
 
@@ -339,7 +342,7 @@ Orchestrator context handoff».
 
 ## Проверка полноты copy/paste
 
-- [ ] This TASK/Engine block can be executed without reading surrounding chat text.
+- [ ] Этот TASK/Engine block можно выполнить без чтения окружающего chat text.
 - [ ] Рекомендуемый режим исполнения is included (роль / исполнитель «на усмотрение архитектора» / reasoning effort / запуск / режим / почему); имён инструментов/моделей в шаблоне нет.
 - [ ] Execution accounting included: TASK содержит `execution_started_at`,
   `orchestration_time_reported`, `actor_type`, `role`, `time_source`,
@@ -350,17 +353,17 @@ Orchestrator context handoff».
 - [ ] Source-reminder учтён: при изменении методологии/канонов RESULT и «Передача» содержат «Обновить Source-снапшот у зарегистрированных потребителей: …» (`docs/agent-system/SOURCE_CONSUMERS.md`); иначе явно «не применимо» — канон `TASK_HEADER_COMMON` → «Source-reminder».
 - [ ] Source Delta включён в final report и RESULT: таблица по всем затронутым файлам, категории взяты из `ADOPTION_TRANSFER_MANIFEST.yml`, Source-рекомендации и manifest flag заполнены; add/delete/rename inventory-файлов без manifest update → STOP.
 - [ ] Orchestrator context handoff включён в final report и RESULT: per-task список построен из Source Delta, freshness stamp (`asof`, `developer_head_sha`) заполнен.
-- [ ] Verified baseline is included or explicitly marked as not applicable.
-- [ ] Repository/base branch/working branch are included.
-- [ ] Allowed files are included.
-- [ ] Forbidden files are included.
+- [ ] Verified baseline включён или явно помечен как not applicable.
+- [ ] Repository/base branch/working branch указаны.
+- [ ] Allowed files указаны.
+- [ ] Forbidden files указаны.
 - [ ] Semantic completeness checklist выполнен по `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md`: RESULT/PR body/state docs/boundary docs согласованы с diff и фактически выполненными checks.
 - [ ] Если задача создаёт acceptance spec, blocker matrix, fixture plan, contract tests или generator scaffold, применён `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md`.
 - [ ] Finalized TASK/RESULT/INDEX соблюдают `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md`.
 - [ ] Checks are included.
-- [ ] STOP conditions are included.
-- [ ] Final report requirements are included.
-- [ ] No required execution context exists only in surrounding chat.
+- [ ] STOP conditions указаны.
+- [ ] Требования к final report указаны.
+- [ ] Обязательный execution context не находится только в окружающем chat.
 - [ ] Перед sync/checkout/switch/pull/merge/rebase: repository root, remote, текущая ветка и `git status --short` проверены; dirty tree → STOP (канон: `docs/agent-system/BRANCH_POLICY.md` → «Repository sync / checkout guard»).
 - [ ] Перед commit: `git rev-parse --abbrev-ref HEAD` == work-ветка задачи; если `developer`/`main` → STOP (канон: `docs/agent-system/BRANCH_POLICY.md` → «Pre-commit branch guard»).
 
@@ -368,6 +371,6 @@ Orchestrator context handoff».
 
 Project mission:
 Current strategic goal:
-Scope impact: <No scope expansion | Minor scope expansion | Major scope expansion>
-Decision level: <Level 1 | Level 2 | Level 3 | Level 4>
-Requires explicit user approval: <yes/no>
+Влияние на scope: <без расширения | малое расширение | существенное расширение>
+Уровень решения: <уровень 1 | уровень 2 | уровень 3 | уровень 4>
+Требуется явное одобрение пользователя: <да/нет>

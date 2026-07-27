@@ -144,6 +144,10 @@ Fix-pass не расширяет scope, не добавляет unrelated refact
 
 `ACT` означает bounded действие внутри текущего allowed scope с последующим report. `STOP` означает не выполнять изменение и запросить решение архитектора.
 
+Для file-changing задач terminal outcome и adaptive scope определяются только
+`EXECUTION_CONTINUATION_POLICY.md`: recoverable scoped failure требует `ACT`, а
+не перенос в backlog или следующую задачу.
+
 ## Decision cache
 
 Повторяющиеся решения не спрашивать заново, если они уже зафиксированы в methodology и текущая ситуация совпадает с каноном.

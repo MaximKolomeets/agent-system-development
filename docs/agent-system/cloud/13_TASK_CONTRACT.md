@@ -10,6 +10,11 @@ Prose остаётся обязательным для человека: цел�
 
 Для file-changing задач prose и checks должны ссылаться на `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: task ready только при Definition of Ready, проверяемых acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass policy. Missing acceptance criteria является STOP, кроме простых консультационных задач без write-action.
 
+Для file-changing задач terminal execution регулируется
+`docs/agent-system/EXECUTION_CONTINUATION_POLICY.md`: task_contract фиксирует
+scope/checks/STOP, а engine доводит безопасные scoped failures до terminal state,
+не добавляя нового schema field или не ослабляя validators.
+
 Для file-changing задач prose/RESULT должны ссылаться на
 `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
 `docs/agent-system/COST_TRACKING_POLICY.md`: новые finalized RESULT без required
