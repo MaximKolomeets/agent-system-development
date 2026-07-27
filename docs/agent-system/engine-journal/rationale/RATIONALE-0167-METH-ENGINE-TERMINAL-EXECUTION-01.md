@@ -71,4 +71,10 @@ task branch workflow.
 
 ## Изменения после review
 
-Нет.
+- allowlist `task_contract.scope.allowed_files` сохранён жёсткой границей:
+  adaptive chain определяет необходимые paths, но не добавляет их без
+  обновлённого self-contained task contract или явного scope amendment;
+- `ready_for_human_review` требует успешных обязательных local checks и CI для
+  final SHA;
+- исчерпание `max_review_cycles` передаёт PR человеку по канону
+  `REVIEW_AUTOLOOP.md`, не допуская бесконечный fix-pass.

@@ -38,12 +38,14 @@ adaptive scope и настоящего STOP. Связанные каноны п�
 
 ## Проверки
 
+Финальный policy fix-pass: `76047b8b491facd729855f83e7783a224bff9ceb`.
 `validate_task_contract.py` — valid; `validate_journal_triplet.py` — passed;
 `validate_policy_invariants.py` — valid; Docker unittest: `Ran 22 tests` — `OK`.
 `gen_file_map.py --check`, `gen_cloud_bundle.py --check` и Russian-first lint
-прошли. Для commit `a6342933fe2ba750dfda56b92d66ba6f90ce6076` GitHub Actions
-`Methodology checks` и `Forbidden files check` завершились успешно; повторный
-readiness выполняется перед fix-pass commit.
+прошли. Полный `check_task_ready.py --base origin/developer --json` завершился
+за 3m 48s с `result: ready`, `blockers_count: 0`, `warnings_count: 0`.
+GitHub Actions именно для SHA `76047b8b491facd729855f83e7783a224bff9ceb`:
+`Methodology checks` — success; `Forbidden files check` — success.
 
 ## Source Delta
 
