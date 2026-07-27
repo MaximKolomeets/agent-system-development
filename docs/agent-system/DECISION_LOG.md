@@ -1,5 +1,24 @@
 # DECISION_LOG
 
+## 2026-07-27 — Terminal execution обязателен для file-changing Engine-задач
+
+### Контекст
+Agent-owned branch и continuation safeguards уже определяют, где безопасно
+работать, но не задают единый terminal outcome для преодолимых checks/generation/
+review failures и настоящего human-required STOP.
+
+### Решение
+`EXECUTION_CONTINUATION_POLICY.md` становится authoritative canon terminal
+execution. File-changing задача завершается `ready_for_human_review` с PR/CI
+evidence либо `stopped_human_required` с доказанным безопасным blocker. Engine
+сам выполняет bounded scoped fix-pass; adaptive scope допускает только доказуемую
+техническую цепочку от source canon до generated artifacts, validator и journal.
+
+### Последствия
+Нельзя заменять безопасное scoped исправление backlog или следующей задачей.
+Terminal execution не ослабляет clean-tree/continuation, branch guards,
+validators, CI, security controls, human merge и protected-branch boundaries.
+
 ## 2026-07-26 — Continuation требует проверяемый expected dirty scope
 
 ### Контекст

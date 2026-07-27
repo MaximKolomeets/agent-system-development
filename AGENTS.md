@@ -25,7 +25,7 @@
 - Одна substantive task = одна основная task branch `work/<role>/<task>` и один итоговый PR в `developer`; внутренние sub-branches допустимы только как временные ветки внутри `work/<role>/<task>/*` и сливаются обратно в основную task branch до финального PR.
 - Каждый агент работает только в своем namespace веток. Запрещено пушить, менять, force-пушить или удалять ветку другого агента; передача работы — только через merged PR в `developer`, не через правку чужих веток (канон: `docs/agent-system/BRANCH_POLICY.md` → «Изоляция веток агентов»).
 - Рабочие ветки создаются от актуальной `developer` в формате `work/<role>/<task>`.
-- Engine владеет своей task branch до состояния `ready_for_merge`: выполняет правки, внутренние проверки, учет review feedback и финализацию отчета без запроса подтверждения после каждого микрошагa, пока не сработали STOP-условия.
+- Engine владеет своей task branch до terminal state по `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md`: самостоятельно выполняет правки, проверки, review feedback, journal finalization, PR и CI без запроса подтверждения после каждого микрошагa, пока не сработали настоящий STOP-условия.
 - После bootstrap `developer` принимает изменения только через итоговый PR из основной `work/<role>/<task>`, кроме отдельного решения пользователя.
 - Каждый агент использует свой GitHub TOKEN.
 - В solo/operator lightweight mode агент может быть logical role внутри пользовательского окружения; отдельный token per role является recommended hardening, но не blocker для docs-only локальной задачи, если пользователь явно разрешил выполнение и все изменения идут через PR.
