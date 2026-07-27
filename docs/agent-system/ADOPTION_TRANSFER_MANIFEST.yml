@@ -72,7 +72,8 @@ scope:
 orchestrator_context_bundle:
   source_canon: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md#architect-orchestrator-context-handoff
   generated_dir: docs/agent-system/cloud
-  max_files: 26
+  # Лимит включает generated cloud/00_README.md: при 27 допустимы 26 source-файлов manifest.
+  max_files: 27
   files:
     - path: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       cloud_flatname: ORCHESTRATOR_OPERATING_CONTRACT.md
@@ -124,6 +125,8 @@ orchestrator_context_bundle:
       cloud_flatname: METHODOLOGY_MAP.md
     - path: docs/agent-system/POLICY_INVARIANTS.md
       cloud_flatname: POLICY_INVARIANTS.md
+    - path: docs/agent-system/EXECUTION_CONTINUATION_POLICY.md
+      cloud_flatname: EXECUTION_CONTINUATION_POLICY.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -161,6 +164,7 @@ categories:
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
+      - docs/agent-system/EXECUTION_CONTINUATION_POLICY.md
       - docs/agent-system/ERROR_CATALOG_PATTERN.md
       - docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md
       - docs/agent-system/FILE_COMMENTING_STANDARD.md

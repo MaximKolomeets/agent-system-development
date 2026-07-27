@@ -24,6 +24,11 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Перед формированием file-changing task оркестратор применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: включает Definition of Ready, проверяемые acceptance criteria, self-review before PR, PR body quality check, expected reviewer mode и blocker-ID based fix-pass.
 
+Если prompt является continuation, он обязан явно содержать task ID, branch,
+expected HEAD или PR relation, exact permitted dirty paths и незавершённый шаг.
+При отсутствии любого из этих данных оркестратор обязан выдать `STOP`, а не считать
+dirty tree допустимым; канон — `EXECUTION_CONTINUATION_POLICY.md`.
+
 Новые блоки для исполнителя (engine), которые меняют repository files, создают PR или описывают substantive/tooling/docs-only/review/fix-pass/release/adoption task, должны включать fenced YAML block `task_contract` по `docs/agent-system/TASK_CONTRACT.md`. В нём явно фиксируются mode, execution_mode, repository, working_branch, allowed_files, forbidden_files, policies, required checks и STOP conditions. Маленькая Fast Lane проверка без write-action, PR и journal trace может идти без `task_contract`.
 
 Если `task_contract` присутствует, он является source of truth для mode/scope/checks/STOP, а prose остаётся human explanation. Если contract и prose конфликтуют, orchestrator должен направить engine на `STOP` и запрос решения архитектора, а не выбирать одну из версий молча.
@@ -87,7 +92,7 @@ File-changing engine-блоки должны требовать accounting-по�
   - sync PR status, если применимо;
   - latest known merge commit SHA, если доступен;
   - open PR state, если relevant;
-  - verification source: GitHub connector / local git / user-provided;
+   - источник проверки: GitHub connector / local git / данные пользователя;
   - verification date/time;
 - команды предварительной проверки;
 - разрешенные файлы;

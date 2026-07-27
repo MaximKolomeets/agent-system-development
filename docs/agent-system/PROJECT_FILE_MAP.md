@@ -41,6 +41,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/ENGINE_ENTRYPOINT.md` |  |
 | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` |  |
 | `docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md` |  |
+| `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md` |  |
 | `docs/agent-system/ERROR_CATALOG_PATTERN.md` |  |
 | `docs/agent-system/EXTERNAL_REVIEW_LEDGER_PATTERN.md` |  |
 | `docs/agent-system/FILE_COMMENTING_STANDARD.md` |  |
