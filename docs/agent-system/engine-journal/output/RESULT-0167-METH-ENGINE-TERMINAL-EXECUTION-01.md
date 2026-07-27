@@ -5,9 +5,9 @@
 Идентификатор задачи: METH-ENGINE-TERMINAL-EXECUTION-01
 Номер sequence: 0167
 execution_started_at: 2026-07-27T10:53:20.5182472+02:00
-execution_finished_at: 2026-07-27T11:19:17.6340299+02:00
-execution_duration: PT0H25M57S
-time_spent: 0h 25m
+execution_finished_at: 2026-07-27T11:28:56.6771564+02:00
+execution_duration: PT0H35M36S
+time_spent: 0h 35m
 actor_type: agent
 role: methodology-architect-01
 time_source: measured
@@ -31,19 +31,26 @@ adaptive scope и настоящего STOP. Связанные каноны п�
 дублирования алгоритма; `DECISION_LOG.md`, CURRENT_STATE и NEXT_STEPS обновлены
 только фактами этой задачи.
 
+После review исправлены три machine-verifiable несогласованности: allowlist
+`task_contract` остаётся жёсткой границей adaptive scope, `ready_for_human_review`
+требует успешных обязательных checks и CI final SHA, а исчерпание
+`max_review_cycles` передаёт PR человеку по канону `REVIEW_AUTOLOOP.md`.
+
 ## Проверки
 
 `validate_task_contract.py` — valid; `validate_journal_triplet.py` — passed;
 `validate_policy_invariants.py` — valid; Docker unittest: `Ran 22 tests` — `OK`.
 `gen_file_map.py --check`, `gen_cloud_bundle.py --check` и Russian-first lint
-прошли. Итоговый readiness выполняется перед commit.
+прошли. Для commit `a6342933fe2ba750dfda56b92d66ba6f90ce6076` GitHub Actions
+`Methodology checks` и `Forbidden files check` завершились успешно; повторный
+readiness выполняется перед fix-pass commit.
 
 ## Source Delta
 
 Base `origin/developer`: `afe34debd93d2eae8f9c498959f602d2d664416e`.
 Время рассчитано как разность measured `execution_started_at`
-`2026-07-27T10:53:20.5182472+02:00` и создания PR
-`2026-07-27T11:19:17.6340299+02:00`.
+`2026-07-27T10:53:20.5182472+02:00` и завершения review fix-pass
+`2026-07-27T11:28:56.6771564+02:00`.
 
 | Пути | Категория | Причина |
 | --- | --- | --- |

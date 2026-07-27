@@ -60,7 +60,7 @@ file-changing Engine-задач. Каждая такая задача закан
 состоянием:
 
 - `ready_for_human_review`: PR опубликован, readiness успешен, обязательные
-  checks и CI для final SHA прошли либо их итог честно зафиксирован;
+  checks и CI для final SHA успешно завершены;
 - `stopped_human_required`: безопасное завершение объективно требует решения
   человека.
 
@@ -85,21 +85,26 @@ branch/scope/protected-branch safeguards; минимальное обратим�
 
 ## Adaptive scope
 
-Для заранее доказуемой технической цепочки Engine может добавить минимально
+Для заранее доказуемой технической цепочки Engine определяет минимально
 необходимые paths: source canon → registry/order/manifest/limit → generated
-artifacts → validator/unit test → journal/result. Это допустимо, только если
-изменение не меняет архитектурное или продуктовое решение, не ослабляет validator,
-security, CI или branch guard, а каждый путь и обоснование отражены в RESULT/PR;
-после правки выполняются все применимые checks.
+artifacts → validator/unit test → journal/result. Такая цепочка не расширяет
+`task_contract.scope.allowed_files`: до правки отсутствующего path требуется
+обновлённый self-contained task contract или явное scope amendment владельца.
+После подтверждения новый path и обоснование отражаются в RESULT/PR; изменение не
+должно менять архитектурное или продуктовое решение либо ослаблять validator,
+security, CI или branch guard, а затем выполняются все применимые checks.
 
 ## Настоящий STOP и граница автономности
 
 `STOP` допустим только при новом архитектурном, финансовом, продуктовом или
-governance решении без однозначного безопасного выбора; path вне adaptive scope;
-destructive Git/data action; protected branch; secrets/private data; недоступной
-после разумных повторных попыток внешней зависимости; либо действительном
-противоречии требований. STOP report обязан назвать причину, evidence,
-команды/ошибку, минимальный безопасный вариант продолжения и точные extra paths.
+governance решении без однозначного безопасного выбора; path вне allowlist без
+обновлённого task contract или явного scope amendment; destructive Git/data action;
+protected branch; secrets/private data; недоступной после разумных повторных попыток
+внешней зависимости; действительном противоречии требований; либо исчерпании
+`max_review_cycles` по `REVIEW_AUTOLOOP.md`. В последнем случае Engine передаёт PR
+человеку в каноническом статусе autoloop, не выполняя бесконечные fix-pass. STOP
+report обязан назвать причину, evidence, команды/ошибку, минимальный безопасный
+вариант продолжения и точные extra paths.
 
 Terminal execution не разрешает менять `main`/`developer`, ослаблять CI,
 validators, checks или security controls, менять release/version policy, исключать
