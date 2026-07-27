@@ -53,6 +53,26 @@ baseline ветки `developer`.
 GitHub Actions именно для SHA `76047b8b491facd729855f83e7783a224bff9ceb`:
 `Methodology checks` — success; `Forbidden files check` — success.
 
+## Validator fix-pass после merge closure
+
+PR #347 выявил, что изменённый RESULT уже существующей тройки ошибочно
+учитывался как новая sequence. Исправление обобщённо отличает запись, которая
+уже есть в baseline, от действительно новой sequence: существующая тройка
+проверяется целиком по ожидаемым TASK/RATIONALE/RESULT и INDEX-ссылкам, но не
+участвует в расчёте следующего sequence. Поэтому `--base` не скрывает legacy
+RESULT: точный запуск без `--base` включает его в `checked_paths` и сохраняет
+coverage identity, artifacts и INDEX.
+
+Docker unittest: `Ran 26 tests` — `OK`; `validate_journal_triplet.py --json`
+без `--base` — passed, `checked_paths` содержит RESULT-0167,
+`new_entries_count: 0`. Добавлены регрессии post-merge RESULT, отсутствующего
+artifact, изменённой INDEX-ссылки и incomplete новой тройки.
+
+Учёт времени closure fix-pass: начало — GitHub `created_at` PR #347
+`2026-07-27T11:09:03Z`; окончание локальной валидации
+`2026-07-27T12:51:49.7198522Z`; фактическая длительность `PT1H42M47S`
+(`1h 42m`). Источник: GitHub metadata PR и измеренный локальный timestamp.
+
 ## Source Delta
 
 Base `origin/developer`: `afe34debd93d2eae8f9c498959f602d2d664416e`.

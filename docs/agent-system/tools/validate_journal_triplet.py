@@ -103,6 +103,14 @@ def add(report: Report, path: str, code: str) -> None:
     report.findings.append(Finding(path=path, code=code))
 
 
+def expected_triplet_files(seq: str, task_id: str) -> dict[str, str]:
+    return {
+        "input/TASK": f"{PREFIX}input/TASK-{seq}-{task_id}.md",
+        "rationale/RATIONALE": f"{PREFIX}rationale/RATIONALE-{seq}-{task_id}.md",
+        "output/RESULT": f"{PREFIX}output/RESULT-{seq}-{task_id}.md",
+    }
+
+
 def validate(root: Path, base: str) -> Report:
     report = Report(base=base)
     current_index = root / "docs/agent-system/engine-journal/INDEX.md"
@@ -122,7 +130,6 @@ def validate(root: Path, base: str) -> Report:
         kind, seq, task_id = match.groups()
         candidates.setdefault((seq, task_id), {})[kind] = path
         report.checked_paths.append(path)
-    report.new_entries_count = len(candidates)
     current_text = current_index.read_text(encoding="utf-8", errors="replace")
     for code in validate_index_schema(current_text):
         add(report, f"{PREFIX}INDEX.md", code)
@@ -134,25 +141,39 @@ def validate(root: Path, base: str) -> Report:
         if key in seen_index:
             add(report, f"{PREFIX}INDEX.md", "INDEX_DUPLICATE_SEQUENCE_OR_TASK_ID")
         seen_index.add(key)
-    base_rows = {(row[0], row[1]) for row in index_rows(base_index.stdout) if len(row) == 10 and re.fullmatch(r"\d{4}", row[0])}
+    base_row_map = {
+        (row[0], row[1]): row
+        for row in index_rows(base_index.stdout)
+        if len(row) == 10 and re.fullmatch(r"\d{4}", row[0])
+    }
+    base_rows = set(base_row_map)
+    current_row_map = {
+        (row[0], row[1]): row
+        for row in index_rows(current_text)
+        if len(row) == 10 and re.fullmatch(r"\d{4}", row[0])
+    }
+    for key, row in current_row_map.items():
+        if key in base_rows and row != base_row_map[key]:
+            candidates.setdefault(key, expected_triplet_files(*key))
+    for key in tuple(candidates):
+        if key in base_rows:
+            candidates[key] = expected_triplet_files(*key)
     for row in index_rows(current_text):
         if len(row) != 10 or not re.fullmatch(r"\d{4}", row[0]) or row[4] == "legacy/not_required":
             continue
         seq, task_id = row[:2]
         if (seq, task_id) in base_rows or (seq, task_id) in candidates:
             continue
-        candidates[(seq, task_id)] = {
-            "input/TASK": f"{PREFIX}input/TASK-{seq}-{task_id}.md",
-            "rationale/RATIONALE": f"{PREFIX}rationale/RATIONALE-{seq}-{task_id}.md",
-            "output/RESULT": f"{PREFIX}output/RESULT-{seq}-{task_id}.md",
-        }
+        candidates[(seq, task_id)] = expected_triplet_files(seq, task_id)
         add(report, f"{PREFIX}INDEX.md", "INDEX_ARTIFACTS_MISSING")
+    report.new_entries_count = sum(key not in base_rows for key in candidates)
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
     for (seq, task_id), files in sorted(candidates.items()):
-        if int(seq) != expected:
-            add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
-        expected += 1
+        if (seq, task_id) not in base_rows:
+            if int(seq) != expected:
+                add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+            expected += 1
         required = {"input/TASK", "rationale/RATIONALE", "output/RESULT"}
         if set(files) != required:
             add(report, f"{PREFIX}INDEX.md", "TRIPLET_INCOMPLETE")
