@@ -20,8 +20,12 @@ human_cost_estimate: 0
 total_task_cost: 0
 resource_cost: 0
 Branch: `work/methodology-architect-01/meth-engine-terminal-execution-01`
-Статус финализации: ready_for_human_review.
+Статус финализации: merged.
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/346
+Target branch: `developer`
+Final PR HEAD SHA: `ab7ca12a40783d05bbb62a861fc85146cf038bb1`
+Merge commit SHA: `3688e3deed032adce6acf01da62e4d65cf4944d2`
+merged_at: `2026-07-27T10:55:32Z`
 raw_chain_of_thought_stored: no
 
 ## Выполнено
@@ -35,6 +39,8 @@ adaptive scope и настоящего STOP. Связанные каноны п�
 `task_contract` остаётся жёсткой границей adaptive scope, `ready_for_human_review`
 требует успешных обязательных checks и CI final SHA, а исчерпание
 `max_review_cycles` передаёт PR человеку по канону `REVIEW_AUTOLOOP.md`.
+После human merge PR #346 terminal execution policy входит в integration
+baseline ветки `developer`.
 
 ## Проверки
 
@@ -76,6 +82,5 @@ TASK/RATIONALE/RESULT triplet, иначе он конфликтует с обя�
 
 ## Передача
 
-Следующий: reviewer — проверить terminal execution policy и evidence readiness.
-Обновить Source-снапшот у зарегистрированных потребителей: согласно
-`docs/agent-system/SOURCE_CONSUMERS.md`.
+Следующий: владелец integration baseline — при следующем scoped изменении
+использовать terminal execution policy из `developer`.
