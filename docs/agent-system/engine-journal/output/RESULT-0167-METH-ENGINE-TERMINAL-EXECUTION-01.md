@@ -53,6 +53,9 @@ baseline ветки `developer`.
 за 3m 48s с `result: ready`, `blockers_count: 0`, `warnings_count: 0`.
 GitHub Actions именно для SHA `76047b8b491facd729855f83e7783a224bff9ceb`:
 `Methodology checks` — success; `Forbidden files check` — success.
+GitHub Actions именно для final PR HEAD
+`ab7ca12a40783d05bbb62a861fc85146cf038bb1`: `Methodology checks` — success;
+`Forbidden files check` — success.
 
 ## Validator fix-pass после merge closure
 
@@ -109,3 +112,5 @@ TASK/RATIONALE/RESULT triplet, иначе он конфликтует с обя�
 
 Следующий: владелец integration baseline — при следующем scoped изменении
 использовать terminal execution policy из `developer`.
+Source-reminder: обновить Source-снапшот у зарегистрированных потребителей
+согласно `docs/agent-system/SOURCE_CONSUMERS.md`.
