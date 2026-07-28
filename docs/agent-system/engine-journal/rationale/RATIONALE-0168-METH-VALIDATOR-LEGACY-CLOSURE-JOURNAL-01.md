@@ -22,6 +22,11 @@ PR #346 закрепил terminal execution policy и был смержен в `
 теста. Его содержательный validator fix оказался ошибочно описан в RESULT-0167,
 хотя sequence 0167 относится к PR #346.
 
+Эта remediation-задача ведётся в branch
+`work/methodology-architect-01/meth-validator-legacy-closure-journal-01` и
+проверяется PR #349. PR #347 остаётся historical evidence уже выполненного
+validator fix, а не реквизитом создания journal-тройки 0168.
+
 ## Ограничения и инварианты
 
 Journal artifacts append-only: существующие строки RESULT-0167 нельзя удалять
@@ -37,8 +42,9 @@ tests, policy и CI находятся вне scope этой документи�
 
 ## Выбранный путь
 
-Выбран вариант 3: новая полная journal-тройка 0168 документирует PR #347, а
-RESULT-0167 получает только добавочное указание на новую authoritative запись.
+Выбран вариант 3: PR #349 создаёт новую полную journal-тройку 0168 для
+документирования historical payload PR #347, а RESULT-0167 получает только
+добавочное указание на новую authoritative запись.
 
 ## Причины выбора
 
@@ -79,5 +85,6 @@ merge-facts; она устраняет debt на release/promotion boundary.
 
 ## Изменения после review
 
-нет: задача создаётся как прямое устранение единственного P1 finding promotion
-PR #348 и не вносит нового продуктового или методологического решения.
+- После review уточнена identity: branch и PR записи 0168 принадлежат PR #349;
+  PR #347 сохранён исключительно как historical evidence validator fix.
+- Accounting 0168 отделён от historical measured accounting `1h 42m` PR #347.

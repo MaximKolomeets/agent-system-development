@@ -4,10 +4,10 @@
 Связанный RATIONALE file: `docs/agent-system/engine-journal/rationale/RATIONALE-0168-METH-VALIDATOR-LEGACY-CLOSURE-JOURNAL-01.md`
 Идентификатор задачи: METH-VALIDATOR-LEGACY-CLOSURE-JOURNAL-01
 Номер sequence: 0168
-execution_started_at: 2026-07-27T11:09:03Z
-execution_finished_at: 2026-07-27T12:51:49.7198522Z
-execution_duration: PT1H42M47S
-time_spent: 1h 42m
+execution_started_at: 2026-07-28T14:01:54.5027138+02:00
+execution_finished_at: 2026-07-28T19:22:24.7390103+02:00
+execution_duration: PT5H20M30S
+time_spent: 5h 20m
 actor_type: agent
 role: methodology-architect-01
 time_source: mixed
@@ -19,23 +19,43 @@ ai_cost_estimate: 0
 human_cost_estimate: 0
 total_task_cost: 0
 resource_cost: AI tokens: 0; Human hours: 0
-Branch: `work/methodology-architect-01/meth-journal-0167-merge-closure-01`
-Статус финализации: merged.
-PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/347
+Branch: `work/methodology-architect-01/meth-validator-legacy-closure-journal-01`
+Статус финализации: ready_for_human_review.
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/349
 Target branch: `developer`
-Final PR HEAD SHA: `f9fcbe6e438feaee27a0423ed64d28e91fd8c969`
-Merge commit SHA: `86e231f13c2d5ce267520a2bc78e3eb0b969da70`
-merged_at: `2026-07-28T11:40:32Z`
-Статус journal-задачи: merged.
+PR HEAD до identity/accounting fix-pass: `f4f85b7b390c00f6df9c07eddb13f4dc10bb906a`.
+Final PR HEAD фиксируется GitHub для PR #349 и подтверждается self-review
+evidence после push; journal-файл не может достоверно содержать SHA собственного
+создающего его commit без self-referential drift.
+Статус journal-задачи: ready_for_human_review.
 raw_chain_of_thought_stored: no
 
 ## Выполнено
 
-Эта remediation-запись документирует уже выполненный PR #347, а не новую
-реализацию validator logic. PR обобщённо отличил post-merge изменение
+Эта remediation-задача создана PR #349 и документирует уже выполненный PR #347,
+а не новую реализацию validator logic. PR #347 обобщённо отличил post-merge изменение
 существующей полной journal-тройки от действительно новой sequence: legacy
 тройка по-прежнему проверяется целиком по TASK/RATIONALE/RESULT и INDEX links,
 но не участвует в расчёте следующего sequence.
+
+## Реквизиты remediation-задачи 0168 / PR #349
+
+Задача выполняется в branch
+`work/methodology-architect-01/meth-validator-legacy-closure-journal-01`.
+Её PR: https://github.com/MaximKolomeets/agent-system-development/pull/349,
+target branch: `developer`, текущий статус: `ready_for_human_review`.
+Верхние поля `execution_*` и `time_spent` относятся только к работе по созданию
+и review fix-pass этой remediation-задачи; начало взято точно из TASK-0168, а
+окончание — из measured local timestamp завершения final validation pass
+`2026-07-28T19:22:24.7390103+02:00`.
+
+## Историческое evidence PR #347
+
+PR #347 уже merged в `developer`: merge commit
+`86e231f13c2d5ce267520a2bc78e3eb0b969da70`, merged_at
+`2026-07-28T11:40:32Z`, final PR HEAD
+`f9fcbe6e438feaee27a0423ed64d28e91fd8c969`. Эти факты описывают historical
+validator fix и не являются реквизитами задачи 0168.
 
 Фактически изменённые в PR #347 файлы реализации:
 `docs/agent-system/tools/validate_journal_triplet.py` и
@@ -44,7 +64,7 @@ raw_chain_of_thought_stored: no
 и действительно новая incomplete тройка. Эти файлы не изменяются данной
 journal-задачей.
 
-## Проверки и CI исходного PR #347
+## Проверки и CI исторического PR #347
 
 Docker unittest: `Ran 26 tests` — `OK`. `validate_journal_triplet.py --json`
 без `--base` прошёл и включил RESULT-0167 в `checked_paths` с
@@ -53,13 +73,13 @@ Docker unittest: `Ran 26 tests` — `OK`. `validate_journal_triplet.py --json`
 `f9fcbe6e438feaee27a0423ed64d28e91fd8c969`: `Methodology checks` — success;
 `Forbidden files check` — success.
 
-## Учёт времени
+## Исторический учёт времени PR #347
 
-`time_spent: 1h 42m` и `execution_duration: PT1H42M47S` рассчитаны как разность
+Historical `time_spent: 1h 42m` и `execution_duration: PT1H42M47S` рассчитаны как разность
 GitHub `created_at` PR #347 `2026-07-27T11:09:03Z` и измеренного timestamp
 окончания локальной валидации `2026-07-27T12:51:49.7198522Z`. Источник смешанный:
 GitHub metadata и measured local command log. Это фактический учёт уже
-выполненного validator fix, перенесённый из ошибочной атрибуции sequence 0167.
+выполненного validator fix PR #347; он не входит в верхние accounting-поля 0168.
 
 ## Source Delta
 
@@ -70,11 +90,11 @@ GitHub metadata и measured local command log. Это фактический у�
 | `docs/agent-system/engine-journal/output/RESULT-0168-METH-VALIDATOR-LEGACY-CLOSURE-JOURNAL-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/output/RESULT-0167-METH-ENGINE-TERMINAL-EXECUTION-01.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
-| `docs/agent-system/PROJECT_FILE_MAP.md`, `docs/agent-system/cloud/**` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/00_README.md`, `docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
 
 Source-reminder: не применимо (методология не менялась).
 
-Архитектору — загрузить в контекст оркестратора: 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md); asof: 2026-07-28T14:01:54.5027138+02:00; developer_head_sha: 86e231f13c2d5ce267520a2bc78e3eb0b969da70.
+Архитектору — загрузить в контекст оркестратора: 07_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md); asof: 2026-07-28T19:22:24.7390103+02:00; developer_head_sha: 86e231f13c2d5ce267520a2bc78e3eb0b969da70.
 
 ## Methodology feedback
 
@@ -88,5 +108,5 @@ Append-only journal должен предусматривать явную corre
 
 ## Передача
 
-Следующий: reviewer — сверить новую запись 0168 с merge-facts PR #347 и
-append-only уточнением RESULT-0167 перед продолжением promotion PR #348.
+Следующий: reviewer — сверить PR #349, identity/accounting 0168 и historical
+evidence PR #347 перед продолжением promotion PR #348.

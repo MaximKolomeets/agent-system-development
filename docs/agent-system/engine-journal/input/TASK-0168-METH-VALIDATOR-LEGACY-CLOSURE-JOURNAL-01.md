@@ -83,7 +83,8 @@ time_report_confidence: high
 
 - Полная тройка `0168` документирует уже выполненный validator fix PR #347, его
   merge-facts, проверяемые checks, CI и measured accounting `1h 42m`.
-- INDEX содержит единственную строку `0168` со статусом `merged`.
+- INDEX содержит единственную строку `0168`, ведущую на PR #349, со статусом
+  `ready_for_human_review`; PR #347 указан только как historical evidence.
 - RESULT-0167 append-only уточнением оставляет за PR #346 только его исходный
   scope и `0h 35m`; логика validator и её тесты не изменяются.
 - Все обязательные Docker-first checks проходят; readiness возвращает `ready` и
@@ -94,3 +95,10 @@ time_report_confidence: high
 Не изменять validator, tests, policy, CI, Docker, TASK/RATIONALE-0167,
 `developer` или `main`. Не выполнять merge, reset, stash, checkout файлов,
 clean, rebase или force-push.
+
+## Реквизиты remediation-задачи
+
+Основная task branch: `work/methodology-architect-01/meth-validator-legacy-closure-journal-01`.
+PR самой задачи: https://github.com/MaximKolomeets/agent-system-development/pull/349.
+PR #347 является только historical payload/evidence validator fix и не задаёт
+branch, PR или accounting sequence 0168.
