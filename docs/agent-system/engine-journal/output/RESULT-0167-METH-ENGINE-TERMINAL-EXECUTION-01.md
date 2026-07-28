@@ -114,3 +114,15 @@ TASK/RATIONALE/RESULT triplet, иначе он конфликтует с обя�
 использовать terminal execution policy из `developer`.
 Source-reminder: обновить Source-снапшот у зарегистрированных потребителей
 согласно `docs/agent-system/SOURCE_CONSUMERS.md`.
+
+## Append-only уточнение границы sequence 0167
+
+Содержательный validator fix post-merge closure, раздел «Validator fix-pass
+после merge closure» и связанный с ним учёт `1h 42m` относятся к PR #347, а не
+к исходной задаче sequence 0167. Эти исторические строки сохранены без удаления
+по обязательному append-only канону, но их authoritative allocation перенесён в
+`RESULT-0168-METH-VALIDATOR-LEGACY-CLOSURE-JOURNAL-01.md` и строку INDEX 0168.
+Для sequence 0167 authoritative scope остаётся PR #346 terminal execution
+policy с исходным `time_spent: 0h 35m`, merge commit
+`3688e3deed032adce6acf01da62e4d65cf4944d2` и `merged_at`
+`2026-07-27T10:55:32Z`.
