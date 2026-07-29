@@ -20,6 +20,7 @@ Repository visibility: public.
 
 - Governance правила 1-4 закреплены: `main` обновляется только human-merged release PR `developer -> main`, рабочие ветки изолированы в `work/<role>/<task>`, pre-commit branch-guard обязателен, repository sync/checkout guard останавливает работу на dirty tree.
 - Agent-owned task branch workflow закреплен: одна substantive task ведется в основной `work/<role>/<task-id>` branch, внутренние `work/<role>/<task-id>/*` sub-branches допустимы только внутри задачи, а `developer` получает один итоговый PR; review feedback исправляется в той же task branch до `ready_for_merge`.
+- Terminal execution закреплён для file-changing задач: engine доводит scoped работу до `ready_for_human_review` с evidence либо до документированного `stopped_human_required`; recoverable checks/generation/review failures исправляются в той же task branch по `EXECUTION_CONTINUATION_POLICY.md`.
 - Review autoloop закреплён как bounded state-machine для active work PR: reviewer feedback остаётся в PR агента, engine fix-pass идёт в той же task branch, blockers имеют IDs/classes/verification commands, machine-only blockers закрываются machine-check closure, semantic/mixed blockers требуют minimal re-review, цикл ограничен `max_review_cycles`, approve-equivalent даёт `architect:ready-to-merge`, но merge в `developer` остаётся human-only.
 - Quality-first workflow закреплён как pre-PR gate: новые file-changing задачи должны иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review before PR, PR body quality check и blocker-ID based fix-pass по `QUALITY_FIRST_WORKFLOW.md`.
 - Lightweight task readiness gate добавлен как read-only tooling: `docs/agent-system/tools/check_task_ready.py` агрегирует branch guard, changed files summary, `git diff --check`, commit metadata check, ID reference integrity check, superseded banner advisory check, execution timing advisory check, conditional generated parity checks, filename-only sensitive scan, strict added-line secret scan и TASK/RESULT placeholder scan перед push/PR/fix-pass/review-comment. Для release boundary `developer -> origin/main` доступен явный opt-in `--release-boundary`, который снимает только work-branch/protected-branch blockers и сохраняет forbidden paths, sensitive filenames, strict secret scan, deferred placeholder scan, diff checks, ID reference integrity check, superseded banner advisory check, execution timing advisory check и generated checks.
@@ -73,26 +74,22 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-release state после publication/tag `v1.5.3`. Release PR
-#330 был human-merged в `main`, annotated tag `v1.5.3` указывает на release merge
-commit, GitHub Release publication зафиксирована как `not_applicable / tag-only`,
-sync PR #331 human-merged `main -> developer`.
+Текущий фокус: post-release state после human release `developer -> main`,
+annotated tag `v1.5.4` и sync `main -> developer`.
 
 `origin/main` указывает на release merge commit
-`f0c75a965e19b78f9c018c406680b12caaf255c1`; annotated tag `v1.5.3` указывает на
-тот же commit. `origin/developer` указывает на sync merge commit
-`12ead1aa00797f22ad0c674b11bd23c2ba130056`. Latest release tag: `v1.5.3`;
-next planned tag: not selected / TBD.
+`8025495f3ae5eabee6049173014e70c8184f6751`; peeled annotated tag `v1.5.4^{}`
+указывает на тот же commit. Release PR [#342](https://github.com/MaximKolomeets/agent-system-development/pull/342)
+merged `2026-07-26T10:13:16Z` с merge SHA
+`8025495f3ae5eabee6049173014e70c8184f6751`.
 
-Stable methodology reference для downstream/source-update задач: tag `v1.5.3`
-или `origin/main` at
-`f0c75a965e19b78f9c018c406680b12caaf255c1`. `origin/developer` синхронизирован
-после release через PR #331 и не имеет file delta относительно `origin/main`.
+Sync PR [#343](https://github.com/MaximKolomeets/agent-system-development/pull/343)
+merged `2026-07-26T10:14:08Z` с merge SHA
+`9b3330708febedbb69e91444a877c9df740fa8f3`. `origin/developer` не имеет
+file diff относительно `origin/main` после sync.
 
-Payload `v1.5.3` после `v1.5.2` включает rows 0155-0157: PR #326
-self-enforcement hardening, PR #327 target commit-language enforcement и PR #328
-canonical commit-language tool reconcile. Release-prep row 0158 closed после
-human release/sync фактами в row 0159.
+Stable methodology reference для downstream/source-update задач: tag `v1.5.4`
+или `origin/main` at `8025495f3ae5eabee6049173014e70c8184f6751`.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
 `2026-07-04T18:01:52+07:00` через GitHub Rulesets API. `Protect main` и
@@ -101,10 +98,9 @@ rule включён, required status checks в ruleset не заданы. Rulese
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: implementation `METH-RELEASE-ASSISTANT-01` после post-release
-`v1.5.3`. Следующий шаг после merge этого PR: scoped semantic review outcome и
-human merge; затем выбрать следующий methodology-hardening backlog item или
-downstream adoption task.
+Текущий этап: release cycle `v1.5.4` завершён human release/tag/sync фактами.
+Следующий шаг: выбрать отдельную methodology-hardening задачу либо downstream
+adoption/update от stable tag `v1.5.4`.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

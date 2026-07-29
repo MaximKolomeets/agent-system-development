@@ -28,6 +28,9 @@ class TripletWorkflowTests(unittest.TestCase):
         marker="raw_chain_of_thought_stored: no" if raw else ""; required="\n".join(validator.REQUIRED_RATIONALE_SECTIONS) if sections else ""
         self.write(f"{root}/rationale/RATIONALE-{seq}-{task}.md", f"{seq} {task}\n{marker}\n{required}"); self.write(f"{root}/output/RESULT-{seq}-{task}.md", f"{seq} {task}")
     def check(self): self.git("add", "."); self.git("commit", "-m", "head"); return [f.code for f in validator.validate(self.root, self.base).findings]
+    def baseline_triplet(self):
+        self.triplet(); self.index([self.row()]); self.git("add", "."); self.git("commit", "-m", "legacy")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
     def test_valid_complete_triplet(self): self.triplet(); self.index([self.row()]); self.assertEqual([], self.check())
     def test_missing_artifact(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/input/TASK-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
     def test_missing_rationale(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/rationale/RATIONALE-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
@@ -51,3 +54,14 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_missing_required_rationale_section(self): self.triplet(sections=False); self.index([self.row()]); self.assertIn("RATIONALE_REQUIRED_SECTIONS_MISSING", self.check())
     def test_invalid_filename(self): self.write("docs/agent-system/engine-journal/rationale/RATIONALE-bad.md", "x"); self.index([]); self.assertIn("INVALID_JOURNAL_FILENAME", self.check())
     def test_index_only_missing_artifacts(self): self.index([self.row()]); self.assertIn("INDEX_ARTIFACTS_MISSING", self.check())
+    def test_post_merge_result_change_checks_existing_triplet_without_new_sequence(self):
+        self.baseline_triplet(); self.write("docs/agent-system/engine-journal/output/RESULT-0001-METH-TEST-01.md", "0001 METH-TEST-01\nmerged")
+        self.assertEqual([], self.check())
+    def test_existing_triplet_missing_artifact_is_blocking(self):
+        self.baseline_triplet(); (self.root/"docs/agent-system/engine-journal/rationale/RATIONALE-0001-METH-TEST-01.md").unlink()
+        self.assertIn("INDEX_ARTIFACTS_MISSING", self.check())
+    def test_existing_triplet_changed_index_link_is_blocking(self):
+        self.baseline_triplet(); self.index([self.row(rationale="rationale/RATIONALE-0001-WRONG.md")])
+        self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", self.check())
+    def test_new_triplet_without_full_artifacts_is_blocking(self):
+        self.index([self.row(seq="0001")]); self.assertIn("INDEX_ARTIFACTS_MISSING", self.check())

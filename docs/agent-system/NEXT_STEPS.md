@@ -12,8 +12,9 @@
 2. Применить `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: Definition of Ready, проверяемые acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass policy.
 3. Выполнить substantive task в основной `work/<role>/<task>` branch; при необходимости использовать внутренние `work/<role>/<task>/*` sub-branches и слить их обратно до PR.
 4. Перед push/PR запустить `python docs/agent-system/tools/check_task_ready.py --base origin/developer`, затем открыть один итоговый PR в `developer`, провести review по head SHA и фактическому diff, затем исправить feedback в той же task branch до `ready_for_merge`.
-4a. Если feedback требует повторных проходов, использовать review autoloop: blocker IDs/classes, `verification_command`, engine fix-pass в той же branch, machine-check closure для fully passed machine-verifiable blockers, minimal reviewer re-review для semantic/mixed blockers, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
-4b. Если surfaced generated/cloud EOL-only шум, использовать `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift исправлять регенерацией/source fix, EOL/whitespace-only noise закрывать как machine-verifiable evidence или отдельным scoped EOL task.
+4a. Для file-changing задач применять terminal execution по `EXECUTION_CONTINUATION_POLICY.md`: engine исправляет recoverable scoped findings и завершает PR/CI либо документирует единственный настоящий `stopped_human_required`.
+4b. Если feedback требует повторных проходов, использовать review autoloop: blocker IDs/classes, `verification_command`, engine fix-pass в той же branch, machine-check closure для fully passed machine-verifiable blockers, minimal reviewer re-review для semantic/mixed blockers, затем `architect:ready-to-merge` или `automation:stopped-human-required`.
+4c. Если surfaced generated/cloud EOL-only шум, использовать `python docs/agent-system/tools/generated_eol_guard.py --base origin/developer`; content drift исправлять регенерацией/source fix, EOL/whitespace-only noise закрывать как machine-verifiable evidence или отдельным scoped EOL task.
 5. После merge ordinary PR не создавать отдельный closure PR: GitHub PR metadata является source of truth для merge facts, а journal остается завершённым на `architect_ready` / `human_merge_allowed`.
 6. Повторять work/review/merge до завершения текущей серии.
 7. Перед release/audit boundary выполнить boundary reconciliation только если нужен boundary snapshot или есть explicit architect request.
@@ -23,33 +24,28 @@
 
 ## Текущий фокус (Current Focus)
 
-`v1.5.3` опубликован как tag-only release: `origin/main` и remote tag
-`v1.5.3^{}` указывают на release merge commit
-`f0c75a965e19b78f9c018c406680b12caaf255c1`. Sync PR #331 синхронизировал
-`main -> developer`; `origin/developer` указывает на
-`12ead1aa00797f22ad0c674b11bd23c2ba130056`, а `origin/main...origin/developer`
-не имеет file delta.
+`v1.5.4` опубликован как human release с annotated tag: `origin/main` и
+`v1.5.4^{}` указывают на `8025495f3ae5eabee6049173014e70c8184f6751`.
+Release PR #342 merged `2026-07-26T10:13:16Z`; sync PR #343 merged
+`2026-07-26T10:14:08Z`. После sync `origin/main...origin/developer` не имеет
+file delta.
 
-Ближайший рабочий шаг: завершить `METH-RELEASE-GATE-CLEANUP-01`, который закрывает
-review findings PR #333: local-tags precondition для `release_gate.py` и
-warning `READY_GATE_SKIPPED_OFF_DEVELOPER` на work-ветке вместо ready-gate
-blocker. Release-prep/release PR/tag/sync для `v1.5.3` завершены и больше не
-являются текущей очередью.
+Ближайший рабочий шаг: выбрать отдельную methodology-hardening задачу либо
+downstream adoption/update от stable tag `v1.5.4` / `origin/main`.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
 `docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
 `docs/agent-system/RULESET_STATUS.md`.
 
-## Ближайшая очередь после v1.5.3
+## Ближайшая очередь после v1.5.4
 
-1. Завершить scoped review и human merge PR `METH-RELEASE-GATE-CLEANUP-01`.
-2. Выбрать следующий methodology-hardening backlog item или downstream adoption
-   task.
-3. Для новой file-changing methodology task стартовать от актуального
+1. Выбрать отдельный methodology-hardening backlog item или downstream
+   adoption/update.
+2. Для новой file-changing methodology task стартовать от актуального
    `developer` в отдельной `work/<role>/<task>` branch.
-4. Для downstream/source-update задач использовать stable methodology reference:
-   tag `v1.5.3` или `origin/main`, не `developer`/`work/*`.
+3. Для downstream/source-update задач использовать stable methodology reference:
+   tag `v1.5.4` или `origin/main`, не `developer`/`work/*`.
 
 Future queue живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md` оставался списком
 ближайших действий.

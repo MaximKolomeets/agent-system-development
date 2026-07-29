@@ -43,7 +43,7 @@ Task prompt считается ready только если содержит:
 - safety rules;
 - expected reviewer mode;
 - stop conditions;
-- expected final report format.
+- ожидаемый формат final report.
 
 Для задач с `task_contract` prose и contract должны совпадать по mode, scope, checks и STOP. Если conflict найден, engine не выбирает более удобную версию, а пишет `STOP`.
 
@@ -133,7 +133,7 @@ Fix-pass не расширяет scope, не добавляет unrelated refact
 
 | Situation | Action |
 | --- | --- |
-| dirty tree before task | STOP |
+| dirty tree before new task | STOP; continuation — только по `EXECUTION_CONTINUATION_POLICY.md` |
 | file outside allowlist | STOP |
 | generated/cloud drift after source change | ACT, regenerate and report |
 | EOL-only generated noise | ACT only if safe and bounded |
@@ -144,6 +144,10 @@ Fix-pass не расширяет scope, не добавляет unrelated refact
 
 `ACT` означает bounded действие внутри текущего allowed scope с последующим report. `STOP` означает не выполнять изменение и запросить решение архитектора.
 
+Для file-changing задач terminal outcome и adaptive scope определяются только
+`EXECUTION_CONTINUATION_POLICY.md`: recoverable scoped failure требует `ACT`, а
+не перенос в backlog или следующую задачу.
+
 ## Decision cache
 
 Повторяющиеся решения не спрашивать заново, если они уже зафиксированы в methodology и текущая ситуация совпадает с каноном.
@@ -153,10 +157,10 @@ Fix-pass не расширяет scope, не добавляет unrelated refact
 - no ordinary post-merge closure PR;
 - GitHub PR metadata is merge facts source;
 - stable methodology source is main/tag;
-- dirty tree means STOP;
+- dirty tree means STOP для new task; continuation регулируется `EXECUTION_CONTINUATION_POLICY.md`;
 - target adoption starts with detector recommendation;
 - reviewer output should use blocker IDs;
-- release/tag are human-only.
+- release/tag выполняет только человек.
 
 Decision cache не разрешает bypass архитектора для risky operations: force-push/rewrite, destructive cleanup, branch protection changes, runtime/Docker/CI changes, private data access, secrets access или target adoption без stable source.
 
