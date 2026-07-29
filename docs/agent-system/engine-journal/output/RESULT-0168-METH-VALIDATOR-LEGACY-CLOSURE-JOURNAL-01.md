@@ -129,6 +129,10 @@ PR #349 human-merged в target branch `developer`. Merge commit:
 завершение собственной remediation-задачи 0168 и PR #349. Historical evidence
 validator fix PR #347, его scope attribution и accounting не изменяются.
 
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+
 ## Передача
 
 Следующий: reviewer — проверить PR #350 как closure 0168; после human merge
