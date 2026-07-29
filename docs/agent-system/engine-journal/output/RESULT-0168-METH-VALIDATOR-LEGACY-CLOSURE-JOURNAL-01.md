@@ -30,6 +30,11 @@ evidence после push; journal-файл не может достоверно 
 Статус journal-задачи: ready_for_human_review.
 raw_chain_of_thought_stored: no
 
+Статус финализации: merged.
+Статус journal-задачи: merged.
+Предыдущие маркеры `ready_for_human_review` выше являются historical
+pre-merge состоянием PR #349 и не описывают текущую финализацию.
+
 ## Выполнено
 
 Эта remediation-задача создана PR #349 и документирует уже выполненный PR #347,
@@ -44,6 +49,8 @@ raw_chain_of_thought_stored: no
 `work/methodology-architect-01/meth-validator-legacy-closure-journal-01`.
 Её PR: https://github.com/MaximKolomeets/agent-system-development/pull/349,
 target branch: `developer`, текущий статус: `ready_for_human_review`.
+Текущий статус после merge: `merged`; `ready_for_human_review` непосредственно
+выше является historical pre-merge состоянием.
 Верхние поля `execution_*` и `time_spent` относятся только к работе по созданию
 и review fix-pass этой remediation-задачи; начало взято точно из TASK-0168, а
 окончание — из measured local timestamp завершения final validation pass
@@ -110,3 +117,24 @@ Append-only journal должен предусматривать явную corre
 
 Следующий: reviewer — сверить PR #349, identity/accounting 0168 и historical
 evidence PR #347 перед продолжением promotion PR #348.
+
+## Append-only post-merge closure PR #349
+
+PR #349 human-merged в target branch `developer`. Merge commit:
+`606be7b1a201ef9e60e289ab981b0777e0d58157`; merged_at:
+`2026-07-29T06:59:45Z`; final PR HEAD:
+`de8e81f7025048ae033c3127532f9196af28009c`.
+
+Текущий статус journal-задачи 0168: `merged`. Это addendum фиксирует только
+завершение собственной remediation-задачи 0168 и PR #349. Historical evidence
+validator fix PR #347, его scope attribution и accounting не изменяются.
+
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+
+## Передача
+
+Следующий: reviewer — проверить PR #350 как closure 0168; после human merge
+вернуться к promotion PR #348, обновить его описание и закрыть P1 finding перед
+human merge в `main`.
