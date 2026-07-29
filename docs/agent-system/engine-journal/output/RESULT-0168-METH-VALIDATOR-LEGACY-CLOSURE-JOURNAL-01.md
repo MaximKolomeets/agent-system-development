@@ -110,3 +110,14 @@ Append-only journal должен предусматривать явную corre
 
 Следующий: reviewer — сверить PR #349, identity/accounting 0168 и historical
 evidence PR #347 перед продолжением promotion PR #348.
+
+## Append-only post-merge closure PR #349
+
+PR #349 human-merged в target branch `developer`. Merge commit:
+`606be7b1a201ef9e60e289ab981b0777e0d58157`; merged_at:
+`2026-07-29T06:59:45Z`; final PR HEAD:
+`de8e81f7025048ae033c3127532f9196af28009c`.
+
+Текущий статус journal-задачи 0168: `merged`. Это addendum фиксирует только
+завершение собственной remediation-задачи 0168 и PR #349. Historical evidence
+validator fix PR #347, его scope attribution и accounting не изменяются.
