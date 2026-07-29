@@ -30,6 +30,11 @@ evidence после push; journal-файл не может достоверно 
 Статус journal-задачи: ready_for_human_review.
 raw_chain_of_thought_stored: no
 
+Статус финализации: merged.
+Статус journal-задачи: merged.
+Предыдущие маркеры `ready_for_human_review` выше являются historical
+pre-merge состоянием PR #349 и не описывают текущую финализацию.
+
 ## Выполнено
 
 Эта remediation-задача создана PR #349 и документирует уже выполненный PR #347,
@@ -44,6 +49,8 @@ raw_chain_of_thought_stored: no
 `work/methodology-architect-01/meth-validator-legacy-closure-journal-01`.
 Её PR: https://github.com/MaximKolomeets/agent-system-development/pull/349,
 target branch: `developer`, текущий статус: `ready_for_human_review`.
+Текущий статус после merge: `merged`; `ready_for_human_review` непосредственно
+выше является historical pre-merge состоянием.
 Верхние поля `execution_*` и `time_spent` относятся только к работе по созданию
 и review fix-pass этой remediation-задачи; начало взято точно из TASK-0168, а
 окончание — из measured local timestamp завершения final validation pass
@@ -121,3 +128,9 @@ PR #349 human-merged в target branch `developer`. Merge commit:
 Текущий статус journal-задачи 0168: `merged`. Это addendum фиксирует только
 завершение собственной remediation-задачи 0168 и PR #349. Historical evidence
 validator fix PR #347, его scope attribution и accounting не изменяются.
+
+## Передача
+
+Следующий: reviewer — проверить PR #350 как closure 0168; после human merge
+вернуться к promotion PR #348, обновить его описание и закрыть P1 finding перед
+human merge в `main`.
