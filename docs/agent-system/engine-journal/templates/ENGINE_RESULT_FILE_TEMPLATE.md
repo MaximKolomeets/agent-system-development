@@ -142,6 +142,19 @@ Closure blockers:
 
 Blockers:
 
+Autonomous terminal outcome:
+
+Evidence source for terminal verdict:
+
+Used iteration budgets:
+
+- targeted check reruns:
+- full readiness runs:
+- CI fix-pass:
+- integration-stack attempts:
+
+Residual risks:
+
 Следующий рекомендуемый шаг:
 
 ## Methodology feedback

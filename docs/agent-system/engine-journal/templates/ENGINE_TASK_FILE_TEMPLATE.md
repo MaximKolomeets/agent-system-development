@@ -128,6 +128,19 @@ STOP-условия:
 - scope expands beyond allowed files;
 - target instructions conflict with Russian-first policy and user did not explicitly allow another language.
 
+Autonomous terminal execution:
+
+- Канон: `docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md`.
+- Terminal outcomes: `ready_for_human_review` с PR/CI evidence или доказанный
+  `stopped_human_required` по closed STOP taxonomy.
+- Recoverable scoped failure: диагностировать, минимально исправить,
+  регенерировать dependency closure и повторить применимые checks; отдельный
+  failed check не является STOP.
+- Adaptive scope envelope: source -> registry/order -> manifest ->
+  capacity/limit -> generated mirrors -> checks.
+- Iteration budgets: targeted check reruns: ; full readiness runs: ; CI
+  fix-pass: ; integration-stack attempts: .
+
 Проверки:
 
 BEGIN POWERSHELL
@@ -186,3 +199,6 @@ Post-merge closure checklist:
 - stale pre-merge status check result;
 - follow-up commit SHA if finalization required;
 - next recommended step.
+- terminal outcome and its evidence source;
+- used iteration budgets and residual risks;
+- exact next action for `stopped_human_required`.

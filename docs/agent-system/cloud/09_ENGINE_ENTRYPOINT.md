@@ -476,6 +476,21 @@ architect/orchestrator triage.
 - Не печатать matching lines sensitive grep.
 - Не начинать bootstrap PR, пока adoption audit не завершен.
 
+## Autonomous terminal execution
+
+Для substantive file-changing задачи engine применяет
+`AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` вместе с
+`EXECUTION_CONTINUATION_POLICY.md`. Engine самостоятельно диагностирует и
+исправляет recoverable scoped failure, регенерирует dependency closure и
+повторяет checks в пределах заранее объявленных budgets. Terminal result —
+`ready_for_human_review` с PR/CI evidence либо доказанный
+`stopped_human_required`; отдельный failed check не является STOP.
+
+TASK должна содержать adaptive scope envelope и budgets targeted reruns, full
+readiness, CI fix-pass и integration-stack attempts. Если для решения нужен path
+вне envelope или выбор владельца, engine фиксирует exact evidence и запрашивает
+scope amendment/решение, не расширяя scope молча.
+
 ## STOP-правило
 
 Если текущий repository не соответствует задаче, `engine` должен написать:
