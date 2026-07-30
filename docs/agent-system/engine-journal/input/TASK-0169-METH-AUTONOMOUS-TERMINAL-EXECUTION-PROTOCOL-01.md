@@ -1,3 +1,20 @@
+Задача для dev-implementer: METH-AUTONOMOUS-TERMINAL-EXECUTION-PROTOCOL-01
+
+Рекомендуемый режим исполнения:
+
+Роль: dev-implementer
+Исполнитель: на усмотрение архитектора
+Reasoning effort: высокий
+Запуск: Local only
+Режим: Agent
+Почему: задача изменяет канонические документы и требует воспроизводимых
+проверок в отдельной task branch.
+Время начала выполнения (execution_started_at) [measured/engine]: 2026-07-30T07:35:38.6341809+02:00
+Время оркестрации, по факту (orchestration_time_reported) [reported/human, опционально]:
+actor_type: agent
+time_source: measured
+time_report_confidence: high
+
 # TASK-0169-METH-AUTONOMOUS-TERMINAL-EXECUTION-PROTOCOL-01
 
 ```yaml
