@@ -24,28 +24,30 @@
 
 ## Текущий фокус (Current Focus)
 
-`v1.5.4` опубликован как human release с annotated tag: `origin/main` и
-`v1.5.4^{}` указывают на `8025495f3ae5eabee6049173014e70c8184f6751`.
-Release PR #342 merged `2026-07-26T10:13:16Z`; sync PR #343 merged
-`2026-07-26T10:14:08Z`. После sync `origin/main...origin/developer` не имеет
-file delta.
+`v1.5.5` опубликован как human release с annotated tag: `origin/main` и
+`v1.5.5^{}` указывают на `f80e148f9e4ba965e701d1e06faa79d517b646cf`;
+tag object — `2dde9fc295747c64a7e5f6bf26a1bd4d8f50f02a`. Terminal-execution PR #351
+merged `2026-07-30T07:53:31Z`, release PR #352 merged
+`2026-07-30T08:15:10Z`, sync PR #353 merged `2026-07-30T08:16:09Z`. После
+sync `origin/main...origin/developer` не имеет file delta.
 
-Ближайший рабочий шаг: выбрать отдельную methodology-hardening задачу либо
-downstream adoption/update от stable tag `v1.5.4` / `origin/main`.
+Ближайший рабочий шаг: owner выбирает и отдельно санкционирует следующую
+backlog-задачу. Новая функциональность из факта release не подразумевается.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
 `docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
 `docs/agent-system/RULESET_STATUS.md`.
 
-## Ближайшая очередь после v1.5.4
+## Ближайшая очередь после v1.5.5
 
-1. Выбрать отдельный methodology-hardening backlog item или downstream
-   adoption/update.
+1. Owner выбирает и отдельно санкционирует следующий backlog item.
 2. Для новой file-changing methodology task стартовать от актуального
    `developer` в отдельной `work/<role>/<task>` branch.
 3. Для downstream/source-update задач использовать stable methodology reference:
-   tag `v1.5.4` или `origin/main`, не `developer`/`work/*`.
+   tag `v1.5.5` или `origin/main`, не `developer`/`work/*`.
+
+`v1.5.4` сохраняется как предыдущий historical release.
 
 Future queue живёт в `BACKLOG.md`, чтобы `NEXT_STEPS.md` оставался списком
 ближайших действий.
