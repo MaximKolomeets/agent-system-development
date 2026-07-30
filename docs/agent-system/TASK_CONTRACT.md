@@ -11,9 +11,12 @@ Prose остаётся обязательным для человека: цел�
 Для file-changing задач prose и checks должны ссылаться на `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: task ready только при Definition of Ready, проверяемых acceptance criteria, self-review before PR, PR body quality check и blocker-ID based fix-pass policy. Missing acceptance criteria является STOP, кроме простых консультационных задач без write-action.
 
 Для file-changing задач terminal execution регулируется
+`docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` вместе с
 `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md`: task_contract фиксирует
-scope/checks/STOP, а engine доводит безопасные scoped failures до terminal state,
-не добавляя нового schema field или не ослабляя validators.
+scope/checks/STOP, а prose TASK обязан описать два terminal outcome, adaptive
+scope envelope и отдельные iteration budgets. Engine доводит безопасные scoped
+failures до terminal state, не добавляя нового schema field или не ослабляя
+validators.
 
 Для file-changing задач prose/RESULT должны ссылаться на
 `docs/agent-system/TIME_ACCOUNTING_POLICY.md` и
@@ -125,6 +128,17 @@ task_contract:
 - `policies.merge`
 - `checks.required`
 - `stop_conditions`
+
+Для содержательных file-changing задач prose TASK дополнительно обязан
+содержать:
+
+- terminal-статусы `ready_for_human_review` и `stopped_human_required`;
+- цепочку зависимостей от источника до проверок: `source -> registry/order ->
+  manifest -> capacity/limit -> generated mirrors -> checks`, если она применима;
+- отдельные budgets для targeted check reruns, full readiness runs, CI fix-pass
+  и integration-stack attempts;
+- правило: отдельный failed check сначала классифицируется как recoverable
+  failure или STOP taxonomy, а не объявляется STOP автоматически.
 
 ## Допустимые значения
 

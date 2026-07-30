@@ -25,6 +25,7 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md` |  |
 | `docs/agent-system/ARCHITECT_COCKPIT.md` |  |
 | `docs/agent-system/ARCHITECT_HANDOFF_PACK.md` |  |
+| `docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` |  |
 | `docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md` |  |
 | `docs/agent-system/BRANCH_POLICY.md` |  |
 | `docs/agent-system/CI_POLICY.md` |  |
@@ -245,3 +246,5 @@ Repo-local derived artifacts generated from authoritative methodology source. Э
 | `docs/agent-system/cloud/23_METRICS.md` |  |
 | `docs/agent-system/cloud/24_METHODOLOGY_MAP.md` |  |
 | `docs/agent-system/cloud/25_POLICY_INVARIANTS.md` |  |
+| `docs/agent-system/cloud/26_EXECUTION_CONTINUATION_POLICY.md` |  |
+| `docs/agent-system/cloud/27_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` |  |

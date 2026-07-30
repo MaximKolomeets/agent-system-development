@@ -24,6 +24,12 @@ docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
 
 Перед формированием file-changing task оркестратор применяет `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: включает Definition of Ready, проверяемые acceptance criteria, self-review before PR, PR body quality check, expected reviewer mode и blocker-ID based fix-pass.
 
+Для substantive task оркестратор обязан применять
+`AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md`: указать два terminal outcome,
+recoverable-failure rule, closed STOP taxonomy, adaptive scope envelope и
+отдельные budgets reruns/readiness/CI/integration. Отдельный failed check не
+является terminal outcome без такой классификации.
+
 Если prompt является continuation, он обязан явно содержать task ID, branch,
 expected HEAD или PR relation, exact permitted dirty paths и незавершённый шаг.
 При отсутствии любого из этих данных оркестратор обязан выдать `STOP`, а не считать

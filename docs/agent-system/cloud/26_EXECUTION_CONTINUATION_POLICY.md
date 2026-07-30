@@ -55,8 +55,10 @@ merge policy, stable-reference policy или forbidden-path checks.
 
 ## Terminal execution
 
-Этот документ является authoritative canon terminal execution для всех
-file-changing Engine-задач. Каждая такая задача заканчивается ровно одним
+Этот документ задаёт execution safeguards для continuation и дополняет
+`AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md`, который является authoritative
+canon terminal outcome, STOP taxonomy, decision fallback и iteration budgets.
+Каждая file-changing задача заканчивается ровно одним
 состоянием:
 
 - `ready_for_human_review`: PR опубликован, readiness успешен, обязательные
