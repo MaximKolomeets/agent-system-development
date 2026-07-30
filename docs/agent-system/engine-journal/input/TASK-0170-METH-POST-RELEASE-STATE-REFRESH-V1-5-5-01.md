@@ -48,6 +48,7 @@ task_contract:
       - docs/agent-system/CURRENT_STATE.md
       - docs/agent-system/NEXT_STEPS.md
       - docs/agent-system/BACKLOG.md
+      - docs/agent-system/RELEASE_READINESS.md
       - docs/agent-system/engine-journal/input/TASK-0170-METH-POST-RELEASE-STATE-REFRESH-V1-5-5-01.md
       - docs/agent-system/engine-journal/rationale/RATIONALE-0170-METH-POST-RELEASE-STATE-REFRESH-V1-5-5-01.md
       - docs/agent-system/engine-journal/output/RESULT-0170-METH-POST-RELEASE-STATE-REFRESH-V1-5-5-01.md
@@ -150,3 +151,21 @@ merge, rebase, reset, stash, clean, force-push и не читать `.env`.
 Отчёт на русском языке фиксирует branch, HEAD, commit, PR, sequence, Source
 Delta, generated artifacts, release evidence, checks/CI, budgets, unresolved
 threads, residual risks, отсутствие merge и передачу human reviewer.
+
+## Scope amendment: review fix-pass 01
+
+Связанный PR: https://github.com/MaximKolomeets/agent-system-development/pull/354
+
+Review fix-pass 01 разрешён только для финализации PR/journal evidence,
+`RELEASE_READINESS.md` и обязательных generated mirrors. Он не изменяет
+содержательный post-release snapshot в `CURRENT_STATE.md`, `NEXT_STEPS.md`,
+`BACKLOG.md` или RATIONALE.
+
+Дополнительные бюджеты fix-pass: targeted check reruns до 2; full readiness
+ровно 1; cumulative full readiness `2/2`; CI fix-pass `0`; integration attempts
+`0`; cloud generator write-run `1`; file-map generator write-run `0`.
+
+Разрешена двухкоммитная journal-finalization: Commit A фиксирует substantive
+review changes, а Commit B добавляет SHA Commit A в RESULT/INDEX и только
+штатно сгенерированные `cloud/00_README.md` и `cloud/07_ENGINE_JOURNAL_INDEX.md`.
+Новый PR, merge, третий commit и третий readiness запрещены.
