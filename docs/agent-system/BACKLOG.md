@@ -24,8 +24,10 @@ scope.
 
 ## Methodology hardening v1.5.2
 
-Статус: future queue / выполнять отдельными scoped PR в `developer` после
-актуального PR-1/H1 state refresh.
+Статус: завершено / historical trace. H1–H16 реализованы отдельными scoped PR:
+journal 0138–0152 фиксирует PR #306–#309 и #311–#321, а journal 0153 / PR #322
+фиксирует boundary closure серии. Перечень ниже сохранён как историческое
+evidence и не является future queue.
 
 - PR-2/H2: journal history scope clarity.
 - PR-3/H3: time and cost accounting hard-gate, включая token/cost fields,

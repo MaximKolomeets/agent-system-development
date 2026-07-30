@@ -4,7 +4,7 @@
 
 Текущее состояние методологии включает preferred `task_contract` frontmatter для новых write-action Engine-задач. Канон: `docs/agent-system/TASK_CONTRACT.md`; lightweight read-only validator: `docs/agent-system/tools/validate_task_contract.py`. Prose остаётся human explanation, а `task_contract` является source of truth для mode/scope/checks/STOP; конфликт contract/prose означает `STOP`. `TASK_CONTRACT.md` входит в default cloud/orchestrator bundle как `13_TASK_CONTRACT.md`.
 
-Дата: 2026-07-04
+Дата: 2026-07-30
 
 Проект: Создание агентской системы
 
@@ -74,22 +74,29 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-release state после human release `developer -> main`,
-annotated tag `v1.5.4` и sync `main -> developer`.
+Текущий фокус: post-release state после terminal-execution PR
+[#351](https://github.com/MaximKolomeets/agent-system-development/pull/351),
+human release `developer -> main` через PR
+[#352](https://github.com/MaximKolomeets/agent-system-development/pull/352),
+annotated tag `v1.5.5` и sync `main -> developer` через PR
+[#353](https://github.com/MaximKolomeets/agent-system-development/pull/353).
 
 `origin/main` указывает на release merge commit
-`8025495f3ae5eabee6049173014e70c8184f6751`; peeled annotated tag `v1.5.4^{}`
-указывает на тот же commit. Release PR [#342](https://github.com/MaximKolomeets/agent-system-development/pull/342)
-merged `2026-07-26T10:13:16Z` с merge SHA
-`8025495f3ae5eabee6049173014e70c8184f6751`.
+`f80e148f9e4ba965e701d1e06faa79d517b646cf`; peeled annotated tag `v1.5.5^{}`
+указывает на тот же commit, tag object —
+`2dde9fc295747c64a7e5f6bf26a1bd4d8f50f02a`. PR #351 merged в `developer`
+`2026-07-30T07:53:31Z` с merge SHA
+`8a36747a1017891b6b671d497ebade7b4bcb3bb4`.
 
-Sync PR [#343](https://github.com/MaximKolomeets/agent-system-development/pull/343)
-merged `2026-07-26T10:14:08Z` с merge SHA
-`9b3330708febedbb69e91444a877c9df740fa8f3`. `origin/developer` не имеет
-file diff относительно `origin/main` после sync.
+Release PR #352 merged `2026-07-30T08:15:10Z` с merge SHA
+`f80e148f9e4ba965e701d1e06faa79d517b646cf`. Sync PR #353 merged
+`2026-07-30T08:16:09Z` с merge SHA
+`e41b9bec27995f88ad227ba88c57dc1720e9589d`; его file diff пуст, а
+`origin/developer` не имеет file diff относительно `origin/main` после sync.
 
-Stable methodology reference для downstream/source-update задач: tag `v1.5.4`
-или `origin/main` at `8025495f3ae5eabee6049173014e70c8184f6751`.
+Stable methodology reference для downstream/source-update задач: tag `v1.5.5`
+или `origin/main` at `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+`v1.5.4` сохраняется как предыдущий historical release.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
 `2026-07-04T18:01:52+07:00` через GitHub Rulesets API. `Protect main` и
@@ -98,9 +105,9 @@ rule включён, required status checks в ruleset не заданы. Rulese
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: release cycle `v1.5.4` завершён human release/tag/sync фактами.
-Следующий шаг: выбрать отдельную methodology-hardening задачу либо downstream
-adoption/update от stable tag `v1.5.4`.
+Текущий этап: release cycle `v1.5.5` завершён human release/tag/sync фактами.
+Следующий шаг: owner выбирает и отдельно санкционирует следующую backlog-задачу;
+новая функциональность из факта release не подразумевается.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 
