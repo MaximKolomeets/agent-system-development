@@ -23,6 +23,20 @@
 
 Применить `docs/agent-system/QUALITY_FIRST_WORKFLOW.md`: задача должна иметь Definition of Ready, проверяемые acceptance criteria, mandatory self-review перед PR, PR body quality check и blocker-ID based fix-pass policy.
 
+## Autonomous terminal execution
+
+Для substantive file-changing задачи добавить раздел по
+`docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md`:
+
+- terminal outcomes `ready_for_human_review` и `stopped_human_required`;
+- recoverable failure не равен STOP; closed STOP taxonomy;
+- adaptive scope envelope с dependency closure `source -> registry/order ->
+  manifest -> capacity/limit -> generated mirrors -> checks`, если применимо;
+- отдельные budgets для targeted check reruns, full readiness runs, CI fix-pass
+  и integration-stack attempts;
+- обязательный terminal report: branch/HEAD/PR, checks/CI evidence, budgets,
+  residual risks, отсутствие merge и точный next action.
+
 ## Task ID
 
 Указать идентификатор задачи.

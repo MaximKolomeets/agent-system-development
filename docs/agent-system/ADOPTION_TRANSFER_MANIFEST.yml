@@ -72,8 +72,8 @@ scope:
 orchestrator_context_bundle:
   source_canon: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md#architect-orchestrator-context-handoff
   generated_dir: docs/agent-system/cloud
-  # Лимит включает generated cloud/00_README.md: при 27 допустимы 26 source-файлов manifest.
-  max_files: 27
+  # Лимит включает generated cloud/00_README.md: при 28 допустимы 27 source-файлов manifest.
+  max_files: 28
   files:
     - path: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       cloud_flatname: ORCHESTRATOR_OPERATING_CONTRACT.md
@@ -127,6 +127,8 @@ orchestrator_context_bundle:
       cloud_flatname: POLICY_INVARIANTS.md
     - path: docs/agent-system/EXECUTION_CONTINUATION_POLICY.md
       cloud_flatname: EXECUTION_CONTINUATION_POLICY.md
+    - path: docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
+      cloud_flatname: AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
   rules:
     - docs/agent-system/cloud/** генерируется из этого списка через `python docs/agent-system/tools/gen_cloud_bundle.py`.
     - `python docs/agent-system/tools/gen_cloud_bundle.py --check` должен проходить перед release.
@@ -148,6 +150,7 @@ categories:
       - docs/agent-system/AGENT_ONBOARDING_CHECKLIST.md
       - docs/agent-system/ARCHITECT_COCKPIT.md
       - docs/agent-system/ARCHITECT_HANDOFF_PACK.md
+      - docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
       - docs/agent-system/BUSINESS_ACCEPTANCE_CHECKLIST.md
       - docs/agent-system/BRANCH_POLICY.md
       - docs/agent-system/CI_POLICY.md
@@ -460,6 +463,8 @@ categories:
       - docs/agent-system/cloud/23_METRICS.md
       - docs/agent-system/cloud/24_METHODOLOGY_MAP.md
       - docs/agent-system/cloud/25_POLICY_INVARIANTS.md
+      - docs/agent-system/cloud/26_EXECUTION_CONTINUATION_POLICY.md
+      - docs/agent-system/cloud/27_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.

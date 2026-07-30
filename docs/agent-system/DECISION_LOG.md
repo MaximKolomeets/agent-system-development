@@ -1,5 +1,25 @@
 # DECISION_LOG
 
+## 2026-07-30 — Автономная substantive-задача завершается PR или доказанным STOP
+
+### Контекст
+Continuation safeguards уже запрещают обход clean-tree и scope guards, но
+одного правила недостаточно, чтобы отличить recoverable check failure от
+ситуации, объективно требующей решения человека.
+
+### Решение
+`AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` становится каноном terminal
+outcome. Substantive task заканчивается `ready_for_human_review` с PR/CI
+evidence либо `stopped_human_required` только по closed taxonomy. TASK заранее
+описывает adaptive scope envelope и отдельные budgets reruns/readiness/CI/
+integration; engine исправляет scoped machine-verifiable failures до исчерпания
+этих budget.
+
+### Последствия
+Failed отдельный check не равен STOP. Protocol не ослабляет branch/security/
+human-merge guards и не разрешает закрывать невыполненный acceptance outcome
+residual-risk формулировкой или future backlog.
+
 ## 2026-07-27 — Terminal execution обязателен для file-changing Engine-задач
 
 ### Контекст
