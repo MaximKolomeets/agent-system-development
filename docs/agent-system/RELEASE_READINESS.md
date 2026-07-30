@@ -1,38 +1,43 @@
 # RELEASE_READINESS
 
-Дата проверки: 2026-07-26
+Дата проверки: 2026-07-30
 
-Назначение: post-release snapshot после human release `v1.5.4`.
+Назначение: post-release snapshot после human release `v1.5.5`.
 Следующий release candidate: не выбран.
 
 ## Release Status
 
 - Status: `published_annotated_tag_post_release_completed`.
-- Latest release tag: `v1.5.4` -> `8025495f3ae5eabee6049173014e70c8184f6751`.
-- Stable reference: tag `v1.5.4` / `origin/main`.
-- `origin/main`: `8025495f3ae5eabee6049173014e70c8184f6751`.
-- `origin/developer`: sync merge `9b3330708febedbb69e91444a877c9df740fa8f3`.
-- Release PR: [#342](https://github.com/MaximKolomeets/agent-system-development/pull/342), merged into `main`.
-- Sync PR: [#343](https://github.com/MaximKolomeets/agent-system-development/pull/343), merged `main -> developer`.
+- Latest release tag: `v1.5.5` -> `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+- Stable reference: tag `v1.5.5` / `origin/main`.
+- `origin/main`: `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+- `origin/developer`: sync merge `e41b9bec27995f88ad227ba88c57dc1720e9589d`.
+- Terminal-execution PR: [#351](https://github.com/MaximKolomeets/agent-system-development/pull/351), merged into `developer`.
+- Release PR: [#352](https://github.com/MaximKolomeets/agent-system-development/pull/352), merged into `main`.
+- Sync PR: [#353](https://github.com/MaximKolomeets/agent-system-development/pull/353), merged `main -> developer`.
 - Next planned methodology release: не выбран.
 
 ## Release Facts
 
 Merge facts verified from GitHub metadata, remote branch state and tag state:
 
-- Release PR #342: `MERGED` at `2026-07-26T10:13:16Z`, merge commit
-  `8025495f3ae5eabee6049173014e70c8184f6751`.
-- Annotated tag `v1.5.4`: `v1.5.4^{}` peeled commit
-  `8025495f3ae5eabee6049173014e70c8184f6751`.
-- Sync PR #343: `MERGED` at `2026-07-26T10:14:08Z`, merge commit
-  `9b3330708febedbb69e91444a877c9df740fa8f3`.
-- `origin/main...origin/developer`: no file delta after sync.
+- PR #351: `MERGED` at `2026-07-30T07:53:31Z`, merge commit
+  `8a36747a1017891b6b671d497ebade7b4bcb3bb4` in `developer`.
+- Release PR #352: `MERGED` at `2026-07-30T08:15:10Z`, merge commit
+  `f80e148f9e4ba965e701d1e06faa79d517b646cf` in `main`.
+- Annotated tag `v1.5.5`: tag object
+  `2dde9fc295747c64a7e5f6bf26a1bd4d8f50f02a`; `v1.5.5^{}` peeled commit
+  `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+- Sync PR #353: `MERGED` at `2026-07-30T08:16:09Z`, merge commit
+  `e41b9bec27995f88ad227ba88c57dc1720e9589d`.
+- `origin/main...origin/developer`: file delta отсутствует после sync.
+- `v1.5.4` — previous historical release, не current stable reference.
 
 ## Journal Gate
 
-- Existing ordinary rows 0163 and 0164 are not retrofitted or closed by this
-  release snapshot; GitHub PR metadata remains their source of merge facts.
-- Row 0165 records this post-release state refresh.
+- Existing ordinary rows не ретрофитятся этим snapshot; GitHub PR metadata
+  остаётся их source of merge facts.
+- Row 0170 records this post-release state refresh.
 
 ## Generated Gates
 
@@ -47,11 +52,10 @@ Required for this post-release state-refresh PR:
 
 ## Release Recommendation
 
-Новых release actions не требуется. Следующий рабочий шаг: выбрать отдельную
-methodology-hardening задачу либо downstream adoption/update от stable tag
-`v1.5.4` / `origin/main`.
+Новых release actions не требуется. Следующий backlog item отдельно выбирает и
+санкционирует owner; новый release candidate не выбран.
 
 ## Передача
 
-Следующий: methodology architect — выбрать следующую scoped задачу от stable
-reference `v1.5.4`.
+Следующий: owner — выбрать и санкционировать следующую scoped backlog-задачу от
+stable reference `v1.5.5`.
