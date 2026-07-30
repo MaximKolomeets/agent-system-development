@@ -89,11 +89,15 @@ Docker unittest: `Ran 26 tests in 9.033s`, `OK`.
 Russian-first lint: `passed`; active files `0`, потому что весь изменённый
 source/journal/generated scope штатно исключён из active-doc lint.
 
-Единственный Docker full readiness за 261.5 s: `result: ready`,
+Исходный Docker full readiness за 261.5 s: `result: ready`,
 `blockers_count: 0`, `warnings_count: 0`.
 
+Дополнительный Docker full readiness review fix-pass 01 за 249.9 s: `result:
+ready`, `blockers_count: 0`, `warnings_count: 0`. Третий readiness-run не
+выполнялся.
+
 Учёт времени рассчитан как разность measured timestamps TASK attachment
-CreationTime `2026-07-30T11:06:40.9562714+02:00` и завершения единственного
+CreationTime `2026-07-30T11:06:40.9562714+02:00` и завершения исходного
 full readiness `2026-07-30T11:29:09.8279086+02:00`: `PT22M29S`,
 округлённое `time_spent` — `22m`.
 
@@ -121,7 +125,7 @@ Stable methodology reference: `v1.5.5` /
 ## Бюджеты исполнения
 
 Targeted check reruns: 1/2 — triplet повторён после staging новых artifacts.
-Full readiness runs: 1/1. CI fix-pass: 0/0.
+Full readiness runs: 2/2. Третий readiness-run не выполнялся. CI fix-pass: 0/0.
 Integration-stack attempts: 0/0.
 
 ## Review fix-pass 01
@@ -132,9 +136,10 @@ release merge, annotated tag и post-release sync. Commit A
 `2148d23f8f2afdf6c06f295b27477451dc957191` является reviewed content HEAD;
 Commit B фиксирует его без self-reference loop.
 
-Дополнительный budget review fix-pass: targeted check reruns до 2; full
-readiness ровно 1; cumulative ceiling `2/2`; CI fix-pass `0`; integration
-attempts `0`; cloud generator write-run `1`; file-map generator write-run `0`.
+Дополнительный budget review fix-pass: targeted check reruns до 2; один
+additional full readiness выполнен; cumulative usage `2/2`; CI fix-pass `0`;
+integration attempts `0`; cloud generator write-run `1`; file-map generator
+write-run `0`.
 
 ## Residual risks
 
