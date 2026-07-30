@@ -927,6 +927,28 @@ Broken-ссылки на удалённые файлы в append-only истор
 - runtime impact: none;
 - downstream-specific data: none.
 
+## 2026-07-30 - Collision-safe reservation journal sequence
+
+Решение:
+Для новых parallel engine-journal allocation принят provider-neutral append-only
+reservation ledger и normalized snapshot open PR/MR. `occupied` объединяет
+merged INDEX, ledger и valid provider claims; next sequence равен `max + 1`.
+
+Причина:
+Правило только `last INDEX + 1` не видит sequence открытого PR и допускает
+collision у параллельных задач.
+
+Последствия:
+
+- duplicate sequence/task/reservation identity блокируется validator и CI;
+- closed-unmerged claim освобождается только append-only `abandoned` tombstone,
+  который также не переиспользуется;
+- GitHub adapter является reference implementation; GitLab, GitVerse и
+  SourceCraft реализуют тот же snapshot contract;
+- bootstrap legacy open PR требует human authorization и complete snapshot;
+- atomicity обеспечивают reservation PR, актуальная base/merge-conflict и
+  human serial merge gate; runtime impact: none; downstream-specific data: none.
+
 ## 2026-06-19 - Трёхслойная operating-модель (project operating layer + cross-project consolidation)
 
 Решение:

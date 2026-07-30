@@ -267,6 +267,12 @@ Manifest делит файлы на текущие categories:
 - `scaffold` - placeholder/scaffold files; заполнять в target только target-specific данными;
 - `generated` - repo-local derived artifacts; регенерировать в target, а не копировать руками.
 
+Для journal с параллельными задачами target переносит
+`JOURNAL_SEQUENCE_RESERVATION.md`, нейтральную к provider schema, validator,
+reference adapter и пустой `SEQUENCE_RESERVATIONS.json`. До первого нового
+выделения sequence выполняется provider snapshot/bootstrap из канона;
+operational history source repository не переносится.
+
 Если файл попадает в несколько categories или rules, применяется самый строгий режим. Например, `history_state` нельзя копировать как есть, а `target_generated` создаётся заново по target facts.
 
 Manifest должен содержать `methodology_reference_required: true` для target adoption/update flows. Если target repository materializes собственный manifest или adoption audit, он фиксирует commit SHA methodology repository.

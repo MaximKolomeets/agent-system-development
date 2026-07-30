@@ -77,3 +77,13 @@ jobs:
         run: |
           set -euo pipefail
           python docs/agent-system/tools/validate_journal_triplet.py --base "${{ steps.base.outputs.base }}"
+
+      - name: Journal sequence reservation
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot="${RUNNER_TEMP}/journal-sequence-provider-snapshot.json"
+          python docs/agent-system/tools/github_journal_sequence_snapshot.py \
+            --repository "${GITHUB_REPOSITORY}" --output "${snapshot}"
+          python docs/agent-system/tools/validate_journal_sequence_reservations.py \
+            --snapshot "${snapshot}" --require-provider-snapshot

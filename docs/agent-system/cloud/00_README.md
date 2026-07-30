@@ -4,9 +4,9 @@ AUTO-GENERATED — не править руками; регенерироват�
 
 ## Freshness
 
-- asof: `2026-07-30T15:16:09+07:00`
-- developer_head_sha: `e41b9bec27995f88ad227ba88c57dc1720e9589d`
-- file_count_including_readme: `28`
+- asof: `2026-07-30T18:58:51+07:00`
+- developer_head_sha: `dcbace9e530ed2d9917ffe33b55fca7ca08fe602`
+- file_count_including_readme: `29`
 
 ## Контракт
 
@@ -27,28 +27,29 @@ AUTO-GENERATED — не править руками; регенерироват�
 | `03` | `03_TASK_HEADER_COMMON.md` | `docs/agent-system/templates/TASK_HEADER_COMMON.md` | `template` |
 | `04` | `04_BRANCH_POLICY.md` | `docs/agent-system/BRANCH_POLICY.md` | `source` |
 | `05` | `05_ENGINE_JOURNAL_CONTRACT.md` | `docs/agent-system/ENGINE_JOURNAL_CONTRACT.md` | `source` |
-| `06` | `06_CURRENT_STATE.md` | `docs/agent-system/CURRENT_STATE.md` | `history_state` |
-| `07` | `07_ENGINE_JOURNAL_INDEX.md` | `docs/agent-system/engine-journal/INDEX.md` | `journal` |
-| `08` | `08_NEXT_STEPS.md` | `docs/agent-system/NEXT_STEPS.md` | `history_state` |
-| `09` | `09_ENGINE_ENTRYPOINT.md` | `docs/agent-system/ENGINE_ENTRYPOINT.md` | `source` |
-| `10` | `10_PROJECT_FILE_MAP.md` | `docs/agent-system/PROJECT_FILE_MAP.md` | `generated` |
-| `11` | `11_ADOPTION_TRANSFER_MANIFEST_yml.md` | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | `source` |
-| `12` | `12_REVIEW_AUTOLOOP.md` | `docs/agent-system/REVIEW_AUTOLOOP.md` | `source` |
-| `13` | `13_TASK_CONTRACT.md` | `docs/agent-system/TASK_CONTRACT.md` | `source` |
-| `14` | `14_SEMANTIC_COMPLETENESS_GATES.md` | `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` | `source` |
-| `15` | `15_JOURNAL_FINALIZATION_POLICY.md` | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` | `source` |
-| `16` | `16_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` | `source` |
-| `17` | `17_DOWNSTREAM_FEEDBACK_LOOP.md` | `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` | `source` |
-| `18` | `18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `source` |
-| `19` | `19_STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `source` |
-| `20` | `20_LANGUAGE_POLICY.md` | `docs/agent-system/LANGUAGE_POLICY.md` | `source` |
-| `21` | `21_TIME_ACCOUNTING_POLICY.md` | `docs/agent-system/TIME_ACCOUNTING_POLICY.md` | `source` |
-| `22` | `22_COST_TRACKING_POLICY.md` | `docs/agent-system/COST_TRACKING_POLICY.md` | `source` |
-| `23` | `23_METRICS.md` | `docs/agent-system/METRICS.md` | `source` |
-| `24` | `24_METHODOLOGY_MAP.md` | `docs/agent-system/METHODOLOGY_MAP.md` | `source` |
-| `25` | `25_POLICY_INVARIANTS.md` | `docs/agent-system/POLICY_INVARIANTS.md` | `source` |
-| `26` | `26_EXECUTION_CONTINUATION_POLICY.md` | `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md` | `source` |
-| `27` | `27_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` | `docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` | `source` |
+| `06` | `06_JOURNAL_SEQUENCE_RESERVATION.md` | `docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md` | `source` |
+| `07` | `07_CURRENT_STATE.md` | `docs/agent-system/CURRENT_STATE.md` | `history_state` |
+| `08` | `08_ENGINE_JOURNAL_INDEX.md` | `docs/agent-system/engine-journal/INDEX.md` | `journal` |
+| `09` | `09_NEXT_STEPS.md` | `docs/agent-system/NEXT_STEPS.md` | `history_state` |
+| `10` | `10_ENGINE_ENTRYPOINT.md` | `docs/agent-system/ENGINE_ENTRYPOINT.md` | `source` |
+| `11` | `11_PROJECT_FILE_MAP.md` | `docs/agent-system/PROJECT_FILE_MAP.md` | `generated` |
+| `12` | `12_ADOPTION_TRANSFER_MANIFEST_yml.md` | `docs/agent-system/ADOPTION_TRANSFER_MANIFEST.yml` | `source` |
+| `13` | `13_REVIEW_AUTOLOOP.md` | `docs/agent-system/REVIEW_AUTOLOOP.md` | `source` |
+| `14` | `14_TASK_CONTRACT.md` | `docs/agent-system/TASK_CONTRACT.md` | `source` |
+| `15` | `15_SEMANTIC_COMPLETENESS_GATES.md` | `docs/agent-system/SEMANTIC_COMPLETENESS_GATES.md` | `source` |
+| `16` | `16_JOURNAL_FINALIZATION_POLICY.md` | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` | `source` |
+| `17` | `17_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` | `docs/agent-system/ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md` | `source` |
+| `18` | `18_DOWNSTREAM_FEEDBACK_LOOP.md` | `docs/agent-system/DOWNSTREAM_FEEDBACK_LOOP.md` | `source` |
+| `19` | `19_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `docs/agent-system/DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md` | `source` |
+| `20` | `20_STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `docs/agent-system/STABLE_METHODOLOGY_REFERENCE_POLICY.md` | `source` |
+| `21` | `21_LANGUAGE_POLICY.md` | `docs/agent-system/LANGUAGE_POLICY.md` | `source` |
+| `22` | `22_TIME_ACCOUNTING_POLICY.md` | `docs/agent-system/TIME_ACCOUNTING_POLICY.md` | `source` |
+| `23` | `23_COST_TRACKING_POLICY.md` | `docs/agent-system/COST_TRACKING_POLICY.md` | `source` |
+| `24` | `24_METRICS.md` | `docs/agent-system/METRICS.md` | `source` |
+| `25` | `25_METHODOLOGY_MAP.md` | `docs/agent-system/METHODOLOGY_MAP.md` | `source` |
+| `26` | `26_POLICY_INVARIANTS.md` | `docs/agent-system/POLICY_INVARIANTS.md` | `source` |
+| `27` | `27_EXECUTION_CONTINUATION_POLICY.md` | `docs/agent-system/EXECUTION_CONTINUATION_POLICY.md` | `source` |
+| `28` | `28_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` | `docs/agent-system/AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md` | `source` |
 
 ## Частичная загрузка
 

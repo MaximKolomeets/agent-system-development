@@ -44,6 +44,7 @@ GENERATED_TRIGGER_PATHS = {
     "docs/agent-system/engine-journal/INDEX.md",
     "docs/agent-system/tools/validate_policy_invariants.py",
     "docs/agent-system/tools/validate_journal_triplet.py",
+    "docs/agent-system/tools/validate_journal_sequence_reservations.py",
 }
 GENERATED_TRIGGER_PREFIXES = ("docs/agent-system/cloud/",)
 FORBIDDEN_SEGMENTS = {"data", "runtime", "dist", "backups", "exports", ".venv"}
@@ -918,6 +919,13 @@ def add_journal_triplet_checks(report: ReadyReport) -> None:
     report.journal_triplet_checks.append(check)
     if check.exit_code != 0:
         report.blockers.append("validate_journal_triplet.py failed")
+    reservation_check = run_command(
+        ["python", "docs/agent-system/tools/validate_journal_sequence_reservations.py", "--json"],
+        "validate_journal_sequence_reservations.py --json",
+    )
+    report.journal_triplet_checks.append(reservation_check)
+    if reservation_check.exit_code != 0:
+        report.blockers.append("validate_journal_sequence_reservations.py failed")
 
 
 def add_safety_scans(report: ReadyReport) -> None:

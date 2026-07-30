@@ -56,8 +56,9 @@ class CheckTaskReadyTests(unittest.TestCase):
         failed = ready.CommandResult("validate_journal_triplet.py --json", 1, "failed")
         with mock.patch.object(ready, "run_command", return_value=failed):
             ready.add_journal_triplet_checks(report)
-        self.assertEqual([failed], report.journal_triplet_checks)
+        self.assertEqual([failed, failed], report.journal_triplet_checks)
         self.assertIn("validate_journal_triplet.py failed", report.blockers)
+        self.assertIn("validate_journal_sequence_reservations.py failed", report.blockers)
 
 
 if __name__ == "__main__":

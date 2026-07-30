@@ -108,7 +108,11 @@ RESULT-0001-PR-2r-engine-journal-contract.md
 - `PR-2r` - связанный task/PR id;
 - `engine-journal-contract` - короткий slug.
 
-Нумерация sequence — append-only. Следующий номер `engine` вычисляет ИЗ `INDEX.md` на момент выполнения задачи (последний seq + 1) и ИГНОРИРУЕТ любой номер, предсказанный в task-блоке. Нельзя предугадывать, переиспользовать или пропускать seq. Обоснование: параллельная работа нескольких агентов может занять предсказанный номер (journal 0018: task-блок предписывал 0016, но 0016/0017 уже были заняты → запись корректно ушла в 0018).
+Нумерация sequence — append-only. Для параллельных задач следующий номер
+`engine` вычисляет по `JOURNAL_SEQUENCE_RESERVATION.md`: merged INDEX,
+append-only reservation ledger и обязательный provider snapshot образуют
+occupied set. Если parallel claims отсутствуют, результат остаётся `last INDEX
++ 1`. Нельзя предугадывать, переиспользовать или пропускать seq.
 
 ## Index
 
