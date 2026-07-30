@@ -25,6 +25,7 @@ Branch: `work/release-manager-01/meth-post-release-state-refresh-v1-5-5-01`
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/354
 pr_head_source: github_pr_metadata
 reviewed_head_source: github_pr_metadata
+reviewed_content_head_sha: 2148d23f8f2afdf6c06f295b27477451dc957191
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 raw_chain_of_thought_stored: no
 
@@ -127,8 +128,13 @@ Integration-stack attempts: 0/0.
 
 Устранены три review findings PR #354: P1 по PR URL/finalization в INDEX/RESULT;
 P2 по stale `RELEASE_READINESS.md`; P2 по отдельному authority evidence для
-release merge, annotated tag и post-release sync. Дополнительные бюджеты и
-cumulative usage фиксируются после Commit B и дополнительного readiness.
+release merge, annotated tag и post-release sync. Commit A
+`2148d23f8f2afdf6c06f295b27477451dc957191` является reviewed content HEAD;
+Commit B фиксирует его без self-reference loop.
+
+Дополнительный budget review fix-pass: targeted check reruns до 2; full
+readiness ровно 1; cumulative ceiling `2/2`; CI fix-pass `0`; integration
+attempts `0`; cloud generator write-run `1`; file-map generator write-run `0`.
 
 ## Residual risks
 
