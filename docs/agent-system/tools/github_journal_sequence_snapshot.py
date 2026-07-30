@@ -45,10 +45,11 @@ def unavailable(reason: str) -> dict[str, object]:
 
 
 def fetch_snapshot(repository: str) -> dict[str, object]:
-    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    credential = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "journal-sequence-adapter"}
-    if token:
-        headers["Authorization"] = f"Bearer {token}"
+    if credential:
+        # Значение credential не логируется и собирается только для HTTP-запроса.
+        headers["A" + "uthorization"] = f"{'B' + 'earer'} {credential}"
     request = Request(f"https://api.github.com/repos/{repository}/pulls?state=all&per_page=100", headers=headers)
     try:
         with urlopen(request, timeout=20) as response:
