@@ -52,6 +52,7 @@ task_contract:
       - docs/agent-system/tools/validate_journal_sequence_reservations.py
       - docs/agent-system/tools/validate_policy_invariants.py
       - docs/agent-system/tools/tests/test_validate_journal_sequence_reservations.py
+      - docs/agent-system/tools/tests/test_github_journal_sequence_snapshot.py
       - docs/agent-system/engine-journal/input/TASK-0171-METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01.md
       - docs/agent-system/engine-journal/rationale/RATIONALE-0171-METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01.md
       - docs/agent-system/engine-journal/output/RESULT-0171-METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01.md
@@ -127,3 +128,12 @@ merge, auto-merge, force-push, rebase, reset, stash или rewrite history.
 
 Следующий: methodology-architect — завершить checks, PR и независимый review
 без применения механизма в target implementation repository до human merge.
+
+## Review fix-pass 01
+
+Подтверждённые findings независимого review требуют сделать обязательной
+публикацию matching claim в PR/MR metadata, получить полный paginated provider
+snapshot, разрешить только корректные append-only terminal transitions и
+сравнивать ledger с base. Это continuation sequence `0171`: новый sequence,
+reservation, branch и PR не создаются. Full readiness budget уже исчерпан
+`5/5`; допускаются только targeted checks изменённых механизмов.

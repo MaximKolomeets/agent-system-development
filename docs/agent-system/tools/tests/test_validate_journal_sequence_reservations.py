@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import validate_journal_sequence_reservations as validator
@@ -42,10 +43,11 @@ class ReservationValidationTests(unittest.TestCase):
         return path
 
     def provider_row(self, claim, state="open"):
-        return {"id": "17", "state": state, "head_sha": "abc", "reservation_claims": [claim]}
+        provider_claim = {field: claim[field] for field in validator.CLAIM_FIELDS if field in claim}
+        return {"id": "17", "state": state, "head_sha": "abc", "reservation_claims": [provider_claim]}
 
-    def codes(self, snapshot=None, required=False):
-        return [item.code for item in validator.validate(self.root, snapshot, required).findings]
+    def codes(self, snapshot=None, required=False, base=None):
+        return [item.code for item in validator.validate(self.root, snapshot, required, base).findings]
 
     def test_01_open_0017_makes_next_0018(self):
         report = validator.validate(self.root, self.snapshot([self.provider_row(self.reservation())]), True)
@@ -109,8 +111,10 @@ class ReservationValidationTests(unittest.TestCase):
         self.assertEqual("0018", validator.validate(self.root, snapshot, True).next_sequence)
 
     def test_15_abandoned_sequence_is_never_reused(self):
-        self.ledger(self.reservation(state="abandoned"))
-        self.assertEqual("0018", validator.validate(self.root).next_sequence)
+        self.ledger(self.reservation(), self.reservation(state="abandoned"))
+        report = validator.validate(self.root)
+        self.assertEqual([], report.findings)
+        self.assertEqual("0018", report.next_sequence)
 
     def test_16_reservation_must_match_task_triplet(self):
         self.index("0017", "METH-OPEN-01")
@@ -120,6 +124,73 @@ class ReservationValidationTests(unittest.TestCase):
     def test_17_legacy_index_rows_are_not_false_blockers(self):
         self.index("0016", "METH-LEGACY-01")
         self.assertEqual([], self.codes())
+
+    def test_18_active_ledger_reservation_without_provider_claim_blocks(self):
+        self.ledger(self.reservation())
+        self.assertIn("LEDGER_PROVIDER_CLAIM_MISSING", self.codes(self.snapshot([]), True))
+
+    def test_19_matching_provider_claim_for_active_ledger_passes(self):
+        self.ledger(self.reservation())
+        self.assertNotIn("LEDGER_PROVIDER_CLAIM_MISSING", self.codes(self.snapshot([self.provider_row(self.reservation())]), True))
+
+    def test_20_provider_claim_with_other_identity_blocks(self):
+        self.ledger(self.reservation())
+        other = self.reservation(task="METH-OTHER-01", reservation_id="r-other")
+        codes = self.codes(self.snapshot([self.provider_row(other)]), True)
+        self.assertIn("LEDGER_PROVIDER_CLAIM_MISSING", codes)
+        self.assertIn("LEDGER_PROVIDER_RESERVATION_MISMATCH", codes)
+
+    def test_21_duplicate_provider_claim_blocks(self):
+        self.ledger(self.reservation())
+        rows = [self.provider_row(self.reservation()), self.provider_row(self.reservation())]
+        self.assertIn("PROVIDER_RESERVATION_DUPLICATE", self.codes(self.snapshot(rows), True))
+
+    def test_22_reserved_to_abandoned_is_valid_append_only_transition(self):
+        self.ledger(self.reservation(), self.reservation(state="abandoned"))
+        self.assertNotIn("LEDGER_STATE_TRANSITION_INVALID", self.codes())
+
+    def test_23_different_identities_for_one_ledger_sequence_block(self):
+        self.ledger(self.reservation(), self.reservation(task="METH-OTHER-01", reservation_id="r-other"))
+        self.assertIn("LEDGER_SEQUENCE_CONFLICT", self.codes())
+
+    def test_24_terminal_state_cannot_return_to_reserved(self):
+        self.ledger(self.reservation(), self.reservation(state="abandoned"), self.reservation(state="reserved"))
+        self.assertIn("LEDGER_STATE_TRANSITION_INVALID", self.codes())
+
+    def test_25_incompatible_terminal_transition_blocks(self):
+        self.ledger(self.reservation(), self.reservation(state="abandoned"), self.reservation(state="consumed"))
+        self.assertIn("LEDGER_STATE_TRANSITION_INVALID", self.codes())
+
+    def history_codes(self, baseline, current):
+        self.ledger(*current)
+        with mock.patch.object(validator, "base_ledger_entries", return_value=list(baseline)):
+            return self.codes(base="origin/developer")
+
+    def test_26_deleting_base_ledger_record_blocks(self):
+        self.assertIn("LEDGER_HISTORY_NOT_APPEND_ONLY", self.history_codes([self.reservation()], []))
+
+    def test_27_changing_base_ledger_record_blocks(self):
+        changed = self.reservation(task="METH-CHANGED-01")
+        self.assertIn("LEDGER_HISTORY_NOT_APPEND_ONLY", self.history_codes([self.reservation()], [changed]))
+
+    def test_28_reordering_base_ledger_records_blocks(self):
+        second = self.reservation("0018", "METH-SECOND-01", "r-0018")
+        self.assertIn("LEDGER_HISTORY_NOT_APPEND_ONLY", self.history_codes([self.reservation(), second], [second, self.reservation()]))
+
+    def test_29_appending_ledger_record_after_base_passes_history_guard(self):
+        second = self.reservation("0018", "METH-SECOND-01", "r-0018")
+        self.assertNotIn("LEDGER_HISTORY_NOT_APPEND_ONLY", self.history_codes([self.reservation()], [self.reservation(), second]))
+
+    def test_30_absent_ledger_on_valid_base_is_explicit_bootstrap(self):
+        report = validator.Report()
+        responses = [
+            __import__("subprocess").CompletedProcess([], 0, "base\n", ""),
+            __import__("subprocess").CompletedProcess([], 128, "", "missing path"),
+            __import__("subprocess").CompletedProcess([], 0, "", ""),
+        ]
+        with mock.patch.object(validator.subprocess, "run", side_effect=responses):
+            self.assertEqual([], validator.base_ledger_entries(self.root, "origin/developer", report))
+        self.assertEqual([], report.findings)
 
 
 if __name__ == "__main__":

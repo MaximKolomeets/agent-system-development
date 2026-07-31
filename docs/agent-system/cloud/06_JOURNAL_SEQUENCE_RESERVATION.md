@@ -22,20 +22,26 @@ append-only `INDEX.md` и не переписывает открытые PR.
 2. Прочитать merged `INDEX.md` и append-only
    `engine-journal/SEQUENCE_RESERVATIONS.json`.
 3. `occupied` = sequence из INDEX + `reserved`/`consumed`/`abandoned` ledger
-   + valid claims snapshot. Одинаковая `(sequence, task_id, reservation_id)`
-   идемпотентна; иной task id или reservation id для одного sequence — hard
-   failure.
+   + valid claims snapshot. Каждая active `reserved` запись ledger, ещё не
+   consumed matching merged INDEX, обязана иметь ровно один matching
+   machine-readable claim в metadata её PR/MR. Отсутствие, duplicate,
+   malformed или identity-mismatch claim — hard failure.
 4. `next_sequence = max(occupied) + 1`; формат всегда ровно четыре цифры.
    Агент не угадывает номер и не переиспользует abandoned tombstone.
-5. Сначала создать минимальный reservation PR с versioned claim в ledger,
-   затем substantive task. Branch protection должна требовать актуальную base
-   либо человек выполняет serial merge. Конкурентный add/add ledger conflict
-   или CI duplicate finding является границей атомарности.
+5. Сначала создать минимальный reservation PR с versioned claim в ledger и
+   его PR/MR metadata, затем substantive task. Branch protection должна
+   требовать актуальную base либо человек выполняет serial merge. Конкурентный
+   add/add ledger conflict или CI duplicate finding является границей
+   атомарности.
 
-`consumed` выводится из matching sequence/task id в merged INDEX. Закрытый без
-merge PR не освобождает номер: он остаётся occupied, пока append-only ledger
-не получит terminal `abandoned`; tombstone также никогда не переиспользуется.
-Rollback — только новый append-only `abandoned` record после human decision.
+`consumed` выводится из matching sequence/task id в merged INDEX. Ledger
+является потоком append-only событий: первая запись identity имеет состояние
+`reserved`; разрешены только `reserved -> abandoned` и
+`reserved -> consumed`. Terminal state нельзя вернуть в `reserved` или
+перевести в другой terminal state. Закрытый без merge PR не освобождает номер:
+он остаётся occupied, пока append-only ledger не получит terminal `abandoned`;
+tombstone также никогда не переиспользуется. Rollback — только новый
+append-only `abandoned` record после human decision.
 
 ## Provider-neutral snapshot
 
@@ -50,6 +56,11 @@ Rollback — только новый append-only `abandoned` record после h
 SourceCraft должны отдать тот же normalized snapshot: их термины MR/PR и API
 не меняют семантику `reserved/consumed/abandoned`. Adapter не выводит token или
 Authorization; `.env` не читается.
+
+Adapter обязан получить все страницы provider API для `state=all` и завершить
+snapshot fail-closed при ошибке страницы, timeout, невалидном JSON или
+неожиданной структуре. Частичный snapshot никогда не получает
+`availability: available`.
 
 Если mandatory live provider source/offline snapshot unavailable или metadata
 неполна/неизвестной версии, allocation fail-closed. После adoption offline
@@ -76,10 +87,13 @@ scan и записи причины в его TASK/RATIONALE/RESULT.
 ## Риски и границы
 
 Ledger не является distributed transaction: его атомарность обеспечивается
-PR/base-update conflict и human merge gate. Stale snapshot, отключённая branch
-protection или обход reservation PR — operational risk и blocker, а не повод
-выбрать номер вручную. История reservations append-only; provider snapshot —
-проверяемое evidence, не источник переписывания historical artifacts.
+PR/base-update conflict и human merge gate. Validator сравнивает ledger с
+resolved base структурно: каждая прежняя запись должна остаться в том же
+порядке и без изменения полей; разрешено только добавление событий в конец.
+Stale snapshot, отключённая branch protection или обход reservation PR —
+operational risk и blocker, а не повод выбрать номер вручную. История
+reservations append-only; provider snapshot — проверяемое evidence, не источник
+переписывания historical artifacts.
 
 ## Передача
 

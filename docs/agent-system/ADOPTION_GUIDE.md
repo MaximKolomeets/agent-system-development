@@ -82,6 +82,13 @@ Journal связывает task -> result -> branch -> PR -> commit/result. Task
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+Для parallel allocation target переносит strict provider claim contract:
+каждая active reservation публикует один versioned JSON claim в metadata PR/MR,
+adapter получает полный paginated `state=all` snapshot fail-closed, а ledger
+проверяется как append-only prefix относительно base. Closed-unmerged
+reservation освобождается только append-only transition в `abandoned` и не
+переиспользуется.
+
 Во время adoption переносить только scaffold, templates и contract engine
 journal. Operational history methodology repository не копируется. Первая
 target adoption/audit task создает target-specific task/result files и

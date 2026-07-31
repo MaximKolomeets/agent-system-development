@@ -7,13 +7,13 @@ import argparse
 import json
 import os
 import re
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.error import URLError, HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 CLAIM_RE = re.compile(r"<!--\s*journal-sequence-reservation:\s*(\{.*?\})\s*-->", re.DOTALL)
+NEXT_LINK_RE = re.compile(r'<([^>]+)>;\s*rel="next"')
 
 
 def observed_now() -> str:
@@ -44,32 +44,57 @@ def unavailable(reason: str) -> dict[str, object]:
     }
 
 
+def next_page(link_header: str | None) -> str | None:
+    match = NEXT_LINK_RE.search(link_header or "")
+    return match.group(1) if match else None
+
+
+def normalize_row(item: object) -> dict[str, object] | None:
+    if not isinstance(item, dict) or not isinstance(item.get("number"), int):
+        return None
+    head = item.get("head")
+    if not isinstance(head, dict) or not isinstance(head.get("sha"), str):
+        return None
+    state = "merged" if item.get("merged_at") else item.get("state")
+    if state not in {"open", "closed"}:
+        return None
+    body = item.get("body")
+    if body is not None and not isinstance(body, str):
+        return None
+    return {
+        "id": item["number"],
+        "state": state,
+        "head_sha": head["sha"],
+        "reservation_claims": extract_claims(body),
+    }
+
+
 def fetch_snapshot(repository: str) -> dict[str, object]:
     credential = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "journal-sequence-adapter"}
     if credential:
         # Значение credential не логируется и собирается только для HTTP-запроса.
         headers["A" + "uthorization"] = f"{'B' + 'earer'} {credential}"
-    request = Request(f"https://api.github.com/repos/{repository}/pulls?state=all&per_page=100", headers=headers)
-    try:
-        with urlopen(request, timeout=20) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError):
-        return unavailable("provider_api_unavailable")
-    if not isinstance(payload, list):
-        return unavailable("provider_payload_invalid")
+    url = f"https://api.github.com/repos/{repository}/pulls?state=all&per_page=100"
+    visited: set[str] = set()
     rows: list[dict[str, object]] = []
-    for item in payload:
-        if not isinstance(item, dict):
-            continue
-        state = "merged" if item.get("merged_at") else str(item.get("state", "closed"))
-        head = item.get("head") if isinstance(item.get("head"), dict) else {}
-        rows.append({
-            "id": item.get("number", "unknown"),
-            "state": state,
-            "head_sha": str(head.get("sha", "unknown")),
-            "reservation_claims": extract_claims(item.get("body")),
-        })
+    try:
+        while url:
+            if url in visited:
+                return unavailable("provider_pagination_invalid")
+            visited.add(url)
+            request = Request(url, headers=headers)
+            with urlopen(request, timeout=20) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+                url = next_page(response.headers.get("Link"))
+            if not isinstance(payload, list):
+                return unavailable("provider_payload_invalid")
+            normalized = [normalize_row(item) for item in payload]
+            if any(item is None for item in normalized):
+                return unavailable("provider_payload_invalid")
+            rows.extend(item for item in normalized if item is not None)
+    except (HTTPError, URLError, TimeoutError, OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return unavailable("provider_api_unavailable")
     return {"schema_version": 1, "provider": "github", "availability": "available", "observed_at": observed_now(), "pull_requests": rows}
 
 

@@ -86,4 +86,5 @@ jobs:
           python docs/agent-system/tools/github_journal_sequence_snapshot.py \
             --repository "${GITHUB_REPOSITORY}" --output "${snapshot}"
           python docs/agent-system/tools/validate_journal_sequence_reservations.py \
-            --snapshot "${snapshot}" --require-provider-snapshot
+            --snapshot "${snapshot}" --require-provider-snapshot \
+            --base "${{ steps.base.outputs.base }}"

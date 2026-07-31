@@ -81,3 +81,34 @@ adapter mappings требуют отдельной target adoption-задачи.
 
 Следующий: methodology-architect — выполнить dependency generators, полный
 Docker-first gate, создать PR и заменить self-reference фактическими evidence.
+
+## Addendum review fix-pass 01
+
+Независимый review PR #357 подтвердил четыре исправляемых finding: обязательный
+matching provider claim active reservation, complete pagination GitHub API,
+append-only transition `reserved -> abandoned` и structural base guard ledger.
+Реализация сохраняет provider-neutral contract, делает partial snapshot
+fail-closed и передаёт resolved base из CI и local ready-gate в reservation
+validator.
+
+Фактические targeted evidence до нового commit:
+
+- Docker unittest: `Ran 61 tests` — `OK`;
+- `validate_task_contract.py` для TASK-0171: `valid`;
+- `validate_journal_triplet.py --base origin/developer`: `passed`;
+- `validate_journal_sequence_reservations.py --base origin/developer`:
+  `passed`;
+- `validate_policy_invariants.py`: `valid`;
+- `gen_file_map.py --check` и `gen_cloud_bundle.py --check`: passed;
+- `generated_eol_guard.py --base origin/developer --json`: blockers `0`;
+- Russian-first lint: passed, findings `0`;
+- strict added-line secret scan: findings `0`.
+
+Full readiness budget уже использован `5/5`; шестой запуск не выполнялся.
+Review threads остаются unresolved до нового commit, push, green CI и повторной
+независимой проверки.
+
+## Передача
+
+Следующий: methodology-architect — создать один review fix-pass commit, push в
+PR #357 и передать новый HEAD на повторный независимый methodology review.

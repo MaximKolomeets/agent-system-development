@@ -111,8 +111,13 @@ RESULT-0001-PR-2r-engine-journal-contract.md
 Нумерация sequence — append-only. Для параллельных задач следующий номер
 `engine` вычисляет по `JOURNAL_SEQUENCE_RESERVATION.md`: merged INDEX,
 append-only reservation ledger и обязательный provider snapshot образуют
-occupied set. Если parallel claims отсутствуют, результат остаётся `last INDEX
-+ 1`. Нельзя предугадывать, переиспользовать или пропускать seq.
+occupied set. Active `reserved` ledger запись обязана иметь ровно один strict
+machine-readable claim в metadata её PR/MR до matching merged INDEX; отсутствие
+или конфликт claim блокирует allocation. Provider adapter обязан получать
+полную пагинацию, а ledger history проверяется относительно base как
+структурный append-only prefix. Если parallel claims отсутствуют, результат
+остаётся `last INDEX + 1`. Нельзя предугадывать, переиспользовать или
+пропускать seq.
 
 ## Index
 

@@ -920,8 +920,8 @@ def add_journal_triplet_checks(report: ReadyReport) -> None:
     if check.exit_code != 0:
         report.blockers.append("validate_journal_triplet.py failed")
     reservation_check = run_command(
-        ["python", "docs/agent-system/tools/validate_journal_sequence_reservations.py", "--json"],
-        "validate_journal_sequence_reservations.py --json",
+        ["python", "docs/agent-system/tools/validate_journal_sequence_reservations.py", "--base", report.base, "--json"],
+        f"validate_journal_sequence_reservations.py --base {report.base} --json",
     )
     report.journal_triplet_checks.append(reservation_check)
     if reservation_check.exit_code != 0:

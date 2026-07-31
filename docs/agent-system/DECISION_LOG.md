@@ -949,6 +949,31 @@ collision у параллельных задач.
 - atomicity обеспечивают reservation PR, актуальная base/merge-conflict и
   human serial merge gate; runtime impact: none; downstream-specific data: none.
 
+## 2026-07-31 - Provider claim и append-only события reservation ledger
+
+Решение:
+Active reservation обязана публиковать один strict versioned JSON claim в
+metadata PR/MR. GitHub reference adapter получает все страницы `state=all`
+fail-closed. Ledger трактуется как append-only поток событий: разрешены только
+`reserved -> abandoned` и `reserved -> consumed`; history относительно base
+сохраняется структурным prefix без удаления, замены или перестановки записей.
+
+Причина:
+Ledger одной параллельной ветки не виден adapter другой ветки без обязательного
+PR claim; первая API page не доказывает complete scan; сравнение identity со
+state запрещало корректный tombstone transition; отсутствие base comparison
+допускало rewrite historical occupation.
+
+Последствия:
+
+- отсутствие, duplicate, malformed или mismatched provider claim блокирует
+  active allocation;
+- partial/unavailable provider snapshot не получает `available`;
+- abandoned sequence остаётся occupied навсегда;
+- CI и local ready-gate передают один resolved base reservation validator;
+- impact: docs-only and validation tooling; runtime impact: none;
+  downstream-specific data: none.
+
 ## 2026-06-19 - Трёхслойная operating-модель (project operating layer + cross-project consolidation)
 
 Решение:

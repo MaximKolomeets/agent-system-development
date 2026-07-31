@@ -82,3 +82,13 @@ DECISION_LOG entry; оно сохраняет triplet и append-only gates.
 ## Изменения после review
 
 На момент initial implementation review ещё не применялся.
+
+## Addendum review fix-pass 01
+
+Review подтвердил четыре связанные границы: ledger без обязательного claim не
+виден другой PR, одна API page не доказывает complete scan, state нельзя
+включать в identity conflict, а history ledger требует structural comparison с
+base. Поэтому выбран минимальный обобщённый путь: strict metadata claim для
+active reservation, fail-closed pagination, отдельная state machine и
+append-only prefix guard. Это сохраняет provider-neutral output contract и не
+превращает local structural validation в обход provider CI.
