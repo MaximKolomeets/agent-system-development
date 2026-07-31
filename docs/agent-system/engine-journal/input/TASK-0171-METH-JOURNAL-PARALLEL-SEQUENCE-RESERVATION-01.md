@@ -137,3 +137,12 @@ snapshot, разрешить только корректные append-only termi
 сравнивать ledger с base. Это continuation sequence `0171`: новый sequence,
 reservation, branch и PR не создаются. Full readiness budget уже исчерпан
 `5/5`; допускаются только targeted checks изменённых механизмов.
+
+## Addendum CI fix-pass 02
+
+CI обнаружил, что workflow не передавал provider adapter credential через
+environment. Разрешён один точечный fix-pass без нового sequence, reservation,
+ветки или PR: workflow получает только минимальные read-only permissions и
+явный `GITHUB_TOKEN` binding, а adapter различает отсутствие binding, HTTP,
+transport, payload и pagination без вывода sensitive details. Шестой полный
+readiness запрещён; применяются только targeted проверки.

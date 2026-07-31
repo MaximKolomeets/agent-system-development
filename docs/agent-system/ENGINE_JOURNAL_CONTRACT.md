@@ -117,7 +117,11 @@ machine-readable claim в metadata её PR/MR до matching merged INDEX; отс
 полную пагинацию, а ledger history проверяется относительно base как
 структурный append-only prefix. Если parallel claims отсутствуют, результат
 остаётся `last INDEX + 1`. Нельзя предугадывать, переиспользовать или
-пропускать seq.
+пропускать seq. Provider-dependent CI задаёт только минимальные read-only
+permissions и явно передаёт credential adapter через environment. Отсутствие
+credential, HTTP access/rate-limit, transport, payload или pagination делают
+snapshot unavailable и остаются hard blocker; диагностика не раскрывает
+credential, Authorization, response body, headers или detail исключения.
 
 ## Index
 

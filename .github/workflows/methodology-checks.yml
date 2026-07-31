@@ -8,6 +8,10 @@ on:
     branches:
       - "work/**"
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   methodology-checks:
     name: Methodology self-enforcement
@@ -80,6 +84,9 @@ jobs:
 
       - name: Journal sequence reservation
         shell: bash
+        env:
+          # Credential остаётся только в environment adapter и не попадает в аргументы команды.
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           snapshot="${RUNNER_TEMP}/journal-sequence-provider-snapshot.json"

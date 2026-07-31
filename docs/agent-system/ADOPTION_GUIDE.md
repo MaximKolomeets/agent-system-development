@@ -85,7 +85,10 @@ docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 Для parallel allocation target переносит strict provider claim contract:
 каждая active reservation публикует один versioned JSON claim в metadata PR/MR,
 adapter получает полный paginated `state=all` snapshot fail-closed, а ledger
-проверяется как append-only prefix относительно base. Closed-unmerged
+проверяется как append-only prefix относительно base. Provider CI передаёт
+adapter credential только через environment с минимальными read-only
+permissions; отсутствие credential или API не переводит unavailable snapshot
+в warning и не раскрывает sensitive diagnostic details. Closed-unmerged
 reservation освобождается только append-only transition в `abandoned` и не
 переиспользуется.
 

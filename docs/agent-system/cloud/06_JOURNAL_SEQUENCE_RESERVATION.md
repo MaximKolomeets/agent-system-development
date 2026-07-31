@@ -54,8 +54,14 @@ append-only `abandoned` record после human decision.
 `tools/github_journal_sequence_snapshot.py` преобразует PR body claim
 `<!-- journal-sequence-reservation: {...} -->` в эту схему. GitLab, GitVerse и
 SourceCraft должны отдать тот же normalized snapshot: их термины MR/PR и API
-не меняют семантику `reserved/consumed/abandoned`. Adapter не выводит token или
-Authorization; `.env` не читается.
+не меняют семантику `reserved/consumed/abandoned`. Provider-dependent CI
+явно передаёт adapter credential только через environment и задаёт минимальные
+read-only permissions. При отсутствии credential adapter не делает
+неаутентифицированный запрос и возвращает
+`provider_credential_unavailable`; причины включают HTTP access/rate-limit и transport,
+некорректный ответ и pagination получают отдельные безопасные коды причины без
+token, Authorization, response body, request headers или detail исключения. `.env`
+не читается.
 
 Adapter обязан получить все страницы provider API для `state=all` и завершить
 snapshot fail-closed при ошибке страницы, timeout, невалидном JSON или

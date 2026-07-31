@@ -112,3 +112,42 @@ Review threads остаются unresolved до нового commit, push, green
 
 Следующий: methodology-architect — создать один review fix-pass commit, push в
 PR #357 и передать новый HEAD на повторный независимый methodology review.
+
+## Addendum CI fix-pass 02
+
+Падение CI для `e2c35df24df3a78f263d849c117e68f2afc83017` локализовано в
+`Journal sequence reservation`: adapter запускался без явного environment
+binding `GITHUB_TOKEN`, а потому provider snapshot был unavailable. Конкретный
+HTTP status не установлен и не утверждается. Точечная правка задаёт только
+`contents: read` и `pull-requests: read`, передаёт `${{ github.token }}` через
+environment adapter step и сохраняет credential вне аргументов, snapshot,
+journal и diagnostic output.
+
+Adapter теперь fail-closed различает `provider_credential_unavailable`, safe
+HTTP reasons, `provider_transport_unavailable`, `provider_payload_invalid` и
+`provider_pagination_invalid`. До commit выполняются targeted unit/regression
+tests, validators, generators, EOL guard, Russian-first lint и secret scan;
+шестой full readiness не запускается. Финальные SHA, CI и actual accounting
+будут добавлены только после единственного разрешённого commit/push.
+
+Фактические targeted evidence CI fix-pass до commit: Docker unit/regression
+tests adapter и reservation validator — `Ran 37 tests` / `OK`; TASK contract,
+reservation validator с `--base origin/developer`, journal triplet, policy
+invariants, file-map/cloud parity и append-only validator — passed;
+Russian-first lint — findings `0`; generated EOL guard — blockers `0` с одним
+historical EOL warning; added-line secret scan — findings `0`; commit-language
+validator для `fix(agent-system): передать credential provider adapter` — valid.
+Третий generator write-run для `cloud/06` явно разрешён human architect после
+Russian-first source correction. Full readiness usage остаётся `5/5`, шестой
+запуск не выполнялся.
+
+## Source-reminder
+
+Изменённый канон provider-dependent reservation CI следует передавать в
+target implementation repository только через отдельную adoption-задачу от
+stable methodology reference; текущая задача target repositories не меняет.
+
+## Передача
+
+Следующий: methodology-architect — выполнить targeted checks, один commit/push
+и дождаться CI нового SHA без второго fix-pass.

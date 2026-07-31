@@ -92,3 +92,13 @@ base. Поэтому выбран минимальный обобщённый п
 active reservation, fail-closed pagination, отдельная state machine и
 append-only prefix guard. Это сохраняет provider-neutral output contract и не
 превращает local structural validation в обход provider CI.
+
+## Addendum CI fix-pass 02
+
+Неаутентифицированный fallback противоречит fail-closed allocation: он делает
+результат provider discovery зависимым от внешних лимитов и не доказывает
+access scope. Поэтому workflow передаёт credential только через environment
+ровно в adapter step и использует минимальные `contents: read` и
+`pull-requests: read`. Adapter возвращает safe normalized reason, а не HTTP
+detail или provider response; отсутствие credential не вызывает сеть. Это
+улучшает наблюдаемость, не ослабляя `--require-provider-snapshot`.

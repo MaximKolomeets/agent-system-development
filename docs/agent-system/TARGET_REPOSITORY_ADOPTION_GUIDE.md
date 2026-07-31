@@ -35,8 +35,10 @@ Dirty рабочая ветка в `agent-system-development` не блокир�
    validator, GitHub reference adapter и пустой target ledger; каждая active
    reservation публикует strict JSON claim в PR/MR metadata, provider scan
    должен быть полностью paginated и fail-closed, а ledger history проверяется
-   относительно base. Legacy open PR регистрировать только после complete
-   provider snapshot и human authorization.
+   относительно base. Provider CI задаёт минимальные read-only permissions и
+   передаёт adapter credential только через environment; credential/API failure
+   остаётся blocker без вывода sensitive provider details. Legacy open PR
+   регистрировать только после complete provider snapshot и human authorization.
 
 ## Обязательные политики
 
