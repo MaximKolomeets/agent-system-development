@@ -68,6 +68,12 @@ snapshot fail-closed при ошибке страницы, timeout, невали
 неожиданной структуре. Частичный snapshot никогда не получает
 `availability: available`.
 
+Стандартные строки provider `open`, `closed` и `merged` соответствуют schema;
+merged PR из ответа `state=all` не является некорректным payload. После записи
+snapshot adapter выводит в CI только `provider_snapshot availability=<value>
+reason=<normalized-or-none>`; полный snapshot, claim metadata, credentials,
+headers, response body и exception detail не выводятся.
+
 Если mandatory live provider source/offline snapshot unavailable или metadata
 неполна/неизвестной версии, allocation fail-closed. После adoption offline
 работа возможна только по merged ledger, reservation PR, base-update/merge

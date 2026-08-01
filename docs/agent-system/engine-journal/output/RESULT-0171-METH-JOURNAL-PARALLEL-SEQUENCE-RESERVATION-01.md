@@ -151,3 +151,51 @@ stable methodology reference; текущая задача target repositories н
 
 Следующий: methodology-architect — выполнить targeted checks, один commit/push
 и дождаться CI нового SHA без второго fix-pass.
+
+## Addendum provider snapshot continuation
+
+Симптом: CI `f9de76c` передал masked credential, но получил
+`PROVIDER_SNAPSHOT_UNAVAILABLE`. Причина доказана unit regression: adapter
+нормализовал row с `merged_at` как `merged`, затем ошибочно принимал только
+`open` и `closed`, из-за чего mixed provider page становилась
+`provider_payload_invalid`. Выбранное решение: принять все schema states
+`open`/`closed`/`merged` и после записи snapshot выводить только safe строку
+availability/reason с allowlist причин. Тест исходной реализации воспроизвёл
+`unavailable`; после исправления mixed page и claim merged PR проходят.
+
+Локальный credential отсутствует по проверке presence-only, поэтому реальная
+provider проверка делегируется GitHub Actions. HTTP status не утверждается.
+Full readiness usage остаётся `5/5`; шестой запуск не выполнялся.
+
+## Addendum provider snapshot continuation — финальные локальные evidence
+
+После schema-aligned исправления Docker targeted unit/regression suite adapter
+и reservation validator завершилась: `Ran 41 tests` — `OK`. TASK contract,
+reservation validator с `--base origin/developer`, triplet, append-only,
+policy invariants, file-map/cloud parity, EOL guard и Russian-first lint
+прошли; added-line secret scan вернул `0`, commit-language validator для
+`fix(agent-system): исправить merged provider snapshot` — `valid`.
+Generated cloud mirror `06_JOURNAL_SEQUENCE_RESERVATION.md` обновлён только
+штатным generator после изменения канонического source. Local credential
+presence-only check показал отсутствие `GITHUB_TOKEN` и `GH_TOKEN`; значение
+credential не читалось. Реальная provider integration и matching claim `0171`
+проверяются CI следующего commit.
+
+## Methodology feedback
+
+1. Безопасный нормализованный provider reason должен быть видим в CI.
+2. Provider adapter обязан иметь positive regression coverage для каждого
+   состояния, разрешённого schema.
+3. Обычная техническая ошибка CI не является STOP.
+4. Нельзя ограничивать число необходимых детерминированных регенераций или
+   исправительных итераций заранее заданным числом.
+
+## Unprompted Project Proposals
+
+нет
+
+## Передача
+
+Следующий: independent methodology reviewer — после green CI повторно
+проверить новый HEAD PR #357, четыре исходных finding и безопасность
+credential binding.

@@ -102,3 +102,12 @@ access scope. Поэтому workflow передаёт credential только �
 `pull-requests: read`. Adapter возвращает safe normalized reason, а не HTTP
 detail или provider response; отсутствие credential не вызывает сеть. Это
 улучшает наблюдаемость, не ослабляя `--require-provider-snapshot`.
+
+## Addendum provider snapshot continuation
+
+`state=all` штатно включает merged PR, а schema уже допускает `merged`.
+Поэтому исключение этого state как невалидного payload являлось дефектом
+adapter, а не безопасным ограничением. Разрешается только schema-aligned
+нормализация и bounded diagnostic line с availability/reason. Это даёт CI
+достаточный evidence для следующей диагностики, не публикуя provider payload,
+claim metadata или sensitive HTTP details.

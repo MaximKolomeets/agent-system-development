@@ -14,6 +14,16 @@ from urllib.request import Request, urlopen
 
 CLAIM_RE = re.compile(r"<!--\s*journal-sequence-reservation:\s*(\{.*?\})\s*-->", re.DOTALL)
 NEXT_LINK_RE = re.compile(r'<([^>]+)>;\s*rel="next"')
+SAFE_DIAGNOSTIC_REASONS = {
+    "provider_credential_unavailable",
+    "provider_authentication_failed",
+    "provider_access_denied_or_rate_limited",
+    "provider_rate_limited",
+    "provider_repository_unavailable",
+    "provider_transport_unavailable",
+    "provider_payload_invalid",
+    "provider_pagination_invalid",
+}
 
 
 def observed_now() -> str:
@@ -44,6 +54,19 @@ def unavailable(reason: str) -> dict[str, object]:
     }
 
 
+def diagnostic_line(snapshot: dict[str, object]) -> str:
+    """Возвращает только безопасные availability/reason без provider payload."""
+    availability = snapshot.get("availability")
+    safe_availability = availability if availability in {"available", "unavailable"} else "unavailable"
+    reason = snapshot.get("reason")
+    safe_reason = (
+        reason
+        if safe_availability == "unavailable" and isinstance(reason, str) and reason in SAFE_DIAGNOSTIC_REASONS
+        else "none"
+    )
+    return f"provider_snapshot availability={safe_availability} reason={safe_reason}"
+
+
 def next_page(link_header: str | None) -> str | None:
     match = NEXT_LINK_RE.search(link_header or "")
     return match.group(1) if match else None
@@ -56,7 +79,7 @@ def normalize_row(item: object) -> dict[str, object] | None:
     if not isinstance(head, dict) or not isinstance(head.get("sha"), str):
         return None
     state = "merged" if item.get("merged_at") else item.get("state")
-    if state not in {"open", "closed"}:
+    if state not in {"open", "closed", "merged"}:
         return None
     body = item.get("body")
     if body is not None and not isinstance(body, str):
@@ -119,7 +142,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     snapshot = fetch_snapshot(args.repository)
     Path(args.output).write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    # Credential values намеренно не выводятся; CI передаёт файл следующему validator.
+    # Credential values и provider payload намеренно не выводятся; CI видит только safe status.
+    print(diagnostic_line(snapshot))
     return 0
 
 

@@ -146,3 +146,11 @@ environment. Разрешён один точечный fix-pass без ново
 явный `GITHUB_TOKEN` binding, а adapter различает отсутствие binding, HTTP,
 transport, payload и pagination без вывода sensitive details. Шестой полный
 readiness запрещён; применяются только targeted проверки.
+
+## Addendum provider snapshot continuation
+
+CI с явным credential binding показал unavailable snapshot без HTTP detail.
+Разрешена диагностика и исправление внутри sequence `0171`: доказать
+обработку merged provider row регрессионным тестом, сохранить fail-closed
+семантику и вывести в CI только нормализованные availability/reason. Новый
+sequence, reservation, branch и PR не создаются; полный readiness не повторяется.
