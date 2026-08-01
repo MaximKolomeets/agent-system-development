@@ -19,13 +19,18 @@ ai_cost_estimate: not_available
 human_cost_estimate: not_applicable
 total_task_cost: not_available
 resource_cost: not_available
-Branch: work/methodology-architect-01/meth-journal-parallel-sequence-reservation-01
-Commit SHA: self-reference: initial journal commit
-PR URL: self-reference: создаётся после green local gate отдельным разрешённым шагом
-Статус финализации: local_validation_in_progress
-RESULT finalized: no
-INDEX finalized: no
+Branch: `work/methodology-architect-01/meth-journal-parallel-sequence-reservation-01`
+Статус финализации: ready_for_human_review.
+Статус journal-задачи: ready_for_human_review.
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/357
+pr_head_source: github_pr_metadata
+reviewed_head_source: github_pr_metadata
+reviewed_content_head_sha: 82cb0c8340d13fb614d3433338bed41a14d303ba
+final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
+RESULT finalized: yes
+INDEX finalized: yes
 No journal placeholders: yes
+raw_chain_of_thought_stored: no
 
 ## Результат
 
@@ -199,3 +204,83 @@ credential не читалось. Реальная provider integration и match
 Следующий: independent methodology reviewer — после green CI повторно
 проверить новый HEAD PR #357, четыре исходных finding и безопасность
 credential binding.
+
+## Addendum journal finalization
+
+Промежуточные self-reference значения заменены фактическим состоянием до
+merge: ветка `work/methodology-architect-01/meth-journal-parallel-sequence-reservation-01`,
+PR [#357](https://github.com/MaximKolomeets/agent-system-development/pull/357),
+статус `ready_for_human_review`, `RESULT finalized: yes` и `INDEX finalized:
+yes`. Проверенный содержательный HEAD —
+`82cb0c8340d13fb614d3433338bed41a14d303ba`; его источник — GitHub PR
+metadata. Финальный HEAD PR не встраивается в этот же RESULT во избежание
+self-reference loop; его источником остаётся GitHub PR metadata. Merge и
+auto-merge не выполнялись.
+
+Техническая реализация на проверенном содержательном HEAD имеет blockers `0`:
+
+- целевой Docker unit/regression: `Ran 41 tests` — `OK`;
+- `validate_task_contract.py`, triplet, append-only, reservation validator,
+  policy invariants, `gen_file_map.py --check` и `gen_cloud_bundle.py --check`
+  — passed;
+- Russian-first lint: findings `0`; added-line secret scan: `0`;
+  commit-language validator — `valid`;
+- push CI `30691473469` и pull_request CI `30691474973` — `success` для
+  `82cb0c8340d13fb614d3433338bed41a14d303ba`;
+- `provider_snapshot availability=available reason=none`, reservation
+  validator passed, `next_sequence=0172`;
+- full readiness usage остаётся `5/5`; шестой full readiness не выполнялся.
+
+`generated_eol_guard.py` вернул blockers `0` и один warning для historical
+classification rename/add `cloud/08_ENGINE_JOURNAL_INDEX.md`; это не drift
+generated-файла и не правится вручную. Cloud mirror актуализирован только
+штатным generator.
+
+### Учёт времени finalization continuation
+
+Исходное measured execution сохраняется в верхних полях RESULT:
+`2026-07-30T15:51:17+02:00` → `2026-07-30T16:10:00+02:00`, `PT18M43S`,
+`time_spent: 18m`. Finalization-pass измерен от
+`2026-08-01T18:33:34.1550838+02:00` до
+`2026-08-01T18:43:18.3213461+02:00`: `PT9M44S`, округлённое значение `10m`.
+Суммарное активное measured время двух execution-pass — `PT28M27S`, rollup
+`28m`; многодневная календарная пауза в него не включена. INDEX сохраняет
+канонический `time_spent` исходного execution (`18m`), а cumulative rollup
+зафиксирован только в этом addendum.
+
+## Source Delta
+
+| путь | действие | категория |
+| --- | --- | --- |
+| `docs/agent-system/engine-journal/output/RESULT-0171-METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01.md` | modified | journal finalization |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal index finalization |
+| `docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md` | regenerated | generated journal index |
+
+Source-reminder: дальнейшая adoption provider-dependent reservation CI в target
+implementation repository выполняется только отдельной задачей от stable
+methodology reference; текущий finalization-pass target repository не меняет.
+
+## Orchestrator context handoff
+
+Архитектору — загрузить в контекст оркестратора:
+`08_ENGINE_JOURNAL_INDEX.md` (src:
+`docs/agent-system/engine-journal/INDEX.md`); asof:
+`2026-08-01T18:43:18.3213461+02:00`; developer_head_sha:
+`dcbace9e530ed2d9917ffe33b55fca7ca08fe602`.
+
+## Methodology feedback
+
+Semantic journal finalization после создания PR должна проверяться отдельным
+обязательным правилом: structural triplet validator не обнаружил
+нефинализированные placeholders. Новый validator не входит в scope TASK 0171
+и требует отдельного решения после human merge.
+
+## Unprompted Project Proposals
+
+нет
+
+## Передача
+
+Следующий: independent methodology reviewer — после green CI проверить новый
+finalization HEAD PR #357, journal finalization, PR body и сохранность четырёх
+исходных исправлений.
