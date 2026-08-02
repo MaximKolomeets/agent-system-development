@@ -143,3 +143,25 @@ PR #338: исправлены migration INDEX, scaffold/archive lifecycle и reg
 ## Unprompted Project Proposals
 
 нет
+
+## Подтверждение boundary closure v1.6.0 — окончательное authoritative state
+
+Все предшествующие статусы, closure-блоки, review addendum и передачи являются
+историческими. Следующие реквизиты — единственное актуальное состояние записи.
+
+status: `merged; RESULT closed after merge`
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/338
+merged_at: `2026-07-25T06:41:54Z`
+merge commit: `2cf68aca212285b5ec9039fa4eff0e5c82b123c0`
+final PR HEAD: `6aab7b1ee4f2471d74995926d4e98dc3897934e0`
+base/head: `developer` / `work/methodology-architect-01/meth-journal-rationale-triplet-01`
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+source: GitHub PR metadata
+
+## Передача
+
+Следующий: reviewer — проверить PR #359 как lifecycle-only boundary
+reconciliation; после human merge release manager продолжает предрелизную
+подготовку.
