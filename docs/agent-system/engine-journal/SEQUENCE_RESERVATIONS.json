@@ -10,6 +10,15 @@
       "state": "reserved",
       "created_at": "2026-07-30T12:10:00Z",
       "reason": "Однократно разрешённый self-bootstrap после полного scan открытых PR."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-BOUNDARY-RECONCILIATION-0163-0171-V1-6-0-01-0172",
+      "sequence": "0172",
+      "task_id": "METH-BOUNDARY-RECONCILIATION-0163-0171-V1-6-0-01",
+      "state": "reserved",
+      "created_at": "2026-08-02T07:09:20Z",
+      "reason": "Резервирование sequence для отдельно санкционированной предрелизной boundary reconciliation 0163–0171."
     }
   ]
 }
