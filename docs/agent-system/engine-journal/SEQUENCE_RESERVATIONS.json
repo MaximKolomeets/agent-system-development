@@ -28,6 +28,15 @@
       "state": "consumed",
       "created_at": "2026-08-02T07:43:45Z",
       "reason": "Boundary reconciliation перед v1.6.0: PR #357 merged, INDEX-0171 закрыт authoritative merge facts."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01-0173",
+      "sequence": "0173",
+      "task_id": "METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01",
+      "state": "reserved",
+      "created_at": "2026-08-02T18:34:57+02:00",
+      "reason": "Резервирование sequence для recovery-задачи восстановления release-gates и live state v1.6.0."
     }
   ]
 }
