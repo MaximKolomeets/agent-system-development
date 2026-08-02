@@ -118,7 +118,8 @@ force-push.
 - targeted check reruns: до 3;
 - full readiness runs: до 1;
 - CI fix-pass: до 1;
-- generator write-runs: до 2.
+- generator write-runs: до 3 (дополнительный запуск нужен только для штатной
+  синхронизации cloud mirror после внесения обязательного measured `Time` в INDEX).
 
 ## Передача
 
