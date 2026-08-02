@@ -284,3 +284,23 @@ Semantic journal finalization после создания PR должна про
 Следующий: independent methodology reviewer — после green CI проверить новый
 finalization HEAD PR #357, journal finalization, PR body и сохранность четырёх
 исходных исправлений.
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/357
+merged_at: 2026-08-02T04:14:05Z
+merge commit SHA: `aae584ebd30d8606ace38619348f64526ee1f724`
+final PR HEAD: `3dfe5384e116a97d3850aa1e987763184112fb41`
+base/head: `developer` / `work/methodology-architect-01/meth-journal-parallel-sequence-reservation-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — использовать запись 0171 как consumed reservation evidence в последующем release-prep.

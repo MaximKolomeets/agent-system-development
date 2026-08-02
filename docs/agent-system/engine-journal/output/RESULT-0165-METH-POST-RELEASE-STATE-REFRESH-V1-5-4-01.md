@@ -82,3 +82,22 @@ refs, tag и GitHub PR metadata.
 ## Передача
 
 Следующий: reviewer — проверить точность post-release facts и state pointer.
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/344
+merged_at: 2026-07-26T14:31:57Z
+merge commit SHA: `617d9b28757fa39dd9ebf5c9d9986f5930f3c895`
+final PR HEAD: `984d222d5b8ebe2d150e92a7406cbfc26293bcfc`
+base/head: `developer` / `work/release-manager-01/meth-post-release-state-refresh-v1-5-4-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — включить закрытую запись 0165 в последующий release-prep, без отдельной ordinary closure-задачи.

@@ -83,3 +83,23 @@ full readiness, если finding относится к recoverable text-only н�
 синхронизацию выполнять в каждом потребляющем развёртывании по его реестру.
 Следующий: reviewer — проверить PR #351 и передать его на human merge в
 `developer`.
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/351
+merged_at: 2026-07-30T07:53:31Z
+merge commit SHA: `8a36747a1017891b6b671d497ebade7b4bcb3bb4`
+final PR HEAD: `c14a49b185ebb55322eec72c920a39b0ca7d42e6`
+base/head: `developer` / `work/dev-implementer-01/meth-autonomous-terminal-execution-protocol-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — включить закрытую запись 0169 в последующий release-prep, без отдельной ordinary closure-задачи.
