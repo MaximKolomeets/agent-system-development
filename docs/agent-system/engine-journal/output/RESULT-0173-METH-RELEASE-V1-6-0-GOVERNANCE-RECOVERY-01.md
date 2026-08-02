@@ -1,11 +1,11 @@
 # RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01
 
-Статус: terminal-fold accepted pending own PR merge; PR URL authoritative after merge
+Статус: ready_for_human_release_recovery_merge; recovery PR открыт
 Идентификатор задачи: METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01
 Номер sequence: 0173
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md`
 Связанный RATIONALE file: `docs/agent-system/engine-journal/rationale/RATIONALE-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md`
-PR URL: authoritative after merge
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/363
 pr_head_source: github_pr_metadata
 final_pr_head_policy: final PR head SHA is not embedded in the same committed RESULT to avoid self-reference loop
 
@@ -38,7 +38,7 @@ timestamps; token/cost usage среда выполнения не предост
 - `v1.6.0` остаётся untagged release candidate; latest tagged stable release —
   `v1.5.5`.
 - RESULT/INDEX/ledger 0172 финализированы по GitHub merge facts PR #359.
-- Business Acceptance Gate и reviewer consistency-gate остаются pending.
+- Business Acceptance Gate и reviewer consistency-gate ещё не пройдены.
 - До full readiness успешно прошли Docker unittest (69 tests), TASK contract,
   triplet, structural и live provider reservation validation, append-only,
   policy invariants, file-map/cloud parity, EOL guard, Russian-first lint и
@@ -46,13 +46,13 @@ timestamps; token/cost usage среда выполнения не предост
 
 ## Human UAT Checklist v1.6.0
 
-business_acceptance_gate: pending_human_verdict
+business_acceptance_gate: human_verdict_required
 uat_actor_type: human_required
 uat_actor_role: owner/PO/human architect
 uat_checklist_ref: `RESULT-0173` → `Human UAT Checklist v1.6.0`
-uat_evidence: pending_human_safe_evidence
-uat_checked_at: pending
-uat_decision: pending
+uat_evidence: human_safe_evidence_required
+uat_checked_at: not_performed_by_agent
+uat_decision: no_human_decision_recorded
 agent_approval: prohibited
 
 | uat_id | Шаги для человека | Ожидаемый результат | Safe evidence reference | Verdict |

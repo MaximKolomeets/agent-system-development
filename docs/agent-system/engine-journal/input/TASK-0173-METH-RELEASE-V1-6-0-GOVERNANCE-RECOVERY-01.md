@@ -66,7 +66,7 @@ task_contract:
     language: russian_first
   checks:
     required:
-      - python docs/agent-system/tools/validate_task_contract.py <task-file> --json
+      - python docs/agent-system/tools/validate_task_contract.py docs/agent-system/engine-journal/input/TASK-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md --json
       - python docs/agent-system/tools/validate_journal_triplet.py --json
       - python docs/agent-system/tools/validate_journal_sequence_reservations.py --json
       - python docs/agent-system/tools/check_journal_append_only.py --base origin/developer --json
@@ -96,7 +96,7 @@ sync, human UAT или reviewer consistency-gate.
 - Reservation 0173 выделена machine allocator и merged PR #362.
 - RESULT/INDEX/ledger 0172 отражают merge PR #359 append-only.
 - Live state фиксирует untagged candidate, historical release/sync facts и
-  pending human gates без объявления `v1.6.0` опубликованным.
+  непройденные human gates без объявления `v1.6.0` опубликованным.
 - RESULT-0173 содержит Human UAT Checklist без agent verdict.
 - Все mandatory checks и один full readiness возвращают успешный результат.
 
