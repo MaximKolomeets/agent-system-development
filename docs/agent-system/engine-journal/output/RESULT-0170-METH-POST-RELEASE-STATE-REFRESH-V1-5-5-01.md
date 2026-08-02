@@ -20,8 +20,8 @@ human_cost_estimate: not_applicable
 total_task_cost: not_available
 resource_cost: AI tokens: not_available; Human hours: not_applicable
 Branch: `work/release-manager-01/meth-post-release-state-refresh-v1-5-5-01`
-Статус финализации: merged; RESULT closed after merge.
-Статус journal-задачи: merged; RESULT closed after merge.
+Статус финализации: ready_for_human_review.
+Статус journal-задачи: ready_for_human_review.
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/354
 pr_head_source: github_pr_metadata
 reviewed_head_source: github_pr_metadata
@@ -161,6 +161,8 @@ parity перед human merge в `developer`.
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/354
 merged_at: 2026-07-30T11:56:37Z
 merge commit SHA: `8237e1d3ee4bd99b58d8bd93cd1c326c23e94fa9`

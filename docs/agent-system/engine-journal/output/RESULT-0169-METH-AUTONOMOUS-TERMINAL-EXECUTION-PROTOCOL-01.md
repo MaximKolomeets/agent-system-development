@@ -20,8 +20,8 @@ human_cost_estimate: not_applicable
 total_task_cost: not_available
 resource_cost: AI tokens: not_available; Human hours: not_applicable
 Branch: `work/dev-implementer-01/meth-autonomous-terminal-execution-protocol-01`
-Статус финализации: merged; RESULT closed after merge.
-Статус journal-задачи: merged; RESULT closed after merge.
+Статус финализации: ready_for_human_review.
+Статус journal-задачи: ready_for_human_review.
 raw_chain_of_thought_stored: no
 
 ## Выполнено
@@ -87,6 +87,8 @@ full readiness, если finding относится к recoverable text-only н�
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/351
 merged_at: 2026-07-30T07:53:31Z
 merge commit SHA: `8a36747a1017891b6b671d497ebade7b4bcb3bb4`

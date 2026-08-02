@@ -20,7 +20,7 @@ human_cost_estimate: 0
 total_task_cost: 0
 resource_cost: 0
 Branch: `work/methodology-architect-01/meth-execution-continuation-policy-01`
-Статус финализации: merged; RESULT closed after merge.
+Статус финализации: ready_for_review.
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/345
 raw_chain_of_thought_stored: no
 ## Выполнено
@@ -54,6 +54,7 @@ Source-снапшот у зарегистрированных потребите
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/345
 merged_at: 2026-07-27T02:15:47Z
 merge commit SHA: `afe34debd93d2eae8f9c498959f602d2d664416e`

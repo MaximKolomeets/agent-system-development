@@ -40,7 +40,7 @@ resource_cost: 0
 
 Branch: `work/release-manager-01/meth-post-release-state-refresh-v1-5-4-01`
 
-Статус финализации: merged; RESULT closed after merge.
+Статус финализации: ready_for_review.
 
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/344
 
@@ -86,6 +86,7 @@ refs, tag и GitHub PR metadata.
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/344
 merged_at: 2026-07-26T14:31:57Z
 merge commit SHA: `617d9b28757fa39dd9ebf5c9d9986f5930f3c895`

@@ -20,8 +20,8 @@ human_cost_estimate: not_applicable
 total_task_cost: not_available
 resource_cost: not_available
 Branch: `work/methodology-architect-01/meth-journal-parallel-sequence-reservation-01`
-Статус финализации: merged; RESULT closed after merge.
-Статус journal-задачи: merged; RESULT closed after merge.
+Статус финализации: ready_for_human_review.
+Статус journal-задачи: ready_for_human_review.
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/357
 pr_head_source: github_pr_metadata
 reviewed_head_source: github_pr_metadata
@@ -288,6 +288,8 @@ finalization HEAD PR #357, journal finalization, PR body и сохранност
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/357
 merged_at: 2026-08-02T04:14:05Z
 merge commit SHA: `aae584ebd30d8606ace38619348f64526ee1f724`

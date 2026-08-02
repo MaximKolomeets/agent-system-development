@@ -40,7 +40,7 @@ resource_cost: 0
 
 Branch: `work/methodology-architect-01/meth-journal-rationale-triplet-01`
 
-Статус финализации: merged; RESULT closed after merge.
+Статус финализации: architect_ready после полного набора проверок.
 
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/338
 
@@ -76,6 +76,7 @@ raw_chain_of_thought_stored: no
 ## Boundary closure-stamp v1.6.0
 
 Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/338
 merged_at: 2026-07-25T06:41:54Z
 merge commit SHA: `2cf68aca212285b5ec9039fa4eff0e5c82b123c0`
