@@ -19,6 +19,7 @@ INVARIANT_IDS = (
     "INV-BRANCH-MODEL",
     "INV-TIME-COST-ACCOUNTING",
     "INV-JOURNAL-TRIPLET",
+    "INV-JOURNAL-SEQUENCE-RESERVATION",
     "INV-SOURCE-REFERENCE",
     "INV-PRIVACY-PUBLICATION",
     "INV-TARGET-ADOPTION",
@@ -50,6 +51,9 @@ REQUIRED_CANONICAL_FILES = (
     "docs/agent-system/tools/validate_id_references.py",
     "docs/agent-system/tools/validate_policy_invariants.py",
     "docs/agent-system/tools/validate_journal_triplet.py",
+    "docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md",
+    "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json",
+    "docs/agent-system/tools/validate_journal_sequence_reservations.py",
 )
 
 ACTIVE_DOC_SUFFIXES = {".md", ".yml", ".yaml", ".txt"}
@@ -110,6 +114,16 @@ REQUIRED_TEXT = (
         "docs/agent-system/tools/check_task_ready.py",
         ("validate_journal_triplet.py",),
         "READY_GATE_JOURNAL_TRIPLET_MARKER_MISSING",
+    ),
+    RequiredText(
+        "docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md",
+        ("provider-neutral", "abandoned", "fail-closed", "next_sequence"),
+        "JOURNAL_SEQUENCE_RESERVATION_MARKER_MISSING",
+    ),
+    RequiredText(
+        "docs/agent-system/tools/check_task_ready.py",
+        ("validate_journal_sequence_reservations.py",),
+        "READY_GATE_JOURNAL_SEQUENCE_RESERVATION_MARKER_MISSING",
     ),
     RequiredText(
         "docs/agent-system/RELEASE_AUTHORITY_POLICY.md",

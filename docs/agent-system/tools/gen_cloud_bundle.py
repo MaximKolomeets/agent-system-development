@@ -32,6 +32,7 @@ CANONICAL_BUNDLE_ORDER = [
     "docs/agent-system/templates/TASK_HEADER_COMMON.md",
     "docs/agent-system/BRANCH_POLICY.md",
     "docs/agent-system/ENGINE_JOURNAL_CONTRACT.md",
+    "docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md",
     "docs/agent-system/CURRENT_STATE.md",
     "docs/agent-system/engine-journal/INDEX.md",
     "docs/agent-system/NEXT_STEPS.md",

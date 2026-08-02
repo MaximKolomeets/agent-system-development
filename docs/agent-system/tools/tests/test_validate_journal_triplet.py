@@ -54,6 +54,9 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_missing_required_rationale_section(self): self.triplet(sections=False); self.index([self.row()]); self.assertIn("RATIONALE_REQUIRED_SECTIONS_MISSING", self.check())
     def test_invalid_filename(self): self.write("docs/agent-system/engine-journal/rationale/RATIONALE-bad.md", "x"); self.index([]); self.assertIn("INVALID_JOURNAL_FILENAME", self.check())
     def test_index_only_missing_artifacts(self): self.index([self.row()]); self.assertIn("INDEX_ARTIFACTS_MISSING", self.check())
+    def test_untracked_new_triplet_is_checked(self):
+        self.triplet(); self.index([self.row()])
+        self.assertEqual([], [item.code for item in validator.validate(self.root, self.base).findings])
     def test_post_merge_result_change_checks_existing_triplet_without_new_sequence(self):
         self.baseline_triplet(); self.write("docs/agent-system/engine-journal/output/RESULT-0001-METH-TEST-01.md", "0001 METH-TEST-01\nmerged")
         self.assertEqual([], self.check())
