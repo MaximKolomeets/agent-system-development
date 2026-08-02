@@ -40,7 +40,7 @@ resource_cost: 0
 
 Branch: `work/dev-implementer-01/meth-ready-gate-performance-01`
 
-Статус финализации: ready_for_review после полного Docker readiness прогона.
+Статус финализации: merged; RESULT closed after merge.
 
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/341
 
@@ -73,3 +73,21 @@ raw_chain_of_thought_stored: no
 ## Передача
 
 Следующий: reviewer — выполнить scoped semantic review кэша и сохранённого порядка readiness gate.
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/341
+merged_at: 2026-07-26T09:52:41Z
+merge commit SHA: `aa3a6297d0f88510701d7c8991e239a4635d427e`
+final PR HEAD: `405a863341fb4d1fffcf44581e86fcf4bb90d093`
+base/head: `developer` / `work/dev-implementer-01/meth-ready-gate-performance-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — включить закрытую запись 0164 в последующий release-prep, без отдельной ordinary closure-задачи.

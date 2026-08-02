@@ -40,7 +40,7 @@ resource_cost: 0
 
 Branch: `work/methodology-architect-01/meth-journal-rationale-triplet-01`
 
-Статус финализации: architect_ready после полного набора проверок.
+Статус финализации: merged; RESULT closed after merge.
 
 PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/338
 
@@ -72,6 +72,24 @@ raw_chain_of_thought_stored: no
 ## Unprompted Project Proposals
 
 нет
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/338
+merged_at: 2026-07-25T06:41:54Z
+merge commit SHA: `2cf68aca212285b5ec9039fa4eff0e5c82b123c0`
+final PR HEAD: `6aab7b1ee4f2471d74995926d4e98dc3897934e0`
+base/head: `developer` / `work/methodology-architect-01/meth-journal-rationale-triplet-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — включить закрытую запись 0163 в последующий release-prep, без отдельной ordinary closure-задачи.
 
 ## Review addendum 04
 
