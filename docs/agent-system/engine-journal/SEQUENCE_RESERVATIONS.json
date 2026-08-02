@@ -37,6 +37,15 @@
       "state": "reserved",
       "created_at": "2026-08-02T18:34:57+02:00",
       "reason": "Резервирование sequence для recovery-задачи восстановления release-gates и live state v1.6.0."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-BOUNDARY-RECONCILIATION-0163-0171-V1-6-0-01-0172",
+      "sequence": "0172",
+      "task_id": "METH-BOUNDARY-RECONCILIATION-0163-0171-V1-6-0-01",
+      "state": "consumed",
+      "created_at": "2026-08-02T18:54:22+02:00",
+      "reason": "Governance recovery v1.6.0: PR #359 merged, INDEX-0172 и RESULT-0172 получили authoritative merge closure."
     }
   ]
 }

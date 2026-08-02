@@ -24,28 +24,32 @@
 
 ## Текущий фокус (Current Focus)
 
-`v1.5.5` опубликован как human release с annotated tag: `origin/main` и
-`v1.5.5^{}` указывают на `f80e148f9e4ba965e701d1e06faa79d517b646cf`;
-tag object — `2dde9fc295747c64a7e5f6bf26a1bd4d8f50f02a`. Terminal-execution PR #351
-merged `2026-07-30T07:53:31Z`, release PR #352 merged
-`2026-07-30T08:15:10Z`, sync PR #353 merged `2026-07-30T08:16:09Z`. После
-sync `origin/main...origin/developer` не имеет file delta.
+`v1.5.5` остаётся latest tagged stable release. `v1.6.0` не опубликован:
+payload был преждевременно перенесён PR #355/#360 и синхронизирован PR
+#356/#361 до state-refresh, Business Acceptance Gate и reviewer
+consistency-gate. `origin/main` содержит untagged candidate
+`59e645944697eac565d121e97d2dfa2ff3e9d99b`; текущий recovery reservation PR
+#362 добавил в `developer` только ledger delta для sequence 0173.
 
-Ближайший рабочий шаг: owner выбирает и отдельно санкционирует следующую
-backlog-задачу. Новая функциональность из факта release не подразумевается.
+Ближайший рабочий шаг: human architect мержит docs-only governance recovery
+PR. До этого и до восстановленных gates запрещены tag `v1.6.0`, GitHub Release,
+новый release PR и sync.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
 `docs/agent-system/RELEASE_READINESS.md`; ruleset snapshot:
 `docs/agent-system/RULESET_STATUS.md`.
 
-## Ближайшая очередь после v1.5.5
+## Ближайшая очередь governance recovery v1.6.0
 
-1. Owner выбирает и отдельно санкционирует следующий backlog item.
-2. Для новой file-changing methodology task стартовать от актуального
-   `developer` в отдельной `work/<role>/<task>` branch.
-3. Для downstream/source-update задач использовать stable methodology reference:
-   tag `v1.5.5` или `origin/main`, не `developer`/`work/*`.
+1. Human architect мержит recovery PR в `developer`.
+2. Owner/PO проходит подготовленный Human UAT Checklist и фиксирует verdict.
+3. Независимый reviewer создаёт journaled reviewer consistency-gate PR.
+4. После его merge готовится отдельный final recovery release PR
+   `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
+   human-only действиями в указанном порядке.
+5. После release/sync отдельная post-release state-refresh задача фиксирует
+   final tag/release/sync facts.
 
 `v1.5.4` сохраняется как предыдущий historical release.
 

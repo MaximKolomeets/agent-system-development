@@ -74,29 +74,32 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-release state после terminal-execution PR
-[#351](https://github.com/MaximKolomeets/agent-system-development/pull/351),
-human release `developer -> main` через PR
-[#352](https://github.com/MaximKolomeets/agent-system-development/pull/352),
-annotated tag `v1.5.5` и sync `main -> developer` через PR
-[#353](https://github.com/MaximKolomeets/agent-system-development/pull/353).
+Текущий фокус: governance recovery для untagged release candidate `v1.6.0`.
+Payload после `v1.5.5` был физически перенесён в `main` PR #355 и #360, а
+`main -> developer` sync выполнен PR #356 и #361 до восстановления обязательных
+state/UAT/reviewer gates. Rollback не выполнялся: payload уже присутствует в
+обеих protected branches, post-merge CI release commit успешен, а tag `v1.6.0`
+ещё отсутствует.
 
-`origin/main` указывает на release merge commit
-`f80e148f9e4ba965e701d1e06faa79d517b646cf`; peeled annotated tag `v1.5.5^{}`
-указывает на тот же commit, tag object —
-`2dde9fc295747c64a7e5f6bf26a1bd4d8f50f02a`. PR #351 merged в `developer`
-`2026-07-30T07:53:31Z` с merge SHA
-`8a36747a1017891b6b671d497ebade7b4bcb3bb4`.
+`origin/main` указывает на release candidate commit
+`59e645944697eac565d121e97d2dfa2ff3e9d99b`. Исторический sync PR #361 создал
+commit `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b` с zero-file delta.
+Текущий `origin/developer` содержит сверх него только merged reservation PR
+#362 для recovery sequence 0173; его единственный file delta — ledger
+reservation, не новый release payload.
 
-Release PR #352 merged `2026-07-30T08:15:10Z` с merge SHA
-`f80e148f9e4ba965e701d1e06faa79d517b646cf`. Sync PR #353 merged
-`2026-07-30T08:16:09Z` с merge SHA
-`e41b9bec27995f88ad227ba88c57dc1720e9589d`; его file diff пуст, а
-`origin/developer` не имеет file diff относительно `origin/main` после sync.
+Latest tagged stable release остаётся `v1.5.5`:
+`v1.5.5^{}` указывает на `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+`v1.6.0` — untagged release candidate в governance recovery. Business
+Acceptance Gate и reviewer consistency-gate pending; до их завершения tag
+`v1.6.0` запрещён. После recovery и reviewer PR потребуется отдельный финальный
+release PR `developer -> main`, чтобы state и gate evidence вошли в tagged
+release commit.
 
-Stable methodology reference для downstream/source-update задач: tag `v1.5.5`
-или `origin/main` at `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
-`v1.5.4` сохраняется как предыдущий historical release.
+Stable methodology reference для downstream/source-update задач по-прежнему:
+tag `v1.5.5` или `origin/main` at
+`59e645944697eac565d121e97d2dfa2ff3e9d99b`. `v1.5.4` остаётся historical
+release.
 
 Ruleset status snapshot: `docs/agent-system/RULESET_STATUS.md`, verified_at
 `2026-07-04T18:01:52+07:00` через GitHub Rulesets API. `Protect main` и
@@ -105,9 +108,10 @@ rule включён, required status checks в ruleset не заданы. Rulese
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: release cycle `v1.5.5` завершён human release/tag/sync фактами.
-Следующий шаг: owner выбирает и отдельно санкционирует следующую backlog-задачу;
-новая функциональность из факта release не подразумевается.
+Текущий этап: восстановление release-gates `v1.6.0` после преждевременного
+release/sync. Следующий шаг: human architect мержит recovery PR; затем owner
+проходит Human UAT Checklist, независимый reviewer выполняет consistency-gate,
+и только после этого готовится новый human-only release PR.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

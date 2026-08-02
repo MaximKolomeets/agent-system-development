@@ -56,3 +56,22 @@ resource_cost: `AI tokens: not_available; Human hours: not_applicable`
 ## Передача
 
 Следующий: reviewer — проверить PR #359 как lifecycle-only boundary reconciliation перед human merge в `developer`.
+
+## Authoritative merge closure
+
+Все предшествующие статусы и передачи выше являются историческими.
+
+status: `merged`
+PR URL: https://github.com/MaximKolomeets/agent-system-development/pull/359
+merged_at: `2026-08-02T09:18:01Z`
+merge commit: `69a567035dd805cae8e822a462397142b3f436d0`
+final PR HEAD: `7b49f1c241051f711ce3e683c730177090050183`
+base/head: `developer` / `work/docs-maintainer-01/meth-boundary-reconciliation-0163-0171-v1-6-0-01`
+review threads: `resolved (3/3)`
+terminal fold: `accepted`
+source: GitHub PR metadata
+
+## Передача
+
+Следующий: release manager — выполнить governance recovery `v1.6.0`; release,
+tag и sync остаются запрещёнными до восстановленных gates.
