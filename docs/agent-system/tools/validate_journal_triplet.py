@@ -54,8 +54,9 @@ def git(root: Path, args: list[str]) -> subprocess.CompletedProcess[str]:
 def changed_paths(root: Path, base: str) -> set[str]:
     result = git(root, ["diff", "--name-only", f"{base}...HEAD"])
     cached = git(root, ["diff", "--cached", "--name-only"])
+    untracked = git(root, ["ls-files", "--others", "--exclude-standard"])
     names: set[str] = set()
-    for source in (result, cached):
+    for source in (result, cached, untracked):
         if source.returncode == 0:
             names.update(line.replace("\\", "/") for line in source.stdout.splitlines() if line.startswith(PREFIX))
     return names

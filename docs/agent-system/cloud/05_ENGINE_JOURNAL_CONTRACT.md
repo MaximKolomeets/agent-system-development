@@ -108,7 +108,20 @@ RESULT-0001-PR-2r-engine-journal-contract.md
 - `PR-2r` - связанный task/PR id;
 - `engine-journal-contract` - короткий slug.
 
-Нумерация sequence — append-only. Следующий номер `engine` вычисляет ИЗ `INDEX.md` на момент выполнения задачи (последний seq + 1) и ИГНОРИРУЕТ любой номер, предсказанный в task-блоке. Нельзя предугадывать, переиспользовать или пропускать seq. Обоснование: параллельная работа нескольких агентов может занять предсказанный номер (journal 0018: task-блок предписывал 0016, но 0016/0017 уже были заняты → запись корректно ушла в 0018).
+Нумерация sequence — append-only. Для параллельных задач следующий номер
+`engine` вычисляет по `JOURNAL_SEQUENCE_RESERVATION.md`: merged INDEX,
+append-only reservation ledger и обязательный provider snapshot образуют
+occupied set. Active `reserved` ledger запись обязана иметь ровно один strict
+machine-readable claim в metadata её PR/MR до matching merged INDEX; отсутствие
+или конфликт claim блокирует allocation. Provider adapter обязан получать
+полную пагинацию, а ledger history проверяется относительно base как
+структурный append-only prefix. Если parallel claims отсутствуют, результат
+остаётся `last INDEX + 1`. Нельзя предугадывать, переиспользовать или
+пропускать seq. Provider-dependent CI задаёт только минимальные read-only
+permissions и явно передаёт credential adapter через environment. Отсутствие
+credential, HTTP access/rate-limit, transport, payload или pagination делают
+snapshot unavailable и остаются hard blocker; диагностика не раскрывает
+credential, Authorization, response body, headers или detail исключения.
 
 ## Index
 

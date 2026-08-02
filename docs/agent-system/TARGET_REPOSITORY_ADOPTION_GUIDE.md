@@ -31,6 +31,14 @@ Dirty рабочая ветка в `agent-system-development` не блокир�
    `reference_type` и `checked_at`.
 6. Перенести Russian-first policy в target `AGENTS.md` или эквивалентные target instructions, если scope меняет такие инструкции.
 7. Материализовать только target-adapted docs: project state, branch names, governance pack и journal history не копируются verbatim из methodology repository.
+8. Для parallel journal allocation перенести reservation канон, schema,
+   validator, GitHub reference adapter и пустой target ledger; каждая active
+   reservation публикует strict JSON claim в PR/MR metadata, provider scan
+   должен быть полностью paginated и fail-closed, а ledger history проверяется
+   относительно base. Provider CI задаёт минимальные read-only permissions и
+   передаёт adapter credential только через environment; credential/API failure
+   остаётся blocker без вывода sensitive provider details. Legacy open PR
+   регистрировать только после complete provider snapshot и human authorization.
 
 ## Обязательные политики
 

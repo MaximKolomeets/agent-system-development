@@ -157,3 +157,23 @@ write-run `0`.
 
 Следующий: reviewer — проверить release evidence, state pointers и generated
 parity перед human merge в `developer`.
+
+## Boundary closure-stamp v1.6.0
+
+Статус: merged.
+Актуальный статус финализации для boundary: merged; RESULT closed after merge.
+Актуальный статус journal-задачи для boundary: merged; RESULT closed after merge.
+PR: https://github.com/MaximKolomeets/agent-system-development/pull/354
+merged_at: 2026-07-30T11:56:37Z
+merge commit SHA: `8237e1d3ee4bd99b58d8bd93cd1c326c23e94fa9`
+final PR HEAD: `9b84c63325a908f2dcb902e674dfa4ed664e431a`
+base/head: `developer` / `work/release-manager-01/meth-post-release-state-refresh-v1-5-5-01`.
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+Источник фактов: GitHub PR metadata.
+Безопасное summary checks: итоговый PR был merged после успешно подтверждённых проверок; boundary reconciliation повторно сверила merge metadata.
+
+## Передача
+
+Следующий: release manager — включить закрытую запись 0170 в последующий release-prep, без отдельной ordinary closure-задачи.

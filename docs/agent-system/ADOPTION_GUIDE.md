@@ -82,6 +82,16 @@ Journal связывает task -> result -> branch -> PR -> commit/result. Task
 docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
 ```
 
+Для parallel allocation target переносит strict provider claim contract:
+каждая active reservation публикует один versioned JSON claim в metadata PR/MR,
+adapter получает полный paginated `state=all` snapshot fail-closed, а ledger
+проверяется как append-only prefix относительно base. Provider CI передаёт
+adapter credential только через environment с минимальными read-only
+permissions; отсутствие credential или API не переводит unavailable snapshot
+в warning и не раскрывает sensitive diagnostic details. Closed-unmerged
+reservation освобождается только append-only transition в `abandoned` и не
+переиспользуется.
+
 Во время adoption переносить только scaffold, templates и contract engine
 journal. Operational history methodology repository не копируется. Первая
 target adoption/audit task создает target-specific task/result files и
@@ -266,6 +276,12 @@ Manifest делит файлы на текущие categories:
 - `journal` - переносить только scaffold/templates, без operational rows и без истории TASK/RESULT methodology repository;
 - `scaffold` - placeholder/scaffold files; заполнять в target только target-specific данными;
 - `generated` - repo-local derived artifacts; регенерировать в target, а не копировать руками.
+
+Для journal с параллельными задачами target переносит
+`JOURNAL_SEQUENCE_RESERVATION.md`, нейтральную к provider schema, validator,
+reference adapter и пустой `SEQUENCE_RESERVATIONS.json`. До первого нового
+выделения sequence выполняется provider snapshot/bootstrap из канона;
+operational history source repository не переносится.
 
 Если файл попадает в несколько categories или rules, применяется самый строгий режим. Например, `history_state` нельзя копировать как есть, а `target_generated` создаётся заново по target facts.
 

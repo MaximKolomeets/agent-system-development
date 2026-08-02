@@ -75,8 +75,8 @@ scope:
 orchestrator_context_bundle:
   source_canon: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md#architect-orchestrator-context-handoff
   generated_dir: docs/agent-system/cloud
-  # Лимит включает generated cloud/00_README.md: при 28 допустимы 27 source-файлов manifest.
-  max_files: 28
+  # Лимит включает generated cloud/00_README.md: при 29 допустимы 28 source-файлов manifest.
+  max_files: 29
   files:
     - path: docs/agent-system/ORCHESTRATOR_OPERATING_CONTRACT.md
       cloud_flatname: ORCHESTRATOR_OPERATING_CONTRACT.md
@@ -88,6 +88,8 @@ orchestrator_context_bundle:
       cloud_flatname: BRANCH_POLICY.md
     - path: docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
       cloud_flatname: ENGINE_JOURNAL_CONTRACT.md
+    - path: docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md
+      cloud_flatname: JOURNAL_SEQUENCE_RESERVATION.md
     - path: docs/agent-system/CURRENT_STATE.md
       cloud_flatname: CURRENT_STATE.md
     - path: docs/agent-system/engine-journal/INDEX.md
@@ -169,6 +171,7 @@ categories:
       - docs/agent-system/DISASTER_RECOVERY.md
       - docs/agent-system/ENGINE_ENTRYPOINT.md
       - docs/agent-system/ENGINE_JOURNAL_CONTRACT.md
+      - docs/agent-system/JOURNAL_SEQUENCE_RESERVATION.md
       - docs/agent-system/ENGINE_SELF_DISCOVERY_CONTRACT.md
       - docs/agent-system/EXECUTION_CONTINUATION_POLICY.md
       - docs/agent-system/ERROR_CATALOG_PATTERN.md
@@ -185,6 +188,9 @@ categories:
       - docs/agent-system/tools/validate_commit_message.py
       - docs/agent-system/tools/validate_id_references.py
       - docs/agent-system/tools/validate_policy_invariants.py
+      - docs/agent-system/tools/validate_journal_sequence_reservations.py
+      - docs/agent-system/tools/github_journal_sequence_snapshot.py
+      - docs/agent-system/schemas/JOURNAL_SEQUENCE_PROVIDER_SNAPSHOT.schema.json
       - docs/agent-system/tools/validate_task_contract.py
       - docs/agent-system/GITHUB_RULESETS.md
       - docs/agent-system/GITHUB_TOKEN_POLICY.md
@@ -400,6 +406,7 @@ categories:
     files:
       - docs/agent-system/engine-journal/README.md
       - docs/agent-system/engine-journal/INDEX.md
+      - docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json
       - docs/agent-system/engine-journal/input/**
       - docs/agent-system/engine-journal/rationale/**
       - docs/agent-system/engine-journal/output/**
@@ -407,6 +414,7 @@ categories:
     target_copy_policy:
       - docs/agent-system/engine-journal/README.md можно использовать как scaffold.
       - docs/agent-system/engine-journal/templates/** можно использовать как scaffold templates.
+      - docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json передаётся только как пустой target ledger scaffold.
       - docs/agent-system/engine-journal/INDEX.md в target создается как target-specific index; operational rows methodology repository не копируются.
       - docs/agent-system/engine-journal/input/**, rationale/** и output/** из methodology repository не копируются как target history.
       - docs/agent-system/engine-journal/archive/** не копируется в target repository.
@@ -446,28 +454,29 @@ categories:
       - docs/agent-system/cloud/03_TASK_HEADER_COMMON.md
       - docs/agent-system/cloud/04_BRANCH_POLICY.md
       - docs/agent-system/cloud/05_ENGINE_JOURNAL_CONTRACT.md
-      - docs/agent-system/cloud/06_CURRENT_STATE.md
-      - docs/agent-system/cloud/07_ENGINE_JOURNAL_INDEX.md
-      - docs/agent-system/cloud/08_NEXT_STEPS.md
-      - docs/agent-system/cloud/09_ENGINE_ENTRYPOINT.md
-      - docs/agent-system/cloud/10_PROJECT_FILE_MAP.md
-      - docs/agent-system/cloud/11_ADOPTION_TRANSFER_MANIFEST_yml.md
-      - docs/agent-system/cloud/12_REVIEW_AUTOLOOP.md
-      - docs/agent-system/cloud/13_TASK_CONTRACT.md
-      - docs/agent-system/cloud/14_SEMANTIC_COMPLETENESS_GATES.md
-      - docs/agent-system/cloud/15_JOURNAL_FINALIZATION_POLICY.md
-      - docs/agent-system/cloud/16_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
-      - docs/agent-system/cloud/17_DOWNSTREAM_FEEDBACK_LOOP.md
-      - docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
-      - docs/agent-system/cloud/19_STABLE_METHODOLOGY_REFERENCE_POLICY.md
-      - docs/agent-system/cloud/20_LANGUAGE_POLICY.md
-      - docs/agent-system/cloud/21_TIME_ACCOUNTING_POLICY.md
-      - docs/agent-system/cloud/22_COST_TRACKING_POLICY.md
-      - docs/agent-system/cloud/23_METRICS.md
-      - docs/agent-system/cloud/24_METHODOLOGY_MAP.md
-      - docs/agent-system/cloud/25_POLICY_INVARIANTS.md
-      - docs/agent-system/cloud/26_EXECUTION_CONTINUATION_POLICY.md
-      - docs/agent-system/cloud/27_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
+      - docs/agent-system/cloud/06_JOURNAL_SEQUENCE_RESERVATION.md
+      - docs/agent-system/cloud/07_CURRENT_STATE.md
+      - docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md
+      - docs/agent-system/cloud/09_NEXT_STEPS.md
+      - docs/agent-system/cloud/10_ENGINE_ENTRYPOINT.md
+      - docs/agent-system/cloud/11_PROJECT_FILE_MAP.md
+      - docs/agent-system/cloud/12_ADOPTION_TRANSFER_MANIFEST_yml.md
+      - docs/agent-system/cloud/13_REVIEW_AUTOLOOP.md
+      - docs/agent-system/cloud/14_TASK_CONTRACT.md
+      - docs/agent-system/cloud/15_SEMANTIC_COMPLETENESS_GATES.md
+      - docs/agent-system/cloud/16_JOURNAL_FINALIZATION_POLICY.md
+      - docs/agent-system/cloud/17_ACCEPTANCE_SPEC_COMPLETENESS_PATTERN.md
+      - docs/agent-system/cloud/18_DOWNSTREAM_FEEDBACK_LOOP.md
+      - docs/agent-system/cloud/19_DOWNSTREAM_FEEDBACK_SANITIZATION_POLICY.md
+      - docs/agent-system/cloud/20_STABLE_METHODOLOGY_REFERENCE_POLICY.md
+      - docs/agent-system/cloud/21_LANGUAGE_POLICY.md
+      - docs/agent-system/cloud/22_TIME_ACCOUNTING_POLICY.md
+      - docs/agent-system/cloud/23_COST_TRACKING_POLICY.md
+      - docs/agent-system/cloud/24_METRICS.md
+      - docs/agent-system/cloud/25_METHODOLOGY_MAP.md
+      - docs/agent-system/cloud/26_POLICY_INVARIANTS.md
+      - docs/agent-system/cloud/27_EXECUTION_CONTINUATION_POLICY.md
+      - docs/agent-system/cloud/28_AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md
     rules:
       - `PROJECT_FILE_MAP.md` генерируется из `ADOPTION_TRANSFER_MANIFEST.yml` и filesystem parity.
       - Регенерация: `python docs/agent-system/tools/gen_file_map.py`.
