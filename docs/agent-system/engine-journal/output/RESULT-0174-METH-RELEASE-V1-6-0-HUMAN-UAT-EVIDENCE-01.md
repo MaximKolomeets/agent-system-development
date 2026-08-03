@@ -48,6 +48,15 @@ agent_performed_uat: no
 agent_approval: prohibited
 evidence_safety: only_safe_non_private_data
 
+business_acceptance_gate: passed
+uat_actor_type: human
+uat_actor_role: owner/human architect
+uat_checklist_ref: `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` → `Human UAT Checklist v1.6.0`
+uat_evidence: authoritative safe textual decision, переданный owner/human architect и дословно сохранённый в этом RESULT
+uat_checked_at: 2026-08-03T09:29:01+02:00
+uat_checked_at_source: timestamp приёма authoritative evidence; human decision source передал date-only факт `2026-08-03`, время выполнения UAT не выводится и не предполагается
+uat_decision: approve release
+
 Engine не выполнял UAT и не переоценивал human verdict; он зафиксировал только
 переданное дословное authoritative evidence.
 
