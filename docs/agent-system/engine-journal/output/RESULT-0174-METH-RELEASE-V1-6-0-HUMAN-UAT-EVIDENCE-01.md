@@ -5,16 +5,16 @@
 Номер sequence: 0174
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01.md`
 Связанный RATIONALE file: `docs/agent-system/engine-journal/rationale/RATIONALE-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01.md`
-PR URL: фиксируется в PR metadata после создания substantive PR
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/365`
 pr_head_source: github_pr_metadata
 final_pr_head_policy: final PR head SHA не встраивается в тот же committed RESULT, чтобы избежать self-reference loop
 
 ## Учёт выполнения
 
 execution_started_at: `2026-08-03T09:29:01+02:00`
-execution_finished_at: `2026-08-03T09:38:15.5393921+02:00`
-execution_duration: `PT9M14S`
-time_spent: `9m`
+execution_finished_at: `2026-08-03T10:00:59.7415779+02:00`
+execution_duration: `PT31M58S`
+time_spent: `31m`
 actor_type: `agent`
 role: `release-manager`
 time_source: `measured`
@@ -75,8 +75,24 @@ human_time_reported: not_applicable
   `22be882a230d4378fd737c031474213b3e5cfd38`; merged_at `2026-08-03T07:07:00Z`.
 - Ledger reservation 0174 сохранена для
   `METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01-0174`. Переход
-  `reserved -> consumed` выполняется только в отдельном post-merge closure:
-  canonical validator требует для него правдивый merged status в INDEX.
+`reserved -> consumed` выполняется только в отдельном post-merge closure:
+canonical validator требует для него правдивый merged status в INDEX.
+
+## Проверки
+
+- Docker unittest: `Ran 69 tests ... OK`.
+- TASK contract, journal triplet, live provider reservation validator,
+  append-only, policy invariants, file-map/cloud parity, EOL guard, ID
+  references, Russian-first lint и commit subject прошли успешно.
+- Canonical readiness после accounting fix-pass: `ready`, blockers `0`,
+  warnings `0`, `252.9 s`.
+- Added-line secret scan, production safety и проверка незаполненных маркеров:
+  чисто.
+
+Первый readiness выявил только `ACCOUNTING_HUMAN_TIME_REQUIRED`: одинаковое
+имя `actor_type` в human evidence было ошибочно воспринято как accounting task
+run. Узкий text-only fix-pass явно отделил human verdict от agent execution;
+повторный readiness подтвердил итоговый `ready`.
 
 ## Следующий обязательный gate
 
