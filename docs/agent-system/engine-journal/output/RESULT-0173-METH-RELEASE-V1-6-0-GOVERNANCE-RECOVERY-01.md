@@ -44,6 +44,21 @@ timestamps; token/cost usage среда выполнения не предост
   policy invariants, file-map/cloud parity, EOL guard, Russian-first lint и
   ID reference validation.
 
+## Обязательный full-payload reviewer range
+
+- Base: peeled annotated tag `v1.5.5^{}` =
+  `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
+- Head: точный `origin/developer`, полученный после merge recovery PR и фиксации
+  Human UAT evidence непосредственно перед созданием reviewer branch.
+- Будущий независимый reviewer обязан записать оба фактических SHA и полный
+  commit/file inventory range в собственных TASK/RESULT.
+- `origin/main...origin/developer` нельзя использовать как единственный release
+  payload range: `main` уже содержит преждевременно перенесённый payload.
+- Workflow, validators, schemas, tooling, tests, policies, journal и generated
+  mirrors входят в review scope; необъяснённый commit или файл является blocker.
+- Этот отдельный future journaled reviewer consistency-gate текущей задачей не
+  выполняется.
+
 ## Human UAT Checklist v1.6.0
 
 business_acceptance_gate: human_verdict_required
@@ -80,7 +95,9 @@ developer_head_sha: `dab6e6de54373266f60ce0047239827b40e6ed24`.
 
 ## Methodology feedback
 
-Нет.
+Предложение сохранено для отдельного triage: добавить в RESULT-шаблоны
+канонические значения human-only состояний, чтобы при отсутствии human verdict
+не возникали ложные блокировки маркера незавершённой финализации.
 
 ## Unprompted Project Proposals
 
@@ -88,6 +105,6 @@ developer_head_sha: `dab6e6de54373266f60ce0047239827b40e6ed24`.
 
 ## Передача
 
-Следующий: reviewer — выполнить independent consistency-gate после human merge
-recovery PR; owner/PO — пройти Human UAT Checklist и вынести verdict только
-человеком.
+Следующий: owner/PO — после human merge recovery PR пройти Human UAT Checklist
+и зафиксировать verdict; затем независимый methodology reviewer — выполнить
+отдельный full-payload consistency-gate по указанному range.

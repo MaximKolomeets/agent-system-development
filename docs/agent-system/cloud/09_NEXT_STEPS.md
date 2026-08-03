@@ -44,7 +44,16 @@ PR. До этого и до восстановленных gates запреще�
 
 1. Human architect мержит recovery PR в `developer`.
 2. Owner/PO проходит подготовленный Human UAT Checklist и фиксирует verdict.
-3. Независимый reviewer создаёт journaled reviewer consistency-gate PR.
+3. Независимый reviewer создаёт отдельную journaled reviewer consistency-gate
+   задачу. Его обязательный payload range: base — peeled annotated tag
+   `v1.5.5^{}` (`f80e148f9e4ba965e701d1e06faa79d517b646cf`); head — точный
+   `origin/developer`, полученный после merge recovery PR и фиксации Human UAT
+   evidence непосредственно перед созданием reviewer branch. Reviewer записывает
+   оба SHA и полный commit/file inventory в TASK/RESULT. Диапазон
+   `origin/main...origin/developer` нельзя использовать как единственный range:
+   `main` уже содержит преждевременно перенесённый payload. Workflow, validators,
+   schemas, tooling, tests, policies, journal и generated mirrors входят в scope;
+   необъяснённый commit или файл — blocker.
 4. После его merge готовится отдельный final recovery release PR
    `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
    human-only действиями в указанном порядке.

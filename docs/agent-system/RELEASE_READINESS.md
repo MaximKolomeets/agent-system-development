@@ -15,7 +15,15 @@
 - Historical sync commit: `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b`.
 - Current `developer`: historical sync плюс reservation-only ledger delta PR #362.
 - Business Acceptance Gate: `pending_human_verdict`.
-- Reviewer consistency-gate: `pending`.
+- Reviewer consistency-gate: требуется отдельная journaled задача после Human
+  UAT evidence. Она проверяет полный release payload от peeled `v1.5.5^{}`
+  (`f80e148f9e4ba965e701d1e06faa79d517b646cf`) до точного
+  `origin/developer`, снятого после merge recovery PR и фиксации Human UAT
+  evidence непосредственно перед reviewer branch. `origin/main...origin/developer`
+  не является достаточным единственным range, поскольку `main` уже содержит
+  преждевременно перенесённый payload. Обязательны оба SHA, полный commit/file
+  inventory; workflow, validators, schemas, tooling, tests, policies, journal и
+  generated mirrors входят в review scope; необъяснённый элемент блокирует gate.
 - Следующий release action: только final recovery PR `developer -> main` после
   recovery, UAT verdict и reviewer gate.
 
@@ -61,7 +69,8 @@ Required for governance recovery PR:
 Rollback не выполняется автоматически: release payload уже в `main` и
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
 не считать published release. Сначала завершить recovery PR, Human UAT и
-reviewer consistency-gate; затем подготовить новый final recovery release PR.
+отдельный full-payload reviewer consistency-gate; затем подготовить новый final
+recovery release PR.
 
 ## Передача
 

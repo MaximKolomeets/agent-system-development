@@ -35,7 +35,11 @@ UAT verdict и tag остаются human-only. Provider credential исполь
 ## Выбранный путь
 
 Выбран вариант 3: append-only закрыть 0172, обновить live state, подготовить
-Human UAT Checklist и передать следующий reviewer gate человеку.
+Human UAT Checklist и передать следующий reviewer gate человеку. После review
+уточнён обязательный scope будущего reviewer gate: полный release payload от
+peeled `v1.5.5^{}` до фактического `origin/developer`, снятого после merge
+recovery PR и фиксации Human UAT evidence; range `origin/main...origin/developer`
+не может быть единственным, так как `main` уже содержит перенесённый payload.
 
 ## Причины выбора
 
@@ -78,7 +82,11 @@ Release, sync, policy/tooling change или новая функциональн�
 
 ## Изменения после review
 
-На момент materialization RATIONALE review ещё не применялся.
+Подтверждённый P1 semantic finding уточнил только range будущего независимого
+reviewer consistency-gate. В reviewer TASK/RESULT должны быть записаны base/head
+SHA и полный commit/file inventory; workflow, validators, schemas, tooling,
+tests, policies, journal и generated mirrors входят в scope, а необъяснённый
+commit или файл блокирует gate. Reviewer gate этой задачей не выполняется.
 
 ## Передача
 
