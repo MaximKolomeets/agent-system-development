@@ -1,6 +1,6 @@
 # RESULT-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01
 
-Статус: ready_for_human_uat_evidence_merge
+Статус: merged; RESULT closed after merge
 Идентификатор задачи: METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01
 Номер sequence: 0174
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01.md`
@@ -147,3 +147,42 @@ developer_head_sha: `22be882a230d4378fd737c031474213b3e5cfd38`.
 Следующий: human architect — проверить и смержить factual UAT evidence PR;
 затем независимый methodology reviewer — создать отдельную journaled
 full-payload consistency-gate задачу.
+
+## Post-merge closure v1.6.0 — authoritative final state
+
+Все предшествующие статусы, проверки, передачи и планируемые действия выше
+являются историческими поверхностями substantive-выполнения записи 0174.
+
+status: merged; RESULT closed after merge
+PR #365 state: MERGED
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/365`
+final PR head: `bfef04bc5a61aa0043103c6dff46d9316d0d4d19`
+merge commit: `3342e128696f4f5900576504cd8ef64dce5d3e48`
+merged_at: `2026-08-04T07:45:40Z`
+base: `developer`
+changed files: `11`
+unresolved review threads: `0`
+closure_recorded_at: `2026-08-04T10:07:14+02:00`
+closure_timestamp_source: локальные часы Engine в момент записи closure-stamp
+post_merge_closure_evidence_source: GitHub PR metadata
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+
+Authoritative Human UAT v1.6.0 остаётся без изменений: PASS для
+UAT-0173-01—UAT-0173-05, решение owner/human architect от `2026-08-03`.
+Engine не выполнял Human UAT и не переоценивал human verdict.
+
+reviewer consistency-gate: required_not_performed
+release_pr: not_performed
+tag_v1_6_0: not_performed
+github_release: not_performed
+sync_main_to_developer: not_performed
+
+## Передача
+
+Следующий: release manager — после human merge closure PR штатным allocator
+зарезервировать новую sequence для независимого methodology reviewer; затем
+reviewer выполняет отдельный full-payload consistency-gate от peeled
+`v1.5.5^{}` до точного `origin/developer`, снятого непосредственно перед
+созданием reviewer branch.

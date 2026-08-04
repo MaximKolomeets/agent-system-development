@@ -1,33 +1,34 @@
 # RELEASE_READINESS
 
-Дата проверки: 2026-08-03
+Дата проверки: 2026-08-04
 
 Назначение: governance recovery после преждевременного `developer -> main -> developer`.
 Следующий release candidate: `v1.6.0` (untagged, Human UAT PASS recorded).
 
 ## Release Status
 
-- Status: `untagged_release_candidate_human_uat_pass_recorded`.
+- Status: `untagged_release_candidate_human_uat_pass_recorded_closure_merged`.
 - Latest annotated tag: `v1.5.5` -> `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
 - Candidate `v1.6.0`: `59e645944697eac565d121e97d2dfa2ff3e9d99b` in `main`;
   tag отсутствует и запрещён до восстановления gates.
 - `origin/main`: `59e645944697eac565d121e97d2dfa2ff3e9d99b`.
 - Historical sync commit: `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b`.
-- Current `developer`: historical sync, recovery PR #363 и reservation PR #364;
-  это governance/journal delta, не новый release payload.
+- Current `developer`: historical sync, recovery PR #363, reservation PR #364
+  и merged PR #365 с closure sequence 0174; это governance/journal delta, не
+  новый release payload.
 - Business Acceptance Gate: `human_pass_recorded`; authoritative decision:
   Human UAT v1.6.0 PASS для UAT-0173-01—05, owner/human architect, 2026-08-03.
-- Reviewer consistency-gate: требуется отдельная journaled задача после Human
-  UAT evidence. Она проверяет полный release payload от peeled `v1.5.5^{}`
+- Reviewer consistency-gate: требуется отдельная journaled задача после
+  post-merge closure Human UAT evidence. Она проверяет полный release payload от peeled `v1.5.5^{}`
   (`f80e148f9e4ba965e701d1e06faa79d517b646cf`) до точного
-  `origin/developer`, снятого после merge recovery PR и фиксации Human UAT
-  evidence непосредственно перед reviewer branch. `origin/main...origin/developer`
+  `origin/developer`, снятого после human merge closure PR непосредственно
+  перед reviewer branch. `origin/main...origin/developer`
   не является достаточным единственным range, поскольку `main` уже содержит
   преждевременно перенесённый payload. Обязательны оба SHA, полный commit/file
   inventory; workflow, validators, schemas, tooling, tests, policies, journal и
   generated mirrors входят в review scope; необъяснённый элемент блокирует gate.
 - Следующий release action: только final recovery PR `developer -> main` после
-  merge UAT evidence PR и независимого reviewer gate.
+  независимого reviewer gate.
 
 ## Release Facts
 
@@ -54,14 +55,17 @@ GitHub metadata фиксирует исторические факты без п
 - PR #364: reservation PR merged в `developer` at `2026-08-03T07:07:00Z`, merge
   commit `22be882a230d4378fd737c031474213b3e5cfd38`; sequence 0174 принадлежит
   factual Human UAT evidence.
+- PR #365: Human UAT evidence merged в `developer` at `2026-08-04T07:45:40Z`,
+  merge commit `3342e128696f4f5900576504cd8ef64dce5d3e48`; sequence 0174
+  закрыта, а reservation consumed.
 
 ## Journal Gate
 
 - PR #359 merged; RESULT-0172 имеет status `merged`, INDEX-0172 закрыт, а
   ledger transition `0172: reserved -> consumed` уже записан.
 - Recovery sequence 0173 документирует governance deviation и Human UAT Checklist.
-- Sequence 0174 фиксирует authoritative Human UAT PASS; reviewer consistency-gate
-  остаётся отдельной обязательной journaled задачей.
+- Sequence 0174 закрыта authoritative Human UAT PASS; reviewer consistency-gate
+  остаётся отдельной обязательной journaled задачей и ещё не выполнялся.
 
 ## Generated Gates
 
@@ -78,11 +82,12 @@ Required for governance recovery PR:
 
 Rollback не выполняется автоматически: release payload уже в `main` и
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
-не считать published release. Human UAT PASS уже зафиксирован фактически;
-сначала смержить его factual evidence PR и выполнить отдельный full-payload
-reviewer consistency-gate, затем подготовить новый final recovery release PR.
+не считать published release. Human UAT PASS и closure sequence 0174 уже
+зафиксированы фактически; выполнить отдельный full-payload reviewer
+consistency-gate, затем подготовить новый final recovery release PR.
 
 ## Передача
 
-Следующий: human architect — смержить substantive UAT evidence PR; затем
-независимый methodology reviewer — создать full-payload consistency-gate задачу.
+Следующий: release manager — штатным allocator зарезервировать новую sequence
+для независимого methodology reviewer; затем reviewer создаёт отдельную
+full-payload consistency-gate задачу.
