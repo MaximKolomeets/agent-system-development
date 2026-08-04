@@ -1,6 +1,6 @@
 # RESULT-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01
 
-Статус: merged; RESULT closed after merge
+Статус: ready_for_human_uat_evidence_merge
 Идентификатор задачи: METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01
 Номер sequence: 0174
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01.md`
