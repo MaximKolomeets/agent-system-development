@@ -74,7 +74,8 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: governance recovery для untagged release candidate `v1.6.0`.
+Текущий фокус: фиксация authoritative Human UAT evidence для untagged release
+candidate `v1.6.0`.
 Payload после `v1.5.5` был физически перенесён в `main` PR #355 и #360, а
 `main -> developer` sync выполнен PR #356 и #361 до восстановления обязательных
 state/UAT/reviewer gates. Rollback не выполнялся: payload уже присутствует в
@@ -84,17 +85,18 @@ state/UAT/reviewer gates. Rollback не выполнялся: payload уже п�
 `origin/main` указывает на release candidate commit
 `59e645944697eac565d121e97d2dfa2ff3e9d99b`. Исторический sync PR #361 создал
 commit `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b` с zero-file delta.
-Текущий `origin/developer` содержит сверх него только merged reservation PR
-#362 для recovery sequence 0173; его единственный file delta — ledger
-reservation, не новый release payload.
+Recovery PR #363 merged в `developer` at `2026-08-03T05:30:33Z`; reservation
+PR #364 merged и выделил sequence 0174 для отдельного UAT evidence record.
+Это journal/state delta, не новый release payload.
 
 Latest tagged stable release остаётся `v1.5.5`:
 `v1.5.5^{}` указывает на `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
-`v1.6.0` — untagged release candidate в governance recovery. Business
-Acceptance Gate и reviewer consistency-gate pending; до их завершения tag
-`v1.6.0` запрещён. После recovery и reviewer PR потребуется отдельный финальный
-release PR `developer -> main`, чтобы state и gate evidence вошли в tagged
-release commit.
+`v1.6.0` — untagged release candidate в governance recovery. Human UAT v1.6.0
+имеет PASS для UAT-0173-01—05 по authoritative decision owner/human architect
+от `2026-08-03`; factual record создаётся sequence 0174. Независимый reviewer
+consistency-gate ещё не выполнялся. До него tag `v1.6.0` запрещён. После
+reviewer PR потребуется отдельный финальный release PR `developer -> main`,
+чтобы state и gate evidence вошли в tagged release commit.
 
 Stable methodology reference для downstream/source-update задач по-прежнему:
 tag `v1.5.5` или `origin/main` at
@@ -108,10 +110,9 @@ rule включён, required status checks в ruleset не заданы. Rulese
 
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
-Текущий этап: восстановление release-gates `v1.6.0` после преждевременного
-release/sync. Следующий шаг: human architect мержит recovery PR; затем owner
-проходит Human UAT Checklist, независимый reviewer выполняет consistency-gate,
-и только после этого готовится новый human-only release PR.
+Текущий этап: factual фиксация уже принятого Human UAT PASS в sequence 0174.
+Следующий шаг: human architect мержит UAT evidence PR; затем независимый
+reviewer создаёт отдельную journaled full-payload consistency-gate задачу.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

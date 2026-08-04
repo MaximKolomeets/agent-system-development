@@ -26,14 +26,10 @@
 
 `v1.5.5` остаётся latest tagged stable release. `v1.6.0` не опубликован:
 payload был преждевременно перенесён PR #355/#360 и синхронизирован PR
-#356/#361 до state-refresh, Business Acceptance Gate и reviewer
-consistency-gate. `origin/main` содержит untagged candidate
-`59e645944697eac565d121e97d2dfa2ff3e9d99b`; текущий recovery reservation PR
-#362 добавил в `developer` только ledger delta для sequence 0173.
-
-Ближайший рабочий шаг: human architect мержит docs-only governance recovery
-PR. До этого и до восстановленных gates запрещены tag `v1.6.0`, GitHub Release,
-новый release PR и sync.
+#356/#361. Recovery PR #363 уже merged в `developer`; owner/human architect
+принял Human UAT v1.6.0 PASS для UAT-0173-01—05. Sequence 0174 фиксирует
+evidence отдельным factual PR. До reviewer gate запрещены tag `v1.6.0`,
+GitHub Release, новый release PR и sync.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -42,9 +38,9 @@ PR. До этого и до восстановленных gates запреще�
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. Human architect мержит recovery PR в `developer`.
-2. Owner/PO проходит подготовленный Human UAT Checklist и фиксирует verdict.
-3. Независимый reviewer создаёт отдельную journaled reviewer consistency-gate
+1. Human architect мержит substantive UAT evidence PR sequence 0174 в
+   `developer`; UAT не запускается повторно.
+2. Независимый reviewer создаёт отдельную journaled reviewer consistency-gate
    задачу. Его обязательный payload range: base — peeled annotated tag
    `v1.5.5^{}` (`f80e148f9e4ba965e701d1e06faa79d517b646cf`); head — точный
    `origin/developer`, полученный после merge recovery PR и фиксации Human UAT
@@ -54,10 +50,10 @@ PR. До этого и до восстановленных gates запреще�
    `main` уже содержит преждевременно перенесённый payload. Workflow, validators,
    schemas, tooling, tests, policies, journal и generated mirrors входят в scope;
    необъяснённый commit или файл — blocker.
-4. После его merge готовится отдельный final recovery release PR
+3. После reviewer merge готовится отдельный final recovery release PR
    `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
    human-only действиями в указанном порядке.
-5. После release/sync отдельная post-release state-refresh задача фиксирует
+4. После release/sync отдельная post-release state-refresh задача фиксирует
    final tag/release/sync facts.
 
 `v1.5.4` сохраняется как предыдущий historical release.
