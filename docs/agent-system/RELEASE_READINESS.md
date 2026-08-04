@@ -45,8 +45,10 @@ GitHub metadata фиксирует исторические факты без п
 - PR #361: преждевременный sync `main -> developer`, merged
   `2026-08-02T09:41:17Z`, merge commit
   `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b`, zero file delta.
-- После этого исторического sync file delta отсутствовал; текущая разница
-  `main/developer` — только reservation ledger PR #362 для recovery 0173.
+- Сразу после этого исторического sync file delta отсутствовал; первым
+  последующим delta был reservation ledger PR #362 для recovery 0173.
+  Актуальный `developer` также содержит merged recovery PR #363 и reservation
+  PR #364 для sequence 0174.
 - PR #363: recovery PR merged в `developer` at `2026-08-03T05:30:33Z`, merge
   commit `4bb0640074490ee832466d3dafdecf5dffda5801`.
 - PR #364: reservation PR merged в `developer` at `2026-08-03T07:07:00Z`, merge
@@ -55,8 +57,8 @@ GitHub metadata фиксирует исторические факты без п
 
 ## Journal Gate
 
-- RESULT/INDEX 0172 и ledger transition `0172: reserved -> consumed` требуют
-  финализации по GitHub merge facts PR #359.
+- PR #359 merged; RESULT-0172 имеет status `merged`, INDEX-0172 закрыт, а
+  ledger transition `0172: reserved -> consumed` уже записан.
 - Recovery sequence 0173 документирует governance deviation и Human UAT Checklist.
 - Sequence 0174 фиксирует authoritative Human UAT PASS; reviewer consistency-gate
   остаётся отдельной обязательной journaled задачей.
