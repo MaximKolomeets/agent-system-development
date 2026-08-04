@@ -26,9 +26,9 @@
 
 `v1.5.5` остаётся latest tagged stable release. `v1.6.0` не опубликован:
 payload был преждевременно перенесён PR #355/#360 и синхронизирован PR
-#356/#361. Recovery PR #363 уже merged в `developer`; owner/human architect
-принял Human UAT v1.6.0 PASS для UAT-0173-01—05. Sequence 0174 фиксирует
-evidence отдельным factual PR. До reviewer gate запрещены tag `v1.6.0`,
+#356/#361. Recovery PR #363 и Human UAT evidence PR #365 merged в `developer`;
+owner/human architect принял Human UAT v1.6.0 PASS для UAT-0173-01—05.
+Sequence 0174 закрыта, reservation consumed. До reviewer gate запрещены tag `v1.6.0`,
 GitHub Release, новый release PR и sync.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
@@ -38,13 +38,13 @@ GitHub Release, новый release PR и sync.
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. Human architect мержит substantive UAT evidence PR sequence 0174 в
-   `developer`; UAT не запускается повторно.
+1. Release manager штатным allocator резервирует новую sequence для независимого
+   reviewer; UAT не запускается повторно.
 2. Независимый reviewer создаёт отдельную journaled reviewer consistency-gate
    задачу. Его обязательный payload range: base — peeled annotated tag
    `v1.5.5^{}` (`f80e148f9e4ba965e701d1e06faa79d517b646cf`); head — точный
-   `origin/developer`, полученный после merge recovery PR и фиксации Human UAT
-   evidence непосредственно перед созданием reviewer branch. Reviewer записывает
+   `origin/developer`, полученный после human merge closure PR непосредственно
+   перед созданием reviewer branch. Reviewer записывает
    оба SHA и полный commit/file inventory в TASK/RESULT. Диапазон
    `origin/main...origin/developer` нельзя использовать как единственный range:
    `main` уже содержит преждевременно перенесённый payload. Workflow, validators,
