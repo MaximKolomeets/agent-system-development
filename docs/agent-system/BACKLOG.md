@@ -48,6 +48,138 @@ evidence и не является future queue.
 - PR-14/H15: journal archiving and memory hygiene.
 - PR-15/H16: lifecycle and cross-project dependency policies.
 
+## Verification-derived methodology hardening
+
+Статус: accepted backlog / short-horizon implementation queue. Источник — практические
+инциденты проекта `verification` за цикл около двадцати задач
+`постановка -> Engine -> независимая проверка -> human merge`. Architect triage:
+добавить в methodology backlog; не переносить downstream-specific данные и не
+дублировать уже реализованные механизмы.
+
+Существующая база, которую нужно расширять, а не создавать заново:
+`TASK_CONTRACT.md`, `check_task_ready.py`,
+`AUTONOMOUS_TERMINAL_EXECUTION_PROTOCOL.md`, fail-closed reservation validation,
+zero-match fix 0076, review feedback schema и bounded fix-pass. Перечисленные ниже
+задачи не разрешают ослаблять эти механизмы.
+
+Порядок: P0 начать первой implementation-серией после завершения текущей release
+boundary v1.6.0; P1 выполнить в следующей короткой серии. Не оставлять пункты в
+неопределённом future без владельца и критерия приёмки. Backlog-only фиксация не
+создаёт новые validators, gates или journal sequence.
+
+### P0 — доказательство, что контроль действительно работает
+
+#### METH-CONTROL-EFFECTIVENESS-EVIDENCE-GATE-01
+
+Статус: partial coverage / implementation required.
+
+- Для нового или изменённого контроля требовать negative-path evidence: нарушение
+  смоделировано, условие доказанно наступило, контроль отклонил действие ожидаемым
+  способом.
+- Положительный признак рядом с контролем, наличие компонента в конфигурации и
+  успешный запуск команды не считать доказательством срабатывания.
+- Пустые данные не считать доказательным сценарием, если требование относится к
+  существующим записям.
+- При невозможности оценить контроль итог должен быть blocked/fail-closed, а не
+  success.
+- Критерий приёмки: reusable schema evidence содержит condition proof, trigger
+  proof, expected rejection и фактический verdict; есть regression fixtures,
+  которые ломают каждую из четырёх частей по отдельности.
+
+#### METH-NONEMPTY-VALIDATION-DISCOVERY-GUARD-01
+
+Статус: отдельные zero-match исправления существуют / общий guard отсутствует.
+
+- Ввести единый precondition guard для инструментов, находящих scope через Git:
+  отличать «объектов действительно нет» от «Git/история/scope недоступны».
+- Успех требует ненулевого и ожидаемого числа inspected files/tests/checks либо
+  явного обоснованного empty-scope contract.
+- Ноль собранных тестов и обязательный suite, полностью ушедший в skip, считать
+  blocker.
+- Ручные path/config inventories сверять с фактическим деревом и тестовым
+  discovery.
+- Критерий приёмки: общий reusable helper подключён к применимым validators;
+  regression tests покрывают unavailable Git, shallow/усечённую историю,
+  zero-match, zero-collected, all-skipped и новый файл вне ручного перечня.
+
+### P0 — совпадение условий проверки и исполнения
+
+#### METH-VALIDATION-ENVIRONMENT-PARITY-AND-SAFE-PROBE-01
+
+Статус: implementation required; не дублирует Docker environment blocker backlog.
+
+- Evidence-прогон обязан использовать проектную конфигурацию и существенные
+  условия фактического execution path: зависимости, БД/её отсутствие,
+  контейнерные mounts, права и рабочий каталог.
+- До принятия исхода отдельно доказывать, что моделируемое условие реально
+  наступило внутри той же среды.
+- Диагностические пробы выполнять read-only либо в отдельном временном каталоге;
+  неуспешная проба не должна менять tracked worktree.
+- Не фильтровать или усекать источник вывода, по которому определяется отказ;
+  краткое резюме строить только после сохранения полного результата.
+- Критерий приёмки: environment manifest в evidence, parity assertions,
+  worktree-before/after proof и regression fixtures для недоступного mount,
+  неверной конфигурации, write-on-failure и скрытой ошибки в полном выводе.
+
+### P1 — точность проверок и размещение гарантий
+
+#### METH-VALIDATOR-PRECISION-AND-COVERAGE-REGRESSION-01
+
+Статус: implementation required.
+
+- При изменении validator сравнивать обе стороны delta: что перестало
+  обнаруживаться и что стало обнаруживаться.
+- Решения принимать по содержимому/семантике, а не только по имени файла,
+  переменной или цитированию запрещённого текста.
+- Негативные и позитивные fixtures должны включать документацию о самом правиле,
+  доменно осмысленные имена и граничные символы.
+- Проверки состояния формулировать для созданных тестом записей и их свойств, а не
+  как глобальное количество объектов в общем хранилище.
+- Критерий приёмки: before/after finding inventory, false-positive и
+  false-negative budgets, targeted fixtures и доказательство отсутствия
+  необъяснённого сокращения coverage.
+
+#### METH-GUARANTEE-PLACEMENT-AND-EVIDENCE-HONESTY-01
+
+Статус: policy consolidation required.
+
+- Гарантию, выражаемую ограничением хранилища, по умолчанию закреплять на уровне
+  хранилища и проверять обходом application path.
+- Связанные неделимые условия выражать атомарным/составным ограничением, когда
+  технология это допускает.
+- Типы и application checks описывать как защиту от случайного обхода, если
+  намеренный обход предотвращается только нижележащим слоем.
+- Не изготавливать retroactive evidence, не заполнять control-looking поля
+  константой и не усиливать claim выше реально доказанного scope.
+- Допускать честный исход «изменение не требуется» с evidence.
+- Критерий приёмки: reusable decision table «где живёт гарантия», bypass-test
+  requirement и evidence-strength vocabulary включены в task/review contracts.
+
+### P1 — автономность без самоподдерживающейся бюрократии
+
+#### METH-EXECUTION-BUDGET-AND-TRACEABILITY-COST-01
+
+Статус: partial coverage in autonomous protocol / refinement required.
+
+- Постановка задаёт правила выбора на развилках и допускает доказанный
+  `no_change_required`; «уточнить у владельца» оставлять только для
+  непреодолимых authority/ambiguity blockers.
+- Закрепить machine-readable budgets: максимальное число полных тяжёлых прогонов,
+  допустимый fix-pass и запрет бесконечного перезапуска после таймаута.
+- Порядок работ определять зависимостями данных; reviewer отвечает в thread/comment,
+  не переписывая чужую запись параллельно.
+- Ввести lightweight traceability matrix: обычная продуктовая задача не создаёт
+  отдельный closure/state-refresh PR; полный TASK/RATIONALE/RESULT оставлять для
+  архитектуры, безопасности, миграций, release boundaries и сложных инцидентов.
+- Измерять долю времени/PR, ушедшую на продукт и на обслуживание контроля.
+  Сработавшее ограничение «один task triplet на задачу, не запись на каждую
+  находку» сделать явным default.
+- Между implementation и независимым review сохранять отдельную review boundary,
+  но не создавать искусственную паузу без проверяемого результата.
+- Критерий приёмки: task contract budget fields, deterministic choice rules,
+  lightweight/escalated journal decision table и метрика reduction of
+  journal-only PR cycles без потери auditability.
+
 ## Future methodology simplification
 
 - Context handoff footer enforcement.
