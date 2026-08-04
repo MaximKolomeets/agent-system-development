@@ -64,6 +64,15 @@
       "state": "consumed",
       "created_at": "2026-08-04T10:07:14+02:00",
       "reason": "PR #365 merged, RESULT/INDEX 0174 закрыты authoritative merge facts."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01-0175",
+      "sequence": "0175",
+      "task_id": "METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01",
+      "state": "reserved",
+      "created_at": "2026-08-04T12:11:54+02:00",
+      "reason": "Резервирование sequence для независимого full-payload consistency-gate release candidate v1.6.0."
     }
   ]
 }
