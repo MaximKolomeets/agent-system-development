@@ -1,3 +1,4 @@
+import json
 import subprocess
 import sys
 import tempfile
@@ -20,6 +21,11 @@ class TripletWorkflowTests(unittest.TestCase):
     def write(self, name, text):
         path=self.root/name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text(text, encoding="utf-8")
     def index(self, rows): self.write("docs/agent-system/engine-journal/INDEX.md", "\n".join([HEADER, SEPARATOR, *rows])+"\n")
+    def ledger(self, entries):
+        self.write(
+            "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json",
+            json.dumps({"schema_version": 1, "reservations": entries}),
+        )
     def row(self, seq="0001", task="METH-TEST-01", rationale=None):
         rationale=rationale or f"rationale/RATIONALE-{seq}-{task}.md"
         return f"| {seq} | {task} | input/TASK-{seq}-{task}.md | output/RESULT-{seq}-{task}.md | {rationale} | work/test | pr | review_changes_requested | 1m | test |"
@@ -38,6 +44,10 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_identity_mismatch(self): self.triplet(); self.write("docs/agent-system/engine-journal/input/TASK-0001-METH-TEST-01.md", "0001 METH-WRONG-01"); self.index([self.row()]); self.assertIn("FILE_IDENTITY_MISMATCH", self.check())
     def test_wrong_index_link(self): self.triplet(); self.index([self.row(rationale="rationale/RATIONALE-0001-WRONG.md")]); self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", self.check())
     def test_gap(self): self.triplet(seq="0002"); self.index([self.row(seq="0002")]); self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_active_reservation_can_occupy_sequence_gap(self):
+        self.ledger([{"sequence": "0001", "state": "reserved"}])
+        self.triplet(seq="0002"); self.index([self.row(seq="0002")])
+        self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_duplicate_sequence(self): self.triplet(); self.index([self.row(), self.row()]); self.assertIn("INDEX_DUPLICATE_SEQUENCE_OR_TASK_ID", self.check())
     def test_nine_column_legacy(self): self.index(["| 0001 | OLD | input/a | output/a | branch | pr | status | 1m | note |"]); self.assertIn("INDEX_ROW_COLUMN_COUNT_INVALID", self.check())
     def test_legacy_marker(self): self.index([self.row(task="METH-OLD-01", rationale="legacy/not_required")]); self.assertEqual([], self.check())

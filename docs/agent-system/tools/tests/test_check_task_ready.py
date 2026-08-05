@@ -2,6 +2,7 @@ import contextlib
 import io
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -15,6 +16,75 @@ def completed(args, stdout="", returncode=0):
 
 
 class CheckTaskReadyTests(unittest.TestCase):
+    task_path = "docs/agent-system/engine-journal/input/TASK-0176-METH-TEST-01.md"
+    result_path = "docs/agent-system/engine-journal/output/RESULT-0176-METH-TEST-01.md"
+    rationale_path = "docs/agent-system/engine-journal/rationale/RATIONALE-0176-METH-TEST-01.md"
+
+    def deferred_reason(self, path, line):
+        return ready.deferred_finalization_reason(path, line)
+
+    def scanned_paths(self, path, text):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / path
+            target.parent.mkdir(parents=True)
+            target.write_text(text, encoding="utf-8")
+            with mock.patch.object(ready, "ROOT", root):
+                return ready.scan_deferred_finalization_placeholders([path])
+
+    def test_exact_premerge_verdict_is_accepted_only_in_task_result_context(self):
+        line = "release_gate_verdict: PASS_PENDING_HUMAN_MERGE"
+        self.assertIsNone(self.deferred_reason(self.task_path, line))
+        self.assertIsNone(self.deferred_reason(self.result_path, line))
+        self.assertEqual([], self.scanned_paths(self.task_path, line + "\n"))
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            self.deferred_reason(self.rationale_path, line),
+        )
+
+    def test_ordinary_pending_marker_remains_blocking(self):
+        line = "pending"
+        self.assertEqual("DEFERRED_FINALIZATION_MARKER", self.deferred_reason(self.task_path, line))
+        self.assertEqual([self.task_path], self.scanned_paths(self.task_path, line + "\n"))
+
+    def test_pending_pr_url_remains_blocking(self):
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_MARKER",
+            self.deferred_reason(self.result_path, "PR URL: pending"),
+        )
+
+    def test_pending_checks_remain_blocking(self):
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_MARKER",
+            self.deferred_reason(self.result_path, "checks pending"),
+        )
+
+    def test_pending_final_head_remains_blocking(self):
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_MARKER",
+            self.deferred_reason(self.result_path, "pending final head"),
+        )
+
+    def test_allowlisted_token_in_arbitrary_text_does_not_bypass_guard(self):
+        line = "Пример verdict PASS_PENDING_HUMAN_MERGE в произвольной фразе."
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_PREMERGE_VERDICT_CONTEXT_INVALID",
+            self.deferred_reason(self.task_path, line),
+        )
+
+    def test_unknown_or_modified_premerge_verdict_remains_blocking(self):
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            self.deferred_reason(self.result_path, "release_gate_verdict: PASS_UNKNOWN"),
+        )
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            self.deferred_reason(
+                self.result_path,
+                "release_gate_verdict: PASS_PENDING_HUMAN_MERGE; checks will be recorded later",
+            ),
+        )
+
     def test_git_cache_prevents_duplicate_identical_subprocess(self):
         spy = mock.Mock(return_value=completed(["git", "status", "--short"]))
         with mock.patch.object(ready.subprocess, "run", spy):
