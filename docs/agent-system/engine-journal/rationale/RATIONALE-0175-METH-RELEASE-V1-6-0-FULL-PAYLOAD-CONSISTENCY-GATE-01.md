@@ -56,7 +56,7 @@ Verdict пересматривается при изменении immutable ran
 
 ## Изменения после review
 
-После review исправлены фактический PR URL, обязательный accounting field `resource_cost` и полный inventory evidence; это уточняет основание verdict, не меняя payload.
+После review исправлены фактический PR URL, обязательный accounting field `resource_cost` и полный inventory evidence. Дополнительно подтверждено противоречие: literal pre-merge verdict блокируется canonical readiness как отложенная финализация; поэтому итог задачи `BLOCKED`, пока не будет принято отдельное решение по policy/tool.
 
 ## Передача
 
