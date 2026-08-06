@@ -84,7 +84,13 @@ GitHub Release, sync и Issue #369.
 
 ## Изменения после review
 
-Нет.
+Methodology review выявил два уточнения. Gap-проверка должна использовать
+каноническое множество `occupied`: `reserved`, `consumed` и `abandoned`;
+terminal `abandoned` остаётся tombstone, а некорректная поздняя запись ledger
+не может освободить ранее занятую sequence. Для pre-merge verdict остаётся
+разрешённой только точная строка без backticks. Регрессионные tests проверяют
+обе границы и то, что production safety scan добавляет blocker, не раскрывая
+содержимое совпавшей строки.
 
 ## Передача
 

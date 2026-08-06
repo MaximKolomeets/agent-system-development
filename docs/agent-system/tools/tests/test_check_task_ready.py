@@ -32,6 +32,24 @@ class CheckTaskReadyTests(unittest.TestCase):
             with mock.patch.object(ready, "ROOT", root):
                 return ready.scan_deferred_finalization_placeholders([path])
 
+    def safety_scan_blockers(self, path, text):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / path
+            target.parent.mkdir(parents=True)
+            target.write_text(text, encoding="utf-8")
+            report = ready.ReadyReport(base="origin/developer", changed_files=[path])
+            with (
+                mock.patch.object(ready, "ROOT", root),
+                mock.patch.object(ready, "scan_added_secret_values", return_value=[]),
+                mock.patch.object(ready, "scan_placeholders", return_value=[]),
+                mock.patch.object(ready, "scan_superseded_banners", return_value=[]),
+                mock.patch.object(ready, "scan_execution_timing", return_value=[]),
+                mock.patch.object(ready, "scan_accounting_fields", return_value=([], [], [], [], {})),
+            ):
+                ready.add_safety_scans(report)
+            return report
+
     def test_exact_premerge_verdict_is_accepted_only_in_task_result_context(self):
         line = "release_gate_verdict: PASS_PENDING_HUMAN_MERGE"
         self.assertIsNone(self.deferred_reason(self.task_path, line))
@@ -84,6 +102,43 @@ class CheckTaskReadyTests(unittest.TestCase):
                 "release_gate_verdict: PASS_PENDING_HUMAN_MERGE; checks will be recorded later",
             ),
         )
+
+    def test_backticked_premerge_verdict_remains_blocking(self):
+        line = "release_gate_verdict: `PASS_PENDING_HUMAN_MERGE`"
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            self.deferred_reason(self.result_path, line),
+        )
+
+    def test_each_negative_marker_blocks_production_safety_scan(self):
+        cases = (
+            ("ordinary marker", "pending", "DEFERRED_FINALIZATION_MARKER"),
+            ("PR URL", "PR URL: pending", "DEFERRED_FINALIZATION_MARKER"),
+            ("checks", "checks pending", "DEFERRED_FINALIZATION_MARKER"),
+            ("final head", "pending final head", "DEFERRED_FINALIZATION_MARKER"),
+            (
+                "arbitrary token",
+                "Пример verdict PASS_PENDING_HUMAN_MERGE в произвольной фразе.",
+                "DEFERRED_FINALIZATION_PREMERGE_VERDICT_CONTEXT_INVALID",
+            ),
+            ("unknown verdict", "release_gate_verdict: PASS_UNKNOWN", "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID"),
+            (
+                "modified verdict",
+                "release_gate_verdict: PASS_PENDING_HUMAN_MERGE; checks later",
+                "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            ),
+            (
+                "backticked verdict",
+                "release_gate_verdict: `PASS_PENDING_HUMAN_MERGE`",
+                "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
+            ),
+        )
+        for label, line, reason in cases:
+            with self.subTest(label=label):
+                self.assertEqual(reason, self.deferred_reason(self.result_path, line))
+                report = self.safety_scan_blockers(self.result_path, line + "\n")
+                self.assertEqual([self.result_path], report.deferred_finalization_placeholders)
+                self.assertIn("deferred finalization placeholders detected in changed TASK/RESULT", report.blockers)
 
     def test_git_cache_prevents_duplicate_identical_subprocess(self):
         spy = mock.Mock(return_value=completed(["git", "status", "--short"]))

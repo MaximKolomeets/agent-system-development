@@ -43,9 +43,23 @@ release_gate_verdict: PASS_PENDING_HUMAN_MERGE
 Unit tests доказывают принятие exact verdict, блокирование обычных маркеров,
 свободной фразы с token и неизвестных/дополненных значений.
 
+## Review fix-pass 01
+
+Gap-проверка journal теперь использует канонически занятые состояния ledger:
+`reserved`, `consumed` и `abandoned`. Terminal `abandoned` не освобождает
+номер, а malformed поздняя запись не отменяет ранее распознанную занятость.
+Отдельные regression tests сохраняют blocker для обычного незанятого gap.
+
+Exact allowlist verdict ужесточён: допускается только строка без backticks.
+Production safety scan проверен для каждого отрицательного случая; он добавляет
+blocker по безопасной категории и не выводит совпавшую строку. Целевые Docker
+tests fix-pass: `Ran 38 tests in 21.524s` — `OK`.
+
 ## Проверки
 
 - Docker unittest discovery: `Ran 77 tests in 6.542s` — `OK`.
+- Docker unittest discovery review fix-pass: `Ran 83 tests in 10.315s` —
+  `OK`.
 - TASK contract, journal triplet, append-only, policy invariants, file-map,
   cloud parity, EOL guard, Russian-first lint, ID references и commit subject:
   passed.
