@@ -88,6 +88,17 @@ DEFERRED_FINALIZATION_PATTERNS = (
     re.compile(r"\bnot\s+run\s+yet\b", re.IGNORECASE),
     re.compile(r"\bto\s+be\s+updated\b", re.IGNORECASE),
 )
+PREMERGE_RELEASE_GATE_VERDICT_VALUE = "PASS_PENDING_HUMAN_MERGE"
+PREMERGE_RELEASE_GATE_VERDICT_FIELD_RE = re.compile(r"^\s*release_gate_verdict\s*:")
+PREMERGE_RELEASE_GATE_VERDICT_RE = re.compile(
+    rf"^\s*release_gate_verdict\s*:\s*{PREMERGE_RELEASE_GATE_VERDICT_VALUE}\s*$"
+)
+PREMERGE_RELEASE_GATE_VERDICT_TOKEN_RE = re.compile(
+    rf"(?<![A-Za-z0-9_]){PREMERGE_RELEASE_GATE_VERDICT_VALUE}(?![A-Za-z0-9_])"
+)
+PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE = re.compile(
+    r"^docs/agent-system/engine-journal/(?:input/TASK|output/RESULT)-.*\.md$"
+)
 SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
 SUPERSEDED_TAG_RE = re.compile(
     r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
@@ -406,6 +417,25 @@ def scan_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
+def deferred_finalization_reason(path: str, line: str) -> str | None:
+    """Возвращает безопасную категорию незавершённого маркера без текста строки."""
+    normalized_path = normalize_path(path)
+    stripped = line.strip()
+    allowed_context = PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE.fullmatch(normalized_path) is not None
+
+    # Это единственное точное исключение: контрактный verdict не является обещанием
+    # будущей финализации и допустим только как отдельное поле TASK/RESULT.
+    if allowed_context and PREMERGE_RELEASE_GATE_VERDICT_RE.fullmatch(stripped):
+        return None
+    if PREMERGE_RELEASE_GATE_VERDICT_FIELD_RE.match(stripped):
+        return "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID"
+    if PREMERGE_RELEASE_GATE_VERDICT_TOKEN_RE.search(stripped):
+        return "DEFERRED_FINALIZATION_PREMERGE_VERDICT_CONTEXT_INVALID"
+    if any(pattern.search(stripped) for pattern in DEFERRED_FINALIZATION_PATTERNS):
+        return "DEFERRED_FINALIZATION_MARKER"
+    return None
+
+
 def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []
     for path in task_result_files(paths):
@@ -414,8 +444,7 @@ def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
         for line in text.splitlines():
-            stripped = line.strip()
-            if any(pattern.search(stripped) for pattern in DEFERRED_FINALIZATION_PATTERNS):
+            if deferred_finalization_reason(path, line) is not None:
                 flagged.append(path)
                 break
     return sorted(set(flagged))

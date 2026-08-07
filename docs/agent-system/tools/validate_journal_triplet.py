@@ -13,6 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 PREFIX = "docs/agent-system/engine-journal/"
+RESERVATION_LEDGER = "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json"
 PATTERN = re.compile(r"^(input/TASK|rationale/RATIONALE|output/RESULT)-(\d{4})-([A-Z0-9][A-Z0-9-]*)\.md$")
 REQUIRED_RATIONALE_SECTIONS = (
     "## Решаемый вопрос", "## Контекст и evidence", "## Ограничения и инварианты",
@@ -112,6 +113,41 @@ def expected_triplet_files(seq: str, task_id: str) -> dict[str, str]:
     }
 
 
+def occupied_ledger_sequences(root: Path) -> set[str]:
+    """Возвращает канонически занятые sequence из append-only ledger.
+
+    Structural validity ledger и provider claim проверяет отдельный validator.
+    Здесь данные нужны только для сохранения sequence gap: ``reserved`` ещё не
+    попал в INDEX, а terminal ``consumed`` и ``abandoned`` остаются tombstone и
+    не могут быть переиспользованы. Некорректная поздняя запись не отменяет
+    ранее распознанное occupied-состояние.
+    """
+    path = root / RESERVATION_LEDGER
+    if not path.is_file():
+        return set()
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except json.JSONDecodeError:
+        return set()
+    entries = raw.get("reservations") if isinstance(raw, dict) else None
+    if not isinstance(entries, list):
+        return set()
+    occupied_states = {"reserved", "consumed", "abandoned"}
+    occupied: set[str] = set()
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        sequence = entry.get("sequence")
+        state = entry.get("state")
+        if (
+            isinstance(sequence, str)
+            and re.fullmatch(r"\d{4}", sequence)
+            and state in occupied_states
+        ):
+            occupied.add(sequence)
+    return occupied
+
+
 def validate(root: Path, base: str) -> Report:
     report = Report(base=base)
     current_index = root / "docs/agent-system/engine-journal/INDEX.md"
@@ -170,8 +206,11 @@ def validate(root: Path, base: str) -> Report:
     report.new_entries_count = sum(key not in base_rows for key in candidates)
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
+    occupied_sequences = occupied_ledger_sequences(root)
     for (seq, task_id), files in sorted(candidates.items()):
         if (seq, task_id) not in base_rows:
+            while expected < int(seq) and f"{expected:04d}" in occupied_sequences:
+                expected += 1
             if int(seq) != expected:
                 add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
             expected += 1
