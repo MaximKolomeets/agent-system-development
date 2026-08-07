@@ -1,6 +1,6 @@
 # RESULT-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01
 
-Статус: ready_for_human_review
+Статус: merged; RESULT closed after merge
 Идентификатор задачи: METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01
 Номер sequence: 0176
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01.md`
@@ -96,3 +96,36 @@ Exact context allowlist безопаснее глобального исключ
 
 Следующий: methodology reviewer — проверить implementation PR, отдельные
 negative tests и отсутствие ослабления readiness gate.
+
+## Authoritative post-merge closure 0176
+
+Все предшествующие статусы, проверки, review evidence и передачи выше являются
+историческими поверхностями substantive-выполнения sequence 0176.
+
+status: merged; RESULT closed after merge
+PR #371 state: MERGED
+PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/371`
+final PR head: `caf9cc99735b95356992b04a2f4ea8ac6b5025ed`
+merge commit: `e08a0145eaaef3fc111a10f006fd333902acc0c7`
+merged_at: `2026-08-07T11:51:07Z`
+base: `developer`
+changed files: `12`
+post_merge_closure_evidence_source: GitHub PR metadata
+RESULT closed after merge: yes
+INDEX closed after merge: yes
+No journal placeholders: yes
+
+PR #371 устранил `PREMERGE_VERDICT_GATE_CONTRADICTION`: exact pre-merge verdict
+разрешён только в каноническом поле TASK/RESULT без backticks, а deferred
+markers сохраняют blocker-поведение. Canonical occupied ledger semantics для
+`reserved`, `consumed` и `abandoned` подтверждены regression tests.
+
+Reservation 0176 получила append-only transition `reserved -> consumed`.
+PR #368 остаётся отдельным незавершённым reviewer consistency-gate: эта closure
+не меняет его branch, files или review threads.
+
+## Передача
+
+Следующий: methodology reviewer — обновить и повторно проверить PR #368 с
+учётом merged policy fix PR #371; release/tag до завершения reviewer gate не
+выполнять.
