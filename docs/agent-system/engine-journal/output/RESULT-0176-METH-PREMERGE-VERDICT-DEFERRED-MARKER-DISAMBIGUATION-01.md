@@ -1,6 +1,6 @@
 # RESULT-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01
 
-Статус: merged; RESULT closed after merge
+Статус: ready_for_human_review
 Идентификатор задачи: METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01
 Номер sequence: 0176
 Связанный TASK file: `docs/agent-system/engine-journal/input/TASK-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01.md`
@@ -102,7 +102,7 @@ negative tests и отсутствие ослабления readiness gate.
 Все предшествующие статусы, проверки, review evidence и передачи выше являются
 историческими поверхностями substantive-выполнения sequence 0176.
 
-status: merged; RESULT closed after merge
+Статус: merged; RESULT closed after merge
 PR #371 state: MERGED
 PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/371`
 final PR head: `caf9cc99735b95356992b04a2f4ea8ac6b5025ed`
