@@ -95,9 +95,10 @@ Latest tagged stable release остаётся `v1.5.5`:
 `v1.6.0` — untagged release candidate в governance recovery. Human UAT v1.6.0
 имеет PASS для UAT-0173-01—05 по authoritative decision owner/human architect
 от `2026-08-03`; factual record sequence 0174 закрыт после merge PR #365.
-Независимый reviewer consistency-gate ещё не выполнялся. До него tag `v1.6.0` запрещён. После
-reviewer PR потребуется отдельный финальный release PR `developer -> main`,
-чтобы state и gate evidence вошли в tagged release commit.
+Независимый reviewer consistency-gate sequence 0175 завершён и закрыт после
+human merge PR #368. До отдельного final release pass tag `v1.6.0` запрещён.
+После human merge closure PR для 0175 потребуется отдельный финальный release
+PR `developer -> main`, чтобы state и gate evidence вошли в tagged release commit.
 
 Stable methodology reference для downstream/source-update задач по-прежнему:
 tag `v1.5.5` или `origin/main` at
@@ -112,11 +113,11 @@ rule включён, required status checks в ruleset не заданы. Rulese
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
 Текущий этап: sequence 0174 закрыта после human merge PR #365; Human UAT PASS
-не переоценивается. Sequence 0175 уже зарезервирована для отдельного reviewer
-gate, а PR #368 остаётся его независимой незавершённой поверхностью. PR #371
-merged в `developer` и устранил policy blocker exact pre-merge verdict; после
-human merge closure 0176 следующий шаг — обновить и повторно проверить PR #368,
-а не резервировать новую sequence или выполнять release/tag.
+не переоценивается. Sequence 0175 завершила independent full-payload reviewer
+gate: PR #368 merged в `developer`, RESULT/INDEX закрыты после merge, reservation
+consumed. PR #371 merged в `developer` и устранил policy blocker exact pre-merge
+verdict; sequence 0176 также закрыта. Следующий шаг — отдельный final release
+pass по release policy, без новой reservation для уже завершённых 0174–0176.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

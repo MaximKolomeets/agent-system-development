@@ -129,3 +129,16 @@ PR #368 остаётся отдельным незавершённым reviewer 
 Следующий: methodology reviewer — обновить и повторно проверить PR #368 с
 учётом merged policy fix PR #371; release/tag до завершения reviewer gate не
 выполнять.
+
+## Подтверждение последующего состояния после merge PR #368
+
+Утверждение выше о незавершённом PR #368 является историческим состоянием на
+момент closure 0176. Актуальный статус: PR #368 merged в `developer`;
+sequence 0175 имеет `merged; RESULT closed after merge`, а reservation 0175
+consumed. Повторный reviewer gate не требуется.
+
+## Передача
+
+Следующий: release manager — после human merge closure PR #373 подготовить
+отдельный final release pass `v1.6.0` по release policy; release, tag и sync
+до этого не выполнять.
