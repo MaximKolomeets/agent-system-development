@@ -73,6 +73,24 @@
       "state": "reserved",
       "created_at": "2026-08-04T12:11:54+02:00",
       "reason": "Резервирование sequence для независимого full-payload consistency-gate release candidate v1.6.0."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01-0176",
+      "sequence": "0176",
+      "task_id": "METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01",
+      "state": "reserved",
+      "created_at": "2026-08-05T10:24:55+02:00",
+      "reason": "Резервирование sequence для устранения противоречия pre-merge verdict и readiness gate."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01-0176",
+      "sequence": "0176",
+      "task_id": "METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01",
+      "state": "consumed",
+      "created_at": "2026-08-07T14:02:32+02:00",
+      "reason": "PR #371 merged в developer; authoritative post-merge closure фиксирует устранение PREMERGE_VERDICT_GATE_CONTRADICTION."
     }
   ]
 }

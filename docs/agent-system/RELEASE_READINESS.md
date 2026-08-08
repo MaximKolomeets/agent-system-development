@@ -13,13 +13,14 @@
   tag отсутствует и запрещён до восстановления gates.
 - `origin/main`: `59e645944697eac565d121e97d2dfa2ff3e9d99b`.
 - Historical sync commit: `c0112ce7355cf6cdbce21dd1bf7bae6a0b9bf71b`.
-- Current `developer`: historical sync, recovery PR #363, reservation PR #364
-  и merged PR #365 с closure sequence 0174; это governance/journal delta, не
-  новый release payload.
+- Current `developer`: historical sync, recovery PR #363, reservation PR #364,
+  merged PR #365 с closure sequence 0174 и merged policy fix PR #371 для
+  sequence 0176; это governance/journal delta, не новый release payload.
 - Business Acceptance Gate: `human_pass_recorded`; authoritative decision:
   Human UAT v1.6.0 PASS для UAT-0173-01—05, owner/human architect, 2026-08-03.
-- Reviewer consistency-gate: требуется отдельная journaled задача после
-  post-merge closure Human UAT evidence. Она проверяет полный release payload от peeled `v1.5.5^{}`
+- Reviewer consistency-gate: sequence 0175 уже зарезервирована, а PR #368
+  остаётся отдельной незавершённой reviewer surface. После human merge closure
+  0176 её нужно обновить и повторно проверить; она проверяет полный release payload от peeled `v1.5.5^{}`
   (`f80e148f9e4ba965e701d1e06faa79d517b646cf`) до точного
   `origin/developer`, снятого после human merge closure PR непосредственно
   перед reviewer branch. `origin/main...origin/developer`
@@ -65,7 +66,8 @@ GitHub metadata фиксирует исторические факты без п
   ledger transition `0172: reserved -> consumed` уже записан.
 - Recovery sequence 0173 документирует governance deviation и Human UAT Checklist.
 - Sequence 0174 закрыта authoritative Human UAT PASS; reviewer consistency-gate
-  остаётся отдельной обязательной journaled задачей и ещё не выполнялся.
+  остаётся отдельной обязательной journaled задачей: sequence 0175 reserved,
+  PR #368 требует обновления и повторной проверки после closure 0176.
 
 ## Generated Gates
 
@@ -83,11 +85,11 @@ Required for governance recovery PR:
 Rollback не выполняется автоматически: release payload уже в `main` и
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
 не считать published release. Human UAT PASS и closure sequence 0174 уже
-зафиксированы фактически; выполнить отдельный full-payload reviewer
-consistency-gate, затем подготовить новый final recovery release PR.
+зафиксированы фактически; после human merge closure 0176 обновить и повторно
+проверить PR #368 как отдельный full-payload reviewer consistency-gate.
 
 ## Передача
 
-Следующий: release manager — штатным allocator зарезервировать новую sequence
-для независимого methodology reviewer; затем reviewer создаёт отдельную
-full-payload consistency-gate задачу.
+Следующий: methodology reviewer — после human merge closure 0176 обновить и
+повторно проверить PR #368 как отдельный full-payload consistency-gate; release,
+tag и sync не выполнять.
