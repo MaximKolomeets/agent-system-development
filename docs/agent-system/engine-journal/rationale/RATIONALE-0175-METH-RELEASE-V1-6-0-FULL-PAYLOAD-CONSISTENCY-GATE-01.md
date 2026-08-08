@@ -6,7 +6,7 @@ raw_chain_of_thought_stored: no
 
 ## Решаемый вопрос
 
-Достаточны ли проверяемые evidence для verdict по неизменяемому диапазону от peeled `v1.5.5^{}` `f80e148f9e4ba965e701d1e06faa79d517b646cf` до `6d324d2e07b648b45fd4f9f0c9333dcd653cb833` без изменения payload.
+Достаточны ли проверяемые evidence для verdict по неизменяемому диапазону от peeled `v1.5.5^{}` `f80e148f9e4ba965e701d1e06faa79d517b646cf` до `fdf5b4cec319d91fcf202934de31f8414f2c3949` без изменения payload. `6d324d2e07b648b45fd4f9f0c9333dcd653cb833` — только historical промежуточный head.
 
 ## Контекст и evidence
 
@@ -48,11 +48,11 @@ Verdict пересматривается при изменении immutable ran
 
 ## Что явно не решалось
 
-Не выполнялись Human UAT, release PR, tag, GitHub Release, sync и implementation fixes.
+Не выполнялись Human UAT, release PR, tag, GitHub Release и sync. Scope после review доказанно расширен на `validate_journal_triplet.py` и его regression tests для сохранения canonical occupied semantics; это validator fix, а не изменение reviewed payload.
 
 ## Связь с решениями
 
-Работа использует reservation sequence 0175, Human UAT evidence sequence 0174 и канонические policy/validator gates без их изменения.
+Работа использует reservation sequence 0175, Human UAT evidence sequence 0174 и канонические policy/validator gates; validator и regression tests изменены только по доказанному review finding.
 
 ## Изменения после review
 

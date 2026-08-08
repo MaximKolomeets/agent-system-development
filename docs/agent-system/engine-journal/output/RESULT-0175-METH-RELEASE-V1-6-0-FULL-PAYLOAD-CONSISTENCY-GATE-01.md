@@ -179,7 +179,7 @@ File inventory conclusion: 75/75 explained; individual trace complete. Все 22
 
 - CI wiring: `.github/workflows/methodology-checks.yml` запускает task contract, readiness, policy, generated parity, append-only, triplet и provider reservation validation; runtime evidence — successful CI merged PR #367 и local Docker checks.
 - Entry points: `check_task_ready.py` включает reservation validator; `github_journal_sequence_snapshot.py` получает paginated provider data только через environment credential; `validate_journal_sequence_reservations.py` fails closed при unavailable/duplicate/missing claim. Negative-path unit tests покрывают missing credential, second-page failure, duplicate claim, incompatible transition и incomplete triplet.
-- Zero-discovery/all-skipped: validator tests включают missing artifacts/new incomplete triplet; readiness сообщает changed-file count и blockers. Нет evidence, что baseline исключён полностью.
+- Baseline exclusion доказан: immutable review command буквально задаёт range `f80e148f9e4ba965e701d1e06faa79d517b646cf..fdf5b4cec319d91fcf202934de31f8414f2c3949`; `git log --reverse` вернул 51 commit, а `git diff --name-status -M` — 75 records. Следовательно, baseline commit не входит в reviewed range.
 - Policy/workflow/schema/tools/tests/journal/generated mirrors согласованы: policy invariants, ID references, triplet, append-only и cloud/file-map parity прошли.
 - Journal 0163–0176: closures/statuses и transitions проверены; 0174 сохраняет Human UAT provenance owner/human architect, UAT-0173-01—05 PASS, Engine не присваивает себе verdict; ledger 0174 `reserved -> consumed`, 0175 остаётся `reserved`, 0176 `reserved -> consumed`.
 - PR #371 и closure PR #372 включены в immutable payload; `PREMERGE_VERDICT_GATE_CONTRADICTION` устранён exact allowlist без ослабления ordinary deferred markers.
@@ -188,7 +188,7 @@ File inventory conclusion: 75/75 explained; individual trace complete. Все 22
 
 ## Checks
 
-Запущены Docker unittest discovery (85 tests, OK), task-contract, triplet, live provider reservation validator, append-only, policy invariants, file-map/cloud parity, EOL guard, Russian-first lint, ID references, commit-language, exact allowlist, `git diff --check`, strict added-line secret и проверка незавершённых markers/forbidden-path. Canonical readiness после пересчёта range: `ready`, blockers `0`, warnings `0`, `299.8 s`. Не запускались Human UAT, release PR/tag/GitHub Release/sync: они вне роли reviewer.
+Docker unittest discovery: Ran 93 tests — OK. Canonical readiness текущего fix-pass: `ready`, blockers `0`, warnings `0`, `275.4 s`. Дополнительно сохранён historical предыдущий запуск: Ran 88 tests — OK, `ready`, blockers `0`, warnings `0`, `269.1 s`. Не запускались Human UAT, release PR/tag/GitHub Release/sync: они вне роли reviewer.
 
 ## Provider и Human UAT
 
