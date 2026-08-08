@@ -56,6 +56,17 @@ class TripletWorkflowTests(unittest.TestCase):
         self.ledger([{"sequence": "0001", "state": "consumed"}])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_reserved_sequence_can_materialize_below_existing_index_maximum(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([{"sequence": "0001", "state": "reserved"}])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_unreserved_sequence_below_existing_index_maximum_is_blocking(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_malformed_later_ledger_record_cannot_release_occupied_sequence(self):
         self.ledger([
             {"sequence": "0001", "state": "reserved"},

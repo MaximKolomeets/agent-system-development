@@ -24,7 +24,7 @@ Review-only: payload, ledger, Human UAT, release/tag/sync не изменяют�
 
 ## Выбранный путь
 
-Выбран третий вариант: полный неизменяемый range с 43 commit records, 71 file records и обязательными локальными/CI gates.
+Выбран третий вариант: полный неизменяемый range с 51 commit records, 75 file records и обязательными локальными/CI gates.
 
 ## Причины выбора
 
@@ -56,8 +56,10 @@ Verdict пересматривается при изменении immutable ran
 
 ## Изменения после review
 
-После review исправлены фактический PR URL, обязательный accounting field `resource_cost` и полный inventory evidence. Дополнительно подтверждено противоречие: literal pre-merge verdict блокируется canonical readiness как отложенная финализация; поэтому итог задачи `BLOCKED`, пока не будет принято отдельное решение по policy/tool.
+После review исправлены фактический PR URL, обязательное accounting field `resource_cost` и полный inventory evidence. Противоречие `PREMERGE_VERDICT_GATE_CONTRADICTION` устранено PR #371 и post-merge closure PR #372: exact canonical verdict допустим только в контрактном поле, а обычные deferred markers продолжают блокироваться. Повторный immutable range заканчивается `fdf5b4cec319d91fcf202934de31f8414f2c3949` и включает изменения 0176.
+
+После materialization 0175 выявлен отдельный validator defect: occupied reservation, чей номер ниже уже существующего INDEX maximum, ошибочно считался collision. Минимальная правка сохраняет fail-closed поведение для незанятой sequence и подтверждена парой противоположных regression tests.
 
 ## Передача
 
-Следующий: code reviewer — зафиксировать проверяемый verdict в RESULT; human architect — рассмотреть reviewer PR без автоматического merge.
+Следующий: human reviewer — проверить обновлённый PR #368 и при согласии выполнить human merge без auto-merge.

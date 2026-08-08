@@ -209,11 +209,18 @@ def validate(root: Path, base: str) -> Report:
     occupied_sequences = occupied_ledger_sequences(root)
     for (seq, task_id), files in sorted(candidates.items()):
         if (seq, task_id) not in base_rows:
-            while expected < int(seq) and f"{expected:04d}" in occupied_sequences:
-                expected += 1
-            if int(seq) != expected:
-                add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
-            expected += 1
+            sequence_number = int(seq)
+            if sequence_number < expected:
+                # Ранее зарезервированная sequence может материализоваться в INDEX
+                # после более поздней уже закрытой записи; tombstone не переиспользуется.
+                if seq not in occupied_sequences:
+                    add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+            else:
+                while expected < sequence_number and f"{expected:04d}" in occupied_sequences:
+                    expected += 1
+                if sequence_number != expected:
+                    add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+                expected = sequence_number + 1
         required = {"input/TASK", "rationale/RATIONALE", "output/RESULT"}
         if set(files) != required:
             add(report, f"{PREFIX}INDEX.md", "TRIPLET_INCOMPLETE")

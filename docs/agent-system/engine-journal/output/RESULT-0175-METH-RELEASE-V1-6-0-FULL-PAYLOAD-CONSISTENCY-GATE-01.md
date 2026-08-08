@@ -1,6 +1,6 @@
 # RESULT-0175-METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01
 
-Статус: open; reviewer gate BLOCKED: канонический readiness не допускает отложенный pre-merge verdict в RESULT
+Статус: open; reviewer gate PASS, ожидает human merge
 Идентификатор задачи: METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01
 Номер sequence: 0175
 PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/368`
@@ -26,18 +26,18 @@ total_task_cost: `not_available`
 ## Immutable range и inventories
 
 - base: `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
-- head / merge commit reservation PR #367: `6d324d2e07b648b45fd4f9f0c9333dcd653cb833`.
+- immutable reviewed head / `origin/developer`: `fdf5b4cec319d91fcf202934de31f8414f2c3949`.
 - merge-base: `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
-- commits: 43; files: 71 (`M=26`, `A=23`, `R=22`, `D=0`).
+- commits: 51; files: 75 (`M=27`, `A=26`, `R=22`, `D=0`).
 - полный literal commit/file inventory и rename-pairs зафиксирован ниже и синхронно в TASK-0175; это обязательная часть данного gate.
 
-Commit inventory conclusion: 43/43 explained; individual trace complete. Цепочка охватывает state refresh 0170, reservation/provider hardening 0171, boundary reconciliation 0172, governance recovery 0173, Human UAT evidence/closure 0174 и reservation 0175, а также их PR merge/sync events #353–367. Unexplained commits: 0.
+Commit inventory conclusion: 51/51 explained; individual trace complete. Цепочка дополнительно охватывает reservation, policy/tool fix и post-merge closure 0176 через PR #370–372. Unexplained commits: 0.
 
-File inventory conclusion: 71/71 explained; individual trace complete. Все 22 rename-пары относятся к explicit canonical cloud-order migration после добавления `JOURNAL_SEQUENCE_RESERVATION.md`; source/generated parity подтверждается generator checks. Unexplained files: 0; unexplained renames: 0.
+File inventory conclusion: 75/75 explained; individual trace complete. Все 22 rename-пары относятся к canonical cloud-order migration; source/generated parity подтверждается generator checks. Unexplained files: 0; unexplained renames: 0.
 
 ## Канонический полный commit inventory
 
-Источник: immutable Git graph. `git log --reverse --format="%H%x09%P%x09%aI%x09%cI%x09%s" f80e148f9e4ba965e701d1e06faa79d517b646cf..6d324d2e07b648b45fd4f9f0c9333dcd653cb833`. Ровно 43 records; unexplained: 0; contradictory: 0.
+Источник: immutable Git graph. `git log --reverse --format="%H%x09%P%x09%aI%x09%cI%x09%s" f80e148f9e4ba965e701d1e06faa79d517b646cf..fdf5b4cec319d91fcf202934de31f8414f2c3949`. Ровно 51 records; каждый SHA и ordinal машинно сверены; unexplained: 0; contradictory: 0.
 
 | № | Полный SHA | Parents | Subject | Author time | Committer time | Associated PR | TASK_ID / sequence | Конкретная цель | Конкретные затронутые области | Классификация | Reviewer conclusion | Индивидуальное evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -84,10 +84,18 @@ File inventory conclusion: 71/71 explained; individual trace complete. Все 22
 | 41 | `addddb1dd23c4cb2d0c43af9b71d5aaa45ac6589` | `3342e128696f4f5900576504cd8ef64dce5d3e48 d1eec48de5578b2a85721ea2c9cc5a6d4d92278f` | Merge pull request #366 from MaximKolomeets/work/release-manager-01/meth-release-v1-6-0-human-uat-evidence-01-post-merge-closure | `2026-08-04T17:01:43+07:00` | `2026-08-04T17:01:43+07:00` | [PR #366](https://github.com/MaximKolomeets/agent-system-development/pull/366) | `METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01` / `0174` | Выполнить конкретное действие subject: «Merge pull request #366 from MaximKolomeets/work/release-manager-01/meth-release-v1-6-0-human-uat-evidence-01-post-merge-closure». | Только merge topology; содержательные files находятся в parent PR head. | PR merge | explained | `git show --name-status -M addddb1dd23c4cb2d0c43af9b71d5aaa45ac6589`; PR #366 |
 | 42 | `d6a372d05c3ea53c11c16499ac167c4dca941955` | `addddb1dd23c4cb2d0c43af9b71d5aaa45ac6589` | docs(agent-system): зарезервировать sequence 0175 | `2026-08-04T12:13:44+02:00` | `2026-08-04T12:13:44+02:00` | [PR #367](https://github.com/MaximKolomeets/agent-system-development/pull/367) | `METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01` / `0175` | Выполнить конкретное действие subject: «docs(agent-system): зарезервировать sequence 0175». | docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json | documentation/journal evidence | explained | `git show --name-status -M d6a372d05c3ea53c11c16499ac167c4dca941955`; PR #367 |
 | 43 | `6d324d2e07b648b45fd4f9f0c9333dcd653cb833` | `addddb1dd23c4cb2d0c43af9b71d5aaa45ac6589 d6a372d05c3ea53c11c16499ac167c4dca941955` | Merge pull request #367 from MaximKolomeets/work/release-manager-01/meth-release-v1-6-0-full-payload-consistency-gate-01/reservation | `2026-08-04T19:07:40+07:00` | `2026-08-04T19:07:40+07:00` | [PR #367](https://github.com/MaximKolomeets/agent-system-development/pull/367) | `METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01` / `0175` | Выполнить конкретное действие subject: «Merge pull request #367 from MaximKolomeets/work/release-manager-01/meth-release-v1-6-0-full-payload-consistency-gate-01/reservation». | Только merge topology; содержательные files находятся в parent PR head. | PR merge | explained | `git show --name-status -M 6d324d2e07b648b45fd4f9f0c9333dcd653cb833`; PR #367 |
+| 44 | `ad5de9877b55d8a9763b0e871589ae5d401e2a78` | `6d324d2e07b648b45fd4f9f0c9333dcd653cb833` | journal(agent-system): зарезервировать sequence 0176 | `2026-08-05T10:29:50+02:00` | `2026-08-05T10:29:50+02:00` | [PR #370](https://github.com/MaximKolomeets/agent-system-development/pull/370) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Append-only reservation sequence 0176. | `SEQUENCE_RESERVATIONS.json`. | journal/reservation | explained | `git show --name-status -M ad5de9877b55d8a9763b0e871589ae5d401e2a78`; PR #370 |
+| 45 | `5fd7aeacc47a8b080f5964279fbfcc202b7e2890` | `6d324d2e07b648b45fd4f9f0c9333dcd653cb833 ad5de9877b55d8a9763b0e871589ae5d401e2a78` | Merge pull request #370 from MaximKolomeets/work/dev-implementer-01/meth-premerge-verdict-deferred-marker-disambiguation-01/reservation | `2026-08-05T23:47:39+07:00` | `2026-08-05T23:47:39+07:00` | [PR #370](https://github.com/MaximKolomeets/agent-system-development/pull/370) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Включить reservation 0176 в developer. | Только merge topology. | PR merge | explained | `git show --name-status -M 5fd7aeacc47a8b080f5964279fbfcc202b7e2890`; PR #370 |
+| 46 | `013b8434f0ba5512d1b074a22451b00926db01b5` | `5fd7aeacc47a8b080f5964279fbfcc202b7e2890` | fix(agent-system): различить pre-merge verdict и deferred marker | `2026-08-05T19:28:35+02:00` | `2026-08-05T19:28:35+02:00` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Отделить точный pre-merge verdict от deferred placeholders. | readiness tool, tests, policy и triplet 0176. | policy/tool | explained | `git show --name-status -M 013b8434f0ba5512d1b074a22451b00926db01b5`; PR #371 |
+| 47 | `caf9cc99735b95356992b04a2f4ea8ac6b5025ed` | `013b8434f0ba5512d1b074a22451b00926db01b5` | fix(agent-system): учесть occupied sequence и exact verdict | `2026-08-06T13:10:43+02:00` | `2026-08-06T13:10:43+02:00` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Уточнить occupied semantics и exact verdict. | journal validator, readiness tests и RATIONALE-0176. | policy/tool | explained | `git show --name-status -M caf9cc99735b95356992b04a2f4ea8ac6b5025ed`; PR #371 |
+| 48 | `e08a0145eaaef3fc111a10f006fd333902acc0c7` | `5fd7aeacc47a8b080f5964279fbfcc202b7e2890 caf9cc99735b95356992b04a2f4ea8ac6b5025ed` | Merge pull request #371 from MaximKolomeets/work/dev-implementer-01/meth-premerge-verdict-deferred-marker-disambiguation-01 | `2026-08-07T18:51:06+07:00` | `2026-08-07T18:51:06+07:00` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Включить устранение contradiction в developer. | Только merge topology. | PR merge | explained | `git show --name-status -M e08a0145eaaef3fc111a10f006fd333902acc0c7`; PR #371 |
+| 49 | `a2bebfcc02190723f95ab4b9cecff5a884d71127` | `e08a0145eaaef3fc111a10f006fd333902acc0c7` | docs(agent-system): закрыть sequence 0176 после merge | `2026-08-07T14:16:27+02:00` | `2026-08-07T14:16:27+02:00` | [PR #372](https://github.com/MaximKolomeets/agent-system-development/pull/372) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Зафиксировать post-merge closure и consumed transition. | RESULT/INDEX/ledger/state/cloud. | journal/closure | explained | `git show --name-status -M a2bebfcc02190723f95ab4b9cecff5a884d71127`; PR #372 |
+| 50 | `a7a555f476cfb34a415eea94d6ebe322d59197fc` | `a2bebfcc02190723f95ab4b9cecff5a884d71127` | fix(agent-system): сохранить append-only status 0176 | `2026-08-07T14:19:24+02:00` | `2026-08-07T14:19:24+02:00` | [PR #372](https://github.com/MaximKolomeets/agent-system-development/pull/372) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Сохранить historical status и вынести final status в append-only closure. | RESULT-0176. | journal/append-only | explained | `git show --name-status -M a7a555f476cfb34a415eea94d6ebe322d59197fc`; PR #372 |
+| 51 | `fdf5b4cec319d91fcf202934de31f8414f2c3949` | `e08a0145eaaef3fc111a10f006fd333902acc0c7 a7a555f476cfb34a415eea94d6ebe322d59197fc` | Merge pull request #372 from MaximKolomeets/work/docs-maintainer-01/meth-premerge-verdict-deferred-marker-disambiguation-01-post-merge-closure | `2026-08-08T11:37:31+07:00` | `2026-08-08T11:37:31+07:00` | [PR #372](https://github.com/MaximKolomeets/agent-system-development/pull/372) | `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | Включить authoritative closure 0176 в developer. | Только merge topology. | PR merge | explained | `git show --name-status -M fdf5b4cec319d91fcf202934de31f8414f2c3949`; PR #372 |
 
 ## Канонический полный file inventory
 
-Источник: `git diff --name-status -M f80e148f9e4ba965e701d1e06faa79d517b646cf..6d324d2e07b648b45fd4f9f0c9333dcd653cb833`. Ровно 71 records: M=26, A=23, R=22, D=0. 22/22 rename records имеют previous_path; unexplained files: 0; unexplained renames: 0; contradictory records: 0.
+Источник: `git diff --name-status -M f80e148f9e4ba965e701d1e06faa79d517b646cf..fdf5b4cec319d91fcf202934de31f8414f2c3949`. Ровно 75 records: M=27, A=26, R=22, D=0. 22/22 rename records имеют previous_path; unexplained files: 0; unexplained renames: 0; contradictory records: 0.
 
 | № | Path | Previous path | Status | Responsible concrete SHA | PR / TASK_ID / sequence | Категория | Source/generated | Конкретная semantic purpose | Реально покрывающие checks | Reviewer conclusion | Индивидуальное evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -162,6 +170,10 @@ File inventory conclusion: 71/71 explained; individual trace complete. Все 22
 | 69 | `docs/agent-system/tools/validate_journal_sequence_reservations.py` | — | `A` | `e2c35df24df3a78f263d849c117e68f2afc83017` | [PR #357](https://github.com/MaximKolomeets/agent-system-development/pull/357) / `METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01` / `0171` | source/journal/tool | source-of-truth | Логика инструмента validate_journal_sequence_reservations.py. | `unittest discover`; relevant validator; readiness; CI Methodology checks | explained | `git log -1 f80e148f9e4ba965e701d1e06faa79d517b646cf..6d324d2e07b648b45fd4f9f0c9333dcd653cb833 -- docs/agent-system/tools/validate_journal_sequence_reservations.py`; `git show --name-status -M e2c35df24df3a78f263d849c117e68f2afc83017` |
 | 70 | `docs/agent-system/tools/validate_journal_triplet.py` | — | `M` | `8f0fddb0bdbd5783605612864341c9004f9e6386` | [PR #357](https://github.com/MaximKolomeets/agent-system-development/pull/357) / `METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01` / `0171` | source/journal/tool | source-of-truth | Логика инструмента validate_journal_triplet.py. | `unittest discover`; relevant validator; readiness; CI Methodology checks | explained | `git log -1 f80e148f9e4ba965e701d1e06faa79d517b646cf..6d324d2e07b648b45fd4f9f0c9333dcd653cb833 -- docs/agent-system/tools/validate_journal_triplet.py`; `git show --name-status -M 8f0fddb0bdbd5783605612864341c9004f9e6386` |
 | 71 | `docs/agent-system/tools/validate_policy_invariants.py` | — | `M` | `8f0fddb0bdbd5783605612864341c9004f9e6386` | [PR #357](https://github.com/MaximKolomeets/agent-system-development/pull/357) / `METH-JOURNAL-PARALLEL-SEQUENCE-RESERVATION-01` / `0171` | source/journal/tool | source-of-truth | Логика инструмента validate_policy_invariants.py. | `unittest discover`; relevant validator; readiness; CI Methodology checks | explained | `git log -1 f80e148f9e4ba965e701d1e06faa79d517b646cf..6d324d2e07b648b45fd4f9f0c9333dcd653cb833 -- docs/agent-system/tools/validate_policy_invariants.py`; `git show --name-status -M 8f0fddb0bdbd5783605612864341c9004f9e6386` |
+| 72 | `docs/agent-system/JOURNAL_FINALIZATION_POLICY.md` | — | `M` | `013b8434f0ba5512d1b074a22451b00926db01b5` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) / `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | policy | source-of-truth | Контекст exact pre-merge verdict. | policy invariants; readiness | explained | `git show --name-status -M 013b8434f0ba5512d1b074a22451b00926db01b5` |
+| 73 | `docs/agent-system/engine-journal/input/TASK-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01.md` | — | `A` | `013b8434f0ba5512d1b074a22451b00926db01b5` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) / `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | journal | source-of-truth | TASK artifact policy/tool fix 0176. | task contract; triplet; readiness | explained | `git show --name-status -M 013b8434f0ba5512d1b074a22451b00926db01b5` |
+| 74 | `docs/agent-system/engine-journal/output/RESULT-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01.md` | — | `A/M` | `a2bebfcc02190723f95ab4b9cecff5a884d71127`, `a7a555f476cfb34a415eea94d6ebe322d59197fc` | [PR #372](https://github.com/MaximKolomeets/agent-system-development/pull/372) / `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | journal | source-of-truth | RESULT и append-only closure 0176. | triplet; append-only; readiness | explained | `git show --name-status -M a2bebfcc02190723f95ab4b9cecff5a884d71127`; `git show --name-status -M a7a555f476cfb34a415eea94d6ebe322d59197fc` |
+| 75 | `docs/agent-system/engine-journal/rationale/RATIONALE-0176-METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01.md` | — | `A` | `013b8434f0ba5512d1b074a22451b00926db01b5` | [PR #371](https://github.com/MaximKolomeets/agent-system-development/pull/371) / `METH-PREMERGE-VERDICT-DEFERRED-MARKER-DISAMBIGUATION-01` / `0176` | journal | source-of-truth | RATIONALE artifact exact verdict и occupied semantics. | triplet; policy invariants; readiness | explained | `git show --name-status -M 013b8434f0ba5512d1b074a22451b00926db01b5` |
 
 ## Semantic consistency review
 
@@ -169,13 +181,14 @@ File inventory conclusion: 71/71 explained; individual trace complete. Все 22
 - Entry points: `check_task_ready.py` включает reservation validator; `github_journal_sequence_snapshot.py` получает paginated provider data только через environment credential; `validate_journal_sequence_reservations.py` fails closed при unavailable/duplicate/missing claim. Negative-path unit tests покрывают missing credential, second-page failure, duplicate claim, incompatible transition и incomplete triplet.
 - Zero-discovery/all-skipped: validator tests включают missing artifacts/new incomplete triplet; readiness сообщает changed-file count и blockers. Нет evidence, что baseline исключён полностью.
 - Policy/workflow/schema/tools/tests/journal/generated mirrors согласованы: policy invariants, ID references, triplet, append-only и cloud/file-map parity прошли.
-- Journal 0163–0174: closures/statuses и transitions проверены; 0174 сохраняет Human UAT provenance owner/human architect, UAT-0173-01—05 PASS, Engine не присваивает себе verdict; ledger 0174 `reserved -> consumed`.
+- Journal 0163–0176: closures/statuses и transitions проверены; 0174 сохраняет Human UAT provenance owner/human architect, UAT-0173-01—05 PASS, Engine не присваивает себе verdict; ledger 0174 `reserved -> consumed`, 0175 остаётся `reserved`, 0176 `reserved -> consumed`.
+- PR #371 и closure PR #372 включены в immutable payload; `PREMERGE_VERDICT_GATE_CONTRADICTION` устранён exact allowlist без ослабления ordinary deferred markers.
 - v1.6.0 остаётся untagged; release PR, tag, GitHub Release и sync этим reviewer gate не выполнялись.
 - Проверка sensitive/forbidden/private markers: added-line secret scan, filename и forbidden-path scan чисты; незавершённые production markers не обнаружены.
 
 ## Checks
 
-Запущены Docker unittest discovery (69 tests, OK), task-contract, triplet, live provider reservation validator, append-only, policy invariants, file-map/cloud parity, EOL guard, Russian-first lint, ID references, commit-language, exact allowlist, `git diff --check`, strict added-line secret и проверка незавершённых markers/forbidden-path. Последний canonical readiness: `blocked`, blockers `1`, `328.2 s`; единственный blocker — требуемый pre-merge verdict интерпретируется gate как отложенная финализация. Не запускались Human UAT, release PR/tag/GitHub Release/sync и implementation fixes: они вне роли reviewer.
+Запущены Docker unittest discovery (85 tests, OK), task-contract, triplet, live provider reservation validator, append-only, policy invariants, file-map/cloud parity, EOL guard, Russian-first lint, ID references, commit-language, exact allowlist, `git diff --check`, strict added-line secret и проверка незавершённых markers/forbidden-path. Canonical readiness после пересчёта range: `ready`, blockers `0`, warnings `0`, `299.8 s`. Не запускались Human UAT, release PR/tag/GitHub Release/sync: они вне роли reviewer.
 
 ## Provider и Human UAT
 
@@ -186,9 +199,9 @@ human_uat_evidence_verified: yes. Источник — sequence 0174, PR #365 и
 ## Findings и verdict
 
 P0: нет.
-P1: `PREMERGE_VERDICT_GATE_CONTRADICTION` — канонический readiness запрещает literal pre-merge verdict в новом RESULT, поэтому PASS не может быть подтверждён без изменения tool/policy вне scope.
+P1: нет. Исторический `PREMERGE_VERDICT_GATE_CONTRADICTION` устранён PR #371 и closure PR #372; повторная проверка range не выявила unexplained или contradictory record.
 P2: нет.
-release_gate_verdict: BLOCKED
+release_gate_verdict: PASS_PENDING_HUMAN_MERGE
 
 ## Source Delta
 
@@ -196,6 +209,7 @@ release_gate_verdict: BLOCKED
 | --- | --- | --- |
 | `engine-journal/input|rationale|output/TASK|RATIONALE|RESULT-0175` | added | journal review evidence |
 | `engine-journal/INDEX.md` | modified | journal index |
+| `tools/validate_journal_triplet.py`, `tools/tests/test_validate_journal_triplet.py` | modified | минимальная корректировка materialization occupied reservation |
 | `cloud/**`, `PROJECT_FILE_MAP.md` | regenerated if changed | generated |
 
 ## Methodology feedback
@@ -208,4 +222,4 @@ release_gate_verdict: BLOCKED
 
 ## Передача
 
-Следующий: human reviewer — проверить PR reviewer gate и inventories; human architect — при согласии выполнить human merge, после которого отдельный closure переведёт 0175 в `consumed`.
+Следующий: human reviewer — проверить обновлённые inventories и exact verdict PR #368; human architect — при согласии выполнить human merge, после которого отдельный closure переведёт 0175 в `consumed`.
