@@ -26,6 +26,16 @@ class TripletWorkflowTests(unittest.TestCase):
             "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json",
             json.dumps({"schema_version": 1, "reservations": entries}),
         )
+    def ledger_event(self, sequence, task="METH-TEST-01", state="reserved"):
+        return {
+            "metadata_version": 1,
+            "reservation_id": f"{task}-{sequence}",
+            "sequence": sequence,
+            "task_id": task,
+            "state": state,
+            "created_at": "2026-01-01T00:00:00Z",
+            "reason": "test",
+        }
     def row(self, seq="0001", task="METH-TEST-01", rationale=None):
         rationale=rationale or f"rationale/RATIONALE-{seq}-{task}.md"
         return f"| {seq} | {task} | input/TASK-{seq}-{task}.md | output/RESULT-{seq}-{task}.md | {rationale} | work/test | pr | review_changes_requested | 1m | test |"
@@ -45,20 +55,75 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_wrong_index_link(self): self.triplet(); self.index([self.row(rationale="rationale/RATIONALE-0001-WRONG.md")]); self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", self.check())
     def test_gap(self): self.triplet(seq="0002"); self.index([self.row(seq="0002")]); self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_reserved_sequence_can_occupy_sequence_gap(self):
-        self.ledger([{"sequence": "0001", "state": "reserved"}])
+        self.ledger([self.ledger_event("0001")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_abandoned_sequence_can_occupy_sequence_gap(self):
-        self.ledger([{"sequence": "0001", "state": "abandoned"}])
+        self.ledger([self.ledger_event("0001", state="abandoned")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_consumed_sequence_can_occupy_sequence_gap(self):
-        self.ledger([{"sequence": "0001", "state": "consumed"}])
+        self.ledger([self.ledger_event("0001", state="consumed")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_reserved_sequence_can_materialize_below_existing_index_maximum(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_reserved_sequence_ahead_of_unoccupied_gap_is_blocking(self):
+        self.ledger([self.ledger_event("0005")])
+        self.triplet(seq="0005"); self.index([self.row(seq="0005")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_reserved_sequence_ahead_of_expected_passes_only_when_intermediate_sequences_are_occupied(self):
+        self.ledger([self.ledger_event("0001", state="consumed"), self.ledger_event("0002", state="abandoned"), self.ledger_event("0003", state="consumed"), self.ledger_event("0004", state="abandoned"), self.ledger_event("0005")])
+        self.triplet(seq="0005"); self.index([self.row(seq="0005")])
+        self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_reserved_sequence_for_another_task_cannot_materialize_below_existing_index_maximum(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001", task="METH-OTHER-01")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_abandoned_sequence_cannot_materialize_below_existing_index_maximum(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001", state="abandoned")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_consumed_sequence_cannot_materialize_below_existing_index_maximum(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001", state="consumed")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_terminal_consumed_cannot_be_reactivated(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0001", state="consumed"), self.ledger_event("0001")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_terminal_abandoned_cannot_be_reactivated(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0001", state="abandoned"), self.ledger_event("0001")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_conflicting_or_malformed_later_event_blocks_materialization(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0001", task="METH-OTHER-01")])
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_unreserved_sequence_below_existing_index_maximum_is_blocking(self):
+        self.index([self.row(seq="0002")]); self.git("add", "."); self.git("commit", "-m", "baseline 0002")
+        self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.triplet(seq="0001"); self.index([self.row(seq="0001"), self.row(seq="0002")])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_malformed_later_ledger_record_cannot_release_occupied_sequence(self):
         self.ledger([
-            {"sequence": "0001", "state": "reserved"},
+            self.ledger_event("0001"),
             {"sequence": "0001", "state": "unexpected"},
         ])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])

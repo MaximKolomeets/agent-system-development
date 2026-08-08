@@ -113,39 +113,62 @@ def expected_triplet_files(seq: str, task_id: str) -> dict[str, str]:
     }
 
 
-def occupied_ledger_sequences(root: Path) -> set[str]:
-    """Возвращает канонически занятые sequence из append-only ledger.
+def ledger_sequence_state(root: Path) -> tuple[set[str], dict[str, str], set[str]]:
+    """Возвращает occupied sequence и активные matching reservations ledger.
 
     Structural validity ledger и provider claim проверяет отдельный validator.
-    Здесь данные нужны только для сохранения sequence gap: ``reserved`` ещё не
-    попал в INDEX, а terminal ``consumed`` и ``abandoned`` остаются tombstone и
-    не могут быть переиспользованы. Некорректная поздняя запись не отменяет
-    ранее распознанное occupied-состояние.
+    Здесь ledger используется только для проверки sequence gap: ``reserved``
+    может materialize лишь для той же task id, а terminal ``consumed`` и
+    ``abandoned`` остаются occupied tombstone. Некорректная запись не создаёт
+    bypass и не отменяет ранее распознанное состояние.
     """
     path = root / RESERVATION_LEDGER
     if not path.is_file():
-        return set()
+        return set(), {}, set()
     try:
         raw = json.loads(path.read_text(encoding="utf-8", errors="replace"))
     except json.JSONDecodeError:
-        return set()
+        return set(), {}, set()
     entries = raw.get("reservations") if isinstance(raw, dict) else None
     if not isinstance(entries, list):
-        return set()
+        return set(), {}, set()
     occupied_states = {"reserved", "consumed", "abandoned"}
     occupied: set[str] = set()
+    active_reservations: dict[str, str] = {}
+    terminal_sequences: set[str] = set()
+    invalid_sequences: set[str] = set()
     for entry in entries:
         if not isinstance(entry, dict):
             continue
         sequence = entry.get("sequence")
         state = entry.get("state")
-        if (
-            isinstance(sequence, str)
-            and re.fullmatch(r"\d{4}", sequence)
-            and state in occupied_states
-        ):
-            occupied.add(sequence)
-    return occupied
+        task_id = entry.get("task_id")
+        if not isinstance(sequence, str) or not re.fullmatch(r"\d{4}", sequence):
+            # Невозможно надёжно связать malformed event с sequence: fail-closed
+            # для всех active reservations, чтобы не создавать bypass.
+            invalid_sequences.update(active_reservations)
+            continue
+        if state not in occupied_states or not isinstance(task_id, str) or not task_id:
+            invalid_sequences.add(sequence)
+            continue
+        occupied.add(sequence)
+        if sequence in invalid_sequences:
+            continue
+        if state == "reserved":
+            if sequence in terminal_sequences or sequence in active_reservations:
+                invalid_sequences.add(sequence)
+            else:
+                active_reservations[sequence] = task_id
+        elif active_reservations.get(sequence) == task_id:
+            del active_reservations[sequence]
+            terminal_sequences.add(sequence)
+        else:
+            # Terminal event без matching active reservation не может подтвердить
+            # lifecycle и не должен разрешать materialization.
+            invalid_sequences.add(sequence)
+    for sequence in invalid_sequences:
+        active_reservations.pop(sequence, None)
+    return occupied, active_reservations, invalid_sequences
 
 
 def validate(root: Path, base: str) -> Report:
@@ -206,14 +229,29 @@ def validate(root: Path, base: str) -> Report:
     report.new_entries_count = sum(key not in base_rows for key in candidates)
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
-    occupied_sequences = occupied_ledger_sequences(root)
+    occupied_sequences, active_reservations, invalid_sequences = ledger_sequence_state(root)
     for (seq, task_id), files in sorted(candidates.items()):
         if (seq, task_id) not in base_rows:
-            while expected < int(seq) and f"{expected:04d}" in occupied_sequences:
-                expected += 1
-            if int(seq) != expected:
+            sequence_number = int(seq)
+            matching_reservation = seq not in invalid_sequences and active_reservations.get(seq) == task_id
+            if seq in occupied_sequences:
+                # Только активная reservation той же задачи может materialize.
+                # Terminal tombstone и reservation другой задачи остаются blocker.
+                if not matching_reservation:
+                    add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+                elif sequence_number >= expected:
+                    while expected < sequence_number and f"{expected:04d}" in occupied_sequences:
+                        expected += 1
+                    if sequence_number != expected:
+                        add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+            elif sequence_number < expected:
                 add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
-            expected += 1
+            else:
+                while expected < sequence_number and f"{expected:04d}" in occupied_sequences:
+                    expected += 1
+                if sequence_number != expected:
+                    add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+                expected = sequence_number + 1
         required = {"input/TASK", "rationale/RATIONALE", "output/RESULT"}
         if set(files) != required:
             add(report, f"{PREFIX}INDEX.md", "TRIPLET_INCOMPLETE")
