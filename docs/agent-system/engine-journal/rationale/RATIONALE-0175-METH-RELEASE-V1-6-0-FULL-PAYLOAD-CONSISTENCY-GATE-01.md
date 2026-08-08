@@ -14,7 +14,7 @@ raw_chain_of_thought_stored: no
 
 ## Ограничения и инварианты
 
-Review-only: payload, ledger, Human UAT, release/tag/sync не изменяются. Provider snapshot available, ownership 0175 однозначен, next sequence 0176 не резервируется.
+Review-only: payload, ledger, Human UAT, release/tag/sync не изменяются. Повторный provider snapshot `2026-08-08T05:55:08Z`: availability `available`, findings `0`, ownership `0175=reserved` и `0176=consumed`, allocator next sequence `0177`; новая sequence не резервируется.
 
 ## Рассмотренные варианты
 

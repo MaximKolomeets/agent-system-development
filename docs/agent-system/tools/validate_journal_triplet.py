@@ -113,39 +113,47 @@ def expected_triplet_files(seq: str, task_id: str) -> dict[str, str]:
     }
 
 
-def occupied_ledger_sequences(root: Path) -> set[str]:
-    """Возвращает канонически занятые sequence из append-only ledger.
+def ledger_sequence_state(root: Path) -> tuple[set[str], dict[str, str]]:
+    """Возвращает occupied sequence и активные matching reservations ledger.
 
     Structural validity ledger и provider claim проверяет отдельный validator.
-    Здесь данные нужны только для сохранения sequence gap: ``reserved`` ещё не
-    попал в INDEX, а terminal ``consumed`` и ``abandoned`` остаются tombstone и
-    не могут быть переиспользованы. Некорректная поздняя запись не отменяет
-    ранее распознанное occupied-состояние.
+    Здесь ledger используется только для проверки sequence gap: ``reserved``
+    может materialize лишь для той же task id, а terminal ``consumed`` и
+    ``abandoned`` остаются occupied tombstone. Некорректная запись не создаёт
+    bypass и не отменяет ранее распознанное состояние.
     """
     path = root / RESERVATION_LEDGER
     if not path.is_file():
-        return set()
+        return set(), {}
     try:
         raw = json.loads(path.read_text(encoding="utf-8", errors="replace"))
     except json.JSONDecodeError:
-        return set()
+        return set(), {}
     entries = raw.get("reservations") if isinstance(raw, dict) else None
     if not isinstance(entries, list):
-        return set()
+        return set(), {}
     occupied_states = {"reserved", "consumed", "abandoned"}
     occupied: set[str] = set()
+    active_reservations: dict[str, str] = {}
     for entry in entries:
         if not isinstance(entry, dict):
             continue
         sequence = entry.get("sequence")
         state = entry.get("state")
+        task_id = entry.get("task_id")
         if (
             isinstance(sequence, str)
             and re.fullmatch(r"\d{4}", sequence)
             and state in occupied_states
+            and isinstance(task_id, str)
+            and task_id
         ):
             occupied.add(sequence)
-    return occupied
+            if state == "reserved" and sequence not in active_reservations:
+                active_reservations[sequence] = task_id
+            elif state in {"consumed", "abandoned"} and active_reservations.get(sequence) == task_id:
+                del active_reservations[sequence]
+    return occupied, active_reservations
 
 
 def validate(root: Path, base: str) -> Report:
@@ -206,15 +214,18 @@ def validate(root: Path, base: str) -> Report:
     report.new_entries_count = sum(key not in base_rows for key in candidates)
     base_max = max_seq(base_index.stdout)
     expected = base_max + 1
-    occupied_sequences = occupied_ledger_sequences(root)
+    occupied_sequences, active_reservations = ledger_sequence_state(root)
     for (seq, task_id), files in sorted(candidates.items()):
         if (seq, task_id) not in base_rows:
             sequence_number = int(seq)
-            if sequence_number < expected:
-                # Ранее зарезервированная sequence может материализоваться в INDEX
-                # после более поздней уже закрытой записи; tombstone не переиспользуется.
-                if seq not in occupied_sequences:
+            matching_reservation = active_reservations.get(seq) == task_id
+            if seq in occupied_sequences:
+                # Только активная reservation той же задачи может materialize.
+                # Terminal tombstone и reservation другой задачи остаются blocker.
+                if not matching_reservation:
                     add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
+            elif sequence_number < expected:
+                add(report, f"{PREFIX}INDEX.md", "SEQUENCE_GAP_OR_COLLISION")
             else:
                 while expected < sequence_number and f"{expected:04d}" in occupied_sequences:
                     expected += 1
