@@ -223,3 +223,26 @@ release_gate_verdict: PASS_PENDING_HUMAN_MERGE
 ## Передача
 
 Следующий: human reviewer — проверить обновлённые inventories и exact verdict PR #368; human architect — при согласии выполнить human merge, после которого отдельный closure переведёт 0175 в `consumed`.
+
+## Authoritative post-merge closure 0175
+
+Все предшествующие pre-merge статусы, verdict, проверки и передачи сохраняются как историческое evidence. Этот раздел фиксирует единственное актуальное состояние sequence после human merge исходного PR.
+
+- Source PR: [PR #368](https://github.com/MaximKolomeets/agent-system-development/pull/368).
+- state: `MERGED`.
+- final PR HEAD: `527681658b3350be71a02fae6370ed449ffaa590`.
+- merge commit: `3fa4ff341bbded62e0ba910ae922aaa34ce419bb`.
+- merged_at: `2026-08-08T15:28:58Z`.
+- base: `developer`.
+- Статус RESULT: `merged; RESULT closed after merge`.
+- RESULT closed after merge: yes.
+- INDEX closed after merge: yes.
+- No journal placeholders: yes.
+- Reservation `METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01-0175`: `consumed`.
+- Reviewer full-payload consistency-gate завершён; новая substantive review не выполнялась.
+- `PREMERGE_VERDICT_GATE_CONTRADICTION` остаётся устранённым evidence PR #371/closure PR #372.
+- Source: GitHub PR metadata для PR #368 и authoritative reservation ledger.
+
+## Передача
+
+Следующий: release manager — после human merge closure PR выполнить final release pass `v1.6.0` по release policy; release, tag и sync до этого не выполнять.
