@@ -74,8 +74,8 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: подготовка независимого reviewer consistency-gate для untagged
-release candidate `v1.6.0` после закрытия Human UAT evidence.
+Текущий фокус: post-merge closure sequence 0176 после merged PR #371 и
+обновление отдельного незавершённого reviewer consistency-gate PR #368.
 Payload после `v1.5.5` был физически перенесён в `main` PR #355 и #360, а
 `main -> developer` sync выполнен PR #356 и #361 до восстановления обязательных
 state/UAT/reviewer gates. Rollback не выполнялся: payload уже присутствует в
@@ -112,9 +112,11 @@ rule включён, required status checks в ruleset не заданы. Rulese
 State-level n-01 по live/current vendor literal перепроверен: в live/current секциях конкретный vendor/tool literal отсутствует; единственное найденное упоминание находится в append-only historical section ниже и не ретрофитится.
 
 Текущий этап: sequence 0174 закрыта после human merge PR #365; Human UAT PASS
-не переоценивается. Следующий шаг: release manager штатным allocator резервирует
-sequence для независимого reviewer, затем reviewer создаёт отдельную journaled
-full-payload consistency-gate задачу.
+не переоценивается. Sequence 0175 уже зарезервирована для отдельного reviewer
+gate, а PR #368 остаётся его независимой незавершённой поверхностью. PR #371
+merged в `developer` и устранил policy blocker exact pre-merge verdict; после
+human merge closure 0176 следующий шаг — обновить и повторно проверить PR #368,
+а не резервировать новую sequence или выполнять release/tag.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

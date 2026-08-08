@@ -28,7 +28,10 @@
 payload был преждевременно перенесён PR #355/#360 и синхронизирован PR
 #356/#361. Recovery PR #363 и Human UAT evidence PR #365 merged в `developer`;
 owner/human architect принял Human UAT v1.6.0 PASS для UAT-0173-01—05.
-Sequence 0174 закрыта, reservation consumed. До reviewer gate запрещены tag `v1.6.0`,
+Sequence 0174 закрыта, reservation consumed. PR #371 merged и устранил
+`PREMERGE_VERDICT_GATE_CONTRADICTION`; sequence 0176 закрывается отдельным
+post-merge closure. Sequence 0175 уже reserved, а PR #368 остаётся отдельным
+незавершённым reviewer gate. До его повторной проверки запрещены tag `v1.6.0`,
 GitHub Release, новый release PR и sync.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
@@ -38,10 +41,11 @@ GitHub Release, новый release PR и sync.
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. Release manager штатным allocator резервирует новую sequence для независимого
-   reviewer; UAT не запускается повторно.
-2. Независимый reviewer создаёт отдельную journaled reviewer consistency-gate
-   задачу. Его обязательный payload range: base — peeled annotated tag
+1. После human merge closure 0176 обновить PR #368 на актуальный `developer` и
+   повторно проверить его как отдельный reviewer consistency-gate; UAT не
+   запускать повторно и новую sequence не резервировать.
+2. Независимый reviewer завершает уже созданную journaled reviewer
+   consistency-gate задачу. Его обязательный payload range: base — peeled annotated tag
    `v1.5.5^{}` (`f80e148f9e4ba965e701d1e06faa79d517b646cf`); head — точный
    `origin/developer`, полученный после human merge closure PR непосредственно
    перед созданием reviewer branch. Reviewer записывает
