@@ -1,6 +1,8 @@
 # RESULT-0175-METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01
 
-Статус: merged; RESULT closed after merge
+Актуальный статус: merged; RESULT closed after merge
+Исторический pre-merge marker ниже сохранён как evidence и не описывает текущее состояние.
+Статус: open; reviewer gate PASS, ожидает human merge
 Идентификатор задачи: METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01
 Номер sequence: 0175
 PR URL: `https://github.com/MaximKolomeets/agent-system-development/pull/368`
