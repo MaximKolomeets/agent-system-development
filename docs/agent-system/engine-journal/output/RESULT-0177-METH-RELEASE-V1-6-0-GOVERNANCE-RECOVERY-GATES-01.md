@@ -69,3 +69,36 @@ Fail-closed recovery исключение должно иметь отдельн
 ## Передача
 
 Следующий: human reviewer — проверить implementation PR Issue #376 и выполнить human merge в `developer` при зелёном CI.
+
+## P1 fix-pass: evidence exact candidate snapshot
+
+execution_finished_at: 2026-08-09T12:19:48.6545774+02:00
+execution_duration: PT2H20M48S
+time_spent: 2h 20m
+
+Устранена причина finding `discussion_r3743213966`: ancestry и recovery evidence теперь относятся к одному immutable candidate SHA. INDEX, связанные RESULT и reservation ledger читаются только командой `git show <candidate_sha>:<path>` после проверки полного 40-символьного SHA и allowlisted journal path. Fallback на текущий checkout отсутствует; неразрешимый SHA, отсутствующий artifact и malformed ledger дают fail-closed verdict.
+
+Точный implementation candidate, проверенный production governance-recovery gate: `aeb4bb9a4c5f92722f43e16fc18dd9c94ef01f01`.
+
+Фактические проверки fix-pass:
+
+- targeted release-gate и triplet regressions: 50 tests, `OK`;
+- полный Docker unittest discovery: 108 tests, `OK`;
+- отдельный regression с более новым checkout и неполным старым candidate: старый candidate заблокирован, полный новый snapshot принят;
+- отдельные negative cases: отсутствующие INDEX, RESULT или ledger, malformed ledger и неразрешимый candidate заблокированы;
+- task contract, triplet, append-only, policy invariants, file-map/cloud parity, EOL guard, Russian-first и ID references: passed;
+- canonical readiness: `ready`, blockers `0`, warnings `0`;
+- live provider snapshot: availability `available`, findings `0`, ownership 0177 однозначен, allocator `0178`;
+- production governance-recovery gate на exact candidate `aeb4bb9a4c5f92722f43e16fc18dd9c94ef01f01`: `passed`, blockers `0`, все восемь recovery preconditions подтверждены из candidate tree.
+
+## Methodology feedback
+
+Release evidence следует всегда читать из immutable candidate snapshot; проверка ancestry без snapshot-bound evidence недостаточна.
+
+## Unprompted Project Proposals
+
+нет.
+
+## Передача
+
+Следующий: human reviewer — проверить P1 fix-pass PR #378 и выполнить human merge в `developer` только после зелёного exact-HEAD CI.
