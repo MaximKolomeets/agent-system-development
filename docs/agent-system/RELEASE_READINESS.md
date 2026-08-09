@@ -1,13 +1,13 @@
 # RELEASE_READINESS
 
-Дата проверки: 2026-08-04
+Дата проверки: 2026-08-09
 
 Назначение: governance recovery после преждевременного `developer -> main -> developer`.
 Следующий release candidate: `v1.6.0` (untagged, Human UAT PASS recorded).
 
 ## Release Status
 
-- Status: `untagged_release_candidate_human_uat_pass_recorded_closure_merged`.
+- Status: `untagged_release_candidate_governance_recovery_complete`.
 - Latest annotated tag: `v1.5.5` -> `f80e148f9e4ba965e701d1e06faa79d517b646cf`.
 - Candidate `v1.6.0`: `59e645944697eac565d121e97d2dfa2ff3e9d99b` in `main`;
   tag отсутствует и запрещён до восстановления gates.
@@ -16,7 +16,8 @@
 - Current `developer`: historical sync, recovery PR #363, reservation PR #364,
   merged PR #365 с closure sequence 0174, merged policy fix PR #371 с closure
   sequence 0176 и merged full-payload reviewer gate PR #368 с closure sequence
-  0175; это governance/journal delta, не новый release payload.
+  0175, а также merged governance-recovery gates PR #378 с closure sequence
+  0177; это governance/journal delta, не новый release payload.
 - Business Acceptance Gate: `human_pass_recorded`; authoritative decision:
   Human UAT v1.6.0 PASS для UAT-0173-01—05, owner/human architect, 2026-08-03.
 - Reviewer consistency-gate: sequence 0175 завершена после human merge PR #368;
@@ -25,8 +26,12 @@
   до immutable reviewed head `fdf5b4cec319d91fcf202934de31f8414f2c3949`.
   `origin/main...origin/developer` не использовался как единственный range,
   поскольку `main` уже содержит преждевременно перенесённый payload.
-- Следующий release action: только final recovery PR `developer -> main` после
-  human merge closure PR sequence 0175.
+- Governance-recovery gates: PR #378 merged в `developer`, merge commit
+  `a554a71060b700b3b27a980160fbdb2ba2788b40`; sequence 0177 закрыта после
+  merge, reservation consumed, snapshot-bound recovery evidence завершено.
+- Следующий release action: полный final release pass и затем отдельный release
+  PR `developer -> main`. Release merge, tag `v1.6.0`, GitHub Release и sync
+  ещё не выполнялись.
 
 ## Release Facts
 
@@ -56,6 +61,10 @@ GitHub metadata фиксирует исторические факты без п
 - PR #365: Human UAT evidence merged в `developer` at `2026-08-04T07:45:40Z`,
   merge commit `3342e128696f4f5900576504cd8ef64dce5d3e48`; sequence 0174
   закрыта, а reservation consumed.
+- PR #378: governance-recovery gates merged в `developer` at
+  `2026-08-09T12:21:25Z`, merge commit
+  `a554a71060b700b3b27a980160fbdb2ba2788b40`; sequence 0177 закрыта после
+  merge, reservation consumed.
 
 ## Journal Gate
 
@@ -65,6 +74,9 @@ GitHub metadata фиксирует исторические факты без п
 - Sequence 0174 закрыта authoritative Human UAT PASS. Sequence 0175 завершила
   отдельную обязательную journaled reviewer consistency-gate задачу: PR #368
   merged, RESULT/INDEX закрыты после merge, reservation consumed.
+- Sequence 0176 закрыла policy fix exact pre-merge verdict. Sequence 0177
+  закрыла governance-recovery gates и snapshot-bound recovery evidence после
+  human merge PR #378; RESULT/INDEX закрыты, reservation consumed.
 
 ## Generated Gates
 
@@ -81,12 +93,13 @@ Required for governance recovery PR:
 
 Rollback не выполняется автоматически: release payload уже в `main` и
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
-не считать published release. Human UAT PASS, closure sequence 0174 и
-full-payload reviewer gate sequence 0175 уже зафиксированы фактически; после
-human merge closure PR sequence 0175 подготовить отдельный final release pass.
+не считать published release. Human UAT PASS, full-payload reviewer gate,
+policy fix и governance-recovery evidence sequences 0174–0177 завершены.
+Следующий шаг — полный final release pass; release merge, tag, GitHub Release и
+sync остаются невыполненными human-only действиями.
 
 ## Передача
 
-Следующий: release manager — после human merge closure PR sequence 0175
-подготовить final release pass `developer -> main`; tag и sync не выполнять до
-human merge release PR.
+Следующий: release manager — выполнить полный final release pass и подготовить
+release PR `developer -> main`; merge, tag `v1.6.0`, GitHub Release и sync не
+выполнять до отдельных human-authorized циклов.

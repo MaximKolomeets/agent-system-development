@@ -74,8 +74,10 @@ Repository visibility: public.
 
 Latest release определяется состоянием remote веток/tags (`main`, `developer`) и release/sync фактами в journal. Перед каждым release выполнить state-refresh для `CURRENT_STATE.md` и `NEXT_STEPS.md`, затем regenerated `docs/agent-system/cloud/**` и оба parity check.
 
-Текущий фокус: post-merge closure sequence 0176 после merged PR #371 и
-обновление отдельного незавершённого reviewer consistency-gate PR #368.
+Текущий фокус: полный final release pass `v1.6.0`. PR #378 merged в
+`developer` с merge commit `a554a71060b700b3b27a980160fbdb2ba2788b40`;
+sequence 0177 закрыта после merge, reservation 0177 consumed, а
+governance-recovery и snapshot-bound evidence завершены.
 Payload после `v1.5.5` был физически перенесён в `main` PR #355 и #360, а
 `main -> developer` sync выполнен PR #356 и #361 до восстановления обязательных
 state/UAT/reviewer gates. Rollback не выполнялся: payload уже присутствует в
@@ -96,9 +98,10 @@ Latest tagged stable release остаётся `v1.5.5`:
 имеет PASS для UAT-0173-01—05 по authoritative decision owner/human architect
 от `2026-08-03`; factual record sequence 0174 закрыт после merge PR #365.
 Независимый reviewer consistency-gate sequence 0175 завершён и закрыт после
-human merge PR #368. До отдельного final release pass tag `v1.6.0` запрещён.
-После human merge closure PR для 0175 потребуется отдельный финальный release
-PR `developer -> main`, чтобы state и gate evidence вошли в tagged release commit.
+human merge PR #368. Policy fix sequence 0176 и governance-recovery gates
+sequence 0177 также закрыты после merge; reservation 0177 consumed. Следующий
+шаг — полный final release pass и подготовка release PR `developer -> main`.
+Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 Stable methodology reference для downstream/source-update задач по-прежнему:
 tag `v1.5.5` или `origin/main` at
@@ -114,10 +117,10 @@ State-level n-01 по live/current vendor literal перепроверен: в l
 
 Текущий этап: sequence 0174 закрыта после human merge PR #365; Human UAT PASS
 не переоценивается. Sequence 0175 завершила independent full-payload reviewer
-gate: PR #368 merged в `developer`, RESULT/INDEX закрыты после merge, reservation
-consumed. PR #371 merged в `developer` и устранил policy blocker exact pre-merge
-verdict; sequence 0176 также закрыта. Следующий шаг — отдельный final release
-pass по release policy, без новой reservation для уже завершённых 0174–0176.
+gate, sequence 0176 закрыла policy fix, а sequence 0177 закрыла governance-
+recovery gates после merge PR #378; reservations 0174–0177 consumed. Следующий
+шаг — полный final release pass по release policy. Release merge, tag
+`v1.6.0`, GitHub Release и sync остаются невыполненными human-only действиями.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):
 

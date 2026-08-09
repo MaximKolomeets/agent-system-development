@@ -31,8 +31,11 @@ owner/human architect принял Human UAT v1.6.0 PASS для UAT-0173-01—05
 Sequence 0174 закрыта, reservation consumed. PR #371 merged и устранил
 `PREMERGE_VERDICT_GATE_CONTRADICTION`; sequence 0176 закрыта отдельным
 post-merge closure. Sequence 0175 завершила independent reviewer gate: PR #368
-merged, RESULT/INDEX закрыты после merge, reservation consumed. До отдельного
-final release pass запрещены tag `v1.6.0`, GitHub Release и sync.
+merged, RESULT/INDEX закрыты после merge, reservation consumed. PR #378 merged
+в `developer` с merge commit `a554a71060b700b3b27a980160fbdb2ba2788b40`;
+sequence 0177 закрыта после merge, reservation consumed, governance-recovery и
+snapshot-bound evidence завершены. Следующий шаг — полный final release pass.
+Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -41,9 +44,9 @@ final release pass запрещены tag `v1.6.0`, GitHub Release и sync.
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. После human merge closure PR sequence 0175 выполнить отдельный final release
-   pass по release policy; Human UAT и full-payload reviewer gate не запускать
-   повторно, новую sequence для уже закрытых gates не резервировать.
+1. Выполнить полный final release pass по release policy на актуальном
+   `developer`; Human UAT и full-payload reviewer gate не запускать повторно,
+   новую sequence для уже закрытых gates 0174–0177 не резервировать.
 2. Final release pass готовит отдельный final recovery release PR
    `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
    human-only действиями в указанном порядке.
