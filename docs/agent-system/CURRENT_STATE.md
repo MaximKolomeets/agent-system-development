@@ -100,7 +100,7 @@ Latest tagged stable release остаётся `v1.5.5`:
 Независимый reviewer consistency-gate sequence 0175 завершён и закрыт после
 human merge PR #368. Policy fix sequence 0176 и governance-recovery gates
 sequence 0177 также закрыты после merge; reservation 0177 consumed. Следующий
-шаг — полный final release pass и подготовка release PR `developer -> main`.
+шаг полного final release pass — новая journaled reviewer consistency-gate на точном актуальном payload; только после её human merge и closure готовится release PR `developer -> main`.
 Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 Stable methodology reference для downstream/source-update задач по-прежнему:
@@ -119,7 +119,7 @@ State-level n-01 по live/current vendor literal перепроверен: в l
 не переоценивается. Sequence 0175 завершила independent full-payload reviewer
 gate, sequence 0176 закрыла policy fix, а sequence 0177 закрыла governance-
 recovery gates после merge PR #378; reservations 0174–0177 consumed. Следующий
-шаг — полный final release pass по release policy. Release merge, tag
+шаг полного final release pass — зарезервировать и выполнить новую reviewer consistency-gate на текущем payload; immutable gate 0175 повторно не использовать. После её closure выполняется release policy gate. Release merge, tag
 `v1.6.0`, GitHub Release и sync остаются невыполненными human-only действиями.
 
 Итог консолидации (journal 0004–0011, все closure-записи закрыты):

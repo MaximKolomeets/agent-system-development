@@ -34,7 +34,9 @@ post-merge closure. Sequence 0175 завершила independent reviewer gate: 
 merged, RESULT/INDEX закрыты после merge, reservation consumed. PR #378 merged
 в `developer` с merge commit `a554a71060b700b3b27a980160fbdb2ba2788b40`;
 sequence 0177 закрыта после merge, reservation consumed, governance-recovery и
-snapshot-bound evidence завершены. Следующий шаг — полный final release pass.
+snapshot-bound evidence завершены. Первый этап полного final release pass —
+зарезервировать и выполнить новую journaled reviewer consistency-gate на точном
+актуальном payload; immutable gate 0175 повторно не используется.
 Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
@@ -44,10 +46,12 @@ Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнял
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. Выполнить полный final release pass по release policy на актуальном
-   `developer`; Human UAT и full-payload reviewer gate не запускать повторно,
-   новую sequence для уже закрытых gates 0174–0177 не резервировать.
-2. Final release pass готовит отдельный final recovery release PR
+1. Начать полный final release pass на актуальном `developer`: через штатный
+   allocator зарезервировать новую sequence и выполнить journaled reviewer
+   consistency-gate на точном текущем payload. Human UAT не повторять; закрытые
+   sequences 0174–0177 не переиспользовать.
+2. Только после human merge и closure нового reviewer gate final release pass
+   готовит отдельный final recovery release PR
    `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
    human-only действиями в указанном порядке.
 3. После release/sync отдельная post-release state-refresh задача фиксирует

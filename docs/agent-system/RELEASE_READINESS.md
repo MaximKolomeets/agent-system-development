@@ -29,9 +29,11 @@
 - Governance-recovery gates: PR #378 merged в `developer`, merge commit
   `a554a71060b700b3b27a980160fbdb2ba2788b40`; sequence 0177 закрыта после
   merge, reservation consumed, snapshot-bound recovery evidence завершено.
-- Следующий release action: полный final release pass и затем отдельный release
-  PR `developer -> main`. Release merge, tag `v1.6.0`, GitHub Release и sync
-  ещё не выполнялись.
+- Следующий release action: первый этап полного final release pass — новая
+  journaled reviewer consistency-gate на точном актуальном payload; immutable
+  gate 0175 повторно не используется. Только после её human merge и closure
+  выполняется release-policy gate и готовится отдельный PR `developer -> main`.
+  Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 ## Release Facts
 
@@ -105,11 +107,11 @@ Rollback не выполняется автоматически: release payload
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
 не считать published release. Human UAT PASS, full-payload reviewer gate,
 policy fix и governance-recovery evidence sequences 0174–0177 завершены.
-Следующий шаг — полный final release pass; release merge, tag, GitHub Release и
+Следующий шаг — новая journaled reviewer consistency-gate на точном актуальном payload как первый этап полного final release pass; release merge, tag, GitHub Release и
 sync остаются невыполненными human-only действиями.
 
 ## Передача
 
-Следующий: release manager — выполнить полный final release pass и подготовить
+Следующий: release manager — начать полный final release pass с новой journaled reviewer consistency-gate на точном актуальном payload; после её human merge и closure подготовить
 release PR `developer -> main`; merge, tag `v1.6.0`, GitHub Release и sync не
 выполнять до отдельных human-authorized циклов.
