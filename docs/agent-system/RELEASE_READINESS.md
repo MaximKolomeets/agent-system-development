@@ -93,9 +93,10 @@ GitHub metadata фиксирует исторические факты без п
 полный methodology check-set на точном кандидате и отдельно выполнить production
 release-policy gate:
 
-- `python docs/agent-system/tools/release_gate.py --version v1.6.0 --json`.
+- `python docs/agent-system/tools/release_gate.py --version v1.6.0 --governance-recovery --json`.
 
-Флаг `--governance-recovery` относится только к историческому recovery-сценарию
+Флаг `--governance-recovery` обязателен для текущего recovery-baseline, где
+`main` уже опережает последний release tag; он не пропускает стандартные gates
 и не заменяет полный final release pass.
 
 ## Release Recommendation
