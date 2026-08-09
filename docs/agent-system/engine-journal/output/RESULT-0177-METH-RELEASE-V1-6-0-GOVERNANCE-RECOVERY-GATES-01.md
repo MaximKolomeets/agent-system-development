@@ -51,6 +51,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 | `docs/agent-system/tools/tests/test_release_gate.py` | added | scaffold | none | n-a |
 | `docs/agent-system/tools/validate_journal_triplet.py` | modified | source | update | n-a |
 | `docs/agent-system/tools/tests/test_validate_journal_triplet.py` | modified | scaffold | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/input/TASK-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/rationale/RATIONALE-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | added | journal | none | n-a |
@@ -146,9 +147,12 @@ Source-reminder: не применимо (методология не менял
 | `docs/agent-system/cloud/07_CURRENT_STATE.md` | modified | generated | none | n-a |
 | `docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
 | `docs/agent-system/cloud/09_NEXT_STEPS.md` | modified | generated | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/output/RESULT-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | modified | journal | none | n-a |
+Архитектору — загрузить в контекст оркестратора: 07_CURRENT_STATE.md (src: docs/agent-system/CURRENT_STATE.md), 08_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md), 09_NEXT_STEPS.md (src: docs/agent-system/NEXT_STEPS.md); asof: 2026-08-09T18:05:25.7418784+02:00; developer_head_sha: a554a71060b700b3b27a980160fbdb2ba2788b40.
+
 ## Передача
 
 Следующий: human reviewer — проверить closure PR 0177; после human merge release manager повторяет final release pass `developer -> main`.

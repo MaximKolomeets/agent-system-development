@@ -1,5 +1,8 @@
 # RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01
 
+Статус: merged; RESULT closed after merge
+
+Исторический pre-merge marker (append-only evidence):
 Статус: ready_for_human_release_recovery_merge; recovery PR открыт
 Идентификатор задачи: METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01
 Номер sequence: 0173
@@ -108,3 +111,37 @@ developer_head_sha: `dab6e6de54373266f60ce0047239827b40e6ed24`.
 Следующий: owner/PO — после human merge recovery PR пройти Human UAT Checklist
 и зафиксировать verdict; затем независимый methodology reviewer — выполнить
 отдельный full-payload consistency-gate по указанному range.
+## Post-merge closure — authoritative final state
+
+Все предшествующие статусы и передачи выше являются историческими состояниями до human merge.
+
+- status: merged; RESULT closed after merge;
+- source_pr: https://github.com/MaximKolomeets/agent-system-development/pull/363;
+- base: `developer`;
+- final PR HEAD: `22b569196e3638341e3fd4cb550443eb82108791`;
+- merge commit: `4bb0640074490ee832466d3dafdecf5dffda5801`;
+- merged_at: `2026-08-03T05:30:33Z`;
+- RESULT closed after merge: yes;
+- INDEX closed after merge: yes;
+- reservation transition: `0173 reserved -> consumed`;
+- No journal placeholders: yes;
+- evidence source: GitHub PR metadata.
+
+Recovery implementation PR #363 входит в integration baseline `developer`; Human UAT evidence продолжена и отдельно закрыта sequence 0174.
+
+## Source-reminder post-merge closure
+
+Source-reminder: не применимо (методология не менялась).
+
+## Source Delta post-merge closure
+
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+| --- | --- | --- | --- | --- |
+| `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json` | modified | journal | none | n-a |
+| `docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
+
+## Передача
+
+Следующий: human reviewer — проверить closure sequence 0173 в PR #379; после human merge release manager выполняет полный final release pass `v1.6.0`.
