@@ -51,7 +51,6 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 | `docs/agent-system/tools/tests/test_release_gate.py` | added | scaffold | none | n-a |
 | `docs/agent-system/tools/validate_journal_triplet.py` | modified | source | update | n-a |
 | `docs/agent-system/tools/tests/test_validate_journal_triplet.py` | modified | scaffold | none | n-a |
-| `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
 | `docs/agent-system/engine-journal/input/TASK-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | added | journal | none | n-a |
 | `docs/agent-system/engine-journal/rationale/RATIONALE-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | added | journal | none | n-a |
