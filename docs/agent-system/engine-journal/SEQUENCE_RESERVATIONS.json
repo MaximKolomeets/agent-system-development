@@ -109,6 +109,15 @@
       "state": "reserved",
       "created_at": "2026-08-09T08:51:44.4055110+02:00",
       "reason": "Резервирование sequence для исправления governance-recovery release gate и range-aware validation journal triplets перед v1.6.0."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01-0177",
+      "sequence": "0177",
+      "task_id": "METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01",
+      "state": "consumed",
+      "created_at": "2026-08-09T16:07:35.9168641+02:00",
+      "reason": "PR #378 merged в developer; authoritative post-merge closure фиксирует завершение governance-recovery gates и snapshot-bound release evidence."
     }
   ]
 }

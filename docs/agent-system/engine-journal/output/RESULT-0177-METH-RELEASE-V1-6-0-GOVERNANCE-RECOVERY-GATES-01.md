@@ -102,3 +102,32 @@ Release evidence следует всегда читать из immutable candida
 ## Передача
 
 Следующий: human reviewer — проверить P1 fix-pass PR #378 и выполнить human merge в `developer` только после зелёного exact-HEAD CI.
+## Post-merge closure — authoritative final state
+
+Все предшествующие статусы и передачи выше являются историческими состояниями до human merge.
+
+- status: merged; RESULT closed after merge;
+- source_pr: https://github.com/MaximKolomeets/agent-system-development/pull/378;
+- base: `developer`;
+- final PR HEAD: `d2c511de4b5ae486c34d4e59d11931f73aa963ca`;
+- merge commit: `a554a71060b700b3b27a980160fbdb2ba2788b40`;
+- merged_at: `2026-08-09T12:21:25Z`;
+- RESULT closed after merge: yes;
+- INDEX closed after merge: yes;
+- reservation transition: `0177 reserved -> consumed`;
+- No journal placeholders: yes;
+- evidence source: GitHub PR metadata и локальная ancestry-проверка `origin/developer`.
+
+Governance-recovery gates, range-aware triplet validation и snapshot-bound recovery evidence входят в актуальный integration baseline `developer`. Issue #376 закрыта; release `v1.6.0` остаётся untagged и требует отдельного human merge release PR `developer -> main`.
+
+## Methodology feedback
+
+Post-merge closure substantive sequence должна быть выполнена до final release audit; merged PR без consumed transition остаётся lifecycle blocker.
+
+## Unprompted Project Proposals
+
+нет.
+
+## Передача
+
+Следующий: human reviewer — проверить closure PR 0177; после human merge release manager повторяет final release pass `developer -> main`.
