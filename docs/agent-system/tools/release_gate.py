@@ -13,8 +13,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[3]
-INDEX_PATH = ROOT / "docs/agent-system/engine-journal/INDEX.md"
-LEDGER_PATH = ROOT / "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json"
+INDEX_PATH = "docs/agent-system/engine-journal/INDEX.md"
+LEDGER_PATH = "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json"
+COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 SEMVER_RE = re.compile(r"^v(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)$")
 PLACEHOLDER_RE = re.compile(
     r"\b(?:pending|TBD|TODO|placeholder|after PR creation|after push|not run yet)\b|<[^>\r\n]+>",
@@ -73,7 +74,7 @@ class ReleaseGateReport:
 
 def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
     """Единая точка вызова git: здесь используются только read-only команды."""
-    allowed = {"for-each-ref", "show-ref", "rev-parse", "rev-list", "diff", "merge-base"}
+    allowed = {"for-each-ref", "show-ref", "show", "rev-parse", "rev-list", "diff", "merge-base"}
     if not args or args[0] not in allowed:
         raise RuntimeError(f"Запрещённый git command для release_gate.py: {args!r}")
     return subprocess.run(
@@ -144,13 +145,23 @@ def is_ancestor(older: str, newer: str) -> bool:
     return run_git(["merge-base", "--is-ancestor", older, newer]).returncode == 0
 
 
-def recovery_evidence(version: str) -> tuple[bool, list[str]]:
-    """Проверяет version-scoped structured journal evidence без SHA/sequence hardcode."""
+def candidate_file(candidate_sha: str, path: str) -> str | None:
+    """Читает evidence только из immutable candidate tree без fallback на checkout."""
+    if not COMMIT_SHA_RE.fullmatch(candidate_sha) or path.startswith(("/", "\\")) or ".." in Path(path).parts:
+        return None
+    completed = run_git(["show", f"{candidate_sha}:{path}"])
+    return completed.stdout if completed.returncode == 0 else None
+
+
+def recovery_evidence(version: str, candidate_sha: str) -> tuple[bool, list[str]]:
+    """Проверяет version-scoped evidence в exact candidate snapshot."""
     version_identity = version.removeprefix("v").replace(".", "-").upper()
-    if not INDEX_PATH.is_file() or not LEDGER_PATH.is_file():
+    index_text = candidate_file(candidate_sha, INDEX_PATH)
+    ledger_text = candidate_file(candidate_sha, LEDGER_PATH)
+    if index_text is None or ledger_text is None:
         return False, []
     rows: list[list[str]] = []
-    for line in INDEX_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+    for line in index_text.splitlines():
         if line.startswith("|"):
             cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
             if len(cells) == 10 and re.fullmatch(r"\d{4}", cells[0]):
@@ -169,10 +180,12 @@ def recovery_evidence(version: str) -> tuple[bool, list[str]]:
         if "merged" not in row[7]:
             return False, proofs
         proofs.append(f"{name}_index_merged")
-        result_path = ROOT / "docs/agent-system/engine-journal" / row[3]
-        if not result_path.is_file():
+        result_relative = row[3]
+        if not re.fullmatch(r"output/RESULT-\d{4}-[A-Z0-9][A-Z0-9-]*\.md", result_relative):
             return False, proofs
-        text = result_path.read_text(encoding="utf-8", errors="replace")
+        text = candidate_file(candidate_sha, f"docs/agent-system/engine-journal/{result_relative}")
+        if text is None:
+            return False, proofs
         if name != "recovery" and (
             "RESULT closed after merge: yes" not in text or "INDEX closed after merge: yes" not in text
         ):
@@ -183,8 +196,8 @@ def recovery_evidence(version: str) -> tuple[bool, list[str]]:
             return False, proofs
         proofs.append(f"{name}_result_merged" if name == "recovery" else f"{name}_result_closed")
     try:
-        ledger = json.loads(LEDGER_PATH.read_text(encoding="utf-8", errors="replace"))
-    except (json.JSONDecodeError, OSError):
+        ledger = json.loads(ledger_text)
+    except json.JSONDecodeError:
         return False, proofs
     terminal = {
         (item.get("sequence"), item.get("task_id"))
@@ -348,7 +361,7 @@ def build_report(version: str, base: str, governance_recovery: bool = False) -> 
             report.blockers.append("MAIN_NOT_AT_LAST_RELEASE_TAG")
         else:
             report.release_mode = "governance_recovery"
-            evidence_ok, proofs = recovery_evidence(version)
+            evidence_ok, proofs = recovery_evidence(version, report.candidate_sha)
             report.recovery_preconditions = proofs
             report.recovery_evidence_status = "passed" if evidence_ok else "failed"
             if report.base_tag_ancestor_main != "passed":

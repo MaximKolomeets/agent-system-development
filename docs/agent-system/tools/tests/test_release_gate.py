@@ -1,4 +1,7 @@
+import json
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -8,6 +11,106 @@ import release_gate as gate
 
 
 class ReleaseGateRecoveryTests(unittest.TestCase):
+    def git(self, root: Path, *args: str) -> str:
+        completed = subprocess.run(
+            ["git", *args], cwd=root, check=True, capture_output=True, text=True, encoding="utf-8"
+        )
+        return completed.stdout.strip()
+
+    def commit_all(self, root: Path, message: str) -> str:
+        self.git(root, "add", ".")
+        self.git(root, "commit", "-m", message)
+        return self.git(root, "rev-parse", "HEAD")
+
+    def write_complete_recovery_evidence(self, root: Path) -> None:
+        journal = root / "docs/agent-system/engine-journal"
+        output = journal / "output"
+        output.mkdir(parents=True, exist_ok=True)
+        tasks = {
+            "recovery": "METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01",
+            "uat": "METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01",
+            "reviewer": "METH-RELEASE-V1-6-0-FULL-PAYLOAD-CONSISTENCY-GATE-01",
+        }
+        rows = []
+        sequences = {"recovery": "0173", "uat": "0174", "reviewer": "0175"}
+        for name, task_id in tasks.items():
+            sequence = sequences[name]
+            result_name = f"RESULT-{sequence}-{task_id}.md"
+            rows.append(
+                f"| {sequence} | {task_id} | input/TASK-{sequence}-{task_id}.md | "
+                f"output/{result_name} | rationale/RATIONALE-{sequence}-{task_id}.md | "
+                "work/test | https://example.invalid/pr | merged | 1m | test |"
+            )
+            text = "status: merged\n"
+            if name != "recovery":
+                text += "RESULT closed after merge: yes\nINDEX closed after merge: yes\n"
+            if name == "uat":
+                text += "human_uat_status: PASS\n"
+            if name == "reviewer":
+                text += "release_gate_verdict: PASS_PENDING_HUMAN_MERGE\n"
+            (output / result_name).write_text(text, encoding="utf-8")
+        (journal / "INDEX.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
+        events = [
+            {"sequence": sequences[name], "task_id": tasks[name], "state": "consumed"}
+            for name in ("uat", "reviewer")
+        ]
+        (journal / "SEQUENCE_RESERVATIONS.json").write_text(
+            json.dumps({"reservations": events}), encoding="utf-8"
+        )
+
+    def test_candidate_snapshot_does_not_fall_back_to_newer_checkout(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.git(root, "init")
+            self.git(root, "config", "user.name", "Test")
+            self.git(root, "config", "user.email", "test@example.invalid")
+            (root / "README.md").write_text("candidate without evidence\n", encoding="utf-8")
+            candidate = self.commit_all(root, "initial candidate")
+            self.write_complete_recovery_evidence(root)
+            current = self.commit_all(root, "add later evidence")
+
+            with mock.patch.object(gate, "ROOT", root):
+                self.assertEqual((False, []), gate.recovery_evidence("v1.6.0", candidate))
+                self.assertTrue(gate.recovery_evidence("v1.6.0", current)[0])
+
+    def test_candidate_snapshot_fails_closed_for_missing_or_malformed_evidence(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.git(root, "init")
+            self.git(root, "config", "user.name", "Test")
+            self.git(root, "config", "user.email", "test@example.invalid")
+            self.write_complete_recovery_evidence(root)
+            complete = self.commit_all(root, "complete evidence")
+            ledger = root / gate.LEDGER_PATH
+            ledger.write_text("{not-json", encoding="utf-8")
+            malformed = self.commit_all(root, "malformed ledger")
+
+            with mock.patch.object(gate, "ROOT", root):
+                self.assertTrue(gate.recovery_evidence("v1.6.0", complete)[0])
+                self.assertFalse(gate.recovery_evidence("v1.6.0", malformed)[0])
+                self.assertFalse(gate.recovery_evidence("v1.6.0", "0" * 40)[0])
+                self.assertFalse(gate.recovery_evidence("v1.6.0", "HEAD")[0])
+
+    def test_candidate_snapshot_fails_closed_for_each_missing_artifact_kind(self):
+        missing_paths = (
+            gate.INDEX_PATH,
+            gate.LEDGER_PATH,
+            "docs/agent-system/engine-journal/output/"
+            "RESULT-0174-METH-RELEASE-V1-6-0-HUMAN-UAT-EVIDENCE-01.md",
+        )
+        for missing_path in missing_paths:
+            with self.subTest(missing_path=missing_path), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.git(root, "init")
+                self.git(root, "config", "user.name", "Test")
+                self.git(root, "config", "user.email", "test@example.invalid")
+                self.write_complete_recovery_evidence(root)
+                Path(root, missing_path).unlink()
+                candidate = self.commit_all(root, f"candidate without {Path(missing_path).name}")
+
+                with mock.patch.object(gate, "ROOT", root):
+                    self.assertFalse(gate.recovery_evidence("v1.6.0", candidate)[0])
+
     def build(self, *, main="main", candidate="candidate", recovery=False, evidence=True, ancestry=(True, True), tag_exists=False):
         refs = {"refs/tags/v1.5.5": "base", "origin/main": main, "origin/developer": candidate}
 
