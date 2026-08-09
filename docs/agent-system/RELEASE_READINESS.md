@@ -80,7 +80,7 @@ GitHub metadata фиксирует исторические факты без п
 
 ## Generated Gates
 
-Required for governance recovery PR:
+Исторический набор ниже был обязательным для уже завершённого governance-recovery PR:
 
 - `python -m unittest discover -s docs/agent-system/tools/tests -p "test_*.py" -v`.
 - `python docs/agent-system/tools/validate_journal_triplet.py --base origin/developer --json`.
@@ -88,6 +88,15 @@ Required for governance recovery PR:
 - `python docs/agent-system/tools/gen_file_map.py --check`.
 - `python docs/agent-system/tools/gen_cloud_bundle.py --check`.
 - `python docs/agent-system/tools/check_task_ready.py --base origin/developer --json`.
+
+Для активного полного final release pass `v1.6.0` release manager обязан повторить
+полный methodology check-set на точном кандидате и отдельно выполнить production
+release-policy gate:
+
+- `python docs/agent-system/tools/release_gate.py --version v1.6.0 --json`.
+
+Флаг `--governance-recovery` относится только к историческому recovery-сценарию
+и не заменяет полный final release pass.
 
 ## Release Recommendation
 

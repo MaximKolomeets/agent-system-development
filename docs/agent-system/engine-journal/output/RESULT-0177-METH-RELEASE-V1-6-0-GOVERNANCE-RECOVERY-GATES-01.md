@@ -130,6 +130,25 @@ Post-merge closure substantive sequence должна быть выполнена
 
 нет.
 
+## Source-reminder post-merge closure
+
+Source-reminder: не применимо (методология не менялась); closure-проход обновил
+только lifecycle evidence, state-документы и их штатные generated mirrors.
+
+## Source Delta post-merge closure
+
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+| --- | --- | --- | --- | --- |
+| `docs/agent-system/CURRENT_STATE.md` | modified | history_state | none | n-a |
+| `docs/agent-system/NEXT_STEPS.md` | modified | history_state | none | n-a |
+| `docs/agent-system/RELEASE_READINESS.md` | modified | history_state | none | n-a |
+| `docs/agent-system/cloud/00_README.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/07_CURRENT_STATE.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/09_NEXT_STEPS.md` | modified | generated | none | n-a |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | modified | journal | none | n-a |
 ## Передача
 
 Следующий: human reviewer — проверить closure PR 0177; после human merge release manager повторяет final release pass `developer -> main`.
