@@ -29,10 +29,10 @@ payload был преждевременно перенесён PR #355/#360 и �
 #356/#361. Recovery PR #363 и Human UAT evidence PR #365 merged в `developer`;
 owner/human architect принял Human UAT v1.6.0 PASS для UAT-0173-01—05.
 Sequence 0174 закрыта, reservation consumed. PR #371 merged и устранил
-`PREMERGE_VERDICT_GATE_CONTRADICTION`; sequence 0176 закрывается отдельным
-post-merge closure. Sequence 0175 уже reserved, а PR #368 остаётся отдельным
-незавершённым reviewer gate. До его повторной проверки запрещены tag `v1.6.0`,
-GitHub Release, новый release PR и sync.
+`PREMERGE_VERDICT_GATE_CONTRADICTION`; sequence 0176 закрыта отдельным
+post-merge closure. Sequence 0175 завершила independent reviewer gate: PR #368
+merged, RESULT/INDEX закрыты после merge, reservation consumed. До отдельного
+final release pass запрещены tag `v1.6.0`, GitHub Release и sync.
 
 Точные task/PR факты остаются в `docs/agent-system/engine-journal/INDEX.md`,
 `RESULT-*` closure-stamps и GitHub metadata. Release/status snapshot:
@@ -41,23 +41,13 @@ GitHub Release, новый release PR и sync.
 
 ## Ближайшая очередь governance recovery v1.6.0
 
-1. После human merge closure 0176 обновить PR #368 на актуальный `developer` и
-   повторно проверить его как отдельный reviewer consistency-gate; UAT не
-   запускать повторно и новую sequence не резервировать.
-2. Независимый reviewer завершает уже созданную journaled reviewer
-   consistency-gate задачу. Его обязательный payload range: base — peeled annotated tag
-   `v1.5.5^{}` (`f80e148f9e4ba965e701d1e06faa79d517b646cf`); head — точный
-   `origin/developer`, полученный после human merge closure PR непосредственно
-   перед созданием reviewer branch. Reviewer записывает
-   оба SHA и полный commit/file inventory в TASK/RESULT. Диапазон
-   `origin/main...origin/developer` нельзя использовать как единственный range:
-   `main` уже содержит преждевременно перенесённый payload. Workflow, validators,
-   schemas, tooling, tests, policies, journal и generated mirrors входят в scope;
-   необъяснённый commit или файл — blocker.
-3. После reviewer merge готовится отдельный final recovery release PR
+1. После human merge closure PR sequence 0175 выполнить отдельный final release
+   pass по release policy; Human UAT и full-payload reviewer gate не запускать
+   повторно, новую sequence для уже закрытых gates не резервировать.
+2. Final release pass готовит отдельный final recovery release PR
    `developer -> main`; merge, annotated tag `v1.6.0` и sync остаются
    human-only действиями в указанном порядке.
-4. После release/sync отдельная post-release state-refresh задача фиксирует
+3. После release/sync отдельная post-release state-refresh задача фиксирует
    final tag/release/sync facts.
 
 `v1.5.4` сохраняется как предыдущий historical release.
