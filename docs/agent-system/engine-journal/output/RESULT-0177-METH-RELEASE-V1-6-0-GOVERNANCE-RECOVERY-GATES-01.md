@@ -3,6 +3,8 @@
 Идентификатор задачи: METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01
 Номер sequence: 0177
 Статус финализации: merged; RESULT closed after merge
+Исторический pre-merge marker (append-only evidence):
+Статус финализации: ready_for_human_review
 Issue: https://github.com/MaximKolomeets/agent-system-development/issues/376
 Implementation PR: https://github.com/MaximKolomeets/agent-system-development/pull/378
 Implementation commit: 7aa92c3af6e004802f855204f1798b6190a31f6e
