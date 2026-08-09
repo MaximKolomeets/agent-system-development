@@ -47,7 +47,34 @@ class TripletWorkflowTests(unittest.TestCase):
     def baseline_triplet(self):
         self.triplet(); self.index([self.row()]); self.git("add", "."); self.git("commit", "-m", "legacy")
         self.base = self.git("rev-parse", "HEAD").stdout.strip()
-    def test_valid_complete_triplet(self): self.triplet(); self.index([self.row()]); self.assertEqual([], self.check())
+    def test_valid_complete_triplet(self): self.ledger([self.ledger_event("0001")]); self.triplet(); self.index([self.row()]); self.assertEqual([], self.check())
+    def test_multiple_sequential_consumed_triplets_in_range(self):
+        events = []
+        rows = []
+        for number in range(1, 4):
+            seq = f"{number:04d}"; task = f"METH-TEST-{number:02d}"
+            events.extend([self.ledger_event(seq, task=task), self.ledger_event(seq, task=task, state="consumed")])
+            self.triplet(seq=seq, task=task); rows.append(self.row(seq=seq, task=task))
+        self.ledger(events); self.index(rows)
+        self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_gap_between_materialized_triplets_is_blocking(self):
+        events = []
+        rows = []
+        for seq, task in (("0001", "METH-TEST-01"), ("0003", "METH-TEST-03")):
+            events.extend([self.ledger_event(seq, task=task), self.ledger_event(seq, task=task, state="consumed")])
+            self.triplet(seq=seq, task=task); rows.append(self.row(seq=seq, task=task))
+        self.ledger(events); self.index(rows)
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_baseline_consumed_sequence_cannot_be_materialized(self):
+        task = "METH-TEST-01"
+        self.ledger([self.ledger_event("0001", task=task), self.ledger_event("0001", task=task, state="consumed")])
+        self.git("add", "."); self.git("commit", "-m", "terminal baseline"); self.base = self.git("rev-parse", "HEAD").stdout.strip()
+        self.triplet(seq="0001", task=task); self.index([self.row(seq="0001", task=task)])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
+    def test_consumed_lifecycle_for_other_task_is_blocking(self):
+        self.ledger([self.ledger_event("0001", task="METH-OTHER-01"), self.ledger_event("0001", task="METH-OTHER-01", state="consumed")])
+        self.triplet(); self.index([self.row()])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_missing_artifact(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/input/TASK-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
     def test_missing_rationale(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/rationale/RATIONALE-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
     def test_missing_result(self): self.triplet(); (self.root/"docs/agent-system/engine-journal/output/RESULT-0001-METH-TEST-01.md").unlink(); self.index([self.row()]); self.assertIn("TRIPLET_INCOMPLETE", self.check())
@@ -55,15 +82,15 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_wrong_index_link(self): self.triplet(); self.index([self.row(rationale="rationale/RATIONALE-0001-WRONG.md")]); self.assertIn("INDEX_RATIONALE_MAPPING_INVALID", self.check())
     def test_gap(self): self.triplet(seq="0002"); self.index([self.row(seq="0002")]); self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_reserved_sequence_can_occupy_sequence_gap(self):
-        self.ledger([self.ledger_event("0001")])
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0002")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_abandoned_sequence_can_occupy_sequence_gap(self):
-        self.ledger([self.ledger_event("0001", state="abandoned")])
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0001", state="abandoned"), self.ledger_event("0002")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_consumed_sequence_can_occupy_sequence_gap(self):
-        self.ledger([self.ledger_event("0001", state="consumed")])
+        self.ledger([self.ledger_event("0001"), self.ledger_event("0001", state="consumed"), self.ledger_event("0002")])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_reserved_sequence_can_materialize_below_existing_index_maximum(self):
@@ -125,6 +152,7 @@ class TripletWorkflowTests(unittest.TestCase):
         self.ledger([
             self.ledger_event("0001"),
             {"sequence": "0001", "state": "unexpected"},
+            self.ledger_event("0002"),
         ])
         self.triplet(seq="0002"); self.index([self.row(seq="0002")])
         self.assertNotIn("SEQUENCE_GAP_OR_COLLISION", self.check())
@@ -149,8 +177,11 @@ class TripletWorkflowTests(unittest.TestCase):
     def test_invalid_filename(self): self.write("docs/agent-system/engine-journal/rationale/RATIONALE-bad.md", "x"); self.index([]); self.assertIn("INVALID_JOURNAL_FILENAME", self.check())
     def test_index_only_missing_artifacts(self): self.index([self.row()]); self.assertIn("INDEX_ARTIFACTS_MISSING", self.check())
     def test_untracked_new_triplet_is_checked(self):
-        self.triplet(); self.index([self.row()])
+        self.ledger([self.ledger_event("0001")]); self.triplet(); self.index([self.row()])
         self.assertEqual([], [item.code for item in validator.validate(self.root, self.base).findings])
+    def test_new_triplet_without_reservation_is_blocking(self):
+        self.triplet(); self.index([self.row()])
+        self.assertIn("SEQUENCE_GAP_OR_COLLISION", self.check())
     def test_post_merge_result_change_checks_existing_triplet_without_new_sequence(self):
         self.baseline_triplet(); self.write("docs/agent-system/engine-journal/output/RESULT-0001-METH-TEST-01.md", "0001 METH-TEST-01\nmerged")
         self.assertEqual([], self.check())

@@ -13,6 +13,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[3]
+INDEX_PATH = ROOT / "docs/agent-system/engine-journal/INDEX.md"
+LEDGER_PATH = ROOT / "docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json"
 SEMVER_RE = re.compile(r"^v(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)$")
 PLACEHOLDER_RE = re.compile(
     r"\b(?:pending|TBD|TODO|placeholder|after PR creation|after push|not run yet)\b|<[^>\r\n]+>",
@@ -43,6 +45,11 @@ class ReleaseGateReport:
     base_commit: str = ""
     main_sha: str = ""
     candidate_sha: str = ""
+    release_mode: str = "normal"
+    base_tag_ancestor_main: str = "not_checked"
+    main_ancestor_candidate: str = "not_checked"
+    recovery_evidence_status: str = "not_checked"
+    recovery_preconditions: list[str] = field(default_factory=list)
     payload_count: int = 0
     payload_files_count: int = 0
     journal_placeholder_status: str = "not_checked"
@@ -66,7 +73,7 @@ class ReleaseGateReport:
 
 def run_git(args: list[str]) -> subprocess.CompletedProcess[str]:
     """Единая точка вызова git: здесь используются только read-only команды."""
-    allowed = {"for-each-ref", "show-ref", "rev-parse", "rev-list", "diff"}
+    allowed = {"for-each-ref", "show-ref", "rev-parse", "rev-list", "diff", "merge-base"}
     if not args or args[0] not in allowed:
         raise RuntimeError(f"Запрещённый git command для release_gate.py: {args!r}")
     return subprocess.run(
@@ -131,6 +138,66 @@ def tag_exists(tag: str) -> bool:
 
 def peeled_commit(ref: str, report: ReleaseGateReport, blocker: str) -> str:
     return require_stdout(run_git(["rev-parse", f"{ref}^{{commit}}"]), blocker, report)
+
+
+def is_ancestor(older: str, newer: str) -> bool:
+    return run_git(["merge-base", "--is-ancestor", older, newer]).returncode == 0
+
+
+def recovery_evidence(version: str) -> tuple[bool, list[str]]:
+    """Проверяет version-scoped structured journal evidence без SHA/sequence hardcode."""
+    version_identity = version.removeprefix("v").replace(".", "-").upper()
+    if not INDEX_PATH.is_file() or not LEDGER_PATH.is_file():
+        return False, []
+    rows: list[list[str]] = []
+    for line in INDEX_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+        if line.startswith("|"):
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            if len(cells) == 10 and re.fullmatch(r"\d{4}", cells[0]):
+                rows.append(cells)
+    roles = {
+        "recovery": f"METH-RELEASE-V{version_identity}-GOVERNANCE-RECOVERY-01",
+        "uat": f"METH-RELEASE-V{version_identity}-HUMAN-UAT-EVIDENCE-01",
+        "reviewer": f"METH-RELEASE-V{version_identity}-FULL-PAYLOAD-CONSISTENCY-GATE-01",
+    }
+    selected = {name: next((row for row in rows if row[1] == task_id), None) for name, task_id in roles.items()}
+    if any(row is None for row in selected.values()):
+        return False, []
+    proofs: list[str] = []
+    for name, row in selected.items():
+        assert row is not None
+        if "merged" not in row[7]:
+            return False, proofs
+        proofs.append(f"{name}_index_merged")
+        result_path = ROOT / "docs/agent-system/engine-journal" / row[3]
+        if not result_path.is_file():
+            return False, proofs
+        text = result_path.read_text(encoding="utf-8", errors="replace")
+        if name != "recovery" and (
+            "RESULT closed after merge: yes" not in text or "INDEX closed after merge: yes" not in text
+        ):
+            return False, proofs
+        if name == "uat" and not re.search(r"^human_uat_status:\s*PASS\s*$", text, re.MULTILINE):
+            return False, proofs
+        if name == "reviewer" and not re.search(r"^release_gate_verdict:\s*PASS_PENDING_HUMAN_MERGE\s*$", text, re.MULTILINE):
+            return False, proofs
+        proofs.append(f"{name}_result_merged" if name == "recovery" else f"{name}_result_closed")
+    try:
+        ledger = json.loads(LEDGER_PATH.read_text(encoding="utf-8", errors="replace"))
+    except (json.JSONDecodeError, OSError):
+        return False, proofs
+    terminal = {
+        (item.get("sequence"), item.get("task_id"))
+        for item in ledger.get("reservations", [])
+        if isinstance(item, dict) and item.get("state") == "consumed"
+    }
+    for name in ("uat", "reviewer"):
+        row = selected[name]
+        assert row is not None
+        if (row[0], row[1]) not in terminal:
+            return False, proofs
+        proofs.append(f"{name}_reservation_consumed")
+    return True, proofs
 
 
 def current_branch(report: ReleaseGateReport) -> str:
@@ -256,7 +323,7 @@ def build_human_action_text(version: str) -> list[str]:
     ]
 
 
-def build_report(version: str, base: str) -> ReleaseGateReport:
+def build_report(version: str, base: str, governance_recovery: bool = False) -> ReleaseGateReport:
     report = ReleaseGateReport(version=version, base=base)
     report.human_action_text = build_human_action_text(version)
     report.current_branch = current_branch(report)
@@ -273,8 +340,23 @@ def build_report(version: str, base: str) -> ReleaseGateReport:
     report.main_sha = peeled_commit("origin/main", report, "MAIN_SHA_UNAVAILABLE")
     report.candidate_sha = peeled_commit(base, report, "CANDIDATE_SHA_UNAVAILABLE")
 
+    if report.base_commit and report.main_sha and report.candidate_sha:
+        report.base_tag_ancestor_main = "passed" if is_ancestor(report.base_commit, report.main_sha) else "failed"
+        report.main_ancestor_candidate = "passed" if is_ancestor(report.main_sha, report.candidate_sha) else "failed"
     if report.base_commit and report.main_sha and report.main_sha != report.base_commit:
-        report.blockers.append("MAIN_NOT_AT_LAST_RELEASE_TAG")
+        if not governance_recovery:
+            report.blockers.append("MAIN_NOT_AT_LAST_RELEASE_TAG")
+        else:
+            report.release_mode = "governance_recovery"
+            evidence_ok, proofs = recovery_evidence(version)
+            report.recovery_preconditions = proofs
+            report.recovery_evidence_status = "passed" if evidence_ok else "failed"
+            if report.base_tag_ancestor_main != "passed":
+                report.blockers.append("RECOVERY_BASE_TAG_NOT_ANCESTOR_MAIN")
+            if report.main_ancestor_candidate != "passed":
+                report.blockers.append("RECOVERY_MAIN_NOT_ANCESTOR_CANDIDATE")
+            if not evidence_ok:
+                report.blockers.append("RECOVERY_EVIDENCE_INCOMPLETE")
 
     if report.base_tag:
         count_payload(report.base_tag, base, report)
@@ -297,6 +379,10 @@ def print_text_report(report: ReleaseGateReport) -> None:
     print(f"base_commit: {report.base_commit or '<none>'}")
     print(f"main_sha: {report.main_sha or '<none>'}")
     print(f"candidate_sha: {report.candidate_sha or '<none>'}")
+    print(f"release_mode: {report.release_mode}")
+    print(f"base_tag_ancestor_main: {report.base_tag_ancestor_main}")
+    print(f"main_ancestor_candidate: {report.main_ancestor_candidate}")
+    print(f"recovery_evidence_status: {report.recovery_evidence_status}")
     print(f"payload_count: {report.payload_count}")
     print(f"payload_files_count: {report.payload_files_count}")
     print(f"journal_placeholder_status: {report.journal_placeholder_status}")
@@ -324,6 +410,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--version", required=True, help="Целевая release version, например v1.5.4.")
     parser.add_argument("--base", default="origin/developer", help="Candidate ref; default origin/developer.")
     parser.add_argument("--json", action="store_true", help="Печатать machine-readable JSON.")
+    parser.add_argument(
+        "--governance-recovery",
+        action="store_true",
+        help="Явно включить fail-closed governance-recovery path; стандартные gates не пропускаются.",
+    )
     return parser.parse_args()
 
 
@@ -331,7 +422,7 @@ def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     args = parse_args()
-    report = build_report(args.version, args.base)
+    report = build_report(args.version, args.base, args.governance_recovery)
     if args.json:
         print(json.dumps(report.to_json_dict(), ensure_ascii=False, indent=2, sort_keys=True))
     else:
