@@ -58,6 +58,8 @@ status-marker в RESULT-файле и только для lifecycle-only changed
 TASK/RATIONALE, substring, добавка, опечатка или иное значение с pending
 остаются blocker. Это исключение не отменяет проверки PR URL, обязательных
 RESULT-разделов, accounting, secrets, forbidden paths и других gates.
+Marker принимается только как единственное top-level поле `Статус финализации` вне fenced/indented примеров; duplicate или противоречащий status блокируется.
+
 ## Где запрещено
 
 - finalized `docs/agent-system/engine-journal/input/TASK-*.md`;

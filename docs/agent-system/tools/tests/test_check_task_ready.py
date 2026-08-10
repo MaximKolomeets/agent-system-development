@@ -79,7 +79,13 @@ class CheckTaskReadyTests(unittest.TestCase):
 
     def test_exact_premerge_terminal_fold_requires_lifecycle_only_result_status(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        self.assertIsNone(self.deferred_reason(self.result_path, line))
+        self.assertIsNone(
+            ready.deferred_finalization_reason(
+                self.result_path,
+                line,
+                terminal_fold_allowed=True,
+            )
+        )
         self.assertEqual([], self.scanned_paths(self.result_path, line + "\n"))
         self.assertEqual([], self.placeholder_paths(self.result_path, line + "\n"))
 
@@ -97,6 +103,27 @@ class CheckTaskReadyTests(unittest.TestCase):
                 self.assertEqual(reason, self.deferred_reason(path, line))
                 self.assertEqual([path], self.scanned_paths(path, line + "\n"))
 
+    def test_premerge_terminal_fold_must_be_unique_top_level_field(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        cases = (
+            f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n",
+            f"    {line}\n",
+            f"{line}\n{line}\n",
+            f"{line}\nСтатус финализации: ready_for_human_review\n",
+        )
+        for text in cases:
+            with self.subTest(text=text):
+                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+
+    def test_top_level_status_parser_ignores_fenced_and_indented_examples(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        text = (
+            f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n"
+            f"    {line}\n"
+            f"{line}\n"
+        )
+        self.assertEqual([line], ready.top_level_finalization_statuses(text))
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
         source_path = "docs/agent-system/tools/check_task_ready.py"

@@ -402,12 +402,30 @@ def scan_added_secret_values(base: str) -> list[str]:
     return sorted(flagged)
 
 
-def is_allowed_premerge_terminal_fold(path: str, line: str, substantive_changes: bool) -> bool:
-    """Разрешает только точный lifecycle-only status-marker в RESULT."""
+def top_level_finalization_statuses(text: str) -> list[str]:
+    """Возвращает только top-level status-marker вне fenced примеров."""
+    statuses: list[str] = []
+    fence: str | None = None
+    for line in text.splitlines():
+        stripped = line.strip()
+        marker = next((candidate for candidate in (chr(96) * 3, "~~~") if stripped.startswith(candidate)), None)
+        if marker is not None:
+            if fence is None:
+                fence = marker
+            elif fence == marker:
+                fence = None
+            continue
+        if fence is None and line.startswith("Статус финализации:"):
+            statuses.append(line)
+    return statuses
+
+
+def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes: bool) -> bool:
+    """Разрешает ровно один top-level lifecycle-only status-marker RESULT."""
     return (
         not substantive_changes
         and PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path)) is not None
-        and line.strip() == PREMERGE_TERMINAL_FOLD_STATUS_LINE
+        and top_level_finalization_statuses(text) == [PREMERGE_TERMINAL_FOLD_STATUS_LINE]
     )
 
 
@@ -419,9 +437,10 @@ def scan_placeholders(paths: list[str]) -> list[str]:
         if not full_path.is_file():
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
+        terminal_fold_allowed = is_allowed_premerge_terminal_fold(path, text, substantive_changes)
         for line in text.splitlines():
             stripped = line.strip()
-            if is_allowed_premerge_terminal_fold(path, line, substantive_changes):
+            if terminal_fold_allowed and line == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
                 continue
             # Строки ниже описывают саму validation-схему, а не незаполненные значения.
             if "placeholder" in stripped.lower() and any(token in stripped for token in ("<sha>", "<url>", "<timestamp>", "<TBD>")):
@@ -434,15 +453,20 @@ def scan_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
-def deferred_finalization_reason(path: str, line: str, substantive_changes: bool = False) -> str | None:
+def deferred_finalization_reason(
+    path: str,
+    line: str,
+    substantive_changes: bool = False,
+    terminal_fold_allowed: bool = False,
+) -> str | None:
     """Возвращает безопасную категорию незавершённого маркера без текста строки."""
     normalized_path = normalize_path(path)
     stripped = line.strip()
     allowed_context = PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE.fullmatch(normalized_path) is not None
 
-    # Точный terminal fold разрешён только lifecycle-only RESULT без substantive paths.
+    # Точный terminal fold разрешён только как единственный top-level status RESULT.
     if stripped == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
-        if is_allowed_premerge_terminal_fold(path, line, substantive_changes):
+        if terminal_fold_allowed and line == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
             return None
         return "DEFERRED_FINALIZATION_TERMINAL_FOLD_SUBSTANTIVE" if substantive_changes else "DEFERRED_FINALIZATION_TERMINAL_FOLD_CONTEXT_INVALID"
     if PREMERGE_TERMINAL_FOLD_VALUE in stripped or "terminal-fold accepted pending" in stripped:
@@ -469,12 +493,17 @@ def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
         if not full_path.is_file():
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
+        terminal_fold_allowed = is_allowed_premerge_terminal_fold(path, text, substantive_changes)
         for line in text.splitlines():
-            if deferred_finalization_reason(path, line, substantive_changes) is not None:
+            if deferred_finalization_reason(
+                path,
+                line,
+                substantive_changes,
+                terminal_fold_allowed=terminal_fold_allowed,
+            ) is not None:
                 flagged.append(path)
                 break
     return sorted(set(flagged))
-
 
 def validate_superseded_banner_text(path: str, text: str) -> list[str]:
     normalized = normalize_path(path)

@@ -65,7 +65,7 @@ PR #381, sequence 0178, release PR, tag, GitHub Release, sync и Issues #369/#37
 
 ## Изменения после review
 
-На момент первичной реализации отсутствуют; результаты automated review фиксируются append-only в RESULT.
+Automated review PR #383 выявил два P1: неоднозначный document-level status и отсутствие Source-reminder в Передаче. Исправлено требование единственного top-level поля вне fenced/indented примеров; Source-reminder повторён в Передаче.
 
 ## Передача
 

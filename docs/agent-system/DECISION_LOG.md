@@ -1036,6 +1036,7 @@ Exact field, exact value, exact RESULT context и отсутствие substanti
 
 Последствия:
 - lifecycle-only closure может пройти readiness до human merge собственного PR;
+- marker обязан быть единственным top-level status вне fenced/indented примеров;
 - substantive terminal fold и любые неканонические pending-marker блокируются;
 - PR URL, accounting, secrets и остальные gates проверяются независимо;
 - downstream Source-снапшоты требуют обновления после принятия изменения.
