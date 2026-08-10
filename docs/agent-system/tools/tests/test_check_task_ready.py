@@ -32,6 +32,15 @@ class CheckTaskReadyTests(unittest.TestCase):
             with mock.patch.object(ready, "ROOT", root):
                 return ready.scan_deferred_finalization_placeholders([path])
 
+    def placeholder_paths(self, path, text):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / path
+            target.parent.mkdir(parents=True)
+            target.write_text(text, encoding="utf-8")
+            with mock.patch.object(ready, "ROOT", root):
+                return ready.scan_placeholders([path])
+
     def safety_scan_blockers(self, path, text):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -59,6 +68,21 @@ class CheckTaskReadyTests(unittest.TestCase):
             "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID",
             self.deferred_reason(self.rationale_path, line),
         )
+
+    def test_exact_premerge_terminal_fold_is_accepted_only_in_result_context(self):
+        value = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        for line in (value, f"Статус финализации: {value}"):
+            with self.subTest(line=line):
+                self.assertIsNone(self.deferred_reason(self.result_path, line))
+                self.assertEqual([], self.scanned_paths(self.result_path, line + "\n"))
+                self.assertEqual([], self.placeholder_paths(self.result_path, line + "\n"))
+        self.assertEqual("DEFERRED_FINALIZATION_MARKER", self.deferred_reason(self.task_path, value))
+
+    def test_modified_premerge_terminal_fold_remains_blocking(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge; extra"
+        self.assertEqual("DEFERRED_FINALIZATION_MARKER", self.deferred_reason(self.result_path, line))
+        report = self.safety_scan_blockers(self.result_path, line + "\n")
+        self.assertEqual([self.result_path], report.deferred_finalization_placeholders)
 
     def test_ordinary_pending_marker_remains_blocking(self):
         line = "pending"
