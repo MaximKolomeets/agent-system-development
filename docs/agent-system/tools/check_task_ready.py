@@ -408,19 +408,22 @@ def top_level_finalization_statuses(text: str) -> list[str]:
     fence_char: str | None = None
     fence_length = 0
     for line in text.splitlines():
-        stripped = line.strip()
         fence_match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
         if fence_match is not None:
             marker, tail = fence_match.groups()
             if fence_char is None:
-                fence_char = marker[0]
-                fence_length = len(marker)
-            elif marker[0] == fence_char and len(marker) >= fence_length and not tail.strip():
+                # Backtick в info string запрещает открытие fence по CommonMark.
+                if marker[0] != "`" or "`" not in tail:
+                    fence_char = marker[0]
+                    fence_length = len(marker)
+            elif marker[0] == fence_char and len(marker) >= fence_length and re.fullmatch(r" *", tail):
                 fence_char = None
                 fence_length = 0
             continue
-        if fence_char is None and line.startswith("Статус финализации:"):
-            statuses.append(line)
+        if fence_char is None:
+            status_match = re.match(r"^ {0,3}(Статус финализации:.*)$", line)
+            if status_match is not None:
+                statuses.append(status_match.group(1))
     return statuses
 
 
