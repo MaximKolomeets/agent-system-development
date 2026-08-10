@@ -409,6 +409,7 @@ def top_level_finalization_statuses(text: str) -> list[str]:
     fence_length = 0
     html_end_re: re.Pattern[str] | None = None
     html_until_blank = False
+    paragraph_open = False
     block_tags = (
         "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|"
         "dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|"
@@ -417,8 +418,12 @@ def top_level_finalization_statuses(text: str) -> list[str]:
         "table|tbody|td|tfoot|th|thead|title|tr|track|ul"
     )
     block_tag_re = re.compile(rf"^ {0,3}</?(?:{block_tags})(?:\s|/?>|$)", re.IGNORECASE)
+    attribute_name = r"[A-Za-z_:][A-Za-z0-9_.:-]*"
+    attribute_value = r"(?:[^ \t\n\"'=<>`]+|'[^']*'|\"[^\"]*\")"
+    attributes = rf"(?:[ \t]+{attribute_name}(?:[ \t]*=[ \t]*{attribute_value})?)*"
     complete_tag_re = re.compile(
-        r"^ {0,3}</?[A-Za-z][A-Za-z0-9-]*(?:\s+[^<>]*)?/?>[ \t]*$"
+        rf"^ {{0,3}}(?:<[A-Za-z][A-Za-z0-9-]*{attributes}[ \t]*/?>|"
+        rf"</[A-Za-z][A-Za-z0-9-]*[ \t]*>)[ \t]*$"
     )
 
     for line in text.splitlines():
@@ -427,8 +432,9 @@ def top_level_finalization_statuses(text: str) -> list[str]:
                 html_end_re = None
             continue
         if html_until_blank:
-            if not line.strip():
+            if re.fullmatch(r"[ \t]*", line):
                 html_until_blank = False
+                paragraph_open = False
             continue
 
         fence_match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
@@ -445,6 +451,7 @@ def top_level_finalization_statuses(text: str) -> list[str]:
             if marker[0] != "`" or "`" not in tail:
                 fence_char = marker[0]
                 fence_length = len(marker)
+                paragraph_open = False
                 continue
 
         probe = re.sub(r"^ {0,3}", "", line, count=1)
@@ -460,21 +467,24 @@ def top_level_finalization_statuses(text: str) -> list[str]:
         else:
             raw_tag = re.match(r"^<(script|pre|style|textarea)(?:\s|>|$)", probe, re.IGNORECASE)
             if raw_tag is not None:
-                html_start = (rf"</{re.escape(raw_tag.group(1))}\s*>", "regex-ignorecase")
+                html_start = (rf"</{re.escape(raw_tag.group(1))}>", "regex-ignorecase")
         if html_start is not None:
             terminator, kind = html_start
             flags = re.IGNORECASE if kind == "regex-ignorecase" else 0
             pattern = re.compile(re.escape(terminator) if kind == "literal" else terminator, flags)
             if pattern.search(probe[1:]) is None:
                 html_end_re = pattern
+            paragraph_open = False
             continue
-        if block_tag_re.match(line) or complete_tag_re.match(line):
+        if block_tag_re.match(line) or (not paragraph_open and complete_tag_re.match(line)):
             html_until_blank = True
+            paragraph_open = False
             continue
 
         status_match = re.match(r"^ {0,3}(Статус финализации:.*)$", line)
         if status_match is not None:
             statuses.append(status_match.group(1))
+        paragraph_open = bool(line.strip())
     return statuses
 
 def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes: bool) -> bool:
