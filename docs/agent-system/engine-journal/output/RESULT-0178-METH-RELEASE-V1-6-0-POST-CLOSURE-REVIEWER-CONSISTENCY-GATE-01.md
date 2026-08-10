@@ -173,7 +173,7 @@ Negative evidence: normal mode сохраняет MAIN_NOT_AT_LAST_RELEASE_TAG; 
 
 - P1: удалены четыре управляющих байта; восстановлены точные идентификаторы `v1.5.5`, `f80e148f9e4ba965e701d1e06faa79d517b646cf`, `a554a71060b700b3b27a980160fbdb2ba2788b40` и `v1.6.0`.
 - P2: верхний status-marker и INDEX используют точный канонический pre-merge terminal fold.
-- Подтверждённый defect readiness устранён узким exact allowlist только для RESULT-контекста; произвольный либо дополненный текст с `pending` остаётся blocker.
+- Подтверждённый defect readiness устранён узким exact allowlist только для RESULT-контекста; произвольный либо дополненный маркер незавершённости остаётся blocker.
 - Локальный full readiness usage остаётся `3/3`; четвёртый запуск не выполнялся. Финальное подтверждение выполняет exact-HEAD CI.
 
 ## Lifecycle / anti-recursion proof
