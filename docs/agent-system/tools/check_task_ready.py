@@ -409,7 +409,7 @@ def top_level_finalization_statuses(text: str) -> list[str]:
     fence_length = 0
     for line in text.splitlines():
         stripped = line.strip()
-        fence_match = re.match(r"^(`{3,}|~{3,})(.*)$", stripped)
+        fence_match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
         if fence_match is not None:
             marker, tail = fence_match.groups()
             if fence_char is None:

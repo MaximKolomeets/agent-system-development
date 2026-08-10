@@ -135,6 +135,15 @@ class CheckTaskReadyTests(unittest.TestCase):
         self.assertEqual([], ready.top_level_finalization_statuses(text))
         self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
         self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+
+    def test_indented_pseudo_fence_does_not_hide_conflicting_status(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        conflict = "Статус финализации: ready_for_human_review"
+        text = f"{line}\n    {chr(96) * 4}markdown\n{conflict}\n"
+        self.assertEqual([line, conflict], ready.top_level_finalization_statuses(text))
+        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
         source_path = "docs/agent-system/tools/check_task_ready.py"
