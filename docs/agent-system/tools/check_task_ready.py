@@ -405,17 +405,21 @@ def scan_added_secret_values(base: str) -> list[str]:
 def top_level_finalization_statuses(text: str) -> list[str]:
     """Возвращает только top-level status-marker вне fenced примеров."""
     statuses: list[str] = []
-    fence: str | None = None
+    fence_char: str | None = None
+    fence_length = 0
     for line in text.splitlines():
         stripped = line.strip()
-        marker = next((candidate for candidate in (chr(96) * 3, "~~~") if stripped.startswith(candidate)), None)
-        if marker is not None:
-            if fence is None:
-                fence = marker
-            elif fence == marker:
-                fence = None
+        fence_match = re.match(r"^(`{3,}|~{3,})(.*)$", stripped)
+        if fence_match is not None:
+            marker, tail = fence_match.groups()
+            if fence_char is None:
+                fence_char = marker[0]
+                fence_length = len(marker)
+            elif marker[0] == fence_char and len(marker) >= fence_length and not tail.strip():
+                fence_char = None
+                fence_length = 0
             continue
-        if fence is None and line.startswith("Статус финализации:"):
+        if fence_char is None and line.startswith("Статус финализации:"):
             statuses.append(line)
     return statuses
 

@@ -124,6 +124,17 @@ class CheckTaskReadyTests(unittest.TestCase):
             f"{line}\n"
         )
         self.assertEqual([line], ready.top_level_finalization_statuses(text))
+
+    def test_premerge_terminal_fold_inside_nested_fence_is_blocking(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        text = (
+            f"{chr(96) * 4}markdown\n"
+            f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n"
+            f"{chr(96) * 4}\n"
+        )
+        self.assertEqual([], ready.top_level_finalization_statuses(text))
+        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
         source_path = "docs/agent-system/tools/check_task_ready.py"
