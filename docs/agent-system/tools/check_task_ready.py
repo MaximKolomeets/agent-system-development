@@ -402,99 +402,40 @@ def scan_added_secret_values(base: str) -> list[str]:
     return sorted(flagged)
 
 
-def top_level_finalization_statuses(text: str) -> list[str]:
-    """Возвращает document-level status-marker вне Markdown code/HTML blocks."""
+def result_finalization_statuses(text: str) -> list[str]:
+    """Возвращает все marker-shaped строки статуса без Markdown-исключений."""
     statuses: list[str] = []
-    fence_char: str | None = None
-    fence_length = 0
-    html_end_re: re.Pattern[str] | None = None
-    html_until_blank = False
-    paragraph_open = False
-    block_tags = (
-        "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|"
-        "dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|"
-        "frameset|h1|h2|h3|h4|h5|h6|head|header|hr|html|iframe|legend|li|link|main|"
-        "menu|menuitem|nav|noframes|ol|optgroup|option|p|param|search|section|summary|"
-        "table|tbody|td|tfoot|th|thead|title|tr|track|ul"
-    )
-    block_tag_re = re.compile(rf"^ {0,3}</?(?:{block_tags})(?:\s|/?>|$)", re.IGNORECASE)
-    attribute_name = r"[A-Za-z_:][A-Za-z0-9_.:-]*"
-    attribute_value = r"(?:[^ \t\n\"'=<>`]+|'[^']*'|\"[^\"]*\")"
-    attributes = rf"(?:[ \t]+{attribute_name}(?:[ \t]*=[ \t]*{attribute_value})?)*"
-    complete_tag_re = re.compile(
-        rf"^ {{0,3}}(?:<[A-Za-z][A-Za-z0-9-]*{attributes}[ \t]*/?>|"
-        rf"</[A-Za-z][A-Za-z0-9-]*[ \t]*>)[ \t]*$"
-    )
-
     for line in text.splitlines():
-        if html_end_re is not None:
-            if html_end_re.search(line):
-                html_end_re = None
-            continue
-        if html_until_blank:
-            if re.fullmatch(r"[ \t]*", line):
-                html_until_blank = False
-                paragraph_open = False
-            continue
-
-        fence_match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
-        if fence_char is not None:
-            if fence_match is not None:
-                marker, tail = fence_match.groups()
-                if marker[0] == fence_char and len(marker) >= fence_length and re.fullmatch(r"[ \t]*", tail):
-                    fence_char = None
-                    fence_length = 0
-            continue
-        if fence_match is not None:
-            marker, tail = fence_match.groups()
-            # Backtick в info string запрещает открытие fence по CommonMark.
-            if marker[0] != "`" or "`" not in tail:
-                fence_char = marker[0]
-                fence_length = len(marker)
-                paragraph_open = False
-                continue
-
-        probe = re.sub(r"^ {0,3}", "", line, count=1)
-        html_start: tuple[str, str] | None = None
-        if probe.startswith("<!--"):
-            html_start = ("-->", "literal")
-        elif probe.startswith("<?"):
-            html_start = (r"\?>", "regex")
-        elif probe.startswith("<![CDATA["):
-            html_start = (r"\]\]>", "regex")
-        elif re.match(r"^<![A-Z]", probe):
-            html_start = (">", "literal")
-        else:
-            raw_tag = re.match(r"^<(script|pre|style|textarea)(?:\s|>|$)", probe, re.IGNORECASE)
-            if raw_tag is not None:
-                html_start = (rf"</{re.escape(raw_tag.group(1))}>", "regex-ignorecase")
-        if html_start is not None:
-            terminator, kind = html_start
-            flags = re.IGNORECASE if kind == "regex-ignorecase" else 0
-            pattern = re.compile(re.escape(terminator) if kind == "literal" else terminator, flags)
-            if pattern.search(probe[1:]) is None:
-                html_end_re = pattern
-            paragraph_open = False
-            continue
-        if block_tag_re.match(line) or (not paragraph_open and complete_tag_re.match(line)):
-            html_until_blank = True
-            paragraph_open = False
-            continue
-
-        status_match = re.match(r"^ {0,3}(Статус финализации:.*)$", line)
-        if status_match is not None:
-            statuses.append(status_match.group(1))
-        paragraph_open = bool(line.strip())
+        match = re.match(r"^[ \t]*(Статус финализации:.*)$", line)
+        if match is not None:
+            statuses.append(match.group(1))
     return statuses
 
+
+def canonical_result_header_status(text: str) -> str | None:
+    """Возвращает status только из канонического пятистрочного RESULT-header."""
+    lines = text.splitlines()
+    if len(lines) < 5 or lines[1] != "":
+        return None
+    title_match = re.fullmatch(r"# RESULT-(\d{4})-([A-Z0-9-]+)", lines[0])
+    task_match = re.fullmatch(r"Идентификатор задачи: ([A-Z0-9-]+)", lines[2])
+    sequence_match = re.fullmatch(r"Номер sequence: (\d{4})", lines[3])
+    status_match = re.fullmatch(r"Статус финализации: (.+)", lines[4])
+    if title_match is None or task_match is None or sequence_match is None or status_match is None:
+        return None
+    if title_match.group(1) != sequence_match.group(1) or title_match.group(2) != task_match.group(1):
+        return None
+    return lines[4]
+
+
 def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes: bool) -> bool:
-    """Разрешает ровно один top-level lifecycle-only status-marker RESULT."""
+    """Разрешает только единственный terminal fold в каноническом RESULT-header."""
     return (
         not substantive_changes
         and PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path)) is not None
-        and top_level_finalization_statuses(text) == [PREMERGE_TERMINAL_FOLD_STATUS_LINE]
+        and canonical_result_header_status(text) == PREMERGE_TERMINAL_FOLD_STATUS_LINE
+        and result_finalization_statuses(text) == [PREMERGE_TERMINAL_FOLD_STATUS_LINE]
     )
-
 
 def scan_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []

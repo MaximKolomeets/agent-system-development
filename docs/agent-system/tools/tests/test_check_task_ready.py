@@ -77,17 +77,23 @@ class CheckTaskReadyTests(unittest.TestCase):
             self.deferred_reason(self.rationale_path, line),
         )
 
-    def test_exact_premerge_terminal_fold_requires_lifecycle_only_result_status(self):
+    def terminal_fold_document(self, extra=""):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        self.assertIsNone(
-            ready.deferred_finalization_reason(
-                self.result_path,
-                line,
-                terminal_fold_allowed=True,
-            )
+        return (
+            "# RESULT-0176-METH-TEST-01\n\n"
+            "Идентификатор задачи: METH-TEST-01\n"
+            "Номер sequence: 0176\n"
+            f"{line}\n{extra}"
         )
-        self.assertEqual([], self.scanned_paths(self.result_path, line + "\n"))
-        self.assertEqual([], self.placeholder_paths(self.result_path, line + "\n"))
+
+    def test_exact_premerge_terminal_fold_requires_canonical_result_header(self):
+        text = self.terminal_fold_document()
+        self.assertEqual([], self.scanned_paths(self.result_path, text))
+        self.assertEqual([], self.placeholder_paths(self.result_path, text))
+        self.assertEqual(
+            ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE,
+            ready.canonical_result_header_status(text),
+        )
 
     def test_premerge_terminal_fold_wrong_context_or_shape_is_blocking(self):
         value = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
@@ -103,118 +109,48 @@ class CheckTaskReadyTests(unittest.TestCase):
                 self.assertEqual(reason, self.deferred_reason(path, line))
                 self.assertEqual([path], self.scanned_paths(path, line + "\n"))
 
-    def test_premerge_terminal_fold_must_be_unique_top_level_field(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+    def test_terminal_fold_outside_canonical_header_is_always_blocking(self):
+        line = ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE
         cases = (
+            line + "\n",
             f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n",
-            f"    {line}\n",
-            f"{line}\n{line}\n",
-            f"{line}\nСтатус финализации: ready_for_human_review\n",
-        )
-        for text in cases:
-            with self.subTest(text=text):
-                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_top_level_status_parser_ignores_fenced_and_indented_examples(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = (
-            f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n"
-            f"    {line}\n"
-            f"{line}\n"
-        )
-        self.assertEqual([line], ready.top_level_finalization_statuses(text))
-
-    def test_premerge_terminal_fold_inside_nested_fence_is_blocking(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = (
-            f"{chr(96) * 4}markdown\n"
-            f"{chr(96) * 3}text\n{line}\n{chr(96) * 3}\n"
-            f"{chr(96) * 4}\n"
-        )
-        self.assertEqual([], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_indented_pseudo_fence_does_not_hide_conflicting_status(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        conflict = "Статус финализации: ready_for_human_review"
-        text = f"{line}\n    {chr(96) * 4}markdown\n{conflict}\n"
-        self.assertEqual([line, conflict], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_backtick_in_info_string_does_not_open_fence(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        conflict = "Статус финализации: ready_for_human_review"
-        text = f"{line}\n{chr(96) * 3}bad{chr(96)}info\n{conflict}\n"
-        self.assertEqual([line, conflict], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_status_with_one_to_three_spaces_remains_top_level(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        conflict = "Статус финализации: ready_for_human_review"
-        for indent in (1, 2, 3):
-            text = f"{line}\n{' ' * indent}{conflict}\n"
-            with self.subTest(indent=indent):
-                self.assertEqual([line, conflict], ready.top_level_finalization_statuses(text))
-                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_unicode_whitespace_does_not_close_fence(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = f"{chr(96) * 3}markdown\n{chr(96) * 3}\u00a0\n{line}\n{chr(96) * 3}\n"
-        self.assertEqual([], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-    def test_status_inside_html_comment_or_raw_block_is_blocking(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        cases = (
             f"<!--\n{line}\n-->\n",
-            f"<script>\n{line}\n</script>\n",
-            f"<div>\n{line}\n\n",
+            f"- пример\n{line}\n",
+            f"> пример\n{line}\n",
+            f"    {line}\n",
+            f"<x data=\">\">\n{line}\n\n",
         )
         for text in cases:
             with self.subTest(text=text):
-                self.assertEqual([], ready.top_level_finalization_statuses(text))
                 self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
                 self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
 
-    def test_tab_after_closing_fence_preserves_real_top_level_status(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = f"{chr(96) * 3}markdown\nпример\n{chr(96) * 3}\t\n{line}\n"
-        self.assertEqual([line], ready.top_level_finalization_statuses(text))
-        self.assertEqual([], self.scanned_paths(self.result_path, text))
-        self.assertEqual([], self.placeholder_paths(self.result_path, text))
-    def test_nbsp_does_not_end_html_block(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = f"<div>\n\u00a0\n{line}\n\n"
-        self.assertEqual([], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+    def test_additional_marker_anywhere_blocks_canonical_header(self):
+        conflicts = (
+            "Статус финализации: ready_for_human_review\n",
+            f"{chr(96) * 3}\n{ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE}\n{chr(96) * 3}\n",
+            f"<!--\n{ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE}\n-->\n",
+            f"- пример\n{ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE}\n",
+        )
+        for extra in conflicts:
+            text = self.terminal_fold_document(extra)
+            with self.subTest(extra=extra):
+                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
 
-    def test_generic_html_tag_accepts_quoted_greater_than(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = f"<x data=\">\">\n{line}\n\n"
-        self.assertEqual([], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_raw_html_closes_only_on_exact_tag(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        text = f"<script>\n</script >\n{line}\n</script>\n"
-        self.assertEqual([], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
-
-    def test_type_seven_html_does_not_interrupt_open_paragraph(self):
-        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
-        conflict = "Статус финализации: ready_for_human_review"
-        text = f"{line}\n<x-tag>\n{conflict}\n"
-        self.assertEqual([line, conflict], ready.top_level_finalization_statuses(text))
-        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
-        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+    def test_malformed_or_mismatched_result_header_is_blocking(self):
+        valid = self.terminal_fold_document()
+        cases = (
+            valid.replace("Номер sequence: 0176", "Номер sequence: 0177"),
+            valid.replace("Идентификатор задачи: METH-TEST-01", "Идентификатор задачи: METH-OTHER-01"),
+            valid.replace("\n\nИдентификатор", "\nИдентификатор"),
+            valid.replace("Статус финализации:", " Статус финализации:"),
+        )
+        for text in cases:
+            with self.subTest(text=text):
+                self.assertIsNone(ready.canonical_result_header_status(text))
+                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
         source_path = "docs/agent-system/tools/check_task_ready.py"
