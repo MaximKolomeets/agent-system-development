@@ -509,7 +509,7 @@ terminal-fold accepted pending own PR merge; PR URL authoritative after merge
 
 Production readiness принимает эту формулировку только как точное значение обязательного поля `Статус финализации` в `RESULT-*` и только когда весь changed scope является lifecycle-only: journal, generated cloud mirrors и `PROJECT_FILE_MAP.md`. Любой иной файл означает substantive scope и блокирует marker кодом `DEFERRED_FINALIZATION_TERMINAL_FOLD_SUBSTANTIVE`. Неверный файл/поле, substring, добавка, опечатка либо иное значение с `pending` блокируются; общий allowlist слова `pending` запрещён. PR URL, обязательные RESULT-разделы, execution/accounting и остальные safety gates проверяются независимо и не обходятся terminal fold.
 
-Допустимый marker должен находиться ровно в каноническом RESULT-header: строка заголовка `# RESULT-<sequence>-<TASK_ID>`, пустая строка, `Идентификатор задачи`, `Номер sequence`, затем `Статус финализации`. TASK_ID и sequence в header обязаны совпадать с заголовком. Любая дополнительная marker-shaped строка `Статус финализации` где-либо в RESULT, включая code/HTML/container examples, блокирует fail-closed; Markdown context не является основанием для исключения.
+Допустимый marker должен находиться ровно в каноническом RESULT-header: строка заголовка `# RESULT-<sequence>-<TASK_ID>`, пустая строка, `Идентификатор задачи`, `Номер sequence`, затем `Статус финализации`. TASK_ID и sequence в header обязаны совпадать с заголовком и именем `RESULT-<sequence>-<TASK_ID>.md`. Любое дополнительное raw-вхождение token `Статус финализации:` `Статус финализации` где-либо в RESULT, включая code/HTML/container examples, блокирует fail-closed; Markdown context не является основанием для исключения.
 
 ### GitHub merge facts authority
 

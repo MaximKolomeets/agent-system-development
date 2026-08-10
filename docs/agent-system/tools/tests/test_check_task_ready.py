@@ -92,7 +92,7 @@ class CheckTaskReadyTests(unittest.TestCase):
         self.assertEqual([], self.placeholder_paths(self.result_path, text))
         self.assertEqual(
             ready.PREMERGE_TERMINAL_FOLD_STATUS_LINE,
-            ready.canonical_result_header_status(text),
+            ready.canonical_result_header_status(self.result_path, text),
         )
 
     def test_premerge_terminal_fold_wrong_context_or_shape_is_blocking(self):
@@ -117,6 +117,8 @@ class CheckTaskReadyTests(unittest.TestCase):
             f"<!--\n{line}\n-->\n",
             f"- пример\n{line}\n",
             f"> пример\n{line}\n",
+            f"> {line}\n",
+            f"- {line}\n",
             f"    {line}\n",
             f"<x data=\">\">\n{line}\n\n",
         )
@@ -138,6 +140,14 @@ class CheckTaskReadyTests(unittest.TestCase):
                 self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
                 self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
 
+    def test_result_header_identity_must_match_filename(self):
+        text = self.terminal_fold_document().replace(
+            "# RESULT-0176-METH-TEST-01\n\nИдентификатор задачи: METH-TEST-01\nНомер sequence: 0176",
+            "# RESULT-0999-METH-OTHER-01\n\nИдентификатор задачи: METH-OTHER-01\nНомер sequence: 0999",
+        )
+        self.assertIsNone(ready.canonical_result_header_status(self.result_path, text))
+        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
     def test_malformed_or_mismatched_result_header_is_blocking(self):
         valid = self.terminal_fold_document()
         cases = (
@@ -148,7 +158,7 @@ class CheckTaskReadyTests(unittest.TestCase):
         )
         for text in cases:
             with self.subTest(text=text):
-                self.assertIsNone(ready.canonical_result_header_status(text))
+                self.assertIsNone(ready.canonical_result_header_status(self.result_path, text))
                 self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
                 self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):

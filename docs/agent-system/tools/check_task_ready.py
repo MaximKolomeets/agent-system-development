@@ -403,17 +403,18 @@ def scan_added_secret_values(base: str) -> list[str]:
 
 
 def result_finalization_statuses(text: str) -> list[str]:
-    """Возвращает все marker-shaped строки статуса без Markdown-исключений."""
+    """Возвращает каждое raw-вхождение поля статуса без Markdown-исключений."""
     statuses: list[str] = []
+    marker_label = "Статус финализации:"
     for line in text.splitlines():
-        match = re.match(r"^[ \t]*(Статус финализации:.*)$", line)
-        if match is not None:
-            statuses.append(match.group(1))
+        offset = line.find(marker_label)
+        if offset >= 0:
+            statuses.append(line[offset:])
     return statuses
 
 
-def canonical_result_header_status(text: str) -> str | None:
-    """Возвращает status только из канонического пятистрочного RESULT-header."""
+def canonical_result_header_status(path: str, text: str) -> str | None:
+    """Возвращает status из RESULT-header, совпадающего с filename identity."""
     lines = text.splitlines()
     if len(lines) < 5 or lines[1] != "":
         return None
@@ -421,9 +422,15 @@ def canonical_result_header_status(text: str) -> str | None:
     task_match = re.fullmatch(r"Идентификатор задачи: ([A-Z0-9-]+)", lines[2])
     sequence_match = re.fullmatch(r"Номер sequence: (\d{4})", lines[3])
     status_match = re.fullmatch(r"Статус финализации: (.+)", lines[4])
-    if title_match is None or task_match is None or sequence_match is None or status_match is None:
+    filename_match = re.fullmatch(r"RESULT-(\d{4})-([A-Z0-9-]+)\.md", Path(normalize_path(path)).name)
+    if any(match is None for match in (title_match, task_match, sequence_match, status_match, filename_match)):
         return None
-    if title_match.group(1) != sequence_match.group(1) or title_match.group(2) != task_match.group(1):
+    identities = (
+        title_match.groups(),
+        (sequence_match.group(1), task_match.group(1)),
+        filename_match.groups(),
+    )
+    if len(set(identities)) != 1:
         return None
     return lines[4]
 
@@ -433,7 +440,7 @@ def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes:
     return (
         not substantive_changes
         and PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path)) is not None
-        and canonical_result_header_status(text) == PREMERGE_TERMINAL_FOLD_STATUS_LINE
+        and canonical_result_header_status(path, text) == PREMERGE_TERMINAL_FOLD_STATUS_LINE
         and result_finalization_statuses(text) == [PREMERGE_TERMINAL_FOLD_STATUS_LINE]
     )
 

@@ -58,7 +58,7 @@ status-marker в RESULT-файле и только для lifecycle-only changed
 TASK/RATIONALE, substring, добавка, опечатка или иное значение с pending
 остаются blocker. Это исключение не отменяет проверки PR URL, обязательных
 RESULT-разделов, accounting, secrets, forbidden paths и других gates.
-Marker принимается только в каноническом RESULT-header: `# RESULT-<sequence>-<TASK_ID>`, пустая строка, `Идентификатор задачи`, `Номер sequence`, затем `Статус финализации`, с совпадающими TASK_ID/sequence. Любая дополнительная marker-shaped строка `Статус финализации` где-либо в RESULT, включая code/HTML/container examples, блокируется fail-closed; Markdown context не создаёт исключение.
+Marker принимается только в каноническом RESULT-header: `# RESULT-<sequence>-<TASK_ID>`, пустая строка, `Идентификатор задачи`, `Номер sequence`, затем `Статус финализации`, с совпадающими TASK_ID/sequence в header и имени RESULT-файла. Любое дополнительное raw-вхождение token `Статус финализации:` `Статус финализации` где-либо в RESULT, включая code/HTML/container examples, блокируется fail-closed; Markdown context не создаёт исключение.
 
 ## Где запрещено
 
