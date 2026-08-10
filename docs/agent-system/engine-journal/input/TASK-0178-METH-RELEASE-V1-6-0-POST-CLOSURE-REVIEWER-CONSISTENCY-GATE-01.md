@@ -47,6 +47,8 @@ task_contract:
       - docs/agent-system/engine-journal/input/TASK-0178-METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01.md
       - docs/agent-system/engine-journal/rationale/RATIONALE-0178-METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01.md
       - docs/agent-system/engine-journal/output/RESULT-0178-METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01.md
+      - docs/agent-system/tools/check_task_ready.py
+      - docs/agent-system/tools/tests/test_check_task_ready.py
       - docs/agent-system/CURRENT_STATE.md
       - docs/agent-system/NEXT_STEPS.md
       - docs/agent-system/RELEASE_READINESS.md

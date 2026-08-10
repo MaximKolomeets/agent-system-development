@@ -2,13 +2,13 @@
 
 Идентификатор задачи: METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01
 Номер sequence: 0178
-Статус финализации: terminal-fold accepted; PR URL authoritative after merge; not release/reviewer blocker
+Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge
 Issue: https://github.com/MaximKolomeets/agent-system-development/issues/380
 PR: https://github.com/MaximKolomeets/agent-system-development/pull/381
 execution_started_at: 2026-08-10T07:39:47.2714456+02:00
-execution_finished_at: 2026-08-10T08:39:45.3996508+02:00
-execution_duration: PT0H59M58S
-time_spent: 1h 0m
+execution_finished_at: 2026-08-10T09:09:40.7882495+02:00
+execution_duration: PT1H29M54S
+time_spent: 1h 30m
 actor_type: agent
 role: methodology-reviewer
 time_source: measured
@@ -23,7 +23,7 @@ resource_cost: AI tokens: not_available; Human hours: not_applicable
 
 ## Результат
 
-Независимая post-closure reviewer consistency-gate проверила immutable candidate 9a23a8efebc9c41df13843a543afb73bd6bd6392 относительно origin/main 59e645944697eac565d121e97d2dfa2ff3e9d99b. Range содержит 55 commits и 33 changed-file records: A=16, M=17, R=0, D=0. Production release gate дополнительно проверил полный range от peeled 1.5.5 (80e148f9e4ba965e701d1e06faa79d517b646cf) до candidate: payload_count=79, payload_files_count=83.
+Независимая post-closure reviewer consistency-gate проверила immutable candidate 9a23a8efebc9c41df13843a543afb73bd6bd6392 относительно origin/main 59e645944697eac565d121e97d2dfa2ff3e9d99b. Range содержит 55 commits и 33 changed-file records: A=16, M=17, R=0, D=0. Production release gate дополнительно проверил полный range от peeled v1.5.5 (f80e148f9e4ba965e701d1e06faa79d517b646cf) до candidate: payload_count=79, payload_files_count=83.
 
 release_gate_verdict: PASS_PENDING_HUMAN_MERGE
 reviewer_consistency_gate: passed
@@ -36,9 +36,9 @@ contradictory_records: 0
 ## Prerequisites и topology
 
 - PR #379: MERGED, merged_at 2026-08-10T05:20:02Z, final head 1ecd7f584a3b4f1e22d1de0396b43928cf408c24, merge commit 9a23a8efebc9c41df13843a543afb73bd6bd6392, base developer.
-- PR #378: MERGED, merged_at 2026-08-09T12:21:25Z, final head d2c511de4b5ae486c34d4e59d11931f73aa963ca, merge commit 554a71060b700b3b27a980160fbdb2ba2788b40.
+- PR #378: MERGED, merged_at 2026-08-09T12:21:25Z, final head d2c511de4b5ae486c34d4e59d11931f73aa963ca, merge commit a554a71060b700b3b27a980160fbdb2ba2788b40.
 - main 59e645944697eac565d121e97d2dfa2ff3e9d99b; candidate developer 9a23a8efebc9c41df13843a543afb73bd6bd6392; ahead/behind 55/0; main является ancestor candidate.
-- Открытый release PR отсутствует; tag и GitHub Release 1.6.0 отсутствуют.
+- Открытый release PR отсутствует; tag и GitHub Release v1.6.0 отсутствуют.
 - Issue snapshot observed_at 2026-08-10T07:40:18.6174105+02:00, body SHA-256 2ff70d53e6b250d1db1f4bd25f6c3377a39d7da101a46a227604d58867f2a018.
 
 ## Semantic consistency evidence
@@ -166,11 +166,19 @@ Negative evidence: normal mode сохраняет MAIN_NOT_AT_LAST_RELEASE_TAG; 
 - Live provider после PR creation: availability=available; findings 0; ownership 0178 однозначен; allocator 0179.
 - Production release gate: passed; blockers 0; candidate 9a23a8efebc9c41df13843a543afb73bd6bd6392; governance recovery; canonical off-developer warning допустим, поскольку immutable candidate проверялся из task branch.
 - File-map/cloud parity, EOL, Russian-first, ID/reference, commit-language, forbidden-path, added-line secret и git diff --check: passed.
-- Canonical readiness: третий и последний разрешённый запуск `3/3`, `result: ready`, `blockers_count: 0`, `warnings_count: 0`, длительность 273.6 s. Дополнительный readiness-run не выполнялся.`r`n- Exact-HEAD CI фиксируется GitHub checks/terminal Issue evidence; commit не обязан содержать собственный SHA по self-reference rule.
+- Canonical readiness: третий и последний разрешённый запуск `3/3`, `result: ready`, `blockers_count: 0`, `warnings_count: 0`, длительность 273.6 s. Дополнительный readiness-run не выполнялся.
+- Exact-HEAD CI фиксируется GitHub checks/terminal Issue evidence; commit не обязан содержать собственный SHA по self-reference rule.
+
+## Review fix-pass 01
+
+- P1: удалены четыре управляющих байта; восстановлены точные идентификаторы `v1.5.5`, `f80e148f9e4ba965e701d1e06faa79d517b646cf`, `a554a71060b700b3b27a980160fbdb2ba2788b40` и `v1.6.0`.
+- P2: верхний status-marker и INDEX используют точный канонический pre-merge terminal fold.
+- Подтверждённый defect readiness устранён узким exact allowlist только для RESULT-контекста; произвольный либо дополненный текст с `pending` остаётся blocker.
+- Локальный full readiness usage остаётся `3/3`; четвёртый запуск не выполнялся. Финальное подтверждение выполняет exact-HEAD CI.
 
 ## Lifecycle / anti-recursion proof
 
-Sequence 0178 является lifecycle-only reviewer-gate trace и использует канонический status terminal-fold accepted; PR URL authoritative after merge; not release/reviewer blocker. По ENGINE_JOURNAL_CONTRACT.md → Accepted terminal fold GitHub PR URL является authority для own merge facts, а own merge facts не backfill-ятся рекурсивной closure-задачей. После human merge PR #381 отдельный repository-changing closure не создаётся; release manager читает merge state/final head из GitHub metadata, запускает release-policy gate и готовит release PR. Это прекращает цепочку «closure меняет payload → новый reviewer gate» без обхода release review.
+Sequence 0178 является lifecycle-only reviewer-gate trace и использует канонический pre-merge terminal fold; собственные merge facts становятся authoritative из GitHub metadata после human merge. По ENGINE_JOURNAL_CONTRACT.md → Accepted terminal fold GitHub PR URL является authority для own merge facts, а own merge facts не backfill-ятся рекурсивной closure-задачей. После human merge PR #381 отдельный repository-changing closure не создаётся; release manager читает merge state/final head из GitHub metadata, запускает release-policy gate и готовит release PR. Это прекращает цепочку «closure меняет payload → новый reviewer gate» без обхода release review.
 
 ## Residual risks
 
@@ -194,6 +202,8 @@ Sequence 0178 является lifecycle-only reviewer-gate trace и испол�
 | docs/agent-system/CURRENT_STATE.md | modified | current state |
 | docs/agent-system/NEXT_STEPS.md | modified | next action |
 | docs/agent-system/RELEASE_READINESS.md | modified | release evidence |
+| docs/agent-system/tools/check_task_ready.py | modified | exact allowlist canonical terminal fold |
+| docs/agent-system/tools/tests/test_check_task_ready.py | modified | positive/negative regression coverage |
 | docs/agent-system/cloud/00_README.md, 07_CURRENT_STATE.md, 08_ENGINE_JOURNAL_INDEX.md, 09_NEXT_STEPS.md | generated | cloud mirrors |
 
 Архитектору — загрузить в контекст оркестратора: 07_CURRENT_STATE.md (src: docs/agent-system/CURRENT_STATE.md), 08_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md), 09_NEXT_STEPS.md (src: docs/agent-system/NEXT_STEPS.md); asof: 2026-08-10T08:08:04.0194402+02:00; developer_head_sha: 9a23a8efebc9c41df13843a543afb73bd6bd6392.

@@ -99,6 +99,10 @@ PREMERGE_RELEASE_GATE_VERDICT_TOKEN_RE = re.compile(
 PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE = re.compile(
     r"^docs/agent-system/engine-journal/(?:input/TASK|output/RESULT)-.*\.md$"
 )
+PREMERGE_TERMINAL_FOLD_VALUE = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+PREMERGE_TERMINAL_FOLD_CONTEXT_RE = re.compile(
+    r"^docs/agent-system/engine-journal/output/RESULT-.*\.md$"
+)
 SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
 SUPERSEDED_TAG_RE = re.compile(
     r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
@@ -406,6 +410,15 @@ def scan_placeholders(paths: list[str]) -> list[str]:
         text = full_path.read_text(encoding="utf-8", errors="replace")
         for line in text.splitlines():
             stripped = line.strip()
+            allowed_terminal_fold_lines = {
+                PREMERGE_TERMINAL_FOLD_VALUE,
+                f"Статус финализации: {PREMERGE_TERMINAL_FOLD_VALUE}",
+            }
+            if (
+                PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path))
+                and stripped in allowed_terminal_fold_lines
+            ):
+                continue
             # Строки ниже описывают саму validation-схему, а не незаполненные значения.
             if "placeholder" in stripped.lower() and any(token in stripped for token in ("<sha>", "<url>", "<timestamp>", "<TBD>")):
                 continue
@@ -426,6 +439,17 @@ def deferred_finalization_reason(path: str, line: str) -> str | None:
     # Это единственное точное исключение: контрактный verdict не является обещанием
     # будущей финализации и допустим только как отдельное поле TASK/RESULT.
     if allowed_context and PREMERGE_RELEASE_GATE_VERDICT_RE.fullmatch(stripped):
+        return None
+    # Канонический terminal fold допустим только как точная строка или точное
+    # значение обязательного status-marker в RESULT.
+    allowed_terminal_fold_lines = {
+        PREMERGE_TERMINAL_FOLD_VALUE,
+        f"Статус финализации: {PREMERGE_TERMINAL_FOLD_VALUE}",
+    }
+    if (
+        PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalized_path)
+        and stripped in allowed_terminal_fold_lines
+    ):
         return None
     if PREMERGE_RELEASE_GATE_VERDICT_FIELD_RE.match(stripped):
         return "DEFERRED_FINALIZATION_PREMERGE_VERDICT_INVALID"

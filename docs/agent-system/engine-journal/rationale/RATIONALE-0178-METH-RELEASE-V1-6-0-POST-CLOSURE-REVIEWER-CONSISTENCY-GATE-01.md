@@ -61,7 +61,7 @@ Candidate ancestry и provider snapshot проверены live. Confidence high
 
 ## Изменения после review
 
-Нет; scoped fix-pass будет отражён append-only в RESULT.
+После automated review удалены управляющие байты из release evidence и применён точный канонический pre-merge terminal fold. Подтверждён дефект readiness: каноническое значение ошибочно считалось deferred marker. Исправление разрешает только точное значение в RESULT-контексте; изменённые и произвольные варианты остаются блокирующими.
 
 ## Передача
 
