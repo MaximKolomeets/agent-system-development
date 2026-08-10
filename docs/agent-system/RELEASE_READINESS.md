@@ -29,10 +29,7 @@
 - Governance-recovery gates: PR #378 merged в `developer`, merge commit
   `a554a71060b700b3b27a980160fbdb2ba2788b40`; sequence 0177 закрыта после
   merge, reservation consumed, snapshot-bound recovery evidence завершено.
-- Следующий release action: первый этап полного final release pass — новая
-  journaled reviewer consistency-gate на точном актуальном payload; immutable
-  gate 0175 повторно не используется. Только после её human merge и closure
-  выполняется release-policy gate и готовится отдельный PR `developer -> main`.
+- Следующий release action: sequence 0178 / PR #381 выполняет journaled reviewer consistency-gate на immutable candidate `9a23a8efebc9c41df13843a543afb73bd6bd6392`; immutable gate 0175 повторно не используется. Только после human merge PR #381 выполняется release-policy gate и готовится отдельный PR `developer -> main`; новый repository-changing closure reviewer evidence не создаётся.
   Release merge, tag `v1.6.0`, GitHub Release и sync ещё не выполнялись.
 
 ## Release Facts
@@ -107,11 +104,11 @@ Rollback не выполняется автоматически: release payload
 `developer`, file delta исторического sync пуст, а tag отсутствует. `v1.6.0`
 не считать published release. Human UAT PASS, full-payload reviewer gate,
 policy fix и governance-recovery evidence sequences 0174–0177 завершены.
-Следующий шаг — новая journaled reviewer consistency-gate на точном актуальном payload как первый этап полного final release pass; release merge, tag, GitHub Release и
+Следующий шаг — human review/merge PR #381 с reviewer consistency evidence sequence 0178; затем release-policy gate. Release merge, tag, GitHub Release и
 sync остаются невыполненными human-only действиями.
 
 ## Передача
 
-Следующий: release manager — начать полный final release pass с новой journaled reviewer consistency-gate на точном актуальном payload; после её human merge и closure подготовить
+Следующий: human reviewer — проверить и merge PR #381; затем release manager выполняет release-policy gate и готовит
 release PR `developer -> main`; merge, tag `v1.6.0`, GitHub Release и sync не
 выполнять до отдельных human-authorized циклов.
