@@ -2,6 +2,8 @@
 
 Идентификатор задачи: METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01
 Номер sequence: 0177
+Статус финализации: merged; RESULT closed after merge
+Исторический pre-merge marker (append-only evidence):
 Статус финализации: ready_for_human_review
 Issue: https://github.com/MaximKolomeets/agent-system-development/issues/376
 Implementation PR: https://github.com/MaximKolomeets/agent-system-development/pull/378
@@ -102,3 +104,54 @@ Release evidence следует всегда читать из immutable candida
 ## Передача
 
 Следующий: human reviewer — проверить P1 fix-pass PR #378 и выполнить human merge в `developer` только после зелёного exact-HEAD CI.
+## Post-merge closure — authoritative final state
+
+Все предшествующие статусы и передачи выше являются историческими состояниями до human merge.
+
+- status: merged; RESULT closed after merge;
+- source_pr: https://github.com/MaximKolomeets/agent-system-development/pull/378;
+- base: `developer`;
+- final PR HEAD: `d2c511de4b5ae486c34d4e59d11931f73aa963ca`;
+- merge commit: `a554a71060b700b3b27a980160fbdb2ba2788b40`;
+- merged_at: `2026-08-09T12:21:25Z`;
+- RESULT closed after merge: yes;
+- INDEX closed after merge: yes;
+- reservation transition: `0177 reserved -> consumed`;
+- No journal placeholders: yes;
+- evidence source: GitHub PR metadata и локальная ancestry-проверка `origin/developer`.
+
+Governance-recovery gates, range-aware triplet validation и snapshot-bound recovery evidence входят в актуальный integration baseline `developer`. Issue #376 закрыта; release `v1.6.0` остаётся untagged и требует отдельного human merge release PR `developer -> main`.
+
+## Methodology feedback
+
+Post-merge closure substantive sequence должна быть выполнена до final release audit; merged PR без consumed transition остаётся lifecycle blocker.
+
+## Unprompted Project Proposals
+
+нет.
+
+## Source-reminder post-merge closure
+
+Source-reminder: не применимо (методология не менялась); closure-проход обновил
+только lifecycle evidence, state-документы и их штатные generated mirrors.
+
+## Source Delta post-merge closure
+
+| путь | действие | категория | Source-рекомендация | manifest обновлён? |
+| --- | --- | --- | --- | --- |
+| `docs/agent-system/CURRENT_STATE.md` | modified | history_state | none | n-a |
+| `docs/agent-system/NEXT_STEPS.md` | modified | history_state | none | n-a |
+| `docs/agent-system/RELEASE_READINESS.md` | modified | history_state | none | n-a |
+| `docs/agent-system/cloud/00_README.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/07_CURRENT_STATE.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/08_ENGINE_JOURNAL_INDEX.md` | modified | generated | none | n-a |
+| `docs/agent-system/cloud/09_NEXT_STEPS.md` | modified | generated | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0173-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-01.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/INDEX.md` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/SEQUENCE_RESERVATIONS.json` | modified | journal | none | n-a |
+| `docs/agent-system/engine-journal/output/RESULT-0177-METH-RELEASE-V1-6-0-GOVERNANCE-RECOVERY-GATES-01.md` | modified | journal | none | n-a |
+Архитектору — загрузить в контекст оркестратора: 07_CURRENT_STATE.md (src: docs/agent-system/CURRENT_STATE.md), 08_ENGINE_JOURNAL_INDEX.md (src: docs/agent-system/engine-journal/INDEX.md), 09_NEXT_STEPS.md (src: docs/agent-system/NEXT_STEPS.md); asof: 2026-08-09T18:05:25.7418784+02:00; developer_head_sha: a554a71060b700b3b27a980160fbdb2ba2788b40.
+
+## Передача
+
+Следующий: human reviewer — проверить closure PR 0177; после human merge release manager повторяет final release pass `developer -> main`.
