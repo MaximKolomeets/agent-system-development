@@ -23,14 +23,31 @@ class CheckTaskReadyTests(unittest.TestCase):
     def deferred_reason(self, path, line):
         return ready.deferred_finalization_reason(path, line)
 
-    def scanned_paths(self, path, text):
+    def scanned_paths(self, path, text, extra_paths=()):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             target = root / path
             target.parent.mkdir(parents=True)
             target.write_text(text, encoding="utf-8")
+            for extra_path in extra_paths:
+                extra_target = root / extra_path
+                extra_target.parent.mkdir(parents=True, exist_ok=True)
+                extra_target.write_text("# substantive source\n", encoding="utf-8")
             with mock.patch.object(ready, "ROOT", root):
-                return ready.scan_deferred_finalization_placeholders([path])
+                return ready.scan_deferred_finalization_placeholders([path, *extra_paths])
+
+    def placeholder_paths(self, path, text, extra_paths=()):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / path
+            target.parent.mkdir(parents=True)
+            target.write_text(text, encoding="utf-8")
+            for extra_path in extra_paths:
+                extra_target = root / extra_path
+                extra_target.parent.mkdir(parents=True, exist_ok=True)
+                extra_target.write_text("# substantive source\n", encoding="utf-8")
+            with mock.patch.object(ready, "ROOT", root):
+                return ready.scan_placeholders([path, *extra_paths])
 
     def safety_scan_blockers(self, path, text):
         with tempfile.TemporaryDirectory() as directory:
@@ -60,6 +77,45 @@ class CheckTaskReadyTests(unittest.TestCase):
             self.deferred_reason(self.rationale_path, line),
         )
 
+    def test_exact_premerge_terminal_fold_requires_lifecycle_only_result_status(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        self.assertIsNone(self.deferred_reason(self.result_path, line))
+        self.assertEqual([], self.scanned_paths(self.result_path, line + "\n"))
+        self.assertEqual([], self.placeholder_paths(self.result_path, line + "\n"))
+
+    def test_premerge_terminal_fold_wrong_context_or_shape_is_blocking(self):
+        value = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        cases = (
+            (self.task_path, f"Статус финализации: {value}", "DEFERRED_FINALIZATION_TERMINAL_FOLD_CONTEXT_INVALID"),
+            (self.rationale_path, f"Статус финализации: {value}", "DEFERRED_FINALIZATION_TERMINAL_FOLD_CONTEXT_INVALID"),
+            (self.result_path, value, "DEFERRED_FINALIZATION_TERMINAL_FOLD_INVALID"),
+            (self.result_path, f"Статус финализации: {value}; extra", "DEFERRED_FINALIZATION_TERMINAL_FOLD_INVALID"),
+            (self.result_path, "Статус финализации: terminal-fold accepted pending merge", "DEFERRED_FINALIZATION_TERMINAL_FOLD_INVALID"),
+        )
+        for path, line, reason in cases:
+            with self.subTest(path=path, line=line):
+                self.assertEqual(reason, self.deferred_reason(path, line))
+                self.assertEqual([path], self.scanned_paths(path, line + "\n"))
+
+    def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        source_path = "docs/agent-system/tools/check_task_ready.py"
+        self.assertEqual(
+            "DEFERRED_FINALIZATION_TERMINAL_FOLD_SUBSTANTIVE",
+            ready.deferred_finalization_reason(self.result_path, line, substantive_changes=True),
+        )
+        self.assertEqual([self.result_path], self.scanned_paths(self.result_path, line + "\n", (source_path,)))
+        self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, line + "\n", (source_path,)))
+
+    def test_normal_terminal_status_remains_accepted(self):
+        line = "Статус финализации: ready_for_human_review"
+        self.assertIsNone(self.deferred_reason(self.result_path, line))
+        self.assertEqual([], self.scanned_paths(self.result_path, line + "\n"))
+    def test_terminal_fold_does_not_bypass_required_accounting(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        blockers, warnings, _ = ready.validate_accounting_fields(self.result_path, line + "\n", hard=True)
+        self.assertTrue(any("ACCOUNTING_FIELDS_MISSING" in item for item in blockers))
+        self.assertEqual([], warnings)
     def test_ordinary_pending_marker_remains_blocking(self):
         line = "pending"
         self.assertEqual("DEFERRED_FINALIZATION_MARKER", self.deferred_reason(self.task_path, line))

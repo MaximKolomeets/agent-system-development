@@ -1016,3 +1016,26 @@ redaction-граница. Реальные имена/матрицы/дайдж�
 - impact: docs-only;
 - runtime impact: none;
 - downstream-specific data: none.
+## 2026-08-10 - Точный lifecycle-only pre-merge terminal fold
+
+Решение:
+Production readiness принимает только точную строку status-marker terminal fold
+в RESULT, когда changed scope содержит только journal, штатные cloud mirrors и
+PROJECT_FILE_MAP.md.
+
+Контекст:
+Канонический lifecycle marker содержал слово pending, поэтому общий
+deferred-marker scan блокировал допустимую pre-merge финализацию. Глобальное
+исключение слова или substring создало бы обход для substantive задач.
+
+Причина:
+Exact field, exact value, exact RESULT context и отсутствие substantive paths
+образуют минимальную fail-closed границу. Любая опечатка, добавка, неверный
+контекст или substantive path сохраняют блокировку отдельной безопасной
+категорией без раскрытия совпавшей строки.
+
+Последствия:
+- lifecycle-only closure может пройти readiness до human merge собственного PR;
+- substantive terminal fold и любые неканонические pending-marker блокируются;
+- PR URL, accounting, secrets и остальные gates проверяются независимо;
+- downstream Source-снапшоты требуют обновления после принятия изменения.

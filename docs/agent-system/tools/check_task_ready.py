@@ -99,6 +99,11 @@ PREMERGE_RELEASE_GATE_VERDICT_TOKEN_RE = re.compile(
 PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE = re.compile(
     r"^docs/agent-system/engine-journal/(?:input/TASK|output/RESULT)-.*\.md$"
 )
+PREMERGE_TERMINAL_FOLD_VALUE = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+PREMERGE_TERMINAL_FOLD_STATUS_LINE = f"Статус финализации: {PREMERGE_TERMINAL_FOLD_VALUE}"
+PREMERGE_TERMINAL_FOLD_CONTEXT_RE = re.compile(
+    r"^docs/agent-system/engine-journal/output/RESULT-.*\.md$"
+)
 SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
 SUPERSEDED_TAG_RE = re.compile(
     r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
@@ -397,8 +402,18 @@ def scan_added_secret_values(base: str) -> list[str]:
     return sorted(flagged)
 
 
+def is_allowed_premerge_terminal_fold(path: str, line: str, substantive_changes: bool) -> bool:
+    """Разрешает только точный lifecycle-only status-marker в RESULT."""
+    return (
+        not substantive_changes
+        and PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path)) is not None
+        and line.strip() == PREMERGE_TERMINAL_FOLD_STATUS_LINE
+    )
+
+
 def scan_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []
+    substantive_changes = has_substantive_changes(paths)
     for path in task_result_files(paths):
         full_path = ROOT / path
         if not full_path.is_file():
@@ -406,6 +421,8 @@ def scan_placeholders(paths: list[str]) -> list[str]:
         text = full_path.read_text(encoding="utf-8", errors="replace")
         for line in text.splitlines():
             stripped = line.strip()
+            if is_allowed_premerge_terminal_fold(path, line, substantive_changes):
+                continue
             # Строки ниже описывают саму validation-схему, а не незаполненные значения.
             if "placeholder" in stripped.lower() and any(token in stripped for token in ("<sha>", "<url>", "<timestamp>", "<TBD>")):
                 continue
@@ -417,11 +434,19 @@ def scan_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
-def deferred_finalization_reason(path: str, line: str) -> str | None:
+def deferred_finalization_reason(path: str, line: str, substantive_changes: bool = False) -> str | None:
     """Возвращает безопасную категорию незавершённого маркера без текста строки."""
     normalized_path = normalize_path(path)
     stripped = line.strip()
     allowed_context = PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE.fullmatch(normalized_path) is not None
+
+    # Точный terminal fold разрешён только lifecycle-only RESULT без substantive paths.
+    if stripped == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
+        if is_allowed_premerge_terminal_fold(path, line, substantive_changes):
+            return None
+        return "DEFERRED_FINALIZATION_TERMINAL_FOLD_SUBSTANTIVE" if substantive_changes else "DEFERRED_FINALIZATION_TERMINAL_FOLD_CONTEXT_INVALID"
+    if PREMERGE_TERMINAL_FOLD_VALUE in stripped or "terminal-fold accepted pending" in stripped:
+        return "DEFERRED_FINALIZATION_TERMINAL_FOLD_INVALID"
 
     # Это единственное точное исключение: контрактный verdict не является обещанием
     # будущей финализации и допустим только как отдельное поле TASK/RESULT.
@@ -438,13 +463,14 @@ def deferred_finalization_reason(path: str, line: str) -> str | None:
 
 def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []
+    substantive_changes = has_substantive_changes(paths)
     for path in task_result_files(paths):
         full_path = ROOT / path
         if not full_path.is_file():
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
         for line in text.splitlines():
-            if deferred_finalization_reason(path, line) is not None:
+            if deferred_finalization_reason(path, line, substantive_changes) is not None:
                 flagged.append(path)
                 break
     return sorted(set(flagged))

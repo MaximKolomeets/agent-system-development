@@ -45,6 +45,19 @@ checks, PR URL или SHA позднее.
 допускается: обычные маркеры `pending`, `PR URL: pending`, `checks pending` и
 `pending final head` остаются blocker.
 
+## Канонический pre-merge terminal fold lifecycle-only задачи
+
+Единственная допустимая строка pre-merge terminal fold:
+
+    Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge
+
+Production readiness принимает её только целиком, только как обязательный
+status-marker в RESULT-файле и только для lifecycle-only changed scope: journal,
+штатные cloud mirrors и PROJECT_FILE_MAP.md. Любой иной изменённый путь
+означает substantive scope и блокируется отдельной категорией. Та же фраза в
+TASK/RATIONALE, substring, добавка, опечатка или иное значение с pending
+остаются blocker. Это исключение не отменяет проверки PR URL, обязательных
+RESULT-разделов, accounting, secrets, forbidden paths и других gates.
 ## Где запрещено
 
 - finalized `docs/agent-system/engine-journal/input/TASK-*.md`;
