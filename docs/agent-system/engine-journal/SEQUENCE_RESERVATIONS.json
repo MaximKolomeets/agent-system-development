@@ -127,6 +127,24 @@
       "state": "consumed",
       "created_at": "2026-08-09T18:05:25.7418784+02:00",
       "reason": "PR #363 merged в developer; authoritative post-merge closure фиксирует завершение recovery-задачи sequence 0173."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01-0178",
+      "sequence": "0178",
+      "task_id": "METH-RELEASE-V1-6-0-POST-CLOSURE-REVIEWER-CONSISTENCY-GATE-01",
+      "state": "reserved",
+      "created_at": "2026-08-10T07:39:47.2714456+02:00",
+      "reason": "Резервирование sequence для независимой post-closure reviewer consistency-gate exact release payload v1.6.0."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-READINESS-TERMINAL-FOLD-VALIDATOR-ALIGNMENT-01-0179",
+      "sequence": "0179",
+      "task_id": "METH-READINESS-TERMINAL-FOLD-VALIDATOR-ALIGNMENT-01",
+      "state": "reserved",
+      "created_at": "2026-08-10T10:11:25.3955249+02:00",
+      "reason": "Резервирование sequence для самостоятельного исправления production readiness terminal fold по Issue #382."
     }
   ]
 }

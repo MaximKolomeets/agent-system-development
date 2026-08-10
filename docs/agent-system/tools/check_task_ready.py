@@ -99,6 +99,11 @@ PREMERGE_RELEASE_GATE_VERDICT_TOKEN_RE = re.compile(
 PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE = re.compile(
     r"^docs/agent-system/engine-journal/(?:input/TASK|output/RESULT)-.*\.md$"
 )
+PREMERGE_TERMINAL_FOLD_VALUE = "terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+PREMERGE_TERMINAL_FOLD_STATUS_LINE = f"Статус финализации: {PREMERGE_TERMINAL_FOLD_VALUE}"
+PREMERGE_TERMINAL_FOLD_CONTEXT_RE = re.compile(
+    r"^docs/agent-system/engine-journal/output/RESULT-.*\.md$"
+)
 SUPERSEDED_TEMPLATE_PATH = "docs/agent-system/templates/SUPERSEDED_BANNER.md"
 SUPERSEDED_TAG_RE = re.compile(
     r"<!--\s*SUPERSEDED_BY:\s*(?P<file>[^;<>]+?)\s*;\s*PR:\s*(?P<pr>\d+)\s*;\s*DATE:\s*(?P<date>\d{4}-\d{2}-\d{2})\s*-->",
@@ -397,15 +402,61 @@ def scan_added_secret_values(base: str) -> list[str]:
     return sorted(flagged)
 
 
+def result_finalization_statuses(text: str) -> list[str]:
+    """Возвращает каждое raw-вхождение поля статуса без Markdown-исключений."""
+    statuses: list[str] = []
+    marker_label = "Статус финализации:"
+    for line in text.splitlines():
+        offset = line.find(marker_label)
+        if offset >= 0:
+            statuses.append(line[offset:])
+    return statuses
+
+
+def canonical_result_header_status(path: str, text: str) -> str | None:
+    """Возвращает status из RESULT-header, совпадающего с filename identity."""
+    lines = text.splitlines()
+    if len(lines) < 5 or lines[1] != "":
+        return None
+    title_match = re.fullmatch(r"# RESULT-(\d{4})-([A-Z0-9-]+)", lines[0])
+    task_match = re.fullmatch(r"Идентификатор задачи: ([A-Z0-9-]+)", lines[2])
+    sequence_match = re.fullmatch(r"Номер sequence: (\d{4})", lines[3])
+    status_match = re.fullmatch(r"Статус финализации: (.+)", lines[4])
+    filename_match = re.fullmatch(r"RESULT-(\d{4})-([A-Z0-9-]+)\.md", Path(normalize_path(path)).name)
+    if any(match is None for match in (title_match, task_match, sequence_match, status_match, filename_match)):
+        return None
+    identities = (
+        title_match.groups(),
+        (sequence_match.group(1), task_match.group(1)),
+        filename_match.groups(),
+    )
+    if len(set(identities)) != 1:
+        return None
+    return lines[4]
+
+
+def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes: bool) -> bool:
+    """Разрешает только единственный terminal fold в каноническом RESULT-header."""
+    return (
+        not substantive_changes
+        and PREMERGE_TERMINAL_FOLD_CONTEXT_RE.fullmatch(normalize_path(path)) is not None
+        and canonical_result_header_status(path, text) == PREMERGE_TERMINAL_FOLD_STATUS_LINE
+        and result_finalization_statuses(text) == [PREMERGE_TERMINAL_FOLD_STATUS_LINE]
+    )
+
 def scan_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []
+    substantive_changes = has_substantive_changes(paths)
     for path in task_result_files(paths):
         full_path = ROOT / path
         if not full_path.is_file():
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
+        terminal_fold_allowed = is_allowed_premerge_terminal_fold(path, text, substantive_changes)
         for line in text.splitlines():
             stripped = line.strip()
+            if terminal_fold_allowed and line == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
+                continue
             # Строки ниже описывают саму validation-схему, а не незаполненные значения.
             if "placeholder" in stripped.lower() and any(token in stripped for token in ("<sha>", "<url>", "<timestamp>", "<TBD>")):
                 continue
@@ -417,11 +468,24 @@ def scan_placeholders(paths: list[str]) -> list[str]:
     return sorted(set(flagged))
 
 
-def deferred_finalization_reason(path: str, line: str) -> str | None:
+def deferred_finalization_reason(
+    path: str,
+    line: str,
+    substantive_changes: bool = False,
+    terminal_fold_allowed: bool = False,
+) -> str | None:
     """Возвращает безопасную категорию незавершённого маркера без текста строки."""
     normalized_path = normalize_path(path)
     stripped = line.strip()
     allowed_context = PREMERGE_RELEASE_GATE_VERDICT_CONTEXT_RE.fullmatch(normalized_path) is not None
+
+    # Точный terminal fold разрешён только как единственный top-level status RESULT.
+    if stripped == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
+        if terminal_fold_allowed and line == PREMERGE_TERMINAL_FOLD_STATUS_LINE:
+            return None
+        return "DEFERRED_FINALIZATION_TERMINAL_FOLD_SUBSTANTIVE" if substantive_changes else "DEFERRED_FINALIZATION_TERMINAL_FOLD_CONTEXT_INVALID"
+    if PREMERGE_TERMINAL_FOLD_VALUE in stripped or "terminal-fold accepted pending" in stripped:
+        return "DEFERRED_FINALIZATION_TERMINAL_FOLD_INVALID"
 
     # Это единственное точное исключение: контрактный verdict не является обещанием
     # будущей финализации и допустим только как отдельное поле TASK/RESULT.
@@ -438,17 +502,23 @@ def deferred_finalization_reason(path: str, line: str) -> str | None:
 
 def scan_deferred_finalization_placeholders(paths: list[str]) -> list[str]:
     flagged: list[str] = []
+    substantive_changes = has_substantive_changes(paths)
     for path in task_result_files(paths):
         full_path = ROOT / path
         if not full_path.is_file():
             continue
         text = full_path.read_text(encoding="utf-8", errors="replace")
+        terminal_fold_allowed = is_allowed_premerge_terminal_fold(path, text, substantive_changes)
         for line in text.splitlines():
-            if deferred_finalization_reason(path, line) is not None:
+            if deferred_finalization_reason(
+                path,
+                line,
+                substantive_changes,
+                terminal_fold_allowed=terminal_fold_allowed,
+            ) is not None:
                 flagged.append(path)
                 break
     return sorted(set(flagged))
-
 
 def validate_superseded_banner_text(path: str, text: str) -> list[str]:
     normalized = normalize_path(path)
@@ -829,9 +899,11 @@ def add_repository_guard(report: ReadyReport) -> None:
 
 
 def add_changed_files(report: ReadyReport) -> None:
-    report.changed_files = unique_sorted(git_lines(["diff", "--name-only", f"{report.base}...HEAD"], report, "cannot compute base diff"))
-    report.unstaged_files = unique_sorted(git_lines(["diff", "--name-only"], report, "cannot compute unstaged diff"))
-    report.staged_files = unique_sorted(git_lines(["diff", "--cached", "--name-only"], report, "cannot compute staged diff"))
+    # Отключаем rename detection: scope обязан учитывать обе стороны переноса,
+    # иначе удалённый substantive-путь может скрыться за разрешённым новым путём.
+    report.changed_files = unique_sorted(git_lines(["diff", "--no-renames", "--name-only", f"{report.base}...HEAD"], report, "cannot compute base diff"))
+    report.unstaged_files = unique_sorted(git_lines(["diff", "--no-renames", "--name-only"], report, "cannot compute unstaged diff"))
+    report.staged_files = unique_sorted(git_lines(["diff", "--cached", "--no-renames", "--name-only"], report, "cannot compute staged diff"))
     report.untracked_files = unique_sorted(git_lines(["ls-files", "--others", "--exclude-standard"], report, "cannot list untracked files"))
 
     has_changes = any((report.changed_files, report.unstaged_files, report.staged_files, report.untracked_files))
