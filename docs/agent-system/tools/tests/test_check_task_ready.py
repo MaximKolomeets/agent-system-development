@@ -168,6 +168,25 @@ class CheckTaskReadyTests(unittest.TestCase):
         self.assertEqual([], ready.top_level_finalization_statuses(text))
         self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
         self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+    def test_status_inside_html_comment_or_raw_block_is_blocking(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        cases = (
+            f"<!--\n{line}\n-->\n",
+            f"<script>\n{line}\n</script>\n",
+            f"<div>\n{line}\n\n",
+        )
+        for text in cases:
+            with self.subTest(text=text):
+                self.assertEqual([], ready.top_level_finalization_statuses(text))
+                self.assertEqual([self.result_path], self.scanned_paths(self.result_path, text))
+                self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, text))
+
+    def test_tab_after_closing_fence_preserves_real_top_level_status(self):
+        line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
+        text = f"{chr(96) * 3}markdown\nпример\n{chr(96) * 3}\t\n{line}\n"
+        self.assertEqual([line], ready.top_level_finalization_statuses(text))
+        self.assertEqual([], self.scanned_paths(self.result_path, text))
+        self.assertEqual([], self.placeholder_paths(self.result_path, text))
     def test_premerge_terminal_fold_with_substantive_scope_is_blocking(self):
         line = "Статус финализации: terminal-fold accepted pending own PR merge; PR URL authoritative after merge"
         source_path = "docs/agent-system/tools/check_task_ready.py"

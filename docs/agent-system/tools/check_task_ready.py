@@ -403,29 +403,79 @@ def scan_added_secret_values(base: str) -> list[str]:
 
 
 def top_level_finalization_statuses(text: str) -> list[str]:
-    """Возвращает только top-level status-marker вне fenced примеров."""
+    """Возвращает document-level status-marker вне Markdown code/HTML blocks."""
     statuses: list[str] = []
     fence_char: str | None = None
     fence_length = 0
+    html_end_re: re.Pattern[str] | None = None
+    html_until_blank = False
+    block_tags = (
+        "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|"
+        "dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|"
+        "frameset|h1|h2|h3|h4|h5|h6|head|header|hr|html|iframe|legend|li|link|main|"
+        "menu|menuitem|nav|noframes|ol|optgroup|option|p|param|search|section|summary|"
+        "table|tbody|td|tfoot|th|thead|title|tr|track|ul"
+    )
+    block_tag_re = re.compile(rf"^ {0,3}</?(?:{block_tags})(?:\s|/?>|$)", re.IGNORECASE)
+    complete_tag_re = re.compile(
+        r"^ {0,3}</?[A-Za-z][A-Za-z0-9-]*(?:\s+[^<>]*)?/?>[ \t]*$"
+    )
+
     for line in text.splitlines():
+        if html_end_re is not None:
+            if html_end_re.search(line):
+                html_end_re = None
+            continue
+        if html_until_blank:
+            if not line.strip():
+                html_until_blank = False
+            continue
+
         fence_match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        if fence_char is not None:
+            if fence_match is not None:
+                marker, tail = fence_match.groups()
+                if marker[0] == fence_char and len(marker) >= fence_length and re.fullmatch(r"[ \t]*", tail):
+                    fence_char = None
+                    fence_length = 0
+            continue
         if fence_match is not None:
             marker, tail = fence_match.groups()
-            if fence_char is None:
-                # Backtick в info string запрещает открытие fence по CommonMark.
-                if marker[0] != "`" or "`" not in tail:
-                    fence_char = marker[0]
-                    fence_length = len(marker)
-            elif marker[0] == fence_char and len(marker) >= fence_length and re.fullmatch(r" *", tail):
-                fence_char = None
-                fence_length = 0
-            continue
-        if fence_char is None:
-            status_match = re.match(r"^ {0,3}(Статус финализации:.*)$", line)
-            if status_match is not None:
-                statuses.append(status_match.group(1))
-    return statuses
+            # Backtick в info string запрещает открытие fence по CommonMark.
+            if marker[0] != "`" or "`" not in tail:
+                fence_char = marker[0]
+                fence_length = len(marker)
+                continue
 
+        probe = re.sub(r"^ {0,3}", "", line, count=1)
+        html_start: tuple[str, str] | None = None
+        if probe.startswith("<!--"):
+            html_start = ("-->", "literal")
+        elif probe.startswith("<?"):
+            html_start = (r"\?>", "regex")
+        elif probe.startswith("<![CDATA["):
+            html_start = (r"\]\]>", "regex")
+        elif re.match(r"^<![A-Z]", probe):
+            html_start = (">", "literal")
+        else:
+            raw_tag = re.match(r"^<(script|pre|style|textarea)(?:\s|>|$)", probe, re.IGNORECASE)
+            if raw_tag is not None:
+                html_start = (rf"</{re.escape(raw_tag.group(1))}\s*>", "regex-ignorecase")
+        if html_start is not None:
+            terminator, kind = html_start
+            flags = re.IGNORECASE if kind == "regex-ignorecase" else 0
+            pattern = re.compile(re.escape(terminator) if kind == "literal" else terminator, flags)
+            if pattern.search(probe[1:]) is None:
+                html_end_re = pattern
+            continue
+        if block_tag_re.match(line) or complete_tag_re.match(line):
+            html_until_blank = True
+            continue
+
+        status_match = re.match(r"^ {0,3}(Статус финализации:.*)$", line)
+        if status_match is not None:
+            statuses.append(status_match.group(1))
+    return statuses
 
 def is_allowed_premerge_terminal_fold(path: str, text: str, substantive_changes: bool) -> bool:
     """Разрешает ровно один top-level lifecycle-only status-marker RESULT."""
