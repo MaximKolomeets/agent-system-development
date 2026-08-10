@@ -70,4 +70,3 @@ PR #381, sequence 0178, release PR, tag, GitHub Release, sync и Issues #369/#37
 ## Передача
 
 Следующий: methodology reviewer — проверить exact allowlist, substantive boundary и отсутствие bypass в implementation PR.
-

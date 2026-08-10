@@ -83,5 +83,3 @@ Provider-owned open sequence и local triplet materialization требуют я�
 ## Передача
 
 Следующий: human reviewer — проверить и human-merge PR #383 в developer; затем выполнить отдельный lifecycle-only closure 0178/0179 до новой reviewer gate.
-
-
