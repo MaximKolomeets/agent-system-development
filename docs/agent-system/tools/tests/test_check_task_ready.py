@@ -171,6 +171,26 @@ class CheckTaskReadyTests(unittest.TestCase):
         self.assertEqual([self.result_path], self.scanned_paths(self.result_path, line + "\n", (source_path,)))
         self.assertEqual([self.result_path], self.placeholder_paths(self.result_path, line + "\n", (source_path,)))
 
+    def test_rename_from_substantive_path_keeps_both_scope_sides(self):
+        old_path = "docs/agent-system/SOURCE.md"
+
+        def fake_git_lines(args, report, blocker):
+            if args == ["diff", "--no-renames", "--name-only", "origin/developer...HEAD"]:
+                return [old_path, self.result_path]
+            return []
+
+        report = ready.ReadyReport(base="origin/developer", branch="work/test/task")
+        with mock.patch.object(ready, "git_lines", side_effect=fake_git_lines) as git_lines_spy:
+            ready.add_changed_files(report)
+
+        self.assertEqual(sorted((old_path, self.result_path)), report.changed_files)
+        self.assertTrue(ready.has_substantive_changes(report.changed_files))
+        git_lines_spy.assert_any_call(
+            ["diff", "--no-renames", "--name-only", "origin/developer...HEAD"],
+            report,
+            "cannot compute base diff",
+        )
+
     def test_normal_terminal_status_remains_accepted(self):
         line = "Статус финализации: ready_for_human_review"
         self.assertIsNone(self.deferred_reason(self.result_path, line))

@@ -899,9 +899,11 @@ def add_repository_guard(report: ReadyReport) -> None:
 
 
 def add_changed_files(report: ReadyReport) -> None:
-    report.changed_files = unique_sorted(git_lines(["diff", "--name-only", f"{report.base}...HEAD"], report, "cannot compute base diff"))
-    report.unstaged_files = unique_sorted(git_lines(["diff", "--name-only"], report, "cannot compute unstaged diff"))
-    report.staged_files = unique_sorted(git_lines(["diff", "--cached", "--name-only"], report, "cannot compute staged diff"))
+    # Отключаем rename detection: scope обязан учитывать обе стороны переноса,
+    # иначе удалённый substantive-путь может скрыться за разрешённым новым путём.
+    report.changed_files = unique_sorted(git_lines(["diff", "--no-renames", "--name-only", f"{report.base}...HEAD"], report, "cannot compute base diff"))
+    report.unstaged_files = unique_sorted(git_lines(["diff", "--no-renames", "--name-only"], report, "cannot compute unstaged diff"))
+    report.staged_files = unique_sorted(git_lines(["diff", "--cached", "--no-renames", "--name-only"], report, "cannot compute staged diff"))
     report.untracked_files = unique_sorted(git_lines(["ls-files", "--others", "--exclude-standard"], report, "cannot list untracked files"))
 
     has_changes = any((report.changed_files, report.unstaged_files, report.staged_files, report.untracked_files))
