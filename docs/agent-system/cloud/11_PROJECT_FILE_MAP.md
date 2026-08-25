@@ -164,7 +164,7 @@ Reusable source templates from methodology repository. Template file не коп
 | `docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TIME_LEDGER_TEMPLATE.md` |  |
 | `skills/remote-ops-relay/assets/template/.dockerignore` |  |
-| `skills/remote-ops-relay/assets/template/.env.example` |  |
+| `skills/remote-ops-relay/assets/template/deployment-settings.example` |  |
 | `skills/remote-ops-relay/assets/template/Dockerfile` |  |
 | `skills/remote-ops-relay/assets/template/compose.yaml` |  |
 | `skills/remote-ops-relay/assets/template/scripts/entrypoint.sh` |  |
@@ -173,7 +173,8 @@ Reusable source templates from methodology repository. Template file не коп
 | `skills/remote-ops-relay/assets/template/vps/Caddyfile.example` |  |
 | `skills/remote-ops-relay/assets/template/vps/sshd-relay.conf.example` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/.dockerignore` |  |
-| `skills/scoped-yandex-vault-mcp/assets/template/.env.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/client-identities.example.json` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/deployment-settings.example` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/Dockerfile` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/app/__init__.py` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/app/config.py` |  |
@@ -183,9 +184,6 @@ Reusable source templates from methodology repository. Template file не коп
 | `skills/scoped-yandex-vault-mcp/assets/template/compose.yaml` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/requirements.txt` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/scripts/healthcheck.py` |  |
-| `skills/scoped-yandex-vault-mcp/assets/template/secrets/mcp-clients.json.example` |  |
-| `skills/scoped-yandex-vault-mcp/assets/template/secrets/yandex-app-password.txt.example` |  |
-| `skills/scoped-yandex-vault-mcp/assets/template/secrets/yandex-username.txt.example` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/tests/test_config.py` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/tests/test_security.py` |  |
 | `skills/scoped-yandex-vault-mcp/assets/template/tests/test_webdav.py` |  |

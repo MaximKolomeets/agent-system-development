@@ -18,7 +18,7 @@ description: Развернуть или восстановить безопас
 
 1. Зафиксируй target repository, issue, владельца trust boundary и список endpoint mappings. Не принимай произвольные URL/commands.
 2. Создай plan JSON без секретов и проверь его `scripts/validate_relay_plan.py`.
-3. На target host сгенерируй отдельную Ed25519 identity. Private key остаётся только на target host; на VPS передаётся только `.pub`.
+3. На target host сгенерируй отдельную Ed25519 identity. Закрытая часть остаётся только на target host; на VPS передаётся только `.pub`.
 4. Получи VPS host key через независимый канал и попроси человека подтвердить fingerprint до записи `known_hosts`.
 5. Перед изменением VPS сохрани точечные backups sshd/Caddy. Нужна явная authority на root-изменения VPS.
 6. Создай отдельного relay-user. Ограничь его одновременно в `authorized_keys` и `Match User`: только public-key auth, remote forwarding, точные `PermitListen`, без TTY/X11/agent forwarding.
@@ -43,7 +43,7 @@ image digest и secret paths. Не переписывай tunnel entrypoint с �
 - выдачи или ротации client credentials;
 - решения о публикации нового endpoint.
 
-Не проси вставлять private key, bearer token или пароль в чат/Issue/log.
+Не проси вставлять закрытую часть identity, access marker или пароль в чат/Issue/log.
 
 ## Fail-closed условия
 

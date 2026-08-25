@@ -42,7 +42,7 @@ Provider credential остаётся способным обращаться к�
 - append/mkdir/move;
 - delete отсутствует.
 
-Writer и reader получают разные bearer tokens. `tools/list` желательно
+Writer и reader получают разные access markers. `tools/list` желательно
 фильтровать по caller scope; в любом случае `tools/call` проверяется сервером.
 
 ## History

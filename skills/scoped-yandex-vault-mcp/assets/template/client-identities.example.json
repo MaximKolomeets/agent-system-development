@@ -2,12 +2,12 @@
   "clients": [
     {
       "id": "memory-service",
-      "token": "REPLACE_WITH_RANDOM_TOKEN",
+      "token": "REPLACE_WITH_RANDOM_VALUE",
       "permissions": ["read", "write"]
     },
     {
       "id": "audit-reader",
-      "token": "REPLACE_WITH_ANOTHER_RANDOM_TOKEN",
+      "token": "REPLACE_WITH_ANOTHER_RANDOM_VALUE",
       "permissions": ["read"]
     }
   ]

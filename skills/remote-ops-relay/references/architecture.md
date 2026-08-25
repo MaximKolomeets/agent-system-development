@@ -14,7 +14,7 @@ external client
 
 - Target host хранит private tunnel key и application client tokens.
 - VPS хранит только public key, host key, Caddy routes и TLS material.
-- Tunnel container получает tunnel private key read-only, но не получает backend secrets.
+- Tunnel container получает закрытую часть tunnel identity read-only, но не получает backend secrets.
 - Caddy не проксирует database, Docker socket, Qdrant/vector store или shell.
 - Application auth остаётся вторым слоем после edge auth/TLS.
 
@@ -73,4 +73,4 @@ sshd -T -C user=<relay-user>,host=<vps-host>,addr=<target-public-ip>
 - только фиксированными `-R 127.0.0.1:remote:local:port`;
 - `-N`, без remote command.
 
-Private key никогда не передаётся на VPS и не попадает в image layer.
+Закрытая часть identity никогда не передаётся на VPS и не попадает в image layer.

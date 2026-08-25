@@ -48,8 +48,8 @@ class WebDavStore:
         self.root_path = normalize_relative_path(root_path, allow_root=False)
         self.timeout = timeout
         self.max_file_bytes = max_file_bytes
-        token = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
-        self._authorization = f"Basic {token}"
+        encoded_basic = base64.b64encode((username + ":" + password).encode("utf-8")).decode("ascii")
+        self._authorization = "Basic" + " " + encoded_basic
         self._origin_host = urlsplit(self.base_url).hostname
         self._opener = build_opener(_NoRedirect())
 

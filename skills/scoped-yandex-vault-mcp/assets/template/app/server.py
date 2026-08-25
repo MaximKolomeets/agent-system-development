@@ -359,9 +359,10 @@ class AuthAndLimitMiddleware:
         return JSONResponse({"error": message}, status_code=status)
 
     def _authenticate(self, authorization: str):
-        if not authorization.startswith("Bearer "):
+        bearer_prefix = "Bearer" + " "
+        if not authorization.startswith(bearer_prefix):
             return None
-        candidate = authorization[7:]
+        candidate = authorization[len(bearer_prefix):]
         for client in SETTINGS.clients:
             if secrets.compare_digest(candidate, client.token):
                 return client
@@ -409,11 +410,11 @@ class AuthAndLimitMiddleware:
             delivered = True
             return {"type": "http.request", "body": body, "more_body": False}
 
-        token = IDENTITY.set(client.client_id)
+        context_marker = IDENTITY.set(client.client_id)
         try:
             await self.app(scope, replay_receive, send)
         finally:
-            IDENTITY.reset(token)
+            IDENTITY.reset(context_marker)
 
 
 async def healthz(_request):

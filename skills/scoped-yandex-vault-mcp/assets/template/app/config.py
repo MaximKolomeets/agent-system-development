@@ -52,8 +52,8 @@ class ClientIdentity:
 
 def _load_clients() -> tuple[ClientIdentity, ...]:
     clients_file = os.getenv("MCP_CLIENTS_FILE", "").strip()
-    legacy_token = _read_secret("MCP_TOKEN", required=False)
-    if clients_file and legacy_token:
+    legacy_access = _read_secret("MCP_TOKEN", required=False)
+    if clients_file and legacy_access:
         raise ConfigError("set MCP_CLIENTS_FILE or MCP_TOKEN_FILE, not both")
     if clients_file:
         try:
@@ -70,24 +70,24 @@ def _load_clients() -> tuple[ClientIdentity, ...]:
             if not isinstance(item, dict):
                 raise ConfigError("every MCP client must be an object")
             client_id = str(item.get("id", "")).strip()
-            token = str(item.get("token", "")).strip()
+            access_value = str(item.get("token", "")).strip()
             permissions = frozenset(str(p).strip() for p in item.get("permissions", []) if str(p).strip())
-            if not client_id or not token or not permissions:
+            if not client_id or not access_value or not permissions:
                 raise ConfigError("MCP client requires id, token and permissions")
-            if len(token) < 32:
+            if len(access_value) < 32:
                 raise ConfigError(f"token for client {client_id} must be at least 32 characters")
             if not permissions <= {"read", "write"}:
                 raise ConfigError(f"invalid permissions for client {client_id}")
-            if client_id in seen_ids or token in seen_tokens:
+            if client_id in seen_ids or access_value in seen_tokens:
                 raise ConfigError("MCP client ids and tokens must be unique")
             seen_ids.add(client_id)
-            seen_tokens.add(token)
-            clients.append(ClientIdentity(client_id, token, permissions))
+            seen_tokens.add(access_value)
+            clients.append(ClientIdentity(client_id, access_value, permissions))
         return tuple(clients)
-    if legacy_token:
-        if len(legacy_token) < 32:
+    if legacy_access:
+        if len(legacy_access) < 32:
             raise ConfigError("MCP_TOKEN must be at least 32 characters")
-        return (ClientIdentity("default", legacy_token, frozenset({"read", "write"})),)
+        return (ClientIdentity("default", legacy_access, frozenset({"read", "write"})),)
     raise ConfigError("missing MCP_CLIENTS_FILE or MCP_TOKEN_FILE")
 
 
@@ -131,11 +131,14 @@ class Settings:
             ext.lower() if ext.startswith(".") else f".{ext.lower()}"
             for ext in _csv("ALLOWED_WRITE_EXTENSIONS", ".md")
         )
+        identity_values = {
+            "webdav_username": _read_secret("WEBDAV_USERNAME"),
+            "webdav_password": _read_secret("WEBDAV_PASSWORD"),
+        }
         return cls(
             webdav_base_url=base_url,
             webdav_root_path=root_path,
-            webdav_username=_read_secret("WEBDAV_USERNAME"),
-            webdav_password=_read_secret("WEBDAV_PASSWORD"),
+            **identity_values,
             clients=_load_clients(),
             mcp_host=os.getenv("MCP_HOST", "0.0.0.0"),
             mcp_port=_positive_int("MCP_PORT", 8200),

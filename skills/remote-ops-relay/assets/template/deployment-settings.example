@@ -9,5 +9,5 @@ RELAY_REMOTE_PORT_A=28410
 RELAY_LOCAL_HOST_B=project-admin
 RELAY_LOCAL_PORT_B=4300
 RELAY_REMOTE_PORT_B=28420
-RELAY_SECRETS_ROOT=<absolute-protected-secrets-path>
+RELAY_SECRETS_ROOT=<absolute-protected-inputs-path>
 RELAY_OPERATOR_NETWORK=project_operator_access
