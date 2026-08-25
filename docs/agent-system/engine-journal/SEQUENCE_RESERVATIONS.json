@@ -127,6 +127,15 @@
       "state": "consumed",
       "created_at": "2026-08-09T18:05:25.7418784+02:00",
       "reason": "PR #363 merged в developer; authoritative post-merge closure фиксирует завершение recovery-задачи sequence 0173."
+    },
+    {
+      "metadata_version": 1,
+      "reservation_id": "METH-PORTABLE-REMOTE-INTEGRATION-SKILLS-01-0180",
+      "sequence": "0180",
+      "task_id": "METH-PORTABLE-REMOTE-INTEGRATION-SKILLS-01",
+      "state": "reserved",
+      "created_at": "2026-08-25T20:15:00+02:00",
+      "reason": "Резервирование sequence для двух reusable skills: outbound VPS relay и scoped Yandex Vault MCP."
     }
   ]
 }
