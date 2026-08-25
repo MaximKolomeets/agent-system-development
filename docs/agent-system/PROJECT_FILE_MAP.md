@@ -107,6 +107,18 @@ Authoritative methodology source files: живые reusable/canonical/operationa
 | `docs/agent-system/UAT_WORKFLOW.md` |  |
 | `docs/agent-system/WORKFLOW.md` |  |
 | `docs/agent-system/WORKTREE_GUIDE.md` |  |
+| `skills/remote-ops-relay/SKILL.md` |  |
+| `skills/remote-ops-relay/agents/openai.yaml` |  |
+| `skills/remote-ops-relay/references/acceptance.md` |  |
+| `skills/remote-ops-relay/references/architecture.md` |  |
+| `skills/remote-ops-relay/references/runbook.md` |  |
+| `skills/remote-ops-relay/scripts/validate_relay_plan.py` |  |
+| `skills/scoped-yandex-vault-mcp/SKILL.md` |  |
+| `skills/scoped-yandex-vault-mcp/agents/openai.yaml` |  |
+| `skills/scoped-yandex-vault-mcp/references/acceptance.md` |  |
+| `skills/scoped-yandex-vault-mcp/references/architecture.md` |  |
+| `skills/scoped-yandex-vault-mcp/references/runbook.md` |  |
+| `skills/scoped-yandex-vault-mcp/scripts/validate_vault_plan.py` |  |
 
 ## template
 
@@ -151,6 +163,32 @@ Reusable source templates from methodology repository. Template file не коп
 | `docs/agent-system/templates/TASK_HEADER_COMMON.md` |  |
 | `docs/agent-system/templates/THREAT_MODEL_TEMPLATE.md` |  |
 | `docs/agent-system/templates/TIME_LEDGER_TEMPLATE.md` |  |
+| `skills/remote-ops-relay/assets/template/.dockerignore` |  |
+| `skills/remote-ops-relay/assets/template/.env.example` |  |
+| `skills/remote-ops-relay/assets/template/Dockerfile` |  |
+| `skills/remote-ops-relay/assets/template/compose.yaml` |  |
+| `skills/remote-ops-relay/assets/template/scripts/entrypoint.sh` |  |
+| `skills/remote-ops-relay/assets/template/scripts/generate-key.sh` |  |
+| `skills/remote-ops-relay/assets/template/scripts/healthcheck.sh` |  |
+| `skills/remote-ops-relay/assets/template/vps/Caddyfile.example` |  |
+| `skills/remote-ops-relay/assets/template/vps/sshd-relay.conf.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/.dockerignore` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/.env.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/Dockerfile` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/app/__init__.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/app/config.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/app/security.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/app/server.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/app/webdav.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/compose.yaml` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/requirements.txt` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/scripts/healthcheck.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/secrets/mcp-clients.json.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/secrets/yandex-app-password.txt.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/secrets/yandex-username.txt.example` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/tests/test_config.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/tests/test_security.py` |  |
+| `skills/scoped-yandex-vault-mcp/assets/template/tests/test_webdav.py` |  |
 
 ## target_generated
 

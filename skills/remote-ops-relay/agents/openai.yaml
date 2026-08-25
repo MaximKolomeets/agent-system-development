@@ -1,0 +1,4 @@
+interface:
+  display_name: "Outbound VPS Relay"
+  short_description: "Безопасный reverse SSH relay через VPS"
+  default_prompt: "Используй $remote-ops-relay, чтобы подключить локальный MCP к внешнему клиенту через промежуточный VPS."

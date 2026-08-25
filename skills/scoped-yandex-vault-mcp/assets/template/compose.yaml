@@ -1,0 +1,70 @@
+services:
+  vault-mcp:
+    container_name: ${VAULT_MCP_CONTAINER_NAME:-scoped-vault-mcp}
+    build:
+      context: ${VAULT_MCP_BUILD_CONTEXT:-.}
+      dockerfile: Dockerfile
+    image: ${VAULT_MCP_IMAGE:?set VAULT_MCP_IMAGE}
+    restart: unless-stopped
+    read_only: true
+    user: "10001:10001"
+    init: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777,noexec,nosuid,nodev
+    environment:
+      WEBDAV_BASE_URL: ${VAULT_WEBDAV_BASE_URL:-https://webdav.yandex.ru}
+      WEBDAV_ROOT_PATH: ${VAULT_WEBDAV_ROOT_PATH:?set VAULT_WEBDAV_ROOT_PATH}
+      WEBDAV_USERNAME_FILE: /run/secrets/yandex_username
+      WEBDAV_PASSWORD_FILE: /run/secrets/yandex_app_password
+      MCP_CLIENTS_FILE: /run/secrets/mcp_clients
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: "8200"
+      MCP_ALLOWED_HOSTS: ${VAULT_MCP_ALLOWED_HOSTS:-vault-mcp,vault-mcp:8200,localhost,127.0.0.1,127.0.0.1:8200}
+      MCP_ALLOWED_ORIGINS: ${VAULT_MCP_ALLOWED_ORIGINS:-}
+      MAX_REQUEST_BYTES: ${VAULT_MAX_REQUEST_BYTES:-2500000}
+      MAX_FILE_BYTES: ${VAULT_MAX_FILE_BYTES:-2000000}
+      MAX_SEARCH_FILES: ${VAULT_MAX_SEARCH_FILES:-250}
+      MAX_SEARCH_BYTES: ${VAULT_MAX_SEARCH_BYTES:-10000000}
+      MAX_RESULTS: ${VAULT_MAX_RESULTS:-200}
+      WEBDAV_TIMEOUT_SECONDS: ${VAULT_WEBDAV_TIMEOUT_SECONDS:-30}
+      REQUIRE_ETAG_ON_MUTATION: "true"
+      ALLOWED_WRITE_EXTENSIONS: ${VAULT_ALLOWED_WRITE_EXTENSIONS:-.md}
+    secrets:
+      - yandex_username
+      - yandex_app_password
+      - mcp_clients
+    expose:
+      - "8200"
+    networks:
+      - vault_backend
+      - storage_egress
+    healthcheck:
+      test: ["CMD", "python", "/app/healthcheck.py"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+secrets:
+  yandex_username:
+    file: ${VAULT_YANDEX_USERNAME_SECRET_FILE:?set VAULT_YANDEX_USERNAME_SECRET_FILE}
+  yandex_app_password:
+    file: ${VAULT_YANDEX_PASSWORD_SECRET_FILE:?set VAULT_YANDEX_PASSWORD_SECRET_FILE}
+  mcp_clients:
+    file: ${VAULT_MCP_CLIENTS_SECRET_FILE:?set VAULT_MCP_CLIENTS_SECRET_FILE}
+
+networks:
+  vault_backend:
+    name: ${VAULT_BACKEND_NETWORK_NAME:-project_vault_backend}
+    internal: true
+  storage_egress:
+    name: ${VAULT_STORAGE_EGRESS_NETWORK_NAME:-project_storage_egress}

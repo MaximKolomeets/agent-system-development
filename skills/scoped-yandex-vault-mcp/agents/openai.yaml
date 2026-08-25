@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scoped Yandex Vault MCP"
+  short_description: "Изолированный Vault MCP для папки Диска"
+  default_prompt: "Используй $scoped-yandex-vault-mcp, чтобы развернуть MCP с доступом только к одной папке Яндекс.Диска."
