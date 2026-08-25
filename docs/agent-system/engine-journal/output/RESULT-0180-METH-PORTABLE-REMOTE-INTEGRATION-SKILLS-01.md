@@ -2,7 +2,7 @@
 
 Идентификатор задачи: METH-PORTABLE-REMOTE-INTEGRATION-SKILLS-01
 Номер sequence: 0180
-Статус финализации: local_validation_passed; exact-head CI required_not_performed; human merge prohibited
+Статус финализации: ready_for_human_review; implementation CI passed; human merge only
 Issue: https://github.com/MaximKolomeets/agent-system-development/issues/385
 Implementation PR: https://github.com/MaximKolomeets/agent-system-development/pull/386
 Implementation commit: 8cfff7f14393cf5a70e0dfb23ba193e415d38e7c
@@ -40,7 +40,10 @@ boundaries, recovery runbooks и acceptance matrices.
 - Policy invariants, Russian-first, append-only, task contract, journal
   reservations/triplet и generated file map/cloud bundle: passed.
 - Canonical task ready gate: будет выполнен после этого finalization commit.
-- GitHub CI exact PR head: required_not_performed до публикации finalization commit.
+- GitHub CI на implementation/finalization head
+  `9d890d47f63ef5656ce4c4020f5c5e72dfec5ac9`: два запуска
+  `Forbidden tracked files` и два запуска `Methodology self-enforcement`
+  завершились `SUCCESS`.
 
 ## Source-reminder
 
@@ -71,5 +74,5 @@ asset template и выполняет container-level smoke test на Linux runne
 
 ## Передача
 
-Следующий: текущий агент — выполнить canonical ready gate и GitHub CI; human
-reviewer получает PR только после exact-head green.
+Следующий: human reviewer — проверить PR #386 и выполнить merge в `developer`
+только при зелёном CI финального documentation-only commit.
