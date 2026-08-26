@@ -1,0 +1,47 @@
+services:
+  ops-relay:
+    image: ${RELAY_IMAGE:?RELAY_IMAGE must be pinned by digest}
+    container_name: ${RELAY_CONTAINER_NAME:-project-ops-relay}
+    restart: unless-stopped
+    init: true
+    user: "10006:10006"
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 32
+    cpus: "0.20"
+    mem_limit: "64m"
+    environment:
+      RELAY_SSH_HOST: ${RELAY_SSH_HOST:?Set RELAY_SSH_HOST}
+      RELAY_SSH_PORT: ${RELAY_SSH_PORT:-22}
+      RELAY_SSH_USER: ${RELAY_SSH_USER:-project-relay}
+      RELAY_LOCAL_HOST_A: ${RELAY_LOCAL_HOST_A:?Set RELAY_LOCAL_HOST_A}
+      RELAY_LOCAL_PORT_A: ${RELAY_LOCAL_PORT_A:?Set RELAY_LOCAL_PORT_A}
+      RELAY_REMOTE_PORT_A: ${RELAY_REMOTE_PORT_A:?Set RELAY_REMOTE_PORT_A}
+      RELAY_LOCAL_HOST_B: ${RELAY_LOCAL_HOST_B:?Set RELAY_LOCAL_HOST_B}
+      RELAY_LOCAL_PORT_B: ${RELAY_LOCAL_PORT_B:?Set RELAY_LOCAL_PORT_B}
+      RELAY_REMOTE_PORT_B: ${RELAY_REMOTE_PORT_B:?Set RELAY_REMOTE_PORT_B}
+    secrets:
+      - relay_ssh_key
+      - relay_known_hosts
+    tmpfs:
+      - /tmp:size=8m,mode=0700,uid=10006,gid=10006
+    networks:
+      - operator_access
+    healthcheck:
+      test: ["CMD", "/app/healthcheck.sh"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+secrets:
+  relay_ssh_key:
+    file: ${RELAY_SECRETS_ROOT:?Set RELAY_SECRETS_ROOT}/relay-ssh-key
+  relay_known_hosts:
+    file: ${RELAY_SECRETS_ROOT:?Set RELAY_SECRETS_ROOT}/relay-known-hosts
+
+networks:
+  operator_access:
+    external: true
+    name: ${RELAY_OPERATOR_NETWORK:?Set RELAY_OPERATOR_NETWORK}

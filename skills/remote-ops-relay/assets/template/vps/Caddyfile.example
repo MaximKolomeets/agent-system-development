@@ -1,0 +1,7 @@
+mcp.example.org {
+    reverse_proxy 127.0.0.1:28410
+}
+
+admin.example.org {
+    reverse_proxy 127.0.0.1:28420
+}

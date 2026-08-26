@@ -193,6 +193,21 @@ Feedback, MIR и private control plane:
 
 Важно: первый шаг всегда audit-only. Полный docs-only adoption выполняется отдельным PR после audit и review.
 
+## Переиспользуемые operational skills
+
+Каталог [`skills/`](skills/) содержит переносимые, secret-free пакеты для
+повторяющихся инфраструктурных задач. Сейчас доступны:
+
+- [`remote-ops-relay`](skills/remote-ops-relay/SKILL.md) — исходящий reverse
+  SSH relay через промежуточный VPS без входящих портов target host;
+- [`scoped-yandex-vault-mcp`](skills/scoped-yandex-vault-mcp/SKILL.md) —
+  Docker MCP для одного project Vault root на Яндекс.Диске.
+
+Skill задаёт workflow и fail-closed границы; `assets/template` копируется в
+target repository и адаптируется только через конфигурацию и secret references.
+Секреты, private project facts и runtime evidence в этот публичный репозиторий
+не переносятся.
+
 ## Формат задач для Engine
 
 Задачи для `engine` формулируются на русском языке и начинаются с обязательной шапки. Шапка назначает задачу агенту, а конкретный инструмент указывается только как `engine`.

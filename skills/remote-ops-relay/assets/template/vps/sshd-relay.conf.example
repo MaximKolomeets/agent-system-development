@@ -1,0 +1,14 @@
+Match User project-relay
+    AuthenticationMethods publickey
+    PasswordAuthentication no
+    KbdInteractiveAuthentication no
+    PubkeyAuthentication yes
+    AllowTcpForwarding remote
+    AllowStreamLocalForwarding no
+    GatewayPorts no
+    PermitListen 127.0.0.1:28410 127.0.0.1:28420
+    PermitTTY no
+    X11Forwarding no
+    AllowAgentForwarding no
+    PermitTunnel no
+    PermitUserRC no

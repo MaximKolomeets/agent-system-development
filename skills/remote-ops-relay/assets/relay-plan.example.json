@@ -1,0 +1,19 @@
+{
+  "vps_host": "relay.example.org",
+  "relay_user": "project_relay",
+  "access_profile": "observe",
+  "allowed_capabilities": [
+    "inventory.read",
+    "quality-report.read"
+  ],
+  "mappings": [
+    {
+      "name": "mcp",
+      "local_host": "project-mcp",
+      "local_port": 8200,
+      "vps_loopback_port": 28410,
+      "public_hostname": "mcp.example.org",
+      "expected_anonymous_status": 401
+    }
+  ]
+}

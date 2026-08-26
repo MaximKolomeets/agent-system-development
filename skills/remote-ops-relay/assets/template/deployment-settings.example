@@ -1,0 +1,13 @@
+RELAY_IMAGE=registry.example/project/ops-relay@sha256:<64-hex-digest>
+RELAY_CONTAINER_NAME=project-ops-relay
+RELAY_SSH_HOST=vps.example.org
+RELAY_SSH_PORT=22
+RELAY_SSH_USER=project-relay
+RELAY_LOCAL_HOST_A=project-mcp
+RELAY_LOCAL_PORT_A=8200
+RELAY_REMOTE_PORT_A=28410
+RELAY_LOCAL_HOST_B=project-admin
+RELAY_LOCAL_PORT_B=4300
+RELAY_REMOTE_PORT_B=28420
+RELAY_SECRETS_ROOT=<absolute-protected-inputs-path>
+RELAY_OPERATOR_NETWORK=project_operator_access

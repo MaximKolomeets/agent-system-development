@@ -1,0 +1,8 @@
+.git
+.env
+.env.*
+secrets
+*.key
+id_*
+known_hosts
+__pycache__
