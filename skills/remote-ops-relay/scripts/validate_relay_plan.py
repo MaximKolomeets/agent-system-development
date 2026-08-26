@@ -12,12 +12,17 @@ from pathlib import Path
 
 HOSTNAME = re.compile(r"^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$")
 FORBIDDEN_NAMES = {"docker", "docker-socket", "shell", "ssh", "postgres", "database", "qdrant", "vector-store"}
+ACCESS_PROFILES = {"observe", "bounded_operator", "deployment_operator", "custom"}
+FORBIDDEN_CAPABILITY_PARTS = {"shell", "docker", "socket", "database", "qdrant", "secret", "credential"}
 
 
 def validate(path: Path) -> dict[str, object]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if set(payload) != {"vps_host", "relay_user", "mappings"}:
-        raise ValueError("plan must contain exactly vps_host, relay_user and mappings")
+    if set(payload) != {"vps_host", "relay_user", "access_profile", "allowed_capabilities", "mappings"}:
+        raise ValueError(
+            "plan must contain exactly vps_host, relay_user, access_profile, "
+            "allowed_capabilities and mappings"
+        )
     vps_host = str(payload["vps_host"])
     try:
         ipaddress.ip_address(vps_host)
@@ -26,6 +31,27 @@ def validate(path: Path) -> dict[str, object]:
             raise ValueError("vps_host must be an IP address or DNS hostname") from None
     if not re.fullmatch(r"[a-z_][a-z0-9_-]{2,31}", str(payload["relay_user"])):
         raise ValueError("relay_user is invalid")
+    access_profile = str(payload["access_profile"])
+    if access_profile not in ACCESS_PROFILES:
+        raise ValueError("access_profile is invalid")
+    capabilities = payload["allowed_capabilities"]
+    if not isinstance(capabilities, list) or not 1 <= len(capabilities) <= 32:
+        raise ValueError("allowed_capabilities count must be in 1..32")
+    if len(set(capabilities)) != len(capabilities):
+        raise ValueError("allowed_capabilities must be unique")
+    for capability in capabilities:
+        if not isinstance(capability, str) or not re.fullmatch(r"[a-z][a-z0-9_.:-]{2,63}", capability):
+            raise ValueError("capability name is invalid")
+        parts = set(re.split(r"[-_.:]", capability.casefold()))
+        if parts & FORBIDDEN_CAPABILITY_PARTS:
+            raise ValueError("capability exposes a forbidden infrastructure primitive")
+    if access_profile == "observe" and any(
+        not capability.endswith((".read", ":read", ".list", ":list", ".status", ":status"))
+        for capability in capabilities
+    ):
+        raise ValueError("observe profile accepts only read/list/status capabilities")
+    if access_profile == "deployment_operator" and not any("deploy" in capability for capability in capabilities):
+        raise ValueError("deployment_operator requires an explicit deploy capability")
     mappings = payload["mappings"]
     if not isinstance(mappings, list) or not 1 <= len(mappings) <= 4:
         raise ValueError("mappings count must be in 1..4")
@@ -65,7 +91,13 @@ def validate(path: Path) -> dict[str, object]:
     serialized = json.dumps(payload).casefold()
     if any(marker in serialized for marker in ("password", "private_key", "token", "authorization")):
         raise ValueError("plan must not contain secret fields")
-    return {"valid": True, "mappings": len(mappings), "remote_ports": sorted(remote_ports)}
+    return {
+        "valid": True,
+        "access_profile": access_profile,
+        "capabilities": len(capabilities),
+        "mappings": len(mappings),
+        "remote_ports": sorted(remote_ports),
+    }
 
 
 def main() -> int:

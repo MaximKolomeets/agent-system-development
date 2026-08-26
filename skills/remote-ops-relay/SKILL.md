@@ -10,13 +10,19 @@ description: Развернуть или восстановить безопас
 
 ## Выбор режима
 
+- До проектирования transport выбери профиль прикладного доступа по
+  [references/access-profiles.md](references/access-profiles.md). Relay не
+  превращает read-only token в operator token и не заменяет авторизацию самого
+  приложения.
 - Для нового relay сначала прочитай [references/architecture.md](references/architecture.md), затем [references/runbook.md](references/runbook.md).
 - Для диагностики существующего relay прочитай раздел recovery в [references/runbook.md](references/runbook.md); не переустанавливай контур до сбора evidence.
 - Перед production acceptance прочитай [references/acceptance.md](references/acceptance.md).
 
 ## Обязательный workflow
 
-1. Зафиксируй target repository, issue, владельца trust boundary и список endpoint mappings. Не принимай произвольные URL/commands.
+1. Зафиксируй target repository, issue, владельца trust boundary, выбранный
+   `access_profile`, разрешённые прикладные capabilities и список endpoint
+   mappings. Не принимай произвольные URL/commands.
 2. Создай plan JSON без секретов и проверь его `scripts/validate_relay_plan.py`.
 3. На target host сгенерируй отдельную Ed25519 identity. Закрытая часть остаётся только на target host; на VPS передаётся только `.pub`.
 4. Получи VPS host key через независимый канал и попроси человека подтвердить fingerprint до записи `known_hosts`.
@@ -26,7 +32,9 @@ description: Развернуть или восстановить безопас
 8. Слушай reverse ports только на `127.0.0.1` VPS. Caddy публикует отдельные HTTPS hostnames и проксирует только эти loopback ports.
 9. На target host запусти отдельный non-root/read-only transport container только в operator network. Не монтируй Docker socket, backend credentials и host ports.
 10. Healthcheck должен доказывать живую SSH-сессию/control master, а не только наличие процесса.
-11. Выполни полный acceptance и зафиксируй image digest, fingerprints, mappings, checks и rollback без secret values.
+11. Выполни полный acceptance, включая negative probe для каждой capability вне
+    выбранного профиля, и зафиксируй image digest, fingerprints, mappings,
+    application scopes, audit checks и rollback без secret values.
 
 Для нового deployment скопируй [assets/template](assets/template) в target
 repository. Шаблон воспроизводит проверенный двухканальный transport contour и
@@ -41,6 +49,7 @@ image digest и secret paths. Не переписывай tunnel entrypoint с �
 - root/DNS/Caddy/sshd mutation;
 - установки public key;
 - выдачи или ротации client credentials;
+- повышения профиля доступа или расширения allowlist capabilities;
 - решения о публикации нового endpoint.
 
 Не проси вставлять закрытую часть identity, access marker или пароль в чат/Issue/log.
